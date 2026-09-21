@@ -186,7 +186,7 @@ a {
 
 .link-item summary {
   display: grid;
-  grid-template-columns: clamp(3rem, 8vw, 6rem) minmax(0, 1fr) 9rem 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 9rem 1.5rem;
   gap: 0.75rem;
   align-items: center;
   min-height: clamp(5.5rem, 8vw, 7rem);
@@ -199,7 +199,6 @@ a {
   display: none;
 }
 
-.item-number,
 .item-type,
 .item-status {
   color: var(--muted);
@@ -245,7 +244,7 @@ a {
 
 .item-content {
   display: grid;
-  grid-template-columns: clamp(3rem, 8vw, 6rem) minmax(0, 1fr) 9rem 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 9rem 1.5rem;
   gap: 0.75rem;
   align-items: end;
   padding: 0 0 2rem;
@@ -253,7 +252,7 @@ a {
 }
 
 .item-content p {
-  grid-column: 2;
+  grid-column: 1;
   max-width: 39rem;
   margin: 0;
   color: var(--muted);
@@ -271,7 +270,7 @@ a {
 
 .item-content a,
 .item-status {
-  grid-column: 3;
+  grid-column: 2;
   justify-self: start;
 }
 
@@ -288,10 +287,6 @@ a {
 }
 
 footer {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 2rem;
   padding: 1.2rem var(--edge) 3rem;
   border-top: 1px solid var(--soft-line);
   color: var(--muted);
@@ -302,10 +297,6 @@ footer {
 
 footer p {
   margin: 0;
-}
-
-.footer-year {
-  justify-self: end;
 }
 
 summary:focus-visible,
@@ -328,29 +319,25 @@ a:focus-visible {
   }
 
   .link-item summary {
-    grid-template-columns: 2.5rem minmax(0, 1fr) 1.25rem;
+    grid-template-columns: minmax(0, 1fr) 1.25rem;
     min-height: 5.4rem;
     padding: 1.35rem 0;
   }
 
   .item-type {
     display: block;
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
     margin-top: 0.25rem;
   }
 
-  .item-number {
-    grid-row: 1 / 3;
-  }
-
   .item-name {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
   }
 
   .plus {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1 / 3;
   }
 
@@ -360,14 +347,14 @@ a:focus-visible {
   }
 
   .item-content {
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 1fr;
     padding-bottom: 1.7rem;
   }
 
   .item-content p,
   .item-content a,
   .item-status {
-    grid-column: 2;
+    grid-column: 1;
   }
 
   .item-content a,
@@ -375,9 +362,6 @@ a:focus-visible {
     margin-top: 1rem;
   }
 
-  .footer-roles {
-    max-width: 15rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
