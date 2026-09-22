@@ -469,3 +469,14 @@ a:focus-visible {
     transform: none;
   }
 }
+
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+.instagram-link:hover,
+.instagram-link:focus-visible { text-decoration: none; }
+.instagram-icon { width: 1em; height: 1em; flex: 0 0 auto; }
