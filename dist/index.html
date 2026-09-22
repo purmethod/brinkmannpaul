@@ -15,16 +15,15 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
-  <body class="intro-locked">
+  <body>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
       <span class="intro-stage" aria-hidden="true">
         <video
           class="intro-media intro-video"
           id="intro-video"
-          autoplay
           muted
           playsinline
-          preload="auto"
+          preload="none"
           disablepictureinpicture
           width="900"
           height="1100"
@@ -39,15 +38,16 @@
           height="1100"
         />
       </span>
+      <span class="intro-enter">enter →</span>
     </button>
 
-    <div class="site-page" id="site-page" aria-hidden="true">
+    <div class="site-page" id="site-page">
       <header class="site-header">
         <p>brinkmann paul</p>
         <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild</a>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="index" id="index" aria-label="projects and products">
           <div class="index-intro">
             <p>one person.<br />different fields.<br />one purpose: build.</p>
@@ -197,7 +197,7 @@
     <noscript>
       <style>
         .intro-gate { display: none; }
-        .site-page { opacity: 1; visibility: visible; }
+        .site-page, .index { opacity: 1; visibility: visible; transform: none; }
         body { overflow: auto; }
       </style>
     </noscript>

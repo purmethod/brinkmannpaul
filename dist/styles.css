@@ -36,7 +36,7 @@ body.intro-locked {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
+  display: none;
   width: 100%;
   height: 100%;
   margin: 0;
@@ -52,6 +52,19 @@ body.intro-locked {
   transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 520ms;
   -webkit-tap-highlight-color: transparent;
 }
+
+.intro-locked .intro-gate { display: grid; }
+
+.intro-enter {
+  position: absolute;
+  bottom: max(2rem, env(safe-area-inset-bottom));
+  right: var(--edge);
+  font: 0.85rem Arial, Helvetica, sans-serif;
+  letter-spacing: 0.06em;
+  padding: 0.75rem;
+}
+
+.intro-gate:focus-visible { outline: 2px solid var(--ink); outline-offset: -6px; }
 
 .intro-gate.is-leaving {
   visibility: hidden;
@@ -99,6 +112,9 @@ body.intro-locked {
 
 .site-page {
   min-height: 100svh;
+}
+
+.intro-locked .site-page {
   opacity: 0;
   visibility: hidden;
   transform: translateY(1rem);
@@ -150,8 +166,8 @@ a {
   width: min(100%, 76rem);
   margin: 0 auto;
   padding: clamp(7rem, 13vw, 12rem) var(--edge) clamp(7rem, 12vw, 10rem);
-  opacity: 0;
-  transform: translateY(2rem);
+  opacity: 1;
+  transform: none;
   transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
