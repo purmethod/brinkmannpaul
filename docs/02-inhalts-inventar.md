@@ -2,12 +2,6 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
-> **Rollback-Hinweis (2026-09-22):** Die Live-/Repo-Struktur ist per Git-Revert auf Commit `42a8d21` zurückgezogen:
-> **flache Projektliste** (eine Liste `link-list`, Projekte direkt untereinander, Hero zweizeilig
-> „one person. different fields. / one purpose: build."). Dieses Inventar dokumentiert den **vorherigen** Stand
-> mit drei Kategorien (architecture & art / health / mind) als Text-Master — die Inhalte aller 9 Projekte sind
-> unverändert, nur Gruppierung und Reihenfolge weichen ab. Textübernahmen bitte gegen die Live-Struktur prüfen.
-
 ## Metadaten
 
 | Feld | Wert |
