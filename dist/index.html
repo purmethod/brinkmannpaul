@@ -32,26 +32,21 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Cpath d='M17 14h14c10 0 16 4 16 12 0 5-3 9-8 10 7 1 11 5 11 12 0 10-7 15-19 15H17V14zm10 9v10h4c4 0 6-2 6-5s-2-5-6-5h-4zm0 19v12h5c5 0 7-2 7-6 0-4-2-6-7-6h-5z' fill='%23111111'/%3E%3C/svg%3E"
     />
-    <link rel="preload" href="assets/intro-handwriting-split-complete.png" as="image" type="image/png" />
+    <link rel="preload" href="assets/intro-handwriting-pen.svg" as="image" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
       <span class="intro-stage" aria-hidden="true">
-        <video
-          class="intro-media intro-video"
-          id="intro-video"
-          autoplay
-          muted
-          playsinline
-          preload="auto"
-          disablepictureinpicture
-          width="900"
-          height="1100"
-        >
-          <source src="assets/intro-handwriting-split.mp4" type="video/mp4" />
-        </video>
+        <img
+          class="intro-media intro-animation"
+          id="intro-animation"
+          src="assets/intro-handwriting-pen.svg"
+          alt=""
+          width="1600"
+          height="1200"
+        />
         <img
           class="intro-media intro-complete"
           src="assets/intro-handwriting-split-complete.png"
