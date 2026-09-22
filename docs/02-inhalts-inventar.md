@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung — Issue #24 (2026-09-22)
+
+- Hero: `one man, one purpose: build`.
+- Reihenfolge: mysidibou, pure, kefir, sourdough, wim hof instructor, neuroarchitecture.
+- Pauls jüngste Namenskorrektur: `pure` / `system for man`.
+- Jede Rubrik erhält eine kurze Einleitung, zwei Hintergrundabsätze und einen Fokus-/Format-Hinweis.
+- mysidibou: Pauls Ziel eines sauberen Dorfs, Schutz der Hanglage, geplante Finanzierung über Kunstcafé und Kunstverkäufe; keine unbelegte UNESCO-Eintragungsbehauptung im Fließtext.
+- pure: System in Entwicklung, Ernährung/Bewegung/Erholung/Routine; keine Heilversprechen.
+- Kefir/Sauerteig: vorhandene Kulturen und Guides erklärt; Verfügbarkeit auf Anfrage, keine neuen Preise, Versand- oder Wirkversprechen.
+- Wim Hof: bestätigte Zertifizierung, persönliche Coaching-Anfrage, keine medizinischen Anleitungen.
+- Neuroarchitecture: PhD in progress, Architektur und menschliche Wahrnehmung; keine erfundenen Forschungsergebnisse oder Institutionen.
+- Footer-Kontakt nutzt die bestehende Adresse orders@brinkmannpaul.com.
+- Intro: aus dem originalen Foto-basierten MP4 exportiertes WebP (900×1100, 30 fps, einmalige Wiedergabe); Originaldateien bleiben erhalten.
+- Dekoration: statisches, hellgraues neuronales SVG-Netz ohne Interaktion, Tracking oder zusätzliche Abhängigkeiten.
+
+Die folgenden Abschnitte dokumentieren den historischen Stand vor dieser Aktualisierung.
+
 | Feld | Wert |
 |---|---|
 | `<title>` | `brinkmann paul` |
