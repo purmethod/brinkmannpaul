@@ -1,0 +1,11 @@
+{
+  "name": "brinkmannpaul-shop",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "dev": "node scripts/dev-server.cjs",
+    "check": "node scripts/check.cjs",
+    "test": "node --test tests/cart.test.mjs tests/shop-api.test.cjs"
+  }
+}

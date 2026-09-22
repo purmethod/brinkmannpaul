@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="The projects and products of Paul Brinkmann." />
+    <meta name="description" content="pdf guides, living cultures, books and the wider work of paul brinkmann." />
     <title>brinkmann paul</title>
     <link rel="canonical" href="https://brinkmannpaul.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="brinkmann paul" />
-    <meta property="og:description" content="The projects and products of Paul Brinkmann." />
+    <meta property="og:description" content="pdf guides, living cultures, books and the wider work of paul brinkmann." />
     <meta property="og:url" content="https://brinkmannpaul.com/" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="brinkmann paul" />
-    <meta name="twitter:description" content="The projects and products of Paul Brinkmann." />
+    <meta name="twitter:description" content="pdf guides, living cultures, books and the wider work of paul brinkmann." />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -31,6 +31,7 @@
     <link rel="preload" href="assets/intro-handwriting-split-complete.png" as="image" type="image/png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
+    <script type="module" src="shop.mjs"></script>
   </head>
   <body>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
@@ -62,19 +63,77 @@
     <div class="site-page" id="site-page">
       <header class="site-header">
         <h1>brinkmann paul</h1>
-        <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild</a>
+        <nav class="header-nav" aria-label="main navigation">
+          <a href="#products">products</a>
+          <a href="#work">work</a>
+          <button class="cart-open" id="cart-open" type="button" aria-haspopup="dialog" hidden>cart (<span id="cart-count">0</span>)</button>
+          <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild ↗</a>
+        </nav>
       </header>
 
       <main id="main-content" tabindex="-1">
         <section class="index" id="index" aria-label="projects and products">
           <div class="index-intro">
-            <p><span class="intro-line">one person. different fields.</span><br />one purpose: build</p>
+            <p class="hero-title"><span class="intro-line">one person. different fields.</span><br />one purpose: build</p>
+            <p class="hero-description">pdf guides, living cultures and books.<br />by paul brinkmann.</p>
+            <a class="primary-link" href="#products">explore products <span aria-hidden="true">↓</span></a>
           </div>
 
+          <section class="products-section" id="products" aria-labelledby="products-title">
+            <div class="section-heading">
+              <h2 id="products-title" tabindex="-1">products</h2>
+              <span>by paul brinkmann</span>
+            </div>
+            <div class="product-rows">
+              <article class="product-row" id="pdf" aria-labelledby="pdf-title">
+                <span class="product-number" aria-hidden="true">01</span>
+                <div class="product-heading">
+                  <p class="product-kind">digital guides</p>
+                  <h3 id="pdf-title" tabindex="-1">pdf guides</h3>
+                </div>
+                <p class="product-description">practical systems for body, mind, food, space and a life built with intent.</p>
+                <a class="product-action" data-product="pdf" href="mailto:orders@brinkmannpaul.com?subject=pdf%20blueprints%20inquiry" aria-label="request details about pdf guides">request details <span aria-hidden="true">↗</span></a>
+              </article>
+              <article class="product-row" id="kefir" aria-labelledby="kefir-title">
+                <span class="product-number" aria-hidden="true">02</span>
+                <div class="product-heading">
+                  <p class="product-kind">living culture</p>
+                  <h3 id="kefir-title" tabindex="-1">kefir grains</h3>
+                </div>
+                <p class="product-description">living kefir grains with a simple guide for making fresh kefir at home.</p>
+                <a class="product-action" data-product="kefir" href="mailto:orders@brinkmannpaul.com?subject=kefir%20grains%20inquiry" aria-label="request details about kefir grains">request details <span aria-hidden="true">↗</span></a>
+              </article>
+              <article class="product-row" id="sourdough" aria-labelledby="sourdough-title">
+                <span class="product-number" aria-hidden="true">03</span>
+                <div class="product-heading">
+                  <p class="product-kind">living culture</p>
+                  <h3 id="sourdough-title" tabindex="-1">sourdough starter</h3>
+                </div>
+                <p class="product-description">an active sourdough starter with feeding instructions and a first-loaf guide.</p>
+                <a class="product-action" data-product="sourdough" href="mailto:orders@brinkmannpaul.com?subject=sourdough%20starter%20inquiry" aria-label="request details about sourdough starter">request details <span aria-hidden="true">↗</span></a>
+              </article>
+              <article class="product-row" id="books" aria-labelledby="books-title">
+                <span class="product-number" aria-hidden="true">04</span>
+                <div class="product-heading">
+                  <p class="product-kind">by paul brinkmann</p>
+                  <h3 id="books-title" tabindex="-1">books</h3>
+                </div>
+                <p class="product-description">books by paul brinkmann.</p>
+                <a class="product-action" data-product="books" href="mailto:orders@brinkmannpaul.com?subject=books%20inquiry" aria-label="request details about books">request details <span aria-hidden="true">↗</span></a>
+              </article>
+            </div>
+            <p class="product-contact">questions about an offer? <a href="mailto:orders@brinkmannpaul.com">write to me ↗</a></p>
+          </section>
+
+          <section class="work-section" id="work" aria-labelledby="work-title">
+            <div class="section-heading">
+              <h2 id="work-title" tabindex="-1">the wider work</h2>
+              <span>projects &amp; collaborations</span>
+            </div>
           <div class="project-list">
             <details class="project-item">
               <summary>
-                <h2 class="item-name">neuroarchitecture</h2>
+                <h3 class="item-name">neuroarchitecture</h3>
                 <span class="item-type">phd research</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
@@ -86,7 +145,7 @@
 
             <details class="project-item">
               <summary>
-                <h2 class="item-name">mysidibou</h2>
+                <h3 class="item-name">mysidibou</h3>
                 <span class="item-type">unesco project</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
@@ -96,9 +155,10 @@
               </div>
             </details>
 
+
             <details class="project-item">
               <summary>
-                <h2 class="item-name">pure code</h2>
+                <h3 class="item-name">pure code</h3>
                 <span class="item-type">life system for man</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
@@ -108,33 +168,12 @@
               </div>
             </details>
 
-            <details class="project-item">
-              <summary>
-                <h2 class="item-name">kefir</h2>
-                <span class="item-type">living culture</span>
-                <span class="plus" aria-hidden="true"></span>
-              </summary>
-              <div class="item-content">
-                <p>living kefir grains with a simple guide for making fresh kefir at home.</p>
-                <a href="mailto:orders@brinkmannpaul.com?subject=kefir%20order">order ↗</a>
-              </div>
-            </details>
+
+
 
             <details class="project-item">
               <summary>
-                <h2 class="item-name">sourdough</h2>
-                <span class="item-type">living culture</span>
-                <span class="plus" aria-hidden="true"></span>
-              </summary>
-              <div class="item-content">
-                <p>an active sourdough starter with feeding instructions and a first-loaf guide.</p>
-                <a href="mailto:orders@brinkmannpaul.com?subject=sourdough%20order">order ↗</a>
-              </div>
-            </details>
-
-            <details class="project-item">
-              <summary>
-                <h2 class="item-name">wim hof instructor</h2>
+                <h3 class="item-name">wim hof instructor</h3>
                 <span class="item-type">1:1 coaching worldwide</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
@@ -143,14 +182,37 @@
                 <a href="mailto:orders@brinkmannpaul.com?subject=1%3A1%20wim%20hof%20coaching">request coaching ↗</a>
               </div>
             </details>
+
           </div>
+          </section>
         </section>
       </main>
 
       <footer>
-        <p>paul brink</p>
+        <p>paul brinkmann</p>
+        <a href="mailto:orders@brinkmannpaul.com">orders@brinkmannpaul.com ↗</a>
       </footer>
     </div>
+
+    <p class="sr-only" id="shop-announcement" role="status" aria-live="polite"></p>
+    <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title">
+      <div class="cart-header">
+        <h2 id="cart-title">your cart</h2>
+        <button id="cart-close" class="cart-close" type="button" aria-label="close cart" autofocus>close ×</button>
+      </div>
+      <div id="cart-empty" class="cart-empty">
+        <p>your cart is empty.</p>
+        <a id="cart-browse" href="#products">explore products ↓</a>
+      </div>
+      <ul id="cart-lines" class="cart-lines"></ul>
+      <div id="cart-summary" hidden>
+        <div class="cart-subtotal"><span>subtotal</span><strong id="cart-total"></strong></div>
+        <p class="cart-note">shipping, if applicable, is shown at checkout.</p>
+        <button id="checkout-button" class="primary-link checkout-button" type="button" disabled>continue to payment ↗</button>
+      </div>
+      <p id="cart-status" class="cart-status" role="status" aria-live="polite"></p>
+      <p class="cart-support">questions? <a href="mailto:orders@brinkmannpaul.com">write to me ↗</a></p>
+    </dialog>
 
     <noscript>
       <style>

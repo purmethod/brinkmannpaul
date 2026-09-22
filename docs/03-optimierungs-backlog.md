@@ -142,3 +142,13 @@ Verbleibende Liste: neuroarchitecture, mysidibou, pure code, kefir, sourdough, w
 ## Korrektur Handschrift — Issue #8
 
 Paul meldet, dass die Handschrift nach der Veröffentlichung nicht mehr sichtbar ist. Ursache: Session-Merker übersprang das Intro bei Rückkehr. Merker entfernt; Handschrift bei jedem Aufruf. Bei reduzierter Bewegung wird das bestehende Endbild statt des Videos gezeigt. Original-Video, Projektliste und expliziter Einstieg bleiben unverändert. Diese Nutzerkorrektur ersetzt den Besucher-Speicher aus P0-04.
+
+## Kaufprozess — Issue #11, Entwurf
+
+Paul priorisiert PDF-Guides, Kefirpilze, Sauerteigstarter und Bücher gleichwertig. Diese Angebote sind im Entwurf direkt sichtbar; übrige Projekte folgen als flache Liste. Hero und Signatur bleiben erhalten. Shopify-Anbindung vorgeschlagen, aber noch nicht bestätigt; Produktnamen/Preise/Versandangaben stehen aus. Keine produktive Veröffentlichung des unvollständigen Kaufprozesses. Details: `docs/05-kaufprozess.md`.
+
+### Update Issue #11 — eigener Shop statt Shopify
+
+Paul wählt ausdrücklich eine eigene Umsetzung. Warenkorb, serverseitig validierter Stripe-Checkout und geprüfte Zahlungsstatus-Abfrage sind als deaktivierter Entwurf implementiert. Preise, konkrete Artikel, Stripe-Konto, Versand und Auslieferungsprozess fehlen weiterhin. Shopify wird nicht angebunden. Kein produktiver Verkauf freigeschaltet; Details und Aktivierungsbedingungen in `docs/05-kaufprozess.md`.
+
+Die Vercel-Projektwurzel `dist` wurde anhand des bestehenden Deployments bestätigt. API, private Produktkonfiguration und unabhängiger Build liegen daher innerhalb dieses Ordners. Nur eine explizite Liste öffentlicher Dateien gelangt nach `dist/public`; Serverquellcode und Konfiguration werden nicht statisch ausgeliefert. 68 automatisierte Warenkorb-/API-Tests bestanden. Die Projektkuration und Intro-Korrektur aus PR #12 sind übernommen. Draft-PR #13 bleibt bis zur Einrichtung und tatsächlichen Kauf-/Lieferprüfung unveröffentlicht in Produktion.
