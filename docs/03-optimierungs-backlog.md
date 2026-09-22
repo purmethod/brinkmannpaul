@@ -125,6 +125,19 @@ Auf ausdrücklichen Wunsch von Paul: Kategorien architecture & art / health / mi
 
 GitHub-Anmeldung wiederhergestellt. Paul hat die Veröffentlichung der aktuellen flachen Projektliste ausdrücklich beauftragt. Implementierung und unabhängiges statisches Review abgeschlossen; JavaScript-Syntaxprüfung und isolierte Verhaltensprüfungen erneut bestanden. Visuelle Desktop-/Mobile-Prüfung bleibt wegen des Browser-Absturzes offen. Produktionsstatus wird im verknüpften Pull Request und in Vercel dokumentiert. Refs #1 (Textmetadaten, Bild offen), #2 (durch flache Liste angepasst), #3, #4.
 
+## Intro-Fix + Kuration — Issue #10
+
+**Root Cause Intro-Bug:** PR #7 hat `autoplay` vom `<video id="intro-video">` entfernt und `preload` von `auto` auf `none` gesetzt. Dadurch lehnt die Autoplay-Policy des Browsers den programmatischen `.play()`-Aufruf beim Seitenaufruf ab, der `catch`-Handler springt sofort zu `showCompleteHandwriting()` — die Handschrift-Animation wird nie sichtbar abgespielt, nur das Endbild erscheint sofort. Verifiziert per Live-Browser-Konsole (`currentTime: 0`, `paused: true`, Klasse `is-complete` bereits gesetzt). Fix: `autoplay` wiederhergestellt, `preload="auto"` wiederhergestellt (Stand vor PR #7).
+
+**Kuration (Auftrag Paul, Sprachnachricht 2026-09-22):**
+- `real estate agency`, `ritual plant`, `blueprints` entfernt.
+- `pure method` → `pure code`, Typ `health system` → `life system for man`.
+- `neuroarchitecture`-Beschreibung um recherchierten Hintergrund zum Feld Neuroarchitektur ergänzt (Quelle: allgemeine Fachliteratur, keine erfundenen Spezifika zu Pauls Person/Institution — siehe PR-Beschreibung für Quellen).
+- `kefir`, `sourdough`, `mysidibou`, `wim hof instructor` unverändert (Paul: „kann man lassen").
+
+Verbleibende Liste: neuroarchitecture, mysidibou, pure code, kefir, sourdough, wim hof instructor.
+`docs/02-inhalts-inventar.md` synchronisiert. `node --check` in dieser Umgebung nicht möglich (kein Node installiert) — `app.js` in diesem Branch nicht verändert, nur `dist/index.html`.
+
 
 ## Korrektur Handschrift — Issue #8
 
