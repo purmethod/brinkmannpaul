@@ -4,17 +4,14 @@ const sitePage = document.querySelector("#site-page");
 const mainContent = document.querySelector("#main-content");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let introOpen = false;
-let completionTimer;
 
 function showCompleteHandwriting() {
-  window.clearTimeout(completionTimer);
   introGate.classList.add("is-complete");
 }
 
 function revealSite(moveFocus = false) {
   if (!introOpen) return;
   introOpen = false;
-  window.clearTimeout(completionTimer);
   introGate.classList.add("is-leaving");
   sitePage.inert = false;
   sitePage.removeAttribute("aria-hidden");
@@ -55,7 +52,6 @@ if (reducedMotion.matches) {
   showCompleteHandwriting();
 } else {
   introAnimation.addEventListener("error", showCompleteHandwriting, { once: true });
-  completionTimer = window.setTimeout(showCompleteHandwriting, 10000);
 }
 
 reducedMotion.addEventListener("change", (event) => {
