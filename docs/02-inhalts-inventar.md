@@ -26,29 +26,19 @@ different fields.
 one purpose: build.
 ```
 
-## Kategorie: architecture & art
+## Aktuelle Projektliste (Stand Issue #10 — flach, kuratiert)
 
-| Projekt | Typ | Beschreibung (original) | Status / CTA |
+| Projekt | Typ | Beschreibung (aktuell) | Status / CTA |
 |---|---|---|---|
-| neuroarchitecture | phd research | research into how space shapes the brain, behaviour and identity. | **in progress** (kein Link) |
+| neuroarchitecture | phd research | research into how the built environment shapes the brain, behaviour and identity — how light, space and materials affect mood, stress, cognition and wellbeing. | **in progress** (kein Link) |
 | mysidibou | unesco project | one generation taking responsibility for the next 500 years of sidi bou saïd. | `open project ↗` → `https://www.instagram.com/mysidibou/` |
-| real estate agency | worldwide · $10m+ | **20 years in real estate. architect and agent. worldwide.** selected assignments from $10 million. price alone does not interest me. architecture does. to me, buildings are art — and trust is the only currency that matters. | `request representation ↗` → `mailto:orders@brinkmannpaul.com?subject=real%20estate%20representation` |
-
-## Kategorie: health
-
-| Projekt | Typ | Beschreibung (original) | Status / CTA |
-|---|---|---|---|
-| pure method | health system | a practical system for building health through food, movement, recovery and daily discipline. | **in development** (kein Link) |
+| pure code | life system for man | a practical system for building health through food, movement, recovery and daily discipline. | **in development** (kein Link) |
 | kefir | living culture | living kefir grains with a simple guide for making fresh kefir at home. | `order ↗` → `mailto:orders@brinkmannpaul.com?subject=kefir%20order` |
 | sourdough | living culture | an active sourdough starter with feeding instructions and a first-loaf guide. | `order ↗` → `mailto:orders@brinkmannpaul.com?subject=sourdough%20order` |
-| ritual plant | seed editions | selected seed editions for conscious rituals: festum, amor and somnus. | `discover ↗` → `mailto:orders@brinkmannpaul.com?subject=ritual%20plant%20order` |
 | wim hof instructor | 1:1 coaching worldwide | private one-to-one coaching in breath, cold and mindset — wherever you are. | `request coaching ↗` → `mailto:orders@brinkmannpaul.com?subject=1%3A1%20wim%20hof%20coaching` |
 
-## Kategorie: mind
-
-| Projekt | Typ | Beschreibung (original) | Status / CTA |
-|---|---|---|---|
-| blueprints | digital guides | practical systems for body, mind, food, space and a life built with intent. | `get a blueprint ↗` → `mailto:orders@brinkmannpaul.com?subject=pdf%20blueprints` |
+**Entfernt auf Wunsch von Paul (Issue #10):** real estate agency, ritual plant, blueprints.
+**Umbenannt (Issue #10):** pure method → pure code, health system → life system for man.
 
 ## Footer
 
@@ -65,7 +55,7 @@ one purpose: build.
 
 1. `https://www.instagram.com/brinkbuild/`
 2. `https://www.instagram.com/mysidibou/`
-3. `mailto:orders@brinkmannpaul.com` (+ 6 Betreff-Varianten: real estate representation · kefir order · sourdough order · ritual plant order · 1:1 wim hof coaching · pdf blueprints)
+3. `mailto:orders@brinkmannpaul.com` (+ 3 Betreff-Varianten: kefir order · sourdough order · 1:1 wim hof coaching)
 
 ## Bekannte Schwester-Projekte (Umfeld, nicht verlinkt)
 
