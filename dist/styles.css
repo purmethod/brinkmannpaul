@@ -1,6 +1,6 @@
 :root {
   --ink: #101010;
-  --muted: #7b7b75;
+  --muted: #6a6a63;
   --soft-line: #cfcfca;
   --paper: #ffffff;
   --edge: clamp(1.25rem, 4.6vw, 4.5rem);
