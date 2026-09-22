@@ -491,6 +491,9 @@ a:focus-visible {
   cursor: pointer;
   list-style: none;
   text-transform: lowercase;
+
+  gap: 0;
+  column-gap: 0;
 }
 .pure-branch > summary::-webkit-details-marker { display: none; }
 .pure-letter { color: var(--ink); font-weight: 500; margin: 0; }
