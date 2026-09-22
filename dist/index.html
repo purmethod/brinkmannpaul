@@ -6,6 +6,23 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="The projects and products of Paul Brinkmann." />
     <title>brinkmann paul</title>
+    <link rel="canonical" href="https://brinkmannpaul.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="brinkmann paul" />
+    <meta property="og:description" content="The projects and products of Paul Brinkmann." />
+    <meta property="og:url" content="https://brinkmannpaul.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="brinkmann paul" />
+    <meta name="twitter:description" content="The projects and products of Paul Brinkmann." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Paul Brinkmann",
+        "url": "https://brinkmannpaul.com/",
+        "sameAs": ["https://www.instagram.com/brinkbuild/"]
+      }
+    </script>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -15,16 +32,15 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
-  <body class="intro-locked">
+  <body>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
       <span class="intro-stage" aria-hidden="true">
         <video
           class="intro-media intro-video"
           id="intro-video"
-          autoplay
           muted
           playsinline
-          preload="auto"
+          preload="none"
           disablepictureinpicture
           width="900"
           height="1100"
@@ -39,150 +55,127 @@
           height="1100"
         />
       </span>
+      <span class="intro-enter">enter →</span>
     </button>
 
-    <div class="site-page" id="site-page" aria-hidden="true">
+    <div class="site-page" id="site-page">
       <header class="site-header">
-        <p>brinkmann paul</p>
+        <h1>brinkmann paul</h1>
         <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild</a>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="index" id="index" aria-label="projects and products">
           <div class="index-intro">
-            <p>one person.<br />different fields.<br />one purpose: build.</p>
+            <p><span class="intro-line">one person. different fields.</span><br />one purpose: build</p>
           </div>
 
-          <div class="category-list">
-            <details class="category-item">
-              <summary class="category-summary">
-                <span class="category-name">architecture &amp; art</span>
+          <div class="project-list">
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">neuroarchitecture</h2>
+                <span class="item-type">phd research</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
-              <div class="category-content">
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">neuroarchitecture</span>
-                    <span class="item-type">phd research</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>research into how space shapes the brain, behaviour and identity.</p>
-                    <span class="item-status">in progress</span>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">mysidibou</span>
-                    <span class="item-type">unesco project</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>one generation taking responsibility for the next 500 years of sidi bou saïd.</p>
-                    <a href="https://www.instagram.com/mysidibou/" target="_blank" rel="noreferrer">open project ↗</a>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">real estate agency</span>
-                    <span class="item-type">worldwide · $10m+</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content item-content-feature">
-                    <p><strong>20 years in real estate. architect and agent. worldwide.</strong> selected assignments from $10 million. price alone does not interest me. architecture does. to me, buildings are art — and trust is the only currency that matters.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=real%20estate%20representation">request representation ↗</a>
-                  </div>
-                </details>
+              <div class="item-content">
+                <p>research into how space shapes the brain, behaviour and identity.</p>
+                <span class="item-status">in progress</span>
               </div>
             </details>
 
-            <details class="category-item">
-              <summary class="category-summary">
-                <span class="category-name">health</span>
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">mysidibou</h2>
+                <span class="item-type">unesco project</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
-              <div class="category-content">
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">pure method</span>
-                    <span class="item-type">health system</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>a practical system for building health through food, movement, recovery and daily discipline.</p>
-                    <span class="item-status">in development</span>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">kefir</span>
-                    <span class="item-type">living culture</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>living kefir grains with a simple guide for making fresh kefir at home.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=kefir%20order">order ↗</a>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">sourdough</span>
-                    <span class="item-type">living culture</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>an active sourdough starter with feeding instructions and a first-loaf guide.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=sourdough%20order">order ↗</a>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">ritual plant</span>
-                    <span class="item-type">seed editions</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>selected seed editions for conscious rituals: festum, amor and somnus.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=ritual%20plant%20order">discover ↗</a>
-                  </div>
-                </details>
-
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">wim hof instructor</span>
-                    <span class="item-type">1:1 coaching worldwide</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>private one-to-one coaching in breath, cold and mindset — wherever you are.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=1%3A1%20wim%20hof%20coaching">request coaching ↗</a>
-                  </div>
-                </details>
+              <div class="item-content">
+                <p>one generation taking responsibility for the next 500 years of sidi bou saïd.</p>
+                <a href="https://www.instagram.com/mysidibou/" target="_blank" rel="noreferrer">open project ↗</a>
               </div>
             </details>
 
-            <details class="category-item">
-              <summary class="category-summary">
-                <span class="category-name">mind</span>
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">real estate agency</h2>
+                <span class="item-type">worldwide · $10m+</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
-              <div class="category-content">
-                <details class="project-item">
-                  <summary>
-                    <span class="item-name">blueprints</span>
-                    <span class="item-type">digital guides</span>
-                    <span class="plus" aria-hidden="true"></span>
-                  </summary>
-                  <div class="item-content">
-                    <p>practical systems for body, mind, food, space and a life built with intent.</p>
-                    <a href="mailto:orders@brinkmannpaul.com?subject=pdf%20blueprints">get a blueprint ↗</a>
-                  </div>
-                </details>
+              <div class="item-content item-content-feature">
+                <p><strong>20 years in real estate. architect and agent. worldwide.</strong> selected assignments from $10 million. price alone does not interest me. architecture does. to me, buildings are art — and trust is the only currency that matters.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=real%20estate%20representation">request representation ↗</a>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">pure method</h2>
+                <span class="item-type">health system</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>a practical system for building health through food, movement, recovery and daily discipline.</p>
+                <span class="item-status">in development</span>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">kefir</h2>
+                <span class="item-type">living culture</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>living kefir grains with a simple guide for making fresh kefir at home.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=kefir%20order">order ↗</a>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">sourdough</h2>
+                <span class="item-type">living culture</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>an active sourdough starter with feeding instructions and a first-loaf guide.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=sourdough%20order">order ↗</a>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">ritual plant</h2>
+                <span class="item-type">seed editions</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>selected seed editions for conscious rituals: festum, amor and somnus.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=ritual%20plant%20order">discover ↗</a>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">wim hof instructor</h2>
+                <span class="item-type">1:1 coaching worldwide</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>private one-to-one coaching in breath, cold and mindset — wherever you are.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=1%3A1%20wim%20hof%20coaching">request coaching ↗</a>
+              </div>
+            </details>
+
+            <details class="project-item">
+              <summary>
+                <h2 class="item-name">blueprints</h2>
+                <span class="item-type">digital guides</span>
+                <span class="plus" aria-hidden="true"></span>
+              </summary>
+              <div class="item-content">
+                <p>practical systems for body, mind, food, space and a life built with intent.</p>
+                <a href="mailto:orders@brinkmannpaul.com?subject=pdf%20blueprints">get a blueprint ↗</a>
               </div>
             </details>
           </div>
@@ -197,7 +190,7 @@
     <noscript>
       <style>
         .intro-gate { display: none; }
-        .site-page { opacity: 1; visibility: visible; }
+        .site-page, .index { opacity: 1; visibility: visible; transform: none; }
         body { overflow: auto; }
       </style>
     </noscript>
