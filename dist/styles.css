@@ -479,4 +479,4 @@ a:focus-visible {
 }
 .instagram-link:hover,
 .instagram-link:focus-visible { text-decoration: none; }
-.instagram-icon { width: 1em; height: 1em; flex: 0 0 auto; }
+.instagram-icon { width: 0.72em; height: 0.72em; flex: 0 0 auto; }
