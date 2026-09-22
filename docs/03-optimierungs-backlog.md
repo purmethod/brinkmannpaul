@@ -7,7 +7,7 @@ Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
 ## Issue #24 — Zuverlässigkeit, Hintergrundinformationen, dezentes neuronales Netz
 
-Status: lokal implementiert; Veröffentlichung wartet auf visuelle Vorschau und Review.
+Status: implementiert und in Vercel-Vorschau geprüft; zur Veröffentlichung freigegeben (PR #25).
 
 - Live-Ausgangsstand geprüft: SVG-Intro lief im Desktopbrowser, entsprach aber nicht der ursprünglichen MP4-Gestaltung (anderes Seitenverhältnis und dickere Schrift). Ein iPhone-Fehler ist in diesem Browser nicht direkt reproduzierbar.
 - Statt weiterer alternativer Handschrift: originale MP4-Frames verlustfrei als einmalig abspielendes WebP exportiert (unter 300 KB); keine Video-Autoplay-Abhängigkeit, kein Playbutton.
@@ -15,7 +15,9 @@ Status: lokal implementiert; Veröffentlichung wartet auf visuelle Vorschau und 
 - Projektinformationen erweitert; `pure / system for man` aus Pauls letzter Inhaltskorrektur übernommen. Native Details funktionieren auch ohne JavaScript und lassen mehrere Rubriken gleichzeitig offen.
 - Statisches, leichtes, hellgraues Synapsen-SVG; keine Canvas-Schleife, keine Abhängigkeiten, keine Klickblockade.
 - `node --check dist/app.js`, `node scripts/test-site.mjs`, `git diff --check` bestanden. Bildfolge/Abspieldauer/Einmal-Wiedergabe mit Pillow geprüft.
-- Browserprüfung des Ausgangsstands war möglich. Lokale Vorschauzugriffe wurden vom Cloud-Browser blockiert, deshalb neue Desktop-/Mobile-Darstellung noch NICHT als visuell geprüft markiert. Kein Produktions-Push ohne geklärte Vorschau.
+- Paul hat am 2026-09-22 ausdrücklich den Ablauf „separate Vercel-Testversion, dort prüfen, danach live“ genehmigt, als Ausnahme zur lokalen Prüfung vor dem Upload.
+- Vercel-Vorschau erfolgreich: Desktop (1363 px) und Mobile-Layout (390 px Frame / 375 px Inhaltsbreite) visuell geprüft; originale Handschrift vollständig sichtbar, kein Videoelement/Playbutton, Einstieg per Klick und Enter, alle sechs Rubriken geöffnet/geschlossen, kein horizontaler Überlauf auch bei geöffneten Texten. Nur Erweiterungsfehler des Testbrowsers, keine Website-Fehler beobachtet. Temporäre Testseite vor Merge entfernt.
+- Unabhängiger Agentenreview ohne blockierende Codebefunde. Kein physisches iPhone/Safari verfügbar; diese Geräteprüfung wird nicht als durchgeführt behauptet.
 
 ---
 
