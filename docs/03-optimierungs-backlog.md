@@ -102,3 +102,25 @@ Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
   (Foto → Trace → Pen-Reveal → MP4) als Kurzanleitung dokumentieren. Nur mit Freigabe Paul (Dateien sind verlustfrei
   remixbar — erst Versionssicherung).
 - **Owner:** `claude`. Status: ⏳
+
+## Audit-Stand 2026-09-22 — lokal vorbereitet, noch nicht veröffentlicht
+
+- #1 / P0-01: Canonical, OG-/Twitter-Textmetadaten und Person-JSON-LD ergänzt. Social-Bild und echter Sharing-Test bleiben offen.
+- #2 / P0-02: Eine h1 und drei h2 mit unveränderten Schriftmaßen ergänzt. Visueller Vergleich noch offen.
+- #3 / P0-03: Sekundärfarbe #6a6a63, berechneter Kontrast 5,45:1 auf Weiß. Visueller Vergleich noch offen.
+- #4 / P0-04: Sichtbares „enter →“, Session-Merker, Reduced-Motion, Hintergrund-inert, Fokusübergabe und robuste Fallbacks implementiert. Ohne JS bzw. bei ausgefallenem app.js bleiben Inhalte standardmäßig zugänglich. Video-Datei unverändert.
+- Unabhängiger Agenten-Code-Review: Übergangsregression gefunden und korrigiert; statische Nachprüfung ohne weitere Befunde.
+- Syntaxprüfung und acht isolierte JavaScript-Verhaltensszenarien bestanden; Metadaten/Links/Assets strukturell geprüft.
+- Desktop-/Mobile-Browsertests ausstehend: Browser-Prozesse starten in dieser Host-Umgebung nicht (SIGABRT / Browser-Kernel-Abbruch). Keine visuellen Tests als bestanden markieren.
+- GitHub-Schreibzugriff für Issues und Branches wird mit HTTP 403 abgewiesen. Kein PR und kein Push erfolgt; kein Review-Kommentar auf GitHub möglich.
+- Paul bestätigt GitHub → Vercel als aktuellen Veröffentlichungsweg. Alte Sites-Konfiguration erhalten, dort nichts veröffentlicht.
+
+
+## Nutzerkorrektur — einfache Projektliste
+
+Auf ausdrücklichen Wunsch von Paul: Kategorien architecture & art / health / mind entfernt, alle neun Projekte in gleicher Reihenfolge als direkt sichtbare, einzeln aufklappbare Liste. Kopftext: „one person. different fields.“ in einer Zeile, darunter „one purpose: build“ ohne Schlusspunkt. Projektüberschriften nun h2. Inhalte, Links und Intro unverändert. Lokal umgesetzt; GitHub-Schreibzugriff und visuelle Browserprüfung weiterhin offen. Diese Anweisung ersetzt die bisherige Drei-Kategorien-Vorgabe.
+
+
+## Veröffentlichung — Issue #6
+
+GitHub-Anmeldung wiederhergestellt. Paul hat die Veröffentlichung der aktuellen flachen Projektliste ausdrücklich beauftragt. Implementierung und unabhängiges statisches Review abgeschlossen; JavaScript-Syntaxprüfung und isolierte Verhaltensprüfungen erneut bestanden. Visuelle Desktop-/Mobile-Prüfung bleibt wegen des Browser-Absturzes offen. Produktionsstatus wird im verknüpften Pull Request und in Vercel dokumentiert. Refs #1 (Textmetadaten, Bild offen), #2 (durch flache Liste angepasst), #3, #4.

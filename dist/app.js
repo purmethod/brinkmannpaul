@@ -51,7 +51,7 @@ if (!introSeen && !reducedMotion.matches) {
   introOpen = true;
   sitePage.inert = true;
   sitePage.setAttribute("aria-hidden", "true");
-  document.body.classList.add("intro-locked");
+  document.body.classList.add("intro-enabled", "intro-locked");
   introGate.addEventListener("click", () => revealSite(true));
   window.addEventListener("wheel", revealFromWheel, { passive: false });
   window.addEventListener("touchmove", revealFromTouch, { passive: false });
@@ -68,27 +68,13 @@ reducedMotion.addEventListener("change", (event) => {
   if (event.matches) revealSite();
 });
 
-const categories = document.querySelectorAll(".category-item");
+const projects = document.querySelectorAll(".project-item");
 
-categories.forEach((category) => {
-  category.addEventListener("toggle", () => {
-    if (!category.open) return;
-
-    categories.forEach((otherCategory) => {
-      if (otherCategory !== category) otherCategory.open = false;
-    });
-  });
-
-  const projects = category.querySelectorAll(".project-item");
-
-  projects.forEach((project) => {
-    project.addEventListener("toggle", () => {
-      if (!project.open) return;
-
-      projects.forEach((otherProject) => {
-        if (otherProject !== project) otherProject.open = false;
-      });
+projects.forEach((project) => {
+  project.addEventListener("toggle", () => {
+    if (!project.open) return;
+    projects.forEach((otherProject) => {
+      if (otherProject !== project) otherProject.open = false;
     });
   });
 });
-
