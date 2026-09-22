@@ -59,26 +59,14 @@ window.addEventListener("wheel", revealFromWheel, { passive: false });
 window.addEventListener("touchmove", revealFromTouch, { passive: false });
 window.addEventListener("keydown", revealFromKey);
 
-const categories = document.querySelectorAll(".category-item");
+const items = document.querySelectorAll(".link-item");
 
-categories.forEach((category) => {
-  category.addEventListener("toggle", () => {
-    if (!category.open) return;
+items.forEach((item) => {
+  item.addEventListener("toggle", () => {
+    if (!item.open) return;
 
-    categories.forEach((otherCategory) => {
-      if (otherCategory !== category) otherCategory.open = false;
-    });
-  });
-
-  const projects = category.querySelectorAll(".project-item");
-
-  projects.forEach((project) => {
-    project.addEventListener("toggle", () => {
-      if (!project.open) return;
-
-      projects.forEach((otherProject) => {
-        if (otherProject !== project) otherProject.open = false;
-      });
+    items.forEach((otherItem) => {
+      if (otherItem !== item) otherItem.open = false;
     });
   });
 });
