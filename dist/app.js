@@ -1,70 +1,86 @@
-const introGate = document.querySelector("#intro-gate");
-const introAnimation = document.querySelector("#intro-animation");
-const sitePage = document.querySelector("#site-page");
-const mainContent = document.querySelector("#main-content");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-let introOpen = false;
+(() => {
+  const gate = document.querySelector("#intro-gate");
+  const animation = document.querySelector("#intro-animation");
+  const page = document.querySelector("#site-page");
+  const main = document.querySelector("#main-content");
+  const skip = document.querySelector(".skip-link");
+  if (!gate || !animation || !page || !main) return;
 
-function showCompleteHandwriting() {
-  introGate.classList.add("is-complete");
-}
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let open = false;
+  let loadTimer;
+  let touchStart = null;
 
-function revealSite(moveFocus = false) {
-  if (!introOpen) return;
-  introOpen = false;
-  introGate.classList.add("is-leaving");
-  sitePage.inert = false;
-  sitePage.removeAttribute("aria-hidden");
-  document.body.classList.remove("intro-locked");
-  window.removeEventListener("wheel", revealFromWheel);
-  window.removeEventListener("touchmove", revealFromTouch);
-  window.removeEventListener("keydown", revealFromKey);
-  if (moveFocus || document.activeElement === introGate) mainContent.focus({ preventScroll: true });
-}
+  function showStill() {
+    window.clearTimeout(loadTimer);
+    gate.classList.add("is-complete");
+  }
 
-function revealFromWheel(event) {
-  if (Math.abs(event.deltaY) < 2) return;
-  event.preventDefault();
-  revealSite();
-}
+  function enter(moveFocus = false) {
+    if (!open) return;
+    open = false;
+    window.clearTimeout(loadTimer);
+    page.inert = false;
+    page.removeAttribute("aria-hidden");
+    document.body.classList.remove("intro-locked");
+    gate.classList.add("is-leaving");
+    gate.tabIndex = -1;
+    if (moveFocus || document.activeElement === gate) main.focus({ preventScroll: true });
+    gate.setAttribute("aria-hidden", "true");
+    window.removeEventListener("wheel", onWheel);
+    window.removeEventListener("touchstart", onTouchStart);
+    window.removeEventListener("touchmove", onTouchMove);
+    window.removeEventListener("keydown", onKey);
+  }
 
-function revealFromTouch(event) {
-  event.preventDefault();
-  revealSite();
-}
+  function onWheel(event) {
+    if (event.ctrlKey || Math.abs(event.deltaY) < 2) return;
+    event.preventDefault();
+    enter();
+  }
 
-function revealFromKey(event) {
-  if (!["ArrowDown", "PageDown", "Enter", " ", "Escape"].includes(event.key)) return;
-  event.preventDefault();
-  revealSite(true);
-}
+  function onTouchStart(event) {
+    touchStart = event.touches.length === 1 ? event.touches[0].clientY : null;
+  }
 
-introOpen = true;
-sitePage.inert = true;
-sitePage.setAttribute("aria-hidden", "true");
-document.body.classList.add("intro-enabled", "intro-locked");
-introGate.addEventListener("click", () => revealSite(true));
-window.addEventListener("wheel", revealFromWheel, { passive: false });
-window.addEventListener("touchmove", revealFromTouch, { passive: false });
-window.addEventListener("keydown", revealFromKey);
+  function onTouchMove(event) {
+    if (touchStart === null || event.touches.length !== 1) return;
+    if (Math.abs(event.touches[0].clientY - touchStart) < 12) return;
+    if (event.cancelable) event.preventDefault();
+    enter();
+  }
 
-if (reducedMotion.matches) {
-  showCompleteHandwriting();
-} else {
-  introAnimation.addEventListener("error", showCompleteHandwriting, { once: true });
-}
+  function onKey(event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    if (!["ArrowDown", "PageDown", "Enter", " ", "Escape"].includes(event.key)) return;
+    event.preventDefault();
+    enter(true);
+  }
 
-reducedMotion.addEventListener("change", (event) => {
-  if (event.matches && introOpen) showCompleteHandwriting();
-});
+  // Bind every escape route before making the page inert.
+  gate.addEventListener("click", () => enter(true));
+  skip?.addEventListener("click", () => enter(true));
+  animation.addEventListener("error", showStill, { once: true });
+  animation.addEventListener("load", () => window.clearTimeout(loadTimer), { once: true });
+  const onMotion = (event) => { if (event.matches && open) showStill(); };
+  if (motion.addEventListener) motion.addEventListener("change", onMotion);
+  else if (motion.addListener) motion.addListener(onMotion);
 
-const projects = document.querySelectorAll(".project-item");
+  // Direct links never leave someone stranded behind the intro.
+  if (window.location.hash) return;
+  open = true;
+  gate.removeAttribute("aria-hidden");
+  gate.tabIndex = 0;
+  page.inert = true;
+  page.setAttribute("aria-hidden", "true");
+  document.body.classList.add("intro-enabled", "intro-locked");
+  window.addEventListener("wheel", onWheel, { passive: false });
+  window.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchmove", onTouchMove, { passive: false });
+  window.addEventListener("keydown", onKey);
 
-projects.forEach((project) => {
-  project.addEventListener("toggle", () => {
-    if (!project.open) return;
-    projects.forEach((otherProject) => {
-      if (otherProject !== project) otherProject.open = false;
-    });
-  });
-});
+  if (motion.matches || (animation.complete && animation.naturalWidth === 0)) showStill();
+  else if (!animation.complete) loadTimer = window.setTimeout(showStill, 12000);
+})();
+
+// Native details work independently of JavaScript; readers may open multiple topics.

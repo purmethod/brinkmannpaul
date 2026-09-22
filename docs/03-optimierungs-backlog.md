@@ -5,6 +5,18 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #24 — Zuverlässigkeit, Hintergrundinformationen, dezentes neuronales Netz
+
+Status: lokal implementiert; Veröffentlichung wartet auf visuelle Vorschau und Review.
+
+- Live-Ausgangsstand geprüft: SVG-Intro lief im Desktopbrowser, entsprach aber nicht der ursprünglichen MP4-Gestaltung (anderes Seitenverhältnis und dickere Schrift). Ein iPhone-Fehler ist in diesem Browser nicht direkt reproduzierbar.
+- Statt weiterer alternativer Handschrift: originale MP4-Frames verlustfrei als einmalig abspielendes WebP exportiert (unter 300 KB); keine Video-Autoplay-Abhängigkeit, kein Playbutton.
+- Ladefehler/Timeout und Reduced Motion zeigen das bestehende vollständige Endbild; Klick, Tastatur und Wischen erlauben weiterhin den sofortigen Einstieg. Tastatur-Skip-Link, stabile Fokusübergabe, Zoom-Geste nicht abfangen.
+- Projektinformationen erweitert; `pure / system for man` aus Pauls letzter Inhaltskorrektur übernommen. Native Details funktionieren auch ohne JavaScript und lassen mehrere Rubriken gleichzeitig offen.
+- Statisches, leichtes, hellgraues Synapsen-SVG; keine Canvas-Schleife, keine Abhängigkeiten, keine Klickblockade.
+- `node --check dist/app.js`, `node scripts/test-site.mjs`, `git diff --check` bestanden. Bildfolge/Abspieldauer/Einmal-Wiedergabe mit Pillow geprüft.
+- Browserprüfung des Ausgangsstands war möglich. Lokale Vorschauzugriffe wurden vom Cloud-Browser blockiert, deshalb neue Desktop-/Mobile-Darstellung noch NICHT als visuell geprüft markiert. Kein Produktions-Push ohne geklärte Vorschau.
+
 ---
 
 ## P0 — Sofort-Gewinne (hoher Wert, geringes Risiko)

@@ -32,20 +32,22 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Cpath d='M17 14h14c10 0 16 4 16 12 0 5-3 9-8 10 7 1 11 5 11 12 0 10-7 15-19 15H17V14zm10 9v10h4c4 0 6-2 6-5s-2-5-6-5h-4zm0 19v12h5c5 0 7-2 7-6 0-4-2-6-7-6h-5z' fill='%23111111'/%3E%3C/svg%3E"
     />
-    <link rel="preload" href="assets/intro-handwriting-pen.svg" as="image" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <link rel="preload" href="assets/intro-handwriting-split.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css?v=24" />
+    <script src="app.js?v=24" defer></script>
   </head>
   <body>
-    <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
+    <a class="skip-link" href="#main-content">skip to projects</a>
+    <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website" aria-hidden="true" tabindex="-1">
       <span class="intro-stage" aria-hidden="true">
         <img
           class="intro-media intro-animation"
           id="intro-animation"
-          src="assets/intro-handwriting-pen.svg"
+          src="assets/intro-handwriting-split.webp"
           alt=""
-          width="1600"
-          height="1200"
+          width="900"
+          height="1100"
+          fetchpriority="high"
         />
         <img
           class="intro-media intro-complete"
@@ -59,6 +61,7 @@
     </button>
 
     <div class="site-page" id="site-page">
+      <div class="neural-background" aria-hidden="true"></div>
       <header class="site-header">
         <h1>brinkmann paul</h1>
         <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild</a>
@@ -68,8 +71,10 @@
         <section class="index" id="index" aria-label="projects and products">
           <div class="index-intro">
             <p>one man, one purpose: build</p>
+            <span class="index-caption">places. people. everyday rituals.</span>
           </div>
 
+          <p class="list-hint">explore the projects <span aria-hidden="true">↓</span></p>
           <div class="project-list">
             <details class="project-item">
               <summary>
@@ -78,19 +83,29 @@
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>one generation taking responsibility for the next 500 years of sidi bou saïd — inscribed as a unesco world heritage site in 2026, and under real pressure from tourism, construction and cliff erosion.</p>
+                <div class="item-story">
+                  <p class="item-lead">protect a place. build its future.</p>
+                  <p>mysidibou is my project for sidi bou saïd, tunisia. the ambition: a cleaner village and a long-term approach to protecting its hillside setting for the generations that follow.</p>
+                  <p>the plan connects daily litter collection and less plastic with architecture, art and local participation. an art café and art sales are intended to help fund the work.</p>
+                  <p class="item-note">focus: heritage · public space · community</p>
+                </div>
                 <a href="https://www.instagram.com/mysidibou/" target="_blank" rel="noreferrer">open project ↗</a>
               </div>
             </details>
 
             <details class="project-item">
               <summary>
-                <h2 class="item-name">the pure code</h2>
-                <span class="item-type">life system for man</span>
+                <h2 class="item-name">pure</h2>
+                <span class="item-type">system for man</span>
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>a practical system for building health through food, movement, recovery and daily discipline.</p>
+                <div class="item-story">
+                  <p class="item-lead">build the person behind the ambition.</p>
+                  <p>a practical framework bringing food, movement, recovery and daily discipline into one system. built from personal experience, with a focus on habits that can become part of everyday life.</p>
+                  <p>the work is still in development. the aim is a clear structure for men who want to take responsibility for how they live, train and recover.</p>
+                  <p class="item-note">focus: routine · movement · recovery</p>
+                </div>
                 <span class="item-status">in development</span>
               </div>
             </details>
@@ -102,7 +117,12 @@
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>living kefir grains with a simple guide for making fresh kefir at home.</p>
+                <div class="item-story">
+                  <p class="item-lead">a small culture. a daily ritual.</p>
+                  <p>living kefir grains and a simple guide to making milk kefir at home. the grains are a reusable culture: after fermentation, they are separated from the drink and used for the next batch.</p>
+                  <p>the idea is to make home fermentation approachable, with guidance on the daily routine and caring for the culture. get in touch for current availability.</p>
+                  <p class="item-note">includes: living grains · getting-started guide</p>
+                </div>
                 <a href="mailto:orders@brinkmannpaul.com?subject=kefir%20order">order ↗</a>
               </div>
             </details>
@@ -114,7 +134,12 @@
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>an active sourdough starter with feeding instructions and a first-loaf guide.</p>
+                <div class="item-story">
+                  <p class="item-lead">flour. water. time.</p>
+                  <p>an active sourdough starter for baking bread at home. a starter is a culture maintained with flour and water, used to ferment dough and kept for future bakes.</p>
+                  <p>feeding instructions and a first-loaf guide give you a starting point for building your own baking routine. get in touch for current availability.</p>
+                  <p class="item-note">includes: starter · feeding instructions · first-loaf guide</p>
+                </div>
                 <a href="mailto:orders@brinkmannpaul.com?subject=sourdough%20order">order ↗</a>
               </div>
             </details>
@@ -126,7 +151,12 @@
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>private one-to-one coaching in breath, cold and mindset — wherever you are.</p>
+                <div class="item-story">
+                  <p class="item-lead">breath. cold. presence.</p>
+                  <p>private one-to-one coaching with a certified wim hof instructor. my work brings together breath, cold and mindset, with attention to the person behind the practice.</p>
+                  <p>start with a conversation about your experience and what you are looking for. we can discuss the format, location and whether coaching is a suitable next step for you.</p>
+                  <p class="item-note">format: personal coaching · by enquiry</p>
+                </div>
                 <a href="mailto:orders@brinkmannpaul.com?subject=1%3A1%20wim%20hof%20coaching">request coaching ↗</a>
               </div>
             </details>
@@ -138,7 +168,12 @@
                 <span class="plus" aria-hidden="true"></span>
               </summary>
               <div class="item-content">
-                <p>research into how the built environment shapes the brain, behaviour and identity — how light, space and materials affect mood, stress, cognition and wellbeing.</p>
+                <div class="item-story">
+                  <p class="item-lead">design for the person inside the space.</p>
+                  <p>my phd in progress explores the relationship between architecture and human experience. the question: how can the spaces we inhabit be designed with the people using them in mind?</p>
+                  <p>light, spatial proportions and materials are central themes in this enquiry. it connects my background in architecture with an interest in perception, behaviour and wellbeing.</p>
+                  <p class="item-note">focus: architecture · perception · human experience</p>
+                </div>
                 <span class="item-status">in progress</span>
               </div>
             </details>
@@ -148,6 +183,7 @@
 
       <footer>
         <p>paul brinkmann</p>
+        <a href="mailto:orders@brinkmannpaul.com?subject=hello">let’s build something ↗</a>
       </footer>
     </div>
 
