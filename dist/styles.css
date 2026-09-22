@@ -480,3 +480,17 @@ a:focus-visible {
 .instagram-link:hover,
 .instagram-link:focus-visible { text-decoration: none; }
 .instagram-icon { width: 0.72em; height: 0.72em; flex: 0 0 auto; }
+
+.pure-tree { display: grid; gap: 0.55rem; }
+.pure-branch { color: var(--muted); }
+.pure-branch > summary {
+  display: flex;
+  align-items: baseline;
+  min-height: 0;
+  padding: 0;
+  cursor: pointer;
+  list-style: none;
+  text-transform: lowercase;
+}
+.pure-branch > summary::-webkit-details-marker { display: none; }
+.pure-letter { color: var(--ink); font-weight: 500; }
