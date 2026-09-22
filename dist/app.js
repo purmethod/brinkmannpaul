@@ -48,7 +48,21 @@ introOpen = true;
 sitePage.inert = true;
 sitePage.setAttribute("aria-hidden", "true");
 document.body.classList.add("intro-enabled", "intro-locked");
-introGate.addEventListener("click", () => revealSite(true));
+introGate.addEventListener("click", () => {
+  if (introVideo.dataset.playbackBlocked === "true" && !introVideo.ended) {
+    const playback = introVideo.play();
+    if (playback) {
+      playback
+        .then(() => {
+          delete introVideo.dataset.playbackBlocked;
+        })
+        .catch(() => revealSite(true));
+    }
+    return;
+  }
+
+  revealSite(true);
+});
 window.addEventListener("wheel", revealFromWheel, { passive: false });
 window.addEventListener("touchmove", revealFromTouch, { passive: false });
 window.addEventListener("keydown", revealFromKey);
@@ -58,10 +72,23 @@ if (reducedMotion.matches) {
 } else {
   introVideo.addEventListener("ended", showCompleteHandwriting, { once: true });
   introVideo.addEventListener("error", showCompleteHandwriting, { once: true });
-  // A finite fallback also covers stalled loads and missing metadata.
-  completionTimer = window.setTimeout(showCompleteHandwriting, 11000);
+  introVideo.addEventListener(
+    "playing",
+    () => {
+      window.clearTimeout(completionTimer);
+      completionTimer = window.setTimeout(showCompleteHandwriting, 11000);
+    },
+    { once: true },
+  );
+
   const playback = introVideo.play();
-  if (playback) playback.catch(showCompleteHandwriting);
+  if (playback) {
+    playback.catch(() => {
+      // iOS can reject muted autoplay (for example in Low Power Mode).
+      // Keep the first video frame visible and let the first tap start the animation.
+      introVideo.dataset.playbackBlocked = "true";
+    });
+  }
 }
 
 reducedMotion.addEventListener("change", (event) => {
