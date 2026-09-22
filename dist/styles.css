@@ -493,4 +493,5 @@ a:focus-visible {
   text-transform: lowercase;
 }
 .pure-branch > summary::-webkit-details-marker { display: none; }
-.pure-letter { color: var(--ink); font-weight: 500; }
+.pure-letter { color: var(--ink); font-weight: 500; margin: 0; }
+.pure-letter + span { margin-left: 0; }
