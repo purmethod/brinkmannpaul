@@ -1,0 +1,50 @@
+[
+  {
+    "id": "pdf",
+    "name": "pdf blueprints",
+    "description": "practical systems for body, mind, food, space and a life built with intent.",
+    "kind": "digital",
+    "active": false,
+    "confirmed": false,
+    "unitAmount": null,
+    "currency": null,
+    "stripePriceId": null,
+    "maxQuantity": 1
+  },
+  {
+    "id": "kefir",
+    "name": "kefir grains",
+    "description": "living kefir grains with a simple guide for making fresh kefir at home.",
+    "kind": "physical",
+    "active": false,
+    "confirmed": false,
+    "unitAmount": null,
+    "currency": null,
+    "stripePriceId": null,
+    "maxQuantity": 1
+  },
+  {
+    "id": "sourdough",
+    "name": "sourdough starter",
+    "description": "an active sourdough starter with feeding instructions and a first-loaf guide.",
+    "kind": "physical",
+    "active": false,
+    "confirmed": false,
+    "unitAmount": null,
+    "currency": null,
+    "stripePriceId": null,
+    "maxQuantity": 1
+  },
+  {
+    "id": "books",
+    "name": "books",
+    "description": "books by paul brinkmann.",
+    "kind": "unspecified",
+    "active": false,
+    "confirmed": false,
+    "unitAmount": null,
+    "currency": null,
+    "stripePriceId": null,
+    "maxQuantity": 1
+  }
+]

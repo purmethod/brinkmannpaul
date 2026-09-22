@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>your order — brinkmann paul</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="order.mjs"></script>
+</head>
+<body>
+  <header class="site-header"><a href="/">brinkmann paul</a><a href="mailto:orders@brinkmannpaul.com">contact ↗</a></header>
+  <main class="order-page">
+    <p>your order</p>
+    <h1 id="order-title">checking your payment</h1>
+    <p id="order-message" role="status" aria-live="polite">please wait while your payment status is checked.</p>
+    <ul class="order-items" id="order-items" hidden></ul>
+    <div class="order-actions">
+      <button type="button" class="primary-link" id="order-retry" hidden>check again</button>
+      <a href="/#products" id="order-back">back to products ↗</a>
+    </div>
+    <p>questions about your order? <a href="mailto:orders@brinkmannpaul.com">orders@brinkmannpaul.com ↗</a></p>
+    <noscript><p>enable javascript to check your payment status, or contact orders@brinkmannpaul.com. this page alone does not confirm a payment.</p></noscript>
+  </main>
+</body>
+</html>

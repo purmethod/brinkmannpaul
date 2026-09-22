@@ -49,3 +49,8 @@ docs/assets/                → Screenshots als Referenz (Desktop/Mobile)
 - [x] Multi-Agent-Regeln (AGENTS.md) + Issue-Vorlage eingerichtet
 - [ ] P0-Optimierungen umgesetzt (Backlog, erste Issues angelegt)
 - [ ] Mobile-Verifikation auf echtem Gerät (Backlog P1)
+## Shop-Entwurf (Issue #11)
+
+Der Branch enthält einen eigenen Warenkorb und Vercel-APIs für Stripe Checkout, ohne Framework oder externe Laufzeitabhängigkeiten. Noch kein aktivierter Verkauf: Produktdaten und Zahlungs-/Lieferkonfiguration stehen aus. Setup, Tests und klare Grenzen siehe [docs/05-kaufprozess.md](docs/05-kaufprozess.md).
+
+Mit Node.js 22: `npm run dev` startet die Website inklusive APIs auf Port 8766; `npm test` prüft Warenkorb und Checkout-Verhalten. Der reine Static-Server aus dem ursprünglichen Schnellstart stellt die neuen APIs nicht bereit.

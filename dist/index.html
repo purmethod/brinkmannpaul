@@ -31,6 +31,7 @@
     <link rel="preload" href="assets/intro-handwriting-split-complete.png" as="image" type="image/png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
+    <script type="module" src="shop.mjs"></script>
   </head>
   <body>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website">
@@ -64,6 +65,7 @@
         <nav class="header-nav" aria-label="main navigation">
           <a href="#products">products</a>
           <a href="#work">work</a>
+          <button class="cart-open" id="cart-open" type="button" aria-haspopup="dialog" hidden>cart (<span id="cart-count">0</span>)</button>
           <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild ↗</a>
         </nav>
       </header>
@@ -212,6 +214,26 @@
         <a href="mailto:orders@brinkmannpaul.com">orders@brinkmannpaul.com ↗</a>
       </footer>
     </div>
+
+    <p class="sr-only" id="shop-announcement" role="status" aria-live="polite"></p>
+    <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title">
+      <div class="cart-header">
+        <h2 id="cart-title">your cart</h2>
+        <button id="cart-close" class="cart-close" type="button" aria-label="close cart" autofocus>close ×</button>
+      </div>
+      <div id="cart-empty" class="cart-empty">
+        <p>your cart is empty.</p>
+        <a id="cart-browse" href="#products">explore products ↓</a>
+      </div>
+      <ul id="cart-lines" class="cart-lines"></ul>
+      <div id="cart-summary" hidden>
+        <div class="cart-subtotal"><span>subtotal</span><strong id="cart-total"></strong></div>
+        <p class="cart-note">shipping, if applicable, is shown at checkout.</p>
+        <button id="checkout-button" class="primary-link checkout-button" type="button" disabled>continue to payment ↗</button>
+      </div>
+      <p id="cart-status" class="cart-status" role="status" aria-live="polite"></p>
+      <p class="cart-support">questions? <a href="mailto:orders@brinkmannpaul.com">write to me ↗</a></p>
+    </dialog>
 
     <noscript>
       <style>

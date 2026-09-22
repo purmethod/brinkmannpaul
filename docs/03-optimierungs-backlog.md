@@ -133,3 +133,7 @@ Paul meldet, dass die Handschrift nach der Veröffentlichung nicht mehr sichtbar
 ## Kaufprozess — Issue #11, Entwurf
 
 Paul priorisiert PDF-Guides, Kefirpilze, Sauerteigstarter und Bücher gleichwertig. Diese Angebote sind im Entwurf direkt sichtbar; übrige Projekte folgen als flache Liste. Hero und Signatur bleiben erhalten. Shopify-Anbindung vorgeschlagen, aber noch nicht bestätigt; Produktnamen/Preise/Versandangaben stehen aus. Keine produktive Veröffentlichung des unvollständigen Kaufprozesses. Details: `docs/05-kaufprozess.md`.
+
+### Update Issue #11 — eigener Shop statt Shopify
+
+Paul wählt ausdrücklich eine eigene Umsetzung. Warenkorb, serverseitig validierter Stripe-Checkout und geprüfte Zahlungsstatus-Abfrage sind als deaktivierter Entwurf implementiert. Preise, konkrete Artikel, Stripe-Konto, Versand und Auslieferungsprozess fehlen weiterhin. Shopify wird nicht angebunden. Kein produktiver Verkauf freigeschaltet; Details und Aktivierungsbedingungen in `docs/05-kaufprozess.md`.
