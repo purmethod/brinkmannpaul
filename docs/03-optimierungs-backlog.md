@@ -129,3 +129,7 @@ GitHub-Anmeldung wiederhergestellt. Paul hat die Veröffentlichung der aktuellen
 ## Korrektur Handschrift — Issue #8
 
 Paul meldet, dass die Handschrift nach der Veröffentlichung nicht mehr sichtbar ist. Ursache: Session-Merker übersprang das Intro bei Rückkehr. Merker entfernt; Handschrift bei jedem Aufruf. Bei reduzierter Bewegung wird das bestehende Endbild statt des Videos gezeigt. Original-Video, Projektliste und expliziter Einstieg bleiben unverändert. Diese Nutzerkorrektur ersetzt den Besucher-Speicher aus P0-04.
+
+## Kaufprozess — Issue #11, Entwurf
+
+Paul priorisiert PDF-Guides, Kefirpilze, Sauerteigstarter und Bücher gleichwertig. Diese Angebote sind im Entwurf direkt sichtbar; übrige Projekte folgen als flache Liste. Hero und Signatur bleiben erhalten. Shopify-Anbindung vorgeschlagen, aber noch nicht bestätigt; Produktnamen/Preise/Versandangaben stehen aus. Keine produktive Veröffentlichung des unvollständigen Kaufprozesses. Details: `docs/05-kaufprozess.md`.

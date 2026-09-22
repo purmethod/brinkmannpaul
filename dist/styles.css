@@ -174,14 +174,14 @@ a {
 }
 
 .index-intro {
-  padding-bottom: clamp(4rem, 9vw, 7rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
 
 .index-intro::before {
   content: none;
 }
 
-.index-intro p {
+.index-intro .hero-title {
   margin: 0;
   font-size: clamp(1.55rem, 3.6vw, 3.4rem);
   font-weight: 400;
@@ -332,7 +332,7 @@ a:focus-visible {
     padding-inline: 1.25rem;
   }
 
-  .index-intro p {
+  .index-intro .hero-title {
     font-size: clamp(1rem, 5vw, 2.1rem);
   }
 
@@ -397,4 +397,77 @@ a:focus-visible {
     opacity: 1;
     transform: none;
   }
+}
+
+
+/* The four purchase offers share one flat, equal-weight list. */
+.header-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+.index-intro .hero-description {
+  margin: 1.6rem 0 1.5rem;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.primary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 48px;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.85rem;
+}
+.primary-link:hover { background: var(--paper); color: var(--ink); }
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+}
+.section-heading h2 { margin: 0; font: inherit; color: var(--ink); }
+.product-rows { border-top: 1px solid var(--ink); }
+.product-row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1.05fr) minmax(0, 1.2fr) auto;
+  align-items: center;
+  column-gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.75rem, 4vw, 3rem) 0;
+  border-bottom: 1px solid var(--soft-line);
+  scroll-margin-top: 2rem;
+}
+.product-row:last-child { border-bottom-color: var(--ink); }
+.product-number, .product-kind { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.06em; }
+.product-number { align-self: start; padding-top: 0.1rem; }
+.product-kind { margin: 0 0 0.6rem; }
+.product-heading h3 { margin: 0; font-size: clamp(1.3rem, 2.35vw, 1.8rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.035em; }
+.product-description { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.55; max-width: 28rem; }
+.product-action { display: inline-flex; align-items: center; gap: 0.8rem; min-height: 44px; border-bottom: 1px solid var(--ink); font-size: 0.8rem; white-space: nowrap; }
+.product-action:hover, .product-contact a:hover { color: var(--muted); }
+.product-contact { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.8rem; }
+.product-contact a { color: var(--ink); border-bottom: 1px solid currentColor; padding-block: 0.35rem; }
+.work-section { margin-top: clamp(5rem, 10vw, 9rem); }
+.products-section, .work-section { scroll-margin-top: 2rem; }
+footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+footer a { border-bottom: 1px solid currentColor; padding-bottom: 0.2rem; }
+:target > .product-heading h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+@media (max-width: 760px) {
+  .product-row { grid-template-columns: 1.5rem minmax(0, 1fr); gap: 0.9rem 1rem; }
+  .product-number { grid-column: 1; grid-row: 1; }
+  .product-heading { grid-column: 2; }
+  .product-description, .product-action { grid-column: 2; }
+  .product-action { justify-self: start; margin-top: 0.15rem; }
+}
+@media (max-width: 480px) {
+  .site-header { gap: 1rem; flex-wrap: wrap; }
+  .header-nav { gap: 1rem; }
+  .header-nav a { font-size: 0.68rem; }
+  .section-heading span { font-size: 0.65rem; letter-spacing: 0.03em; }
+  footer { font-size: 0.68rem; }
 }
