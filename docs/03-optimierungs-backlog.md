@@ -142,3 +142,18 @@ Verbleibende Liste: neuroarchitecture, mysidibou, pure code, kefir, sourdough, w
 ## Korrektur Handschrift — Issue #8
 
 Paul meldet, dass die Handschrift nach der Veröffentlichung nicht mehr sichtbar ist. Ursache: Session-Merker übersprang das Intro bei Rückkehr. Merker entfernt; Handschrift bei jedem Aufruf. Bei reduzierter Bewegung wird das bestehende Endbild statt des Videos gezeigt. Original-Video, Projektliste und expliziter Einstieg bleiben unverändert. Diese Nutzerkorrektur ersetzt den Besucher-Speicher aus P0-04.
+
+## Intro-Autoplay auf iPhone verifiziert — Issue #10 Follow-up
+
+Nach dem Autoplay-Fix meldete Paul, die Animation liefe auf dem iPhone weiterhin nicht. Temporärer `?debug=1`-Diagnose-Overlay in `app.js` (PR #14) live geschaltet und mit Paul gemeinsam ausgewertet: Log zeigte `play() promise resolved` und `event: playing` — die Animation lief tatsächlich, Paul bestätigte das visuell. Ursprünglicher Report kam vermutlich vor Abschluss des Deployments. Debug-Overlay wieder entfernt (PR #15), `app.js` seitdem wieder byte-identisch zum Stand nach #12.
+
+## Site-Polish — Issue #16
+
+Paul beauftragt eigenständige Optimierung ("mega machen"). Umgesetzt, risikoarm, ohne neue Abhängigkeiten:
+- P1-02: Hover-/Focus-Zustand auf Projekt-Zeilen (item-name dunkler, Plus dreht sich schon beim Hover statt erst beim Öffnen).
+- P1-03: Footer „paul brink" → „paul brinkmann" (abgeschnittener Name korrigiert).
+- P1-04: `dist/404.html` im bestehenden Design ergänzt (`noindex`, Link zurück zur Startseite).
+- P0-01 Rest: `og:image`/`twitter:image` auf bestehendes Signatur-Endbild gesetzt (kein neues Asset), `twitter:card` auf `summary_large_image`.
+- mysidibou-Beschreibung um recherchierten Hintergrund ergänzt: Sidi Bou Saïd wurde im Juli 2026 als UNESCO-Weltkulturerbe eingetragen (whc.unesco.org/en/list/1769), mit realen Erhaltungsdrücken durch Tourismus, Bebauung und Kliff-Erosion (Quellen: France24, The New Arab, Carthage Magazine).
+- Issue #5 (Ritual-Plant-Link) als überholt geschlossen — ritual plant wurde per Issue #10 entfernt.
+- kefir, sourdough, wim hof instructor, pure code bewusst unverändert (Paul: „kann man lassen"); kein Eingriff in Issue #11 (Produkt-Shop/Checkout).
