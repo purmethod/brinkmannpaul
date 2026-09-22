@@ -262,6 +262,27 @@ a {
   transform: translate(-50%, -50%);
 }
 
+.project-item summary:hover .item-name,
+.project-item summary:focus-visible .item-name {
+  color: var(--ink);
+}
+
+.project-item summary:hover .plus::after,
+.project-item summary:focus-visible .plus::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.project-item[open] > summary:hover .plus::after,
+.project-item[open] > summary:focus-visible .plus::after {
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) {
+  .item-name {
+    transition: color 180ms ease;
+  }
+}
+
 .item-content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 9rem 1.5rem;
