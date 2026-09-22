@@ -2,6 +2,11 @@
 
 Stand: 2026-09-22 · Extrahiert von Higgsfield durch direkten Seitenabruf (HTML, CSS, JS, Assets) + Browser-Inspektion + Screenshots.
 
+> **Rollback-Hinweis (2026-09-22):** Die Website wurde per Git-Revert auf die vorherige Layout-Version
+> (Commit `42a8d21` — flache Projektliste ohne Kategorien) zurückgerollt. Diese Analyse dokumentiert den
+> Zustand der Drei-Kategorien-Version (Commit `a18b657`), die zuvor live war. Text-Master weiterhin
+> [02-inhalts-inventar.md](./02-inhalts-inventar.md).
+
 ## 1. Was ist die Seite?
 
 Ein einziger One-Pager (keine Unterseiten, keine Navigation) mit **Intro-Gate** und **drei Akkordeon-Kategorien**:
