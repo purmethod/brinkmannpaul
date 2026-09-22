@@ -1,5 +1,5 @@
 const introGate = document.querySelector("#intro-gate");
-const introVideo = document.querySelector("#intro-video");
+const introAnimation = document.querySelector("#intro-animation");
 const sitePage = document.querySelector("#site-page");
 const mainContent = document.querySelector("#main-content");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -9,14 +9,12 @@ let completionTimer;
 function showCompleteHandwriting() {
   window.clearTimeout(completionTimer);
   introGate.classList.add("is-complete");
-  introVideo.pause();
 }
 
 function revealSite(moveFocus = false) {
   if (!introOpen) return;
   introOpen = false;
   window.clearTimeout(completionTimer);
-  introVideo.pause();
   introGate.classList.add("is-leaving");
   sitePage.inert = false;
   sitePage.removeAttribute("aria-hidden");
@@ -48,21 +46,7 @@ introOpen = true;
 sitePage.inert = true;
 sitePage.setAttribute("aria-hidden", "true");
 document.body.classList.add("intro-enabled", "intro-locked");
-introGate.addEventListener("click", () => {
-  if (introVideo.dataset.playbackBlocked === "true" && !introVideo.ended) {
-    const playback = introVideo.play();
-    if (playback) {
-      playback
-        .then(() => {
-          delete introVideo.dataset.playbackBlocked;
-        })
-        .catch(() => revealSite(true));
-    }
-    return;
-  }
-
-  revealSite(true);
-});
+introGate.addEventListener("click", () => revealSite(true));
 window.addEventListener("wheel", revealFromWheel, { passive: false });
 window.addEventListener("touchmove", revealFromTouch, { passive: false });
 window.addEventListener("keydown", revealFromKey);
@@ -70,25 +54,8 @@ window.addEventListener("keydown", revealFromKey);
 if (reducedMotion.matches) {
   showCompleteHandwriting();
 } else {
-  introVideo.addEventListener("ended", showCompleteHandwriting, { once: true });
-  introVideo.addEventListener("error", showCompleteHandwriting, { once: true });
-  introVideo.addEventListener(
-    "playing",
-    () => {
-      window.clearTimeout(completionTimer);
-      completionTimer = window.setTimeout(showCompleteHandwriting, 11000);
-    },
-    { once: true },
-  );
-
-  const playback = introVideo.play();
-  if (playback) {
-    playback.catch(() => {
-      // iOS can reject muted autoplay (for example in Low Power Mode).
-      // Keep the first video frame visible and let the first tap start the animation.
-      introVideo.dataset.playbackBlocked = "true";
-    });
-  }
+  introAnimation.addEventListener("error", showCompleteHandwriting, { once: true });
+  completionTimer = window.setTimeout(showCompleteHandwriting, 10000);
 }
 
 reducedMotion.addEventListener("change", (event) => {
