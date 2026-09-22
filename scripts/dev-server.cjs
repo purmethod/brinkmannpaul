@@ -2,11 +2,12 @@
 const http = require('node:http');
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const root = path.resolve(__dirname, '../dist');
+require('../dist/scripts/build.cjs');
+const root = path.resolve(__dirname, '../dist/public');
 const handlers = {
-  '/api/catalog': require('../api/catalog'),
-  '/api/checkout': require('../api/checkout'),
-  '/api/order': require('../api/order'),
+  '/api/catalog': require('../dist/api/catalog'),
+  '/api/checkout': require('../dist/api/checkout'),
+  '/api/order': require('../dist/api/order'),
 };
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.mp4': 'video/mp4' };
 const server = http.createServer(async (req, res) => {

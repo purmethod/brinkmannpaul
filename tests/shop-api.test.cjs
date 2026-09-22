@@ -3,8 +3,8 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Readable } = require('node:stream');
-const { createHandlers } = require('../lib/shop');
-const drafts = require('../shop/products.json');
+const { createHandlers } = require('../dist/lib/shop');
+const drafts = require('../dist/shop/products.json');
 
 const requestId = '9b0ce323-e0b5-42e4-a1e7-bb28c238bcbc';
 const sessionId = 'cs_test_1234567890abcdefghijklmnopqrstuvwxyz';

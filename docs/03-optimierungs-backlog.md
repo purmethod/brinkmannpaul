@@ -150,3 +150,5 @@ Paul priorisiert PDF-Guides, Kefirpilze, Sauerteigstarter und Bücher gleichwert
 ### Update Issue #11 — eigener Shop statt Shopify
 
 Paul wählt ausdrücklich eine eigene Umsetzung. Warenkorb, serverseitig validierter Stripe-Checkout und geprüfte Zahlungsstatus-Abfrage sind als deaktivierter Entwurf implementiert. Preise, konkrete Artikel, Stripe-Konto, Versand und Auslieferungsprozess fehlen weiterhin. Shopify wird nicht angebunden. Kein produktiver Verkauf freigeschaltet; Details und Aktivierungsbedingungen in `docs/05-kaufprozess.md`.
+
+Die Vercel-Projektwurzel `dist` wurde anhand des bestehenden Deployments bestätigt. API, private Produktkonfiguration und unabhängiger Build liegen daher innerhalb dieses Ordners. Nur eine explizite Liste öffentlicher Dateien gelangt nach `dist/public`; Serverquellcode und Konfiguration werden nicht statisch ausgeliefert. 68 automatisierte Warenkorb-/API-Tests bestanden. Die Projektkuration und Intro-Korrektur aus PR #12 sind übernommen. Draft-PR #13 bleibt bis zur Einrichtung und tatsächlichen Kauf-/Lieferprüfung unveröffentlicht in Produktion.
