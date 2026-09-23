@@ -381,7 +381,12 @@ footer p {
 .item-story { grid-column: 1; max-width: 38rem; padding-right: 2rem; }
 .item-story p { margin: 0 0 1rem; line-height: 1.7; }
 .item-story .item-lead { color: var(--ink); line-height: 1.4; }
-.item-story .item-note { font-size: 0.72rem; letter-spacing: 0.04em; margin-bottom: 0; }
+.item-story .item-note {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  margin: 0;
+}
 .project-item[open] > summary { color: var(--ink); }
 .item-content a { padding-block: 0.7rem; min-height: 44px; white-space: normal; }
 
@@ -481,7 +486,11 @@ a:focus-visible {
 .instagram-link:focus-visible { text-decoration: none; }
 .instagram-icon { width: 0.72em; height: 0.72em; flex: 0 0 auto; }
 
-.pure-tree { display: grid; gap: 0.55rem; }
+.pure-tree {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
 .pure-branch { color: var(--muted); }
 .pure-branch > summary {
   display: flex;
