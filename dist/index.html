@@ -40,15 +40,9 @@
     <a class="skip-link" href="#main-content">skip to projects</a>
     <button class="intro-gate" id="intro-gate" type="button" aria-label="Enter the website" aria-hidden="true" tabindex="-1">
       <span class="intro-stage" aria-hidden="true">
-        <img
-          class="intro-media intro-animation"
-          id="intro-animation"
-          src="assets/intro-handwriting-split.webp"
-          alt=""
-          width="900"
-          height="1100"
-          fetchpriority="high"
-        />
+        <video class="intro-media intro-animation" id="intro-animation" autoplay muted playsinline preload="auto" width="900" height="1100">
+          <source src="assets/intro-handwriting-split.mp4" type="video/mp4" />
+        </video>
         <img
           class="intro-media intro-complete"
           src="assets/intro-handwriting-split-complete.png"
@@ -57,14 +51,13 @@
           height="1100"
         />
       </span>
-      <span class="intro-enter">enter →</span>
     </button>
 
     <div class="site-page" id="site-page">
       <div class="neural-background" aria-hidden="true"></div>
       <header class="site-header">
         <h1>brinkmann paul</h1>
-        <a href="https://www.instagram.com/brinkbuild/" target="_blank" rel="noreferrer">@brinkbuild</a>
+        <span>architect</span>
       </header>
 
       <main id="main-content" tabindex="-1">
