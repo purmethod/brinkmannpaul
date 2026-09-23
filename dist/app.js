@@ -61,7 +61,12 @@
   gate.addEventListener("click", () => enter(true));
   skip?.addEventListener("click", () => enter(true));
   animation.addEventListener("error", showStill, { once: true });
-  animation.addEventListener("load", () => window.clearTimeout(loadTimer), { once: true });
+  animation.addEventListener("loadeddata", () => {
+    window.clearTimeout(loadTimer);
+    animation.playbackRate = 1.25;
+    animation.play().catch(() => showStill());
+  }, { once: true });
+  animation.addEventListener("ended", showStill, { once: true });
   const onMotion = (event) => { if (event.matches && open) showStill(); };
   if (motion.addEventListener) motion.addEventListener("change", onMotion);
   else if (motion.addListener) motion.addListener(onMotion);
@@ -79,8 +84,8 @@
   window.addEventListener("touchmove", onTouchMove, { passive: false });
   window.addEventListener("keydown", onKey);
 
-  if (motion.matches || (animation.complete && animation.naturalWidth === 0)) showStill();
-  else if (!animation.complete) loadTimer = window.setTimeout(showStill, 12000);
+  if (motion.matches) showStill();
+  else loadTimer = window.setTimeout(showStill, 10000);
 })();
 
 // Native details work independently of JavaScript; readers may open multiple topics.
