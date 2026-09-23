@@ -507,3 +507,10 @@ a:focus-visible {
 .pure-branch > summary::-webkit-details-marker { display: none; }
 .pure-letter { color: var(--ink); font-weight: 500; margin: 0; }
 .pure-letter + span { margin-left: 0; }
+
+.pure-branch-text {
+  margin: 0.65rem 0 0.45rem;
+  max-width: 38rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
