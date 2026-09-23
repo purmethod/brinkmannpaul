@@ -509,8 +509,9 @@ a:focus-visible {
 .pure-letter + span { margin-left: 0; }
 
 .pure-branch-text {
-  margin: 0.65rem 0 0.45rem;
+  margin: 1rem 0 0.55rem;
   max-width: 38rem;
   color: var(--muted);
   line-height: 1.7;
+  text-transform: lowercase;
 }
