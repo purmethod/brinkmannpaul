@@ -171,3 +171,13 @@ Paul beauftragt eigenständige Optimierung ("mega machen"). Umgesetzt, risikoarm
 - mysidibou-Beschreibung um recherchierten Hintergrund ergänzt: Sidi Bou Saïd wurde im Juli 2026 als UNESCO-Weltkulturerbe eingetragen (whc.unesco.org/en/list/1769), mit realen Erhaltungsdrücken durch Tourismus, Bebauung und Kliff-Erosion (Quellen: France24, The New Arab, Carthage Magazine).
 - Issue #5 (Ritual-Plant-Link) als überholt geschlossen — ritual plant wurde per Issue #10 entfernt.
 - kefir, sourdough, wim hof instructor, pure code bewusst unverändert (Paul: „kann man lassen"); kein Eingriff in Issue #11 (Produkt-Shop/Checkout).
+
+
+## #28 — Brand-Zeilen korrigieren (2026-09-25)
+
+- Status: umgesetzt; visuelle Prüfung und unabhängiges Review vor Merge.
+- QEFYR, RYE und SKYN behalten Pauls ausdrücklich gewünschte Großschreibung.
+- RYE und SKYN erhalten dieselben Zeilenhöhen und mobilen Innenabstände wie die bestehenden Projekte.
+- `by BRINKMANN` wird als kleinerer Zusatz dargestellt.
+- Inhalte, Reihenfolge, Intro und übriges Design bleiben erhalten.
+- Issue: https://github.com/purmethod/brinkmannpaul/issues/28

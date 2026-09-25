@@ -212,7 +212,8 @@ a {
   border-bottom-color: var(--ink);
 }
 
-.project-item summary {
+.project-item summary,
+.brand-summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 9rem 1.5rem;
   gap: 0.75rem;
@@ -221,6 +222,19 @@ a {
   cursor: pointer;
   list-style: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+.brand-summary {
+  cursor: default;
+}
+
+.by-brinkmann {
+  display: inline-block;
+  font-size: 0.55em;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  vertical-align: baseline;
 }
 
 .item-type,
@@ -412,7 +426,8 @@ a:focus-visible {
 
 
 
-  .project-item summary {
+  .project-item summary,
+  .brand-summary {
     grid-template-columns: minmax(0, 1fr) 1.25rem;
     min-height: 4.75rem;
     padding: 1rem 0;
