@@ -175,7 +175,7 @@ Paul beauftragt eigenständige Optimierung ("mega machen"). Umgesetzt, risikoarm
 
 ## #28 — Brand-Zeilen korrigieren (2026-09-25)
 
-- Status: umgesetzt; visuelle Prüfung und unabhängiges Review vor Merge.
+- Status: umgesetzt und geprüft; unabhängiges Review ohne blockierende Befunde. Desktop sowie mobile Ansichten bei 320 px und 390 px visuell geprüft; QEFYR-Aufklappen und JavaScript-Syntaxprüfung erfolgreich.
 - QEFYR, RYE und SKYN behalten Pauls ausdrücklich gewünschte Großschreibung.
 - RYE und SKYN erhalten dieselben Zeilenhöhen und mobilen Innenabstände wie die bestehenden Projekte.
 - `by BRINKMANN` wird als kleinerer Zusatz dargestellt.
