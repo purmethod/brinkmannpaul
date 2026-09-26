@@ -91,10 +91,10 @@ body.intro-locked {
 
 .intro-handwriting {
   position: absolute;
-  top: 52%;
-  left: 7%;
+  bottom: 0;
+  left: 2%;
   display: grid;
-  width: 86%;
+  width: 96%;
   aspect-ratio: 9 / 11;
   place-items: center;
   mix-blend-mode: multiply;
@@ -450,8 +450,8 @@ a:focus-visible {
     top: auto;
     bottom: max(0.5rem, env(safe-area-inset-bottom));
     left: 50%;
-    width: min(86vw, 36vh);
-    width: min(86vw, 36dvh);
+    width: min(96vw, 48vh);
+    width: min(96vw, 48dvh);
     transform: translateX(-50%);
   }
 

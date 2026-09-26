@@ -203,3 +203,15 @@ Status: ✅ fertig; PR #33, unabhängiger Agent-Review ohne blockierende Befunde
 - Globale Viewport-Einstellung unverändert; Desktop und Projektseite unverändert.
 - Vercel-Browservorschau bei 393×660, 393×852 und 320×568 geprüft: Bildgrenzen jeweils exakt 0/0 bis Viewportbreite/-höhe, vollständige Handschrift sichtbar, Klick öffnet i build.
 - Temporäre QA-Seite vor Merge entfernt. Syntax- und Diff-Prüfung bestanden.
+
+
+## Issue #34 — Markante Unterschrift und natürliche Currency-Reihenfolge
+
+Status: ✅ fertig; PR #35; unabhängiger Agent-Review ohne blockierende Befunde.
+
+- Handschrift auf Mobilgeräten bis zu ein Drittel breiter (48dvh, maximal 96vw), auf Desktop 96% der Porträtbreite.
+- Neuer reproduzierbarer Renderer verwendet unveränderte Fotopixel und ersetzt nur den Currency-Bereich des bisherigen Videos.
+- Explizite Reihenfolge C → U → R → R → E → N → C → Y, anschließend der Auslauf/Unterstrich. Die vorherige komponentenbasierte Sortierung konnte den Y-Auslauf zu früh anzeigen.
+- Gerenderte Einzelbilder geprüft: kein vorzeitiges Y; neue H.264-Datei 60 fps, 137 KB. Originalvideo und vollständiges Standbild bleiben erhalten.
+- Vercel-Vorschau 393×660, 393×852, 320×568: komplette größere Handschrift sichtbar, keine Seitenränder, Einstieg zu i build. funktioniert. Temporäre QA-Seite entfernt.
+- Syntax/Diff-Prüfung bestanden, keine neuen Website-Abhängigkeiten.
