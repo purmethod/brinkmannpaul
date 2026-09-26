@@ -5,6 +5,17 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #30 — Porträt mit Handschrift auf dem Hemd
+
+Status: ✅ fertig; PR #31, unabhängiger Agent-Review ohne blockierende Befunde.
+
+- Pauls Originalfoto erscheint direkt im Intro, monochrom über CSS, ohne Veränderung des Gesichts.
+- Bestehende Handschrift liegt per Multiply über dem weißen Hemd; Animation und Endbild bleiben unverändert.
+- Kein zusätzliches Warten: Tap-, Scroll-, Swipe- und Tastatureinstiege bleiben erhalten.
+- Vercel-Browservorschau bei 1363 × 936 sowie in 390 × 844 und 320 × 568 Iframe-Viewports visuell geprüft: Gesicht und Schrift vollständig sichtbar. Klick, Scroll und Tastatur wechseln zur Projektliste.
+- Syntaxprüfung und Diff-Prüfung bestanden. Temporäre QA-Seite vor Merge entfernt.
+- Projektliste, Typografie, neuronaler Hintergrund und Fallbacks unverändert. Keine neuen Abhängigkeiten.
+
 ## Issue #24 — Zuverlässigkeit, Hintergrundinformationen, dezentes neuronales Netz
 
 Status: implementiert und in Vercel-Vorschau geprüft; zur Veröffentlichung freigegeben (PR #25).
