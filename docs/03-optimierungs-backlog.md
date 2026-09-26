@@ -192,3 +192,14 @@ Paul beauftragt eigenständige Optimierung ("mega machen"). Umgesetzt, risikoarm
 - `by BRINKMANN` wird als kleinerer Zusatz dargestellt.
 - Inhalte, Reihenfolge, Intro und übriges Design bleiben erhalten.
 - Issue: https://github.com/purmethod/brinkmannpaul/issues/28
+
+
+## Issue #32 — Randloser mobiler Porträt-Einstieg
+
+Status: ✅ fertig; PR #33, unabhängiger Agent-Review ohne blockierende Befunde.
+
+- Mobile Intro-Fläche absolut auf die sichtbare Bildschirmgröße begrenzt; Foto füllt sie per object-fit: cover ohne seitliche Balken.
+- Handschrift unabhängig vom beschnittenen Foto unten verankert und nach dynamischer Viewporthöhe skaliert, mit Safe-Area-Abstand.
+- Globale Viewport-Einstellung unverändert; Desktop und Projektseite unverändert.
+- Vercel-Browservorschau bei 393×660, 393×852 und 320×568 geprüft: Bildgrenzen jeweils exakt 0/0 bis Viewportbreite/-höhe, vollständige Handschrift sichtbar, Klick öffnet i build.
+- Temporäre QA-Seite vor Merge entfernt. Syntax- und Diff-Prüfung bestanden.
