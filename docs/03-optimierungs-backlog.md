@@ -215,3 +215,13 @@ Status: ✅ fertig; PR #35; unabhängiger Agent-Review ohne blockierende Befunde
 - Gerenderte Einzelbilder geprüft: kein vorzeitiges Y; neue H.264-Datei 60 fps, 137 KB. Originalvideo und vollständiges Standbild bleiben erhalten.
 - Vercel-Vorschau 393×660, 393×852, 320×568: komplette größere Handschrift sichtbar, keine Seitenränder, Einstieg zu i build. funktioniert. Temporäre QA-Seite entfernt.
 - Syntax/Diff-Prüfung bestanden, keine neuen Website-Abhängigkeiten.
+
+
+## Issue #36 — Porträt in natürlichen Farben
+
+Status: umgesetzt und in mobiler Vercel-Vorschau geprüft; PR #37.
+
+- Ausschließlich den CSS-Graustufenfilter entfernt; unveränderte Originalfarben ohne Sättigungsverstärkung.
+- Stylesheet-Cache aktualisiert; Bilddatei, Handschrift, Animation, Layout und Interaktionen unverändert.
+- Unabhängiger Review ohne blockierende Befunde. Mobile Vorschau 393×720: Originalfoto in Farbe und vollständige schwarze Handschrift sichtbar.
+- Temporäre QA-Seite vor Merge entfernt.
