@@ -4,6 +4,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: PURE, Issue #38 (2026-09-28)
+
+- Paul hat die vollständigen englischen Kapiteltexte im Chat freigegeben und ihre Veröffentlichung beauftragt.
+- `physical control`: den eigenen Körper verstehen und bewusst führen, statt ihn zu kommandieren.
+- `understanding the mind`: Gehirn und innere Erfahrung über die Hardware/Software-Analogie erklären; Belohnungssystem, leicht verfügbare Reize und bewusste Entscheidungen verständlich machen.
+- `responsibility`: Verantwortung für sich selbst, Beziehung und Familie übernehmen; Freiheit ohne Besitzdenken oder Kontrolle anderer Menschen.
+- `ego`: Selbstbild und Abwehrreaktionen erkennen, klare Grenzen setzen, den Partner kennenlernen, persönliche Praxis und den Glauben an etwas Größeres erklären.
+- Freigegebener Wortlaut vollständig in den vier bestehenden `.pure-branch`-Abschnitten von `dist/index.html`, mit 5/8/6/15 Absätzen, durchgehend kleingeschrieben und ohne Bindestriche oder Gedankenstriche.
+- Bestehende Kapitelüberschriften, Aufklappverhalten und `coming soon. follow for the blueprint.` bleiben erhalten.
+- Diese Aktualisierung ersetzt frühere PURE-Beschreibungen in diesem historischen Inventar.
+
 ## Aktualisierung — Issue #24 (2026-09-22)
 
 - Hero: `one man, one purpose: build`.

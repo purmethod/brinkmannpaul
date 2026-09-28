@@ -5,6 +5,19 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #38: Freigegebene PURE-Kapitel (2026-09-28)
+
+Status: ✅ umgesetzt und geprüft; PR #39, unabhängiger Agent-Review ohne blockierende Befunde.
+
+- Alle vier PURE-Kapitel wortgetreu durch Pauls freigegebenen englischen Entwurf ersetzt.
+- 34 separate Absätze innerhalb der vorhandenen Kapitel-Akkordeons; bestehende Typografie und Abstände werden weiterverwendet.
+- Durchgehend Kleinschreibung, keine Bindestriche oder Gedankenstriche in den neuen Texten.
+- Inhaltsinventar aktualisiert. Keine Änderungen an anderen Projekten, CSS, JavaScript oder Assets.
+- Paul hat die Veröffentlichung am 2026-09-28 ausdrücklich beauftragt. Veröffentlichung erfolgt nach Prüfung über den bestehenden GitHub/Vercel-Ablauf.
+- Exakter Textvergleich (5/8/6/15 Absätze), Kleinschreibung, Prüfung auf Bindestriche/Gedankenstriche, `node --check dist/app.js` und `git diff --check` bestanden.
+- Vercel-Vorschau auf Desktop (1363 × 936) und in mobilen Iframe-Viewports (390 px und 320 px) geprüft: alle vier Kapitel vollständig, kein horizontaler Überlauf, natürliche Absatzhöhen, Aufklappen funktioniert. Nur Browser-Erweiterungsfehler beobachtet; keine Website-Fehler.
+- Temporäre mobile Prüfseite vor Merge entfernt. Produktionsdateien außerhalb der vier Kapitel sind byte-identisch zum Ausgangsstand.
+
 ## Issue #30 — Porträt mit Handschrift auf dem Hemd
 
 Status: ✅ fertig; PR #31, unabhängiger Agent-Review ohne blockierende Befunde.
