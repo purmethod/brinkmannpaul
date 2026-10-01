@@ -1,0 +1,67 @@
+name: process-video
+
+# Triggered by the studio app (repository_dispatch) after a reel upload.
+# Manual run: Actions → process-video → Run workflow, paste the JSON payload.
+on:
+  repository_dispatch:
+    types: [process-video]
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: '{"postId","brandId","templateId","clips":[...],"callbackUrl"}'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: process-video-${{ github.event.client_payload.postId || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJson(github.event.client_payload) || github.event.inputs.payload }}
+      WORK_DIR: ${{ github.workspace }}/work
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: studio
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: studio/worker/requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: whisper model cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+
+      - name: install
+        run: |
+          pip install -r studio/worker/requirements.txt
+          npm install --prefix studio/worker --no-audit --no-fund
+
+      - name: cut, subtitle, render
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python studio/worker/process_video.py
+
+      - name: upload + report to app
+        if: always()
+        env:
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+        run: node studio/worker/finish.mjs
