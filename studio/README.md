@@ -11,7 +11,10 @@ Separate from the one-pager in `dist/`. Vercel project root directory: `studio`.
 - `brands/<id>/` = brand kit: `brand.json` (handle, timezone, post hour, `autoApprove`,
   fonts, sizes, caption rules, video settings), `templates.json` (WHITE / BLACK / PHOTO),
   `fonts/`, `signature.png`, optional `logo.png`.
-- Active brand: env `BRAND_ID` (default `brinkbuild`). A new brand = new folder.
+- In-app overrides (redis + blob) win over the repo: signature upload and auto-approve on `/brand`.
+- Redis keys are namespaced per brand (`brand:<id>:…`); the cron publishes every brand at its own local post hour.
+- Active brand in the UI: env `BRAND_ID` (default `brinkbuild`). A new brand = new folder.
+- Road to a multi-user App Store app: [docs/app-roadmap.md](./docs/app-roadmap.md).
 
 `signature.png`: transparent PNG, dark ink. It gets inverted automatically for BLACK/PHOTO.
 
@@ -22,8 +25,9 @@ Separate from the one-pager in `dist/`. Vercel project root directory: `studio`.
 | upload (client upload straight into Vercel Blob) | `/` |
 | carousel: satori + resvg → 1080×1350 PNG (+ JPEG for Instagram) | `lib/carousel.ts` |
 | reel: `repository_dispatch` → `.github/workflows/process-video.yml` | `worker/process_video.py` |
-| preview, edit caption, save each file, approve | `/preview/<id>` |
-| queue, errors, retry, post now | `/status` |
+| preview, edit caption, switch template / re-render, save each file, approve | `/preview/<id>` |
+| setup checklist, test instagram, queue, errors, retry, post now | `/status` |
+| signature upload, auto-approve | `/brand` |
 | cron 16:00 + 17:00 UTC → only the run at 18:00 berlin posts | `app/api/cron/publish` |
 
 Status: `processing` (reel being rendered) → `draft` → `approved` → `posted` | `error`.
