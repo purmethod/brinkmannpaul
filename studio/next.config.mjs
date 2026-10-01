@@ -7,6 +7,7 @@ const nextConfig = {
     '/api/**/*': ['./brands/**/*', './node_modules/harfbuzzjs/*.wasm'],
     '/status': ['./brands/**/*', './node_modules/harfbuzzjs/*.wasm'],
     '/': ['./brands/**/*'],
+    '/preview/**/*': ['./brands/**/*'],
   },
 };
 

@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
-import { createCarouselPost, createReelPost } from '@/lib/posts';
+import { defaultBrandId } from '@/lib/brand';
+import { createCarouselPost, createReelPost, isBlobUrl } from '@/lib/posts';
 import { listPosts } from '@/lib/store';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
 
 export async function GET() {
-  return NextResponse.json({ posts: await listPosts() });
+  return NextResponse.json({ posts: await listPosts(defaultBrandId()) });
 }
 
 export async function POST(req: Request) {
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
     media?: string[];
     scheduledFor?: string;
   };
-  const media = Array.isArray(body.media) ? body.media.filter((u) => typeof u === 'string' && u.startsWith('https://')) : [];
+  const media = Array.isArray(body.media) ? body.media.filter(isBlobUrl) : [];
   try {
     if (!body.templateId) throw new Error('choose a template');
     if (body.type === 'carousel') {

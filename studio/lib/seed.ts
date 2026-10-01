@@ -19,12 +19,12 @@ const CAPTION = `most men will read this and think of someone else. that's the e
 
 /** Puts the first carousel into the queue exactly once (status draft, template WHITE). */
 export async function ensureSeed(): Promise<void> {
-  const claimed = await redis().set(SEED_KEY, 'pending', { nx: true });
+  const claimed = await redis().set(SEED_KEY, 'pending', { nx: true, ex: 600 });
   if (!claimed) return;
   try {
     const post = await createCarouselPost({ templateId: 'WHITE', text: TEXT, caption: CAPTION });
     if (post.status !== 'draft') await updatePost(post.id, { status: 'draft', approvedAt: undefined });
-    await redis().set(SEED_KEY, post.id);
+    await redis().set(SEED_KEY, post.id); // no expiry: seeded for good
   } catch (e) {
     await redis().del(SEED_KEY);
     throw e;

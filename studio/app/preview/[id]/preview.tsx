@@ -4,7 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Post } from '@/lib/types';
 import { saveFile } from '../../save';
 
-export default function Preview({ id }: { id: string }) {
+type Tpl = { id: string; label: string; media: boolean };
+
+export default function Preview({ id, templates }: { id: string; templates: Tpl[] }) {
   const [post, setPost] = useState<Post | null>(null);
   const [caption, setCaption] = useState('');
   const [date, setDate] = useState('');
@@ -40,10 +42,10 @@ export default function Preview({ id }: { id: string }) {
     return () => clearTimeout(timer);
   }, [load]);
 
-  async function patch(body: Record<string, unknown>, done: string) {
+  async function patch(body: Record<string, unknown>, done: string, working = '') {
     setBusy(true);
     setError('');
-    setMsg('');
+    setMsg(working);
     const res = await fetch(`/api/posts/${id}`, {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
@@ -93,6 +95,32 @@ export default function Preview({ id }: { id: string }) {
             );
           })}
         </div>
+      )}
+
+      {post.type === 'carousel' && !locked && (
+        <>
+          <label>template</label>
+          <div className="seg" role="group" aria-label="template">
+            {templates
+              .filter((t) => !t.media || (post.source.media ?? []).length > 0)
+              .map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  disabled={busy}
+                  aria-pressed={post.templateId === t.id}
+                  onClick={() => patch({ action: 'rerender', templateId: t.id }, `re-rendered as ${t.label}`, 'rendering…')}
+                >
+                  {t.label}
+                </button>
+              ))}
+          </div>
+          <p>
+            <button type="button" disabled={busy} onClick={() => patch({ action: 'rerender' }, 're-rendered', 'rendering…')}>
+              re-render (after signature change)
+            </button>
+          </p>
+        </>
       )}
 
       {post.video && (

@@ -1,55 +1,69 @@
-import { loadBrand } from '@/lib/brand';
-import { redis } from '@/lib/redis';
+import { defaultBrandId, getBrand, loadBrandDefaults } from '@/lib/brand';
+import { pickNext } from '@/lib/queue';
 import { ensureSeed } from '@/lib/seed';
+import { setupChecks, type Check } from '@/lib/setup';
 import { listPosts } from '@/lib/store';
+import { zonedNow } from '@/lib/time';
 import { tokenInfo } from '@/lib/token';
-import type { Post } from '@/lib/types';
+import type { Brand, Post } from '@/lib/types';
 import PostActions from './post-actions';
+import SetupPanel from './setup-panel';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-const fmt = (ms?: number) =>
-  ms ? new Date(ms).toLocaleString('en-GB', { timeZone: 'Europe/Berlin', dateStyle: 'short', timeStyle: 'short' }) : '–';
+const fmt = (ms: number | undefined, tz: string) =>
+  ms ? new Date(ms).toLocaleString('en-GB', { timeZone: tz, dateStyle: 'short', timeStyle: 'short' }) : '–';
 
 export default async function StatusPage() {
-  let setupError = '';
+  const brandId = defaultBrandId();
+  const errors: string[] = [];
   try {
     await ensureSeed();
   } catch (e) {
-    setupError = `first post could not be created: ${(e as Error).message}`;
+    errors.push(`first post could not be created: ${(e as Error).message}`);
   }
 
+  let brand: Brand = loadBrandDefaults(brandId);
   let posts: Post[] = [];
-  let username: string | null = null;
   let token: Awaited<ReturnType<typeof tokenInfo>> = null;
+  let next: Post | null = null;
+  let checks: Check[] = [];
   try {
-    posts = await listPosts();
-    username = await redis().get<string>('ig:username');
-    token = await tokenInfo();
+    brand = await getBrand(brandId);
+    const { date } = zonedNow(brand.timezone);
+    [posts, token, next, checks] = await Promise.all([listPosts(brandId), tokenInfo(brandId), pickNext(brandId, date), setupChecks(brandId)]);
   } catch (e) {
-    setupError = (e as Error).message;
+    errors.push((e as Error).message);
   }
 
-  const brand = loadBrand();
+  const tz = brand.timezone;
+  const { hour } = zonedNow(tz);
+  const when = hour <= brand.postHour ? `today ${brand.postHour}:00` : `tomorrow ${brand.postHour}:00`;
   const order: Post['status'][] = ['error', 'processing', 'draft', 'approved', 'posted'];
-  const sorted = [...posts].sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status));
+  const sorted = [...posts].sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status) || b.createdAt - a.createdAt);
 
   return (
     <>
       <h1>queue</h1>
-      <p className="muted">
-        posts daily at {brand.postHour}:00 {brand.timezone.toLowerCase()} · {brand.handle}
-        {username ? ` (connected as @${username})` : ''} · auto-approve {brand.autoApprove ? 'on' : 'off'}
+      {checks.length > 0 && <SetupPanel checks={checks} />}
+      <p>
+        {next ? (
+          <>
+            next post {when}: <a href={`/preview/${next.id}`}>{(next.caption || next.source.text || next.type).split('\n')[0].slice(0, 70)}</a>
+          </>
+        ) : (
+          <span className="muted">nothing approved — approve a draft to post {when}.</span>
+        )}
       </p>
-      {token && (
-        <p className="muted">
-          token refreshed {token.refreshedAt ? fmt(token.refreshedAt) : 'not yet'}
-          {token.expiresAt ? ` · expires ${fmt(token.expiresAt)}` : ''}
-        </p>
-      )}
+      <p className="muted">
+        {brand.handle} · daily {brand.postHour}:00 {tz.toLowerCase()} · auto-approve {brand.autoApprove ? 'on' : 'off'}
+        {token ? ` · token refreshed ${token.refreshedAt ? fmt(token.refreshedAt, tz) : 'not yet'}` : ''}
+      </p>
       {token?.lastError && <p className="error">token refresh: {token.lastError}</p>}
-      {setupError && <p className="error">{setupError}</p>}
+      {errors.map((e) => (
+        <p className="error" key={e}>{e}</p>
+      ))}
 
       <ul className="list">
         {sorted.map((p) => (
@@ -65,9 +79,9 @@ export default async function StatusPage() {
               {(p.caption || p.source.text || '').split('\n')[0].slice(0, 90) || '—'}
             </p>
             <p className="muted" style={{ margin: '6px 0' }}>
-              created {fmt(p.createdAt)}
+              created {fmt(p.createdAt, tz)}
               {p.scheduledFor ? ` · desired ${p.scheduledFor}` : ''}
-              {p.postedAt ? ` · posted ${fmt(p.postedAt)}` : ''}
+              {p.postedAt ? ` · posted ${fmt(p.postedAt, tz)}` : ''}
             </p>
             {p.error && <p className="error">{p.error}</p>}
             {p.permalink && (
@@ -79,7 +93,7 @@ export default async function StatusPage() {
           </li>
         ))}
       </ul>
-      {!posts.length && !setupError && <p className="muted">nothing here yet.</p>}
+      {!posts.length && !errors.length && <p className="muted">nothing here yet.</p>}
     </>
   );
 }

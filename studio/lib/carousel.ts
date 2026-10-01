@@ -1,7 +1,7 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import sharp from 'sharp';
-import { readBrandFile } from './brand';
+import { getBrandAsset, readBrandFile } from './brand';
 import type { Brand, BrandTemplate } from './types';
 
 /* ---------- slide text format: "|" = new line, "**text**" = bold ---------- */
@@ -98,15 +98,24 @@ function fonts(brand: Brand) {
 
 type Img = { src: string; width: number; height: number };
 
+const imageCache = new WeakMap<Buffer, Map<string, Img>>();
+
+/** Brand asset (signature, logo) as data uri — uploaded-in-app version wins over the repo file. */
 async function brandImage(brandId: string, file: string, width: number, invert: boolean): Promise<Img | null> {
-  const buf = readBrandFile(brandId, file);
+  const buf = await getBrandAsset(brandId, file);
   if (!buf) return null;
+  const variant = `${width}:${invert}`;
+  const cached = imageCache.get(buf)?.get(variant);
+  if (cached) return cached;
   let img = sharp(buf).ensureAlpha();
   if (invert) img = img.negate({ alpha: false });
   const out = await img.resize({ width: width * 2 }).png().toBuffer();
   const meta = await sharp(out).metadata();
   const height = Math.round((width * (meta.height ?? width)) / (meta.width ?? width));
-  return { src: `data:image/png;base64,${out.toString('base64')}`, width, height };
+  const result = { src: `data:image/png;base64,${out.toString('base64')}`, width, height };
+  if (!imageCache.has(buf)) imageCache.set(buf, new Map());
+  imageCache.get(buf)!.set(variant, result);
+  return result;
 }
 
 async function photoBackground(url: string, w: number, h: number): Promise<string> {

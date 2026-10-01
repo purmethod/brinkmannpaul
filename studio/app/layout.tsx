@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="top">
           <a href="/">new</a>
           <a href="/status">queue</a>
+          <a href="/brand">brand</a>
         </header>
         <main>{children}</main>
       </body>

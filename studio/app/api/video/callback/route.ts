@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { bearerMatches } from '@/lib/auth';
-import { loadBrand } from '@/lib/brand';
+import { getBrand } from '@/lib/brand';
 import { writeCaption } from '@/lib/claude';
 import { initialStatus } from '@/lib/posts';
 import { getPost, savePost } from '@/lib/store';
@@ -31,12 +31,12 @@ export async function POST(req: Request) {
   let error: string | null = null;
   if (!caption) {
     try {
-      caption = body.transcript ? await writeCaption(loadBrand(post.brandId), 'reel', body.transcript) : '';
+      caption = body.transcript ? await writeCaption(await getBrand(post.brandId), 'reel', body.transcript) : '';
     } catch (e) {
       error = `caption: ${(e as Error).message}`;
     }
   }
-  const status = initialStatus(post.brandId);
+  const status = await initialStatus(post.brandId);
   await savePost({
     ...post,
     status,

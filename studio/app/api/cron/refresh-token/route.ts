@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { bearerMatches } from '@/lib/auth';
+import { defaultBrandId } from '@/lib/brand';
 import { refreshToken } from '@/lib/token';
 
 export const dynamic = 'force-dynamic';
@@ -9,5 +10,7 @@ export async function GET(req: Request) {
   if (!bearerMatches(req, process.env.CRON_SECRET, process.env.ADMIN_SECRET)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
-  return NextResponse.json(await refreshToken(new URL(req.url).searchParams.get('force') === '1'));
+  const url = new URL(req.url);
+  const brandId = url.searchParams.get('brand') || defaultBrandId();
+  return NextResponse.json(await refreshToken(brandId, url.searchParams.get('force') === '1'));
 }

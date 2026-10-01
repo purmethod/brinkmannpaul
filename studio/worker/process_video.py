@@ -325,10 +325,13 @@ def write_ass(chunks, path, brand, tpl):
 
 # ---------------------------------------------------------------- brand overlays
 
-def signature_png(brand_dir, brand, tpl, out):
+def signature_png(brand_dir, brand, tpl, out, override_url=None):
     from PIL import Image, ImageOps
 
     src = brand_dir / brand["signature"]["file"]
+    if override_url:  # signature uploaded in the app wins over the repo file
+        src = WORK / "signature-src.png"
+        download(override_url, src)
     if not src.exists():
         log("no signature.png in brand kit — skipping signature")
         return None
@@ -371,7 +374,7 @@ def logo_png(brand_dir, tpl, out):
     return out
 
 
-def render_final(joined, dur, ass, brand, tpl, brand_dir, out):
+def render_final(joined, dur, ass, brand, tpl, brand_dir, out, assets=None):
     W, H, fps = brand["video"]["width"], brand["video"]["height"], brand["video"]["fps"]
     v = tpl["video"]
     sig_cfg = brand["video"]["signature"]
@@ -407,7 +410,7 @@ def render_final(joined, dur, ass, brand, tpl, brand_dir, out):
     if ass:
         fc.append(f"[{cur}]subtitles=filename=subs.ass:fontsdir=fonts[s]")
         cur = "s"
-    sig = signature_png(brand_dir, brand, tpl, WORK / "signature.png")
+    sig = signature_png(brand_dir, brand, tpl, WORK / "signature.png", (assets or {}).get("signature"))
     if sig:
         i = still(sig)
         start = dur * sig_cfg["startFraction"]
@@ -493,7 +496,7 @@ def main(payload):
         write_ass(fitted, ass, brand, tpl)
 
     final = WORK / "final.mp4"
-    render_final(joined, dur, ass, brand, tpl, brand_dir, final)
+    render_final(joined, dur, ass, brand, tpl, brand_dir, final, payload.get("assets"))
     dur = duration_of(final)
     if dur > 180:
         log(f"warning: {dur:.0f}s is longer than instagram's reel limit for the api")

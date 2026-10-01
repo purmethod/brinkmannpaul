@@ -1,3 +1,4 @@
+import { getOverrides, loadBrandDefaults } from './brand';
 import type { Post } from './types';
 
 export function appOrigin(fallback: string): string {
@@ -11,6 +12,9 @@ export async function dispatchVideoJob(post: Post, origin: string): Promise<void
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error('GITHUB_TOKEN not set');
   const repo = process.env.GITHUB_REPO || 'purmethod/brinkmannpaul';
+  // brand assets uploaded in the app travel with the job, so the worker never needs a redeploy
+  const overrides = await getOverrides(post.brandId);
+  const signatureFile = loadBrandDefaults(post.brandId).signature.file;
   const res = await fetch(`https://api.github.com/repos/${repo}/dispatches`, {
     method: 'POST',
     headers: {
@@ -27,6 +31,7 @@ export async function dispatchVideoJob(post: Post, origin: string): Promise<void
         templateId: post.templateId,
         clips: post.source.media ?? [],
         callbackUrl: `${appOrigin(origin)}/api/video/callback`,
+        assets: { signature: overrides.assets?.[signatureFile] ?? null },
       },
     }),
   });
