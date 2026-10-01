@@ -1,0 +1,91 @@
+{
+  "id": "brinkbuild",
+  "name": "brinkbuild",
+  "handle": "@brinkbuild",
+  "language": "en",
+  "autoApprove": false,
+  "timezone": "Europe/Berlin",
+  "fonts": {
+    "family": "Lora",
+    "regular": "fonts/Lora-Regular.ttf",
+    "bold": "fonts/Lora-Bold.ttf"
+  },
+  "signature": {
+    "file": "signature.png"
+  },
+  "carousel": {
+    "width": 1080,
+    "height": 1350,
+    "margin": 120,
+    "fontSizeMax": 90,
+    "fontSizeMin": 70,
+    "lineHeight": 1.28,
+    "lowercase": true,
+    "maxSlides": 10,
+    "signature": {
+      "width": 300,
+      "margin": 75
+    }
+  },
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "pauseThreshold": 0.6,
+    "crossfade": 0.1333,
+    "fillers": [
+      "äh",
+      "ähm",
+      "öh",
+      "öhm",
+      "ehm",
+      "eh",
+      "uh",
+      "uhm",
+      "um",
+      "umm",
+      "hm",
+      "hmm",
+      "mhm",
+      "erm"
+    ],
+    "subtitles": {
+      "language": "en",
+      "fontSize": 54,
+      "maxCharsPerLine": 30,
+      "maxLines": 2,
+      "marginSide": 90,
+      "lowercase": true
+    },
+    "signature": {
+      "width": 220,
+      "marginRight": 60,
+      "marginBottom": 200,
+      "startFraction": 0.6667,
+      "fadeInSec": 0.8
+    },
+    "claude": {
+      "framesPerSecond": 1,
+      "maxFrames": 60,
+      "frameWidth": 384
+    }
+  },
+  "caption": {
+    "model": "claude-sonnet-5-5",
+    "maxHashtags": 5,
+    "rules": [
+      "write in english.",
+      "everything lowercase, including hashtags.",
+      "the first line is the hook: one short, calm sentence that makes people stop.",
+      "calm, grounded, masculine, honest. no hype, no clickbait, no exclamation marks.",
+      "no emoji flood: zero emojis, at most one if it truly adds something.",
+      "short paragraphs, plenty of white space, max 120 words before the hashtags.",
+      "end with max 5 relevant hashtags on their own last line.",
+      "output only the caption text, nothing else."
+    ]
+  },
+  "defaultTemplate": "WHITE",
+  "maxTemplates": 5,
+  "subtitleLanguage": "en",
+  "cutRules": "- calm pace, no hectic cuts.\n- start with the strongest sentence (the hook), never with a greeting.\n- keep complete thoughts; never cut mid-sentence.\n- 20–60 seconds total unless the content clearly needs more."
+}
