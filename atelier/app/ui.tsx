@@ -202,16 +202,15 @@ export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
   );
 }
 
-/* ---------- cutcake logo: dome, cherry, three layers — the gaps are the cuts ---------- */
+/* ---------- cutcake logo: dome over three layers — the gaps are the cuts ---------- */
 
 export function Logo({ size = 28 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
-      <path d="M19 48a31 31 0 0 1 62 0z" />
-      <circle cx="75" cy="19.5" r="7.6" />
-      <rect x="19" y="53" width="62" height="12" rx="1.8" />
-      <rect x="24" y="70" width="52" height="12" rx="1.8" />
-      <rect x="29" y="87" width="42" height="12" rx="1.8" />
+    <svg width={size} height={size} viewBox="366 366 1200 1200" aria-hidden="true" className="logo">
+      <path d="M438 868a528 453 0 0 1 1056 0z" fill="var(--logo-dome)" />
+      <rect x="377" y="958" width="1178" height="136" rx="22" fill="var(--logo-layer)" />
+      <rect x="468" y="1170" width="996" height="136" rx="22" fill="var(--logo-layer)" />
+      <rect x="573" y="1381" width="785" height="136" rx="22" fill="var(--logo-layer)" />
     </svg>
   );
 }

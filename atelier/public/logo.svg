@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor"><path d="M19 48a31 31 0 0 1 62 0z"/><circle cx="75" cy="19.5" r="7.6"/><rect x="19" y="53" width="62" height="12" rx="1.8"/><rect x="24" y="70" width="52" height="12" rx="1.8"/><rect x="29" y="87" width="42" height="12" rx="1.8"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="366 366 1200 1200">
+  <style>.dome{fill:#4A4F9E}.layer{fill:#1F1C5E}</style>
+  <path class="dome" d="M438 868a528 453 0 0 1 1056 0z"/>
+  <rect class="layer" x="377" y="958" width="1178" height="136" rx="22"/>
+  <rect class="layer" x="468" y="1170" width="996" height="136" rx="22"/>
+  <rect class="layer" x="573" y="1381" width="785" height="136" rx="22"/>
+</svg>
