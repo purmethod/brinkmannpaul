@@ -4,6 +4,7 @@ import { one } from '@/lib/db';
 import { mediaByIds } from '@/lib/media';
 import { deletePost, getPost, render, updatePost } from '@/lib/posts';
 import { addFeedback } from '@/lib/rules';
+import { openSlots, recordReview } from '@/lib/autopilot';
 import { cancelSchedule, publishPost, schedulePost } from '@/lib/schedule';
 import { localToUtc } from '@/lib/time';
 import type { Post, Schedule } from '@/lib/types';
@@ -37,7 +38,7 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   const { user, brand, post: current } = await load(req, params);
   const b = (await req.json().catch(() => ({}))) as {
     caption?: string; template?: string; at?: string | null; collaborators?: string[]; subtitleLanguage?: string;
-    voiceoverUrl?: string | null; feedback?: string; action?: string;
+    voiceoverUrl?: string | null; feedback?: string; action?: string; reason?: string;
   };
   if (current.status === 'posted') throw new HttpError(409, 'already posted');
   let post = current;
@@ -55,6 +56,28 @@ export const PATCH = route(async (req: Request, { params }: P) => {
 
   if (b.feedback?.trim()) await addFeedback(brand, post.id, b.feedback.trim());
 
+  // learning phase: the owner's ok, a fix, or a no — every answer teaches the channel
+  if (b.action === 'ok' && post.options.review === 'pending') {
+    if (!post.output.slides?.length && !post.output.video) throw new HttpError(409, 'not rendered yet');
+    await recordReview(brand.id, post.options.edits ? 'e' : 'a');
+    post = await updatePost(post.id, { status: 'approved', error: null, options: { ...post.options, review: 'approved' } });
+    // its slot passed while it waited: take the next free one
+    const s = await one<Schedule>("select * from schedules where post_id = $1 and status = 'pending' and at > now() + interval '2 minutes'", [post.id]);
+    if (!s) {
+      const [slot] = await openSlots(brand, user.timezone);
+      await schedulePost(brand.id, post.id, slot ?? new Date(Date.now() + 30 * 60_000));
+    }
+    return Response.json(await view(post));
+  }
+  if (b.action === 'reject') {
+    if (b.reason?.trim()) await addFeedback(brand, post.id, `rejected: ${b.reason.trim()}`);
+    if (post.options.review === 'pending') await recordReview(brand.id, 'r');
+    const s = await one<Schedule>("select * from schedules where post_id = $1 and status = 'pending'", [post.id]);
+    if (s) await cancelSchedule(s.id, brand.id);
+    await deletePost(post);
+    return Response.json({ deleted: true });
+  }
+
   if (b.action === 'approve' || b.action === 'resume') {
     if (!(post.output.video || post.output.slides?.length)) throw new HttpError(409, 'not rendered yet');
     post = await updatePost(post.id, { status: 'approved', error: null });
@@ -65,6 +88,8 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   } else if (b.action === 'recut' || templateChanged || b.voiceoverUrl !== undefined || b.subtitleLanguage) {
     // voiceover / template / language re-render the same cut; recut with feedback cuts anew
     const keepCut = b.action !== 'recut';
+    // a fix during review counts: "ok after a fix" teaches less than "ok as is"
+    if (b.action === 'recut' && post.options.review === 'pending') post = await updatePost(post.id, { options: { ...post.options, edits: (post.options.edits ?? 0) + 1 } });
     const feedback = b.feedback?.trim();
     const current = post;
     after(() => render(current, brand, { feedback, reusePlan: keepCut }).then(() => undefined));

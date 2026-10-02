@@ -106,6 +106,10 @@ const STYLE: Record<string, string> = {
     'it is your own line: never present it as a quote, never attribute it to anyone, no quotation marks. 6–16 words.',
   hook: 'each line is a short, strong editorial statement that makes people stop — calm, confident, no clickbait. 4–12 words. use **bold** for the 2–4 key words.',
   statement: 'each line is a bold, minimal statement, like a manifesto line. 2–8 words. use "|" for a deliberate line break and **bold** for the key phrase.',
+  longevity:
+    'each line is "headline :: body". headline: max 8 words, ends with a period, a clear truth about the body, food or ageing. ' +
+    'body: one plain sentence, max 16 words, the mechanism or what to do. line 1 is the hook, the last line the core truth to remember. ' +
+    'real food, no pills; no invented facts.',
 };
 
 /** Photos as small jpegs for claude vision. */

@@ -17,6 +17,7 @@ interface Item {
 }
 interface Plan {
   timezone: string;
+  channel?: { name: string; handle: string; waiting: number };
   items: Item[];
   notices: { id: string; text: string }[];
 }
@@ -39,6 +40,7 @@ function state(i: Item): { text: string; cls: string } {
   if (i.post_status === 'posted') return { text: 'posted', cls: 'quiet' };
   if (i.post_status === 'due') return { text: 'share now', cls: 'attention' };
   if (i.status === 'error' || i.post_status === 'error') return { text: 'needs a look', cls: 'error' };
+  if (i.post_status === 'review') return { text: 'waiting for your ok', cls: 'attention' };
   if (i.post_status === 'processing') return { text: 'preparing', cls: 'quiet' };
   if (i.post_status === 'ready') return { text: 'paused', cls: 'quiet' };
   return { text: 'ready', cls: '' };
@@ -116,6 +118,15 @@ export default function Create() {
         </button>
       </header>
 
+      {plan?.channel && (
+        <a className="channel-chip" href="/channels">
+          <span>
+            posting to <strong>{plan.channel.handle}</strong>
+          </span>
+          {plan.channel.waiting > 0 ? <span className="badge attention">{plan.channel.waiting} to review</span> : <span className="muted small">switch</span>}
+        </a>
+      )}
+
       <button className="new-post" onClick={() => setFlow(true)}>
         <span className="new-plus">
           <Icon name="plus" size={28} stroke={1.2} />
@@ -147,7 +158,7 @@ export default function Create() {
           {items.map((i) => {
             const s = state(i);
             return (
-              <a className="slot" href={`/p/${i.post_id}`} key={i.id}>
+              <a className="slot" href={i.post_status === 'review' ? '/review' : `/p/${i.post_id}`} key={i.id}>
                 <time>{parts(i.at, tz).time}</time>
                 {i.cover ? <img className="thumb" src={i.cover} alt="" /> : <span className="thumb" />}
                 <span className="meta">

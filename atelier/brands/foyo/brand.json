@@ -1,0 +1,109 @@
+{
+  "id": "foyo",
+  "name": "foyo",
+  "handle": "@foyoclub",
+  "language": "en",
+  "autoApprove": true,
+  "timezone": "Europe/Berlin",
+  "fonts": {
+    "family": "Lora",
+    "regular": "fonts/Lora-Medium.ttf",
+    "bold": "fonts/Lora-Medium.ttf",
+    "italic": "fonts/Lora-Medium.ttf",
+    "sans": "Poppins",
+    "sansRegular": "fonts/Poppins-Regular.ttf",
+    "sansMedium": "fonts/Poppins-Medium.ttf",
+    "sansBold": "fonts/Poppins-SemiBold.ttf"
+  },
+  "signature": {
+    "file": "signature.png"
+  },
+  "carousel": {
+    "width": 1080,
+    "height": 1350,
+    "margin": 76,
+    "fontSizeMax": 120,
+    "fontSizeMin": 72,
+    "lineHeight": 1.08,
+    "lowercase": true,
+    "maxSlides": 10,
+    "signature": {
+      "width": 0,
+      "margin": 0
+    }
+  },
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "pauseThreshold": 0.6,
+    "crossfade": 0.1333,
+    "fillers": [
+      "äh",
+      "ähm",
+      "öh",
+      "öhm",
+      "ehm",
+      "eh",
+      "uh",
+      "uhm",
+      "um",
+      "umm",
+      "hm",
+      "hmm",
+      "mhm",
+      "erm"
+    ],
+    "subtitles": {
+      "language": "en",
+      "fontSize": 54,
+      "maxCharsPerLine": 30,
+      "maxLines": 2,
+      "marginSide": 90,
+      "lowercase": true
+    },
+    "signature": {
+      "width": 220,
+      "marginRight": 60,
+      "marginBottom": 200,
+      "startFraction": 0.6667,
+      "fadeInSec": 0.8
+    },
+    "claude": {
+      "framesPerSecond": 1,
+      "maxFrames": 60,
+      "frameWidth": 384
+    }
+  },
+  "caption": {
+    "model": "claude-sonnet-5-5",
+    "maxHashtags": 3,
+    "rules": [
+      "english, all lowercase. no emojis, no exclamation marks.",
+      "line 1 is the hook: max 10 words, works on its own in the feed preview — a tension, a counterintuitive truth or a precise claim. never \"did you know\", \"here's why\", \"pov\" or clickbait words.",
+      "then 2–4 short lines: what is true, why (the mechanism in plain words), and what to do with it today.",
+      "blank line between the blocks. every line earns its place — no filler, no fear-mongering, no miracle claims.",
+      "the last line makes people save it or send it to someone who needs it. never \"link in bio\".",
+      "40–90 words before the hashtags.",
+      "end with 2 or 3 precise hashtags on their own line, never more.",
+      "never mention an account or @handle — the last slide already does.",
+      "output only the caption."
+    ]
+  },
+  "defaultTemplate": "FOYO",
+  "maxTemplates": 5,
+  "subtitleLanguage": "en",
+  "cutRules": "- calm pace, no hectic cuts.\n- start with the strongest moment.\n- 5–8 seconds for process footage.",
+  "slots": [
+    "08:00",
+    "10:00",
+    "12:00",
+    "14:00",
+    "16:00",
+    "18:00",
+    "20:00",
+    "22:00"
+  ],
+  "brief": "forever young club: longevity through real food, no pills, no supplement selling. every post pairs one longevity topic (gut, skin, sleep, blood sugar, inflammation, muscle, brain, mitochondria, hormones, heart, eyes, circadian rhythm, stress) with one concrete real, whole food and the mechanism that links them. food quality matters: when a food is named, think about heavy metals (e.g. arsenic in rice, mercury in big fish), microplastics (tea bags, sea salt, plastic packaging), pesticides and processing — and name the clean choice when it matters.",
+  "tone": "calm, clear, warm authority. short sentences. the reader feels: this is true, simple, and i can do it today."
+}

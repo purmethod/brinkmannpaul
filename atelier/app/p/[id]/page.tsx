@@ -27,6 +27,7 @@ interface Setup {
 
 const STATUS: Record<string, string> = {
   processing: 'preparing',
+  review: 'waiting for your ok',
   approved: 'ready',
   ready: 'paused',
   due: 'ready to share',

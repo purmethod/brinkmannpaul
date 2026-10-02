@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { loadKit } from './brand';
+import { listKits, loadKit } from './brand';
 import { safeEqual, sha256 } from './crypto';
 import { id, one, q } from './db';
 import type { BrandRow, User } from './types';
@@ -19,13 +19,25 @@ export async function ensureOwner(): Promise<User> {
   if (!user) {
     user = (await one<User>('insert into users (id, email) values ($1, $2) on conflict (email) do update set email = excluded.email returning id, email, timezone', [id('usr'), email]))!;
   }
-  const brand = await one('select id from brands where user_id = $1', [user.id]);
-  if (!brand) {
-    const kitId = process.env.BRAND_KIT || 'brinkbuild';
-    const kit = loadKit(kitId);
-    await q('insert into brands (id, user_id, kit, name) values ($1, $2, $3, $4)', [id('brd'), user.id, kitId, kit.name]);
-  }
+  await ensureBrands(user.id);
   return user;
+}
+
+export const BRAND_COOKIE = 'atelier_brand';
+
+/** One brand per kit folder (brinkbuild, foyo, …); the configured kit comes first. */
+export async function ensureBrands(userId: string) {
+  const have = new Set((await q<{ kit: string }>('select kit from brands where user_id = $1', [userId])).map((b) => b.kit));
+  const first = process.env.BRAND_KIT || 'brinkbuild';
+  const kits = [first, ...listKits().filter((k) => k !== first)];
+  for (const kit of kits) {
+    if (have.has(kit)) continue;
+    try {
+      await q('insert into brands (id, user_id, kit, name) values ($1, $2, $3, $4)', [id('brd'), userId, kit, loadKit(kit).name]);
+    } catch (e) {
+      console.error(`brand kit ${kit}`, e);
+    }
+  }
 }
 
 export interface Ctx {
@@ -43,20 +55,23 @@ async function userFromBearer(header: string | null): Promise<string | null> {
   return oauth?.user_id ?? null;
 }
 
-async function ctxFor(userId: string | null): Promise<Ctx | null> {
+async function ctxFor(userId: string | null, brandId?: string | null): Promise<Ctx | null> {
   if (!userId) return null;
   const user = await one<User>('select id, email, timezone from users where id = $1', [userId]);
   if (!user) return null;
-  const brand = await one<BrandRow>('select id, user_id, kit, name, settings from brands where user_id = $1 order by created_at limit 1', [userId]);
+  // the active account (switcher) or the first one
+  const brand =
+    (brandId ? await one<BrandRow>('select id, user_id, kit, name, settings from brands where id = $1 and user_id = $2', [brandId, userId]) : null) ??
+    (await one<BrandRow>('select id, user_id, kit, name, settings from brands where user_id = $1 order by created_at limit 1', [userId]));
   return brand ? { user, brand } : null;
 }
 
 /** Session cookie (app), personal key (ios shortcut) or oauth token (claude connector). */
 export async function getCtx(req?: Request): Promise<Ctx | null> {
   const bearer = req?.headers.get('authorization') ?? null;
-  if (bearer) return ctxFor(await userFromBearer(bearer));
+  if (bearer) return ctxFor(await userFromBearer(bearer), req?.headers.get('x-atelier-brand'));
   const jar = await cookies();
-  return ctxFor(readSession(jar.get(SESSION_COOKIE)?.value));
+  return ctxFor(readSession(jar.get(SESSION_COOKIE)?.value), jar.get(BRAND_COOKIE)?.value);
 }
 
 export class HttpError extends Error {

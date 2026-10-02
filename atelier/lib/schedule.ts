@@ -44,6 +44,23 @@ async function dequeue(messageId: string | null) {
   if (messageId && qstashReady()) await qstash().messages.delete(messageId).catch(() => undefined);
 }
 
+/**
+ * With qstash: a heartbeat every 15 minutes (posts the due, keeps the autopilot topped up).
+ * Idempotent — the fixed schedule id updates instead of duplicating.
+ */
+export async function ensureHeartbeat() {
+  if (!qstashReady()) return false;
+  await qstash().schedules.create({
+    scheduleId: 'atelier-heartbeat',
+    destination: `${appOrigin()}/api/qstash/publish`,
+    cron: '*/15 * * * *',
+    body: JSON.stringify({ heartbeat: true }),
+    headers: { 'content-type': 'application/json' },
+    retries: 0,
+  });
+  return true;
+}
+
 /** Fallback publisher: runs every unqueued schedule whose time has come. Safe to call often — runSchedule claims atomically. */
 export async function sweepDue(brandId?: string) {
   await recoverStuck(brandId).catch((e) => console.error('recover', e));
@@ -127,6 +144,12 @@ export async function runSchedule(scheduleId: string) {
   if (post.status === 'posted') return { skipped: 'already posted' };
   if (post.status === 'processing') return retry('still cutting');
   if (post.status === 'error' && !(post.output.video || post.output.slides?.length)) return retry(post.error || 'render failed');
+  if (post.status === 'review') {
+    // learning phase: nothing goes out without the owner's ok; it gets a new slot once approved
+    await q("update schedules set status = 'canceled', error = 'waiting for your ok' where id = $1", [s.id]);
+    await notify(s.brand_id, `${when}: not posted — it is waiting for your ok`);
+    return { skipped: 'review' };
+  }
   if (post.status === 'ready') {
     await q("update schedules set status = 'canceled', error = 'paused' where id = $1", [s.id]);
     return { skipped: 'paused' };

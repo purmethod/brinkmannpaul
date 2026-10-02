@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 const TABS = [
   { href: '/', label: 'create' },
+  { href: '/channels', label: 'channels' },
   { href: '/settings', label: 'settings' },
 ];
 
@@ -17,7 +18,8 @@ export default function Nav() {
   return (
     <nav className="tabs" aria-label="main">
       {TABS.map((t) => {
-        const active = t.href === '/' ? !path.startsWith('/settings') : path.startsWith(t.href);
+        const inChannels = path.startsWith('/channels') || path.startsWith('/review');
+        const active = t.href === '/' ? !path.startsWith('/settings') && !inChannels : t.href === '/channels' ? inChannels : path.startsWith(t.href);
         return (
           <a key={t.href} href={t.href} aria-current={active ? 'page' : undefined}>
             {t.label}

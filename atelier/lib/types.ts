@@ -1,5 +1,5 @@
 export type PostKind = 'reel' | 'carousel' | 'photo';
-export type PostStatus = 'processing' | 'ready' | 'approved' | 'due' | 'posted' | 'error';
+export type PostStatus = 'processing' | 'review' | 'ready' | 'approved' | 'due' | 'posted' | 'error';
 export type ScheduleStatus = 'pending' | 'done' | 'error' | 'canceled';
 
 export interface User {
@@ -17,6 +17,34 @@ export interface BrandSettings {
   defaultTemplate?: string;
   lastTemplate?: string;
   savedTemplates?: SavedTemplate[];
+  autopilot?: AutopilotSettings;
+  autopilotLock?: string;
+  channel?: ChannelSettings;
+}
+
+/** Daily posting on its own: a post every few hours in a time window, from the creator's insights + real knowledge. */
+export interface AutopilotSettings {
+  enabled: boolean;
+  everyHours: number;
+  from: string; // "08:00"
+  to: string; // "22:00"
+  slides: number;
+  insights: string; // the creator's own knowledge, the core of every post
+  recent?: string[]; // last topics, never repeated soon
+  review: boolean; // learning phase: every post waits for the owner's ok
+  reviewTarget: number; // after this many reviews the channel may go fully automatic
+  history?: string; // review outcomes, newest last: a = ok as is, e = ok after a fix, r = rejected
+}
+
+/** A theme channel run from the app (on top of a design kit): who it is, what it is about, how it sounds. */
+export interface ChannelSettings {
+  name?: string;
+  handle?: string;
+  tagline?: string;
+  logo?: string[]; // stacked logo lines, e.g. ["fo", "yo"]
+  cta?: string; // last-slide line(s), "|" = new line
+  brief?: string; // what the channel is about and for whom
+  tone?: string;
 }
 
 export interface BrandRow {
@@ -58,6 +86,9 @@ export interface PostOptions {
   notes?: string | null; // style notes from a saved template
   collaborators?: string[];
   retriedAt?: string; // self-healing: last automatic re-render of a stuck post
+  autopilot?: boolean; // made by the autopilot
+  review?: 'pending' | 'approved'; // learning phase: waits for the owner's ok
+  edits?: number; // corrections before the ok
 }
 
 export interface Post {
@@ -117,10 +148,12 @@ export interface BrandKit {
     signature: { width: number; margin: number };
   };
   caption: { model: string; maxHashtags: number; rules: string[] };
+  brief?: string; // what the account is about (autopilot)
+  tone?: string;
 }
 
-export type TemplateLayout = 'polaroid' | 'editorial' | 'bauhaus';
-export type TextStyle = 'poetic' | 'hook' | 'statement';
+export type TemplateLayout = 'polaroid' | 'editorial' | 'bauhaus' | 'foyo';
+export type TextStyle = 'poetic' | 'hook' | 'statement' | 'longevity';
 
 export interface BrandTemplate {
   label: string;
@@ -132,6 +165,8 @@ export interface BrandTemplate {
   accent: string;
   signature: 'original' | 'inverted';
   gradient?: { color: string; maxAlpha: number; heightRatio: number };
+  cta?: string; // closing line(s) on the last slide, "|" = new line
+  logo?: { lines: string[]; tagline?: string }; // typographic lockup (foyo layout)
   video: { layout: 'framed' | 'fullbleed'; boxHeight: number; subtitleColor: string; subtitleMarginV: number; frameColor?: string };
 }
 

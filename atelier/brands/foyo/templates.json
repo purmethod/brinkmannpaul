@@ -1,0 +1,37 @@
+{
+  "default": "FOYO",
+  "templates": {
+    "FOYO": {
+      "label": "foyo",
+      "layout": "foyo",
+      "textStyle": "longevity",
+      "background": {
+        "type": "media",
+        "color": "#140D0A"
+      },
+      "paper": "#140D0A",
+      "text": "#F6EEE1",
+      "accent": "#F6EEE1",
+      "signature": "inverted",
+      "gradient": {
+        "color": "#0B0706",
+        "maxAlpha": 0.78,
+        "heightRatio": 0.66
+      },
+      "cta": "follow @foyoclub for daily forever young tips.|real food. no pills.",
+      "video": {
+        "layout": "fullbleed",
+        "boxHeight": 1920,
+        "subtitleColor": "#F6EEE1",
+        "subtitleMarginV": 420
+      },
+      "logo": {
+        "lines": [
+          "fo",
+          "yo"
+        ],
+        "tagline": "forever young club"
+      }
+    }
+  }
+}

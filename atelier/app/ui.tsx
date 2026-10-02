@@ -152,3 +152,18 @@ export function TemplatePreview({ layout, photo, line }: { layout: string; photo
     </div>
   );
 }
+
+/* ---------- channel wordmark ---------- */
+
+export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
+  const lines = logo?.length ? logo : name === 'foyo' ? ['fo', 'yo'] : [name.slice(0, 5)];
+  return (
+    <span className="mark" aria-hidden="true">
+      {lines.slice(0, 3).map((l) => (
+        <span key={l} style={{ fontSize: lines.length > 2 ? 17 : Math.max(14, 30 - l.length * 2.6) }}>
+          {l}
+        </span>
+      ))}
+    </span>
+  );
+}

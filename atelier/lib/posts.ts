@@ -1,5 +1,5 @@
 import { del, put } from '@vercel/blob';
-import { getTemplate, loadTemplates, resolveBrand } from './brand';
+import { channelTemplate, getTemplate, loadTemplates, resolveBrand } from './brand';
 import { plainText, renderSlide, splitSlides } from './carousel';
 import { composePost } from './claude';
 import { id, one, q } from './db';
@@ -23,8 +23,9 @@ export async function updatePost(postId: string, patch: Partial<Post>): Promise<
   return row;
 }
 
-/** Created in the create flow = meant to go out; only an explicit pause ('ready') holds it back. */
-function readyStatus(_row: BrandRow, post: Post): 'ready' | 'approved' {
+/** Created in the create flow = meant to go out; a pause ('ready') or a pending review holds it back. */
+function readyStatus(_row: BrandRow, post: Post): 'ready' | 'approved' | 'review' {
+  if (post.options.review === 'pending') return 'review';
   return post.status === 'ready' ? 'ready' : 'approved';
 }
 
@@ -41,7 +42,7 @@ export function resolveTemplate(row: BrandRow, templateId?: string | null): { ba
   const saved = templateId?.startsWith('saved:') ? row.settings?.savedTemplates?.find((t) => `saved:${t.id}` === templateId) : undefined;
   const fallback = resolveBrand(row).defaultTemplate;
   const base = saved?.base ?? (templateId && set.templates[templateId] ? templateId : set.templates[fallback] ? fallback : set.default);
-  return { base, tpl: getTemplate(row.kit, base), notes: saved?.notes ?? null };
+  return { base, tpl: channelTemplate(row, getTemplate(row.kit, base)), notes: saved?.notes ?? null };
 }
 
 /** The creator's latest corrections — captions learn from them too. */

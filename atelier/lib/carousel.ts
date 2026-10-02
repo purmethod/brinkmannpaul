@@ -162,6 +162,7 @@ function textBlock(lines: Line[], o: { size: number; lh: number; color: string; 
 /* ---------- layouts ---------- */
 
 interface Ctx {
+  raw: string;
   W: number;
   H: number;
   brand: BrandKit;
@@ -282,7 +283,85 @@ async function bauhaus(c: Ctx): Promise<El> {
   ]);
 }
 
-const LAYOUTS = { polaroid, editorial, bauhaus };
+/** Crop that drifts across the photo from slide to slide — one photo carries a whole carousel. */
+async function coverShift(buf: Buffer, w: number, h: number, index: number, total: number): Promise<Img> {
+  if (total <= 1) return cover(buf, w, h);
+  const zoom = 1.18;
+  const big = await sharp(buf).rotate().resize(Math.round(w * zoom), Math.round(h * zoom), { fit: 'cover', position: 'attention' }).toBuffer();
+  const t = index / (total - 1);
+  const left = Math.round((w * zoom - w) * t);
+  const top = Math.round((h * zoom - h) * (0.5 + 0.5 * Math.sin(t * Math.PI)) * 0.6);
+  const out = await sharp(big).extract({ left, top, width: w, height: h }).jpeg({ quality: 90 }).toBuffer();
+  return { src: `data:image/jpeg;base64,${out.toString('base64')}`, width: w, height: h };
+}
+
+/**
+ * foyo: full-bleed photo (or a warm dark glow without one), stacked fo/yo lockup top left,
+ * counter top right, a large serif truth at the bottom, a plain sans line under it,
+ * the follow line on the last slide. Slide text: "headline :: body".
+ */
+async function foyo(c: Ctx): Promise<El> {
+  const { W, H, tpl, brand } = c;
+  const M = 76;
+  const cream = tpl.text;
+  const [headSrc, bodySrc = ''] = c.raw.split('::').map((x) => x.trim());
+  const head = parseSlide(headSrc || '', brand.carousel.lowercase);
+  const body = brand.carousel.lowercase ? bodySrc.toLowerCase() : bodySrc;
+  const last = c.total > 1 && c.index === c.total - 1;
+  const cta = last && tpl.cta ? tpl.cta.split('|').map((l) => l.trim()) : [];
+  const textW = W - 2 * M - 60;
+  const bodyLines = Math.ceil((body.length * 31 * 0.52) / textW) + cta.length * 1.4;
+  const headBox = Math.max(260, 600 - bodyLines * 44);
+  const size = head.length ? fit(head, { w: textW, h: headBox }, brand.carousel.fontSizeMax, brand.carousel.fontSizeMin, 1.06, 0.5) : 0;
+  const glowX = 62 + ((c.index * 9) % 24);
+  const g = tpl.gradient ?? { color: '#000000', maxAlpha: 0.75, heightRatio: 0.65 };
+  const sans = brand.fonts.sans;
+  const shadow = '0 2px 14px rgba(0,0,0,0.38)';
+  return box({ width: W, height: H, backgroundColor: tpl.paper, position: 'relative' }, [
+    c.photo
+      ? img(await coverShift(c.photo, W, H, c.index, c.total), { position: 'absolute', left: 0, top: 0 })
+      : box({
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: W,
+          height: H,
+          backgroundImage: `radial-gradient(circle at ${glowX}% 34%, rgba(255,244,230,0.62), rgba(255,244,230,0) 38%), radial-gradient(circle at 18% 58%, rgba(92,40,22,0.95), rgba(92,40,22,0) 62%), linear-gradient(160deg, #2a1610, #0d0807)`,
+        }),
+    box({
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+      width: W,
+      height: Math.round(H * g.heightRatio),
+      backgroundImage: `linear-gradient(to top, ${rgba(g.color, g.maxAlpha)}, ${rgba(g.color, g.maxAlpha * 0.5)} 50%, ${rgba(g.color, 0)})`,
+    }),
+    box({ position: 'absolute', left: 0, top: 0, width: W, height: 380, backgroundImage: `linear-gradient(to bottom, ${rgba('#000000', 0.28)}, ${rgba('#000000', 0)})` }),
+    // stacked lockup (fo / forever young club / yo), scaled down for longer channel names
+    ...(() => {
+      const lines = (tpl.logo?.lines ?? []).filter(Boolean).slice(0, 3);
+      if (!lines.length) return [];
+      const longest = Math.max(...lines.map((l) => l.length));
+      const k = Math.min(1, 2.6 / Math.max(2.6, longest * 0.62)) * (lines.length > 2 ? 0.8 : 1);
+      const fs = Math.round(138 * k);
+      const tagline = tpl.logo?.tagline ?? '';
+      const first = box({ fontSize: fs, height: Math.round(112 * k), lineHeight: `${Math.round(112 * k)}px`, letterSpacing: -5 * k }, lines[0]);
+      const rest = lines.slice(1).map((l) => box({ fontSize: fs, height: Math.round(100 * k), lineHeight: `${Math.round(56 * k)}px`, letterSpacing: -5 * k }, l));
+      const tag = tagline ? [box({ fontSize: 15, height: 20, lineHeight: '20px', fontWeight: 400, marginLeft: -10 * k }, tagline)] : [];
+      return [box({ position: 'absolute', left: M - 4, top: 58, flexDirection: 'column', color: cream, fontFamily: sans, fontWeight: 600 }, [first, ...tag, ...rest])];
+    })(),
+    ...(c.total > 1 ? [box({ position: 'absolute', right: M, top: 74, fontFamily: sans, fontSize: 23, color: cream, letterSpacing: 0.5 }, `${c.index + 1}/${c.total}`)] : []),
+    box({ position: 'absolute', left: M, bottom: 110, width: textW, flexDirection: 'column' }, [
+      box({ flexDirection: 'column', textShadow: shadow }, textBlock(head, { size, lh: 1.06, color: cream, family: brand.fonts.family, width: textW, boldWeight: 400 })),
+      ...(body ? [box({ marginTop: 34, fontFamily: sans, fontSize: 31, lineHeight: 1.36, color: rgba(cream, 0.95), width: textW - 40, textShadow: shadow }, body)] : []),
+      ...(cta.length
+        ? [box({ marginTop: 22, flexDirection: 'column', fontFamily: sans, fontSize: 31, lineHeight: 1.42, color: rgba(cream, 0.95), textShadow: shadow }, cta.map((l) => box({}, l)))]
+        : []),
+    ]),
+  ]);
+}
+
+const LAYOUTS = { polaroid, editorial, bauhaus, foyo };
 
 export async function renderSlide(opts: {
   row: BrandRow;
@@ -297,6 +376,7 @@ export async function renderSlide(opts: {
   const { width: W, height: H } = brand.carousel;
   const sigBuf = await getSignature(row).catch(() => null);
   const ctx: Ctx = {
+    raw: opts.text,
     W,
     H,
     brand,
