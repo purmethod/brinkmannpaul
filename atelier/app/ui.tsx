@@ -202,14 +202,16 @@ export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
   );
 }
 
-/* ---------- cutcake logo: a muffin ---------- */
+/* ---------- cutcake logo: dome, cherry, three layers — the gaps are the cuts ---------- */
 
 export function Logo({ size = 28 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
-      <path d="M11 31.5c-1.6-5.6 2.4-10.4 7.6-10.2 1.2-5.6 6.4-9 11.8-7.6 3.4-3.6 9.6-3.4 12.8.8 5.2-.6 9.6 3.6 9.2 8.8 3 1.6 4.4 4.8 3.6 8.2z" fill="currentColor" />
-      <path d="M13 35.5h38l-4.2 19.5H17.2z" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
-      <path d="M25 36.5l1.4 17.5M32 36.5v17.5M39 36.5l-1.4 17.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+    <svg width={size} height={size} viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+      <path d="M19 48a31 31 0 0 1 62 0z" />
+      <circle cx="75" cy="19.5" r="7.6" />
+      <rect x="19" y="53" width="62" height="12" rx="1.8" />
+      <rect x="24" y="70" width="52" height="12" rx="1.8" />
+      <rect x="29" y="87" width="42" height="12" rx="1.8" />
     </svg>
   );
 }
