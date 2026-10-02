@@ -6,15 +6,16 @@ import { issueSignedToken, presignUrl } from '@vercel/blob';
  */
 export type BlobMode = 'token' | 'presigned';
 
+// the store connected to the project (BLOB_STORE_ID) wins — a leftover read-write token may belong to another store
 export function blobMode(): BlobMode | null {
-  if (process.env.BLOB_READ_WRITE_TOKEN) return 'token';
   if (process.env.BLOB_STORE_ID) return 'presigned';
+  if (process.env.BLOB_READ_WRITE_TOKEN) return 'token';
   return null;
 }
 
 export function storeId(): string {
   const rw = process.env.BLOB_READ_WRITE_TOKEN;
-  const id = rw ? rw.split('_')[3] ?? '' : process.env.BLOB_STORE_ID ?? '';
+  const id = process.env.BLOB_STORE_ID || (rw ? rw.split('_')[3] ?? '' : '');
   return (id.startsWith('store_') ? id.slice(6) : id).toLowerCase();
 }
 
