@@ -206,11 +206,11 @@ export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
 
 export function Logo({ size = 28 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="366 366 1200 1200" aria-hidden="true" className="logo">
-      <path d="M438 868a528 453 0 0 1 1056 0z" fill="var(--logo-dome)" />
-      <rect x="377" y="958" width="1178" height="136" rx="22" fill="var(--logo-layer)" />
-      <rect x="468" y="1170" width="996" height="136" rx="22" fill="var(--logo-layer)" />
-      <rect x="573" y="1381" width="785" height="136" rx="22" fill="var(--logo-layer)" />
+    <svg width={size} height={size} viewBox="192 192 640 640" fill="var(--logo)" aria-hidden="true" className="logo">
+      <path d="M243 462a269 230 0 0 1 538 0z" />
+      <rect x="213" y="509" width="598" height="68" rx="9" />
+      <rect x="259" y="616" width="506" height="69" rx="9" />
+      <rect x="313" y="724" width="399" height="68" rx="9" />
     </svg>
   );
 }
