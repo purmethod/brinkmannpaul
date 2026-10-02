@@ -119,7 +119,9 @@ async function toImg(buf: Buffer, width: number, invert: boolean): Promise<Img> 
 
 export async function loadPhoto(url: string): Promise<Buffer> {
   if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
-  const res = await fetch(url);
+  // local end-to-end tests serve blob files from a stand-in
+  const from = process.env.BLOB_FETCH_REWRITE ? url.replace(/^https:\/\/[^/]+\.blob\.vercel-storage\.com/, process.env.BLOB_FETCH_REWRITE) : url;
+  const res = await fetch(from);
   if (!res.ok) throw new Error(`could not load photo (${res.status})`);
   return Buffer.from(await res.arrayBuffer());
 }
@@ -348,6 +350,12 @@ async function foyo(c: Ctx): Promise<El> {
       const first = box({ fontSize: fs, height: Math.round(112 * k), lineHeight: `${Math.round(112 * k)}px`, letterSpacing: -5 * k }, lines[0]);
       const rest = lines.slice(1).map((l) => box({ fontSize: fs, height: Math.round(100 * k), lineHeight: `${Math.round(56 * k)}px`, letterSpacing: -5 * k }, l));
       const tag = tagline ? [box({ fontSize: 15, height: 20, lineHeight: '20px', fontWeight: 400, marginLeft: -10 * k }, tagline)] : [];
+      if (tpl.logo?.taglineBelow) {
+        // a channel's own wordmark: tight stack, tagline underneath
+        const stack = lines.map((l) => box({ fontSize: fs, height: Math.round(fs * 0.86), lineHeight: `${Math.round(fs * 0.86)}px`, letterSpacing: -5 * k }, l));
+        const below = tagline ? [box({ fontSize: 15, marginTop: 14, fontWeight: 400, letterSpacing: 0.3 }, tagline)] : [];
+        return [box({ position: 'absolute', left: M - 2, top: 66, flexDirection: 'column', color: cream, fontFamily: sans, fontWeight: 600 }, [...stack, ...below])];
+      }
       return [box({ position: 'absolute', left: M - 4, top: 58, flexDirection: 'column', color: cream, fontFamily: sans, fontWeight: 600 }, [first, ...tag, ...rest])];
     })(),
     ...(c.total > 1 ? [box({ position: 'absolute', right: M, top: 74, fontFamily: sans, fontSize: 23, color: cream, letterSpacing: 0.5 }, `${c.index + 1}/${c.total}`)] : []),

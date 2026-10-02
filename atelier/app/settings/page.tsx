@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { api, uploadOne } from '../client';
-import { TemplatePreview } from '../ui';
+import { Mark, TemplatePreview } from '../ui';
 
 interface S {
   timezone: string;
@@ -17,17 +17,24 @@ interface S {
 interface Setup {
   templates: { id: string; label: string; layout: string; saved: boolean }[];
 }
+interface Brands {
+  active: string;
+  brands: { id: string; name: string; handle: string; logo: string[] | null; instagram: string | null; autopilot: boolean }[];
+}
 
 export default function Settings() {
   const [s, setS] = useState<S | null>(null);
   const [setup, setSetup] = useState<Setup | null>(null);
+  const [brands, setBrands] = useState<Brands | null>(null);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
   const [key, setKey] = useState('');
   const [origin, setOrigin] = useState('');
 
   const load = () =>
-    Promise.all([api<S>('/api/settings').then(setS), api<Setup>('/api/create').then(setSetup)]).catch((e) => setError(e.message));
+    Promise.all([api<S>('/api/settings').then(setS), api<Setup>('/api/create').then(setSetup), api<Brands>('/api/brands').then(setBrands)]).catch((e) =>
+      setError(e.message),
+    );
   useEffect(() => {
     load();
     setOrigin(location.origin);
@@ -51,6 +58,7 @@ export default function Settings() {
   const builtIn = setup?.templates.filter((t) => !t.saved) ?? [];
   const saved = setup?.templates.filter((t) => t.saved) ?? [];
 
+  const active = brands?.brands.find((b) => b.id === brands.active);
   return (
     <>
       <header className="page-top">
@@ -59,28 +67,33 @@ export default function Settings() {
       {msg && <p className="toast static">{msg}</p>}
       {error && <p className="error">{error}</p>}
 
-      <section className="card">
-        <p className="kicker">instagram</p>
-        {ig ? (
-          <>
-            <p className="big">@{ig.username}</p>
-            <p className="muted small">posts go out automatically at the planned time.</p>
-            {ig.error && <p className="error">{ig.error}</p>}
-            <a className="btn wide" href="/api/auth/instagram">reconnect</a>
-          </>
-        ) : (
-          <>
-            <p className="big">not connected</p>
-            <p className="muted small">
-              creator and business accounts post automatically. personal accounts work too: at the planned time the post is ready to share in one tap.
-            </p>
-            <a className="btn primary wide" href="/api/auth/instagram">connect instagram</a>
-          </>
-        )}
-      </section>
+      {active && (
+        <>
+          <p className="section-title">channel</p>
+          <div className="list">
+            <a href={`/channels/${active.id}`}>
+              <span className="row" style={{ gap: 12 }}>
+                <Mark name={active.name} logo={active.logo} />
+                <span>
+                  <strong style={{ fontWeight: 650 }}>{active.name}</strong>
+                  <br />
+                  <span className="muted small">{active.instagram ? `@${active.instagram}` : `${active.handle} · instagram not connected`}</span>
+                </span>
+              </span>
+              <span className="value" />
+            </a>
+            <a href="/channels">
+              <span>switch channel</span>
+              <span className="value">{brands!.brands.length}</span>
+            </a>
+          </div>
+          <p className="section-foot">looks, styles and everything below apply to this channel.</p>
+        </>
+      )}
+      {ig?.error && <p className="error">{ig.error}</p>}
 
+      <p className="section-title">looks</p>
       <section className="card">
-        <p className="kicker">looks</p>
         <div className="looks">
           {builtIn.map((t) => (
             <div key={t.id} className="look">
@@ -89,17 +102,19 @@ export default function Settings() {
             </div>
           ))}
         </div>
-        <p className="kicker" style={{ marginTop: 28 }}>
-          your styles · {saved.length} / 5
-        </p>
-        {!saved.length && <p className="muted small">open a post you love and tap “save style”. it appears here and when you choose a look.</p>}
-        <ul className="styles">
+      </section>
+
+      <p className="section-title">your styles · {saved.length} / 5</p>
+      {!saved.length ? (
+        <p className="section-foot">open a post you love and tap “save style”. it appears here and when you choose a look.</p>
+      ) : (
+        <div className="list">
           {saved.map((t) => (
-            <li key={t.id}>
+            <div key={t.id}>
               <span>{t.label}</span>
-              <span className="row">
+              <span className="row" style={{ gap: 4 }}>
                 <button
-                  className="ghost small-btn"
+                  className="link small-btn"
                   onClick={async () => {
                     const name = prompt('rename', t.label);
                     if (!name) return;
@@ -110,7 +125,7 @@ export default function Settings() {
                   rename
                 </button>
                 <button
-                  className="ghost small-btn"
+                  className="link small-btn"
                   onClick={async () => {
                     if (!confirm(`delete “${t.label}”?`)) return;
                     await api(`/api/templates?id=${encodeURIComponent(t.id.replace('saved:', ''))}`, { method: 'DELETE' });
@@ -120,11 +135,12 @@ export default function Settings() {
                   delete
                 </button>
               </span>
-            </li>
+            </div>
           ))}
-        </ul>
-      </section>
+        </div>
+      )}
 
+      <p className="section-title">general</p>
       <details className="card more">
         <summary>more</summary>
 
@@ -151,7 +167,7 @@ export default function Settings() {
           />
         </label>
 
-        <label htmlFor="rules">what atelier has learned about your cuts</label>
+        <label htmlFor="rules">what cutcake has learned about your cuts</label>
         <textarea id="rules" defaultValue={s.cutRules} key={s.cutRules} onBlur={(e) => e.target.value !== s.cutRules && save({ cutRules: e.target.value })} />
         <button
           className="wide ghost"

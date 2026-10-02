@@ -240,7 +240,7 @@ export default function PostPage() {
                 <input className="line-input" name="c" placeholder={mic.listening ? mic.interim || 'listening…' : 'say or type what to change'} />
               </form>
             </div>
-            <p className="muted small">atelier remembers this for next time.</p>
+            <p className="muted small">cutcake remembers this for next time.</p>
           </section>
 
           {setup && (

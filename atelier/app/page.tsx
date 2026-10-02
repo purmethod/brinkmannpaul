@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api, useMic } from './client';
 import CreateFlow from './create-flow';
-import { Icon, Sheet } from './ui';
+import { Icon, Logo, Mark, Sheet } from './ui';
 
 interface Item {
   id: string;
@@ -17,7 +17,7 @@ interface Item {
 }
 interface Plan {
   timezone: string;
-  channel?: { name: string; handle: string; waiting: number };
+  channel?: { name: string; handle: string; waiting: number; logo?: string[] | null };
   items: Item[];
   notices: { id: string; text: string }[];
 }
@@ -112,16 +112,24 @@ export default function Create() {
   return (
     <>
       <header className="page-top">
-        <h1>create</h1>
-        <button className="icon-btn ring" onClick={openVoice} aria-label="speak">
+        <h1 className="brand">
+          <Logo size={30} />
+          cutcake
+        </h1>
+        <button className="icon-btn ring" onClick={openVoice} aria-label="speak to plan">
           <Icon name="mic" />
         </button>
       </header>
 
       {plan?.channel && (
-        <a className="channel-chip" href="/channels">
+        <a className="channel-chip" href={plan.channel.waiting > 0 ? '/review' : '/channels'}>
           <span>
-            posting to <strong>{plan.channel.handle}</strong>
+            <Mark name={plan.channel.name} logo={plan.channel.logo ?? null} />
+            <span>
+              <strong>{plan.channel.name}</strong>
+              <br />
+              <span className="muted small">{plan.channel.handle}</span>
+            </span>
           </span>
           {plan.channel.waiting > 0 ? <span className="badge attention">{plan.channel.waiting} to review</span> : <span className="muted small">switch</span>}
         </a>
@@ -148,7 +156,12 @@ export default function Create() {
         <h2>planned</h2>
         <span className="muted small">{upcoming ? `${upcoming} upcoming` : ''}</span>
       </div>
-      {plan && !plan.items.length && <p className="muted">nothing planned yet. your first post is one tap away.</p>}
+      {plan && !plan.items.length && (
+        <div className="empty">
+          <strong>nothing planned yet</strong>
+          your first post is one tap away.
+        </div>
+      )}
       {[...days.entries()].map(([day, items]) => (
         <section className="day" key={day}>
           <h3>

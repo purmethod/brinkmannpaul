@@ -41,7 +41,7 @@ export async function propose(row: BrandRow, timezone: string, message: string, 
   );
   const templates = templateList(row.kit).map((t) => t.id);
 
-  const system = `you are the planner of "atelier", an instagram scheduling app. turn the user's command (any language) into actions.
+  const system = `you are the planner of "cutcake", an instagram scheduling app. turn the user's command (any language) into actions.
 now: ${now.weekday} ${now.date} ${now.time} (${timezone}). weeks start on monday. "monday" means the next upcoming monday (today if still ahead).
 times are local ${timezone}, format "YYYY-MM-DDTHH:MM". "video 1" / "nummer 1" / "#1" all mean media #1.
 templates: ${templates.join(', ')} (default ${brand.defaultTemplate}).

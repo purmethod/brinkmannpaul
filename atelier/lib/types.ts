@@ -166,7 +166,7 @@ export interface BrandTemplate {
   signature: 'original' | 'inverted';
   gradient?: { color: string; maxAlpha: number; heightRatio: number };
   cta?: string; // closing line(s) on the last slide, "|" = new line
-  logo?: { lines: string[]; tagline?: string }; // typographic lockup (foyo layout)
+  logo?: { lines: string[]; tagline?: string; taglineBelow?: boolean }; // typographic lockup (foyo layout)
   video: { layout: 'framed' | 'fullbleed'; boxHeight: number; subtitleColor: string; subtitleMarginV: number; frameColor?: string };
 }
 

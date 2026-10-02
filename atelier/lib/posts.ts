@@ -63,22 +63,28 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
   let lines = given;
   let caption = post.caption;
   if (!given.length || !caption) {
-    try {
-      const out = await composePost(brand, {
-        kind: post.kind,
-        textStyle: tpl.textStyle,
-        photos,
-        slides: given.length ? 0 : count,
-        description: post.description ?? (given.length ? given.map(plainText).join('\n') : null),
-        notes: post.options.notes,
-        learned: await learned(row.id),
-      });
-      if (!given.length) lines = out.lines;
-      if (!caption) caption = out.caption;
-    } catch (e) {
-      if (!given.length) lines = Array(count).fill('');
-      console.error('compose failed', e);
+    // two tries: a post never goes out without its words
+    let lastError: unknown = null;
+    for (let attempt = 0; attempt < 2 && (!caption || (!given.length && !lines.some(Boolean))); attempt++) {
+      try {
+        const out = await composePost(brand, {
+          kind: post.kind,
+          textStyle: tpl.textStyle,
+          photos,
+          slides: given.length ? 0 : count,
+          description: post.description ?? (given.length ? given.map(plainText).join('\n') : null),
+          notes: post.options.notes,
+          learned: await learned(row.id),
+        });
+        if (!given.length && out.lines.some(Boolean)) lines = out.lines;
+        if (!caption && out.caption) caption = out.caption;
+      } catch (e) {
+        lastError = e;
+        console.error('compose failed', e);
+      }
     }
+    if (!caption) throw new Error(`the caption could not be written${lastError ? ` (${(lastError as Error).message})` : ''} — tap try again`);
+    if (!given.length && !lines.some(Boolean)) lines = Array(count).fill('');
   }
 
   const v = Date.now().toString(36);
@@ -201,7 +207,7 @@ export async function finishRender(
 ) {
   if (!r.ok || !r.videoUrl) return updatePost(post.id, { status: 'error', error: `cut: ${r.error ?? 'failed'}` });
   let caption = post.caption;
-  if (!caption) {
+  for (let attempt = 0; attempt < 2 && !caption; attempt++) {
     caption = await composePost(resolveBrand(row), {
       kind: 'reel',
       textStyle: 'hook',
@@ -219,7 +225,8 @@ export async function finishRender(
     output: { ...post.output, video: r.videoUrl, cover: r.coverUrl, duration: r.duration, plan: r.plan ?? post.output.plan },
     transcript: r.transcript ?? post.transcript,
     caption,
-    error: null,
+    // the cut is kept; without words it waits instead of going out bare
+    ...(caption ? { error: null } : { status: 'error' as const, error: 'the caption could not be written — write one or tap try again' }),
   });
 }
 

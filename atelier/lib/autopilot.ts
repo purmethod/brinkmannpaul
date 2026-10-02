@@ -69,7 +69,7 @@ export async function openSlots(row: BrandRow, timezone: string, now = new Date(
 /** Next unused photo of the account's pool (uploaded in settings), oldest first. */
 async function nextPhoto(brandId: string): Promise<Media | null> {
   return one<Media>(
-    `select m.* from media m where m.brand_id = $1 and m.kind = 'photo' and m.status = 'ready'
+    `select m.* from media m where m.brand_id = $1 and m.pool and m.kind = 'photo' and m.status = 'ready'
        and not exists (select 1 from posts p where p.brand_id = $1 and m.id = any(p.media_ids))
      order by m.number limit 1`,
     [brandId],
@@ -78,7 +78,7 @@ async function nextPhoto(brandId: string): Promise<Media | null> {
 
 export async function poolSize(brandId: string): Promise<number> {
   const r = await one<{ n: number }>(
-    `select count(*)::int as n from media m where m.brand_id = $1 and m.kind = 'photo' and m.status = 'ready'
+    `select count(*)::int as n from media m where m.brand_id = $1 and m.pool and m.kind = 'photo' and m.status = 'ready'
        and not exists (select 1 from posts p where p.brand_id = $1 and m.id = any(p.media_ids))`,
     [brandId],
   );

@@ -88,8 +88,9 @@ export default function Review() {
       {error && <p className="error">{error}</p>}
 
       {!post && (
-        <div className="stage-wait" style={{ aspectRatio: 'auto', padding: '60px 20px' }}>
-          <p>nothing to review. new posts arrive every few hours.</p>
+        <div className="empty">
+          <strong>all caught up</strong>
+          new posts arrive every few hours.
         </div>
       )}
 

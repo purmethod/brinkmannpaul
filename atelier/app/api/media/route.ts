@@ -9,11 +9,12 @@ export const GET = route(async () => {
 /** Register files after a client upload: { items: [{ url, filename, type }] } — keeps upload order. */
 export const POST = route(async (req: Request) => {
   const { brand } = await requireCtx(req);
-  const { items } = (await req.json()) as { items?: { url: string; filename?: string; type?: string }[] };
+  // pool: photos for the channel's autopilot (only these are ever posted on their own)
+  const { items, pool } = (await req.json()) as { items?: { url: string; filename?: string; type?: string }[]; pool?: boolean };
   const out = [];
   for (const it of items ?? []) {
     if (!isBlobUrl(it.url)) continue;
-    out.push(await registerMedia(brand.id, { url: it.url, kind: kindOf(it.type || it.filename || it.url), filename: it.filename }));
+    out.push(await registerMedia(brand.id, { url: it.url, kind: kindOf(it.type || it.filename || it.url), filename: it.filename, pool: Boolean(pool) }));
   }
   return Response.json({ media: out });
 });

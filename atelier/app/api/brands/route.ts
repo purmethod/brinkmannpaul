@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { BRAND_COOKIE, HttpError, ensureBrands, requireCtx, route } from '@/lib/auth';
-import { loadKit } from '@/lib/brand';
+import { resolveBrand } from '@/lib/brand';
 import { one, q } from '@/lib/db';
 import type { BrandRow } from '@/lib/types';
 
@@ -18,8 +18,9 @@ export const GET = route(async () => {
     active: brand.id,
     brands: rows.map((b) => ({
       id: b.id,
-      name: b.name,
-      handle: loadKit(b.kit).handle,
+      name: resolveBrand(b).name,
+      handle: resolveBrand(b).handle,
+      logo: b.settings?.channel?.logo ?? (b.kit === 'foyo' ? ['fo', 'yo'] : null),
       instagram: b.username,
       autopilot: Boolean(b.settings?.autopilot?.enabled),
     })),

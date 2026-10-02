@@ -44,6 +44,8 @@ export default function ChannelPage() {
   const load = useCallback(() => api<Detail>(`/api/channels/${id}`).then(setD), [id]);
   useEffect(() => {
     // this channel becomes the active one: create, uploads and instagram act on it
+    const ig = new URLSearchParams(location.search).get('instagram');
+    if (ig) (/^connected/.test(ig) ? setNote : setError)(ig);
     api('/api/brands', { method: 'PATCH', json: { active: id } })
       .then(load)
       .catch((e) => setError(e.message));
@@ -105,11 +107,14 @@ export default function ChannelPage() {
         <a className="icon-btn" href="/channels" aria-label="back">
           <Icon name="back" />
         </a>
-        <span className="muted small">{d.handle}</span>
+        <span />
       </header>
-      <div className="row" style={{ gap: 16, marginBottom: 22 }}>
-        <Mark name={d.name} logo={d.channel?.logo ?? null} />
-        <h1>{d.name}</h1>
+      <div className="hero">
+        <Mark name={d.name} logo={d.channel?.logo ?? (d.name === 'foyo' ? ['fo', 'yo'] : null)} />
+        <span>
+          <h1>{d.name}</h1>
+          <span className="muted">{ig ? `@${ig.username}` : `${d.handle} · not connected`}</span>
+        </span>
       </div>
       {note && <p className="toast static">{note}</p>}
       {error && <p className="error">{error}</p>}
@@ -205,7 +210,7 @@ export default function ChannelPage() {
 
       <section className="card">
         <p className="kicker">your insights</p>
-        <p className="muted small">the core of every post. say what you know, believe and have seen work — atelier builds on it.</p>
+        <p className="muted small">the core of every post. say what you know, believe and have seen work — cutcake builds on it.</p>
         <textarea
           key={ap.insights}
           defaultValue={ap.insights}
@@ -260,7 +265,7 @@ export default function ChannelPage() {
               if (!files.length) return;
               setBusy('uploading…');
               try {
-                await uploadFiles(files, (m) => setBusy(`uploading ${m}`));
+                await uploadFiles(files, (m) => setBusy(`uploading ${m}`), { pool: true });
                 await load();
                 setNote(`${files.length} added`);
               } catch (err) {

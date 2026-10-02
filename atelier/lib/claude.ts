@@ -9,7 +9,7 @@ type Content = { type: string; text?: string; [k: string]: unknown };
 async function call(body: Record<string, unknown>) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error('ANTHROPIC_API_KEY missing');
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetch(`${process.env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com'}/v1/messages`, {
     method: 'POST',
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify(body),

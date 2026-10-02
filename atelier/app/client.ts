@@ -58,7 +58,7 @@ async function putWith(pathname: string, file: Blob, mode: 'token' | 'presigned'
   return upload(pathname, file, { access: 'public', handleUploadUrl: '/api/upload', multipart: big, ...progress });
 }
 
-export async function uploadFiles(files: File[], onProgress: (msg: string) => void): Promise<MediaItem[]> {
+export async function uploadFiles(files: File[], onProgress: (msg: string) => void, opts: { pool?: boolean } = {}): Promise<MediaItem[]> {
   const mode = await uploadReady();
   const items: { url: string; filename: string; type: string }[] = [];
   for (let i = 0; i < files.length; i++) {
@@ -67,7 +67,7 @@ export async function uploadFiles(files: File[], onProgress: (msg: string) => vo
     const blob = await put(`media/${Date.now()}-${i}.${ext}`, f, mode, (p) => onProgress(`${i + 1} / ${files.length} · ${Math.round(p)}%`));
     items.push({ url: blob.url, filename: f.name, type: f.type });
   }
-  const { media } = await api<{ media: MediaItem[] }>('/api/media', { method: 'POST', json: { items } });
+  const { media } = await api<{ media: MediaItem[] }>('/api/media', { method: 'POST', json: { items, pool: Boolean(opts.pool) } });
   return media;
 }
 

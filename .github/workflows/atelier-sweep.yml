@@ -15,7 +15,7 @@ jobs:
     steps:
       - env:
           ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
-          ATELIER_URL: ${{ vars.ATELIER_URL || 'https://atelier-lilac-seven.vercel.app' }}
+          ATELIER_URL: ${{ vars.ATELIER_URL || 'https://cutcake.app' }}
         run: |
           [ -z "$ADMIN_SECRET" ] && { echo "ADMIN_SECRET missing"; exit 0; }
           curl -sS --max-time 300 -H "Authorization: Bearer $ADMIN_SECRET" "$ATELIER_URL/api/cron/sweep"

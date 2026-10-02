@@ -31,8 +31,8 @@ export async function POST(req: Request) {
           reply({
             protocolVersion: (m.params?.protocolVersion as string) || '2025-06-18',
             capabilities: { tools: {} },
-            serverInfo: { name: 'atelier', version: '0.1.0' },
-            instructions: 'atelier plans, cuts and posts instagram content. media are referenced by number (#1). times are local to the user.',
+            serverInfo: { name: 'cutcake', version: '0.1.0' },
+            instructions: 'cutcake plans, cuts and posts instagram content. media are referenced by number (#1). times are local to the user.',
           }),
         );
       } else if (m.method === 'ping') out.push(reply({}));

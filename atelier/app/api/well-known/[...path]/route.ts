@@ -5,7 +5,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ path: st
   const origin = appOrigin(req);
   const [first] = (await params).path;
   if (first === 'oauth-protected-resource') {
-    return Response.json({ resource: `${origin}/api/mcp`, authorization_servers: [origin], bearer_methods_supported: ['header'], resource_name: 'atelier' });
+    return Response.json({ resource: `${origin}/api/mcp`, authorization_servers: [origin], bearer_methods_supported: ['header'], resource_name: 'cutcake' });
   }
   if (first === 'oauth-authorization-server' || first === 'openid-configuration') {
     return Response.json({

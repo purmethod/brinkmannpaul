@@ -88,7 +88,7 @@ export function channelTemplate(row: BrandRow, tpl: BrandTemplate): BrandTemplat
   return {
     ...tpl,
     ...(ch.cta !== undefined ? { cta: ch.cta } : {}),
-    ...(ch.logo?.length ? { logo: { lines: ch.logo, tagline: ch.tagline ?? '' } } : {}),
+    ...(ch.logo?.length ? { logo: { lines: ch.logo, tagline: ch.tagline ?? '', taglineBelow: true } } : {}),
   };
 }
 

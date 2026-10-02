@@ -14,7 +14,7 @@ export default async function Authorize({ searchParams }: { searchParams: SP }) 
     <form method="post" action="/api/oauth/authorize" style={{ marginTop: '14vh' }}>
       <h1>connect</h1>
       <p>
-        <strong>{client.name || 'claude'}</strong> wants to plan, cut and schedule posts in your atelier.
+        <strong>{client.name || 'claude'}</strong> wants to plan, cut and schedule posts in your cutcake.
       </p>
       {(['client_id', 'redirect_uri', 'state', 'code_challenge'] as const).map((k) => (
         <input key={k} type="hidden" name={k} value={p[k] ?? ''} />

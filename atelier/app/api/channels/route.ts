@@ -44,6 +44,8 @@ export const POST = route(async (req: Request) => {
   const b = (await req.json()) as ChannelSettings;
   const name = String(b.name || '').trim().toLowerCase().slice(0, 40);
   if (!name) throw new HttpError(400, 'give the channel a name');
+  const taken = await q<{ name: string }>('select name from brands where user_id = $1', [user.id]);
+  if (taken.some((t) => t.name.toLowerCase() === name)) throw new HttpError(409, `a channel called “${name}” already exists`);
   const handle = `@${String(b.handle || name).replace(/^@/, '').replace(/[^a-z0-9._]/gi, '').toLowerCase().slice(0, 30)}`;
   const channel: ChannelSettings = {
     name,

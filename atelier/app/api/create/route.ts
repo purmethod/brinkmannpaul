@@ -27,7 +27,7 @@ export const GET = route(async () => {
 export const POST = route(async (req: Request) => {
   const { user, brand } = await requireCtx(req);
   const b = (await req.json().catch(() => ({}))) as { media?: string[]; description?: string; at?: string; template?: string; text?: string };
-  const media = await mediaByIds((b.media ?? []).map(String));
+  const media = await mediaByIds((b.media ?? []).map(String), brand.id);
   if (!media.length && !b.text?.trim()) throw new HttpError(400, 'add a photo or video first');
   const at = b.at ? localToUtc(b.at, user.timezone) : null;
   const post = await createPost(brand, { media, description: b.description?.trim() || null, template: b.template, text: b.text?.trim() || null });

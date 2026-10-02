@@ -1,4 +1,4 @@
-import { neon } from '@neondatabase/serverless';
+import { neon, neonConfig } from '@neondatabase/serverless';
 import { normalizeEnv } from './env';
 
 type Sql = ReturnType<typeof neon>;
@@ -38,6 +38,7 @@ const SCHEMA = [
   `create index if not exists schedules_brand_at on schedules (brand_id, at)`,
   `alter table posts add column if not exists description text`,
   `alter table schedules add column if not exists retry_at timestamptz`,
+  `alter table media add column if not exists pool boolean not null default false`,
   `create table if not exists edit_feedback (
     id text primary key, brand_id text not null references brands(id) on delete cascade, post_id text,
     text text not null, consumed boolean not null default false, created_at timestamptz not null default now())`,
@@ -65,6 +66,8 @@ function raw(): Sql {
       const names = Object.keys(process.env).filter((k) => /URL|DATABASE|POSTGRES|PG/.test(k) && !/^(VERCEL|NEXT|NODE)/.test(k));
       throw new Error(`DATABASE_URL missing — connect neon to this project for "production" (vercel → storage). seen: ${names.join(', ') || 'none'}`);
     }
+    // local end-to-end tests point the http driver at a stand-in for neon's /sql endpoint
+    if (process.env.NEON_FETCH_ENDPOINT) neonConfig.fetchEndpoint = () => process.env.NEON_FETCH_ENDPOINT!;
     client = neon(url);
   }
   return client;

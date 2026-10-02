@@ -40,6 +40,28 @@ const paths: Record<string, React.ReactNode> = {
     </>
   ),
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+  create: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <path d="M12 8.5v7M8.5 12h7" />
+    </>
+  ),
+  channels: (
+    <>
+      <rect x="3.5" y="3.5" width="7" height="7" rx="2.2" />
+      <rect x="13.5" y="3.5" width="7" height="7" rx="2.2" />
+      <rect x="3.5" y="13.5" width="7" height="7" rx="2.2" />
+      <rect x="13.5" y="13.5" width="7" height="7" rx="2.2" />
+    </>
+  ),
+  settings: (
+    <>
+      <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+      <circle cx="16" cy="7" r="2.2" />
+      <circle cx="8" cy="17" r="2.2" />
+    </>
+  ),
+  bolt: <path d="M13 3.5L5.5 13.5H12l-1 7 7.5-10H12z" />,
 };
 
 export function Icon({ name, size = 24, stroke = 1.4 }: { name: keyof typeof paths | string; size?: number; stroke?: number }) {
@@ -133,6 +155,18 @@ export function TemplatePreview({ layout, photo, line }: { layout: string; photo
       </div>
     );
   }
+  if (layout === 'foyo') {
+    return (
+      <div className="tp tp-foyo" style={photo ? { backgroundImage: `linear-gradient(to top, rgba(10,7,6,.75), rgba(10,7,6,0) 60%), url(${photo})` } : {}}>
+        <span className="tp-fy-logo">
+          fo
+          <br />
+          yo
+        </span>
+        <span className="tp-fy-text">{text}</span>
+      </div>
+    );
+  }
   if (layout === 'bauhaus') {
     return (
       <div className="tp tp-bauhaus">
@@ -165,5 +199,17 @@ export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
         </span>
       ))}
     </span>
+  );
+}
+
+/* ---------- cutcake logo: a muffin ---------- */
+
+export function Logo({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M11 31.5c-1.6-5.6 2.4-10.4 7.6-10.2 1.2-5.6 6.4-9 11.8-7.6 3.4-3.6 9.6-3.4 12.8.8 5.2-.6 9.6 3.6 9.2 8.8 3 1.6 4.4 4.8 3.6 8.2z" fill="currentColor" />
+      <path d="M13 35.5h38l-4.2 19.5H17.2z" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
+      <path d="M25 36.5l1.4 17.5M32 36.5v17.5M39 36.5l-1.4 17.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
   );
 }

@@ -93,6 +93,18 @@ jobs:
           has WORKER_REF && vercel env rm WORKER_REF production --yes --token "$VERCEL_TOKEN" $SCOPE >/dev/null || true
           printf '%s' "$GITHUB_REF_NAME" | vercel env add WORKER_REF production --type config --token "$VERCEL_TOKEN" $SCOPE >/dev/null && echo "set WORKER_REF=$GITHUB_REF_NAME"
 
+      - name: domain (cutcake.app)
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        continue-on-error: true
+        run: |
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          for d in cutcake.app www.cutcake.app; do
+            vercel domains add "$d" atelier --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -3 || true
+          done
+          echo "--- dns status ---"
+          vercel domains inspect cutcake.app --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -25 || true
+
       - name: deploy
         if: steps.gate.outputs.ok == 'true'
         working-directory: atelier

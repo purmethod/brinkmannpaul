@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Logo } from '../ui';
 
 export default function Login() {
   const [password, setPassword] = useState('');
@@ -19,9 +20,12 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={submit} style={{ marginTop: '18vh' }}>
-      <h1>atelier</h1>
-      <p className="muted">plan, cut and post — calmly.</p>
+    <form onSubmit={submit} className="login">
+      <span className="login-mark">
+        <Logo size={46} />
+      </span>
+      <h1>cutcake</h1>
+      <p className="muted">cut it, plan it, post it.</p>
       <label htmlFor="pw">password</label>
       <input id="pw" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button className="primary wide" style={{ marginTop: 18 }} disabled={busy || !password}>

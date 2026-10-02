@@ -75,10 +75,11 @@ export default function Channels() {
               )}
               {!c.autopilot.review && c.autopilot.enabled && <span className="muted small">fully automatic</span>}
             </span>
+            <span className="chev" aria-hidden="true" />
           </a>
         );
       })}
-      <button className="ghost wide" style={{ marginTop: 8 }} onClick={() => setSheet(true)}>
+      <button className="wide" style={{ marginTop: 6 }} onClick={() => setSheet(true)}>
         <Icon name="plus" size={18} /> new channel
       </button>
       <NewChannel open={sheet} onClose={() => setSheet(false)} onCreated={(id) => (window.location.href = `/channels/${id}`)} />

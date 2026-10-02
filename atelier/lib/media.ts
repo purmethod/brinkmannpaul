@@ -15,13 +15,16 @@ export function kindOf(nameOrType: string): 'video' | 'photo' {
 }
 
 /** Every medium gets a short running number per brand (#1, #2 …) for voice commands. */
-export async function registerMedia(brandId: string, m: { url: string; kind: 'video' | 'photo'; filename?: string; status?: 'uploading' | 'ready' }): Promise<Media> {
+export async function registerMedia(
+  brandId: string,
+  m: { url: string; kind: 'video' | 'photo'; filename?: string; status?: 'uploading' | 'ready'; pool?: boolean },
+): Promise<Media> {
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
       const row = await one<Media>(
-        `insert into media (id, brand_id, number, kind, url, status, filename)
-         values ($1, $2, (select coalesce(max(number), 0) + 1 from media where brand_id = $2), $3, $4, $5, $6) returning *`,
-        [id('med'), brandId, m.kind, m.url, m.status ?? 'ready', m.filename ?? null],
+        `insert into media (id, brand_id, number, kind, url, status, filename, pool)
+         values ($1, $2, (select coalesce(max(number), 0) + 1 from media where brand_id = $2), $3, $4, $5, $6, $7) returning *`,
+        [id('med'), brandId, m.kind, m.url, m.status ?? 'ready', m.filename ?? null, Boolean(m.pool)],
       );
       return row!;
     } catch (e) {
@@ -49,8 +52,11 @@ export async function mediaByNumbers(brandId: string, numbers: number[]): Promis
   return numbers.map((n) => rows.find((r) => r.number === n)).filter((m): m is Media => Boolean(m));
 }
 
-export async function mediaByIds(ids: string[]): Promise<Media[]> {
+/** `brandId` limits it to one channel's media (anything a user sends in). */
+export async function mediaByIds(ids: string[], brandId?: string): Promise<Media[]> {
   if (!ids.length) return [];
-  const rows = await q<Media>('select * from media where id = any($1::text[])', [ids]);
+  const rows = brandId
+    ? await q<Media>('select * from media where id = any($1::text[]) and brand_id = $2', [ids, brandId])
+    : await q<Media>('select * from media where id = any($1::text[])', [ids]);
   return ids.map((i) => rows.find((r) => r.id === i)).filter((m): m is Media => Boolean(m));
 }

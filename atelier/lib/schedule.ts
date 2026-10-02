@@ -48,8 +48,9 @@ async function dequeue(messageId: string | null) {
  * With qstash: a heartbeat every 15 minutes (posts the due, keeps the autopilot topped up).
  * Idempotent — the fixed schedule id updates instead of duplicating.
  */
+let heartbeatSet = false;
 export async function ensureHeartbeat() {
-  if (!qstashReady()) return false;
+  if (!qstashReady() || heartbeatSet) return heartbeatSet;
   await qstash().schedules.create({
     scheduleId: 'atelier-heartbeat',
     destination: `${appOrigin()}/api/qstash/publish`,
@@ -58,6 +59,7 @@ export async function ensureHeartbeat() {
     headers: { 'content-type': 'application/json' },
     retries: 0,
   });
+  heartbeatSet = true;
   return true;
 }
 
@@ -144,6 +146,7 @@ export async function runSchedule(scheduleId: string) {
   if (post.status === 'posted') return { skipped: 'already posted' };
   if (post.status === 'processing') return retry('still cutting');
   if (post.status === 'error' && !(post.output.video || post.output.slides?.length)) return retry(post.error || 'render failed');
+  if (!post.caption?.trim()) return retry('no caption yet'); // never out without its words
   if (post.status === 'review') {
     // learning phase: nothing goes out without the owner's ok; it gets a new slot once approved
     await q("update schedules set status = 'canceled', error = 'waiting for your ok' where id = $1", [s.id]);
