@@ -10,26 +10,50 @@ import type { BrandRow, Post, Schedule } from './types';
 const RETRY_MINUTES = 10;
 const MAX_ATTEMPTS = 3;
 
-function qstash() {
-  const token = process.env.QSTASH_TOKEN;
-  if (!token) throw new Error('QSTASH_TOKEN missing — connect upstash qstash in vercel');
-  return new Client({ token, ...(process.env.QSTASH_URL ? { baseUrl: process.env.QSTASH_URL } : {}) });
+export function qstashReady() {
+  return Boolean(process.env.QSTASH_TOKEN);
 }
 
-/** Minute-exact delivery: one qstash message per schedule, delivered to /api/qstash/publish. */
-async function enqueue(scheduleId: string, at: Date): Promise<string> {
+function qstash() {
+  const url = process.env.QSTASH_URL;
+  return new Client({ token: process.env.QSTASH_TOKEN!, ...(url && /^https?:\/\//.test(url) ? { baseUrl: url } : {}) });
+}
+
+/**
+ * Minute-exact delivery: one qstash message per schedule, delivered to /api/qstash/publish.
+ * Without qstash (or if it fails) the schedule stays unqueued and sweepDue() picks it up.
+ */
+async function enqueue(scheduleId: string, at: Date): Promise<string | null> {
+  if (!qstashReady()) return null;
   const notBefore = Math.floor(at.getTime() / 1000);
-  const res = await qstash().publishJSON({
-    url: `${appOrigin()}/api/qstash/publish`,
-    body: { scheduleId },
-    retries: 2,
-    ...(notBefore > Date.now() / 1000 + 5 ? { notBefore } : {}),
-  });
-  return (res as { messageId: string }).messageId;
+  try {
+    const res = await qstash().publishJSON({
+      url: `${appOrigin()}/api/qstash/publish`,
+      body: { scheduleId },
+      retries: 2,
+      ...(notBefore > Date.now() / 1000 + 5 ? { notBefore } : {}),
+    });
+    return (res as { messageId: string }).messageId;
+  } catch (e) {
+    console.error('qstash enqueue failed', e);
+    return null;
+  }
 }
 
 async function dequeue(messageId: string | null) {
-  if (messageId) await qstash().messages.delete(messageId).catch(() => undefined);
+  if (messageId && qstashReady()) await qstash().messages.delete(messageId).catch(() => undefined);
+}
+
+/** Fallback publisher: runs every unqueued schedule whose time has come. Safe to call often — runSchedule claims atomically. */
+export async function sweepDue(brandId?: string) {
+  const due = await q<{ id: string }>(
+    `select id from schedules where status = 'pending' and message_id is null and coalesce(retry_at, at) <= now()
+       ${brandId ? 'and brand_id = $1' : ''} order by at limit 10`,
+    brandId ? [brandId] : [],
+  );
+  const results = [];
+  for (const s of due) results.push(await runSchedule(s.id).catch((e) => ({ error: (e as Error).message })));
+  return results;
 }
 
 export async function notify(brandId: string, text: string) {
@@ -50,7 +74,10 @@ export async function reschedule(scheduleId: string, brandId: string, at: Date):
   if (!s) throw new Error('schedule not found');
   await dequeue(s.message_id);
   const messageId = await enqueue(s.id, at);
-  return (await one<Schedule>("update schedules set at = $2, message_id = $3, status = 'pending', attempts = 0, error = null where id = $1 returning *", [s.id, at, messageId]))!;
+  return (await one<Schedule>(
+    "update schedules set at = $2, message_id = $3, status = 'pending', attempts = 0, error = null, retry_at = null where id = $1 returning *",
+    [s.id, at, messageId],
+  ))!;
 }
 
 export async function cancelSchedule(scheduleId: string, brandId: string) {
@@ -87,7 +114,7 @@ export async function runSchedule(scheduleId: string) {
     }
     const next = new Date(Date.now() + RETRY_MINUTES * 60_000);
     const messageId = await enqueue(s.id, next);
-    await q("update schedules set status = 'pending', attempts = $2, error = $3, message_id = $4 where id = $1", [s.id, attempts, reason, messageId]);
+    await q("update schedules set status = 'pending', attempts = $2, error = $3, message_id = $4, retry_at = $5 where id = $1", [s.id, attempts, reason, messageId, next]);
     await notify(s.brand_id, `${when}: ${reason} — retrying in ${RETRY_MINUTES} minutes`);
     return { retry: reason };
   };

@@ -1,5 +1,6 @@
 import { safeEqual } from '@/lib/crypto';
 import { refreshConnections } from '@/lib/platforms';
+import { sweepDue } from '@/lib/schedule';
 
 export const maxDuration = 300;
 
@@ -8,5 +9,5 @@ export async function GET(req: Request) {
   const token = (req.headers.get('authorization') || '').replace(/^Bearer\s+/i, '');
   const secret = process.env.CRON_SECRET;
   if (!secret || !safeEqual(token, secret)) return Response.json({ error: 'unauthorized' }, { status: 401 });
-  return Response.json({ connections: await refreshConnections() });
+  return Response.json({ connections: await refreshConnections(), swept: await sweepDue() });
 }

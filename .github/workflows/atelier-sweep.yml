@@ -1,0 +1,21 @@
+name: atelier-sweep
+
+# Fallback publisher: every 5 minutes, posts whatever is due and not queued in qstash.
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - env:
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          ATELIER_URL: ${{ vars.ATELIER_URL || 'https://atelier-lilac-seven.vercel.app' }}
+        run: |
+          [ -z "$ADMIN_SECRET" ] && { echo "ADMIN_SECRET missing"; exit 0; }
+          curl -sS --max-time 300 -H "Authorization: Bearer $ADMIN_SECRET" "$ATELIER_URL/api/cron/sweep"
