@@ -127,6 +127,43 @@ export async function render(post: Post, row: BrandRow, extra: { feedback?: stri
   }
 }
 
+/**
+ * Self-healing for posts that never finished preparing.
+ * - leftovers of create attempts that failed before the scheduling fix (render never started) are duplicates: removed
+ * - a photo/carousel render takes < 5 min; older ones died with their function: re-rendered once, then reported
+ * - reels: the worker reports back well within 45 min
+ */
+export async function recoverStuck(brandId?: string) {
+  const args = brandId ? [brandId] : [];
+  const scope = brandId ? 'and brand_id = $1' : '';
+  const removed = await q<{ id: string }>(
+    `delete from posts where status = 'processing' and output = '{}'::jsonb and created_at < '2026-10-02T09:20:00Z' ${scope} returning id`,
+    args,
+  );
+  // claim atomically so parallel sweeps never render the same post twice
+  const stuck = await q<Post>(
+    `update posts set updated_at = now() where id in (
+       select id from posts where status = 'processing' and kind <> 'reel' and updated_at < now() - interval '10 minutes' ${scope}
+       order by updated_at limit 2) returning *`,
+    args,
+  );
+  for (const p of stuck) {
+    const retried = p.options.retriedAt && Date.now() - new Date(p.options.retriedAt).getTime() < 3600_000;
+    if (retried) {
+      await updatePost(p.id, { status: 'error', error: 'could not prepare it — tap try again' });
+      continue;
+    }
+    const row = await one<BrandRow>('select * from brands where id = $1', [p.brand_id]);
+    if (row) await render(await updatePost(p.id, { options: { ...p.options, retriedAt: new Date().toISOString() } }), row);
+  }
+  await q(
+    `update posts set status = 'error', error = 'the cut did not come back — tap try again', updated_at = now()
+     where status = 'processing' and kind = 'reel' and updated_at < now() - interval '45 minutes' ${scope}`,
+    args,
+  );
+  return { removed: removed.length, retried: stuck.length };
+}
+
 export async function createPost(
   row: BrandRow,
   input: { media?: Media[]; text?: string | null; description?: string | null; template?: string | null; kind?: PostKind; caption?: string; options?: PostOptions },

@@ -3,7 +3,7 @@ import { resolveBrand } from './brand';
 import { id, one, q } from './db';
 import { appOrigin } from './origin';
 import { getConnection, getPlatform } from './platforms';
-import { getPost, updatePost } from './posts';
+import { getPost, recoverStuck, updatePost } from './posts';
 import { fmtLocal } from './time';
 import type { BrandRow, Post, Schedule } from './types';
 
@@ -46,6 +46,7 @@ async function dequeue(messageId: string | null) {
 
 /** Fallback publisher: runs every unqueued schedule whose time has come. Safe to call often — runSchedule claims atomically. */
 export async function sweepDue(brandId?: string) {
+  await recoverStuck(brandId).catch((e) => console.error('recover', e));
   const due = await q<{ id: string }>(
     `select id from schedules where status = 'pending' and message_id is null and coalesce(retry_at, at) <= now()
        ${brandId ? 'and brand_id = $1' : ''} order by at limit 10`,

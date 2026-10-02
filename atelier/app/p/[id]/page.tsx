@@ -185,6 +185,11 @@ export default function PostPage() {
       )}
 
       {post.error && <p className="error">{post.error}</p>}
+      {post.status === 'error' && (
+        <button className="primary wide" disabled={Boolean(busy)} onClick={() => patch({ action: 'recut' }, '')}>
+          try again
+        </button>
+      )}
 
       {post.status === 'due' && (
         <div className="due">

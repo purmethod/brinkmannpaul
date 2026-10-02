@@ -2,7 +2,7 @@ import { after } from 'next/server';
 import { HttpError, requireCtx, route } from '@/lib/auth';
 import { loadTemplates, resolveBrand } from '@/lib/brand';
 import { mediaByIds } from '@/lib/media';
-import { createPost, render } from '@/lib/posts';
+import { createPost, deletePost, render } from '@/lib/posts';
 import { schedulePost } from '@/lib/schedule';
 import { nextFreeSlot } from '@/lib/slots';
 import { localToUtc } from '@/lib/time';
@@ -31,7 +31,15 @@ export const POST = route(async (req: Request) => {
   if (!media.length && !b.text?.trim()) throw new HttpError(400, 'add a photo or video first');
   const at = b.at ? localToUtc(b.at, user.timezone) : null;
   const post = await createPost(brand, { media, description: b.description?.trim() || null, template: b.template, text: b.text?.trim() || null });
-  if (at) await schedulePost(brand.id, post.id, at);
+  if (at) {
+    try {
+      await schedulePost(brand.id, post.id, at);
+    } catch (e) {
+      // never leave a half-created post behind: a retry would otherwise duplicate it
+      await deletePost(post).catch(() => undefined);
+      throw e;
+    }
+  }
   // cutting, captions and rendering happen after the response
   after(() => render(post, brand).then(() => undefined));
   return Response.json({ post: { id: post.id, kind: post.kind } });

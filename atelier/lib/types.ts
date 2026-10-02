@@ -57,6 +57,7 @@ export interface PostOptions {
   song?: string | null; // requested song title (see README: music)
   notes?: string | null; // style notes from a saved template
   collaborators?: string[];
+  retriedAt?: string; // self-healing: last automatic re-render of a stuck post
 }
 
 export interface Post {
