@@ -6,14 +6,26 @@
   const skip = document.querySelector(".skip-link");
   if (!gate || !animation || !page || !main) return;
 
+  const source = animation.querySelector("source");
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let open = false;
+  let still = false;
   let loadTimer;
   let touchStart = null;
 
   function showStill() {
     window.clearTimeout(loadTimer);
+    still = true;
     gate.classList.add("is-complete");
+    animation.pause();
+  }
+
+  function play() {
+    if (still) return;
+    window.clearTimeout(loadTimer);
+    animation.playbackRate = 1.25;
+    const playing = animation.play();
+    if (playing) playing.catch(showStill);
   }
 
   function enter(moveFocus = false) {
@@ -31,6 +43,8 @@
     window.removeEventListener("touchstart", onTouchStart);
     window.removeEventListener("touchmove", onTouchMove);
     window.removeEventListener("keydown", onKey);
+    // Stop decoding once the gate has faded out.
+    window.setTimeout(() => animation.pause(), 600);
   }
 
   function onWheel(event) {
@@ -60,19 +74,15 @@
   // Bind every escape route before making the page inert.
   gate.addEventListener("click", () => enter(true));
   skip?.addEventListener("click", () => enter(true));
-  animation.addEventListener("error", showStill, { once: true });
-  animation.addEventListener("loadeddata", () => {
-    window.clearTimeout(loadTimer);
-    animation.playbackRate = 1.25;
-    animation.play().catch(() => showStill());
-  }, { once: true });
-  animation.addEventListener("ended", showStill, { once: true });
   const onMotion = (event) => { if (event.matches && open) showStill(); };
   if (motion.addEventListener) motion.addEventListener("change", onMotion);
   else if (motion.addListener) motion.addListener(onMotion);
 
   // Direct links never leave someone stranded behind the intro.
-  if (window.location.hash) return;
+  if (window.location.hash) {
+    animation.pause();
+    return;
+  }
   open = true;
   gate.removeAttribute("aria-hidden");
   gate.tabIndex = 0;
@@ -84,8 +94,17 @@
   window.addEventListener("touchmove", onTouchMove, { passive: false });
   window.addEventListener("keydown", onKey);
 
-  if (motion.matches) showStill();
-  else loadTimer = window.setTimeout(showStill, 10000);
+  if (motion.matches) {
+    showStill();
+    return;
+  }
+  loadTimer = window.setTimeout(showStill, 10000);
+  animation.addEventListener("ended", showStill, { once: true });
+  // A failed <source> reports its error on the <source> element, not on <video>.
+  animation.addEventListener("error", showStill, { once: true });
+  source?.addEventListener("error", showStill, { once: true });
+  const HAVE_CURRENT_DATA = 2;
+  if (!animation.canPlayType('video/mp4; codecs="avc1.42E01E"')) showStill();
+  else if (animation.readyState >= HAVE_CURRENT_DATA) play();
+  else animation.addEventListener("loadeddata", play, { once: true });
 })();
-
-// Native details work independently of JavaScript; readers may open multiple topics.
