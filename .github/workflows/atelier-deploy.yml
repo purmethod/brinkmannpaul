@@ -89,6 +89,9 @@ jobs:
           put INSTAGRAM_APP_ID "$INSTAGRAM_APP_ID"
           put INSTAGRAM_APP_SECRET "$INSTAGRAM_APP_SECRET"
           put GITHUB_TOKEN "$GH_DISPATCH_TOKEN"
+          # the render worker checks out the code of the branch that is live
+          has WORKER_REF && vercel env rm WORKER_REF production --yes --token "$VERCEL_TOKEN" $SCOPE >/dev/null || true
+          printf '%s' "$GITHUB_REF_NAME" | vercel env add WORKER_REF production --type config --token "$VERCEL_TOKEN" $SCOPE >/dev/null && echo "set WORKER_REF=$GITHUB_REF_NAME"
 
       - name: deploy
         if: steps.gate.outputs.ok == 'true'

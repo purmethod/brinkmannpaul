@@ -31,6 +31,7 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
       event_type: 'atelier-render',
       client_payload: {
         postId: post.id,
+        ref: process.env.WORKER_REF || process.env.VERCEL_GIT_COMMIT_REF || undefined,
         callbackUrl: `${appOrigin()}/api/worker/callback`,
         callbackToken: callbackToken(post.id),
         kit: row.kit,
@@ -44,6 +45,10 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
           voiceover: post.options.voiceoverUrl ?? null,
           signature: row.settings?.signatureUrl ?? null,
           plan: extra.reusePlan ? post.output.plan ?? null : null,
+          // montage (mostly silent footage): what it is about steers the beats and the words on screen
+          description: post.description ?? null,
+          notes: post.options.notes ?? null,
+          targetSeconds: 7,
         },
       },
     }),

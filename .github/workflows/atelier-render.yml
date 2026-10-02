@@ -1,7 +1,8 @@
 name: atelier-render
 
 # Render worker for atelier (repository_dispatch from the app). Replaceable by an own server:
-# it only needs the same payload, ffmpeg, python and a callback.
+# it only needs the same payload, ffmpeg, python and a callback. Talking videos get the speech cut,
+# mostly silent footage a 5–8 s montage (worker/montage.py).
 on:
   repository_dispatch:
     types: [atelier-render]
@@ -26,9 +27,12 @@ jobs:
       PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJson(github.event.client_payload) || github.event.inputs.payload }}
       WORK_DIR: ${{ github.workspace }}/work
     steps:
+      # this file must live on the default branch (github only dispatches from there);
+      # the worker code comes from the branch the app was deployed from
       - uses: actions/checkout@v4
         with:
           sparse-checkout: atelier
+          ref: ${{ github.event.client_payload.ref || github.ref }}
 
       - uses: actions/setup-python@v5
         with:

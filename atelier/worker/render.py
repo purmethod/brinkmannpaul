@@ -2,6 +2,10 @@
 """
 Atelier render worker (GitHub Actions today, any server later — CPU only):
 
+  mostly silent footage (baking, building …) -> montage.py: motion/sharpness/repetition analysis + contact sheets
+  to Claude -> 5–8 s of the best, non-repeating beats with 1–3 text overlays.
+
+  talking footage:
   download clips -> faster-whisper (word timestamps) -> 1 frame/s + transcript to Claude, which
   picks the strongest parts and the hook (applying the brand's learned cut rules + feedback) ->
 
@@ -24,6 +28,9 @@ import textwrap
 import traceback
 import urllib.request
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import montage  # noqa: E402
 
 STUDIO = Path(__file__).resolve().parents[1]
 WORK = Path(os.environ.get("WORK_DIR", "work")).resolve()
@@ -365,13 +372,13 @@ def ass_time(t):
     return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 
 
-def write_ass(chunks, path, brand, tpl):
+def write_ass(chunks, path, brand, tpl, scale=1.0):
     sub = brand["video"]["subtitles"]
     v = tpl["video"]
     W, H = brand["video"]["width"], brand["video"]["height"]
     family = brand["fonts"]["family"]
     style = (
-        f"Style: Default,{family},{sub['fontSize']},{ass_color(v['subtitleColor'])},&H000000FF,&H00000000,&H00000000,"
+        f"Style: Default,{family},{round(sub['fontSize'] * scale)},{ass_color(v['subtitleColor'])},&H000000FF,&H00000000,&H00000000,"
         f"0,0,0,0,100,100,0,0,1,0,0,1,{sub['marginSide']},{sub['marginSide']},{v['subtitleMarginV']},1"
     )
     lines = [
@@ -518,6 +525,43 @@ def subtitle_chunks(mapped, lang, target, sub_cfg):
     return chunks
 
 
+def render_montage(clips, plan, opts, brand, tpl, brand_dir, fps, box_w, box_h, sub_cfg):
+    """5–8 s from minutes of footage: claude picks the beats, hard-ish cuts, short text overlays."""
+    if not isinstance(plan, dict):
+        font = brand_dir / brand["fonts"].get("sansMedium", brand["fonts"]["regular"])
+        plan = montage.plan_montage(clips, opts, WORK, claude_call, log, font)
+    files, durs = [], []
+    for i, shot in enumerate(plan["shots"]):
+        c = clips[shot["clip"]]
+        out = WORK / f"shot-{i}.mp4"
+        durs.append(encode_segment(c["path"], dict(shot), out, box_w, box_h, fps, c["audio"], c["hdr"]))
+        files.append(out)
+    cut = 2 / fps  # two-frame dissolve: reads as a cut, never as a jump
+    joined = WORK / "joined.mp4"
+    join(files, durs, joined, cut, fps)
+    dur = duration_of(joined)
+
+    ass = None
+    lines = []
+    for o in plan.get("overlays") or []:
+        start = min(max(0.0, o["start"]), max(0.0, dur - 0.8))
+        end = min(dur, o["end"] if o["end"] > start + 0.6 else start + 1.8)
+        text = o["text"].lower() if sub_cfg.get("lowercase") else o["text"]
+        lines.append({"text": text, "lines": textwrap.wrap(text, sub_cfg["maxCharsPerLine"])[: sub_cfg["maxLines"]], "start": start, "end": end})
+    if lines:
+        ass = WORK / "subs.ass"
+        write_ass(lines, ass, brand, tpl, scale=1.3)
+
+    final = WORK / "final.mp4"
+    render_final(joined, dur, ass, brand, tpl, brand_dir, final, {"signature": opts.get("signature")})
+    dur = duration_of(final)
+    cover = WORK / "cover.jpg"
+    run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-ss", f"{min(0.5, dur / 2):.2f}", "-i", final, "-frames:v", "1", "-q:v", "2", cover])
+    # the caption is written from this: the story and the words on screen
+    transcript = " ".join([plan.get("story") or ""] + [o["text"] for o in plan.get("overlays") or []]).strip()
+    return {"ok": True, "video": str(final), "cover": str(cover), "duration": round(dur, 2), "transcript": transcript, "plan": plan}
+
+
 def main(payload):
     kit = payload.get("kit", "")
     if not re.fullmatch(r"[a-z0-9_-]+", kit):
@@ -545,8 +589,12 @@ def main(payload):
         words, lang = transcribe(src) if audio else ([], target)
         clips.append({"path": src, "dur": duration_of(src), "audio": audio, "words": words, "lang": lang, "hdr": is_hdr(src)})
 
-    # 2. what goes in, in which order (claude), unless we re-render a known cut
+    # 2a. mostly silent process footage -> a short montage with text overlays
     plan = opts.get("plan")
+    if isinstance(plan, dict) or (not plan and montage.is_montage(clips, opts)):
+        return render_montage(clips, plan, opts, brand, tpl, brand_dir, fps, box_w, box_h, sub_cfg)
+
+    # 2b. talking: what goes in, in which order (claude), unless we re-render a known cut
     if not plan:
         try:
             plan = claude_select(clips, opts.get("rules"), opts.get("feedback"), cfg)
