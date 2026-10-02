@@ -29,7 +29,13 @@ export interface MediaItem {
 }
 
 /** Phone → vercel blob directly (large files), then register in upload order → #numbers. */
+async function uploadReady() {
+  const r = await fetch('/api/upload', { cache: 'no-store' }).then((x) => x.json()).catch(() => ({ ok: true }));
+  if (!r.ok) throw new Error(r.reason || 'upload not available');
+}
+
 export async function uploadFiles(files: File[], onProgress: (msg: string) => void): Promise<MediaItem[]> {
+  await uploadReady();
   const items: { url: string; filename: string; type: string }[] = [];
   for (let i = 0; i < files.length; i++) {
     const f = files[i];
@@ -47,6 +53,7 @@ export async function uploadFiles(files: File[], onProgress: (msg: string) => vo
 }
 
 export async function uploadOne(file: Blob, name: string): Promise<string> {
+  await uploadReady();
   const blob = await upload(`media/${Date.now()}-${name}`, file, { access: 'public', handleUploadUrl: '/api/upload' });
   return blob.url;
 }
