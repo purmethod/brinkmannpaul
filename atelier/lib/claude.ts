@@ -4,21 +4,49 @@ export const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-5-5';
 
 type Block = { type: 'text'; text: string } | { type: 'image'; source: { type: 'base64'; media_type: 'image/jpeg'; data: string } };
 
-export async function claude(opts: { system: string; prompt: string | Block[]; maxTokens?: number }): Promise<string> {
+type Content = { type: string; text?: string; [k: string]: unknown };
+
+async function call(body: Record<string, unknown>) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error('ANTHROPIC_API_KEY missing');
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: opts.maxTokens ?? 1000,
-      system: opts.system,
-      messages: [{ role: 'user', content: opts.prompt }],
-    }),
+    body: JSON.stringify(body),
   });
-  const json = (await res.json()) as { content?: { type: string; text?: string }[]; error?: { message?: string } };
+  const json = (await res.json()) as { content?: Content[]; stop_reason?: string; error?: { message?: string } };
   if (!res.ok) throw new Error(`claude ${res.status}: ${json.error?.message ?? 'error'}`);
+  return json;
+}
+
+/**
+ * One answer from claude. `search` lets it consult the web (anthropic's server-side web search)
+ * before answering; if search is unavailable for the account it answers from its own knowledge.
+ */
+export async function claude(opts: { system: string; prompt: string | Block[]; maxTokens?: number; search?: number }): Promise<string> {
+  const base = { model: MODEL, max_tokens: opts.maxTokens ?? 1000, system: opts.system };
+  const messages: { role: string; content: unknown }[] = [{ role: 'user', content: opts.prompt }];
+  if (opts.search) {
+    try {
+      const tools = [{ type: 'web_search_20260209', name: 'web_search', max_uses: opts.search }];
+      for (let turn = 0; turn < 4; turn++) {
+        const json = await call({ ...base, messages, tools });
+        const content = json.content ?? [];
+        // long server-side searches pause; sending the partial answer back resumes them
+        if (json.stop_reason === 'pause_turn') {
+          messages.push({ role: 'assistant', content });
+          continue;
+        }
+        const text = content.filter((c) => c.type === 'text').map((c) => c.text ?? '').join('').trim();
+        if (text) return text;
+        break;
+      }
+    } catch (e) {
+      console.error('claude with web search failed, answering without', (e as Error).message);
+    }
+    messages.splice(1);
+  }
+  const json = await call({ ...base, messages });
   return (json.content ?? []).filter((c) => c.type === 'text').map((c) => c.text ?? '').join('').trim();
 }
 
@@ -107,6 +135,13 @@ export async function composePost(
     `- never more than ${brand.caption.maxHashtags} hashtags.`,
     slides ? `slide text: exactly ${slides} lines, one per slide in order, all lowercase. ${STYLE[o.textStyle] ?? STYLE.hook}` : '',
     o.notes ? `the creator's saved style notes:\n${o.notes}` : '',
+    '',
+    'how to write: the creator\'s own words are the core. first find the one idea in what they said or recorded. then connect it with real, ' +
+      'well-established insight from human knowledge — philosophy, architecture and design history, psychology, neuroscience, health science, craft. ' +
+      'use web search when a fact, finding or name would make the post sharper and you are not certain of it. ' +
+      'the result must read as one voice: their thought, deepened by what humanity already knows — not a summary, not a lecture.',
+    'truth: never invent quotes, studies, numbers or attributions. only name a person, study or figure you are sure of (or found). ' +
+      'if in doubt, express the insight in your own words without a source. no links, no citations in the text.',
     'answer only json: {"lines": [..], "caption": "..."}',
   ]
     .filter(Boolean)
@@ -124,7 +159,8 @@ export async function composePost(
       .filter(Boolean)
       .join('\n'),
   });
-  const out = parseJson<{ lines?: unknown; caption?: unknown }>(await claude({ system, prompt: parts, maxTokens: 1200 }));
+  const search = o.description || o.transcript ? 3 : 0;
+  const out = parseJson<{ lines?: unknown; caption?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2000, search }));
   const lines = Array.isArray(out.lines) ? out.lines.map((l) => String(l).toLowerCase().replace(/^["“”']+|["“”']+$/g, '').trim()) : [];
   while (slides && lines.length < slides) lines.push(lines[lines.length - 1] ?? '');
   return { lines: lines.slice(0, slides || undefined), caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags) };
