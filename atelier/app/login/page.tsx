@@ -13,7 +13,7 @@ export default function Login() {
     setError('');
     const res = await fetch('/api/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ password }) });
     setBusy(false);
-    if (!res.ok) return setError((await res.json().catch(() => ({}))).error || 'wrong password');
+    if (!res.ok) return setError((await res.json().catch(() => ({}))).error || `server error (${res.status})`);
     const next = new URLSearchParams(location.search).get('next');
     window.location.href = next && next.startsWith('/') && !next.startsWith('//') ? next : '/';
   }

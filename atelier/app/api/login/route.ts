@@ -7,7 +7,13 @@ export async function POST(req: Request) {
     await new Promise((r) => setTimeout(r, 800));
     return NextResponse.json({ error: 'wrong password' }, { status: 401 });
   }
-  const user = await ensureOwner();
+  let user;
+  try {
+    user = await ensureOwner();
+  } catch (e) {
+    // password was right — the setup is not complete yet (usually: no database connected)
+    return NextResponse.json({ error: `password ok, but: ${(e as Error).message}` }, { status: 503 });
+  }
   const res = NextResponse.json({ ok: true });
   res.cookies.set(SESSION_COOKIE, sessionValue(user.id), sessionCookie);
   return res;

@@ -9,7 +9,7 @@ import { SESSION_COOKIE, readSession } from './session';
 
 export function checkPassword(password: string): boolean {
   const secret = process.env.ADMIN_SECRET;
-  return Boolean(secret) && typeof password === 'string' && safeEqual(sha256(password), sha256(secret!));
+  return Boolean(secret) && typeof password === 'string' && safeEqual(sha256(password.trim()), sha256(secret!.trim()));
 }
 
 /** Phase 1: one owner account, created on first login, with one brand from the repo kit. */
