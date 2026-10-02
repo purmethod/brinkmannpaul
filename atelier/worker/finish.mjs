@@ -1,4 +1,4 @@
-// Uploads the rendered reel + cover to Vercel Blob and reports back to the app.
+// Uploads the rendered reel + cover into Vercel Blob (presigned targets from the app) and reports back.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -12,22 +12,19 @@ try {
   result = { ok: false, error: 'worker crashed before writing a result (see github action log)' };
 }
 
+async function upload(target, file) {
+  const res = await fetch(target.url, { method: target.method || 'PUT', headers: target.headers, body: readFileSync(file) });
+  if (!res.ok) throw new Error(`upload ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  const json = await res.json().catch(() => ({}));
+  return json.url || target.publicUrl;
+}
+
 const body = { postId: payload.postId, token: payload.callbackToken, ok: false, error: result.error };
 if (result.ok) {
   try {
-    const { put } = await import('@vercel/blob');
-    const opts = { access: 'public', addRandomSuffix: true, token: process.env.BLOB_READ_WRITE_TOKEN };
-    const video = await put(`posts/${payload.postId}/reel.mp4`, readFileSync(result.video), { ...opts, contentType: 'video/mp4', multipart: true });
-    const cover = await put(`posts/${payload.postId}/cover.jpg`, readFileSync(result.cover), { ...opts, contentType: 'image/jpeg' });
-    Object.assign(body, {
-      ok: true,
-      error: undefined,
-      videoUrl: video.url,
-      coverUrl: cover.url,
-      duration: result.duration,
-      transcript: result.transcript,
-      plan: result.plan,
-    });
+    const videoUrl = await upload(payload.uploads.video, result.video);
+    const coverUrl = await upload(payload.uploads.cover, result.cover);
+    Object.assign(body, { ok: true, error: undefined, videoUrl, coverUrl, duration: result.duration, transcript: result.transcript, plan: result.plan });
   } catch (e) {
     body.error = `upload failed: ${e.message}`;
   }

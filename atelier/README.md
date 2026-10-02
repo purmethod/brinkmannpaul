@@ -45,5 +45,5 @@ so they can be attached once Meta offers it to this app; until then add music in
 | `CRON_SECRET` | random string (daily token refresh) |
 | optional | `ADMIN_EMAIL`, `APP_URL`, `GITHUB_REPO`, `BRAND_KIT`, `CLAUDE_MODEL`, `META_GRAPH_VERSION` |
 
-GitHub → Actions secrets: `ANTHROPIC_API_KEY`, `BLOB_READ_WRITE_TOKEN`. The worker reports back with a
+GitHub → Actions secrets: `ANTHROPIC_API_KEY`. The worker uploads via presigned urls from the app and reports back with a
 per-post HMAC, so no app secret lives in GitHub.

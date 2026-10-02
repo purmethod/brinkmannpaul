@@ -1,27 +1,49 @@
 import { NextResponse } from 'next/server';
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import { issueSignedToken } from '@vercel/blob';
+import { handleUpload, handleUploadPresigned, type HandleUploadBody, type HandleUploadPresignedBody } from '@vercel/blob/client';
 import { getCtx } from '@/lib/auth';
+import { MAX_UPLOAD, UPLOAD_TYPES, blobMode } from '@/lib/blob';
 
-// readiness check for a clear message in the app
+// tells the app which upload mode the connected blob store uses
 export async function GET() {
   if (!(await getCtx())) return NextResponse.json({ ok: false, reason: 'not logged in' }, { status: 401 });
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  const mode = blobMode();
+  if (!mode) {
     return NextResponse.json({ ok: false, reason: 'file storage not connected — vercel → storage → blob (public) → connect project atelier (production)' });
   }
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, mode });
 }
 
-// phone → vercel blob directly (large files); this route only issues the upload token
+// phone → vercel blob directly (large files); this route only authorizes the upload
 export async function POST(req: Request) {
-  const body = (await req.json()) as HandleUploadBody;
+  const body = (await req.json()) as HandleUploadBody | HandleUploadPresignedBody;
   try {
+    const authorize = async () => {
+      if (!(await getCtx())) throw new Error('unauthorized');
+    };
+    if (body.type === 'blob.generate-presigned-url' || (body.type === 'blob.upload-completed' && blobMode() === 'presigned')) {
+      const json = await handleUploadPresigned({
+        body: body as HandleUploadPresignedBody,
+        request: req,
+        getSignedToken: async (pathname) => {
+          await authorize();
+          const token = await issueSignedToken({
+            pathname,
+            operations: ['put'],
+            allowedContentTypes: UPLOAD_TYPES,
+            maximumSizeInBytes: MAX_UPLOAD,
+          });
+          return { token, urlOptions: { allowedContentTypes: UPLOAD_TYPES, maximumSizeInBytes: MAX_UPLOAD } };
+        },
+      });
+      return NextResponse.json(json);
+    }
     const json = await handleUpload({
-      body,
+      body: body as HandleUploadBody,
       request: req,
       onBeforeGenerateToken: async () => {
-        if (!(await getCtx())) throw new Error('unauthorized');
-        if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error('file storage not connected');
-        return { allowedContentTypes: ['video/*', 'image/*', 'audio/*'], maximumSizeInBytes: 4 * 1024 ** 3, addRandomSuffix: true };
+        await authorize();
+        return { allowedContentTypes: UPLOAD_TYPES, maximumSizeInBytes: MAX_UPLOAD, addRandomSuffix: true };
       },
     });
     return NextResponse.json(json);

@@ -51,7 +51,6 @@ jobs:
       - name: install
         run: |
           pip install -r atelier/worker/requirements.txt
-          npm install --prefix atelier/worker --no-audit --no-fund
 
       - name: transcribe, select, cut, subtitle, render
         env:
@@ -60,6 +59,4 @@ jobs:
 
       - name: upload + report
         if: always()
-        env:
-          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
         run: node atelier/worker/finish.mjs

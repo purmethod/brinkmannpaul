@@ -1,6 +1,6 @@
 'use client';
 
-import { upload } from '@vercel/blob/client';
+import { upload, uploadPresigned } from '@vercel/blob/client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export async function api<T = Record<string, unknown>>(url: string, init?: RequestInit & { json?: unknown }): Promise<T> {
@@ -29,23 +29,33 @@ export interface MediaItem {
 }
 
 /** Phone → vercel blob directly (large files), then register in upload order → #numbers. */
-async function uploadReady() {
-  const r = await fetch('/api/upload', { cache: 'no-store' }).then((x) => x.json()).catch(() => ({ ok: true }));
+async function uploadReady(): Promise<'token' | 'presigned'> {
+  const r = await fetch('/api/upload', { cache: 'no-store' }).then((x) => x.json()).catch(() => ({ ok: true, mode: 'token' }));
   if (!r.ok) throw new Error(r.reason || 'upload not available');
+  return r.mode === 'presigned' ? 'presigned' : 'token';
+}
+
+const rnd = () => Math.random().toString(36).slice(2, 10);
+
+/** Uploads one file with whichever mode the blob store supports. */
+async function put(pathname: string, file: Blob, mode: 'token' | 'presigned', onProgress?: (p: number) => void) {
+  const big = file.size > 20 * 1024 * 1024;
+  const progress = onProgress ? { onUploadProgress: ({ percentage }: { percentage: number }) => onProgress(percentage) } : {};
+  if (mode === 'presigned') {
+    // presigned uploads cannot add a random suffix client-side, so the path is unique already
+    const [base, ext] = [pathname.replace(/\.[^.]+$/, ''), pathname.split('.').pop()];
+    return uploadPresigned(`${base}-${rnd()}.${ext}`, file, { access: 'public', handleUploadUrl: '/api/upload', multipart: big, ...progress });
+  }
+  return upload(pathname, file, { access: 'public', handleUploadUrl: '/api/upload', multipart: big, ...progress });
 }
 
 export async function uploadFiles(files: File[], onProgress: (msg: string) => void): Promise<MediaItem[]> {
-  await uploadReady();
+  const mode = await uploadReady();
   const items: { url: string; filename: string; type: string }[] = [];
   for (let i = 0; i < files.length; i++) {
     const f = files[i];
     const ext = (f.name.split('.').pop() || 'bin').toLowerCase();
-    const blob = await upload(`media/${Date.now()}-${i}.${ext}`, f, {
-      access: 'public',
-      handleUploadUrl: '/api/upload',
-      multipart: f.size > 20 * 1024 * 1024,
-      onUploadProgress: ({ percentage }) => onProgress(`${i + 1} / ${files.length} · ${Math.round(percentage)}%`),
-    });
+    const blob = await put(`media/${Date.now()}-${i}.${ext}`, f, mode, (p) => onProgress(`${i + 1} / ${files.length} · ${Math.round(p)}%`));
     items.push({ url: blob.url, filename: f.name, type: f.type });
   }
   const { media } = await api<{ media: MediaItem[] }>('/api/media', { method: 'POST', json: { items } });
@@ -53,8 +63,8 @@ export async function uploadFiles(files: File[], onProgress: (msg: string) => vo
 }
 
 export async function uploadOne(file: Blob, name: string): Promise<string> {
-  await uploadReady();
-  const blob = await upload(`media/${Date.now()}-${name}`, file, { access: 'public', handleUploadUrl: '/api/upload' });
+  const mode = await uploadReady();
+  const blob = await put(`media/${Date.now()}-${name}`, file, mode);
   return blob.url;
 }
 

@@ -1,3 +1,4 @@
+import { uploadTarget } from './blob';
 import { resolveBrand } from './brand';
 import { sign } from './crypto';
 import { mediaByIds } from './media';
@@ -17,6 +18,12 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
   const brand = resolveBrand(row);
   const clips = (await mediaByIds(post.media_ids)).filter((m) => m.kind === 'video').map((m) => m.url);
   if (!clips.length) throw new Error('no video to cut');
+  // the worker uploads straight into blob with these (no storage credentials in github)
+  const v = Date.now().toString(36);
+  const [video, cover] = await Promise.all([
+    uploadTarget(`posts/${post.id}/${v}/reel.mp4`, 'video/mp4', ['video/mp4'], 6),
+    uploadTarget(`posts/${post.id}/${v}/cover.jpg`, 'image/jpeg', ['image/jpeg'], 6),
+  ]);
   const res = await fetch(`https://api.github.com/repos/${repo}/dispatches`, {
     method: 'POST',
     headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' },
@@ -29,6 +36,7 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
         kit: row.kit,
         template: post.template,
         clips,
+        uploads: { video, cover },
         options: {
           rules: brand.cutRules,
           feedback: extra.feedback ?? null,
