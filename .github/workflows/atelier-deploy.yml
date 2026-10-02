@@ -1,0 +1,94 @@
+name: atelier-deploy
+
+# Deploys atelier/ to Vercel (project "atelier") with the Vercel CLI.
+# Needs repo secrets: VERCEL_TOKEN, ADMIN_SECRET. Optional: VERCEL_SCOPE (team slug),
+# ANTHROPIC_API_KEY, META_APP_ID, META_APP_SECRET, GH_DISPATCH_TOKEN (→ GITHUB_TOKEN in vercel).
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths: ['atelier/**', '.github/workflows/atelier-deploy.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atelier-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
+    steps:
+      - name: check token
+        id: gate
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::VERCEL_TOKEN secret missing — add it under repo settings → secrets → actions"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.ok == 'true'
+        with:
+          sparse-checkout: atelier
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.ok == 'true'
+        with:
+          node-version: '22'
+
+      - name: link project
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        run: |
+          npm i -g vercel@latest >/dev/null
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          vercel link --yes --project atelier --token "$VERCEL_TOKEN" $SCOPE
+
+      - name: environment variables
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        env:
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          META_APP_ID: ${{ secrets.META_APP_ID }}
+          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+          GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
+        run: |
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          existing=$(vercel env ls production --token "$VERCEL_TOKEN" $SCOPE 2>/dev/null || true)
+          has() { echo "$existing" | grep -qw "$1"; }
+          put() { # name value: replace with the value from github secrets
+            [ -z "$2" ] && return 0
+            has "$1" && vercel env rm "$1" production --yes --token "$VERCEL_TOKEN" $SCOPE >/dev/null || true
+            printf '%s' "$2" | vercel env add "$1" production --token "$VERCEL_TOKEN" $SCOPE >/dev/null
+            echo "set $1"
+          }
+          once() { # name: generate a random value only if missing
+            has "$1" && { echo "keep $1"; return 0; }
+            openssl rand -base64 36 | tr -d '\n' | vercel env add "$1" production --token "$VERCEL_TOKEN" $SCOPE >/dev/null
+            echo "generated $1"
+          }
+          once ENCRYPTION_KEY
+          once CRON_SECRET
+          put ADMIN_SECRET "$ADMIN_SECRET"
+          put ANTHROPIC_API_KEY "$ANTHROPIC_API_KEY"
+          put META_APP_ID "$META_APP_ID"
+          put META_APP_SECRET "$META_APP_SECRET"
+          put GITHUB_TOKEN "$GH_DISPATCH_TOKEN"
+
+      - name: deploy
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        run: |
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          url=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" $SCOPE)
+          echo "deployed: $url"
+          echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
