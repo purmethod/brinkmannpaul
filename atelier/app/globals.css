@@ -13,8 +13,8 @@
   --line: rgba(60, 60, 55, 0.12);
   --error: #c4312a;
   --scrim: rgba(10, 10, 9, 0.38);
-  --logo-dome: #4a4f9e;
-  --logo-layer: #1f1c5e;
+  --logo-dome: #c4467f;
+  --logo-layer: #9e1b5d;
   --bar: rgba(250, 250, 248, 0.82);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -43,8 +43,8 @@
     --line: rgba(235, 235, 230, 0.1);
     --error: #ff6b5e;
     --scrim: rgba(0, 0, 0, 0.6);
-    --logo-dome: #7b80d4;
-    --logo-layer: #d8d7f3;
+    --logo-dome: #e07aa8;
+    --logo-layer: #f4c9dc;
     --bar: rgba(16, 16, 15, 0.82);
     --shadow: none;
   }
