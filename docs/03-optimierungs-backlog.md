@@ -238,3 +238,17 @@ Status: umgesetzt und in mobiler Vercel-Vorschau geprüft; PR #37.
 - Stylesheet-Cache aktualisiert; Bilddatei, Handschrift, Animation, Layout und Interaktionen unverändert.
 - Unabhängiger Review ohne blockierende Befunde. Mobile Vorschau 393×720: Originalfoto in Farbe und vollständige schwarze Handschrift sichtbar.
 - Temporäre QA-Seite vor Merge entfernt.
+
+
+## Landingpage fertigstellen (2026-10-02)
+
+Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zeile anklickbar.
+
+- Intro: Fällt `<source>` aus, meldet der Browser den Fehler am `<source>`-Element, nicht am `<video>` — bisher wartete die Seite dann 10 s auf ein Porträt ohne Handschrift. Jetzt: Fehler am `<source>` und fehlende H.264-Unterstützung zeigen sofort das Handschrift-Standbild. War das Video beim Laden von `app.js` bereits bereit (Cache), wurden Tempo 1,25 und `play()` übersprungen — behoben. Video pausiert nach dem Einstieg (keine Dekodierung im Hintergrund).
+- Inhalt: rye leer → Pauls Sauerteig-Text wiederhergestellt; skyn statisch → aufklappbar mit belegtem Text; jede Zeile hat eine Aktion (siehe docs/02).
+- Design: Plus-Hover dreht das ganze Kreuz statt nur einen Balken (vorher schief), Hover nur auf Geräten mit Maus (kein „klebender" Hover auf dem iPhone); PURE-Kapitel mit +/− und Abstand zum Text; Typ-Spalte breiter (keine Umbrüche auf Desktop); Aktionen in Ink unterstrichen; sanftes Auf-/Zuklappen in Browsern mit `interpolate-size` (sonst wie bisher).
+- Barrierefreiheit: Bei „Bewegung reduzieren" landete der Fokus nach dem Einstieg auf `<body>` statt auf dem Inhalt. Ursache: `transition-duration: 0.01ms` auf allen Elementen ließ auch die geerbte `visibility` einen Frame lang „hidden" — `focus()` schlug still fehl. Jetzt `0s`.
+- 404: Header/Footer wie Startseite, absoluter CSS-Pfad (funktioniert auch auf tiefen URLs).
+- Tests: `scripts/test-site.mjs` an das aktuelle Video-Intro angepasst (war seit dem Wechsel zurück auf Video rot) und um Inhaltsprüfungen ergänzt.
+- Prüfung: `node --check`, `node scripts/test-site.mjs`, Playwright-Screenshots Desktop 1440×900 und Mobile 390×844/375×667, keine horizontale Scrollbar.
+- Offen für Paul: skyn-Text bestätigen; qefyr-Linktext war vorher die E-Mail-Adresse.

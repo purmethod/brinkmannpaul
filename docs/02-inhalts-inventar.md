@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Landingpage fertigstellen (2026-10-02)
+
+Reihenfolge: pure, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture. Alle acht Zeilen sind aufklappbar, haben Text und eine Aktion.
+
+| Projekt | Aktion (neu/geändert) |
+|---|---|
+| pure | `follow @brinkbuild` → `https://www.instagram.com/brinkbuild/` (Text sagt bereits „follow for the blueprint.") |
+| qefyr | Linktext `brinkmannbuild@gmail.com` → `order qefyr ↗`, Betreff `qefyr order` |
+| rye | Text wiederhergestellt: Pauls freigegebener Sauerteig-Text, der beim Commit „Move sourdough copy from souralf to rye" verloren ging („flour. water. time." …), ergänzt um „german organic rye" aus dem Deskriptor. Aktion `order rye ↗`, Betreff `rye order` |
+| skyn | Neu aufklappbar. Text: Talg = ausgelassenes Rinderfett, traditionelle Hautpflege; Hauptfettsäuren Ölsäure, Palmitinsäure, Stearinsäure kommen auch im Hauttalg (Sebum) vor. Keine Heil-/Wirkversprechen, keine Rezeptur-, Preis- oder Herkunftsangaben. Aktion `ask about skyn ↗`. **Von Paul zu bestätigen.** |
+| âlf | Linktext `adopt souralf` → `adopt âlf` (Umbenennung war unvollständig) |
+| neuroarchitecture | Aktion `get in touch ↗`, Betreff `neuroarchitecture` |
+
+Quellen skyn: Fettsäureprofil Rindertalg (Ölsäure ~37–47 %, Palmitinsäure ~24–32 %, Stearinsäure ~19–25 %, z. B. en.wikipedia.org/wiki/Tallow); Sebum-Fettsäuren überwiegend C16/C18 (J. Lipid Res., „Sebaceous gland lipids: friend or foe?").
+
+Metadaten: Titel `brinkmann paul, m.sc. · architect`, neue Beschreibung, `og:image` = `assets/og-image.jpg` (1200×630, Porträt + „i build."), Person-JSON-LD mit `jobTitle`, `honorificSuffix`, `image`, `email`.
+
 ## Aktualisierung: PURE, Issue #38 (2026-09-28)
 
 - Paul hat die vollständigen englischen Kapiteltexte im Chat freigegeben und ihre Veröffentlichung beauftragt.
