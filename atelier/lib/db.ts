@@ -1,4 +1,5 @@
 import { neon } from '@neondatabase/serverless';
+import { normalizeEnv } from './env';
 
 type Sql = ReturnType<typeof neon>;
 let client: Sql | null = null;
@@ -56,8 +57,12 @@ const SCHEMA = [
 
 function raw(): Sql {
   if (!client) {
-    const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
-    if (!url) throw new Error('DATABASE_URL missing — connect neon in vercel → storage');
+    normalizeEnv();
+    const url = process.env.DATABASE_URL;
+    if (!url) {
+      const names = Object.keys(process.env).filter((k) => /URL|DATABASE|POSTGRES|PG/.test(k) && !/^(VERCEL|NEXT|NODE)/.test(k));
+      throw new Error(`DATABASE_URL missing — connect neon to this project for "production" (vercel → storage). seen: ${names.join(', ') || 'none'}`);
+    }
     client = neon(url);
   }
   return client;

@@ -76,6 +76,8 @@ jobs:
             openssl rand -base64 36 | tr -d '\n' | vercel env add "$1" production --token "$VERCEL_TOKEN" $SCOPE >/dev/null
             echo "generated $1"
           }
+          echo "--- variables on the project (names only) ---"
+          echo "$existing" | awk 'NR>2 {print $1, $3, $4, $5}' | sed '/^\s*$/d'
           once ENCRYPTION_KEY
           once CRON_SECRET
           put ADMIN_SECRET "$ADMIN_SECRET"
