@@ -58,15 +58,20 @@ export function parseJson<T>(text: string): T {
   return JSON.parse(text.slice(start, end + 1)) as T;
 }
 
-export function normalizeCaption(raw: string, maxHashtags: number): string {
+/** Lowercase, hashtag cap, and never the account's own name or handle. */
+export function normalizeCaption(raw: string, maxHashtags: number, hide: string[] = []): string {
   let seen = 0;
-  return raw
-    .trim()
+  let text = raw.trim();
+  for (const h of hide.map((x) => x?.replace(/^@/, '').trim()).filter(Boolean)) {
+    const esc = h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    text = text.replace(new RegExp(`[@#]${esc}\\b`, 'gi'), '');
+  }
+  return text
     .replace(/^["'`]+|["'`]+$/g, '')
     .toLowerCase()
     .replace(/#[\p{L}\p{N}_]+/gu, (tag) => (++seen <= maxHashtags ? tag : ''))
     .split('\n')
-    .map((l) => l.replace(/[ \t]{2,}/g, ' ').trimEnd())
+    .map((l) => l.replace(/[ \t]{2,}/g, ' ').trim())
     .join('\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim()
@@ -75,13 +80,13 @@ export function normalizeCaption(raw: string, maxHashtags: number): string {
 
 export async function writeCaption(brand: BrandKit, kind: string, source: string): Promise<string> {
   const system = [
-    `you write instagram captions for ${brand.handle}.`,
+    'you write instagram captions that people save and send.',
     'rules:',
     ...brand.caption.rules.map((r) => `- ${r}`),
     `- never more than ${brand.caption.maxHashtags} hashtags.`,
   ].join('\n');
   const out = await claude({ system, prompt: `write the caption for this ${kind}.\n\nsource:\n"""\n${source.slice(0, 12000)}\n"""`, maxTokens: 700 });
-  return normalizeCaption(out, brand.caption.maxHashtags);
+  return normalizeCaption(out, brand.caption.maxHashtags, [brand.handle, brand.name]);
 }
 
 /** Learning cut: condense raw feedback + current rules into short, editable rules. */
@@ -122,29 +127,45 @@ export async function imageBlocks(urls: string[], max = 10): Promise<Block[]> {
 /**
  * One call: slide lines (one per photo) + caption, in the template's text style,
  * from the photos, the user's spoken description and/or a video transcript.
+ * Substance first: the creator's idea, deepened with real knowledge on the topic; then the viral craft.
  */
 export async function composePost(
   brand: BrandKit,
-  o: { kind: string; textStyle: string; photos?: string[]; slides?: number; description?: string | null; transcript?: string | null; notes?: string | null },
+  o: {
+    kind: string;
+    textStyle: string;
+    photos?: string[];
+    slides?: number;
+    description?: string | null;
+    transcript?: string | null;
+    notes?: string | null;
+    learned?: string[];
+  },
 ): Promise<{ lines: string[]; caption: string }> {
   const slides = o.slides ?? 0;
   const system = [
-    `you create instagram posts for ${brand.handle}. taste: calm, architectural, premium, less is more — the opposite of loud ai content.`,
-    'caption rules:',
+    'you write instagram posts that people save, send and follow for. taste: calm, precise, premium — the opposite of loud ai content.',
+    '',
+    'substance — pure knowledge:',
+    "- the creator's own words are the starting point. find the one idea in what they said, recorded or photographed.",
+    '- deepen it with real knowledge that fits the topic: health → physiology, mechanisms, research consensus; architecture, design, art → principles, ' +
+      'history, the masters; mind → philosophy, psychology, neuroscience; business → strategy, economics, behaviour.',
+    '- one concrete, true, non-obvious insight beats five generic ones. it must read as one voice: their thought, sharpened by what humanity knows.',
+    '- use web search when a precise fact, mechanism or name would make it sharper and you are not certain of it.',
+    '- truth: never invent quotes, studies, numbers or attributions. name a person, study or figure only if you are sure (or found it). ' +
+      'otherwise say it in your own words. no links, no citations, no sources in the text.',
+    '',
+    'caption craft:',
     ...brand.caption.rules.map((r) => `- ${r}`),
     `- never more than ${brand.caption.maxHashtags} hashtags.`,
-    slides ? `slide text: exactly ${slides} lines, one per slide in order, all lowercase. ${STYLE[o.textStyle] ?? STYLE.hook}` : '',
-    o.notes ? `the creator's saved style notes:\n${o.notes}` : '',
+    '- before writing, draft three different hooks and keep the strongest: the one a stranger would stop scrolling for.',
+    slides ? `\nslide text: exactly ${slides} lines, one per slide in order, all lowercase. ${STYLE[o.textStyle] ?? STYLE.hook}` : '',
+    o.notes ? `\nthe creator's notes for this post and style (follow them):\n${o.notes}` : '',
+    o.learned?.length ? `\nwhat the creator corrected before (apply it):\n${o.learned.map((l) => `- ${l}`).join('\n')}` : '',
     '',
-    'how to write: the creator\'s own words are the core. first find the one idea in what they said or recorded. then connect it with real, ' +
-      'well-established insight from human knowledge — philosophy, architecture and design history, psychology, neuroscience, health science, craft. ' +
-      'use web search when a fact, finding or name would make the post sharper and you are not certain of it. ' +
-      'the result must read as one voice: their thought, deepened by what humanity already knows — not a summary, not a lecture.',
-    'truth: never invent quotes, studies, numbers or attributions. only name a person, study or figure you are sure of (or found). ' +
-      'if in doubt, express the insight in your own words without a source. no links, no citations in the text.',
-    'answer only json: {"lines": [..], "caption": "..."}',
+    'answer only json: {"hooks": ["..", "..", ".."], "lines": [..], "caption": "..."} — the caption starts with the strongest hook.',
   ]
-    .filter(Boolean)
+    .filter((l) => l !== null)
     .join('\n');
   const parts: Block[] = [];
   if (o.photos?.length) parts.push(...(await imageBlocks(o.photos)));
@@ -154,14 +175,13 @@ export async function composePost(
       `format: ${o.kind}${slides ? ` with ${slides} slides` : ''}.`,
       o.description ? `what the creator says it is about: """${o.description.slice(0, 2000)}"""` : '',
       o.transcript ? `video transcript: """${o.transcript.slice(0, 8000)}"""` : '',
-      !o.description && !o.transcript && !o.photos?.length ? 'no material given — write something true to the brand.' : '',
+      !o.description && !o.transcript && !o.photos?.length ? 'no material given — write one strong, true thought.' : '',
     ]
       .filter(Boolean)
       .join('\n'),
   });
-  const search = o.description || o.transcript ? 3 : 0;
-  const out = parseJson<{ lines?: unknown; caption?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2000, search }));
+  const out = parseJson<{ lines?: unknown; caption?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2500, search: 3 }));
   const lines = Array.isArray(out.lines) ? out.lines.map((l) => String(l).toLowerCase().replace(/^["“”']+|["“”']+$/g, '').trim()) : [];
   while (slides && lines.length < slides) lines.push(lines[lines.length - 1] ?? '');
-  return { lines: lines.slice(0, slides || undefined), caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags) };
+  return { lines: lines.slice(0, slides || undefined), caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags, [brand.handle, brand.name]) };
 }

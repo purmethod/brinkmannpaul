@@ -1,18 +1,18 @@
 import { HttpError, requireCtx, route } from '@/lib/auth';
 import { id, q } from '@/lib/db';
-import { getPost, resolveTemplate } from '@/lib/posts';
+import { getPost, resolveTemplate, updatePost } from '@/lib/posts';
 import { updateSettings } from '@/lib/rules';
 import type { SavedTemplate } from '@/lib/types';
 
 const MAX = 5;
 
-/** Save a post's look as a style: { postId, name } */
+/** Save a post's look as a style: { postId, name, replace? } — replace swaps out an existing style when all 5 are taken. */
 export const POST = route(async (req: Request) => {
   const { brand } = await requireCtx(req);
-  const b = (await req.json()) as { postId?: string; name?: string };
+  const b = (await req.json()) as { postId?: string; name?: string; replace?: string };
   const post = b.postId ? await getPost(b.postId, brand.id) : null;
   if (!post) throw new HttpError(404, 'post not found');
-  const list = brand.settings?.savedTemplates ?? [];
+  const list = (brand.settings?.savedTemplates ?? []).filter((t) => t.id !== b.replace);
   if (list.length >= MAX) throw new HttpError(409, `max ${MAX} saved styles — delete one in settings`);
   const { base, notes } = resolveTemplate(brand, post.template);
   const feedback = await q<{ text: string }>('select text from edit_feedback where post_id = $1 order by created_at', [post.id]);
@@ -25,7 +25,9 @@ export const POST = route(async (req: Request) => {
       .join('\n')
       .slice(0, 1500),
   };
-  await updateSettings(brand.id, { savedTemplates: [...list, style] });
+  await updateSettings(brand.id, { savedTemplates: [...list, style], lastTemplate: `saved:${style.id}` });
+  // the post now wears its own saved style
+  await updatePost(post.id, { template: `saved:${style.id}` });
   return Response.json({ template: style });
 });
 

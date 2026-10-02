@@ -237,10 +237,7 @@ async function editorial(c: Ctx): Promise<El> {
       backgroundImage: `linear-gradient(to top, ${rgba(g.color, g.maxAlpha)}, ${rgba(g.color, g.maxAlpha * 0.55)} 45%, ${rgba(g.color, 0)})`,
     }),
     box({ position: 'absolute', left: 0, top: 0, width: W, height: 220, backgroundImage: `linear-gradient(to bottom, ${rgba('#000000', 0.32)}, ${rgba('#000000', 0)})` }),
-    box({ position: 'absolute', top: 72, left: M, right: M, justifyContent: 'space-between', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 5, color: tpl.text }, [
-      box({}, brand.handle.replace(/^@/, '').toUpperCase()),
-      box({}, counter(c)),
-    ]),
+    box({ position: 'absolute', top: 72, left: M, right: M, justifyContent: 'flex-end', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 5, color: tpl.text }, counter(c)),
     box(
       { position: 'absolute', left: M, bottom: sig ? 150 + sig.height : 150, width: textW, flexDirection: 'column' },
       [box({ width: 64, height: 3, backgroundColor: tpl.accent, marginBottom: 36 }), ...textBlock(c.lines, { size, lh: 1.12, color: tpl.text, family: brand.fonts.family, width: textW })],
@@ -262,10 +259,7 @@ async function bauhaus(c: Ctx): Promise<El> {
   const sig = await c.signature(170, false);
   const rule = (y: number) => box({ position: 'absolute', left: M, top: y, width: innerW, height: 2, backgroundColor: tpl.text });
   return box({ width: W, height: H, backgroundColor: tpl.paper, position: 'relative' }, [
-    box({ position: 'absolute', top: 68, left: M, width: innerW, justifyContent: 'space-between', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 4, color: tpl.text }, [
-      box({}, brand.handle.replace(/^@/, '').toUpperCase()),
-      box({}, counter(c)),
-    ]),
+    box({ position: 'absolute', top: 68, left: M, width: innerW, justifyContent: 'flex-end', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 4, color: tpl.text }, counter(c)),
     rule(110),
     ...(c.photo ? [img(await cover(c.photo, innerW, photoH), { position: 'absolute', left: M, top: 150 })] : []),
     // accent: a circle on the grid line, the only colour on the page

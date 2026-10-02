@@ -101,6 +101,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
       setAbout(text);
       setStep('time');
     }, []),
+    { autoStop: 2500 },
   );
 
   async function finish(templateId: string) {

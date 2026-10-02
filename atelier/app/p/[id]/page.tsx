@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api, saveFile, useMic } from '../../client';
-import { Icon, Wheel } from '../../ui';
+import { Icon, Sheet, TemplatePreview, Wheel } from '../../ui';
 
 interface Post {
   id: string;
@@ -52,6 +52,7 @@ export default function PostPage() {
   const [error, setError] = useState('');
   const [note, setNote] = useState('');
   const [slide, setSlide] = useState(0);
+  const [styleSheet, setStyleSheet] = useState(false);
   const lastStatus = useRef('');
 
   const load = useCallback(async () => {
@@ -69,8 +70,9 @@ export default function PostPage() {
     return () => clearInterval(t);
   }, [load]);
 
+  /** label '' = work silently (the stage shows progress instead of a toast) */
   async function patch(body: Record<string, unknown>, label: string) {
-    setBusy(label);
+    setBusy(label || ' ');
     setError('');
     try {
       const v = await api<View>(`/api/posts/${id}`, { method: 'PATCH', json: body });
@@ -84,13 +86,14 @@ export default function PostPage() {
 
   const correct = useCallback(
     (text: string) => {
-      setNote(text);
-      patch({ action: 'recut', feedback: text }, 'working on it…');
+      // no echo: what was said goes straight into the rework
+      setNote('');
+      patch({ action: 'recut', feedback: text }, '');
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [id],
   );
-  const mic = useMic(correct);
+  const mic = useMic(correct, { autoStop: 1600 });
 
   async function share() {
     const p = view!.post;
@@ -115,19 +118,6 @@ export default function PostPage() {
     }
   }
 
-  async function saveStyle() {
-    const name = prompt('name this style', '');
-    if (name === null) return;
-    setBusy('saving style…');
-    try {
-      await api('/api/templates', { method: 'POST', json: { postId: id, name } });
-      setNote('saved — it now appears when you choose a look.');
-    } catch (e) {
-      setError((e as Error).message);
-    }
-    setBusy('');
-  }
-
   if (error && !view) return <p className="error">{error}</p>;
   if (!view) return <p className="muted">…</p>;
   const { post, schedule } = view;
@@ -145,6 +135,12 @@ export default function PostPage() {
       </header>
 
       <div className="stage">
+        {post.status === 'processing' && (post.output.video || slides.length > 0) && (
+          <div className="stage-veil">
+            <span className="pulse" />
+            <p>reworking…</p>
+          </div>
+        )}
         {post.status === 'processing' && !post.output.video && !slides.length && (
           <div className="stage-wait">
             <span className="pulse" />
@@ -270,7 +266,9 @@ export default function PostPage() {
             <button disabled={!(post.output.video || slides.length) || Boolean(busy)} onClick={() => confirm('post to instagram now?') && patch({ action: 'post_now', caption }, 'posting…')}>
               post now
             </button>
-            <button onClick={saveStyle}>save style</button>
+            <button disabled={post.status === 'processing'} onClick={() => setStyleSheet(true)}>
+              {post.template.startsWith('saved:') ? 'saved style ✓' : 'save style'}
+            </button>
             <button
               className="ghost"
               onClick={async () => {
@@ -292,8 +290,22 @@ export default function PostPage() {
           </a>
         </p>
       )}
-      {(busy || note) && <p className="toast">{busy || note}</p>}
+      {((busy && busy !== ' ') || note) && <p className="toast">{busy.trim() || note}</p>}
       {error && <p className="error">{error}</p>}
+      <SaveStyle
+        open={styleSheet}
+        postId={id}
+        cover={post.output.cover ?? slides[0]?.png ?? null}
+        current={setup?.templates.find((t) => t.id === post.template) ?? null}
+        saved={setup?.templates.filter((t) => t.saved) ?? []}
+        onClose={() => setStyleSheet(false)}
+        onSaved={(name) => {
+          setStyleSheet(false);
+          setNote(`saved as “${name}”`);
+          load().catch(() => undefined);
+          api<Setup>('/api/create').then(setSetup).catch(() => undefined);
+        }}
+      />
     </div>
   );
 }
@@ -330,5 +342,70 @@ function TimeEdit({ at, tz, onSave }: { at: string; tz: string; onSave: (v: stri
         move to {v.slice(8, 10)}.{v.slice(5, 7)}. {v.slice(11, 16)}
       </button>
     </>
+  );
+}
+
+function SaveStyle(props: {
+  open: boolean;
+  postId: string;
+  cover: string | null;
+  current: { label: string; layout: string } | null;
+  saved: { id: string; label: string }[];
+  onClose: () => void;
+  onSaved: (name: string) => void;
+}) {
+  const full = props.saved.length >= 5;
+  const [name, setName] = useState('');
+  const [replace, setReplace] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    if (!props.open) return;
+    setName(`${props.current?.label ?? 'style'} ${props.saved.length + 1}`.toLowerCase());
+    setReplace(null);
+    setError('');
+  }, [props.open, props.current, props.saved.length]);
+
+  async function save() {
+    setBusy(true);
+    setError('');
+    try {
+      await api('/api/templates', { method: 'POST', json: { postId: props.postId, name: name.trim(), replace: replace?.replace('saved:', '') } });
+      props.onSaved(name.trim().toLowerCase());
+    } catch (e) {
+      setError((e as Error).message);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <Sheet open={props.open} onClose={props.onClose}>
+      <p className="kicker">save this style</p>
+      <div className="save-style">
+        <div className="save-style-preview">
+          {props.cover ? <img src={props.cover} alt="" /> : <TemplatePreview layout={props.current?.layout ?? 'polaroid'} />}
+        </div>
+        <p className="muted small">look, text tone and every correction of this post — reusable in one tap.</p>
+      </div>
+      <input className="big-input" value={name} maxLength={24} onChange={(e) => setName(e.target.value)} aria-label="name" autoFocus />
+      {full && (
+        <>
+          <p className="kicker" style={{ marginTop: 20 }}>
+            all 5 places are taken — replace
+          </p>
+          <div className="chips">
+            {props.saved.map((t) => (
+              <button key={t.id} aria-pressed={replace === t.id} onClick={() => setReplace(t.id)}>
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+      {error && <p className="error">{error}</p>}
+      <button className="primary wide" style={{ marginTop: 20 }} disabled={busy || !name.trim() || (full && !replace)} onClick={save}>
+        {busy ? 'saving…' : 'save style'}
+      </button>
+    </Sheet>
   );
 }

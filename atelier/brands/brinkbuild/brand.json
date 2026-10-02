@@ -79,12 +79,14 @@
     "model": "claude-sonnet-5-5",
     "maxHashtags": 3,
     "rules": [
-      "write in english, all lowercase.",
-      "very short: one hook line, then at most one or two short lines.",
-      "the first line is a scroll-stopping hook — curious, bold, calm. no clickbait words, no exclamation marks.",
-      "built to be saved and shared: a thought people want to send to someone.",
-      "no emojis.",
+      "english, all lowercase. no emojis, no exclamation marks.",
+      "line 1 is the hook: max 10 words, works on its own in the feed preview — a tension, a counterintuitive truth or a precise claim. never \"did you know\", \"here's why\", \"pov\" or clickbait words.",
+      "then 2–4 short lines with one real insight: what is true, why (the mechanism or principle), what to do with it. specific beats vague, mechanism beats motivation.",
+      "blank line between the blocks. every line earns its place — no filler, no platitudes, no generic self-help.",
+      "the last line makes people save it or send it to someone: a sharp takeaway or one direct line to the reader. never \"follow for more\", never \"link in bio\".",
+      "30–80 words before the hashtags.",
       "end with 2 or 3 precise hashtags on their own line, never more.",
+      "never mention a brand name, an account or an @handle.",
       "output only the caption."
     ]
   },

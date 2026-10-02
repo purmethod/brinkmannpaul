@@ -50,7 +50,7 @@ button.link { border: 0; min-height: 40px; padding: 0 6px; color: var(--muted); 
 .icon-btn.ring { border: 1px solid var(--line); }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 label { display: block; font-size: 13px; color: var(--muted); margin: 24px 0 8px; }
-input[type='text'], input[type='password'], textarea, select {
+input:not([type]), input[type='text'], input[type='password'], textarea, select {
   width: 100%; font: inherit; font-size: 16px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: var(--ink);
   -webkit-appearance: none; appearance: none;
 }
@@ -156,7 +156,9 @@ textarea { min-height: 120px; line-height: 1.5; resize: vertical; }
 .tp-bh-text { position: absolute; left: 7%; right: 22%; top: 62%; font-family: 'Futura', 'Avenir Next', var(--sans); font-weight: 700; font-size: 15px; line-height: 1.02; letter-spacing: -0.01em; color: #111; }
 
 /* ---------- post ---------- */
-.stage { margin: 0 calc(var(--gutter) * -1); background: var(--soft); min-height: 200px; }
+.stage { position: relative; margin: 0 calc(var(--gutter) * -1); background: var(--soft); min-height: 200px; }
+.stage-veil { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font-family: var(--serif), Georgia, serif; font-size: 18px; color: var(--ink-2); }
+.stage-veil p { margin: 0; }
 .stage-wait { aspect-ratio: 4 / 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 30px; text-align: center; color: var(--ink-2); font-family: var(--serif), Georgia, serif; font-size: 18px; }
 .pulse { width: 12px; height: 12px; border-radius: 99px; background: var(--ink); animation: breathe 1.4s ease-in-out infinite; }
 .frame { width: 100%; max-height: 78vh; object-fit: contain; background: #000; }
@@ -175,7 +177,8 @@ textarea { min-height: 120px; line-height: 1.5; resize: vertical; }
 .block { margin-top: 30px; }
 .caption { border-radius: 16px; font-family: var(--serif), Georgia, serif !important; font-size: 17px !important; line-height: 1.5; min-height: 140px; }
 .correct { display: flex; gap: 12px; align-items: center; }
-.line-input { border-radius: 999px !important; }
+.line-input { width: 100%; border-radius: 999px !important; }
+.sheet .big-input { width: 100%; text-align: center; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips button { min-height: 40px; font-size: 14px; border-color: var(--line); }
 .chips button[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -213,3 +216,10 @@ textarea { min-height: 120px; line-height: 1.5; resize: vertical; }
 @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
 @keyframes breathe { 0%, 100% { box-shadow: 0 0 0 0 rgba(17, 17, 16, 0.25); } 50% { box-shadow: 0 0 0 14px rgba(17, 17, 16, 0); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* save style sheet */
+.save-style { display: flex; gap: 18px; align-items: center; margin: 6px 0 18px; }
+.save-style-preview { width: 92px; flex: none; }
+.save-style-preview img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+.save-style p { text-align: left; }
+.save-style p { margin: 0; }

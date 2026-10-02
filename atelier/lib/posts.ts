@@ -44,6 +44,12 @@ export function resolveTemplate(row: BrandRow, templateId?: string | null): { ba
   return { base, tpl: getTemplate(row.kit, base), notes: saved?.notes ?? null };
 }
 
+/** The creator's latest corrections — captions learn from them too. */
+async function learned(brandId: string): Promise<string[]> {
+  const rows = await q<{ text: string }>('select text from edit_feedback where brand_id = $1 order by created_at desc limit 8', [brandId]).catch(() => []);
+  return rows.map((r) => r.text.slice(0, 200));
+}
+
 async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise<{ slides: Slide[]; caption: string }> {
   const brand = resolveBrand(row);
   const { tpl } = resolveTemplate(row, post.template);
@@ -64,6 +70,7 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
         slides: given.length ? 0 : count,
         description: post.description ?? (given.length ? given.map(plainText).join('\n') : null),
         notes: post.options.notes,
+        learned: await learned(row.id),
       });
       if (!given.length) lines = out.lines;
       if (!caption) caption = out.caption;
@@ -163,6 +170,7 @@ export async function finishRender(
       description: post.description,
       transcript: r.transcript,
       notes: post.options.notes,
+      learned: await learned(row.id),
     })
       .then((o) => o.caption)
       .catch(() => '');

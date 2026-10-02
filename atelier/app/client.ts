@@ -108,12 +108,15 @@ type Recognition = {
 };
 
 /** Browser speech recognition, any language (device language). */
-export function useMic(onFinal: (text: string) => void) {
+/** Speech to text. `autoStop`: stop by itself after this many ms of silence (once something was said). */
+export function useMic(onFinal: (text: string) => void, opts: { autoStop?: number } = {}) {
   const [listening, setListening] = useState(false);
   const [interim, setInterim] = useState('');
   const [supported, setSupported] = useState(false);
   const rec = useRef<Recognition | null>(null);
   const finalRef = useRef('');
+  const heardRef = useRef('');
+  const silence = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const w = window as unknown as { SpeechRecognition?: new () => Recognition; webkitSpeechRecognition?: new () => Recognition };
@@ -133,6 +136,7 @@ export function useMic(onFinal: (text: string) => void) {
     r.interimResults = true;
     r.continuous = true;
     finalRef.current = '';
+    heardRef.current = '';
     r.onresult = (e) => {
       let fin = '';
       let tmp = '';
@@ -142,19 +146,26 @@ export function useMic(onFinal: (text: string) => void) {
         else tmp += res[0].transcript;
       }
       finalRef.current = fin;
+      heardRef.current = fin + tmp;
       setInterim(fin + tmp);
+      if (opts.autoStop && (fin + tmp).trim()) {
+        if (silence.current) clearTimeout(silence.current);
+        silence.current = setTimeout(() => r.stop(), opts.autoStop);
+      }
     };
     r.onerror = () => setListening(false);
     r.onend = () => {
+      if (silence.current) clearTimeout(silence.current);
       setListening(false);
-      const text = (finalRef.current || '').trim();
+      // safari often never marks the last words final: fall back to what was heard
+      const text = (finalRef.current || heardRef.current || '').trim();
       setInterim('');
       if (text) onFinal(text);
     };
     rec.current = r;
     r.start();
     setListening(true);
-  }, [listening, onFinal]);
+  }, [listening, onFinal, opts.autoStop]);
 
   return { listening, interim, supported, toggle };
 }
