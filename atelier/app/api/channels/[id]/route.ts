@@ -69,7 +69,7 @@ export const PATCH = route(async (req: Request, { params }: P) => {
 export const DELETE = route(async (_req: Request, { params }: P) => {
   const { user } = await requireCtx();
   const row = await mine(user.id, (await params).id);
-  if (!row.settings?.channel || row.kit !== 'foyo' || row.name === 'foyo') throw new HttpError(409, 'this account comes from the repo and cannot be removed here');
+  if (!row.settings?.channel || row.kit !== 'foyo' || row.name === 'foyo') throw new HttpError(409, 'this channel cannot be removed here');
   const n = await one<{ n: number }>('select count(*)::int as n from brands where user_id = $1', [user.id]);
   if ((n?.n ?? 0) <= 1) throw new HttpError(409, 'keep at least one channel');
   await q('delete from brands where id = $1', [row.id]);

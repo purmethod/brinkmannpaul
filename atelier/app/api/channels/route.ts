@@ -1,4 +1,4 @@
-import { requireCtx, route, HttpError, ensureBrands } from '@/lib/auth';
+import { requireCtx, route, HttpError, ensureBrands, isOwner } from '@/lib/auth';
 import { autopilotOf, pendingReviews, reviewStats, slotTimes } from '@/lib/autopilot';
 import { resolveBrand } from '@/lib/brand';
 import { id, one, q } from '@/lib/db';
@@ -7,7 +7,7 @@ import type { BrandRow, ChannelSettings } from '@/lib/types';
 /** Every channel the owner runs, with what matters at a glance. */
 export const GET = route(async () => {
   const { user, brand } = await requireCtx();
-  await ensureBrands(user.id);
+  if (isOwner(user)) await ensureBrands(user.id); // the repo's kits belong to the owner only
   const rows = await q<BrandRow & { username: string | null }>(
     `select b.*, c.username from brands b left join connections c on c.brand_id = b.id and c.platform = 'instagram'
       where b.user_id = $1 order by b.created_at`,

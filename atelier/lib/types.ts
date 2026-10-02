@@ -6,6 +6,7 @@ export interface User {
   id: string;
   email: string;
   timezone: string;
+  name?: string | null;
 }
 
 export interface BrandSettings {
@@ -77,7 +78,11 @@ export interface PostOutput {
   duration?: number;
   slides?: Slide[];
   plan?: unknown; // cut list from the worker, reused for voiceover re-renders
+  lines?: string[]; // the slide words — kept when only the look changes
+  mode?: ContentMode; // what the post is: decided from the photo and the creator's words
 }
+
+export type ContentMode = 'funny' | 'educational' | 'inspirational' | 'personal' | 'promotional';
 
 export interface PostOptions {
   subtitleLanguage?: string;
@@ -87,6 +92,7 @@ export interface PostOptions {
   collaborators?: string[];
   retriedAt?: string; // self-healing: last automatic re-render of a stuck post
   autopilot?: boolean; // made by the autopilot
+  mode?: ContentMode; // set by the owner: write in this mode instead of detecting it
   review?: 'pending' | 'approved'; // learning phase: waits for the owner's ok
   edits?: number; // corrections before the ok
 }

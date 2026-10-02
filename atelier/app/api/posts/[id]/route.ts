@@ -38,7 +38,7 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   const { user, brand, post: current } = await load(req, params);
   const b = (await req.json().catch(() => ({}))) as {
     caption?: string; template?: string; at?: string | null; collaborators?: string[]; subtitleLanguage?: string;
-    voiceoverUrl?: string | null; feedback?: string; action?: string; reason?: string;
+    voiceoverUrl?: string | null; feedback?: string; action?: string; reason?: string; mode?: string;
   };
   if (current.status === 'posted') throw new HttpError(409, 'already posted');
   let post = current;
@@ -50,6 +50,10 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   if (typeof b.subtitleLanguage === 'string') options.subtitleLanguage = b.subtitleLanguage;
   if (b.voiceoverUrl !== undefined) options.voiceoverUrl = b.voiceoverUrl;
   patch.options = options;
+  // the owner sets the mode (funny, educational …): new words in that tone
+  const MODES = ['funny', 'educational', 'inspirational', 'personal', 'promotional'];
+  const modeChanged = typeof b.mode === 'string' && MODES.includes(b.mode) && b.mode !== (post.options.mode ?? post.output.mode);
+  if (modeChanged) options.mode = b.mode as Post['options']['mode'];
   const templateChanged = typeof b.template === 'string' && b.template !== post.template;
   if (templateChanged) patch.template = b.template!;
   post = await updatePost(post.id, patch);
@@ -85,6 +89,10 @@ export const PATCH = route(async (req: Request, { params }: P) => {
     post = await updatePost(post.id, { status: 'ready' });
   } else if (b.action === 'mark_posted') {
     post = await updatePost(post.id, { status: 'posted', error: null });
+  } else if (modeChanged && post.kind !== 'reel') {
+    const current = post;
+    after(() => render(current, brand, { recaption: true }).then(() => undefined));
+    post = await updatePost(post.id, { status: 'processing', error: null });
   } else if (b.action === 'recut' || templateChanged || b.voiceoverUrl !== undefined || b.subtitleLanguage) {
     // voiceover / template / language re-render the same cut; recut with feedback cuts anew
     const keepCut = b.action !== 'recut';

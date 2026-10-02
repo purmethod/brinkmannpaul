@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
 
 function key(): Buffer {
   const raw = process.env.ENCRYPTION_KEY;
@@ -37,4 +37,16 @@ export function sha256(value: string): string {
 
 export function token(bytes = 32): string {
   return randomBytes(bytes).toString('base64url');
+}
+
+/** Account passwords: scrypt with a random salt, stored as scrypt$salt$hash. */
+export function hashPassword(password: string): string {
+  const salt = randomBytes(16).toString('base64url');
+  return `scrypt$${salt}$${scryptSync(password, salt, 64).toString('base64url')}`;
+}
+
+export function verifyPassword(password: string, stored: string | null | undefined): boolean {
+  const [kind, salt, hash] = (stored ?? '').split('$');
+  if (kind !== 'scrypt' || !salt || !hash) return false;
+  return safeEqual(scryptSync(password, salt, 64).toString('base64url'), hash);
 }

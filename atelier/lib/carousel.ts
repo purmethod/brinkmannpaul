@@ -389,7 +389,7 @@ export async function renderSlide(opts: {
     H,
     brand,
     tpl: template,
-    lines: parseSlide(opts.text, brand.carousel.lowercase),
+    lines: parseSlide(template.layout === 'foyo' ? opts.text : opts.text.split('::')[0], brand.carousel.lowercase),
     photo: opts.photoUrl ? await loadPhoto(opts.photoUrl) : null,
     index: opts.index ?? 0,
     total: opts.total ?? 1,

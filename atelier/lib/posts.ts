@@ -4,7 +4,7 @@ import { plainText, renderSlide, splitSlides } from './carousel';
 import { composePost } from './claude';
 import { id, one, q } from './db';
 import { mediaByIds } from './media';
-import type { BrandRow, BrandTemplate, Media, Post, PostKind, PostOptions, Slide } from './types';
+import type { BrandRow, BrandTemplate, Media, Post, PostKind, PostOptions, PostOutput, Slide } from './types';
 import { dispatchRender } from './worker';
 
 export async function getPost(postId: string, brandId: string): Promise<Post | null> {
@@ -51,7 +51,12 @@ async function learned(brandId: string): Promise<string[]> {
   return rows.map((r) => r.text.slice(0, 200));
 }
 
-async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise<{ slides: Slide[]; caption: string }> {
+async function renderStill(
+  post: Post,
+  row: BrandRow,
+  photos: string[],
+  restyle = false,
+): Promise<{ slides: Slide[]; caption: string; lines: string[]; mode?: string }> {
   const brand = resolveBrand(row);
   const { tpl } = resolveTemplate(row, post.template);
   const given = splitSlides(post.text);
@@ -59,10 +64,13 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
   if (!count) throw new Error('needs photos or text');
   if (count > brand.carousel.maxSlides) throw new Error(`max ${brand.carousel.maxSlides} slides`);
 
-  // slide lines + caption from what the photos evoke and what the creator said
-  let lines = given;
+  // slide lines + caption from what the photos evoke and what the creator said;
+  // a new look keeps the words that are already there — only the design changes
+  const kept = restyle && !given.length && post.output.lines?.length === count ? post.output.lines : null;
+  let lines = kept ?? given;
   let caption = post.caption;
-  if (!given.length || !caption) {
+  let mode = post.output.mode as string | undefined;
+  if ((!given.length && !kept) || !caption) {
     // two tries: a post never goes out without its words
     let lastError: unknown = null;
     for (let attempt = 0; attempt < 2 && (!caption || (!given.length && !lines.some(Boolean))); attempt++) {
@@ -75,9 +83,11 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
           description: post.description ?? (given.length ? given.map(plainText).join('\n') : null),
           notes: post.options.notes,
           learned: await learned(row.id),
+          mode: post.options.mode ?? null,
         });
-        if (!given.length && out.lines.some(Boolean)) lines = out.lines;
+        if (!given.length && !kept && out.lines.some(Boolean)) lines = out.lines;
         if (!caption && out.caption) caption = out.caption;
+        if (out.mode) mode = out.mode;
       } catch (e) {
         lastError = e;
         console.error('compose failed', e);
@@ -86,6 +96,7 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
     if (!caption) throw new Error(`the caption could not be written${lastError ? ` (${(lastError as Error).message})` : ''} — tap try again`);
     if (!given.length && !lines.some(Boolean)) lines = Array(count).fill('');
   }
+  lines = Array.from({ length: count }, (_, i) => lines[i] ?? '');
 
   const v = Date.now().toString(36);
   const renderOne = async (i: number): Promise<Slide> => {
@@ -109,7 +120,7 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
   for (let i = 0; i < count; i += 3) {
     slides.push(...(await Promise.all(Array.from({ length: Math.min(3, count - i) }, (_, k) => renderOne(i + k)))));
   }
-  return { slides, caption };
+  return { slides, caption, lines, mode };
 }
 
 /** Renders (stills) or dispatches the cut (reels). Never throws: errors land on the post. */
@@ -126,9 +137,15 @@ export async function render(post: Post, row: BrandRow, extra: { feedback?: stri
     }
     const media = await mediaByIds(post.media_ids);
     const old = (post.output.slides ?? []).flatMap((s) => [s.png, s.jpg]);
-    const { slides, caption } = await renderStill(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url));
+    const restyle = Boolean(extra.reusePlan) && !extra.feedback && !extra.recaption;
+    const { slides, caption, lines, mode } = await renderStill(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url), restyle);
     if (old.length) await del(old).catch(() => undefined);
-    return updatePost(post.id, { output: { ...post.output, slides }, caption, status: readyStatus(row, post), error: null });
+    return updatePost(post.id, {
+      output: { ...post.output, slides, lines, ...(mode ? { mode: mode as PostOutput['mode'] } : {}) },
+      caption,
+      status: readyStatus(row, post),
+      error: null,
+    });
   } catch (e) {
     return updatePost(post.id, { status: 'error', error: (e as Error).message });
   }

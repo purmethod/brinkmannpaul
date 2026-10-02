@@ -13,8 +13,8 @@ interface Post {
   caption: string;
   error: string | null;
   permalink: string | null;
-  output: { video?: string; cover?: string; duration?: number; slides?: { png: string; jpg: string }[] };
-  options: { notes?: string | null };
+  output: { video?: string; cover?: string; duration?: number; slides?: { png: string; jpg: string }[]; mode?: string };
+  options: { notes?: string | null; mode?: string };
 }
 interface View {
   post: Post;
@@ -67,9 +67,18 @@ export default function PostPage() {
   useEffect(() => {
     load().catch((e) => setError(e.message));
     api<Setup>('/api/create').then(setSetup).catch(() => undefined);
-    const t = setInterval(() => load().catch(() => undefined), 8000);
-    return () => clearInterval(t);
   }, [load]);
+  // while it is being reworked, look often; otherwise now and then
+  const working = view?.post.status === 'processing';
+  useEffect(() => {
+    const t = setInterval(() => load().catch(() => undefined), working ? 2000 : 10000);
+    return () => clearInterval(t);
+  }, [load, working]);
+
+  /** instant feedback: the chip and the stage react before the server answers */
+  function optimistic(change: Partial<Post>) {
+    setView((v) => (v ? { ...v, post: { ...v.post, ...change, status: 'processing' } } : v));
+  }
 
   /** label '' = work silently (the stage shows progress instead of a toast) */
   async function patch(body: Record<string, unknown>, label: string) {
@@ -248,11 +257,48 @@ export default function PostPage() {
               <p className="kicker">look</p>
               <div className="chips">
                 {setup.templates.map((t) => (
-                  <button key={t.id} aria-pressed={post.template === t.id} disabled={Boolean(busy)} onClick={() => patch({ template: t.id }, 'restyling…')}>
+                  <button
+                    key={t.id}
+                    aria-pressed={post.template === t.id}
+                    disabled={Boolean(busy) || post.status === 'processing'}
+                    onClick={() => {
+                      if (post.template === t.id) return;
+                      optimistic({ template: t.id });
+                      patch({ template: t.id }, '');
+                    }}
+                  >
                     {t.label}
                   </button>
                 ))}
               </div>
+              <p className="muted small" style={{ marginTop: 10 }}>
+                the words stay — only the design changes.
+              </p>
+            </section>
+          )}
+
+          {post.kind !== 'reel' && (
+            <section className="block">
+              <p className="kicker">tone</p>
+              <div className="chips">
+                {['funny', 'educational', 'inspirational', 'personal', 'promotional'].map((m) => (
+                  <button
+                    key={m}
+                    aria-pressed={(post.options.mode ?? post.output.mode) === m}
+                    disabled={Boolean(busy) || post.status === 'processing'}
+                    onClick={() => {
+                      if ((post.options.mode ?? post.output.mode) === m) return;
+                      optimistic({ options: { ...post.options, mode: m } });
+                      patch({ mode: m }, '');
+                    }}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+              <p className="muted small" style={{ marginTop: 10 }}>
+                {post.output.mode && !post.options.mode ? `read from the photo and your words: ${post.output.mode}.` : 'new words in this tone.'}
+              </p>
             </section>
           )}
 

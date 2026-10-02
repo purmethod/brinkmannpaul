@@ -18,6 +18,7 @@ interface Setup {
   templates: { id: string; label: string; layout: string; saved: boolean }[];
 }
 interface Brands {
+  user?: { name: string | null; owner: boolean };
   active: string;
   brands: { id: string; name: string; handle: string; logo: string[] | null; instagram: string | null; autopilot: boolean }[];
 }
@@ -139,6 +140,22 @@ export default function Settings() {
           ))}
         </div>
       )}
+
+      <p className="section-title">account</p>
+      <div className="list">
+        <div>
+          <span>signed in as</span>
+          <span className="value">{brands?.user?.name ? `@${brands.user.name}` : 'owner'}</span>
+        </div>
+        <button
+          onClick={async () => {
+            await fetch('/api/login', { method: 'DELETE' });
+            window.location.href = '/login';
+          }}
+        >
+          <span style={{ color: 'var(--error)' }}>log out</span>
+        </button>
+      </div>
 
       <p className="section-title">general</p>
       <details className="card more">

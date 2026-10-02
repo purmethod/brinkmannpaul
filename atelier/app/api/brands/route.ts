@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { BRAND_COOKIE, HttpError, ensureBrands, requireCtx, route } from '@/lib/auth';
+import { BRAND_COOKIE, HttpError, ensureBrands, isOwner, requireCtx, route } from '@/lib/auth';
 import { resolveBrand } from '@/lib/brand';
 import { one, q } from '@/lib/db';
 import type { BrandRow } from '@/lib/types';
@@ -7,7 +7,7 @@ import type { BrandRow } from '@/lib/types';
 /** The owner's accounts (one per brand kit) and which one is active. */
 export const GET = route(async () => {
   const { user, brand } = await requireCtx();
-  await ensureBrands(user.id);
+  if (isOwner(user)) await ensureBrands(user.id); // the repo's kits belong to the owner only
   const rows = await q<BrandRow & { username: string | null }>(
     `select b.id, b.user_id, b.kit, b.name, b.settings, c.username
        from brands b left join connections c on c.brand_id = b.id and c.platform = 'instagram'
@@ -15,6 +15,7 @@ export const GET = route(async () => {
     [user.id],
   );
   return Response.json({
+    user: { name: user.name ?? null, owner: isOwner(user) },
     active: brand.id,
     brands: rows.map((b) => ({
       id: b.id,

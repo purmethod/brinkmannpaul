@@ -39,6 +39,9 @@ const SCHEMA = [
   `alter table posts add column if not exists description text`,
   `alter table schedules add column if not exists retry_at timestamptz`,
   `alter table media add column if not exists pool boolean not null default false`,
+  `alter table users add column if not exists name text`,
+  `alter table users add column if not exists password_hash text`,
+  `create unique index if not exists users_name on users (lower(name))`,
   `create table if not exists edit_feedback (
     id text primary key, brand_id text not null references brands(id) on delete cascade, post_id text,
     text text not null, consumed boolean not null default false, created_at timestamptz not null default now())`,

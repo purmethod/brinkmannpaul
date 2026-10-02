@@ -190,7 +190,7 @@ export function TemplatePreview({ layout, photo, line }: { layout: string; photo
 /* ---------- channel wordmark ---------- */
 
 export function Mark({ name, logo }: { name: string; logo: string[] | null }) {
-  const lines = logo?.length ? logo : name === 'foyo' ? ['fo', 'yo'] : [name.slice(0, 5)];
+  const lines = logo?.length ? logo : name === 'foyo' ? ['fo', 'yo'] : [name.split(/[._\s-]/)[0].slice(0, 5) || name.slice(0, 5)];
   return (
     <span className="mark" aria-hidden="true">
       {lines.slice(0, 3).map((l) => (

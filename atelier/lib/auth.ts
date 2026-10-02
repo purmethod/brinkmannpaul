@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { listKits, loadKit } from './brand';
-import { safeEqual, sha256 } from './crypto';
+import { hashPassword, safeEqual, sha256, verifyPassword } from './crypto';
 import { id, one, q } from './db';
 import type { BrandRow, User } from './types';
 
@@ -12,10 +12,55 @@ export function checkPassword(password: string): boolean {
   return Boolean(secret) && typeof password === 'string' && safeEqual(sha256(password.trim()), sha256(secret!.trim()));
 }
 
-/** Phase 1: one owner account, created on first login, with one brand from the repo kit. */
+const OWNER_EMAIL = () => (process.env.ADMIN_EMAIL || 'owner@atelier').toLowerCase();
+
+/** The first user: runs the repo's brand kits (brinkbuild, foyo …). */
+export function isOwner(user: Pick<User, 'email'>) {
+  return user.email.toLowerCase() === OWNER_EMAIL();
+}
+
+export const NAME_RULE = /^[a-z0-9._]{3,30}$/;
+
+/** Name + password → user. The owner may also use the setup password, and claims a name with it once. */
+export async function signIn(name: string, password: string): Promise<User | null> {
+  const n = name.trim().toLowerCase().replace(/^@/, '');
+  if (n) {
+    const user = await one<User & { password_hash: string | null }>('select * from users where lower(name) = $1', [n]);
+    if (user?.password_hash && verifyPassword(password, user.password_hash)) return user;
+    if (user && !isOwner(user)) return null;
+  }
+  if (!checkPassword(password)) return null;
+  const owner = await ensureOwner();
+  if (n && NAME_RULE.test(n) && !owner.name) {
+    const taken = await one('select id from users where lower(name) = $1 and id <> $2', [n, owner.id]);
+    if (!taken) await q('update users set name = $2, password_hash = $3 where id = $1', [owner.id, n, hashPassword(password.trim())]);
+  }
+  return owner;
+}
+
+/** A new account: its own user, its own first channel. */
+export async function signUp(name: string, password: string): Promise<User> {
+  const n = name.trim().toLowerCase().replace(/^@/, '');
+  if (!NAME_RULE.test(n)) throw new HttpError(400, 'name: 3–30 characters, letters, numbers, . and _');
+  if (password.length < 8) throw new HttpError(400, 'password: at least 8 characters');
+  if (await one('select id from users where lower(name) = $1', [n])) throw new HttpError(409, 'this name is taken');
+  const user = (await one<User>(
+    'insert into users (id, email, name, password_hash) values ($1, $2, $3, $4) returning id, email, timezone, name',
+    [id('usr'), `${n}@users.cutcake`, n, hashPassword(password)],
+  ))!;
+  await q("insert into brands (id, user_id, kit, name, settings) values ($1, $2, 'brinkbuild', $3, $4)", [
+    id('brd'),
+    user.id,
+    n,
+    JSON.stringify({ channel: { name: n, handle: `@${n}` } }),
+  ]);
+  return user;
+}
+
+/** Phase 1: one owner account, created on first login, with one brand per repo kit. */
 export async function ensureOwner(): Promise<User> {
-  const email = (process.env.ADMIN_EMAIL || 'owner@atelier').toLowerCase();
-  let user = await one<User>('select id, email, timezone from users where email = $1', [email]);
+  const email = OWNER_EMAIL();
+  let user = await one<User>('select id, email, timezone, name from users where email = $1', [email]);
   if (!user) {
     user = (await one<User>('insert into users (id, email) values ($1, $2) on conflict (email) do update set email = excluded.email returning id, email, timezone', [id('usr'), email]))!;
   }
@@ -57,7 +102,7 @@ async function userFromBearer(header: string | null): Promise<string | null> {
 
 async function ctxFor(userId: string | null, brandId?: string | null): Promise<Ctx | null> {
   if (!userId) return null;
-  const user = await one<User>('select id, email, timezone from users where id = $1', [userId]);
+  const user = await one<User>('select id, email, timezone, name from users where id = $1', [userId]);
   if (!user) return null;
   // the active account (switcher) or the first one
   const brand =

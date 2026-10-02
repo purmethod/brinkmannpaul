@@ -100,16 +100,25 @@ export async function summarizeRules(current: string, feedback: string[]): Promi
 
 /* ---------- creating a post from what the user recorded ---------- */
 
+/** Form of the slide text per look. The tone never comes from here — it comes from the post's mode. */
 const STYLE: Record<string, string> = {
   poetic:
-    'each line is a short poetic, philosophical thought in the spirit of marcus aurelius and the stoics — inspired by what the photo evokes, never describing it. ' +
-    'it is your own line: never present it as a quote, never attribute it to anyone, no quotation marks. 6–16 words.',
-  hook: 'each line is a short, strong editorial statement that makes people stop — calm, confident, no clickbait. 4–12 words. use **bold** for the 2–4 key words.',
-  statement: 'each line is a bold, minimal statement, like a manifesto line. 2–8 words. use "|" for a deliberate line break and **bold** for the key phrase.',
+    'one short line per slide, 6–16 words, like a line written under a photo. no quotation marks, never a quote or an attribution.',
+  hook: 'one short, strong line per slide, 4–12 words. use **bold** for the 2–4 key words.',
+  statement: 'one bold, minimal line per slide, 2–8 words. use "|" for a deliberate line break and **bold** for the key phrase.',
   longevity:
-    'each line is "headline :: body". headline: max 8 words, ends with a period, a clear truth about the body, food or ageing. ' +
-    'body: one plain sentence, max 16 words, the mechanism or what to do. line 1 is the hook, the last line the core truth to remember. ' +
-    'real food, no pills; no invented facts.',
+    'each line is "headline :: body". headline: max 8 words, ends with a period. body: one plain sentence, max 16 words. ' +
+    'line 1 is the hook, the last line the thing to remember.',
+};
+
+/** What each mode sounds like — slide words and caption alike. */
+const MODES: Record<string, string> = {
+  funny:
+    'funny: the joke is the point. playful, cheeky, dry or absurd — land the punchline, use the irony of what is visible. never solemn, never preachy, no life lessons.',
+  educational: 'educational: teach one useful, true thing clearly. concrete, a little surprising, easy to save.',
+  inspirational: 'inspirational: a quiet, true thought (stoic spirit) that the moment evokes — your own words, never a fake quote.',
+  personal: 'personal: a real moment from life, told warmly and simply, a little self-aware — like talking to a friend.',
+  promotional: 'promotional: what it is, why it matters, one clear next step — confident, never pushy.',
 };
 
 /** Photos as small jpegs for claude vision. */
@@ -144,13 +153,14 @@ export async function composePost(
     transcript?: string | null;
     notes?: string | null;
     learned?: string[];
+    mode?: string | null; // forced by the owner
   },
-): Promise<{ lines: string[]; caption: string }> {
+): Promise<{ lines: string[]; caption: string; mode: string }> {
   const slides = o.slides ?? 0;
   const system = [
-    'you write instagram posts that people save, send and follow for. taste: calm, precise, premium — the opposite of loud ai content.',
+    'you write instagram posts that people save, send and follow for. taste: precise, premium — the opposite of loud ai content.',
     '',
-    'substance — pure knowledge:',
+    'substance (for educational and inspirational posts; funny and personal posts live from the moment itself):',
     "- the creator's own words are the starting point. find the one idea in what they said, recorded or photographed.",
     '- deepen it with real knowledge that fits the topic: health → physiology, mechanisms, research consensus; architecture, design, art → principles, ' +
       'history, the masters; mind → philosophy, psychology, neuroscience; business → strategy, economics, behaviour.',
@@ -159,15 +169,23 @@ export async function composePost(
     '- truth: never invent quotes, studies, numbers or attributions. name a person, study or figure only if you are sure (or found it). ' +
       'otherwise say it in your own words. no links, no citations, no sources in the text.',
     '',
-    'caption craft:',
+    'caption craft (the rules bend to the mode: in a funny post the "insight" is the joke, in a personal one the moment):',
     ...brand.caption.rules.map((r) => `- ${r}`),
     `- never more than ${brand.caption.maxHashtags} hashtags.`,
     '- before writing, draft three different hooks and keep the strongest: the one a stranger would stop scrolling for.',
-    slides ? `\nslide text: exactly ${slides} lines, one per slide in order, all lowercase. ${STYLE[o.textStyle] ?? STYLE.hook}` : '',
+    '',
+    'first decide the mode of this post — it sets the tone of the slide words and the caption alike:',
+    ...Object.values(MODES).map((m) => `- ${m}`),
+    o.mode
+      ? `the creator chose the mode: ${o.mode}. write in it.`
+      : 'decide it from the photos themselves (read everything visible, including any text, signs, gestures and the situation) and from the creator\'s words; ' +
+        'if they say what it is, that wins. a funny photo gets a funny post — never a solemn line on a joke.',
+    slides ? `\nslide text: exactly ${slides} lines, one per slide in order, all lowercase. form: ${STYLE[o.textStyle] ?? STYLE.hook} the tone comes from the mode.` : '',
     o.notes ? `\nthe creator's notes for this post and style (follow them):\n${o.notes}` : '',
     o.learned?.length ? `\nwhat the creator corrected before (apply it):\n${o.learned.map((l) => `- ${l}`).join('\n')}` : '',
     '',
-    'answer only json: {"hooks": ["..", "..", ".."], "lines": [..], "caption": "..."} — the caption starts with the strongest hook.',
+    'answer only json: {"mode": "funny|educational|inspirational|personal|promotional", "seen": "what the photos show, incl. any text in them", ' +
+      '"hooks": ["..", "..", ".."], "lines": [..], "caption": "..."} — the caption starts with the strongest hook.',
   ]
     .filter((l) => l !== null)
     .join('\n');
@@ -184,8 +202,13 @@ export async function composePost(
       .filter(Boolean)
       .join('\n'),
   });
-  const out = parseJson<{ lines?: unknown; caption?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2500, search: 3 }));
+  const out = parseJson<{ lines?: unknown; caption?: unknown; mode?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2500, search: 3 }));
   const lines = Array.isArray(out.lines) ? out.lines.map((l) => String(l).toLowerCase().replace(/^["“”']+|["“”']+$/g, '').trim()) : [];
   while (slides && lines.length < slides) lines.push(lines[lines.length - 1] ?? '');
-  return { lines: lines.slice(0, slides || undefined), caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags, [brand.handle, brand.name]) };
+  const mode = String(o.mode || out.mode || '').toLowerCase();
+  return {
+    lines: lines.slice(0, slides || undefined),
+    caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags, [brand.handle, brand.name]),
+    mode: MODES[mode] ? mode : '',
+  };
 }
