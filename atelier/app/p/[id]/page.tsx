@@ -93,7 +93,7 @@ export default function PostPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [id],
   );
-  const mic = useMic(correct, { autoStop: 1600 });
+  const mic = useMic(correct, { autoStop: 2500 });
 
   async function share() {
     const p = view!.post;

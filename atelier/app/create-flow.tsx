@@ -101,7 +101,6 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
       setAbout(text);
       setStep('time');
     }, []),
-    { autoStop: 2500 },
   );
 
   async function finish(templateId: string) {
@@ -181,6 +180,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                   </button>
                 ) : null}
                 <p className="live">{mic.listening ? mic.interim || 'listening…' : mic.supported ? 'tap and tell me — any language' : ''}</p>
+                {mic.listening && <p className="muted small">take your time — tap the mic when you are done</p>}
                 <div className="row center">
                   <button className="link" onClick={() => setTyping(true)}>type instead</button>
                   <span className="sep" />

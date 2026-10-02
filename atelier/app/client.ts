@@ -107,15 +107,20 @@ type Recognition = {
   onerror: ((e: { error: string }) => void) | null;
 };
 
-/** Browser speech recognition, any language (device language). */
-/** Speech to text. `autoStop`: stop by itself after this many ms of silence (once something was said). */
+/**
+ * Speech to text, any language (device language).
+ * `autoStop`: finish by itself after this many ms of silence (short commands).
+ * Without it the user ends with a tap: pauses to think never cut the story — when the browser ends a
+ * session on its own (safari does after a few seconds of silence) it restarts and keeps the text.
+ */
 export function useMic(onFinal: (text: string) => void, opts: { autoStop?: number } = {}) {
   const [listening, setListening] = useState(false);
   const [interim, setInterim] = useState('');
   const [supported, setSupported] = useState(false);
   const rec = useRef<Recognition | null>(null);
-  const finalRef = useRef('');
-  const heardRef = useRef('');
+  const kept = useRef(''); // text of earlier sessions in this recording
+  const heard = useRef(''); // text of the current session (final + interim)
+  const userStop = useRef(false);
   const silence = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -125,45 +130,63 @@ export function useMic(onFinal: (text: string) => void, opts: { autoStop?: numbe
 
   const toggle = useCallback(() => {
     if (listening) {
+      userStop.current = true;
       rec.current?.stop();
       return;
     }
     const w = window as unknown as { SpeechRecognition?: new () => Recognition; webkitSpeechRecognition?: new () => Recognition };
     const R = w.SpeechRecognition || w.webkitSpeechRecognition;
     if (!R) return;
-    const r = new R();
-    r.lang = navigator.language || 'de-DE';
-    r.interimResults = true;
-    r.continuous = true;
-    finalRef.current = '';
-    heardRef.current = '';
-    r.onresult = (e) => {
-      let fin = '';
-      let tmp = '';
-      for (let i = 0; i < e.results.length; i++) {
-        const res = e.results[i];
-        if (res.isFinal) fin += res[0].transcript;
-        else tmp += res[0].transcript;
-      }
-      finalRef.current = fin;
-      heardRef.current = fin + tmp;
-      setInterim(fin + tmp);
-      if (opts.autoStop && (fin + tmp).trim()) {
+    kept.current = '';
+    userStop.current = false;
+    const join = (...t: string[]) => t.map((x) => x.trim()).filter(Boolean).join(' ');
+
+    const session = () => {
+      const r = new R();
+      r.lang = navigator.language || 'de-DE';
+      r.interimResults = true;
+      r.continuous = true;
+      heard.current = '';
+      let fatal = false;
+      r.onresult = (e) => {
+        let text = '';
+        for (let i = 0; i < e.results.length; i++) text += e.results[i][0].transcript;
+        heard.current = text;
+        setInterim(join(kept.current, text));
+        if (opts.autoStop && text.trim()) {
+          if (silence.current) clearTimeout(silence.current);
+          silence.current = setTimeout(() => {
+            userStop.current = true;
+            r.stop();
+          }, opts.autoStop);
+        }
+      };
+      r.onerror = (e) => {
+        if (e.error === 'not-allowed' || e.error === 'service-not-allowed' || e.error === 'audio-capture') fatal = true;
+      };
+      r.onend = () => {
+        kept.current = join(kept.current, heard.current);
+        heard.current = '';
+        if (!userStop.current && !fatal) {
+          // the browser ended it, not the user: keep listening
+          try {
+            session();
+            return;
+          } catch {
+            /* fall through and finish */
+          }
+        }
         if (silence.current) clearTimeout(silence.current);
-        silence.current = setTimeout(() => r.stop(), opts.autoStop);
-      }
+        setListening(false);
+        setInterim('');
+        const text = kept.current.trim();
+        kept.current = '';
+        if (text) onFinal(text);
+      };
+      rec.current = r;
+      r.start();
     };
-    r.onerror = () => setListening(false);
-    r.onend = () => {
-      if (silence.current) clearTimeout(silence.current);
-      setListening(false);
-      // safari often never marks the last words final: fall back to what was heard
-      const text = (finalRef.current || heardRef.current || '').trim();
-      setInterim('');
-      if (text) onFinal(text);
-    };
-    rec.current = r;
-    r.start();
+    session();
     setListening(true);
   }, [listening, onFinal, opts.autoStop]);
 
