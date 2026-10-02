@@ -30,7 +30,8 @@ export interface MediaItem {
 
 /** Phone → vercel blob directly (large files), then register in upload order → #numbers. */
 async function uploadReady(): Promise<'token' | 'presigned'> {
-  const r = await fetch('/api/upload', { cache: 'no-store' }).then((x) => x.json()).catch(() => ({ ok: true, mode: 'token' }));
+  const res = await fetch('/api/upload', { cache: 'no-store' });
+  const r = await res.json().catch(() => ({ ok: false, reason: `upload check failed (http ${res.status})` }));
   if (!r.ok) throw new Error(r.reason || 'upload not available');
   return r.mode === 'presigned' ? 'presigned' : 'token';
 }
@@ -41,6 +42,14 @@ const rnd = () => Math.random().toString(36).slice(2, 10);
 async function put(pathname: string, file: Blob, mode: 'token' | 'presigned', onProgress?: (p: number) => void) {
   const big = file.size > 20 * 1024 * 1024;
   const progress = onProgress ? { onUploadProgress: ({ percentage }: { percentage: number }) => onProgress(percentage) } : {};
+  try {
+    return await putWith(pathname, file, mode, big, progress);
+  } catch (e) {
+    throw new Error(`${(e as Error).message} [mode ${mode}]`);
+  }
+}
+
+async function putWith(pathname: string, file: Blob, mode: 'token' | 'presigned', big: boolean, progress: object) {
   if (mode === 'presigned') {
     // presigned uploads cannot add a random suffix client-side, so the path is unique already
     const [base, ext] = [pathname.replace(/\.[^.]+$/, ''), pathname.split('.').pop()];

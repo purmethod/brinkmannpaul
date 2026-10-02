@@ -11,7 +11,7 @@ export async function GET() {
   if (!mode) {
     return NextResponse.json({ ok: false, reason: 'file storage not connected — vercel → storage → blob (public) → connect project atelier (production)' });
   }
-  return NextResponse.json({ ok: true, mode });
+  return NextResponse.json({ ok: true, mode, oidc: Boolean(process.env.VERCEL_OIDC_TOKEN) || 'per-request' });
 }
 
 // phone → vercel blob directly (large files); this route only authorizes the upload
@@ -48,6 +48,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(json);
   } catch (e) {
+    console.error('upload authorize failed', e);
     return NextResponse.json({ error: (e as Error).message }, { status: 400 });
   }
 }
