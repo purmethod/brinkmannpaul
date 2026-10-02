@@ -1,5 +1,5 @@
 export type PostKind = 'reel' | 'carousel' | 'photo';
-export type PostStatus = 'processing' | 'ready' | 'approved' | 'posted' | 'error';
+export type PostStatus = 'processing' | 'ready' | 'approved' | 'due' | 'posted' | 'error';
 export type ScheduleStatus = 'pending' | 'done' | 'error' | 'canceled';
 
 export interface User {
@@ -15,6 +15,8 @@ export interface BrandSettings {
   subtitleLanguage?: string;
   signatureUrl?: string | null;
   defaultTemplate?: string;
+  lastTemplate?: string;
+  savedTemplates?: SavedTemplate[];
 }
 
 export interface BrandRow {
@@ -53,6 +55,7 @@ export interface PostOptions {
   subtitleLanguage?: string;
   voiceoverUrl?: string | null;
   song?: string | null; // requested song title (see README: music)
+  notes?: string | null; // style notes from a saved template
   collaborators?: string[];
 }
 
@@ -64,6 +67,7 @@ export interface Post {
   template: string;
   media_ids: string[];
   text: string | null;
+  description: string | null;
   caption: string;
   output: PostOutput;
   options: PostOptions;
@@ -97,7 +101,8 @@ export interface BrandKit {
   maxTemplates: number;
   subtitleLanguage: string;
   cutRules: string;
-  fonts: { family: string; regular: string; bold: string };
+  fonts: { family: string; regular: string; bold: string; italic: string; sans: string; sansRegular: string; sansMedium: string; sansBold: string };
+  slots: string[];
   signature: { file: string };
   carousel: {
     width: number;
@@ -113,15 +118,28 @@ export interface BrandKit {
   caption: { model: string; maxHashtags: number; rules: string[] };
 }
 
+export type TemplateLayout = 'polaroid' | 'editorial' | 'bauhaus';
+export type TextStyle = 'poetic' | 'hook' | 'statement';
+
 export interface BrandTemplate {
   label: string;
+  layout: TemplateLayout;
+  textStyle: TextStyle;
   background: { type: 'color' | 'media'; color: string };
+  paper: string;
   text: string;
+  accent: string;
   signature: 'original' | 'inverted';
   gradient?: { color: string; maxAlpha: number; heightRatio: number };
-  logo?: { file: string; width: number; x: number; y: number };
-  carousel: { valign: 'center' | 'bottom' };
-  video: { layout: 'framed' | 'fullbleed'; boxHeight: number; subtitleColor: string; subtitleMarginV: number };
+  video: { layout: 'framed' | 'fullbleed'; boxHeight: number; subtitleColor: string; subtitleMarginV: number; frameColor?: string };
+}
+
+/** A style the user saved from a good post: a base template plus learned notes. */
+export interface SavedTemplate {
+  id: string;
+  name: string;
+  base: string;
+  notes: string;
 }
 
 export interface TemplateSet {

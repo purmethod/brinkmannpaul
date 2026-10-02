@@ -1,31 +1,39 @@
 {
-  "default": "WHITE",
+  "default": "POLAROID",
   "templates": {
-    "WHITE": {
-      "label": "white",
-      "background": { "type": "color", "color": "#FFFFFF" },
-      "text": "#0F0F0F",
+    "POLAROID": {
+      "label": "polaroid",
+      "layout": "polaroid",
+      "textStyle": "poetic",
+      "background": { "type": "media", "color": "#ECE9E3" },
+      "paper": "#FFFFFF",
+      "text": "#262522",
+      "accent": "#262522",
       "signature": "original",
-      "carousel": { "valign": "center" },
-      "video": { "layout": "framed", "boxHeight": 1350, "subtitleColor": "#0F0F0F", "subtitleMarginV": 380 }
+      "video": { "layout": "framed", "boxHeight": 1350, "subtitleColor": "#1A1A1A", "subtitleMarginV": 380, "frameColor": "#FFFFFF" }
     },
-    "BLACK": {
-      "label": "black",
-      "background": { "type": "color", "color": "#000000" },
+    "EDITORIAL": {
+      "label": "editorial",
+      "layout": "editorial",
+      "textStyle": "hook",
+      "background": { "type": "media", "color": "#111111" },
+      "paper": "#111111",
       "text": "#FFFFFF",
+      "accent": "#FFFFFF",
       "signature": "inverted",
-      "carousel": { "valign": "center" },
-      "video": { "layout": "framed", "boxHeight": 1350, "subtitleColor": "#FFFFFF", "subtitleMarginV": 380 }
-    },
-    "PHOTO": {
-      "label": "photo",
-      "background": { "type": "media", "color": "#000000" },
-      "text": "#FFFFFF",
-      "signature": "inverted",
-      "gradient": { "color": "#000000", "maxAlpha": 0.6, "heightRatio": 0.6 },
-      "logo": { "file": "logo.png", "width": 120, "x": 75, "y": 75 },
-      "carousel": { "valign": "bottom" },
+      "gradient": { "color": "#000000", "maxAlpha": 0.68, "heightRatio": 0.62 },
       "video": { "layout": "fullbleed", "boxHeight": 1920, "subtitleColor": "#FFFFFF", "subtitleMarginV": 420 }
+    },
+    "BAUHAUS": {
+      "label": "bauhaus",
+      "layout": "bauhaus",
+      "textStyle": "statement",
+      "background": { "type": "color", "color": "#FFFFFF" },
+      "paper": "#FFFFFF",
+      "text": "#111111",
+      "accent": "#D7301F",
+      "signature": "original",
+      "video": { "layout": "framed", "boxHeight": 1350, "subtitleColor": "#111111", "subtitleMarginV": 380, "frameColor": "#FFFFFF" }
     }
   }
 }

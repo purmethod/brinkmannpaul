@@ -4,14 +4,14 @@ import sharp from 'sharp';
 import { getSignature, readKitFile } from './brand';
 import type { BrandKit, BrandRow, BrandTemplate } from './types';
 
-/* ---------- slide text format: "|" = new line, "**text**" = bold ---------- */
+/* ---------- text format: "|" = new line, "**text**" = bold ---------- */
 
 type Run = { text: string; bold: boolean };
 type Word = Run[];
 type Line = Word[];
 
 /** One slide per non-empty line; an optional "01 " style prefix is dropped. */
-export function splitSlides(text: string | undefined): string[] {
+export function splitSlides(text: string | undefined | null): string[] {
   return (text ?? '')
     .split(/\r?\n/)
     .map((l) => l.trim().replace(/^\d{2}[.)]?\s+/, ''))
@@ -50,17 +50,13 @@ export function plainText(src: string): string {
 
 const GAP = 0.27; // word gap in em
 
-function wordWidth(w: Word, size: number) {
-  return w.reduce((acc, r) => acc + r.text.length * size * (r.bold ? 0.57 : 0.53), 0);
-}
-
-function textHeight(lines: Line[], size: number, maxW: number, lh: number) {
+function textHeight(lines: Line[], size: number, maxW: number, lh: number, charW: number) {
   let rows = 0;
   for (const line of lines) {
     rows += 1;
     let x = 0;
     for (const w of line) {
-      const ww = wordWidth(w, size);
+      const ww = w.reduce((a, r) => a + r.text.length * size * (r.bold ? charW * 1.08 : charW), 0);
       if (x > 0 && x + GAP * size + ww > maxW) {
         rows += 1;
         x = ww;
@@ -70,33 +66,40 @@ function textHeight(lines: Line[], size: number, maxW: number, lh: number) {
   return rows * size * lh;
 }
 
-function pickSize(lines: Line[], maxW: number, maxH: number, brand: BrandKit) {
-  const { fontSizeMax, fontSizeMin, lineHeight } = brand.carousel;
-  for (let size = fontSizeMax; size >= fontSizeMin; size -= 2) {
-    if (textHeight(lines, size, maxW, lineHeight) <= maxH) return size;
+/** Largest size in [max..min] whose wrapped text fits the box; keeps shrinking rather than clipping. */
+function fit(lines: Line[], box: { w: number; h: number }, max: number, min: number, lh: number, charW: number) {
+  for (let size = max; size > 24; size -= 2) {
+    if (textHeight(lines, size, box.w, lh, charW) <= box.h || size <= Math.min(min, 24)) return size;
   }
-  // overflow fallback: keep going down rather than clipping text
-  for (let size = fontSizeMin - 2; size > 40; size -= 2) {
-    if (textHeight(lines, size, maxW, lineHeight) <= maxH) return size;
-  }
-  return 40;
+  return 24;
 }
 
 /* ---------- assets ---------- */
 
-const fontCache = new Map<string, { regular: Buffer; bold: Buffer }>();
+type Img = { src: string; width: number; height: number };
+type El = { type: string; props: Record<string, unknown> };
+
+const fontCache = new Map<string, { name: string; data: Buffer; weight: 400 | 600 | 700; style: 'normal' | 'italic' }[]>();
 
 function fonts(kit: string, brand: BrandKit) {
   if (!fontCache.has(kit)) {
-    const regular = readKitFile(kit, brand.fonts.regular);
-    const bold = readKitFile(kit, brand.fonts.bold);
-    if (!regular || !bold) throw new Error(`fonts missing in brand kit ${kit}`);
-    fontCache.set(kit, { regular, bold });
+    const f = brand.fonts;
+    const load = (rel: string) => {
+      const buf = readKitFile(kit, rel);
+      if (!buf) throw new Error(`font missing in brand kit: ${rel}`);
+      return buf;
+    };
+    fontCache.set(kit, [
+      { name: f.family, data: load(f.regular), weight: 400, style: 'normal' },
+      { name: f.family, data: load(f.bold), weight: 700, style: 'normal' },
+      { name: f.family, data: load(f.italic), weight: 400, style: 'italic' },
+      { name: f.sans, data: load(f.sansRegular), weight: 400, style: 'normal' },
+      { name: f.sans, data: load(f.sansMedium), weight: 600, style: 'normal' },
+      { name: f.sans, data: load(f.sansBold), weight: 700, style: 'normal' },
+    ]);
   }
   return fontCache.get(kit)!;
 }
-
-type Img = { src: string; width: number; height: number };
 
 const imageCache = new WeakMap<Buffer, Map<string, Img>>();
 
@@ -108,19 +111,22 @@ async function toImg(buf: Buffer, width: number, invert: boolean): Promise<Img> 
   if (invert) img = img.negate({ alpha: false });
   const out = await img.resize({ width: width * 2 }).png().toBuffer();
   const meta = await sharp(out).metadata();
-  const height = Math.round((width * (meta.height ?? width)) / (meta.width ?? width));
-  const result = { src: `data:image/png;base64,${out.toString('base64')}`, width, height };
+  const result = { src: `data:image/png;base64,${out.toString('base64')}`, width, height: Math.round((width * (meta.height ?? width)) / (meta.width ?? width)) };
   if (!imageCache.has(buf)) imageCache.set(buf, new Map());
   imageCache.get(buf)!.set(variant, result);
   return result;
 }
 
-async function photoBackground(url: string, w: number, h: number): Promise<string> {
+export async function loadPhoto(url: string): Promise<Buffer> {
+  if (url.startsWith('data:')) return Buffer.from(url.split(',')[1], 'base64');
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`could not load photo ${url}: ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
+  if (!res.ok) throw new Error(`could not load photo (${res.status})`);
+  return Buffer.from(await res.arrayBuffer());
+}
+
+async function cover(buf: Buffer, w: number, h: number): Promise<Img> {
   const out = await sharp(buf).rotate().resize(w, h, { fit: 'cover', position: 'attention' }).jpeg({ quality: 90 }).toBuffer();
-  return `data:image/jpeg;base64,${out.toString('base64')}`;
+  return { src: `data:image/jpeg;base64,${out.toString('base64')}`, width: w, height: h };
 }
 
 function rgba(hex: string, a: number) {
@@ -128,17 +134,161 @@ function rgba(hex: string, a: number) {
   return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
 }
 
-/* ---------- render ---------- */
-
-type El = { type: string; props: Record<string, unknown> };
-const box = (style: Record<string, unknown>, children?: unknown): El => ({
-  type: 'div',
-  props: { style: { display: 'flex', ...style }, children },
-});
-const img = (i: Img, style: Record<string, unknown>): El => ({
+const box = (style: Record<string, unknown>, children?: unknown): El => ({ type: 'div', props: { style: { display: 'flex', ...style }, children } });
+const img = (i: Img, style: Record<string, unknown> = {}): El => ({
   type: 'img',
   props: { src: i.src, width: i.width, height: i.height, style: { width: i.width, height: i.height, ...style } },
 });
+
+function textBlock(lines: Line[], o: { size: number; lh: number; color: string; family: string; italic?: boolean; weight?: number; boldWeight?: number; width: number; align?: 'left' | 'center' }) {
+  return lines.map((line) =>
+    box(
+      {
+        flexWrap: 'wrap',
+        columnGap: Math.round(o.size * GAP),
+        width: o.width,
+        justifyContent: o.align === 'center' ? 'center' : 'flex-start',
+        fontFamily: o.family,
+        fontSize: o.size,
+        lineHeight: o.lh,
+        color: o.color,
+        fontStyle: o.italic ? 'italic' : 'normal',
+      },
+      line.map((word) => box({}, word.map((r) => box({ fontWeight: r.bold ? (o.boldWeight ?? 700) : (o.weight ?? 400) }, r.text)))),
+    ),
+  );
+}
+
+/* ---------- layouts ---------- */
+
+interface Ctx {
+  W: number;
+  H: number;
+  brand: BrandKit;
+  tpl: BrandTemplate;
+  lines: Line[];
+  photo: Buffer | null;
+  index: number;
+  total: number;
+  signature: (width: number, invert: boolean) => Promise<Img | null>;
+}
+
+const counter = (c: Ctx) => (c.total > 1 ? `${String(c.index + 1).padStart(2, '0')} / ${String(c.total).padStart(2, '0')}` : '');
+
+/** Photo in a white polaroid frame on a quiet stone ground; a short line written in the wide bottom field. */
+async function polaroid(c: Ctx): Promise<El> {
+  const { W, H, tpl, brand } = c;
+  const cardW = 864;
+  const pad = 40;
+  const photoS = cardW - 2 * pad;
+  const fieldH = 300;
+  const cardH = pad + photoS + fieldH;
+  const top = Math.round((H - cardH) / 2) - 10;
+  const photo = c.photo
+    ? img(await cover(c.photo, photoS, photoS))
+    : box({ width: photoS, height: photoS, backgroundColor: '#F1EFEA' });
+  const textW = photoS - 80;
+  const size = c.lines.length ? fit(c.lines, { w: textW, h: fieldH - 120 }, 44, 30, 1.32, 0.46) : 0;
+  const sig = await c.signature(150, false);
+  return box({ width: W, height: H, backgroundColor: tpl.background.color, position: 'relative', justifyContent: 'center' }, [
+    box(
+      {
+        position: 'absolute',
+        top,
+        left: (W - cardW) / 2,
+        width: cardW,
+        height: cardH,
+        backgroundColor: tpl.paper,
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: pad,
+        boxShadow: '0 2px 3px rgba(0,0,0,0.06), 0 24px 60px rgba(0,0,0,0.10)',
+      },
+      [
+        photo,
+        box({ width: photoS, height: fieldH, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }, [
+          ...textBlock(c.lines, { size, lh: 1.32, color: tpl.text, family: brand.fonts.family, italic: true, width: textW, align: 'center' }),
+          ...(sig ? [img(sig, { position: 'absolute', right: 0, bottom: 28, opacity: 0.85 })] : []),
+        ]),
+      ],
+    ),
+    ...(counter(c)
+      ? [box({ position: 'absolute', bottom: 40, left: 0, width: W, justifyContent: 'center', fontFamily: brand.fonts.sans, fontSize: 18, letterSpacing: 4, color: rgba(tpl.text, 0.45), fontWeight: 600 }, counter(c))]
+      : []),
+  ]);
+}
+
+/** Full-bleed photo, deep soft gradient, white serif set large and left — a magazine opener. */
+async function editorial(c: Ctx): Promise<El> {
+  const { W, H, tpl, brand } = c;
+  const M = 96;
+  const g = tpl.gradient ?? { color: '#000000', maxAlpha: 0.65, heightRatio: 0.6 };
+  const textW = W - 2 * M;
+  const size = c.lines.length ? fit(c.lines, { w: textW, h: 520 }, 84, 54, 1.12, 0.5) : 0;
+  const sig = await c.signature(190, true);
+  return box({ width: W, height: H, backgroundColor: tpl.paper, position: 'relative' }, [
+    ...(c.photo ? [img(await cover(c.photo, W, H), { position: 'absolute', left: 0, top: 0 })] : []),
+    box({
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+      width: W,
+      height: Math.round(H * g.heightRatio),
+      backgroundImage: `linear-gradient(to top, ${rgba(g.color, g.maxAlpha)}, ${rgba(g.color, g.maxAlpha * 0.55)} 45%, ${rgba(g.color, 0)})`,
+    }),
+    box({ position: 'absolute', left: 0, top: 0, width: W, height: 220, backgroundImage: `linear-gradient(to bottom, ${rgba('#000000', 0.32)}, ${rgba('#000000', 0)})` }),
+    box({ position: 'absolute', top: 72, left: M, right: M, justifyContent: 'space-between', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 5, color: tpl.text }, [
+      box({}, brand.handle.replace(/^@/, '').toUpperCase()),
+      box({}, counter(c)),
+    ]),
+    box(
+      { position: 'absolute', left: M, bottom: sig ? 150 + sig.height : 150, width: textW, flexDirection: 'column' },
+      [box({ width: 64, height: 3, backgroundColor: tpl.accent, marginBottom: 36 }), ...textBlock(c.lines, { size, lh: 1.12, color: tpl.text, family: brand.fonts.family, width: textW })],
+    ),
+    ...(sig ? [img(sig, { position: 'absolute', right: M, bottom: 96 })] : []),
+  ]);
+}
+
+/** Strict grid, generous white, one accent colour, big geometric type. */
+async function bauhaus(c: Ctx): Promise<El> {
+  const { W, H, tpl, brand } = c;
+  const M = 72;
+  const innerW = W - 2 * M;
+  const photoH = c.photo ? 600 : 0;
+  const textTop = c.photo ? 150 + photoH + 72 : 260;
+  const textH = H - textTop - 150;
+  const textW = innerW - 140;
+  const size = c.lines.length ? fit(c.lines, { w: textW, h: textH }, c.photo ? 96 : 112, 46, 1.04, 0.52) : 0;
+  const sig = await c.signature(170, false);
+  const rule = (y: number) => box({ position: 'absolute', left: M, top: y, width: innerW, height: 2, backgroundColor: tpl.text });
+  return box({ width: W, height: H, backgroundColor: tpl.paper, position: 'relative' }, [
+    box({ position: 'absolute', top: 68, left: M, width: innerW, justifyContent: 'space-between', fontFamily: brand.fonts.sans, fontWeight: 600, fontSize: 20, letterSpacing: 4, color: tpl.text }, [
+      box({}, brand.handle.replace(/^@/, '').toUpperCase()),
+      box({}, counter(c)),
+    ]),
+    rule(110),
+    ...(c.photo ? [img(await cover(c.photo, innerW, photoH), { position: 'absolute', left: M, top: 150 })] : []),
+    // accent: a circle on the grid line, the only colour on the page
+    box({
+      position: 'absolute',
+      right: M,
+      top: c.photo ? 150 + photoH - 70 : 150,
+      width: 140,
+      height: 140,
+      borderRadius: 70,
+      backgroundColor: tpl.accent,
+    }),
+    box(
+      { position: 'absolute', left: M, top: textTop, width: textW, height: textH, flexDirection: 'column', justifyContent: 'flex-start' },
+      textBlock(c.lines, { size, lh: 1.04, color: tpl.text, family: brand.fonts.sans, weight: 600, boldWeight: 700, width: textW }),
+    ),
+    rule(H - 110),
+    box({ position: 'absolute', left: M, top: H - 90, width: 48, height: 12, backgroundColor: tpl.accent }),
+    ...(sig ? [img(sig, { position: 'absolute', right: M, bottom: 118 })] : []),
+  ]);
+}
+
+const LAYOUTS = { polaroid, editorial, bauhaus };
 
 export async function renderSlide(opts: {
   row: BrandRow;
@@ -146,88 +296,26 @@ export async function renderSlide(opts: {
   template: BrandTemplate;
   text: string;
   photoUrl?: string;
+  index?: number;
+  total?: number;
 }): Promise<{ png: Buffer; jpg: Buffer }> {
-  const { row, brand, template, text, photoUrl } = opts;
-  const { width: W, height: H, margin: M, lineHeight } = brand.carousel;
-  const sigCfg = brand.carousel.signature;
-
-  const sigBuf = await getSignature(row);
-  const signature = sigBuf ? await toImg(sigBuf, sigCfg.width, template.signature === 'inverted') : null;
-  const logoBuf = template.logo ? readKitFile(row.kit, template.logo.file) : null;
-  const logo = logoBuf && template.logo ? await toImg(logoBuf, template.logo.width, false) : null;
-
-  const children: El[] = [];
-  if (photoUrl) {
-    children.push(img({ src: await photoBackground(photoUrl, W, H), width: W, height: H }, { position: 'absolute', left: 0, top: 0 }));
-  }
-  if (photoUrl && template.gradient) {
-    const g = template.gradient;
-    children.push(
-      box({
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        width: W,
-        height: Math.round(H * g.heightRatio),
-        backgroundImage: `linear-gradient(to top, ${rgba(g.color, g.maxAlpha)}, ${rgba(g.color, 0)})`,
-      }),
-    );
-  }
-
-  const lines = parseSlide(text, brand.carousel.lowercase);
-  if (lines.length) {
-    const sigZone = signature ? sigCfg.margin + signature.height + 50 : M;
-    const padBottom = Math.max(M, sigZone);
-    const maxW = W - 2 * M;
-    const size = pickSize(lines, maxW, H - M - padBottom, brand);
-    children.push(
-      box(
-        {
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: W,
-          height: H,
-          flexDirection: 'column',
-          justifyContent: template.carousel.valign === 'bottom' ? 'flex-end' : 'center',
-          padding: `${M}px ${M}px ${padBottom}px ${M}px`,
-          fontFamily: brand.fonts.family,
-          color: template.text,
-          fontSize: size,
-          lineHeight,
-        },
-        lines.map((line) =>
-          box(
-            { flexWrap: 'wrap', columnGap: Math.round(size * GAP), width: maxW },
-            line.map((word) => box({}, word.map((r) => box({ fontWeight: r.bold ? 700 : 400 }, r.text)))),
-          ),
-        ),
-      ),
-    );
-  }
-
-  if (logo && template.logo && photoUrl) {
-    children.push(img(logo, { position: 'absolute', left: template.logo.x, top: template.logo.y }));
-  }
-  if (signature) {
-    children.push(img(signature, { position: 'absolute', right: sigCfg.margin, bottom: sigCfg.margin }));
-  }
-
-  const root = box(
-    { width: W, height: H, position: 'relative', backgroundColor: template.background.color },
-    children,
-  );
-
-  const f = fonts(row.kit, brand);
-  const svg = await satori(root as unknown as Parameters<typeof satori>[0], {
-    width: W,
-    height: H,
-    fonts: [
-      { name: brand.fonts.family, data: f.regular, weight: 400, style: 'normal' },
-      { name: brand.fonts.family, data: f.bold, weight: 700, style: 'normal' },
-    ],
-  });
+  const { row, brand, template } = opts;
+  const { width: W, height: H } = brand.carousel;
+  const sigBuf = await getSignature(row).catch(() => null);
+  const ctx: Ctx = {
+    W,
+    H,
+    brand,
+    tpl: template,
+    lines: parseSlide(opts.text, brand.carousel.lowercase),
+    photo: opts.photoUrl ? await loadPhoto(opts.photoUrl) : null,
+    index: opts.index ?? 0,
+    total: opts.total ?? 1,
+    signature: async (w, inv) => (sigBuf ? toImg(sigBuf, w, inv && template.signature === 'inverted') : null),
+  };
+  const root = await (LAYOUTS[template.layout] ?? polaroid)(ctx);
+  const svg = await satori(root as unknown as Parameters<typeof satori>[0], { width: W, height: H, fonts: fonts(row.kit, brand) });
   const png = Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng());
-  const jpg = await sharp(png).flatten({ background: '#ffffff' }).jpeg({ quality: 95, chromaSubsampling: '4:4:4' }).toBuffer();
+  const jpg = await sharp(png).flatten({ background: '#ffffff' }).jpeg({ quality: 94, chromaSubsampling: '4:4:4' }).toBuffer();
   return { png, jpg };
 }

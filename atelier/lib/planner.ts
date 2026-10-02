@@ -1,3 +1,4 @@
+import { after } from 'next/server';
 import { resolveBrand, templateList } from './brand';
 import { claude, parseJson } from './claude';
 import { id, one, q } from './db';
@@ -102,6 +103,7 @@ export async function apply(row: BrandRow, timezone: string, actions: Action[]):
         if (a.media?.length && media.length !== a.media.length) throw new Error(`unknown media ${a.media.map((n) => `#${n}`).join(' ')}`);
         const post = await createPost(row, { media, text: a.text, template: a.template, kind: a.kind });
         if (a.type === 'schedule') await schedulePost(row.id, post.id, localToUtc(a.at, timezone));
+        after(() => render(post, row).then(() => undefined));
         done.push(`✓ ${describe(a, timezone)}`);
       } else if (a.type === 'reschedule') {
         await reschedule(a.scheduleId, row.id, localToUtc(a.at, timezone));

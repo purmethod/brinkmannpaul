@@ -1,10 +1,10 @@
 import { del, put } from '@vercel/blob';
 import { getTemplate, loadTemplates, resolveBrand } from './brand';
 import { plainText, renderSlide, splitSlides } from './carousel';
-import { writeCaption } from './claude';
+import { composePost } from './claude';
 import { id, one, q } from './db';
 import { mediaByIds } from './media';
-import type { BrandRow, Media, Post, PostKind, PostOptions, Slide } from './types';
+import type { BrandRow, BrandTemplate, Media, Post, PostKind, PostOptions, Slide } from './types';
 import { dispatchRender } from './worker';
 
 export async function getPost(postId: string, brandId: string): Promise<Post | null> {
@@ -23,31 +23,67 @@ export async function updatePost(postId: string, patch: Partial<Post>): Promise<
   return row;
 }
 
-function readyStatus(row: BrandRow): 'ready' | 'approved' {
-  return resolveBrand(row).autoApprove ? 'approved' : 'ready';
+/** Created in the create flow = meant to go out; only an explicit pause ('ready') holds it back. */
+function readyStatus(_row: BrandRow, post: Post): 'ready' | 'approved' {
+  return post.status === 'ready' ? 'ready' : 'approved';
 }
 
-/** Kind follows the material: videos → reel, several photos or text → carousel, one photo → photo. */
+/** Format follows the material: any video → reel, several photos or text → carousel, one photo → photo. */
 export function inferKind(media: Media[], text?: string | null): PostKind {
   if (media.some((m) => m.kind === 'video')) return 'reel';
   if (text || media.length > 1) return 'carousel';
   return 'photo';
 }
 
-async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise<Slide[]> {
+/** Template id may be a built-in (POLAROID) or a saved style (saved:<id>) = base + notes. */
+export function resolveTemplate(row: BrandRow, templateId?: string | null): { base: string; tpl: BrandTemplate; notes: string | null } {
+  const set = loadTemplates(row.kit);
+  const saved = templateId?.startsWith('saved:') ? row.settings?.savedTemplates?.find((t) => `saved:${t.id}` === templateId) : undefined;
+  const fallback = resolveBrand(row).defaultTemplate;
+  const base = saved?.base ?? (templateId && set.templates[templateId] ? templateId : set.templates[fallback] ? fallback : set.default);
+  return { base, tpl: getTemplate(row.kit, base), notes: saved?.notes ?? null };
+}
+
+async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise<{ slides: Slide[]; caption: string }> {
   const brand = resolveBrand(row);
-  const template = getTemplate(row.kit, post.template);
-  const texts = splitSlides(post.text ?? '');
-  const count = texts.length || photos.length;
-  if (!count) throw new Error('needs text or photos');
+  const { tpl } = resolveTemplate(row, post.template);
+  const given = splitSlides(post.text);
+  const count = given.length || photos.length;
+  if (!count) throw new Error('needs photos or text');
   if (count > brand.carousel.maxSlides) throw new Error(`max ${brand.carousel.maxSlides} slides`);
-  const media = Object.values(loadTemplates(row.kit).templates).find((t) => t.background.type === 'media') ?? template;
+
+  // slide lines + caption from what the photos evoke and what the creator said
+  let lines = given;
+  let caption = post.caption;
+  if (!given.length || !caption) {
+    try {
+      const out = await composePost(brand, {
+        kind: post.kind,
+        textStyle: tpl.textStyle,
+        photos,
+        slides: given.length ? 0 : count,
+        description: post.description ?? (given.length ? given.map(plainText).join('\n') : null),
+        notes: post.options.notes,
+      });
+      if (!given.length) lines = out.lines;
+      if (!caption) caption = out.caption;
+    } catch (e) {
+      if (!given.length) lines = Array(count).fill('');
+      console.error('compose failed', e);
+    }
+  }
+
   const v = Date.now().toString(36);
-  const one = async (i: number): Promise<Slide> => {
-    const text = texts[i] ?? '';
-    const usePhoto = photos.length > 0 && (template.background.type === 'media' || !text);
-    const tpl = usePhoto && template.background.type !== 'media' ? media : template;
-    const { png, jpg } = await renderSlide({ row, brand, template: tpl, text, photoUrl: usePhoto ? photos[i % photos.length] : undefined });
+  const renderOne = async (i: number): Promise<Slide> => {
+    const { png, jpg } = await renderSlide({
+      row,
+      brand,
+      template: tpl,
+      text: lines[i] ?? '',
+      photoUrl: photos.length ? photos[i % photos.length] : undefined,
+      index: i,
+      total: count,
+    });
     const n = String(i + 1).padStart(2, '0');
     const [p, j] = await Promise.all([
       put(`posts/${post.id}/${v}/${n}.png`, png, { access: 'public', contentType: 'image/png', addRandomSuffix: true }),
@@ -57,28 +93,28 @@ async function renderStill(post: Post, row: BrandRow, photos: string[]): Promise
   };
   const slides: Slide[] = [];
   for (let i = 0; i < count; i += 3) {
-    slides.push(...(await Promise.all(Array.from({ length: Math.min(3, count - i) }, (_, k) => one(i + k)))));
+    slides.push(...(await Promise.all(Array.from({ length: Math.min(3, count - i) }, (_, k) => renderOne(i + k)))));
   }
-  return slides;
+  return { slides, caption };
 }
 
 /** Renders (stills) or dispatches the cut (reels). Never throws: errors land on the post. */
-export async function render(post: Post, row: BrandRow, extra: { feedback?: string; reusePlan?: boolean } = {}): Promise<Post> {
+export async function render(post: Post, row: BrandRow, extra: { feedback?: string; reusePlan?: boolean; recaption?: boolean } = {}): Promise<Post> {
   try {
+    if (extra.feedback) {
+      // corrections steer the new text, caption and cut of this post
+      const notes = [post.options.notes, `- ${extra.feedback}`].filter(Boolean).join('\n');
+      post = await updatePost(post.id, { caption: '', options: { ...post.options, notes } });
+    } else if (extra.recaption) post = await updatePost(post.id, { caption: '' });
     if (post.kind === 'reel') {
       await dispatchRender(post, row, extra);
       return updatePost(post.id, { status: 'processing', error: null });
     }
     const media = await mediaByIds(post.media_ids);
     const old = (post.output.slides ?? []).flatMap((s) => [s.png, s.jpg]);
-    const slides = await renderStill(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url));
+    const { slides, caption } = await renderStill(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url));
     if (old.length) await del(old).catch(() => undefined);
-    let caption = post.caption;
-    if (!caption && post.text) {
-      caption = await writeCaption(resolveBrand(row), post.kind, splitSlides(post.text).map(plainText).join('\n\n')).catch(() => '');
-    }
-    const status = post.status === 'approved' ? 'approved' : readyStatus(row);
-    return updatePost(post.id, { output: { ...post.output, slides }, caption, status, error: null });
+    return updatePost(post.id, { output: { ...post.output, slides }, caption, status: readyStatus(row, post), error: null });
   } catch (e) {
     return updatePost(post.id, { status: 'error', error: (e as Error).message });
   }
@@ -86,20 +122,30 @@ export async function render(post: Post, row: BrandRow, extra: { feedback?: stri
 
 export async function createPost(
   row: BrandRow,
-  input: { media?: Media[]; text?: string | null; template?: string; kind?: PostKind; caption?: string; options?: PostOptions },
+  input: { media?: Media[]; text?: string | null; description?: string | null; template?: string | null; kind?: PostKind; caption?: string; options?: PostOptions },
 ): Promise<Post> {
   const media = input.media ?? [];
-  const brand = resolveBrand(row);
-  const template = input.template && loadTemplates(row.kit).templates[input.template] ? input.template : brand.defaultTemplate;
   const kind = input.kind ?? inferKind(media, input.text);
-  // photo template without photos makes no sense — fall back to the default look
-  const tpl = getTemplate(row.kit, template).background.type === 'media' && !media.length ? brand.defaultTemplate : template;
+  const { notes } = resolveTemplate(row, input.template);
+  const template = input.template || resolveBrand(row).defaultTemplate;
+  const used = kind === 'reel' ? media.filter((m) => m.kind === 'video') : media.filter((m) => m.kind === 'photo');
   const post = (await one<Post>(
-    `insert into posts (id, brand_id, kind, status, template, media_ids, text, caption, options)
-     values ($1, $2, $3, 'processing', $4, $5, $6, $7, $8) returning *`,
-    [id('pst'), row.id, kind, tpl, media.map((m) => m.id), input.text ?? null, input.caption ?? '', JSON.stringify(input.options ?? {})],
+    `insert into posts (id, brand_id, kind, status, template, media_ids, text, description, caption, options)
+     values ($1, $2, $3, 'processing', $4, $5, $6, $7, $8, $9) returning *`,
+    [
+      id('pst'),
+      row.id,
+      kind,
+      template,
+      used.map((m) => m.id),
+      input.text ?? null,
+      input.description ?? null,
+      input.caption ?? '',
+      JSON.stringify({ ...(input.options ?? {}), ...(notes ? { notes } : {}) }),
+    ],
   ))!;
-  return render(post, row);
+  await q("update brands set settings = settings || jsonb_build_object('lastTemplate', $2::text) where id = $1", [row.id, template]);
+  return post;
 }
 
 /** Worker finished a cut. */
@@ -110,10 +156,20 @@ export async function finishRender(
 ) {
   if (!r.ok || !r.videoUrl) return updatePost(post.id, { status: 'error', error: `cut: ${r.error ?? 'failed'}` });
   let caption = post.caption;
-  if (!caption && r.transcript) caption = await writeCaption(resolveBrand(row), 'reel', r.transcript).catch(() => '');
+  if (!caption) {
+    caption = await composePost(resolveBrand(row), {
+      kind: 'reel',
+      textStyle: 'hook',
+      description: post.description,
+      transcript: r.transcript,
+      notes: post.options.notes,
+    })
+      .then((o) => o.caption)
+      .catch(() => '');
+  }
   if (post.output.video) await del([post.output.video, ...(post.output.cover ? [post.output.cover] : [])]).catch(() => undefined);
   return updatePost(post.id, {
-    status: post.status === 'approved' ? 'approved' : readyStatus(row),
+    status: readyStatus(row, post),
     output: { ...post.output, video: r.videoUrl, cover: r.coverUrl, duration: r.duration, plan: r.plan ?? post.output.plan },
     transcript: r.transcript ?? post.transcript,
     caption,

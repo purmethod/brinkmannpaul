@@ -5,6 +5,12 @@ const nextConfig = {
   serverExternalPackages: ['@resvg/resvg-js', 'sharp', 'satori', 'harfbuzzjs'],
   // brand kits (fonts, templates, signature) are read from disk at runtime
   outputFileTracingIncludes: { '/api/**/*': kit, '/**/*': ['./brands/**/*'] },
+  async redirects() {
+    return [
+      { source: '/media', destination: '/', permanent: false },
+      { source: '/chat', destination: '/', permanent: false },
+    ];
+  },
   async rewrites() {
     // oauth discovery for the claude connector
     return [{ source: '/.well-known/:path*', destination: '/api/well-known/:path*' }];

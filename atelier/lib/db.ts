@@ -36,6 +36,7 @@ const SCHEMA = [
     status text not null default 'pending', message_id text, attempts int not null default 0, error text,
     created_at timestamptz not null default now())`,
   `create index if not exists schedules_brand_at on schedules (brand_id, at)`,
+  `alter table posts add column if not exists description text`,
   `create table if not exists edit_feedback (
     id text primary key, brand_id text not null references brands(id) on delete cascade, post_id text,
     text text not null, consumed boolean not null default false, created_at timestamptz not null default now())`,

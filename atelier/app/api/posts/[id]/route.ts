@@ -1,3 +1,4 @@
+import { after } from 'next/server';
 import { HttpError, requireCtx, route } from '@/lib/auth';
 import { one } from '@/lib/db';
 import { mediaByIds } from '@/lib/media';
@@ -54,15 +55,20 @@ export const PATCH = route(async (req: Request, { params }: P) => {
 
   if (b.feedback?.trim()) await addFeedback(brand, post.id, b.feedback.trim());
 
-  if (b.action === 'approve') {
+  if (b.action === 'approve' || b.action === 'resume') {
     if (!(post.output.video || post.output.slides?.length)) throw new HttpError(409, 'not rendered yet');
     post = await updatePost(post.id, { status: 'approved', error: null });
-  } else if (b.action === 'unapprove') {
+  } else if (b.action === 'unapprove' || b.action === 'pause') {
     post = await updatePost(post.id, { status: 'ready' });
+  } else if (b.action === 'mark_posted') {
+    post = await updatePost(post.id, { status: 'posted', error: null });
   } else if (b.action === 'recut' || templateChanged || b.voiceoverUrl !== undefined || b.subtitleLanguage) {
     // voiceover / template / language re-render the same cut; recut with feedback cuts anew
     const keepCut = b.action !== 'recut';
-    post = await render(post, brand, { feedback: b.feedback?.trim(), reusePlan: keepCut });
+    const feedback = b.feedback?.trim();
+    const current = post;
+    after(() => render(current, brand, { feedback, reusePlan: keepCut }).then(() => undefined));
+    post = await updatePost(post.id, { status: 'processing', error: null });
   } else if (b.action === 'post_now') {
     if (post.status !== 'approved') post = await updatePost(post.id, { status: 'approved' });
     try {

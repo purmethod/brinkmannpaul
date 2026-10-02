@@ -60,6 +60,8 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           META_APP_ID: ${{ secrets.META_APP_ID }}
           META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+          INSTAGRAM_APP_ID: ${{ secrets.INSTAGRAM_APP_ID }}
+          INSTAGRAM_APP_SECRET: ${{ secrets.INSTAGRAM_APP_SECRET }}
           GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
@@ -84,6 +86,8 @@ jobs:
           put ANTHROPIC_API_KEY "$ANTHROPIC_API_KEY"
           put META_APP_ID "$META_APP_ID"
           put META_APP_SECRET "$META_APP_SECRET"
+          put INSTAGRAM_APP_ID "$INSTAGRAM_APP_ID"
+          put INSTAGRAM_APP_SECRET "$INSTAGRAM_APP_SECRET"
           put GITHUB_TOKEN "$GH_DISPATCH_TOKEN"
 
       - name: deploy

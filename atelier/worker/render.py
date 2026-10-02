@@ -454,7 +454,8 @@ def render_final(joined, dur, ass, brand, tpl, brand_dir, out, assets=None, voic
     inputs = ["-i", joined]
     fc = []
     if v["layout"] == "framed":
-        fc.append(f"[0:v]pad={W}:{H}:0:0:color=0x{tpl['background']['color'].lstrip('#')}[base]")
+        frame = v.get("frameColor") or tpl.get("paper") or tpl["background"]["color"]
+        fc.append(f"[0:v]pad={W}:{H}:0:0:color=0x{frame.lstrip('#')}[base]")
     else:
         fc.append(f"[0:v]scale={W}:{H},setsar=1[base]")
     cur, n = "base", 1

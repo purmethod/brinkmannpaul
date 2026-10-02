@@ -99,7 +99,16 @@ export async function runSchedule(scheduleId: string) {
   if (post.status === 'posted') return { skipped: 'already posted' };
   if (post.status === 'processing') return retry('still cutting');
   if (post.status === 'error' && !(post.output.video || post.output.slides?.length)) return retry(post.error || 'render failed');
-  if (post.status !== 'approved' && !brand.autoApprove) return retry('waiting for approval');
+  if (post.status === 'ready') {
+    await q("update schedules set status = 'canceled', error = 'paused' where id = $1", [s.id]);
+    return { skipped: 'paused' };
+  }
+  // no api connection (e.g. a personal account): hand it to the user to share from the phone
+  if (!(await getConnection(row.id, 'instagram'))) {
+    await updatePost(post.id, { status: 'due', error: null });
+    await notify(s.brand_id, `${when}: ready to share — open it and tap share to instagram`);
+    return { due: post.id };
+  }
 
   try {
     await publishPost(post, row);

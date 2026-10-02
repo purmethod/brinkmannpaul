@@ -2,7 +2,8 @@
 
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { api, saveFile, uploadOne, useMic } from '../../client';
+import { api, saveFile, useMic } from '../../client';
+import { Icon, Wheel } from '../../ui';
 
 interface Post {
   id: string;
@@ -13,70 +14,59 @@ interface Post {
   error: string | null;
   permalink: string | null;
   output: { video?: string; cover?: string; duration?: number; slides?: { png: string; jpg: string }[] };
-  options: { subtitleLanguage?: string; voiceoverUrl?: string | null; collaborators?: string[] };
+  options: { notes?: string | null };
 }
 interface View {
   post: Post;
   schedule: { id: string; at: string; status: string; error: string | null } | null;
-  media: { number: number; kind: string; url: string }[];
 }
-interface Settings {
+interface Setup {
   timezone: string;
-  templates: { id: string; label: string; media: boolean }[];
+  templates: { id: string; label: string; layout: string; saved: boolean }[];
 }
 
-const LANGS = ['en', 'de', 'es', 'fr', 'it'];
+const STATUS: Record<string, string> = {
+  processing: 'preparing',
+  approved: 'ready',
+  ready: 'paused',
+  due: 'ready to share',
+  posted: 'posted',
+  error: 'needs a look',
+};
 
-function toLocalInput(iso: string, tz: string) {
+function when(iso: string, tz: string) {
   const p = Object.fromEntries(
-    new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+    new Intl.DateTimeFormat('en-GB', { timeZone: tz, weekday: 'short', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
       .formatToParts(new Date(iso))
       .map((x) => [x.type, x.value]),
   );
-  return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
+  return `${p.weekday.toLowerCase()} ${p.day}.${p.month}. · ${p.hour}:${p.minute}`;
 }
 
 export default function PostPage() {
   const { id } = useParams<{ id: string }>();
   const [view, setView] = useState<View | null>(null);
-  const [settings, setSettings] = useState<Settings | null>(null);
+  const [setup, setSetup] = useState<Setup | null>(null);
   const [caption, setCaption] = useState('');
-  const [at, setAt] = useState('');
-  const [feedback, setFeedback] = useState('');
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
-  const [recording, setRecording] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const recRef = useRef<MediaRecorder | null>(null);
-  const synced = useRef(false);
+  const [note, setNote] = useState('');
+  const [slide, setSlide] = useState(0);
+  const lastStatus = useRef('');
 
   const load = useCallback(async () => {
     const v = await api<View>(`/api/posts/${id}`);
     setView(v);
+    if (lastStatus.current !== v.post.status) setCaption(v.post.caption);
+    lastStatus.current = v.post.status;
     return v;
   }, [id]);
 
   useEffect(() => {
-    let t: ReturnType<typeof setTimeout>;
-    Promise.all([load(), api<Settings>('/api/settings')])
-      .then(([v, s]) => {
-        setSettings(s);
-        const tick = async () => {
-          const cur = await load().catch(() => null);
-          if (cur && (!synced.current || cur.post.status !== 'processing')) {
-            if (!synced.current || !caption) setCaption(cur.post.caption);
-            synced.current = true;
-          }
-          if (cur?.post.status === 'processing') t = setTimeout(tick, 8000);
-        };
-        setCaption(v.post.caption);
-        if (v.schedule && v.schedule.status === 'pending') setAt(toLocalInput(v.schedule.at, s.timezone));
-        synced.current = true;
-        if (v.post.status === 'processing') t = setTimeout(tick, 8000);
-      })
-      .catch((e) => setError(e.message));
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    load().catch((e) => setError(e.message));
+    api<Setup>('/api/create').then(setSetup).catch(() => undefined);
+    const t = setInterval(() => load().catch(() => undefined), 8000);
+    return () => clearInterval(t);
   }, [load]);
 
   async function patch(body: Record<string, unknown>, label: string) {
@@ -85,191 +75,260 @@ export default function PostPage() {
     try {
       const v = await api<View>(`/api/posts/${id}`, { method: 'PATCH', json: body });
       setView(v);
-      if (v.post.status === 'processing') setTimeout(() => window.location.reload(), 9000);
+      lastStatus.current = v.post.status;
     } catch (e) {
       setError((e as Error).message);
     }
     setBusy('');
   }
 
-  const mic = useMic(useCallback((t: string) => setFeedback((f) => (f ? `${f} ${t}` : t)), []));
+  const correct = useCallback(
+    (text: string) => {
+      setNote(text);
+      patch({ action: 'recut', feedback: text }, 'working on it…');
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id],
+  );
+  const mic = useMic(correct);
 
-  async function recordVoiceover() {
-    const video = videoRef.current;
-    if (!video) return;
-    if (recording) {
-      recRef.current?.stop();
-      return;
-    }
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const rec = new MediaRecorder(stream);
-    const chunks: Blob[] = [];
-    rec.ondataavailable = (e) => chunks.push(e.data);
-    rec.onstop = async () => {
-      stream.getTracks().forEach((t) => t.stop());
-      video.pause();
-      setRecording(false);
-      const blob = new Blob(chunks, { type: rec.mimeType || 'audio/mp4' });
-      setBusy('uploading voiceover…');
-      try {
-        const url = await uploadOne(blob, `voiceover.${blob.type.includes('webm') ? 'webm' : 'm4a'}`);
-        await patch({ voiceoverUrl: url }, 'rendering with voiceover…');
-      } catch (e) {
-        setError((e as Error).message);
-        setBusy('');
+  async function share() {
+    const p = view!.post;
+    try {
+      await navigator.clipboard?.writeText(p.caption).catch(() => undefined);
+      const urls = p.output.video ? [p.output.video] : (p.output.slides ?? []).map((s) => s.jpg);
+      const files = await Promise.all(
+        urls.map(async (u, i) => {
+          const b = await (await fetch(u)).blob();
+          return new File([b], p.output.video ? `${p.id}.mp4` : `${p.id}-${i + 1}.jpg`, { type: b.type });
+        }),
+      );
+      if (navigator.canShare?.({ files })) {
+        await navigator.share({ files });
+        setNote('caption copied — paste it in instagram. then mark it as posted.');
+      } else {
+        for (const [i, u] of urls.entries()) await saveFile(u, files[i].name);
+        setNote('saved. caption copied — paste it in instagram.');
       }
-    };
-    video.currentTime = 0;
-    video.muted = true;
-    video.onended = () => rec.state === 'recording' && rec.stop();
-    rec.start();
-    recRef.current = rec;
-    setRecording(true);
-    await video.play();
+    } catch (e) {
+      if ((e as Error).name !== 'AbortError') setError((e as Error).message);
+    }
+  }
+
+  async function saveStyle() {
+    const name = prompt('name this style', '');
+    if (name === null) return;
+    setBusy('saving style…');
+    try {
+      await api('/api/templates', { method: 'POST', json: { postId: id, name } });
+      setNote('saved — it now appears when you choose a look.');
+    } catch (e) {
+      setError((e as Error).message);
+    }
+    setBusy('');
   }
 
   if (error && !view) return <p className="error">{error}</p>;
-  if (!view || !settings) return <p className="muted">…</p>;
-  const { post } = view;
+  if (!view) return <p className="muted">…</p>;
+  const { post, schedule } = view;
+  const tz = setup?.timezone ?? 'Europe/Berlin';
   const posted = post.status === 'posted';
-  const rendered = Boolean(post.output.video || post.output.slides?.length);
+  const slides = post.output.slides ?? [];
 
   return (
-    <>
-      <div className="row between">
-        <h1 style={{ margin: 0 }}>
-          {post.kind} {view.media.length ? view.media.map((m) => `#${m.number}`).join(' ') : ''}
-        </h1>
-        <span className="status">{post.status === 'ready' ? 'needs approval' : post.status}</span>
-      </div>
-      <hr className="rule" />
-      {post.error && <p className="error">{post.error}</p>}
-      {post.status === 'processing' && <p className="muted">cutting — hook first, pauses out, subtitles in. a few minutes; this page updates itself.</p>}
+    <div className="post">
+      <header className="page-top">
+        <a className="icon-btn" href="/" aria-label="back">
+          <Icon name="back" />
+        </a>
+        <span className={`status ${post.status}`}>{STATUS[post.status] ?? post.status}</span>
+      </header>
 
-      {post.output.video && (
-        <div>
-          <video ref={videoRef} className="frame" src={post.output.video} poster={post.output.cover} controls playsInline preload="metadata" />
-          <div className="file-row">
-            <span className="muted small">{post.output.duration ? `${post.output.duration.toFixed(0)} s` : ''}</span>
-            <button onClick={() => saveFile(post.output.video!, `${post.id}.mp4`)}>save</button>
+      <div className="stage">
+        {post.status === 'processing' && !post.output.video && !slides.length && (
+          <div className="stage-wait">
+            <span className="pulse" />
+            <p>{post.kind === 'reel' ? 'finding the best moments, cutting, subtitling…' : 'reading your photos, writing, setting the type…'}</p>
+          </div>
+        )}
+        {post.output.video && <video className="frame" src={post.output.video} poster={post.output.cover} controls playsInline preload="metadata" />}
+        {slides.length > 0 && (
+          <>
+            <div
+              className="slider"
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                setSlide(Math.round(el.scrollLeft / el.clientWidth));
+              }}
+            >
+              {slides.map((s, i) => (
+                <img key={s.png} src={s.png} alt={`slide ${i + 1}`} />
+              ))}
+            </div>
+            {slides.length > 1 && (
+              <div className="dots" aria-hidden="true">
+                {slides.map((s, i) => (
+                  <span key={s.png} className={i === slide ? 'on' : ''} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {(post.output.video || slides.length > 0) && (
+        <div className="row between files">
+          <span className="muted small">{post.output.duration ? `${post.output.duration.toFixed(0)} s` : slides.length > 1 ? `${slide + 1} / ${slides.length}` : ''}</span>
+          <button
+            className="ghost small-btn"
+            onClick={() => (post.output.video ? saveFile(post.output.video, `${post.id}.mp4`) : saveFile(slides[slide].png, `${post.id}-${slide + 1}.png`))}
+          >
+            <Icon name="download" size={18} /> save
+          </button>
+        </div>
+      )}
+
+      {post.error && <p className="error">{post.error}</p>}
+
+      {post.status === 'due' && (
+        <div className="due">
+          <p>your account posts by hand. share it now — the caption is copied for you.</p>
+          <div className="row">
+            <button className="primary" style={{ flex: 1 }} onClick={share}>
+              <Icon name="share" size={18} /> share to instagram
+            </button>
+            <button style={{ flex: 1 }} onClick={() => patch({ action: 'mark_posted' }, '…')}>
+              mark posted
+            </button>
           </div>
         </div>
       )}
-      {post.output.slides && (
-        <div className="slides">
-          {post.output.slides.map((s, i) => (
-            <div key={s.png}>
-              <img className="frame" src={s.png} alt={`slide ${i + 1}`} loading="lazy" />
-              <div className="file-row">
-                <span className="muted small">{i + 1} / {post.output.slides!.length}</span>
-                <button onClick={() => saveFile(s.png, `${post.id}-${String(i + 1).padStart(2, '0')}.png`)}>save</button>
-              </div>
-            </div>
-          ))}
-        </div>
+
+      {schedule && schedule.status !== 'canceled' && (
+        <p className="when">
+          {posted ? 'posted ' : 'goes out '}
+          <strong>{when(schedule.at, tz)}</strong>
+        </p>
       )}
 
       {!posted && (
         <>
-          <label>template</label>
-          <div className="seg">
-            {settings.templates
-              .filter((t) => !t.media || view.media.length > 0)
-              .map((t) => (
-                <button key={t.id} aria-pressed={post.template === t.id} disabled={Boolean(busy)} onClick={() => patch({ template: t.id }, 'rendering…')}>
-                  {t.label}
-                </button>
-              ))}
-          </div>
+          <section className="block">
+            <p className="kicker">caption</p>
+            <textarea className="caption" value={caption} onChange={(e) => setCaption(e.target.value)} onBlur={() => caption !== post.caption && patch({ caption }, 'saving…')} />
+          </section>
 
-          <label htmlFor="caption">caption</label>
-          <textarea id="caption" value={caption} onChange={(e) => setCaption(e.target.value)} onBlur={() => caption !== post.caption && patch({ caption }, 'saving…')} />
-          <p className="muted small">{caption.length} / 2200 · {(caption.match(/#[\p{L}\p{N}_]+/gu) || []).length} / 5 hashtags</p>
-
-          <label htmlFor="at">post at ({settings.timezone.toLowerCase()})</label>
-          <div className="row">
-            <input id="at" type="datetime-local" value={at} onChange={(e) => setAt(e.target.value)} style={{ flex: 1 }} />
-            <button disabled={!at || Boolean(busy)} onClick={() => patch({ at, caption }, 'scheduling…')}>set</button>
-            {view.schedule?.status === 'pending' && (
-              <button className="ghost" disabled={Boolean(busy)} onClick={() => { setAt(''); patch({ at: null }, 'removing…'); }}>×</button>
-            )}
-          </div>
-          {view.schedule?.error && <p className="muted small">last attempt: {view.schedule.error}</p>}
-
-          {post.kind === 'reel' && rendered && (
-            <>
-              <label htmlFor="fb">what should the next cut do better?</label>
-              <div className="row">
-                <input id="fb" type="text" value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder="start is too slow · fewer cuts · bread part first" style={{ flex: 1 }} />
-                {mic.supported && (
-                  <button className={`mic ${mic.listening ? 'on' : ''}`} onClick={mic.toggle}>{mic.listening ? 'stop' : 'speak'}</button>
-                )}
-              </div>
-              <div className="row" style={{ marginTop: 10 }}>
-                <button disabled={Boolean(busy)} onClick={() => patch({ action: 'recut', feedback }, 'recutting…').then(() => setFeedback(''))} style={{ flex: 1 }}>
-                  recut
-                </button>
-                <button disabled={Boolean(busy)} onClick={recordVoiceover} className={recording ? 'primary' : ''} style={{ flex: 1 }}>
-                  {recording ? 'stop recording' : 'record voiceover'}
-                </button>
-              </div>
-              <label htmlFor="lang">subtitles</label>
-              <select id="lang" value={post.options.subtitleLanguage || ''} onChange={(e) => patch({ subtitleLanguage: e.target.value }, 'rendering…')}>
-                <option value="">brand default</option>
-                {LANGS.map((l) => (
-                  <option key={l} value={l}>{l}</option>
-                ))}
-              </select>
-            </>
-          )}
-
-          <details style={{ marginTop: 22 }}>
-            <summary className="muted">collab</summary>
-            <label htmlFor="collab">invite a second account (username)</label>
-            <input
-              id="collab"
-              type="text"
-              defaultValue={(post.options.collaborators ?? []).join(', ')}
-              onBlur={(e) => patch({ collaborators: e.target.value.split(',').map((s) => s.trim()).filter(Boolean) }, 'saving…')}
-              placeholder="username"
-              autoCapitalize="none"
-            />
-          </details>
-
-          <div className="sticky">
-            {busy && <p className="muted small" style={{ margin: '0 0 8px' }}>{busy}</p>}
-            {error && <p className="error">{error}</p>}
-            <div className="row">
-              {post.status === 'approved' ? (
-                <button style={{ flex: 1 }} disabled={Boolean(busy)} onClick={() => patch({ action: 'unapprove' }, '…')}>approved ✓</button>
-              ) : (
-                <button className="primary" style={{ flex: 1 }} disabled={!rendered || Boolean(busy)} onClick={() => patch({ action: 'approve', caption }, 'approving…')}>
-                  approve
+          <section className="block">
+            <p className="kicker">not quite right?</p>
+            <div className="correct">
+              {mic.supported && (
+                <button className={`mic-xl small ${mic.listening ? 'on' : ''}`} onClick={mic.toggle} aria-label="say what to change">
+                  <Icon name="mic" size={26} stroke={1.2} />
                 </button>
               )}
-              <button disabled={!rendered || Boolean(busy)} onClick={() => confirm('post to instagram now?') && patch({ action: 'post_now', caption }, 'posting…')}>
-                post now
-              </button>
-              <button
-                className="ghost"
-                disabled={Boolean(busy)}
-                onClick={async () => {
-                  if (!confirm('delete this post?')) return;
-                  await api(`/api/posts/${id}`, { method: 'DELETE' });
-                  window.location.href = '/';
+              <form
+                style={{ flex: 1 }}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const v = String(new FormData(e.currentTarget).get('c') || '').trim();
+                  if (v) correct(v);
+                  e.currentTarget.reset();
                 }}
               >
-                delete
-              </button>
+                <input className="line-input" name="c" placeholder={mic.listening ? mic.interim || 'listening…' : 'say or type what to change'} />
+              </form>
             </div>
-          </div>
+            <p className="muted small">atelier remembers this for next time.</p>
+          </section>
+
+          {setup && (
+            <section className="block">
+              <p className="kicker">look</p>
+              <div className="chips">
+                {setup.templates.map((t) => (
+                  <button key={t.id} aria-pressed={post.template === t.id} disabled={Boolean(busy)} onClick={() => patch({ template: t.id }, 'restyling…')}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {schedule && setup && (
+            <section className="block">
+              <p className="kicker">time</p>
+              <TimeEdit at={schedule.at} tz={tz} onSave={(v) => patch({ at: v }, 'moving…')} />
+            </section>
+          )}
+
+          <section className="block actions">
+            {post.status === 'ready' ? (
+              <button onClick={() => patch({ action: 'resume' }, '…')}>resume</button>
+            ) : (
+              post.status !== 'processing' && <button onClick={() => patch({ action: 'pause' }, '…')}>pause</button>
+            )}
+            <button disabled={!(post.output.video || slides.length) || Boolean(busy)} onClick={() => confirm('post to instagram now?') && patch({ action: 'post_now', caption }, 'posting…')}>
+              post now
+            </button>
+            <button onClick={saveStyle}>save style</button>
+            <button
+              className="ghost"
+              onClick={async () => {
+                if (!confirm('delete this post?')) return;
+                await api(`/api/posts/${id}`, { method: 'DELETE' });
+                window.location.href = '/';
+              }}
+            >
+              delete
+            </button>
+          </section>
         </>
       )}
+
       {post.permalink && (
         <p>
-          <a href={post.permalink} target="_blank" rel="noreferrer">view on instagram</a>
+          <a href={post.permalink} target="_blank" rel="noreferrer">
+            view on instagram
+          </a>
         </p>
       )}
+      {(busy || note) && <p className="toast">{busy || note}</p>}
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}
+
+function TimeEdit({ at, tz, onSave }: { at: string; tz: string; onSave: (v: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const local = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+    .format(new Date(at))
+    .replace(' ', 'T');
+  const [v, setV] = useState(local);
+  if (!open) return <button onClick={() => setOpen(true)}>{when(at, tz)} · change</button>;
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date());
+  const days = Array.from({ length: 60 }, (_, i) => {
+    const d = new Date(new Date(`${today}T12:00:00Z`).getTime() + i * 864e5);
+    const value = d.toISOString().slice(0, 10);
+    return { value, label: i === 0 ? 'today' : i === 1 ? 'tomorrow' : `${['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][d.getUTCDay()]} ${value.slice(8)}.${value.slice(5, 7)}.` };
+  });
+  return (
+    <>
+      <div className="wheels compact">
+        <div className="wheel-band" aria-hidden="true" />
+        <Wheel items={days} value={v.slice(0, 10)} onChange={(d) => setV(`${d}T${v.slice(11)}`)} width="50%" />
+        <Wheel items={Array.from({ length: 24 }, (_, h) => ({ value: pad(h), label: pad(h) }))} value={v.slice(11, 13)} onChange={(h) => setV(`${v.slice(0, 11)}${h}:${v.slice(14)}`)} width="25%" />
+        <Wheel items={Array.from({ length: 12 }, (_, m) => ({ value: pad(m * 5), label: pad(m * 5) }))} value={v.slice(14, 16)} onChange={(m) => setV(`${v.slice(0, 14)}${m}`)} width="25%" />
+      </div>
+      <button
+        className="primary wide"
+        onClick={() => {
+          onSave(v);
+          setOpen(false);
+        }}
+      >
+        move to {v.slice(8, 10)}.{v.slice(5, 7)}. {v.slice(11, 16)}
+      </button>
     </>
   );
 }

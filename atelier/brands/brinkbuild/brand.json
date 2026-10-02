@@ -8,7 +8,12 @@
   "fonts": {
     "family": "Lora",
     "regular": "fonts/Lora-Regular.ttf",
-    "bold": "fonts/Lora-Bold.ttf"
+    "bold": "fonts/Lora-Bold.ttf",
+    "italic": "fonts/Lora-Italic.ttf",
+    "sans": "Jost",
+    "sansRegular": "fonts/Jost-400.ttf",
+    "sansMedium": "fonts/Jost-600.ttf",
+    "sansBold": "fonts/Jost-700.ttf"
   },
   "signature": {
     "file": "signature.png"
@@ -72,20 +77,22 @@
   },
   "caption": {
     "model": "claude-sonnet-5-5",
-    "maxHashtags": 5,
+    "maxHashtags": 3,
     "rules": [
-      "write in english.",
-      "everything lowercase, including hashtags.",
-      "the first line is the hook: one short, calm sentence that makes people stop.",
-      "calm, grounded, masculine, honest. no hype, no clickbait, no exclamation marks.",
-      "no emoji flood: zero emojis, at most one if it truly adds something.",
-      "short paragraphs, plenty of white space, max 120 words before the hashtags.",
-      "end with max 5 relevant hashtags on their own last line.",
-      "output only the caption text, nothing else."
+      "write in english, all lowercase.",
+      "very short: one hook line, then at most one or two short lines.",
+      "the first line is a scroll-stopping hook — curious, bold, calm. no clickbait words, no exclamation marks.",
+      "built to be saved and shared: a thought people want to send to someone.",
+      "no emojis.",
+      "end with 2 or 3 precise hashtags on their own line, never more.",
+      "output only the caption."
     ]
   },
-  "defaultTemplate": "WHITE",
+  "defaultTemplate": "POLAROID",
   "maxTemplates": 5,
   "subtitleLanguage": "en",
-  "cutRules": "- calm pace, no hectic cuts.\n- start with the strongest sentence (the hook), never with a greeting.\n- keep complete thoughts; never cut mid-sentence.\n- 20–60 seconds total unless the content clearly needs more."
+  "cutRules": "- calm pace, no hectic cuts.\n- start with the strongest sentence (the hook), never with a greeting.\n- keep complete thoughts; never cut mid-sentence.\n- 20–60 seconds total unless the content clearly needs more.",
+  "slots": [
+    "18:00"
+  ]
 }
