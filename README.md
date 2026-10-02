@@ -34,6 +34,7 @@ node --check dist/app.js
 ```
 dist/                       → deployed Live-Code (index.html, styles.css, app.js, assets/)
 scripts/                    → Render-Pipeline für die Handschrift-Intro-Videos (Python)
+mail/                       → zero: Mail-App (Gmail + Claude), eigenständig, siehe mail/README.md
 docs/01-site-analyse.md     → wie die Seite aufgebaut ist & funktioniert
 docs/02-inhalts-inventar.md → komplettes Inhalts-, Link- und Asset-Inventar
 docs/03-optimierungs-backlog.md → priorisierte Optimierungsaufgaben (P0–P2)

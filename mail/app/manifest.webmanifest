@@ -1,0 +1,13 @@
+{
+  "name": "zero",
+  "short_name": "zero",
+  "description": "calm email. claude clears the inbox and writes the replies. you only decide.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

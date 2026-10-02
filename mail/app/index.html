@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="zero" />
+    <title>zero</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">skip to content</a>
+    <header class="top">
+      <a class="wordmark" href="#/">zero</a>
+      <nav class="nav" aria-label="sections" hidden>
+        <a href="#/" data-view="queue">drafts <span class="count" id="nav-count"></span></a>
+        <a href="#/brief" data-view="brief">brief</a>
+        <a href="#/settings" data-view="settings">settings</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <noscript>
+        <section class="view">
+          <h1 class="hero">zero needs javascript.</h1>
+          <p class="lede">your mail is untouched. gmail still works as usual.</p>
+        </section>
+      </noscript>
+      <section class="view" id="view-loading" aria-busy="true">
+        <p class="lede">one moment.</p>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span class="toast-text" id="toast-text"></span>
+      <button class="toast-action" id="toast-action" type="button" hidden></button>
+    </div>
+
+    <footer class="foot">
+      <p>gmail stays underneath. nothing is sent without you. nothing is deleted.</p>
+    </footer>
+  </body>
+</html>

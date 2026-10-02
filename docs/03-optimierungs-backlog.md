@@ -5,6 +5,18 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #42: zero, ruhige Mail-App mit Gmail + Claude (2026-10-02)
+
+Status: 🚧 gebaut und im Demo-Modus geprüft; Live-Test mit Pauls Gmail und Agent-Review stehen aus.
+
+- Neues, eigenständiges Modul `mail/` (berührt `dist/` und die Website nicht). Anleitung: `mail/README.md`.
+- Gmail bleibt Quelle der Wahrheit (Scope `gmail.modify`). Gmails Kategorien Werbung/Social werden ohne KI archiviert, alles andere klassifiziert Claude (`claude-opus-5-5`, JSON-Schema): reply → Entwurf in Pauls Stimme, fyi → archiviert, noise → archiviert. Labels `zero/*`.
+- Nie automatisch senden, nie löschen; Fehler lassen den Thread unverändert in der Inbox; Probelauf-Modus (`TRIAGE_DRY_RUN=1`).
+- App im Brand-System (ink/paper, lowercase, Arial, Ink-Linien): ein Entwurf nach dem anderen, senden mit 5 s Rückgängig, bearbeiten, „claude, ändere …“, später, verwerfen; Brief mit „zur Kenntnis“ und Abmelden per Klick (RFC 8058).
+- Eine Abhängigkeit: `@anthropic-ai/sdk` (Claude-Aufrufe). Gmail per REST ohne SDK.
+- `npm run check` (17 Dateien), `npm test` (32 Tests) und Browser-Smoke-Test auf 1366 px, 390 px, 320 px im Demo-Modus bestanden: kein horizontaler Überlauf, keine Konsolenfehler.
+- Offen für Live-Betrieb: Google-Cloud-OAuth-Client (Status „In production“, sonst laufen Tokens nach 7 Tagen ab), Anthropic-API-Key, Hosting mit HTTPS und persistentem Speicher. Für fremde Nutzer: Google-Verifizierung + jährliches CASA-Assessment.
+
 ## Issue #38: Freigegebene PURE-Kapitel (2026-09-28)
 
 Status: ✅ umgesetzt und geprüft; PR #39, unabhängiger Agent-Review ohne blockierende Befunde.

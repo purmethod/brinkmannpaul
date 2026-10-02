@@ -1,0 +1,21 @@
+{
+  "name": "zero-mail",
+  "version": "0.1.0",
+  "private": true,
+  "description": "calm email: gmail underneath, claude keeps the inbox at zero and prepares drafts. you only approve.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "demo": "DEMO=1 node server.js",
+    "triage": "node --env-file-if-exists=.env scripts/triage-once.js",
+    "check": "node scripts/check.js",
+    "test": "node --test test/*.test.js",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  }
+}
