@@ -4,7 +4,8 @@ import { STRINGS } from '@/i18n/strings';
 import { GESTURE_NAMES, GESTURE_PUSH, LANGS, PHASE_PUSH, PHASES, impulseFor, quoteFor } from '..';
 
 const EMOJI = /\p{Extended_Pictographic}/u;
-const FORBIDDEN = /sex|fruchtbar|fertil|schwanger|pregnan|eisprung|ovulat|verhütung|contracept|rational|denkfähig|logisch/i;
+const FORBIDDEN =
+  /sex|fruchtbar|fertil|schwanger|pregnan|eisprung|ovulat|verhütung|contracept|rational|denkfähig|logisch/i;
 
 function allTexts(value: unknown): string[] {
   if (typeof value === 'string') return [value];
@@ -54,12 +55,7 @@ describe('phase content', () => {
   });
 
   it('contains no emojis and no fertility, sexual or rationality claims', () => {
-    const texts = [
-      ...allTexts(PHASES),
-      ...allTexts(PHASE_PUSH),
-      ...allTexts(GESTURE_PUSH),
-      ...allTexts(GESTURE_NAMES),
-    ];
+    const texts = [...allTexts(PHASES), ...allTexts(PHASE_PUSH), ...allTexts(GESTURE_PUSH), ...allTexts(GESTURE_NAMES)];
     for (const text of texts) {
       expect(text).not.toMatch(EMOJI);
       expect(text).not.toMatch(FORBIDDEN);

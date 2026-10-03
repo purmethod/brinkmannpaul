@@ -132,7 +132,6 @@ export function planGestureReminder(input: GestureReminderInput): GestureReminde
     const date = addDays(firstDue, i);
     return { date, status: getCycleStatus(cycle, date) };
   });
-  const pick =
-    window.find((d) => isGoodDay(d.status)) ?? window.find((d) => !isPhasePushDay(d.status)) ?? window[0]!;
+  const pick = window.find((d) => isGoodDay(d.status)) ?? window.find((d) => !isPhasePushDay(d.status)) ?? window[0]!;
   return { date: pick.date, gesture: due(pick.date)[0]! };
 }

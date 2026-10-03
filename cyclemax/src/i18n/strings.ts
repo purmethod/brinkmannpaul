@@ -130,8 +130,7 @@ const en: Strings = {
     undo: 'Undo',
     never: 'Not logged yet',
     today: 'Done today',
-    ago: (weeks: number) =>
-      weeks < 1 ? 'Last: this week' : `Last: ${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`,
+    ago: (weeks: number) => (weeks < 1 ? 'Last: this week' : `Last: ${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`),
     due: 'due',
   },
   settings: {

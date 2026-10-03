@@ -6,6 +6,7 @@ import { colors } from '@/theme';
 import { createScheduler, type NotificationApi } from './scheduler';
 
 const CHANNEL_ID = 'cyclemax';
+// The web preview resolves native.web.ts instead of this file.
 const supported = Platform.OS === 'ios' || Platform.OS === 'android';
 
 const api: NotificationApi = {

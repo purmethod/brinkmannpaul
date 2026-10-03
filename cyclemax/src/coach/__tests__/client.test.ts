@@ -61,7 +61,17 @@ describe('askCoach', () => {
     ['malformed answer', async () => jsonResponse(200, { nope: true })],
     ['empty answer', async () => jsonResponse(200, { text: '   ' })],
     ['offline', async () => Promise.reject(new TypeError('Network request failed'))],
-    ['bad json', async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError('x'); } }) as unknown as Response],
+    [
+      'bad json',
+      async () =>
+        ({
+          ok: true,
+          status: 200,
+          json: async () => {
+            throw new SyntaxError('x');
+          },
+        }) as unknown as Response,
+    ],
   ])('never throws: %s → offline impulse', async (_label, impl) => {
     const { fn } = fakeFetch(impl as () => Promise<Response>);
     const result = await askCoach(request, { baseUrl: 'https://coach.example', fetchImpl: fn, seed: 1 });
@@ -73,7 +83,12 @@ describe('askCoach', () => {
       new Promise((_resolve, reject) => {
         init.signal?.addEventListener('abort', () => reject(new Error('aborted')));
       })) as unknown as typeof fetch;
-    const result = await askCoach(request, { baseUrl: 'https://coach.example', fetchImpl: hanging, timeoutMs: 20, seed: 0 });
+    const result = await askCoach(request, {
+      baseUrl: 'https://coach.example',
+      fetchImpl: hanging,
+      timeoutMs: 20,
+      seed: 0,
+    });
     expect(result.source).toBe('fallback');
   });
 

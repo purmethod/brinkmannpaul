@@ -9,7 +9,11 @@ export interface ScheduledRequest {
   date: Date;
 }
 
-export function notificationText(n: PlannedNotification, lang: Lang, neutral: boolean): { title: string; body: string | null } {
+export function notificationText(
+  n: PlannedNotification,
+  lang: Lang,
+  neutral: boolean,
+): { title: string; body: string | null } {
   if (neutral) return { title: NEUTRAL_TITLE, body: null };
   if (n.kind === 'phase') return { title: PHASES[lang][n.phase].name, body: PHASE_PUSH[lang][n.phase] };
   return { title: GESTURE_NAMES[lang][n.gesture], body: GESTURE_PUSH[lang] };

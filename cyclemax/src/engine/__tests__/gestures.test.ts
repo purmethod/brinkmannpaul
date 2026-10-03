@@ -101,7 +101,18 @@ describe('planGestureReminder', () => {
       gesture: 'flowers',
     });
     expect(
-      planGestureReminder({ ...base, logs: logs({ flowers: '2026-03-02', date: '2026-03-02', letter: '2026-03-02', surprise: '2026-03-02', time: '2026-03-02' }), intervals, firstEligibleDate: '2025-11-01' }),
+      planGestureReminder({
+        ...base,
+        logs: logs({
+          flowers: '2026-03-02',
+          date: '2026-03-02',
+          letter: '2026-03-02',
+          surprise: '2026-03-02',
+          time: '2026-03-02',
+        }),
+        intervals,
+        firstEligibleDate: '2025-11-01',
+      }),
     ).toBeNull();
   });
 });

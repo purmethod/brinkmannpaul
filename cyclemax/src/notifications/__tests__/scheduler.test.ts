@@ -23,7 +23,9 @@ function fakeApi(granted = true) {
   return { api, scheduled, calls };
 }
 
-const logs = Object.fromEntries(GESTURE_ORDER.map((id) => [id, { last: null, previous: null }])) as unknown as GestureLogs;
+const logs = Object.fromEntries(
+  GESTURE_ORDER.map((id) => [id, { last: null, previous: null }]),
+) as unknown as GestureLogs;
 const planFor = (lastPeriodStart: string) =>
   planNotifications(
     {
@@ -102,8 +104,22 @@ describe('scheduler', () => {
 });
 
 describe('notification text', () => {
-  const phase = { id: 'phase:2026-03-24:brandung', kind: 'phase', phase: 'brandung', date: '2026-03-24', hour: 8, minute: 0 } as const;
-  const gesture = { id: 'gesture:2026-03-07:flowers', kind: 'gesture', gesture: 'flowers', date: '2026-03-07', hour: 8, minute: 0 } as const;
+  const phase = {
+    id: 'phase:2026-03-24:brandung',
+    kind: 'phase',
+    phase: 'brandung',
+    date: '2026-03-24',
+    hour: 8,
+    minute: 0,
+  } as const;
+  const gesture = {
+    id: 'gesture:2026-03-07:flowers',
+    kind: 'gesture',
+    gesture: 'flowers',
+    date: '2026-03-07',
+    hour: 8,
+    minute: 0,
+  } as const;
 
   it('uses the phase name and the push text', () => {
     expect(notificationText(phase, 'de', false)).toEqual({

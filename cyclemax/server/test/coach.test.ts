@@ -16,7 +16,13 @@ import {
   type CreateMessage,
 } from '../lib/coach.ts';
 
-const valid = { phase: 'brandung', cycleDay: 25, daysSinceLastGesture: 12, situation: 'Sie ist gereizt wegen der Arbeit', lang: 'de' };
+const valid = {
+  phase: 'brandung',
+  cycleDay: 25,
+  daysSinceLastGesture: 12,
+  situation: 'Sie ist gereizt wegen der Arbeit',
+  lang: 'de',
+};
 
 const post = (body: unknown) =>
   new Request('https://coach.example/api/coach', {
@@ -37,16 +43,24 @@ function env(create: CreateMessage, apiKey = 'test-key', model?: string) {
   return { env: e, calls };
 }
 
-const reply = (text: string): CreateMessage => async () => ({
-  content: [{ type: 'text', text, citations: null }],
-  stop_reason: 'end_turn',
-});
+const reply =
+  (text: string): CreateMessage =>
+  async () => ({
+    content: [{ type: 'text', text, citations: null }],
+    stop_reason: 'end_turn',
+  });
 
 describe('parseCoachInput', () => {
   it('accepts the anonymous payload and drops unknown fields', () => {
     const parsed = parseCoachInput({ ...valid, name: 'Anna', date: '2026-03-01', deviceId: 'x' });
     assert.ok(parsed.ok);
-    assert.deepEqual(Object.keys(parsed.value).sort(), ['cycleDay', 'daysSinceLastGesture', 'lang', 'phase', 'situation']);
+    assert.deepEqual(Object.keys(parsed.value).sort(), [
+      'cycleDay',
+      'daysSinceLastGesture',
+      'lang',
+      'phase',
+      'situation',
+    ]);
   });
 
   it('rejects malformed input', () => {
@@ -66,7 +80,13 @@ describe('parseCoachInput', () => {
     assert.equal(parsed.value.situation.length, 500);
     const empty = parseCoachInput({ phase: 'ruhe', cycleDay: 2 });
     assert.ok(empty.ok);
-    assert.deepEqual(empty.value, { phase: 'ruhe', cycleDay: 2, daysSinceLastGesture: null, situation: '', lang: 'de' });
+    assert.deepEqual(empty.value, {
+      phase: 'ruhe',
+      cycleDay: 2,
+      daysSinceLastGesture: null,
+      situation: '',
+      lang: 'de',
+    });
   });
 });
 
@@ -120,7 +140,9 @@ describe('handleCoachRequest', () => {
     const { env: e, calls } = env(reply('Atme. Hör zu, ohne dich zu verteidigen. Frag sie, was ihr jetzt hilft.'));
     const res = await handleCoachRequest(post(valid), e);
     assert.equal(res.status, 200);
-    assert.deepEqual(await res.json(), { text: 'Atme. Hör zu, ohne dich zu verteidigen. Frag sie, was ihr jetzt hilft.' });
+    assert.deepEqual(await res.json(), {
+      text: 'Atme. Hör zu, ohne dich zu verteidigen. Frag sie, was ihr jetzt hilft.',
+    });
     assert.equal(res.headers.get('cache-control'), 'no-store');
     assert.equal(calls[0]?.model, 'claude-sonnet-5-5');
   });
@@ -149,9 +171,11 @@ describe('handleCoachRequest', () => {
     const refusal: CreateMessage = async () => ({ content: [], stop_reason: 'refusal' });
     assert.equal((await handleCoachRequest(post(valid), env(refusal).env)).status, 502);
     assert.equal((await handleCoachRequest(post(valid), env(reply('  ')).env)).status, 502);
-    const throwing = (error: Error): CreateMessage => async () => {
-      throw error;
-    };
+    const throwing =
+      (error: Error): CreateMessage =>
+      async () => {
+        throw error;
+      };
     const cases: [Error, number][] = [
       [new Anthropic.RateLimitError(429, undefined, 'slow down', new Headers()), 429],
       [new Anthropic.AuthenticationError(401, undefined, 'bad key', new Headers()), 503],

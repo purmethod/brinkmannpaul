@@ -16,7 +16,11 @@ import { cycleInput, learnedSampleSize, notificationPlanInput, statusOn } from '
 
 const today = '2026-03-10';
 const onboarded = () =>
-  completeOnboarding(createInitialState(today, 'de'), { lastPeriodStart: '2026-03-01', cycleLength: 30, periodLength: 6 }, today);
+  completeOnboarding(
+    createInitialState(today, 'de'),
+    { lastPeriodStart: '2026-03-01', cycleLength: 30, periodLength: 6 },
+    today,
+  );
 
 describe('actions', () => {
   it('completes the onboarding', () => {
@@ -24,7 +28,11 @@ describe('actions', () => {
     expect(s).toMatchObject({ onboarded: true, periodStarts: ['2026-03-01'], cycleLength: 30, periodLength: 6 });
     expect(statusOn(s, today)).toMatchObject({ phase: 'aufwind', cycleDay: 10 });
     // A future date is never accepted.
-    const future = completeOnboarding(createInitialState(today, 'de'), { lastPeriodStart: '2026-04-01', cycleLength: 28, periodLength: 5 }, today);
+    const future = completeOnboarding(
+      createInitialState(today, 'de'),
+      { lastPeriodStart: '2026-04-01', cycleLength: 28, periodLength: 5 },
+      today,
+    );
     expect(future.periodStarts).toEqual([today]);
   });
 
@@ -69,7 +77,11 @@ describe('actions', () => {
 
   it('only changes state when the reminder bookkeeping changes', () => {
     const s = onboarded();
-    const same = applyNotificationPlan(s, { notifications: [], lastGestureReminder: null, pendingGestureReminder: null });
+    const same = applyNotificationPlan(s, {
+      notifications: [],
+      lastGestureReminder: null,
+      pendingGestureReminder: null,
+    });
     expect(same).toBe(s);
     const changed = applyNotificationPlan(s, {
       notifications: [],

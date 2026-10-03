@@ -90,8 +90,7 @@ export function sanitizeState(raw: unknown, fallback: AppState): AppState {
   for (const id of GESTURE_ORDER) {
     gestures[id] = sanitizeGestureLog(gesturesRaw[id]);
     const weeks = intervalsRaw[id];
-    gestureIntervals[id] =
-      typeof weeks === 'number' ? clampGestureInterval(weeks) : fallback.gestureIntervals[id];
+    gestureIntervals[id] = typeof weeks === 'number' ? clampGestureInterval(weeks) : fallback.gestureIntervals[id];
   }
   const pendingRaw = raw.pendingGestureReminder;
   const pendingGestureReminder =

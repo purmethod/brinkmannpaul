@@ -7,12 +7,66 @@ const ALL_PERIODS = Array.from({ length: PERIOD_LENGTH.max - PERIOD_LENGTH.min +
 
 describe('getPhaseSegments', () => {
   it.each([
-    [28, 5, [[1, 5], [6, 11], [12, 23], [24, 28]]],
-    [21, 3, [[1, 3], [4, 4], [5, 16], [17, 21]]],
-    [21, 8, [[1, 8], [9, 9], [10, 16], [17, 21]]],
-    [35, 5, [[1, 5], [6, 18], [19, 30], [31, 35]]],
-    [40, 8, [[1, 8], [9, 23], [24, 35], [36, 40]]],
-    [40, 3, [[1, 3], [4, 23], [24, 35], [36, 40]]],
+    [
+      28,
+      5,
+      [
+        [1, 5],
+        [6, 11],
+        [12, 23],
+        [24, 28],
+      ],
+    ],
+    [
+      21,
+      3,
+      [
+        [1, 3],
+        [4, 4],
+        [5, 16],
+        [17, 21],
+      ],
+    ],
+    [
+      21,
+      8,
+      [
+        [1, 8],
+        [9, 9],
+        [10, 16],
+        [17, 21],
+      ],
+    ],
+    [
+      35,
+      5,
+      [
+        [1, 5],
+        [6, 18],
+        [19, 30],
+        [31, 35],
+      ],
+    ],
+    [
+      40,
+      8,
+      [
+        [1, 8],
+        [9, 23],
+        [24, 35],
+        [36, 40],
+      ],
+    ],
+    [
+      40,
+      3,
+      [
+        [1, 3],
+        [4, 23],
+        [24, 35],
+        [36, 40],
+      ],
+    ],
   ])('cycle %i / period %i', (cycle, period, expected) => {
     const segments = getPhaseSegments(cycle, period);
     expect(segments.map((s) => s.phase)).toEqual(PHASE_ORDER);
@@ -65,8 +119,7 @@ describe('getCycleStatus', () => {
       for (const P of ALL_PERIODS) {
         const input = { lastPeriodStart: '2026-03-10', cycleLength: L, periodLength: P };
         const segments = getPhaseSegments(L, P);
-        const expectedFor = (day: number): PhaseId =>
-          segments.find((s) => day >= s.startDay && day <= s.endDay)!.phase;
+        const expectedFor = (day: number): PhaseId => segments.find((s) => day >= s.startDay && day <= s.endDay)!.phase;
         // Two cycles before the start up to the last day before the next period.
         for (let offset = -2 * L; offset < L; offset++) {
           const status = getCycleStatus(input, addDays(input.lastPeriodStart, offset));

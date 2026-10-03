@@ -35,9 +35,11 @@ export function createScheduler(api: NotificationApi): Scheduler {
   return {
     sync(requests) {
       // Chained, so two quick changes can never interleave cancel/schedule and leave duplicates.
-      queue = queue.then(() => run(requests)).catch(() => {
-        lastKey = null;
-      });
+      queue = queue
+        .then(() => run(requests))
+        .catch(() => {
+          lastKey = null;
+        });
       return queue;
     },
     invalidate() {

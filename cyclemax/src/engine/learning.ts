@@ -29,9 +29,7 @@ export function lastPeriodStart(starts: readonly ISODate[]): ISODate | null {
  */
 export function addPeriodStart(starts: readonly ISODate[], date: ISODate): ISODate[] {
   if (!isISODate(date)) return normalizeStarts(starts);
-  const kept = normalizeStarts(starts).filter(
-    (s) => Math.abs(diffDays(s, date)) > LEARNING.correctionWindow,
-  );
+  const kept = normalizeStarts(starts).filter((s) => Math.abs(diffDays(s, date)) > LEARNING.correctionWindow);
   return normalizeStarts([...kept, date]).slice(-LEARNING.keep);
 }
 

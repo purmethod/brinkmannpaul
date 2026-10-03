@@ -219,7 +219,13 @@ export function quoteFor(lang: Lang, phase: PhaseId, dayInPhase: number): Quote 
  * The impulse of the day. The rotation continues across cycles (cycleIndex), so a phase that recurs
  * every month does not start with the same sentence again.
  */
-export function impulseFor(lang: Lang, phase: PhaseId, dayInPhase: number, cycleIndex: number, phaseLength: number): string {
+export function impulseFor(
+  lang: Lang,
+  phase: PhaseId,
+  dayInPhase: number,
+  cycleIndex: number,
+  phaseLength: number,
+): string {
   const impulses = PHASES[lang][phase].impulses;
   const n = impulses.length;
   const offset = cycleIndex * Math.max(1, phaseLength) + Math.max(0, dayInPhase - 1);

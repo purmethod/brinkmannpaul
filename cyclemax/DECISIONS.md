@@ -66,3 +66,15 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 25. **Fallback:** Ohne `EXPO_PUBLIC_COACH_URL`, offline, bei Timeout (20 s), 5xx/503 (kein Key) oder kaputter Antwort
     zeigt die App einen Impuls der aktuellen Phase. `askCoach` wirft nie.
 26. **Server-Tests** laufen mit `node --test` (Node 22, Type-Stripping) unabhängig vom App-Tooling.
+27. **Navigation:** Expo Router mit `Stack.Protected` – ohne Onboarding sind die Tabs unerreichbar, nach „Los" bzw.
+    „Alle Daten löschen" leitet der Router automatisch um. Tabs als reine Textleiste (Heute · Gesten · Einstellungen),
+    aktiver Tab mit blutroter Linie – keine Icons, keine Icon-Library.
+28. **Phasenring:** Segmente im Uhrzeigersinn ab 12 Uhr in Zyklusreihenfolge, Länge ∝ Tage. Die aktuelle Phase dick
+    (16 px), die anderen dünn (6 px) in voller Farbe – blasses Rot war von blassem Pink nicht zu unterscheiden.
+    Marker = Mitte des heutigen Tages; bei Verspätung am Ende des Rings. Phasenfarben nie als Textfarbe (Kontrast).
+29. **Drehräder:** Datum = nativer Spinner (`display="spinner"`; Android als Dialog). Zahlen = eigenes Scroll-Rad
+    (snap, tap, Screenreader „adjustable"), identisch auf iOS/Android/Web – keine weitere Picker-Abhängigkeit.
+    Web-Vorschau nutzt das Scroll-Rad auch für Datum und Uhrzeit.
+30. **Bottom-Sheets statt weiterer Screens** für „Periode hat begonnen", „Wie reagiere ich?" und Settings-Editoren –
+    es bleibt bei genau 4 Screens (+ 3 Onboarding-Schritte).
+31. **Fonts:** Nur Inter 400/500/600/700 werden gebündelt (Subpfad-Importe), nicht alle 18 Schnitte (~5 MB gespart).
