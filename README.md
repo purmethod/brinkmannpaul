@@ -40,6 +40,7 @@ docs/03-optimierungs-backlog.md → priorisierte Optimierungsaufgaben (P0–P2)
 docs/04-multi-agent-workflow.md → Zusammenarbeits-Ablauf für alle Agenten
 docs/assets/                → Screenshots als Referenz (Desktop/Mobile)
 .openai/hosting.json        → ChatGPT-Hosting-Konfiguration (static: dist)
+cyclemax/                   → separate Expo-App „Cyclemax" (eigenes package.json, siehe cyclemax/README.md)
 ```
 
 ## Stand

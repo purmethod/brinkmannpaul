@@ -1,3 +1,24 @@
+# Cyclemax – Agenten-Notizen
+
+> Bei Neustart zuerst [PROGRESS.md](./PROGRESS.md) lesen, Entscheidungen stehen in [DECISIONS.md](./DECISIONS.md).
+> Die Website-Regeln im Repo-Root (`../AGENTS.md`) gelten für `dist/`; diese App ist ein eigenes Projekt.
+
+## Nicht verhandelbar
+- Radikal minimal: genau 4 Screens (Onboarding, Heute, Gesten, Einstellungen), jeder Screen eine Aufgabe, keine Emojis.
+- Light Mode only. Farben/Typo in `src/theme`. Phasenfarben nie als Textfarbe.
+- `assets/logo.svg` ist das feste Wappen; Icons nur über `npm run assets` erzeugen.
+- Keine Frauen-App, kein Partner-Sharing, kein Sex-Tracking, keine Aussagen über Fruchtbarkeit/Verhütung,
+  Denkleistung oder Rationalität (ein Test in `src/content/__tests__` erzwingt das).
+- Nutzerdaten bleiben auf dem Gerät. Der Coach sendet nur Phase, Zyklustag, Tage seit letzter Geste, Situation, Sprache.
+- Genau 4 Phasen-Pushes pro Zyklus; jede Neuberechnung löscht und plant neu (deterministische IDs).
+- Engine (`src/engine`) bleibt frei von React/Expo – reine Funktionen mit Tests.
+
+## Vor jedem Commit
+`npm run verify` (typecheck + lint + jest) · bei Server-Änderungen `cd server && npm test && npm run typecheck` ·
+bei UI-Änderungen `npx expo export` und Sichtprüfung.
+
+---
+
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
 ## Expo has changed — do not trust your training data
