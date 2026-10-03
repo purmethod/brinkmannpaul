@@ -17,3 +17,15 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
    Icon (1024, weiß, opak), Android-Adaptive-Foreground (im 66/108-Safe-Zone-Kreis), Monochrome (Android 13 Themed Icons),
    Splash-Mark, Favicon und das weiße 96-px-Notification-Icon. `src/brand/logo.ts` spiegelt die Pfade für die
    In-App-Komponente; ein Test bricht, wenn beide auseinanderlaufen.
+8. **Datumsmodell:** Alle Daten sind Kalendertage `YYYY-MM-DD`, gerechnet über UTC-Tagnummern → Sommerzeit und
+   Zeitzonen können keinen Tag verschieben. Alle Tests laufen in `Europe/Berlin` (echte DST-Zone).
+9. **Phasengrenzen:** Ruhe = Tag 1…P · Aufwind = P+1…O−3 · Hochphase = O−2…L−5 · Brandung = L−4…L (O = L−14).
+   Kollidiert bei kurzen Zyklen mit langer Periode das Eisprungfenster mit der Periode (z. B. 21/8), gewinnt die
+   Periode und Aufwind behält mindestens 1 Tag → jede Phase existiert in jedem Zyklus (Voraussetzung für 4 Pushes).
+10. **Verspätung:** Ab dem erwarteten Periodenstart bleibt die Phase Brandung („Tag 31 von 28"), bis eine neue Periode
+    eingetragen wird. Tage vor der letzten eingetragenen Periode werden rückwärts projiziert.
+11. **Lernen:** Mittelwert der letzten ≤ 6 Abstände zwischen eingetragenen Periodenstarts, gerundet, auf 21–40 begrenzt.
+    Abstände < 18 oder > 45 Tage gelten als vergessener Eintrag und zählen nicht. Der gelernte Wert wird bei jedem
+    Eintrag in die Zykluslänge übernommen; manuell in Settings überschreibbar bis zum nächsten Eintrag.
+12. **Korrektur statt Mini-Zyklus:** Ein neuer Periodenstart innerhalb ±14 Tagen eines vorhandenen ersetzt diesen.
+    Gespeichert werden die letzten 13 Starts.
