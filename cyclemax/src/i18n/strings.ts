@@ -25,7 +25,6 @@ const de = {
     lateHint: 'Bleib in der Brandung, bis du die neue Periode einträgst.',
     periodStarted: 'Periode hat begonnen',
     howToReact: 'Wie reagiere ich?',
-    periodDay: 'Periode',
     noPeriodDay: 'Kein Periodentag',
     contraceptionNote:
       'Hormonelle Verhütung: Die Phasen verlaufen nicht natürlich. Cyclemax zeigt nur die Periodentage.',
@@ -105,7 +104,6 @@ const en: Strings = {
     lateHint: 'Stay in the breakers until you log the new period.',
     periodStarted: 'Period started',
     howToReact: 'How do I respond?',
-    periodDay: 'Period',
     noPeriodDay: 'No period day',
     contraceptionNote:
       'Hormonal contraception: the phases do not follow their natural course. Cyclemax shows period days only.',

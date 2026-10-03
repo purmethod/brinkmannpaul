@@ -25,7 +25,9 @@
         "NSPrivacyAccessedAPITypes": [
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
-            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
           }
         ]
       }
@@ -62,7 +64,10 @@
       [
         "expo-localization",
         {
-          "supportedLocales": ["de", "en"]
+          "supportedLocales": [
+            "de",
+            "en"
+          ]
         }
       ],
       "@react-native-community/datetimepicker",
@@ -72,7 +77,8 @@
           "icon": "./assets/images/notification-icon.png",
           "color": "#8A0303"
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true

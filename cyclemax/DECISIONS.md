@@ -78,3 +78,10 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 30. **Bottom-Sheets statt weiterer Screens** für „Periode hat begonnen", „Wie reagiere ich?" und Settings-Editoren –
     es bleibt bei genau 4 Screens (+ 3 Onboarding-Schritte).
 31. **Fonts:** Nur Inter 400/500/600/700 werden gebündelt (Subpfad-Importe), nicht alle 18 Schnitte (~5 MB gespart).
+32. **App-Integrationstest:** `src/__tests__/app.test.tsx` rendert den echten Router (`expo-router/testing-library`)
+    im iOS-Jest-Preset und klickt Onboarding → Home → Coach → Periode → Gesten → Settings → Löschen durch. Er hat
+    die fehlende Peer-Dependency `expo-asset` (von `expo-font`) aufgedeckt, die nur native gecrasht wäre.
+33. **expo-doctor:** 19/21 Checks grün. Die 2 übrigen (Config-Schema, React-Native-Directory) brauchen
+    `api.expo.dev` bzw. `reactnative.directory`, die in der Build-Umgebung gesperrt sind. Beide manuell offline
+    geprüft: `app.json` validiert gegen das SDK-57-Schema aus dem expo-Repo ohne unbekannte Keys; alle nativen
+    Pakete sind in den Directory-Daten gelistet, gepflegt, iOS + Android.

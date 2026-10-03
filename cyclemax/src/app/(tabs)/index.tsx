@@ -66,7 +66,12 @@ export default function Home() {
         </View>
       )}
 
-      {naturalOrPeriod ? <PhaseBody status={status} lang={lang} /> : <PeriodOnlyBody s={s} lang={lang} today={today} />}
+      {status.mode === 'periodOnly' && (
+        <Txt variant="small" muted style={styles.note}>
+          {s.home.contraceptionNote}
+        </Txt>
+      )}
+      {naturalOrPeriod ? <PhaseBody status={status} lang={lang} /> : <PeriodOnlyBody lang={lang} today={today} />}
 
       <View style={styles.buttons}>
         <Button label={s.home.howToReact} onPress={() => setCoachOpen(true)} />
@@ -123,17 +128,14 @@ function PhaseBody({ status, lang }: { status: CycleStatus; lang: Lang }) {
   );
 }
 
-/** Hormonal contraception, no period day: only the note, an impulse and a quote. */
-function PeriodOnlyBody({ s, lang, today }: { s: Strings; lang: Lang; today: ISODate }) {
+/** Hormonal contraception, no period day: an impulse and a quote, no phase claims. */
+function PeriodOnlyBody({ lang, today }: { lang: Lang; today: ISODate }) {
   const day = toDayNumber(today);
   const impulses = PHASE_ORDER.flatMap((p) => PHASES[lang][p].impulses);
   const quotes = PHASE_ORDER.flatMap((p) => PHASES[lang][p].quotes);
   const quote = quotes[day % quotes.length]!;
   return (
     <View>
-      <Txt variant="small" muted style={styles.stance}>
-        {s.home.contraceptionNote}
-      </Txt>
       <Divider />
       <Txt variant="lead" style={styles.impulse}>
         {impulses[day % impulses.length]}
@@ -287,6 +289,7 @@ const styles = StyleSheet.create({
   center: { textAlign: 'center' },
   late: { alignItems: 'center', gap: space.xs, marginBottom: space.l },
   stance: { marginBottom: space.l },
+  note: { marginBottom: space.l },
   actions: { gap: space.m, marginBottom: space.l },
   action: { flexDirection: 'row', gap: space.m, alignItems: 'flex-start' },
   bullet: { width: 4, alignSelf: 'stretch', borderRadius: 2, minHeight: 20 },
