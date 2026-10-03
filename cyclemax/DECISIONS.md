@@ -29,3 +29,13 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
     Eintrag in die Zykluslänge übernommen; manuell in Settings überschreibbar bis zum nächsten Eintrag.
 12. **Korrektur statt Mini-Zyklus:** Ein neuer Periodenstart innerhalb ±14 Tagen eines vorhandenen ersetzt diesen.
     Gespeichert werden die letzten 13 Starts.
+13. **Englische Phasennamen:** Rest · Rise · Peak · Breakers (Brandung = Breakers; Claim EN „Be the rock in the surf.").
+14. **Zitate EN** sind freie Übertragungen der vorgegebenen deutschen Fassungen (gekennzeichnet „loosely after Marcus
+    Aurelius, Meditations"), Stellenangaben im EN-Format `4.49`.
+15. **Impulse:** Home zeigt täglich einen Impuls zusätzlich zum festen Phasenzitat. Die Rotation läuft über Zyklen
+    weiter (`cycleIndex × Phasenlänge + Tag`), damit ein Monat nicht wie der letzte beginnt. Brandung wechselt die
+    beiden Zitate täglich (4,49 / 11,18). Impulse dienen auch als Offline-Fallback des Coaches.
+16. **Gesten-Standardintervalle:** Blumen 8, Date 3 (laut Auftrag), Brief/Nachricht 4, Überraschung 6, Zeit nur für sie 2
+    Wochen; jeweils 1–16 Wochen in Settings.
+17. **Sprache:** Deutsch ist Standard. Englisch nur, wenn das Gerät Englisch bevorzugt; in Settings umschaltbar.
+    Ein Test verbietet Emojis sowie Fruchtbarkeits-, Sex- und Rationalitäts-Begriffe in allen Inhalten.

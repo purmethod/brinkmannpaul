@@ -1,0 +1,163 @@
+import type { Lang } from '@/content';
+
+const de = {
+  tabs: { home: 'Heute', gestures: 'Gesten', settings: 'Einstellungen' },
+  claim: 'Sei der Fels in der Brandung.',
+  slogan: 'Be the Cycleman.',
+  next: 'Weiter',
+  onboarding: {
+    foundationTitle: 'Das Fundament: PUR Method',
+    foundationBody: 'Cyclemax ist das Werkzeug. PUR ist die Haltung.',
+    setupTitle: 'Frag sie nach ihrem Zyklus.',
+    privacy: 'Alles bleibt auf deinem Gerät. 4 Erinnerungen pro Zyklus.',
+    start: 'Los',
+  },
+  cycle: {
+    lastPeriod: 'Erster Tag ihrer letzten Periode',
+    cycleLength: 'Zykluslänge',
+    periodLength: 'Periodendauer',
+    days: (n: number) => `${n} Tage`,
+    learned: (n: number) => `Gelernt aus ${n} ${n === 1 ? 'Zyklus' : 'Zyklen'}`,
+  },
+  home: {
+    dayOf: (day: number, total: number) => `Tag ${day} von ${total}`,
+    late: (n: number) => `Periode ${n} ${n === 1 ? 'Tag' : 'Tage'} überfällig`,
+    lateHint: 'Bleib in der Brandung, bis du die neue Periode einträgst.',
+    periodStarted: 'Periode hat begonnen',
+    howToReact: 'Wie reagiere ich?',
+    periodDay: 'Periode',
+    noPeriodDay: 'Kein Periodentag',
+    contraceptionNote:
+      'Hormonelle Verhütung: Die Phasen verlaufen nicht natürlich. Cyclemax zeigt nur die Periodentage.',
+    quoteSource: (source: string, ref: string) => `${source} ${ref}`,
+    ringLabel: (phase: string, day: number, total: number) => `${phase}, Tag ${day} von ${total}`,
+  },
+  period: {
+    today: 'Periode hat heute begonnen',
+    otherDate: 'Anderes Datum',
+    save: 'Speichern',
+  },
+  coach: {
+    placeholder: 'Optional: Was ist los? Z. B. „Sie ist gereizt wegen der Arbeit“',
+    privacy: 'Keine Namen nötig. Gesendet werden nur Phase, Zyklustag, Tage seit der letzten Geste und dein Text.',
+    ask: 'Rat holen',
+    loading: 'Einen Moment.',
+    fallback: 'Offline. Ein Impuls für diese Phase:',
+  },
+  gestures: {
+    intro: 'Nicht weil der Kalender es sagt. Weil du ein Mann bist, der Acht gibt.',
+    done: 'Erledigt',
+    undo: 'Rückgängig',
+    never: 'Noch nicht eingetragen',
+    today: 'Heute erledigt',
+    ago: (weeks: number) =>
+      weeks < 1 ? 'Zuletzt diese Woche' : `Zuletzt vor ${weeks} ${weeks === 1 ? 'Woche' : 'Wochen'}`,
+    due: 'fällig',
+  },
+  settings: {
+    cycle: 'Zyklus',
+    contraception: 'Sie nimmt hormonelle Verhütung',
+    contraceptionHint: 'Dann verlaufen die Phasen nicht natürlich. Cyclemax zeigt nur die Periodentage.',
+    notifications: 'Benachrichtigungen',
+    time: 'Uhrzeit',
+    neutral: 'Neutrale Benachrichtigung',
+    neutralHint: 'Der Sperrbildschirm zeigt nur „Cyclemax“.',
+    permissionOff: 'Benachrichtigungen sind deaktiviert.',
+    permissionEnable: 'Erlauben',
+    gestureIntervals: 'Gesten-Intervalle',
+    weeks: (n: number) => `${n} ${n === 1 ? 'Woche' : 'Wochen'}`,
+    language: 'Sprache',
+    foundation: 'Fundament',
+    deleteAll: 'Alle Daten löschen',
+    deleteTitle: 'Alle Daten löschen?',
+    deleteBody: 'Zyklusdaten, Gesten und Einstellungen werden von diesem Gerät entfernt.',
+    delete: 'Löschen',
+    privacy: 'Alle Daten bleiben auf diesem Gerät. Kein Konto, kein Tracking.',
+  },
+  common: { cancel: 'Abbrechen', close: 'Schließen', done: 'Fertig' },
+  languages: { de: 'Deutsch', en: 'English' },
+};
+
+export type Strings = typeof de;
+
+const en: Strings = {
+  tabs: { home: 'Today', gestures: 'Gestures', settings: 'Settings' },
+  claim: 'Be the rock in the surf.',
+  slogan: 'Be the Cycleman.',
+  next: 'Continue',
+  onboarding: {
+    foundationTitle: 'The foundation: PUR Method',
+    foundationBody: 'Cyclemax is the tool. PUR is the mindset.',
+    setupTitle: 'Ask her about her cycle.',
+    privacy: 'Everything stays on your device. 4 reminders per cycle.',
+    start: 'Start',
+  },
+  cycle: {
+    lastPeriod: 'First day of her last period',
+    cycleLength: 'Cycle length',
+    periodLength: 'Period length',
+    days: (n: number) => `${n} days`,
+    learned: (n: number) => `Learned from ${n} ${n === 1 ? 'cycle' : 'cycles'}`,
+  },
+  home: {
+    dayOf: (day: number, total: number) => `Day ${day} of ${total}`,
+    late: (n: number) => `Period ${n} ${n === 1 ? 'day' : 'days'} late`,
+    lateHint: 'Stay in the breakers until you log the new period.',
+    periodStarted: 'Period started',
+    howToReact: 'How do I respond?',
+    periodDay: 'Period',
+    noPeriodDay: 'No period day',
+    contraceptionNote:
+      'Hormonal contraception: the phases do not follow their natural course. Cyclemax shows period days only.',
+    quoteSource: (source: string, ref: string) => `${source} ${ref}`,
+    ringLabel: (phase: string, day: number, total: number) => `${phase}, day ${day} of ${total}`,
+  },
+  period: {
+    today: 'Period started today',
+    otherDate: 'Other date',
+    save: 'Save',
+  },
+  coach: {
+    placeholder: 'Optional: what is going on? E.g. “She is stressed about work”',
+    privacy: 'No names needed. Only the phase, cycle day, days since the last gesture and your text are sent.',
+    ask: 'Get advice',
+    loading: 'One moment.',
+    fallback: 'Offline. An impulse for this phase:',
+  },
+  gestures: {
+    intro: 'Not because the calendar says so. Because you are a man who pays attention.',
+    done: 'Done',
+    undo: 'Undo',
+    never: 'Not logged yet',
+    today: 'Done today',
+    ago: (weeks: number) =>
+      weeks < 1 ? 'Last: this week' : `Last: ${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`,
+    due: 'due',
+  },
+  settings: {
+    cycle: 'Cycle',
+    contraception: 'She uses hormonal contraception',
+    contraceptionHint: 'Then the phases do not follow their natural course. Cyclemax shows period days only.',
+    notifications: 'Notifications',
+    time: 'Time',
+    neutral: 'Neutral notifications',
+    neutralHint: 'The lock screen shows only “Cyclemax”.',
+    permissionOff: 'Notifications are turned off.',
+    permissionEnable: 'Allow',
+    gestureIntervals: 'Gesture intervals',
+    weeks: (n: number) => `${n} ${n === 1 ? 'week' : 'weeks'}`,
+    language: 'Language',
+    foundation: 'Foundation',
+    deleteAll: 'Delete all data',
+    deleteTitle: 'Delete all data?',
+    deleteBody: 'Cycle data, gestures and settings will be removed from this device.',
+    delete: 'Delete',
+    privacy: 'All data stays on this device. No account, no tracking.',
+  },
+  common: { cancel: 'Cancel', close: 'Close', done: 'Done' },
+  languages: { de: 'Deutsch', en: 'English' },
+};
+
+export const STRINGS: Record<Lang, Strings> = { de, en };
+
+export const PUR_URL = 'https://purmethod.com';
