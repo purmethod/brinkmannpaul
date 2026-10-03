@@ -6,7 +6,7 @@
 ## Meilensteine
 
 - [x] M0 Setup: Expo SDK + TypeScript strict + Expo Router, ESLint, Jest im Ordner `cyclemax/`
-- [ ] M1 Marke: `assets/logo.svg` → Icon 1024, Adaptive Icon, Monochrome, Splash, Favicon (sharp-Skript); Logo-Komponente
+- [x] M1 Marke: `assets/logo.svg` → Icon 1024, Adaptive Icon, Monochrome, Splash, Favicon (sharp-Skript); Logo-Komponente
 - [ ] M2 Engine (`src/engine`): Datums-Mathe, 4 Phasen lückenlos, Verspätung, Lern-Mittelwert, Verhütungs-Modus + Jest
 - [ ] M3 Inhalte + i18n: `src/content/phases.ts` (DE/EN, Haltung, 3 Aktionen, Zitate, 8 Impulse/Phase), Push- und Gesten-Texte
 - [ ] M4 Daten + State: AsyncStorage, versioniertes Schema, Store-Provider

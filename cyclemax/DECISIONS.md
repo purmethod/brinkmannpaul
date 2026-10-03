@@ -13,3 +13,7 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 4. **Web nur als Vorschau/Smoke-Test** (`react-native-web`, `web.output: single`). Ziel-Plattformen sind iOS + Android.
 5. **iPhone only** (`supportsTablet: false`): spart iPad-Screenshots und -Layouts im Store, passt zur Ein-Hand-App.
 6. **Bundle-ID** `com.purmethod.cyclemax` (iOS + Android). Bei Bedarf vor dem ersten Store-Upload ändern.
+7. **Logo = eine Quelle:** `assets/logo.svg` ist exakt das vorgegebene SVG. `npm run assets` (sharp) erzeugt daraus
+   Icon (1024, weiß, opak), Android-Adaptive-Foreground (im 66/108-Safe-Zone-Kreis), Monochrome (Android 13 Themed Icons),
+   Splash-Mark, Favicon und das weiße 96-px-Notification-Icon. `src/brand/logo.ts` spiegelt die Pfade für die
+   In-App-Komponente; ein Test bricht, wenn beide auseinanderlaufen.
