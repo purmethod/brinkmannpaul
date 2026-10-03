@@ -44,3 +44,5 @@ yarn-error.*
 server/node_modules/
 server/.vercel/
 coverage/
+.env
+server/.env

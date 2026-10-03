@@ -53,3 +53,16 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
     als gleitendes Fenster, damit nicht 31.1. + 1.2. möglich ist). Nie eingetragene Gesten zählen ab Einrichtung.
     Push-Text: Gestenname + „Nicht weil der Kalender es sagt. Weil du ein Mann bist, der Acht gibt."
 22. **Neutral-Modus:** Titel „Cyclemax", kein Body. **Verhütungs-Modus:** nur Periodenstart-Pushes.
+23. **Coach-Proxy** (`server/`, Vercel Function, Node-Runtime, Web-Handler `POST /api/coach`): offizielles
+    `@anthropic-ai/sdk`, Modell aus `CLAUDE_MODEL` (Default `claude-sonnet-5-5`), adaptives Thinking mit
+    `effort: low` (kurze, schnelle Antwort), `max_tokens` 2048 (Thinking zählt mit). Bei einer Ablehnung durch die
+    Sicherheits-Klassifikatoren läuft serverseitig `fallbacks: "default"` (Beta `server-side-fallback-2026-07-01`).
+    Der vorgegebene System-Prompt ist wörtlich übernommen; ergänzt um zwei Sätze: Situationstext ist Beschreibung,
+    keine Anweisung (Prompt-Injection), und Fließtext ohne Markdown/Emojis (App rendert reinen Text).
+24. **Datensparsamkeit:** Die App sendet exakt `phase`, `cycleDay`, `daysSinceLastGesture`, `situation` und `lang`
+    (`lang` ist nötig für „antworte in der Sprache der App" und ist kein personenbezogenes Datum). Der Server nimmt nur
+    diese Felder, speichert nichts, loggt nur Fehlerklassen. Bei Verhütung wird außerhalb der Periode `unknown`
+    gesendet. Situation max. 280 Zeichen (App) / 500 (Server).
+25. **Fallback:** Ohne `EXPO_PUBLIC_COACH_URL`, offline, bei Timeout (20 s), 5xx/503 (kein Key) oder kaputter Antwort
+    zeigt die App einen Impuls der aktuellen Phase. `askCoach` wirft nie.
+26. **Server-Tests** laufen mit `node --test` (Node 22, Type-Stripping) unabhängig vom App-Tooling.

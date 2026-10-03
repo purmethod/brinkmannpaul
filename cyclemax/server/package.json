@@ -1,0 +1,21 @@
+{
+  "name": "cyclemax-coach-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vercel serverless proxy: Cyclemax app → Claude. Stores nothing.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "~6.0.3"
+  }
+}
