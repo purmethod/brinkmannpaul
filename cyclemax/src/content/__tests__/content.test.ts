@@ -1,7 +1,7 @@
-import { PHASE_ORDER } from '@/engine';
+import { GESTURE_ORDER, PHASE_ORDER } from '@/engine';
 import { STRINGS } from '@/i18n/strings';
 
-import { GESTURE_NAMES, GESTURE_ORDER, GESTURE_PUSH, LANGS, PHASE_PUSH, PHASES, impulseFor, quoteFor } from '..';
+import { GESTURE_NAMES, GESTURE_PUSH, LANGS, PHASE_PUSH, PHASES, impulseFor, quoteFor } from '..';
 
 const EMOJI = /\p{Extended_Pictographic}/u;
 const FORBIDDEN = /sex|fruchtbar|fertil|schwanger|pregnan|eisprung|ovulat|verhütung|contracept|rational|denkfähig|logisch/i;

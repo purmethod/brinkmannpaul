@@ -39,3 +39,17 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
     Wochen; jeweils 1–16 Wochen in Settings.
 17. **Sprache:** Deutsch ist Standard. Englisch nur, wenn das Gerät Englisch bevorzugt; in Settings umschaltbar.
     Ein Test verbietet Emojis sowie Fruchtbarkeits-, Sex- und Rationalitäts-Begriffe in allen Inhalten.
+18. **Speicher:** AsyncStorage, ein versioniertes JSON-Dokument. `sanitizeState` repariert jedes Feld einzeln →
+    korrupte oder ältere Daten können die App nicht crashen. Kein Login, kein Backend.
+19. **Push-Horizont:** Geplant werden die 4 Phasenstarts des eingetragenen Zyklus plus der erwartete nächste
+    Periodenstart (Ruhe-Push = Erinnerung, die Periode einzutragen). Danach nichts mehr, bis eine Periode eingetragen
+    wird – konsistent zur Regel „verspätet = Brandung bleibt". Ergebnis bei regelmäßigem Eintrag: exakt 4 Pushes pro
+    Zyklus (Simulationstest über 6 Zyklen, Eintrag vor und nach der Push-Uhrzeit). Kommt die Periode früher als
+    erwartet, entfällt der Brandung-Push dieses Zyklus (er läge nach dem echten Start).
+20. **Keine Duplikate:** Jede Notification hat eine deterministische ID (`phase:<datum>:<phase>`); jede Neuberechnung
+    löscht alle geplanten und plant die komplette Liste neu, serialisiert über eine Promise-Queue.
+21. **Gesten-Extra-Push:** frühestens am Fälligkeitstag, verschoben auf den nächsten Aufwind-/Hochphase-Tag innerhalb
+    von 14 Tagen, nie am Tag eines Phasen-Pushes, mindestens 30 Tage nach dem letzten Extra-Push („max. 1 pro Monat"
+    als gleitendes Fenster, damit nicht 31.1. + 1.2. möglich ist). Nie eingetragene Gesten zählen ab Einrichtung.
+    Push-Text: Gestenname + „Nicht weil der Kalender es sagt. Weil du ein Mann bist, der Acht gibt."
+22. **Neutral-Modus:** Titel „Cyclemax", kein Body. **Verhütungs-Modus:** nur Periodenstart-Pushes.
