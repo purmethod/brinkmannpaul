@@ -14,122 +14,122 @@
             },
             {
               "word": "upon",
-              "start": 0.372,
-              "end": 0.604
+              "start": 0.383,
+              "end": 0.627
             },
             {
               "word": "a",
-              "start": 0.65,
-              "end": 0.685
+              "start": 0.673,
+              "end": 0.708
             },
             {
               "word": "time,",
-              "start": 0.743,
-              "end": 1.184
+              "start": 0.766,
+              "end": 1.231
             },
             {
               "word": "there",
-              "start": 1.231,
-              "end": 1.428
+              "start": 1.277,
+              "end": 1.474
             },
             {
               "word": "was",
-              "start": 1.463,
-              "end": 1.591
+              "start": 1.498,
+              "end": 1.614
             },
             {
               "word": "a",
-              "start": 1.637,
-              "end": 1.672
+              "start": 1.672,
+              "end": 1.695
             },
             {
               "word": "girl",
-              "start": 1.73,
-              "end": 2.02
+              "start": 1.765,
+              "end": 2.101
             },
             {
               "word": "named",
-              "start": 2.09,
-              "end": 2.38
+              "start": 2.183,
+              "end": 2.461
             },
             {
               "word": "Karima,",
-              "start": 2.496,
-              "end": 3.367
+              "start": 2.531,
+              "end": 3.297
             },
             {
               "word": "full",
-              "start": 3.587,
-              "end": 4.005
+              "start": 3.46,
+              "end": 3.715
             },
             {
               "word": "of",
-              "start": 4.11,
-              "end": 4.203
+              "start": 3.762,
+              "end": 3.831
             },
             {
               "word": "dreams.",
-              "start": 4.284,
-              "end": 5.05
+              "start": 3.901,
+              "end": 4.702
             },
             {
               "word": "She",
-              "start": 5.341,
-              "end": 5.48
+              "start": 4.957,
+              "end": 5.12
             },
             {
               "word": "moved",
-              "start": 5.55,
-              "end": 5.956
+              "start": 5.201,
+              "end": 5.608
             },
             {
               "word": "to",
-              "start": 6.014,
-              "end": 6.095
+              "start": 5.654,
+              "end": 5.724
             },
             {
               "word": "a",
-              "start": 6.177,
-              "end": 6.2
+              "start": 5.851,
+              "end": 5.886
             },
             {
               "word": "strange",
-              "start": 6.269,
-              "end": 6.734
+              "start": 5.956,
+              "end": 6.525
             },
             {
               "word": "city.",
-              "start": 6.78,
-              "end": 7.396
+              "start": 6.571,
+              "end": 7.314
             },
             {
               "word": "But",
-              "start": 7.86,
-              "end": 8.011
+              "start": 7.953,
+              "end": 8.127
             },
             {
               "word": "she",
-              "start": 8.046,
-              "end": 8.15
+              "start": 8.162,
+              "end": 8.29
             },
             {
               "word": "had",
-              "start": 8.208,
-              "end": 8.348
+              "start": 8.371,
+              "end": 8.545
             },
             {
               "word": "a",
-              "start": 8.394,
-              "end": 8.429
+              "start": 8.591,
+              "end": 8.626
             },
             {
               "word": "secret",
-              "start": 8.487,
-              "end": 8.882
+              "start": 8.707,
+              "end": 9.23
             }
           ],
-          "duration": 8.882,
-          "speed": 1.1
+          "duration": 9.23,
+          "speed": 0.95
         },
         "2": {
           "file": "voice/old-wizard/teil-02.mp3",
@@ -142,106 +142,106 @@
             {
               "word": "had",
               "start": 0.232,
-              "end": 0.372
+              "end": 0.348
             },
             {
               "word": "not",
-              "start": 0.43,
-              "end": 0.569
+              "start": 0.406,
+              "end": 0.546
             },
             {
               "word": "the",
-              "start": 0.615,
-              "end": 0.697
+              "start": 0.58,
+              "end": 0.662
             },
             {
               "word": "slightest",
-              "start": 0.743,
-              "end": 1.242
+              "start": 0.708,
+              "end": 1.161
             },
             {
               "word": "sense",
-              "start": 1.324,
-              "end": 1.614
+              "start": 1.231,
+              "end": 1.509
             },
             {
               "word": "of",
-              "start": 1.649,
-              "end": 1.695
+              "start": 1.544,
+              "end": 1.602
             },
             {
               "word": "direction.",
-              "start": 1.753,
-              "end": 2.345
+              "start": 1.649,
+              "end": 2.357
             },
             {
               "word": "And",
-              "start": 2.508,
-              "end": 2.67
+              "start": 2.647,
+              "end": 2.844
             },
             {
               "word": "one",
-              "start": 2.786,
-              "end": 2.972
+              "start": 2.972,
+              "end": 3.193
             },
             {
               "word": "morning,",
-              "start": 3.019,
-              "end": 3.495
+              "start": 3.239,
+              "end": 3.855
             },
             {
               "word": "she",
-              "start": 3.68,
-              "end": 3.82
+              "start": 4.191,
+              "end": 4.342
             },
             {
               "word": "got",
-              "start": 3.889,
-              "end": 4.075
+              "start": 4.412,
+              "end": 4.644
             },
             {
               "word": "lost",
-              "start": 4.145,
-              "end": 4.574
+              "start": 4.714,
+              "end": 5.143
             },
             {
               "word": "right",
-              "start": 5.294,
-              "end": 5.538
+              "start": 5.909,
+              "end": 6.2
             },
             {
               "word": "before",
-              "start": 5.608,
-              "end": 5.909
+              "start": 6.269,
+              "end": 6.606
             },
             {
               "word": "the",
-              "start": 5.956,
-              "end": 6.037
+              "start": 6.653,
+              "end": 6.734
             },
             {
               "word": "eyes",
-              "start": 6.107,
-              "end": 6.316
+              "start": 6.815,
+              "end": 7.094
             },
             {
               "word": "of",
-              "start": 6.362,
-              "end": 6.42
+              "start": 7.152,
+              "end": 7.221
             },
             {
               "word": "a",
-              "start": 6.467,
-              "end": 6.502
+              "start": 7.268,
+              "end": 7.291
             },
             {
               "word": "stranger.",
-              "start": 6.548,
-              "end": 7.384
+              "start": 7.349,
+              "end": 8.22
             }
           ],
-          "duration": 7.384,
-          "speed": 0.96
+          "duration": 8.22,
+          "speed": 0.95
         },
         "3": {
           "file": "voice/old-wizard/teil-03.mp3",
@@ -249,242 +249,1708 @@
             {
               "word": "His",
               "start": 0,
-              "end": 0.232
+              "end": 0.244
             },
             {
               "word": "name",
               "start": 0.337,
-              "end": 0.801
+              "end": 0.848
             },
             {
               "word": "was",
-              "start": 1.022,
-              "end": 1.219
+              "start": 1.091,
+              "end": 1.324
             },
             {
               "word": "Pablo.",
-              "start": 1.289,
-              "end": 2.067
+              "start": 1.405,
+              "end": 2.276
             },
             {
               "word": "A",
-              "start": 2.531,
-              "end": 2.635
+              "start": 2.984,
+              "end": 3.1
             },
             {
               "word": "wanderer,",
-              "start": 2.775,
-              "end": 3.564
+              "start": 3.216,
+              "end": 4.029
             },
             {
               "word": "wild",
-              "start": 3.75,
-              "end": 4.365
+              "start": 4.272,
+              "end": 4.911
             },
             {
               "word": "and",
-              "start": 4.47,
-              "end": 4.656
+              "start": 4.992,
+              "end": 5.132
             },
             {
               "word": "free,",
-              "start": 4.76,
-              "end": 5.236
+              "start": 5.224,
+              "end": 5.84
             },
             {
               "word": "who",
-              "start": 5.283,
-              "end": 5.445
+              "start": 5.956,
+              "end": 6.107
             },
             {
               "word": "would",
-              "start": 5.48,
-              "end": 5.677
+              "start": 6.142,
+              "end": 6.327
             },
             {
               "word": "never",
-              "start": 5.817,
-              "end": 6.2
+              "start": 6.409,
+              "end": 6.722
             },
             {
               "word": "be",
-              "start": 6.304,
-              "end": 6.502
+              "start": 6.803,
+              "end": 6.943
             },
             {
               "word": "tied",
-              "start": 6.56,
-              "end": 6.908
+              "start": 7.001,
+              "end": 7.361
             },
             {
               "word": "down.",
-              "start": 6.966,
-              "end": 7.616
+              "start": 7.419,
+              "end": 8.139
             },
             {
               "word": "'Where",
-              "start": 8.359,
-              "end": 8.777
+              "start": 9.102,
+              "end": 9.52
             },
             {
               "word": "to?'",
-              "start": 8.835,
-              "end": 9.358
+              "start": 9.578,
+              "end": 10.077
             },
             {
               "word": "he",
-              "start": 9.578,
-              "end": 9.671
+              "start": 10.461,
+              "end": 10.542
             },
             {
               "word": "asked.",
-              "start": 9.741,
-              "end": 10.356
+              "start": 10.623,
+              "end": 11.331
             }
           ],
-          "duration": 10.356,
-          "speed": 1.1
-        }
-      },
-      "outro": {
-        "file": "voice/old-wizard/outro.mp3",
-        "duration": 0.894,
-        "speed": 0.95
-      }
-    },
-    "spuds-oxley": {
-      "id": "NOpBlnGInO9m6vDvFkFC",
-      "name": "Spuds Oxley - Grandpa",
-      "episodes": {
-        "1": {
-          "file": "voice/spuds-oxley/teil-01.mp3",
+          "duration": 11.331,
+          "speed": 0.99
+        },
+        "4": {
+          "file": "voice/old-wizard/teil-04.mp3",
           "words": [
             {
-              "word": "Once",
+              "word": "'To",
               "start": 0,
-              "end": 0.29
+              "end": 0.255
             },
             {
-              "word": "upon",
+              "word": "the",
               "start": 0.337,
-              "end": 0.639
+              "end": 0.418
             },
             {
-              "word": "a",
-              "start": 0.697,
-              "end": 0.731
+              "word": "bakery,'",
+              "start": 0.476,
+              "end": 1.242
             },
             {
-              "word": "time,",
-              "start": 0.801,
-              "end": 1.358
+              "word": "she",
+              "start": 1.463,
+              "end": 1.602
             },
             {
-              "word": "there",
-              "start": 1.521,
-              "end": 1.73
+              "word": "said.",
+              "start": 1.672,
+              "end": 1.997
+            },
+            {
+              "word": "'There",
+              "start": 2.218,
+              "end": 2.647
+            },
+            {
+              "word": "is",
+              "start": 2.694,
+              "end": 2.81
+            },
+            {
+              "word": "no",
+              "start": 2.902,
+              "end": 3.088
+            },
+            {
+              "word": "bakery",
+              "start": 3.216,
+              "end": 3.878
+            },
+            {
+              "word": "here,'",
+              "start": 3.971,
+              "end": 4.516
+            },
+            {
+              "word": "he",
+              "start": 4.807,
+              "end": 4.899
+            },
+            {
+              "word": "laughed.",
+              "start": 4.992,
+              "end": 5.55
+            },
+            {
+              "word": "But",
+              "start": 6.084,
+              "end": 6.246
+            },
+            {
+              "word": "she",
+              "start": 6.281,
+              "end": 6.374
             },
             {
               "word": "was",
-              "start": 1.765,
-              "end": 1.892
+              "start": 6.432,
+              "end": 6.536
             },
             {
-              "word": "a",
-              "start": 1.95,
-              "end": 1.985
+              "word": "quite",
+              "start": 6.606,
+              "end": 6.885
             },
             {
-              "word": "girl",
-              "start": 2.055,
-              "end": 2.322
+              "word": "certain",
+              "start": 6.931,
+              "end": 7.419
+            }
+          ],
+          "duration": 7.419,
+          "speed": 0.95
+        },
+        "5": {
+          "file": "voice/old-wizard/teil-05.mp3",
+          "words": [
+            {
+              "word": "And",
+              "start": 0,
+              "end": 0.151
             },
             {
-              "word": "named",
-              "start": 2.392,
-              "end": 2.659
+              "word": "there",
+              "start": 0.197,
+              "end": 0.348
             },
             {
-              "word": "Karima,",
-              "start": 2.717,
-              "end": 3.367
+              "word": "was",
+              "start": 0.395,
+              "end": 0.662
             },
             {
-              "word": "full",
-              "start": 3.553,
-              "end": 3.889
+              "word": "one.",
+              "start": 0.789,
+              "end": 1.347
             },
             {
-              "word": "of",
+              "word": "He",
+              "start": 2.078,
+              "end": 2.206
+            },
+            {
+              "word": "walked",
+              "start": 2.276,
+              "end": 2.589
+            },
+            {
+              "word": "her",
+              "start": 2.635,
+              "end": 2.74
+            },
+            {
+              "word": "to",
+              "start": 2.81,
+              "end": 2.879
+            },
+            {
+              "word": "the",
+              "start": 2.949,
+              "end": 3.019
+            },
+            {
+              "word": "door.",
+              "start": 3.077,
+              "end": 3.622
+            },
+            {
+              "word": "And",
+              "start": 4.261,
+              "end": 4.447
+            },
+            {
+              "word": "in",
+              "start": 4.516,
+              "end": 4.586
+            },
+            {
+              "word": "parting,",
+              "start": 4.667,
+              "end": 5.41
+            },
+            {
+              "word": "they",
+              "start": 5.747,
+              "end": 5.921
+            },
+            {
+              "word": "promised",
+              "start": 6.002,
+              "end": 6.409
+            },
+            {
+              "word": "each",
+              "start": 6.444,
+              "end": 6.618
+            },
+            {
+              "word": "other",
+              "start": 6.664,
+              "end": 6.92
+            },
+            {
+              "word": "carrier",
+              "start": 8.022,
+              "end": 8.522
+            },
+            {
+              "word": "pigeons.",
+              "start": 8.603,
+              "end": 9.613
+            }
+          ],
+          "duration": 9.613,
+          "speed": 0.95
+        },
+        "6": {
+          "file": "voice/old-wizard/teil-06.mp3",
+          "words": [
+            {
+              "word": "The",
+              "start": 0,
+              "end": 0.163
+            },
+            {
+              "word": "first",
+              "start": 0.221,
+              "end": 0.499
+            },
+            {
+              "word": "pigeon",
+              "start": 0.569,
+              "end": 0.975
+            },
+            {
+              "word": "flew.",
+              "start": 1.057,
+              "end": 1.683
+            },
+            {
+              "word": "He",
+              "start": 2.148,
+              "end": 2.287
+            },
+            {
+              "word": "waited",
+              "start": 2.38,
+              "end": 2.775
+            },
+            {
+              "word": "in",
+              "start": 2.833,
+              "end": 2.902
+            },
+            {
+              "word": "the",
+              "start": 2.949,
+              "end": 3.019
+            },
+            {
+              "word": "pavilion",
+              "start": 3.065,
+              "end": 3.553
+            },
+            {
+              "word": "before",
+              "start": 3.611,
+              "end": 3.913
+            },
+            {
+              "word": "the",
               "start": 3.947,
               "end": 4.017
             },
             {
-              "word": "dreams.",
-              "start": 4.087,
-              "end": 4.795
+              "word": "castle.",
+              "start": 4.063,
+              "end": 4.783
+            },
+            {
+              "word": "And",
+              "start": 5.248,
+              "end": 5.492
+            },
+            {
+              "word": "she?",
+              "start": 5.584,
+              "end": 6.235
             },
             {
               "word": "She",
-              "start": 5.538,
-              "end": 5.689
+              "start": 6.699,
+              "end": 6.885
             },
             {
-              "word": "moved",
-              "start": 5.77,
-              "end": 6.165
+              "word": "came",
+              "start": 6.978,
+              "end": 7.291
             },
             {
-              "word": "to",
-              "start": 6.281,
-              "end": 6.42
+              "word": "late.",
+              "start": 7.349,
+              "end": 8.081
+            }
+          ],
+          "duration": 8.081,
+          "speed": 0.95
+        },
+        "7": {
+          "file": "voice/old-wizard/teil-07.mp3",
+          "words": [
+            {
+              "word": "Three",
+              "start": 0,
+              "end": 0.313
             },
             {
-              "word": "a",
-              "start": 6.525,
-              "end": 6.56
+              "word": "minutes.",
+              "start": 0.36,
+              "end": 0.94
             },
             {
-              "word": "strange",
-              "start": 6.629,
-              "end": 7.198
+              "word": "All",
+              "start": 1.01,
+              "end": 1.347
             },
             {
-              "word": "city.",
-              "start": 7.245,
-              "end": 7.79
+              "word": "out",
+              "start": 1.416,
+              "end": 1.602
             },
             {
-              "word": "But",
-              "start": 8.336,
-              "end": 8.499
+              "word": "of",
+              "start": 1.66,
+              "end": 1.73
+            },
+            {
+              "word": "breath.",
+              "start": 1.788,
+              "end": 2.241
+            },
+            {
+              "word": "One",
+              "start": 2.461,
+              "end": 2.763
+            },
+            {
+              "word": "hour",
+              "start": 2.833,
+              "end": 3.193
+            },
+            {
+              "word": "turned",
+              "start": 3.274,
+              "end": 3.576
+            },
+            {
+              "word": "into",
+              "start": 3.622,
+              "end": 3.82
+            },
+            {
+              "word": "four.",
+              "start": 3.913,
+              "end": 4.505
+            },
+            {
+              "word": "And",
+              "start": 4.69,
+              "end": 4.876
+            },
+            {
+              "word": "on",
+              "start": 4.957,
+              "end": 5.085
+            },
+            {
+              "word": "the",
+              "start": 5.143,
+              "end": 5.224
+            },
+            {
+              "word": "way",
+              "start": 5.294,
+              "end": 5.468
+            },
+            {
+              "word": "home,",
+              "start": 5.55,
+              "end": 6.049
             },
             {
               "word": "she",
-              "start": 8.557,
-              "end": 8.684
+              "start": 6.118,
+              "end": 6.293
             },
             {
-              "word": "had",
-              "start": 8.766,
-              "end": 8.951
+              "word": "thought",
+              "start": 6.362,
+              "end": 6.687
+            }
+          ],
+          "duration": 6.687,
+          "speed": 0.95
+        },
+        "8": {
+          "file": "voice/old-wizard/teil-08.mp3",
+          "words": [
+            {
+              "word": "'He",
+              "start": 0,
+              "end": 0.313
+            },
+            {
+              "word": "is",
+              "start": 0.395,
+              "end": 0.58
+            },
+            {
+              "word": "truly",
+              "start": 0.673,
+              "end": 1.37
+            },
+            {
+              "word": "kind.'",
+              "start": 1.498,
+              "end": 2.438
+            },
+            {
+              "word": "She",
+              "start": 2.972,
+              "end": 3.135
+            },
+            {
+              "word": "cooked",
+              "start": 3.216,
+              "end": 3.483
+            },
+            {
+              "word": "for",
+              "start": 3.518,
+              "end": 3.692
+            },
+            {
+              "word": "him,",
+              "start": 3.762,
+              "end": 3.936
+            },
+            {
+              "word": "he",
+              "start": 3.971,
+              "end": 4.052
+            },
+            {
+              "word": "brought",
+              "start": 4.098,
+              "end": 4.354
+            },
+            {
+              "word": "strawberries.",
+              "start": 4.4,
+              "end": 5.236
+            },
+            {
+              "word": "But",
+              "start": 5.573,
+              "end": 5.735
+            },
+            {
+              "word": "a",
+              "start": 5.782,
+              "end": 5.817
+            },
+            {
+              "word": "wanderer",
+              "start": 5.886,
+              "end": 6.42
+            },
+            {
+              "word": "does",
+              "start": 6.49,
+              "end": 6.653
+            },
+            {
+              "word": "not",
+              "start": 6.745,
+              "end": 7.105
+            },
+            {
+              "word": "like",
+              "start": 7.326,
+              "end": 7.605
+            },
+            {
+              "word": "to",
+              "start": 7.639,
+              "end": 7.721
+            },
+            {
+              "word": "stay",
+              "start": 7.802,
+              "end": 8.173
+            }
+          ],
+          "duration": 8.173,
+          "speed": 0.95
+        },
+        "9": {
+          "file": "voice/old-wizard/teil-09.mp3",
+          "words": [
+            {
+              "word": "One",
+              "start": 0,
+              "end": 0.244
+            },
+            {
+              "word": "day,",
+              "start": 0.302,
+              "end": 0.685
+            },
+            {
+              "word": "he",
+              "start": 0.731,
+              "end": 0.836
+            },
+            {
+              "word": "moved",
+              "start": 0.929,
+              "end": 1.265
+            },
+            {
+              "word": "on.",
+              "start": 1.347,
+              "end": 1.892
+            },
+            {
+              "word": "Without",
+              "start": 2.055,
+              "end": 2.566
+            },
+            {
+              "word": "a",
+              "start": 2.635,
+              "end": 2.682
+            },
+            {
+              "word": "word.",
+              "start": 2.763,
+              "end": 3.344
+            },
+            {
+              "word": "He",
+              "start": 3.506,
+              "end": 3.634
+            },
+            {
+              "word": "invited",
+              "start": 3.715,
+              "end": 4.296
+            },
+            {
+              "word": "her",
+              "start": 4.354,
+              "end": 4.47
+            },
+            {
+              "word": "to",
+              "start": 4.54,
+              "end": 4.621
+            },
+            {
+              "word": "a",
+              "start": 4.748,
+              "end": 4.783
+            },
+            {
+              "word": "feast.",
+              "start": 4.865,
+              "end": 5.561
+            },
+            {
+              "word": "But",
+              "start": 5.817,
+              "end": 6.002
+            },
+            {
+              "word": "she",
+              "start": 6.049,
+              "end": 6.153
+            },
+            {
+              "word": "did",
+              "start": 6.223,
+              "end": 6.362
+            },
+            {
+              "word": "not",
+              "start": 6.432,
+              "end": 6.641
+            },
+            {
+              "word": "go.",
+              "start": 6.722,
+              "end": 7.523
+            }
+          ],
+          "duration": 7.523,
+          "speed": 0.95
+        },
+        "10": {
+          "file": "voice/old-wizard/teil-10.mp3",
+          "words": [
+            {
+              "word": "Had",
+              "start": 0,
+              "end": 0.186
+            },
+            {
+              "word": "he",
+              "start": 0.232,
+              "end": 0.279
+            },
+            {
+              "word": "ever",
+              "start": 0.337,
+              "end": 0.511
+            },
+            {
+              "word": "meant",
+              "start": 0.557,
+              "end": 0.801
+            },
+            {
+              "word": "it?",
+              "start": 0.859,
+              "end": 1.126
+            },
+            {
+              "word": "Then",
+              "start": 1.591,
+              "end": 1.776
+            },
+            {
+              "word": "he",
+              "start": 1.823,
+              "end": 1.881
+            },
+            {
+              "word": "came",
+              "start": 1.939,
+              "end": 2.171
+            },
+            {
+              "word": "back.",
+              "start": 2.218,
+              "end": 2.694
+            },
+            {
+              "word": "Not",
+              "start": 3.228,
+              "end": 3.425
+            },
+            {
+              "word": "with",
+              "start": 3.471,
+              "end": 3.622
+            },
+            {
+              "word": "words",
+              "start": 3.692,
+              "end": 4.249
+            },
+            {
+              "word": "but",
+              "start": 4.83,
+              "end": 4.992
+            },
+            {
+              "word": "with",
+              "start": 5.027,
+              "end": 5.166
+            },
+            {
+              "word": "little",
+              "start": 5.213,
+              "end": 5.468
+            },
+            {
+              "word": "gestures.",
+              "start": 5.515,
+              "end": 6.502
+            }
+          ],
+          "duration": 6.502,
+          "speed": 0.95
+        },
+        "11": {
+          "file": "voice/old-wizard/teil-11.mp3",
+          "words": [
+            {
+              "word": "A",
+              "start": 0,
+              "end": 0.104
+            },
+            {
+              "word": "book",
+              "start": 0.232,
+              "end": 0.627
+            },
+            {
+              "word": "about",
+              "start": 0.882,
+              "end": 1.242
+            },
+            {
+              "word": "a",
+              "start": 1.289,
+              "end": 1.324
+            },
+            {
+              "word": "little",
+              "start": 1.393,
+              "end": 1.66
+            },
+            {
+              "word": "prince.",
+              "start": 1.707,
+              "end": 2.485
+            },
+            {
+              "word": "And",
+              "start": 3.019,
+              "end": 3.437
+            },
+            {
+              "word": "between",
+              "start": 3.518,
+              "end": 3.913
+            },
+            {
+              "word": "its",
+              "start": 3.959,
+              "end": 4.098
+            },
+            {
+              "word": "pages:",
+              "start": 4.156,
+              "end": 5.062
+            },
+            {
+              "word": "a",
+              "start": 5.468,
+              "end": 5.596
+            },
+            {
+              "word": "letter,",
+              "start": 5.759,
+              "end": 6.478
+            },
+            {
+              "word": "just",
+              "start": 7.012,
+              "end": 7.361
+            },
+            {
+              "word": "for",
+              "start": 7.43,
+              "end": 7.616
+            },
+            {
+              "word": "her.",
+              "start": 7.697,
+              "end": 8.406
+            }
+          ],
+          "duration": 8.406,
+          "speed": 0.95
+        },
+        "12": {
+          "file": "voice/old-wizard/teil-12.mp3",
+          "words": [
+            {
+              "word": "'For",
+              "start": 0,
+              "end": 0.197
+            },
+            {
+              "word": "the",
+              "start": 0.244,
+              "end": 0.313
+            },
+            {
+              "word": "most",
+              "start": 0.372,
+              "end": 0.615
+            },
+            {
+              "word": "beautiful",
+              "start": 0.685,
+              "end": 1.254
+            },
+            {
+              "word": "desert",
+              "start": 1.416,
+              "end": 1.823
+            },
+            {
+              "word": "flower",
+              "start": 1.881,
+              "end": 2.368
+            },
+            {
+              "word": "in",
+              "start": 2.461,
+              "end": 2.577
+            },
+            {
+              "word": "the",
+              "start": 2.624,
+              "end": 2.694
+            },
+            {
+              "word": "world.'",
+              "start": 2.752,
+              "end": 3.471
+            },
+            {
+              "word": "Sunflowers,",
+              "start": 4.203,
+              "end": 5.422
+            },
+            {
+              "word": "for",
+              "start": 5.759,
+              "end": 5.921
+            },
+            {
+              "word": "no",
+              "start": 6.002,
+              "end": 6.2
+            },
+            {
+              "word": "reason",
+              "start": 6.327,
+              "end": 6.722
+            },
+            {
+              "word": "at",
+              "start": 6.78,
+              "end": 6.954
+            },
+            {
+              "word": "all.",
+              "start": 7.012,
+              "end": 7.558
+            },
+            {
+              "word": "And",
+              "start": 8.29,
+              "end": 8.475
+            },
+            {
+              "word": "then",
+              "start": 8.533,
+              "end": 8.707
+            },
+            {
+              "word": "he",
+              "start": 8.789,
+              "end": 8.87
+            },
+            {
+              "word": "showed",
+              "start": 8.94,
+              "end": 9.195
+            },
+            {
+              "word": "her",
+              "start": 9.23,
+              "end": 9.334
+            },
+            {
+              "word": "a",
+              "start": 9.404,
+              "end": 9.439
+            },
+            {
+              "word": "secret",
+              "start": 9.52,
+              "end": 9.985
+            }
+          ],
+          "duration": 9.985,
+          "speed": 0.95
+        },
+        "13": {
+          "file": "voice/old-wizard/teil-13.mp3",
+          "words": [
+            {
+              "word": "The",
+              "start": 0,
+              "end": 0.186
+            },
+            {
+              "word": "breath",
+              "start": 0.279,
+              "end": 0.72
+            },
+            {
+              "word": "of",
+              "start": 0.813,
+              "end": 0.929
+            },
+            {
+              "word": "the",
+              "start": 0.998,
+              "end": 1.068
+            },
+            {
+              "word": "wild.",
+              "start": 1.149,
+              "end": 1.939
+            },
+            {
+              "word": "She",
+              "start": 3.111,
+              "end": 3.286
+            },
+            {
+              "word": "grew",
+              "start": 3.379,
+              "end": 3.785
+            },
+            {
+              "word": "so",
+              "start": 3.924,
+              "end": 4.238
+            },
+            {
+              "word": "light",
+              "start": 4.365,
+              "end": 4.714
+            },
+            {
+              "word": "that",
+              "start": 4.772,
+              "end": 4.934
+            },
+            {
+              "word": "she",
+              "start": 4.969,
+              "end": 5.085
+            },
+            {
+              "word": "fell",
+              "start": 5.166,
+              "end": 5.364
+            },
+            {
+              "word": "asleep",
+              "start": 5.422,
+              "end": 5.898
+            },
+            {
+              "word": "in",
+              "start": 5.979,
+              "end": 6.06
+            },
+            {
+              "word": "his",
+              "start": 6.13,
+              "end": 6.258
+            },
+            {
+              "word": "arms.",
+              "start": 6.327,
+              "end": 7.291
+            }
+          ],
+          "duration": 7.291,
+          "speed": 0.95
+        },
+        "14": {
+          "file": "voice/old-wizard/teil-14.mp3",
+          "words": [
+            {
+              "word": "One",
+              "start": 0,
+              "end": 0.221
+            },
+            {
+              "word": "morning,",
+              "start": 0.279,
+              "end": 0.778
+            },
+            {
+              "word": "he",
+              "start": 0.813,
+              "end": 0.906
+            },
+            {
+              "word": "laid",
+              "start": 0.987,
+              "end": 1.184
+            },
+            {
+              "word": "a",
+              "start": 1.231,
+              "end": 1.254
+            },
+            {
+              "word": "table",
+              "start": 1.324,
+              "end": 1.741
+            },
+            {
+              "word": "for",
+              "start": 1.8,
+              "end": 2.009
+            },
+            {
+              "word": "her",
+              "start": 2.09,
+              "end": 2.229
+            },
+            {
+              "word": "and",
+              "start": 2.31,
+              "end": 2.473
+            },
+            {
+              "word": "danced",
+              "start": 2.566,
+              "end": 2.972
+            },
+            {
+              "word": "through",
+              "start": 3.03,
+              "end": 3.274
+            },
+            {
+              "word": "the",
+              "start": 3.309,
+              "end": 3.379
+            },
+            {
+              "word": "kitchen.",
+              "start": 3.413,
+              "end": 3.947
+            },
+            {
+              "word": "A",
+              "start": 4.412,
+              "end": 4.493
+            },
+            {
+              "word": "morning",
+              "start": 4.621,
+              "end": 5.05
+            },
+            {
+              "word": "that",
+              "start": 5.108,
+              "end": 5.236
+            },
+            {
+              "word": "would",
+              "start": 5.271,
+              "end": 5.433
+            },
+            {
+              "word": "change",
+              "start": 5.468,
+              "end": 5.793
+            },
+            {
+              "word": "everything",
+              "start": 5.84,
+              "end": 6.362
+            }
+          ],
+          "duration": 6.362,
+          "speed": 0.95
+        },
+        "15": {
+          "file": "voice/old-wizard/teil-15.mp3",
+          "words": [
+            {
+              "word": "But",
+              "start": 0,
+              "end": 0.209
+            },
+            {
+              "word": "Karima",
+              "start": 0.279,
+              "end": 0.778
+            },
+            {
+              "word": "wanted",
+              "start": 0.848,
+              "end": 1.138
+            },
+            {
+              "word": "more",
+              "start": 1.219,
+              "end": 1.602
+            },
+            {
+              "word": "than",
+              "start": 1.66,
+              "end": 1.834
+            },
+            {
+              "word": "beautiful",
+              "start": 1.916,
+              "end": 2.415
+            },
+            {
+              "word": "moments.",
+              "start": 2.496,
+              "end": 3.193
+            },
+            {
+              "word": "She",
+              "start": 3.599,
+              "end": 3.762
+            },
+            {
+              "word": "sent",
+              "start": 3.843,
+              "end": 4.087
+            },
+            {
+              "word": "a",
+              "start": 4.133,
+              "end": 4.168
+            },
+            {
+              "word": "pigeon",
+              "start": 4.238,
+              "end": 4.69
+            },
+            {
+              "word": "with",
+              "start": 5.515,
+              "end": 5.724
+            },
+            {
+              "word": "just",
+              "start": 5.793,
+              "end": 6.06
+            },
+            {
+              "word": "one",
+              "start": 6.188,
+              "end": 6.838
+            },
+            {
+              "word": "sentence.",
+              "start": 7.059,
+              "end": 8.266
+            }
+          ],
+          "duration": 8.266,
+          "speed": 0.95
+        },
+        "16": {
+          "file": "voice/old-wizard/teil-16.mp3",
+          "words": [
+            {
+              "word": "'This",
+              "start": 0,
+              "end": 0.453
+            },
+            {
+              "word": "no",
+              "start": 0.592,
+              "end": 0.789
+            },
+            {
+              "word": "longer",
+              "start": 0.917,
+              "end": 1.37
+            },
+            {
+              "word": "suits",
+              "start": 1.451,
+              "end": 1.776
+            },
+            {
+              "word": "me.'",
+              "start": 1.846,
+              "end": 2.264
+            },
+            {
+              "word": "Then",
+              "start": 2.995,
+              "end": 3.239
+            },
+            {
+              "word": "thunder",
+              "start": 3.332,
+              "end": 3.75
+            },
+            {
+              "word": "rolled",
+              "start": 3.843,
+              "end": 4.156
+            },
+            {
+              "word": "between",
+              "start": 4.203,
+              "end": 4.505
+            },
+            {
+              "word": "the",
+              "start": 4.54,
+              "end": 4.609
+            },
+            {
+              "word": "two.",
+              "start": 4.656,
+              "end": 5.143
+            },
+            {
+              "word": "Would",
+              "start": 5.875,
+              "end": 6.06
+            },
+            {
+              "word": "the",
+              "start": 6.095,
+              "end": 6.165
+            },
+            {
+              "word": "wanderer",
+              "start": 6.223,
+              "end": 6.722
+            },
+            {
+              "word": "simply",
+              "start": 6.792,
+              "end": 7.105
+            },
+            {
+              "word": "move",
+              "start": 7.175,
+              "end": 7.407
+            },
+            {
+              "word": "on?",
+              "start": 7.465,
+              "end": 8.22
+            }
+          ],
+          "duration": 8.22,
+          "speed": 0.95
+        },
+        "17": {
+          "file": "voice/old-wizard/teil-17.mp3",
+          "words": [
+            {
+              "word": "They",
+              "start": 0,
+              "end": 0.255
+            },
+            {
+              "word": "talked.",
+              "start": 0.348,
+              "end": 1.08
+            },
+            {
+              "word": "A",
+              "start": 1.544,
+              "end": 1.707
+            },
+            {
+              "word": "whole",
+              "start": 1.788,
+              "end": 2.287
+            },
+            {
+              "word": "night",
+              "start": 2.415,
+              "end": 2.775
+            },
+            {
+              "word": "long.",
+              "start": 2.868,
+              "end": 3.541
+            },
+            {
+              "word": "Until",
+              "start": 4.075,
+              "end": 4.551
+            },
+            {
+              "word": "the",
+              "start": 4.632,
+              "end": 4.737
+            },
+            {
+              "word": "storm",
+              "start": 4.807,
+              "end": 5.364
+            },
+            {
+              "word": "passed.",
+              "start": 5.492,
+              "end": 6.246
+            },
+            {
+              "word": "And",
+              "start": 6.711,
+              "end": 6.954
+            },
+            {
+              "word": "days",
+              "start": 7.082,
+              "end": 7.442
+            },
+            {
+              "word": "later",
+              "start": 7.57,
+              "end": 8.115
             },
             {
               "word": "a",
               "start": 8.998,
-              "end": 9.033
+              "end": 9.091
             },
             {
-              "word": "secret",
-              "start": 9.172,
-              "end": 9.625
+              "word": "knock",
+              "start": 9.253,
+              "end": 9.741
+            },
+            {
+              "word": "came",
+              "start": 9.961,
+              "end": 10.24
+            },
+            {
+              "word": "at",
+              "start": 10.275,
+              "end": 10.356
+            },
+            {
+              "word": "her",
+              "start": 10.414,
+              "end": 10.519
+            },
+            {
+              "word": "window.",
+              "start": 10.588,
+              "end": 11.471
             }
           ],
-          "duration": 9.625,
-          "speed": 1.1
+          "duration": 11.471,
+          "speed": 0.95
         },
-        "2": {
-          "file": "voice/spuds-oxley/teil-02.mp3",
+        "18": {
+          "file": "voice/old-wizard/teil-18.mp3",
+          "words": [
+            {
+              "word": "In",
+              "start": 0,
+              "end": 0.151
+            },
+            {
+              "word": "the",
+              "start": 0.186,
+              "end": 0.255
+            },
+            {
+              "word": "middle",
+              "start": 0.337,
+              "end": 0.731
+            },
+            {
+              "word": "of",
+              "start": 0.813,
+              "end": 0.94
+            },
+            {
+              "word": "a",
+              "start": 1.01,
+              "end": 1.045
+            },
+            {
+              "word": "cold",
+              "start": 1.126,
+              "end": 1.567
+            },
+            {
+              "word": "night.",
+              "start": 1.695,
+              "end": 2.357
+            },
+            {
+              "word": "He",
+              "start": 2.891,
+              "end": 3.03
+            },
+            {
+              "word": "kissed",
+              "start": 3.158,
+              "end": 3.518
+            },
+            {
+              "word": "her",
+              "start": 3.564,
+              "end": 3.715
+            },
+            {
+              "word": "awake",
+              "start": 3.796,
+              "end": 4.435
+            },
+            {
+              "word": "and",
+              "start": 4.598,
+              "end": 4.841
+            },
+            {
+              "word": "held",
+              "start": 4.923,
+              "end": 5.19
+            },
+            {
+              "word": "her",
+              "start": 5.259,
+              "end": 5.387
+            },
+            {
+              "word": "tight.",
+              "start": 5.457,
+              "end": 6.269
+            }
+          ],
+          "duration": 6.269,
+          "speed": 0.95
+        },
+        "19": {
+          "file": "voice/old-wizard/teil-19.mp3",
+          "words": [
+            {
+              "word": "They",
+              "start": 0,
+              "end": 0.197
+            },
+            {
+              "word": "could",
+              "start": 0.232,
+              "end": 0.383
+            },
+            {
+              "word": "talk",
+              "start": 0.418,
+              "end": 0.615
+            },
+            {
+              "word": "about",
+              "start": 0.662,
+              "end": 0.882
+            },
+            {
+              "word": "anything,",
+              "start": 0.94,
+              "end": 1.625
+            },
+            {
+              "word": "without",
+              "start": 1.846,
+              "end": 2.241
+            },
+            {
+              "word": "fear",
+              "start": 2.322,
+              "end": 2.694
+            },
+            {
+              "word": "of",
+              "start": 2.775,
+              "end": 2.856
+            },
+            {
+              "word": "judgement.",
+              "start": 2.937,
+              "end": 3.576
+            },
+            {
+              "word": "And",
+              "start": 4.307,
+              "end": 4.481
+            },
+            {
+              "word": "at",
+              "start": 4.551,
+              "end": 4.644
+            },
+            {
+              "word": "his",
+              "start": 4.714,
+              "end": 4.865
+            },
+            {
+              "word": "side",
+              "start": 4.934,
+              "end": 5.399
+            },
+            {
+              "word": "walked",
+              "start": 5.457,
+              "end": 5.851
+            },
+            {
+              "word": "a",
+              "start": 6.954,
+              "end": 7.047
+            },
+            {
+              "word": "lion.",
+              "start": 7.21,
+              "end": 8.406
+            }
+          ],
+          "duration": 8.406,
+          "speed": 0.95
+        },
+        "20": {
+          "file": "voice/old-wizard/teil-20.mp3",
+          "words": [
+            {
+              "word": "Not",
+              "start": 0,
+              "end": 0.279
+            },
+            {
+              "word": "a",
+              "start": 0.325,
+              "end": 0.36
+            },
+            {
+              "word": "real",
+              "start": 0.441,
+              "end": 0.708
+            },
+            {
+              "word": "one.",
+              "start": 0.789,
+              "end": 1.103
+            },
+            {
+              "word": "But",
+              "start": 1.289,
+              "end": 1.451
+            },
+            {
+              "word": "beside",
+              "start": 1.498,
+              "end": 1.962
+            },
+            {
+              "word": "him,",
+              "start": 2.009,
+              "end": 2.392
+            },
+            {
+              "word": "the",
+              "start": 2.577,
+              "end": 2.705
+            },
+            {
+              "word": "world",
+              "start": 2.763,
+              "end": 3.181
+            },
+            {
+              "word": "was",
+              "start": 3.251,
+              "end": 3.402
+            },
+            {
+              "word": "safe.",
+              "start": 3.471,
+              "end": 4.063
+            },
+            {
+              "word": "Until",
+              "start": 4.47,
+              "end": 4.783
+            },
+            {
+              "word": "one",
+              "start": 4.853,
+              "end": 5.085
+            },
+            {
+              "word": "day,",
+              "start": 5.143,
+              "end": 5.526
+            },
+            {
+              "word": "Karima",
+              "start": 5.596,
+              "end": 6.095
+            },
+            {
+              "word": "had",
+              "start": 6.165,
+              "end": 6.281
+            },
+            {
+              "word": "had",
+              "start": 6.327,
+              "end": 6.455
+            },
+            {
+              "word": "enough",
+              "start": 6.513,
+              "end": 6.85
+            }
+          ],
+          "duration": 6.85,
+          "speed": 0.95
+        },
+        "21": {
+          "file": "voice/old-wizard/teil-21.mp3",
           "words": [
             {
               "word": "She",
@@ -492,28 +1958,1179 @@
               "end": 0.174
             },
             {
-              "word": "had",
+              "word": "did",
               "start": 0.232,
-              "end": 0.383
+              "end": 0.36
             },
             {
               "word": "not",
-              "start": 0.441,
-              "end": 0.604
+              "start": 0.418,
+              "end": 0.569
             },
             {
-              "word": "the",
-              "start": 0.65,
-              "end": 0.743
+              "word": "want",
+              "start": 0.627,
+              "end": 0.801
             },
             {
-              "word": "slightest",
-              "start": 0.801,
+              "word": "to",
+              "start": 0.836,
+              "end": 0.894
+            },
+            {
+              "word": "be",
+              "start": 0.952,
+              "end": 1.045
+            },
+            {
+              "word": "just",
+              "start": 1.103,
               "end": 1.312
             },
             {
-              "word": "sense",
-              "start": 1.358,
+              "word": "anyone.",
+              "start": 1.37,
+              "end": 2.055
+            },
+            {
+              "word": "She",
+              "start": 2.392,
+              "end": 2.566
+            },
+            {
+              "word": "wanted",
+              "start": 2.659,
+              "end": 2.972
+            },
+            {
+              "word": "to",
+              "start": 3.019,
+              "end": 3.088
+            },
+            {
+              "word": "be",
+              "start": 3.158,
+              "end": 3.332
+            },
+            {
+              "word": "his",
+              "start": 3.402,
+              "end": 3.553
+            },
+            {
+              "word": "one.",
+              "start": 3.68,
+              "end": 4.354
+            },
+            {
+              "word": "So",
+              "start": 4.818,
+              "end": 5.027
+            },
+            {
+              "word": "they",
+              "start": 5.085,
+              "end": 5.224
+            },
+            {
+              "word": "sailed",
+              "start": 5.317,
+              "end": 5.724
+            },
+            {
+              "word": "across",
+              "start": 5.759,
+              "end": 6.084
+            },
+            {
+              "word": "the",
+              "start": 6.13,
+              "end": 6.2
+            },
+            {
+              "word": "sea",
+              "start": 6.269,
+              "end": 6.606
+            },
+            {
+              "word": "to",
+              "start": 7.152,
+              "end": 7.268
+            },
+            {
+              "word": "Barcelona.",
+              "start": 7.338,
+              "end": 8.499
+            }
+          ],
+          "duration": 8.499,
+          "speed": 0.95
+        },
+        "22": {
+          "file": "voice/old-wizard/teil-22.mp3",
+          "words": [
+            {
+              "word": "There,",
+              "start": 0,
+              "end": 0.58
+            },
+            {
+              "word": "everything",
+              "start": 0.72,
+              "end": 1.347
+            },
+            {
+              "word": "was",
+              "start": 1.474,
+              "end": 1.66
+            },
+            {
+              "word": "ten",
+              "start": 1.73,
+              "end": 1.997
+            },
+            {
+              "word": "times",
+              "start": 2.125,
+              "end": 2.531
+            },
+            {
+              "word": "more",
+              "start": 2.601,
+              "end": 2.798
+            },
+            {
+              "word": "intense.",
+              "start": 2.844,
+              "end": 3.634
+            },
+            {
+              "word": "Karima",
+              "start": 4.04,
+              "end": 4.54
+            },
+            {
+              "word": "grew",
+              "start": 4.598,
+              "end": 4.83
+            },
+            {
+              "word": "brave,",
+              "start": 4.899,
+              "end": 5.515
+            },
+            {
+              "word": "playful,",
+              "start": 5.642,
+              "end": 6.304
+            },
+            {
+              "word": "free.",
+              "start": 6.467,
+              "end": 7.14
+            },
+            {
+              "word": "And",
+              "start": 7.361,
+              "end": 7.546
+            },
+            {
+              "word": "the",
+              "start": 7.605,
+              "end": 7.686
+            },
+            {
+              "word": "wanderer?",
+              "start": 7.755,
+              "end": 8.731
+            }
+          ],
+          "duration": 8.731,
+          "speed": 0.95
+        },
+        "23": {
+          "file": "voice/old-wizard/teil-23.mp3",
+          "words": [
+            {
+              "word": "The",
+              "start": 0,
+              "end": 0.174
+            },
+            {
+              "word": "wanderer,",
+              "start": 0.244,
+              "end": 0.929
+            },
+            {
+              "word": "who",
+              "start": 1.057,
+              "end": 1.219
+            },
+            {
+              "word": "had",
+              "start": 1.277,
+              "end": 1.405
+            },
+            {
+              "word": "never",
+              "start": 1.486,
+              "end": 1.73
+            },
+            {
+              "word": "let",
+              "start": 1.811,
+              "end": 1.997
+            },
+            {
+              "word": "himself",
+              "start": 2.043,
+              "end": 2.403
+            },
+            {
+              "word": "be",
+              "start": 2.473,
+              "end": 2.601
+            },
+            {
+              "word": "tied",
+              "start": 2.659,
+              "end": 3.042
+            },
+            {
+              "word": "down",
+              "start": 3.1,
+              "end": 3.529
+            },
+            {
+              "word": "stayed.",
+              "start": 4.261,
+              "end": 5.341
+            }
+          ],
+          "duration": 5.341,
+          "speed": 0.95
+        },
+        "24": {
+          "file": "voice/old-wizard/teil-24.mp3",
+          "words": [
+            {
+              "word": "Then",
+              "start": 0,
+              "end": 0.383
+            },
+            {
+              "word": "came",
+              "start": 0.511,
+              "end": 0.813
+            },
+            {
+              "word": "Karima's",
+              "start": 0.871,
+              "end": 1.37
+            },
+            {
+              "word": "great",
+              "start": 1.44,
+              "end": 1.776
+            },
+            {
+              "word": "exam.",
+              "start": 1.858,
+              "end": 2.601
+            },
+            {
+              "word": "Fear",
+              "start": 2.891,
+              "end": 3.344
+            },
+            {
+              "word": "rose",
+              "start": 3.471,
+              "end": 3.785
+            },
+            {
+              "word": "like",
+              "start": 3.831,
+              "end": 4.005
+            },
+            {
+              "word": "a",
+              "start": 4.04,
+              "end": 4.075
+            },
+            {
+              "word": "wave.",
+              "start": 4.145,
+              "end": 4.632
+            },
+            {
+              "word": "But",
+              "start": 4.853,
+              "end": 5.085
+            },
+            {
+              "word": "every",
+              "start": 5.248,
+              "end": 5.84
+            },
+            {
+              "word": "evening",
+              "start": 6.026,
+              "end": 6.571
+            }
+          ],
+          "duration": 6.571,
+          "speed": 0.95
+        },
+        "25": {
+          "file": "voice/old-wizard/teil-25.mp3",
+          "words": [
+            {
+              "word": "he",
+              "start": 0.163,
+              "end": 0.267
+            },
+            {
+              "word": "read",
+              "start": 0.348,
+              "end": 0.511
+            },
+            {
+              "word": "her",
+              "start": 0.557,
+              "end": 0.65
+            },
+            {
+              "word": "a",
+              "start": 0.697,
+              "end": 0.731
+            },
+            {
+              "word": "story.",
+              "start": 0.789,
+              "end": 1.382
+            },
+            {
+              "word": "And",
+              "start": 1.718,
+              "end": 1.881
+            },
+            {
+              "word": "against",
+              "start": 1.927,
+              "end": 2.252
+            },
+            {
+              "word": "his",
+              "start": 2.299,
+              "end": 2.426
+            },
+            {
+              "word": "chest,",
+              "start": 2.508,
+              "end": 3.065
+            },
+            {
+              "word": "her",
+              "start": 3.193,
+              "end": 3.355
+            },
+            {
+              "word": "heart",
+              "start": 3.448,
+              "end": 3.75
+            },
+            {
+              "word": "grew",
+              "start": 3.808,
+              "end": 4.017
+            },
+            {
+              "word": "calm.",
+              "start": 4.087,
+              "end": 4.876
+            }
+          ],
+          "duration": 4.876,
+          "speed": 0.95
+        },
+        "26": {
+          "file": "voice/old-wizard/teil-26.mp3",
+          "words": [
+            {
+              "word": "On",
+              "start": 0,
+              "end": 0.163
+            },
+            {
+              "word": "the",
+              "start": 0.209,
+              "end": 0.279
+            },
+            {
+              "word": "day",
+              "start": 0.337,
+              "end": 0.522
+            },
+            {
+              "word": "of",
+              "start": 0.569,
+              "end": 0.627
+            },
+            {
+              "word": "the",
+              "start": 0.673,
+              "end": 0.755
+            },
+            {
+              "word": "exam,",
+              "start": 0.824,
+              "end": 1.498
+            },
+            {
+              "word": "it",
+              "start": 1.556,
+              "end": 1.741
+            },
+            {
+              "word": "rained.",
+              "start": 1.834,
+              "end": 2.473
+            },
+            {
+              "word": "He",
+              "start": 2.763,
+              "end": 2.879
+            },
+            {
+              "word": "waited",
+              "start": 2.961,
+              "end": 3.274
+            },
+            {
+              "word": "outside,",
+              "start": 3.332,
+              "end": 4.098
+            },
+            {
+              "word": "flowers",
+              "start": 4.191,
+              "end": 4.737
+            },
+            {
+              "word": "in",
+              "start": 4.795,
+              "end": 4.888
+            },
+            {
+              "word": "hand.",
+              "start": 4.981,
+              "end": 5.48
+            },
+            {
+              "word": "For",
+              "start": 5.608,
+              "end": 5.817
+            },
+            {
+              "word": "hours.",
+              "start": 5.886,
+              "end": 6.676
+            },
+            {
+              "word": "And",
+              "start": 6.896,
+              "end": 7.059
+            },
+            {
+              "word": "then",
+              "start": 7.117,
+              "end": 7.338
+            }
+          ],
+          "duration": 7.338,
+          "speed": 0.95
+        },
+        "27": {
+          "file": "voice/old-wizard/teil-27.mp3",
+          "words": [
+            {
+              "word": "the",
+              "start": 0.546,
+              "end": 0.662
+            },
+            {
+              "word": "door",
+              "start": 0.72,
+              "end": 0.987
+            },
+            {
+              "word": "opened.",
+              "start": 1.068,
+              "end": 1.683
+            },
+            {
+              "word": "She",
+              "start": 2.02,
+              "end": 2.183
+            },
+            {
+              "word": "ran",
+              "start": 2.264,
+              "end": 2.438
+            },
+            {
+              "word": "into",
+              "start": 2.496,
+              "end": 2.67
+            },
+            {
+              "word": "his",
+              "start": 2.74,
+              "end": 2.856
+            },
+            {
+              "word": "arms.",
+              "start": 2.902,
+              "end": 3.471
+            },
+            {
+              "word": "It",
+              "start": 3.762,
+              "end": 3.901
+            },
+            {
+              "word": "was",
+              "start": 3.947,
+              "end": 4.052
+            },
+            {
+              "word": "their",
+              "start": 4.098,
+              "end": 4.272
+            },
+            {
+              "word": "victory.",
+              "start": 4.319,
+              "end": 4.923
+            },
+            {
+              "word": "Together.",
+              "start": 5.259,
+              "end": 6.084
+            }
+          ],
+          "duration": 6.084,
+          "speed": 0.95
+        },
+        "28": {
+          "file": "voice/old-wizard/teil-28.mp3",
+          "words": [
+            {
+              "word": "As",
+              "start": 0,
+              "end": 0.197
+            },
+            {
+              "word": "a",
+              "start": 0.255,
+              "end": 0.29
+            },
+            {
+              "word": "reward,",
+              "start": 0.372,
+              "end": 1.033
+            },
+            {
+              "word": "a",
+              "start": 1.068,
+              "end": 1.149
+            },
+            {
+              "word": "pigeon",
+              "start": 1.242,
+              "end": 1.602
+            },
+            {
+              "word": "came",
+              "start": 1.683,
+              "end": 1.962
+            },
+            {
+              "word": "with",
+              "start": 1.997,
+              "end": 2.148
+            },
+            {
+              "word": "a",
+              "start": 2.194,
+              "end": 2.229
+            },
+            {
+              "word": "plan:",
+              "start": 2.299,
+              "end": 2.995
+            },
+            {
+              "word": "tomorrow",
+              "start": 3.216,
+              "end": 3.727
+            },
+            {
+              "word": "morning,",
+              "start": 3.796,
+              "end": 4.272
+            },
+            {
+              "word": "at",
+              "start": 4.296,
+              "end": 4.423
+            },
+            {
+              "word": "the",
+              "start": 4.47,
+              "end": 4.54
+            },
+            {
+              "word": "ninth",
+              "start": 4.632,
+              "end": 4.981
+            },
+            {
+              "word": "stroke",
+              "start": 5.062,
+              "end": 5.445
+            },
+            {
+              "word": "of",
+              "start": 5.48,
+              "end": 5.55
+            },
+            {
+              "word": "the",
+              "start": 5.608,
+              "end": 5.677
+            },
+            {
+              "word": "bell,",
+              "start": 5.735,
+              "end": 6.281
+            },
+            {
+              "word": "a",
+              "start": 6.467,
+              "end": 6.56
+            },
+            {
+              "word": "carriage",
+              "start": 6.653,
+              "end": 7.256
+            },
+            {
+              "word": "at",
+              "start": 7.303,
+              "end": 7.488
+            },
+            {
+              "word": "the",
+              "start": 7.535,
+              "end": 7.605
+            },
+            {
+              "word": "city",
+              "start": 7.663,
+              "end": 7.93
+            },
+            {
+              "word": "gate.",
+              "start": 7.988,
+              "end": 8.731
+            }
+          ],
+          "duration": 8.731,
+          "speed": 0.95
+        },
+        "29": {
+          "file": "voice/old-wizard/teil-29.mp3",
+          "words": [
+            {
+              "word": "She",
+              "start": 0,
+              "end": 0.186
+            },
+            {
+              "word": "climbed",
+              "start": 0.279,
+              "end": 0.778
+            },
+            {
+              "word": "in,",
+              "start": 0.836,
+              "end": 1.3
+            },
+            {
+              "word": "without",
+              "start": 1.463,
+              "end": 1.834
+            },
+            {
+              "word": "knowing",
+              "start": 1.892,
+              "end": 2.229
+            },
+            {
+              "word": "where",
+              "start": 2.276,
+              "end": 2.508
+            },
+            {
+              "word": "to.",
+              "start": 2.554,
+              "end": 3.053
+            },
+            {
+              "word": "And",
+              "start": 3.587,
+              "end": 3.796
+            },
+            {
+              "word": "who",
+              "start": 3.855,
+              "end": 4.029
+            },
+            {
+              "word": "was",
+              "start": 4.11,
+              "end": 4.272
+            },
+            {
+              "word": "already",
+              "start": 4.342,
+              "end": 4.888
+            },
+            {
+              "word": "sitting",
+              "start": 5.027,
+              "end": 5.433
+            },
+            {
+              "word": "inside?",
+              "start": 5.503,
+              "end": 6.641
+            }
+          ],
+          "duration": 6.641,
+          "speed": 0.95
+        },
+        "30": {
+          "file": "voice/old-wizard/teil-30.mp3",
+          "words": [
+            {
+              "word": "He",
+              "start": 0,
+              "end": 0.163
+            },
+            {
+              "word": "took",
+              "start": 0.232,
+              "end": 0.43
+            },
+            {
+              "word": "her",
+              "start": 0.476,
+              "end": 0.569
+            },
+            {
+              "word": "to",
+              "start": 0.615,
+              "end": 0.685
+            },
+            {
+              "word": "the",
+              "start": 0.755,
+              "end": 0.824
+            },
+            {
+              "word": "greatest",
+              "start": 0.894,
+              "end": 1.312
+            },
+            {
+              "word": "hot",
+              "start": 1.37,
+              "end": 1.625
+            },
+            {
+              "word": "springs",
+              "start": 1.695,
+              "end": 2.229
+            },
+            {
+              "word": "in",
+              "start": 2.287,
+              "end": 2.357
+            },
+            {
+              "word": "the",
+              "start": 2.403,
+              "end": 2.473
+            },
+            {
+              "word": "kingdom.",
+              "start": 2.519,
+              "end": 3.146
+            },
+            {
+              "word": "There,",
+              "start": 3.68,
+              "end": 4.284
+            },
+            {
+              "word": "for",
+              "start": 4.412,
+              "end": 4.563
+            },
+            {
+              "word": "the",
+              "start": 4.621,
+              "end": 4.69
+            },
+            {
+              "word": "first",
+              "start": 4.76,
+              "end": 5.074
+            },
+            {
+              "word": "time,",
+              "start": 5.12,
+              "end": 5.735
+            },
+            {
+              "word": "she",
+              "start": 6.072,
+              "end": 6.235
+            },
+            {
+              "word": "felt",
+              "start": 6.362,
+              "end": 6.757
+            },
+            {
+              "word": "completely",
+              "start": 6.885,
+              "end": 7.709
+            },
+            {
+              "word": "free.",
+              "start": 7.837,
+              "end": 8.777
+            }
+          ],
+          "duration": 8.777,
+          "speed": 0.95
+        },
+        "31": {
+          "file": "voice/old-wizard/teil-31.mp3",
+          "words": [
+            {
+              "word": "Hand",
+              "start": 0,
+              "end": 0.43
+            },
+            {
+              "word": "in",
+              "start": 0.511,
+              "end": 0.615
+            },
+            {
+              "word": "hand,",
+              "start": 0.708,
+              "end": 1.231
+            },
+            {
+              "word": "they",
+              "start": 1.277,
+              "end": 1.463
+            },
+            {
+              "word": "wandered",
+              "start": 1.591,
+              "end": 2.055
+            },
+            {
+              "word": "through",
+              "start": 2.09,
+              "end": 2.345
+            },
+            {
+              "word": "villages",
+              "start": 2.415,
+              "end": 2.949
+            },
+            {
+              "word": "and",
+              "start": 3.007,
+              "end": 3.111
+            },
+            {
+              "word": "the",
+              "start": 3.17,
+              "end": 3.239
+            },
+            {
+              "word": "great",
+              "start": 3.297,
+              "end": 3.518
+            },
+            {
+              "word": "royal",
+              "start": 3.576,
+              "end": 3.878
+            },
+            {
+              "word": "city.",
+              "start": 3.947,
+              "end": 4.644
+            },
+            {
+              "word": "But",
+              "start": 5.05,
+              "end": 5.248
+            },
+            {
+              "word": "the",
+              "start": 5.306,
+              "end": 5.422
+            },
+            {
+              "word": "best",
+              "start": 5.55,
+              "end": 5.968
+            },
+            {
+              "word": "was",
+              "start": 6.037,
+              "end": 6.235
+            },
+            {
+              "word": "yet",
+              "start": 6.327,
+              "end": 6.594
+            },
+            {
+              "word": "to",
+              "start": 6.676,
+              "end": 6.803
+            },
+            {
+              "word": "come",
+              "start": 6.931,
+              "end": 7.326
+            }
+          ],
+          "duration": 7.326,
+          "speed": 0.95
+        },
+        "32": {
+          "file": "voice/old-wizard/teil-32.mp3",
+          "words": [
+            {
+              "word": "The",
+              "start": 0,
+              "end": 0.174
+            },
+            {
+              "word": "Christmas",
+              "start": 0.302,
+              "end": 0.848
+            },
+            {
+              "word": "markets.",
+              "start": 0.94,
+              "end": 1.753
+            },
+            {
+              "word": "Glittering",
+              "start": 2.009,
+              "end": 2.635
+            },
+            {
+              "word": "lights,",
+              "start": 2.763,
+              "end": 3.437
+            },
+            {
+              "word": "mulled",
+              "start": 3.657,
+              "end": 4.214
+            },
+            {
+              "word": "wine,",
+              "start": 4.296,
+              "end": 4.911
+            },
+            {
+              "word": "snow.",
+              "start": 5.132,
+              "end": 6.06
+            },
+            {
+              "word": "And",
+              "start": 6.525,
+              "end": 6.687
+            },
+            {
+              "word": "at",
+              "start": 6.745,
+              "end": 6.815
+            },
+            {
+              "word": "the",
+              "start": 6.861,
+              "end": 6.943
+            },
+            {
+              "word": "very",
+              "start": 7.036,
+              "end": 7.361
+            },
+            {
+              "word": "top",
+              "start": 7.442,
+              "end": 7.802
+            },
+            {
+              "word": "of",
+              "start": 7.883,
+              "end": 7.988
+            },
+            {
+              "word": "the",
+              "start": 8.046,
+              "end": 8.115
+            },
+            {
+              "word": "Ferris",
+              "start": 8.185,
+              "end": 8.533
+            },
+            {
+              "word": "wheel",
+              "start": 8.603,
+              "end": 8.94
+            }
+          ],
+          "duration": 8.94,
+          "speed": 0.95
+        },
+        "33": {
+          "file": "voice/old-wizard/teil-33.mp3",
+          "words": [
+            {
+              "word": "In",
+              "start": 0,
+              "end": 0.151
+            },
+            {
+              "word": "the",
+              "start": 0.197,
+              "end": 0.29
+            },
+            {
+              "word": "end,",
+              "start": 0.372,
+              "end": 0.998
+            },
+            {
+              "word": "Karima",
+              "start": 1.219,
+              "end": 1.718
+            },
+            {
+              "word": "wrote",
+              "start": 1.765,
+              "end": 1.997
+            },
+            {
+              "word": "him",
+              "start": 2.032,
+              "end": 2.125
+            },
+            {
+              "word": "a",
+              "start": 2.183,
+              "end": 2.218
+            },
+            {
+              "word": "book.",
+              "start": 2.287,
+              "end": 2.798
+            },
+            {
+              "word": "And",
+              "start": 3.135,
+              "end": 3.309
+            },
+            {
+              "word": "on",
+              "start": 3.379,
+              "end": 3.46
+            },
+            {
+              "word": "the",
+              "start": 3.506,
+              "end": 3.576
+            },
+            {
+              "word": "last",
+              "start": 3.646,
+              "end": 3.913
+            },
+            {
+              "word": "page,",
+              "start": 3.971,
+              "end": 4.412
+            },
+            {
+              "word": "it",
+              "start": 4.458,
+              "end": 4.644
+            },
+            {
+              "word": "said",
+              "start": 4.702,
+              "end": 4.957
+            }
+          ],
+          "duration": 4.957,
+          "speed": 0.95
+        },
+        "34": {
+          "file": "voice/old-wizard/teil-34.mp3",
+          "words": [
+            {
+              "word": "'That",
+              "start": 0,
+              "end": 0.372
+            },
+            {
+              "word": "was",
+              "start": 0.453,
+              "end": 0.662
+            },
+            {
+              "word": "only",
+              "start": 0.755,
+              "end": 1.08
+            },
+            {
+              "word": "the",
+              "start": 1.138,
+              "end": 1.207
+            },
+            {
+              "word": "beginning",
+              "start": 1.265,
               "end": 1.625
             },
             {
@@ -522,190 +3139,140 @@
               "end": 1.718
             },
             {
-              "word": "direction.",
+              "word": "our",
               "start": 1.776,
-              "end": 2.485
+              "end": 1.904
             },
             {
-              "word": "And",
-              "start": 3.228,
-              "end": 3.448
+              "word": "story.",
+              "start": 1.974,
+              "end": 2.612
             },
             {
-              "word": "one",
-              "start": 3.553,
-              "end": 3.82
+              "word": "You",
+              "start": 3.077,
+              "end": 3.425
             },
             {
-              "word": "morning,",
-              "start": 3.878,
-              "end": 4.528
-            },
-            {
-              "word": "she",
-              "start": 5.166,
-              "end": 5.317
-            },
-            {
-              "word": "got",
-              "start": 5.399,
-              "end": 5.608
-            },
-            {
-              "word": "lost",
-              "start": 5.666,
-              "end": 6.118
-            },
-            {
-              "word": "right",
-              "start": 7.082,
-              "end": 7.407
-            },
-            {
-              "word": "before",
-              "start": 7.512,
-              "end": 8.011
-            },
-            {
-              "word": "the",
-              "start": 8.069,
-              "end": 8.162
-            },
-            {
-              "word": "eyes",
-              "start": 8.266,
-              "end": 8.673
-            },
-            {
-              "word": "of",
-              "start": 8.731,
-              "end": 8.812
-            },
-            {
-              "word": "a",
-              "start": 8.87,
-              "end": 8.905
-            },
-            {
-              "word": "stranger.",
-              "start": 9.009,
-              "end": 9.845
-            }
-          ],
-          "duration": 9.845,
-          "speed": 1.1
-        },
-        "3": {
-          "file": "voice/spuds-oxley/teil-03.mp3",
-          "words": [
-            {
-              "word": "His",
-              "start": 0,
-              "end": 0.232
-            },
-            {
-              "word": "name",
-              "start": 0.313,
-              "end": 0.58
-            },
-            {
-              "word": "was",
-              "start": 0.627,
-              "end": 0.789
-            },
-            {
-              "word": "Pablo.",
-              "start": 0.894,
-              "end": 1.602
-            },
-            {
-              "word": "A",
-              "start": 1.95,
-              "end": 2.055
-            },
-            {
-              "word": "wanderer,",
-              "start": 2.194,
-              "end": 2.902
-            },
-            {
-              "word": "wild",
-              "start": 3.088,
-              "end": 3.587
-            },
-            {
-              "word": "and",
+              "word": "are",
               "start": 3.646,
-              "end": 3.75
+              "end": 3.924
             },
             {
-              "word": "free,",
-              "start": 3.808,
-              "end": 4.249
+              "word": "my",
+              "start": 3.994,
+              "end": 4.203
             },
             {
-              "word": "who",
-              "start": 4.54,
-              "end": 4.702
-            },
-            {
-              "word": "would",
-              "start": 4.76,
+              "word": "gift,",
+              "start": 4.331,
               "end": 4.946
             },
             {
-              "word": "never",
-              "start": 5.016,
-              "end": 5.271
+              "word": "my",
+              "start": 5.166,
+              "end": 5.387
             },
             {
-              "word": "be",
-              "start": 5.329,
-              "end": 5.445
+              "word": "blessing,",
+              "start": 5.515,
+              "end": 6.258
             },
             {
-              "word": "tied",
-              "start": 5.503,
-              "end": 5.793
+              "word": "my",
+              "start": 6.722,
+              "end": 6.931
             },
             {
-              "word": "down.",
-              "start": 5.84,
-              "end": 6.351
+              "word": "safe",
+              "start": 7.07,
+              "end": 7.454
             },
             {
-              "word": "'Where",
-              "start": 6.896,
-              "end": 7.326
-            },
-            {
-              "word": "to?'",
-              "start": 7.372,
-              "end": 7.86
-            },
-            {
-              "word": "he",
-              "start": 8.046,
-              "end": 8.127
-            },
-            {
-              "word": "asked.",
-              "start": 8.185,
-              "end": 8.777
+              "word": "haven.'",
+              "start": 7.5,
+              "end": 8.406
             }
           ],
-          "duration": 8.777,
-          "speed": 1.1
+          "duration": 8.406,
+          "speed": 0.95
+        },
+        "35": {
+          "file": "voice/old-wizard/teil-35.mp3",
+          "words": [
+            {
+              "word": "And",
+              "start": 0,
+              "end": 0.174
+            },
+            {
+              "word": "their",
+              "start": 0.221,
+              "end": 0.441
+            },
+            {
+              "word": "story?",
+              "start": 0.522,
+              "end": 1.393
+            },
+            {
+              "word": "They",
+              "start": 2.392,
+              "end": 2.601
+            },
+            {
+              "word": "are",
+              "start": 2.647,
+              "end": 2.798
+            },
+            {
+              "word": "still",
+              "start": 2.844,
+              "end": 3.204
+            },
+            {
+              "word": "writing",
+              "start": 3.297,
+              "end": 3.762
+            },
+            {
+              "word": "it",
+              "start": 3.831,
+              "end": 3.936
+            },
+            {
+              "word": "today.",
+              "start": 3.994,
+              "end": 4.725
+            },
+            {
+              "word": "Page",
+              "start": 5.364,
+              "end": 6.211
+            },
+            {
+              "word": "by",
+              "start": 6.502,
+              "end": 6.792
+            },
+            {
+              "word": "page.",
+              "start": 6.92,
+              "end": 7.848
+            }
+          ],
+          "duration": 7.848,
+          "speed": 0.95
         }
       },
       "outro": {
-        "file": "voice/spuds-oxley/outro.mp3",
-        "duration": 1.184,
+        "file": "voice/old-wizard/outro.mp3",
+        "duration": 1.103,
         "speed": 0.95
       }
     }
   },
-  "selected": null,
+  "selected": "old-wizard",
   "music": {
     "playful": "music/theme-playful.mp3",
     "longing": "music/theme-longing.mp3",
