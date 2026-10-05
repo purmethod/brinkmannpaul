@@ -39,8 +39,8 @@ export const Teil11: React.FC = () => {
           </g>
         ) : null}
         {/* Karima schaut von unten ins Bild */}
-        <g transform={`translate(560,${lerp(2500, 2120, karimaIn)}) scale(2.6)`}>
-          <Karima pose="heart" expression={frame >= cHer ? 'happy' : 'wonder'} lookX={0} lookY={-1} blink={blinkAt(frame, [cPages + 6], 7)} id="t11-karima" />
+        <g transform={`translate(560,${lerp(2500, 2160, karimaIn)}) scale(1.85)`}>
+          <Karima pose="heart" blush={frame >= cHer ? 1 : 0.3} expression={frame >= cHer ? 'dreamy' : 'wonder'} lookX={0} lookY={-1} blink={blinkAt(frame, [cPages + 6], 7)} id="t11-karima" />
         </g>
       </svg>
     </AbsoluteFill>

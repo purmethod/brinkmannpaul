@@ -9,8 +9,8 @@ import {TownMap} from '../components/TownMap';
 import {GROUND_Y, Town} from '../components/Town';
 import {lerp, progress} from '../lib/anim';
 
-const P_SCALE = 1.4;
-const K_SCALE = 1.2;
+const P_SCALE = 1.12;
+const K_SCALE = 0.95;
 
 /**
  * Folge 3 — Pablo schlendert ins Bild, ein Vogelschwarm fliegt auf, ein Seil am Zaun
@@ -52,7 +52,7 @@ export const Teil03: React.FC = () => {
         <g transform={`translate(${px},${GROUND_Y + 30}) scale(${P_SCALE})`}>
           <Pablo
             pose={asking ? 'tipHat' : strolling ? 'stroll' : 'stand'}
-            expression={asking ? 'talk' : drop > 0 ? 'grin' : wrap > 0.5 ? 'surprised' : 'smile'}
+            expression={frame > cAsked ? 'wink' : asking ? 'talk' : drop > 0 ? 'grin' : wrap > 0.5 ? 'surprised' : 'smirk'}
             talk={talk}
             walkCycle={frame / 22}
             facing={-1}
@@ -64,22 +64,23 @@ export const Teil03: React.FC = () => {
         </g>
         <Rope
           from={{x: 290, y: GROUND_Y - 90}}
-          to={{x: px, y: GROUND_Y + 30 - 230 * P_SCALE}}
+          to={{x: px, y: GROUND_Y + 30 - 330 * P_SCALE}}
           reach={reach}
           wrap={wrap}
           drop={drop}
-          girth={95 * P_SCALE * 0.75}
+          girth={90 * P_SCALE}
           id="t3-rope"
         />
         {kIn > 0 ? (
           <g transform={`translate(${kx},${GROUND_Y + 60}) scale(${K_SCALE})`}>
             <Karima
-              pose="map"
-              expression={frame > cAsked ? 'happy' : 'wonder'}
+              pose={frame > cAsked ? 'braid' : 'map'}
+              expression={frame > cAsked ? 'flirt' : 'wonder'}
+              blush={progress(frame, cAsked, cAsked + 12) * 0.9}
               lookX={0.9}
               lookY={-0.7}
               headTilt={6}
-              holding={<TownMap rotation={-8} id="t3-map" />}
+              holding={frame > cAsked ? undefined : <TownMap rotation={-8} id="t3-map" />}
               blink={blinkAt(frame, [cAsked + 4], 7)}
               id="t3-karima"
             />

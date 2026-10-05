@@ -27,8 +27,8 @@ export const Teil09: React.FC = () => {
   const putAway = progress(frame, cBut + 2, cGo, Easing.inOut(Easing.cubic));
   const grey = progress(frame, cBut - 6, cGo + 10);
 
-  const handX = 300 + 70 * 1.6;
-  const handY = 1650 - 260 * 1.6;
+  const handX = 300 + 90 * 1.15;
+  const handY = 1650 - 400 * 1.15;
   const ex = putAway > 0 ? lerp(handX, 140, putAway) : lerp(900, handX, env);
   const ey = putAway > 0 ? lerp(handY, 1720, putAway) : lerp(300, handY, env) + Math.sin(env * Math.PI * 4) * 60 * (1 - env);
 
@@ -44,7 +44,7 @@ export const Teil09: React.FC = () => {
             <Pablo pose="walk" facing={-1} walkCycle={frame / 18} expression="thoughtful" />
           </g>
         ) : null}
-        <g transform="translate(300,1650) scale(1.6)">
+        <g transform="translate(300,1650) scale(1.15)">
           <Karima
             pose={env >= 1 && putAway < 1 ? 'reach' : 'stand'}
             expression={frame >= cBut ? 'sad' : env > 0 ? 'curious' : 'sad'}
@@ -52,7 +52,7 @@ export const Teil09: React.FC = () => {
             lookX={env > 0 && putAway < 0.3 ? 0.7 : 0.4}
             lookY={putAway > 0 ? 0.8 : -0.5}
             headTilt={frame >= cBut ? 10 : 0}
-            handFront={env > 0.95 && putAway < 0.5 ? {x: 70, y: -260} : undefined}
+            handFront={env > 0.95 && putAway < 0.5 ? {x: 90, y: -400} : undefined}
           />
         </g>
         {env > 0 ? <Envelope x={ex} y={ey} size={1.1} rotation={putAway > 0 ? lerp(0, -30, putAway) : Math.sin(frame * 0.3) * 20 * (1 - env)} id="t9-env" /> : null}

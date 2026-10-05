@@ -91,7 +91,9 @@ export const Episode: React.FC<{nr: number; voice: string | null; vintage?: bool
       <AbsoluteFill style={{backgroundColor: '#0b0805'}}>
         <VintageOverlay enabled={vintage}>
           <Paper id={`paper-${nr}`} />
-          <AbsoluteFill>{children}</AbsoluteFill>
+          <LingerPush from={Math.round(t.narrationEnd * FPS) - 10} to={ctx.outroFrame}>
+            {children}
+          </LingerPush>
           <EpisodeBadge nr={nr} />
           <Outro start={ctx.outroFrame} nextLine={nextLine} />
         </VintageOverlay>
@@ -99,6 +101,14 @@ export const Episode: React.FC<{nr: number; voice: string | null; vintage?: bool
       </AbsoluteFill>
     </EpisodeContext.Provider>
   );
+};
+
+/** Nach der Erzählung: langsame Kamerafahrt in die Szene, damit sie atmet. */
+const LingerPush: React.FC<{from: number; to: number; children: React.ReactNode}> = ({from, to, children}) => {
+  const frame = useCurrentFrame();
+  const t = interpolate(frame, [from, to + 45], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const e = t * t * (3 - 2 * t);
+  return <AbsoluteFill style={{transform: `scale(${1 + 0.09 * e})`, transformOrigin: '540px 1000px'}}>{children}</AbsoluteFill>;
 };
 
 /** Hilfs-Hook: aktueller Frame + Episode-Kontext. */

@@ -9,7 +9,7 @@ import {GROUND_Y, Town} from '../components/Town';
 import {lerp, overshoot, progress} from '../lib/anim';
 import {palette} from '../theme';
 
-const K_SCALE = 1.55;
+const K_SCALE = 1.12;
 const KX = 470;
 
 /**
@@ -59,7 +59,8 @@ export const Teil02: React.FC = () => {
         <g transform={`translate(${KX},${GROUND_Y}) scale(${K_SCALE})`}>
           <Karima
             pose="map"
-            expression={noticed ? 'wonder' : frame >= cLost ? 'confused' : 'curious'}
+            expression={noticed ? (frame >= cStranger + 6 ? 'flirt' : 'wonder') : frame >= cLost ? 'confused' : 'curious'}
+            blush={noticed ? progress(frame, cStranger, cStranger + 14) * 0.8 : 0}
             lookX={lookX}
             lookY={noticed ? -0.1 : 0.5}
             headTilt={noticed ? 8 : Math.sin(frame * 0.12) * 8}

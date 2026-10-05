@@ -4,8 +4,20 @@ import {HoseLimb} from './HoseLimb';
 import {Rough} from './Rough';
 import {Suitcase} from './Suitcase';
 
-export type KarimaPose = 'stand' | 'walk' | 'hop' | 'wonder' | 'reach' | 'shush' | 'hips' | 'map' | 'heart' | 'wave';
-export type KarimaExpression = 'happy' | 'wonder' | 'curious' | 'sly' | 'confused' | 'sad' | 'cross' | 'sleep' | 'laugh';
+export type KarimaPose = 'stand' | 'walk' | 'hop' | 'wonder' | 'reach' | 'shush' | 'hips' | 'map' | 'heart' | 'wave' | 'braid';
+export type KarimaExpression =
+  | 'happy'
+  | 'wonder'
+  | 'curious'
+  | 'sly'
+  | 'flirt'
+  | 'wink'
+  | 'dreamy'
+  | 'confused'
+  | 'sad'
+  | 'cross'
+  | 'sleep'
+  | 'laugh';
 
 type Pt = {x: number; y: number};
 
@@ -24,6 +36,10 @@ export type KarimaProps = {
   withSuitcase?: boolean;
   /** Umhang weht (Grad, positiv = nach hinten). */
   capeWind?: number;
+  /** Kapuze auf (Rotkäppchen). */
+  hood?: boolean;
+  /** 0..1 Erröten. */
+  blush?: number;
   /** Freie Handpositionen (überschreiben die Pose). Lokale Koordinaten, Fußpunkt = 0,0. */
   handFront?: Pt;
   handBack?: Pt;
@@ -33,201 +49,253 @@ export type KarimaProps = {
 };
 
 /** Kopfmittelpunkt relativ zum Fußpunkt — für Kamera/Iris-Ziele. */
-export const KARIMA_HEAD = {x: 0, y: -292};
-export const KARIMA_HEIGHT = 380;
+export const KARIMA_HEAD = {x: 0, y: -462};
+export const KARIMA_HEIGHT = 530;
 
 const TAU = Math.PI * 2;
 const deg = (d: number) => (d * Math.PI) / 180;
 
-const Shoe: React.FC<{at: Pt; tilt: number; salt: string}> = ({at, tilt, salt}) => (
+const Boot: React.FC<{at: Pt; tilt: number; salt: string}> = ({at, tilt, salt}) => (
   <g transform={`translate(${at.x},${at.y}) rotate(${tilt})`}>
     <Rough
-      shape={{kind: 'path', d: 'M-12,-10 C-14,4 -6,10 10,10 C26,10 30,0 24,-6 C18,-12 2,-14 -12,-10 Z'}}
-      salt={`${salt}-shoe`}
+      shape={{kind: 'path', d: 'M-8,-26 L-8,-6 C-10,4 -2,8 12,8 C24,8 28,2 24,-4 C18,-8 8,-8 6,-12 L6,-26 Z'}}
+      salt={`${salt}-boot`}
       fill={palette.rosenrot}
       wash={palette.rosenrot}
-      washOpacity={0.45}
-      hachureGap={3.5}
+      washOpacity={0.55}
+      hachureGap={3}
       strokeWidth={2.2}
     />
+    {/* kleiner Absatz */}
+    <Rough shape={{kind: 'line', x1: -6, y1: 8, x2: -4, y2: 14}} salt={`${salt}-heel`} strokeWidth={3} />
   </g>
 );
 
 const Hand: React.FC<{at: Pt; salt: string; finger?: boolean}> = ({at, salt, finger}) => (
   <g transform={`translate(${at.x},${at.y})`}>
-    <Rough shape={{kind: 'circle', cx: 0, cy: 0, d: 20}} salt={`${salt}-hand`} fill={palette.skin} fillStyle="solid" strokeWidth={2.2} />
+    <Rough shape={{kind: 'ellipse', cx: 0, cy: 0, w: 16, h: 18}} salt={`${salt}-hand`} fill={palette.skin} fillStyle="solid" strokeWidth={2} />
     {finger ? (
-      <Rough
-        shape={{kind: 'path', d: 'M-2,-8 C-3,-18 3,-22 4,-12 L3,-6'}}
-        salt={`${salt}-finger`}
-        fill={palette.skin}
-        fillStyle="solid"
-        strokeWidth={2}
-      />
+      <Rough shape={{kind: 'path', d: 'M-1,-7 C-2,-17 3,-20 4,-11 L3,-5'}} salt={`${salt}-finger`} fill={palette.skin} fillStyle="solid" strokeWidth={1.8} />
     ) : (
-      <Rough shape={{kind: 'path', d: 'M-6,-6 Q-12,-12 -6,-14'}} salt={`${salt}-thumb`} strokeWidth={1.8} />
+      <Rough shape={{kind: 'path', d: 'M-5,-5 Q-10,-10 -5,-12'}} salt={`${salt}-thumb`} strokeWidth={1.6} />
     )}
   </g>
 );
 
-const Eye: React.FC<{x: number; blink: number; look: Pt; wide: boolean; salt: string; happyClosed?: boolean}> = ({
+/** Mandelförmiges Auge mit Wimpern; lid 0..1 = Oberlid gesenkt (flirtend). */
+const Eye: React.FC<{x: number; blink: number; lid: number; look: Pt; wide: boolean; outer: 1 | -1; salt: string; happyClosed?: boolean}> = ({
   x,
   blink,
+  lid,
   look,
   wide,
+  outer,
   salt,
   happyClosed,
 }) => {
-  const w = wide ? 36 : 32;
-  const h = (wide ? 50 : 44) * Math.max(0.08, 1 - blink);
+  const w = wide ? 30 : 28;
+  const h = (wide ? 36 : 32) * Math.max(0.08, 1 - blink);
+  const lashes = (
+    <Rough
+      shape={{kind: 'path', d: `M${x + outer * 11},${-6} l${outer * 9},-7 M${x + outer * 6},${-10} l${outer * 6},-8 M${x + outer * 13},${-1} l${outer * 9},-2`}}
+      salt={`${salt}-lash`}
+      strokeWidth={2.2}
+    />
+  );
   if (blink > 0.85) {
-    // geschlossen: fröhlicher Bogen (oder Schlaf-Bogen nach unten)
-    const d = happyClosed ? `M${x - 15},${10} Q${x},${-2} ${x + 15},${10}` : `M${x - 15},${4} Q${x},${16} ${x + 15},${4}`;
-    return <Rough shape={{kind: 'path', d}} salt={`${salt}-lid`} strokeWidth={3} />;
+    const d = happyClosed ? `M${x - 13},${6} Q${x},${-4} ${x + 13},${6}` : `M${x - 13},${2} Q${x},${12} ${x + 13},${2}`;
+    return (
+      <g>
+        <Rough shape={{kind: 'path', d}} salt={`${salt}-lid`} strokeWidth={3} />
+        {lashes}
+      </g>
+    );
   }
-  const pw = wide ? 17 : 15;
-  const ph = Math.min(h * 0.55, wide ? 24 : 21);
+  const pw = 13;
+  const ph = Math.min(h * 0.62, 18);
   const px = x + look.x * (w / 2 - pw / 2 - 2);
-  const py = 4 + look.y * (h / 2 - ph / 2 - 2) + 4;
+  const py = 3 + look.y * Math.max(0, h / 2 - ph / 2 - 2);
+  const lidY = -h / 2 + 3 + lid * h * 0.55;
   return (
     <g>
-      <Rough shape={{kind: 'ellipse', cx: x, cy: 4, w, h}} salt={`${salt}-white`} fill={palette.white} fillStyle="solid" strokeWidth={2.6} />
+      <Rough
+        shape={{kind: 'path', d: `M${x - w / 2},3 C${x - w / 3},${3 - h / 2 - 2} ${x + w / 3},${3 - h / 2 - 2} ${x + w / 2},3 C${x + w / 3},${3 + h / 2} ${x - w / 3},${3 + h / 2} ${x - w / 2},3 Z`}}
+        salt={`${salt}-white`}
+        fill={palette.white}
+        fillStyle="solid"
+        strokeWidth={2.4}
+      />
       <ellipse cx={px} cy={py} rx={pw / 2} ry={ph / 2} fill={palette.ink} />
-      <ellipse cx={px - pw * 0.18} cy={py - ph * 0.22} rx={pw * 0.17} ry={ph * 0.15} fill={palette.white} />
+      <ellipse cx={px - 2.5} cy={py - ph * 0.22} rx={2.4} ry={2.2} fill={palette.white} />
+      {lid > 0.05 ? (
+        <path
+          d={`M${x - w / 2 - 1},3 C${x - w / 3},${3 - h / 2 - 3} ${x + w / 3},${3 - h / 2 - 3} ${x + w / 2 + 1},3 L${x + w / 2 + 1},${lidY + 3} Q${x},${lidY + 8} ${x - w / 2 - 1},${lidY + 3} Z`}
+          fill={palette.skin}
+          stroke={palette.ink}
+          strokeWidth={2.6}
+        />
+      ) : null}
+      {lashes}
     </g>
   );
 };
 
-const Mouth: React.FC<{expression: KarimaExpression; s: (n: string) => string}> = ({expression, s}) => {
+const Lips: React.FC<{expression: KarimaExpression; s: (n: string) => string}> = ({expression, s}) => {
+  const red = palette.rosenrot;
   switch (expression) {
     case 'wonder':
-      return (
-        <Rough shape={{kind: 'ellipse', cx: 0, cy: 46, w: 16, h: 20}} salt={s('mO')} fill={palette.rosenrot} wash={palette.ink} washOpacity={0.55} hachureGap={3} strokeWidth={2.6} />
-      );
-    case 'curious':
-    case 'sly':
-      return (
-        <Rough shape={{kind: 'path', d: 'M-18,40 C-8,54 14,52 24,36 C14,44 -4,46 -18,40 Z'}} salt={s('mC')} fill={palette.rosenrot} wash={palette.rosenrot} washOpacity={0.4} hachureGap={3} strokeWidth={2.6} />
-      );
-    case 'confused':
-      return <Rough shape={{kind: 'path', d: 'M-18,46 Q-9,38 0,46 Q9,54 18,44'}} salt={s('mZ')} strokeWidth={2.8} />;
+      return <Rough shape={{kind: 'ellipse', cx: 0, cy: 40, w: 14, h: 16}} salt={s('lO')} fill={red} wash={red} washOpacity={0.7} hachureGap={2.4} strokeWidth={2.2} />;
     case 'sad':
-      return <Rough shape={{kind: 'path', d: 'M-16,52 Q0,40 16,52'}} salt={s('mS')} strokeWidth={2.8} />;
+      return <Rough shape={{kind: 'path', d: 'M-12,44 Q0,36 12,44 Q0,42 -12,44 Z'}} salt={s('lS')} fill={red} fillStyle="solid" strokeWidth={2.2} />;
     case 'cross':
-      return <Rough shape={{kind: 'line', x1: -14, y1: 48, x2: 14, y2: 46}} salt={s('mX')} strokeWidth={3} />;
+      return <Rough shape={{kind: 'path', d: 'M-12,42 Q0,40 12,42 Q0,46 -12,42 Z'}} salt={s('lX')} fill={red} fillStyle="solid" strokeWidth={2.4} />;
+    case 'confused':
+      return <Rough shape={{kind: 'path', d: 'M-12,42 Q-4,36 2,42 Q8,46 14,40'}} salt={s('lZ')} stroke={red} strokeWidth={3.4} />;
     case 'sleep':
-      return <Rough shape={{kind: 'path', d: 'M-12,44 Q0,52 12,44'}} salt={s('mZz')} strokeWidth={2.6} />;
+    case 'dreamy':
+      return <Rough shape={{kind: 'path', d: 'M-12,38 Q0,48 12,38 Q0,44 -12,38 Z'}} salt={s('lD')} fill={red} fillStyle="solid" strokeWidth={2.2} />;
+    case 'flirt':
+    case 'sly':
+    case 'wink':
+    case 'curious':
+      // schiefes, verschmitztes Lächeln
+      return <Rough shape={{kind: 'path', d: 'M-14,38 C-6,48 10,48 18,32 C10,40 -4,42 -14,38 Z'}} salt={s('lF')} fill={red} wash={red} washOpacity={0.6} hachureGap={2.4} strokeWidth={2.4} />;
     case 'laugh':
-      return (
-        <Rough shape={{kind: 'path', d: 'M-30,34 C-22,72 22,72 30,34 Z'}} salt={s('mL')} fill={palette.rosenrot} wash={palette.ink} washOpacity={0.35} hachureGap={3} strokeWidth={2.8} />
-      );
+      return <Rough shape={{kind: 'path', d: 'M-20,32 C-14,58 14,58 20,32 Q0,38 -20,32 Z'}} salt={s('lL')} fill={red} wash={palette.ink} washOpacity={0.3} hachureGap={2.4} strokeWidth={2.4} />;
     default:
       return (
-        <Rough shape={{kind: 'path', d: 'M-28,36 C-20,64 20,64 28,36 C14,44 -14,44 -28,36 Z'}} salt={s('mH')} fill={palette.rosenrot} wash={palette.rosenrot} washOpacity={0.45} hachureGap={3} strokeWidth={2.8} />
+        <g>
+          <Rough shape={{kind: 'path', d: 'M-20,32 C-12,52 12,52 20,32 Q0,40 -20,32 Z'}} salt={s('lH')} fill={red} wash={red} washOpacity={0.55} hachureGap={2.4} strokeWidth={2.4} />
+          <Rough shape={{kind: 'path', d: 'M-12,38 Q0,42 12,38'}} salt={s('lHt')} stroke={palette.white} strokeWidth={2} multiStroke={false} />
+        </g>
       );
   }
 };
 
-const Head: React.FC<{expression: KarimaExpression; blink: number; look: Pt; braidSwing: number; id: string}> = ({
+const Head: React.FC<{expression: KarimaExpression; blink: number; look: Pt; braidSwing: number; hood: boolean; blush: number; id: string}> = ({
   expression,
   blink,
   look,
   braidSwing,
+  hood,
+  blush,
   id,
 }) => {
   const s = (n: string) => `${id}-head-${n}`;
   const wide = expression === 'wonder';
-  const browLift = expression === 'wonder' ? -8 : expression === 'curious' ? -3 : 0;
-  const closed = expression === 'sleep' || expression === 'laugh' ? 1 : blink;
-  // sly: ein Auge halb zu
-  const blinkR = expression === 'sly' ? Math.max(blink, 0.45) : closed;
-
-  const braid: React.ReactNode[] = [];
-  for (let i = 0; i < 5; i++) {
-    const t = i / 4;
-    const bx = -62 - i * 3 + Math.sin(braidSwing + i * 0.5) * i * 2.4;
-    const by = 6 + i * 21;
-    braid.push(
-      <Rough key={i} shape={{kind: 'ellipse', cx: bx, cy: by, w: 24 - t * 6, h: 26}} salt={s(`braid${i}`)} fill={palette.hair} fillStyle="cross-hatch" hachureGap={3.2} fillWeight={1.3} strokeWidth={2.2} />,
-    );
-  }
-  const tipX = -74 + Math.sin(braidSwing + 2.5) * 10;
-  const tipY = 110;
-
+  const closed = expression === 'sleep' || expression === 'laugh' || expression === 'dreamy' ? 1 : blink;
+  const lid = expression === 'flirt' ? 0.55 : expression === 'sly' ? 0.4 : expression === 'curious' ? 0.15 : 0;
+  const blinkR = expression === 'wink' ? 1 : closed;
+  const browLift = expression === 'wonder' ? -7 : expression === 'flirt' ? -4 : expression === 'curious' ? -3 : 0;
   const browL =
-    expression === 'cross'
-      ? `M-38,-20 L-14,-10`
-      : expression === 'sad'
-        ? `M-38,-10 Q-26,-18 -14,-20`
-        : `M-38,${-12 + browLift} Q-26,${-20 + browLift} -14,${-14 + browLift}`;
+    expression === 'cross' ? 'M-34,-22 L-12,-14' : expression === 'sad' ? 'M-34,-14 Q-24,-22 -12,-24' : `M-34,${-16 + browLift} Q-24,${-25 + browLift} -12,${-19 + browLift}`;
   const browR =
     expression === 'cross'
-      ? `M14,-10 L38,-20`
+      ? 'M12,-14 L34,-22'
       : expression === 'sad'
-        ? `M14,-20 Q26,-18 38,-10`
-        : expression === 'confused'
-          ? `M14,-24 Q26,-30 38,-22`
-          : `M14,${-14 + browLift} Q26,${-20 + browLift} 38,${-12 + browLift}`;
+        ? 'M12,-24 Q24,-22 34,-14'
+        : expression === 'flirt' || expression === 'sly'
+          ? `M12,${-24} Q24,${-32} 34,${-22}`
+          : `M12,${-19 + browLift} Q24,${-25 + browLift} 34,${-16 + browLift}`;
+
+  // Zopf über die linke Schulter nach vorn
+  const braid: React.ReactNode[] = [];
+  for (let i = 0; i < 6; i++) {
+    const bx = -38 - i * 2 + Math.sin(braidSwing + i * 0.5) * i * 1.6;
+    const by = 40 + i * 20;
+    braid.push(<Rough key={i} shape={{kind: 'ellipse', cx: bx, cy: by, w: 20 - i * 1.4, h: 24}} salt={s(`braid${i}`)} fill={palette.hair} fillStyle="cross-hatch" hachureGap={3} fillWeight={1.3} strokeWidth={2} />);
+  }
+  const tip = {x: -48 + Math.sin(braidSwing + 3) * 6, y: 160};
 
   return (
     <g>
-      {braid}
-      <g transform={`translate(${tipX},${tipY - 10})`}>
-        <Rough shape={{kind: 'path', d: 'M0,0 C-14,-12 -20,6 -4,4 Z M0,0 C14,-12 20,6 4,4 Z'}} salt={s('bow')} fill={palette.rosenrot} wash={palette.rosenrot} washOpacity={0.5} hachureGap={3} strokeWidth={2} />
-      </g>
+      {hood ? (
+        <Rough
+          shape={{kind: 'path', d: 'M-74,40 C-90,-40 -60,-98 0,-100 C60,-98 90,-40 74,40 C60,10 48,-50 0,-56 C-48,-50 -60,10 -74,40 Z'}}
+          salt={s('hood')}
+          fill={palette.rosenrot}
+          wash={palette.rosenrot}
+          washOpacity={0.55}
+          hachureGap={4}
+          strokeWidth={2.6}
+        />
+      ) : null}
+      {/* Haar-Masse hinten (lang, dunkel) */}
       <Rough
-        shape={{kind: 'path', d: 'M-70,20 C-82,-40 -60,-84 0,-86 C60,-84 82,-40 70,18 C64,-20 50,-50 0,-52 C-50,-50 -64,-20 -70,20 Z'}}
+        shape={{kind: 'path', d: 'M-58,30 C-72,-40 -48,-80 0,-80 C48,-80 72,-40 60,24 C58,-10 44,-46 0,-48 C-44,-46 -56,-10 -58,30 Z'}}
         salt={s('hairback')}
         fill={palette.hair}
         fillStyle="cross-hatch"
-        hachureGap={3.4}
+        hachureGap={3.2}
         fillWeight={1.4}
-        strokeWidth={2.6}
+        strokeWidth={2.4}
       />
       {[-1, 1].map((side) => (
         <g key={side}>
-          <Rough shape={{kind: 'ellipse', cx: side * 64, cy: 12, w: 18, h: 24}} salt={s(`ear${side}`)} fill={palette.skin} fillStyle="solid" strokeWidth={2.2} />
-          <Rough shape={{kind: 'line', x1: side * 65, y1: 24, x2: side * 65, y2: 31}} salt={s(`ering-l${side}`)} strokeWidth={1.6} />
-          <Rough shape={{kind: 'circle', cx: side * 65, cy: 36, d: 10}} salt={s(`ering${side}`)} fill={palette.senf} wash={palette.senf} washOpacity={0.8} hachureGap={2.5} strokeWidth={1.8} />
+          <Rough shape={{kind: 'ellipse', cx: side * 49, cy: 8, w: 13, h: 20}} salt={s(`ear${side}`)} fill={palette.skin} fillStyle="solid" strokeWidth={2} />
+          {/* Ohrring: kleiner Goldtropfen */}
+          <Rough shape={{kind: 'path', d: `M${side * 50},18 L${side * 50},24`}} salt={s(`ering-l${side}`)} strokeWidth={1.4} />
+          <Rough shape={{kind: 'path', d: `M${side * 50},24 C${side * 44},32 ${side * 46},38 ${side * 50},38 C${side * 54},38 ${side * 56},32 ${side * 50},24 Z`}} salt={s(`ering${side}`)} fill={palette.senf} fillStyle="solid" strokeWidth={1.6} />
         </g>
       ))}
+      {/* ovales Gesicht mit schmalem Kinn */}
       <Rough
-        shape={{kind: 'path', d: 'M-62,-10 C-66,40 -36,66 0,66 C36,66 66,40 62,-10 C58,-46 34,-60 0,-60 C-34,-60 -58,-46 -62,-10 Z'}}
+        shape={{kind: 'path', d: 'M-48,-12 C-50,26 -28,62 0,64 C28,62 50,26 48,-12 C46,-44 26,-56 0,-56 C-26,-56 -46,-44 -48,-12 Z'}}
         salt={s('face')}
         fill={palette.skin}
         fillStyle="solid"
-        strokeWidth={2.8}
+        strokeWidth={2.6}
       />
+      {/* Pony, seitlich geschwungen */}
       <Rough
         shape={{
           kind: 'path',
-          d: 'M-66,4 C-70,-50 -40,-74 0,-74 C40,-74 70,-50 66,4 C60,-14 54,-20 46,-14 C40,-26 30,-28 22,-18 C16,-30 4,-30 -2,-20 C-10,-30 -22,-30 -26,-18 C-34,-28 -46,-26 -50,-12 C-56,-20 -62,-12 -66,4 Z',
+          d: 'M-54,8 C-60,-48 -32,-70 2,-70 C36,-70 60,-48 54,4 C50,-10 46,-20 38,-16 C32,-28 22,-30 14,-22 C8,-34 -6,-34 -12,-24 C-20,-34 -32,-32 -36,-20 C-44,-26 -50,-14 -54,8 Z',
         }}
         salt={s('bangs')}
         fill={palette.hair}
         fillStyle="cross-hatch"
-        hachureGap={3}
+        hachureGap={2.8}
         fillWeight={1.4}
-        strokeWidth={2.6}
+        strokeWidth={2.4}
       />
-      <Rough shape={{kind: 'path', d: 'M-30,-58 Q-10,-66 12,-62'}} salt={s('shine')} stroke={palette.white} strokeWidth={4} multiStroke={false} />
-      <Rough shape={{kind: 'path', d: browL}} salt={s('browL')} strokeWidth={2.6} />
-      <Rough shape={{kind: 'path', d: browR}} salt={s('browR')} strokeWidth={2.6} />
-      <Eye x={-25} blink={closed} look={look} wide={wide} salt={s('eyeL')} happyClosed={expression === 'laugh'} />
-      <Eye x={25} blink={blinkR} look={look} wide={wide} salt={s('eyeR')} happyClosed={expression === 'laugh'} />
+      <Rough shape={{kind: 'path', d: 'M-24,-58 Q-6,-66 14,-62'}} salt={s('shine')} stroke={palette.white} strokeWidth={3.4} multiStroke={false} />
+      <Rough shape={{kind: 'path', d: browL}} salt={s('browL')} strokeWidth={2.4} />
+      <Rough shape={{kind: 'path', d: browR}} salt={s('browR')} strokeWidth={2.4} />
+      <Eye x={-20} blink={closed} lid={lid} look={look} wide={wide} outer={-1} salt={s('eyeL')} happyClosed={expression === 'laugh'} />
+      <Eye x={20} blink={blinkR} lid={lid} look={look} wide={wide} outer={1} salt={s('eyeR')} happyClosed={expression === 'laugh' || expression === 'wink'} />
+      {/* Wangen / Erröten */}
       {[-1, 1].map((side) => (
-        <Rough key={side} shape={{kind: 'circle', cx: side * 42, cy: 36, d: 20}} salt={s(`cheek${side}`)} stroke="transparent" fill={palette.rosa} wash={palette.rosa} washOpacity={0.55} hachureGap={3.2} hachureAngle={30} />
+        <Rough
+          key={side}
+          shape={{kind: 'ellipse', cx: side * 32, cy: 28, w: 22 + blush * 10, h: 12 + blush * 6}}
+          salt={s(`cheek${side}`)}
+          stroke="transparent"
+          fill={palette.rosa}
+          wash={blush > 0.3 ? palette.rosenrot : palette.rosa}
+          washOpacity={0.4 + blush * 0.3}
+          hachureGap={2.6}
+          hachureAngle={30}
+        />
       ))}
-      <Rough shape={{kind: 'path', d: 'M-3,26 Q2,32 6,26'}} salt={s('nose')} strokeWidth={2.2} />
-      <Mouth expression={expression} s={s} />
+      <Rough shape={{kind: 'path', d: 'M-2,14 Q2,24 6,20'}} salt={s('nose')} strokeWidth={2} />
+      {/* Schönheitsfleck */}
+      <circle cx={26} cy={44} r={1.8} fill={palette.ink} />
+      <Lips expression={expression} s={s} />
+      {braid}
+      <g transform={`translate(${tip.x},${tip.y})`}>
+        <Rough shape={{kind: 'path', d: 'M0,-6 C-12,-16 -16,0 -2,-2 Z M0,-6 C12,-16 16,0 2,-2 Z'}} salt={s('bow')} fill={palette.rosenrot} fillStyle="solid" strokeWidth={1.8} />
+        <Rough shape={{kind: 'path', d: 'M-3,0 L-6,12 M0,0 L0,14 M3,0 L6,11'}} salt={s('tuft')} strokeWidth={1.8} />
+      </g>
     </g>
   );
 };
 
 /**
- * KARIMA — zierlich, dunkles Haar mit schraffiertem Pony und Zopf, kleine Ohrringe,
- * großes Lächeln, große neugierige Augen. Schlichtes Kleid mit kurzem Umhang.
- * Rubber-Hose-Glieder. Ursprung (0,0) = Mitte zwischen den Füßen auf dem Boden.
+ * KARIMA — junge, zierliche Frau: dunkles Haar mit schraffiertem Pony und Zopf über der
+ * Schulter, kleine Goldohrringe, großes Lächeln, große neugierige Augen mit Wimpern.
+ * Schlichtes, tailliertes Kleid mit kurzem rotem Kapuzenumhang (Rotkäppchen-Motiv).
+ * Rubber-Hose-Glieder. Ursprung (0,0) = Mitte zwischen den Füßen.
  */
 export const Karima: React.FC<KarimaProps> = ({
   pose = 'stand',
@@ -240,6 +308,8 @@ export const Karima: React.FC<KarimaProps> = ({
   headTilt = 0,
   withSuitcase = false,
   capeWind = 0,
+  hood = false,
+  blush = 0,
   handFront: hfOverride,
   handBack: hbOverride,
   holding,
@@ -249,96 +319,103 @@ export const Karima: React.FC<KarimaProps> = ({
   const hop = pose === 'hop';
   const ph = walkCycle * TAU;
 
-  const bob = walking ? -Math.abs(Math.sin(ph)) * (hop ? 46 : 16) : 0;
-  const squash = walking ? 1 + Math.cos(ph * 2) * (hop ? 0.06 : 0.03) : 1;
-  const sway = walking ? Math.sin(ph) * 3 : 0;
+  const bob = walking ? -Math.abs(Math.sin(ph)) * (hop ? 40 : 14) : 0;
+  const squash = walking ? 1 + Math.cos(ph * 2) * (hop ? 0.05 : 0.025) : 1;
+  // Hüftschwung beim Gehen
+  const sway = walking ? Math.sin(ph) * 5 : Math.sin(walkCycle * 2) * 0;
 
-  const hipY = -118;
-  const legLen = 112;
-  const hipL: Pt = {x: -14, y: hipY};
-  const hipR: Pt = {x: 14, y: hipY};
-  const swing = walking ? (hop ? 18 : 25) : 0;
+  const hipY = -232;
+  const legLen = 222;
+  const hipL: Pt = {x: -12, y: hipY};
+  const hipR: Pt = {x: 12, y: hipY};
+  const swing = walking ? (hop ? 16 : 20) : 0;
   const aL = Math.sin(ph) * swing;
   const aR = -Math.sin(ph) * swing;
-  const liftL = walking ? Math.max(0, Math.cos(ph)) * 22 : 0;
-  const liftR = walking ? Math.max(0, -Math.cos(ph)) * 22 : 0;
+  const liftL = walking ? Math.max(0, Math.cos(ph)) * 26 : 0;
+  const liftR = walking ? Math.max(0, -Math.cos(ph)) * 26 : 0;
+  const tuck = hop ? Math.abs(Math.sin(ph)) * 34 : 0;
   const legPose = (hip: Pt, angle: number, lift: number): Pt => ({
     x: hip.x + Math.sin(deg(angle)) * legLen,
     y: hip.y + Math.cos(deg(angle)) * legLen - lift,
   });
-  // Beim Hüpfen: Beine angezogen in der Luft
-  const tuck = hop ? Math.abs(Math.sin(ph)) * 26 : 0;
-  const footL = walking ? legPose(hipL, aL, liftL + tuck) : {x: -22, y: -6};
-  const footR = walking ? legPose(hipR, aR, liftR + tuck) : {x: 22, y: -6};
-  const bendL = walking ? -8 - liftL * 0.9 - tuck * 0.6 : -4;
-  const bendR = walking ? -8 - liftR * 0.9 - tuck * 0.6 : 4;
+  // Stand: ein Bein leicht vor das andere (elegant)
+  const footL = walking ? legPose(hipL, aL, liftL + tuck) : {x: -14, y: -4};
+  const footR = walking ? legPose(hipR, aR, liftR + tuck) : {x: 20, y: -6};
+  const bendL = walking ? -10 - liftL - tuck * 0.6 : -8;
+  const bendR = walking ? -10 - liftR - tuck * 0.6 : 10;
 
-  const shoulderY = -206;
-  const sB: Pt = {x: -24, y: shoulderY};
-  const sF: Pt = {x: 24, y: shoulderY};
+  const shoulderY = -388;
+  const sB: Pt = {x: -30, y: shoulderY};
+  const sF: Pt = {x: 30, y: shoulderY};
 
   let hB: Pt;
   let hF: Pt;
-  let bB = 10;
-  let bF = -10;
+  let bB = 14;
+  let bF = -14;
   let fingerF = false;
   switch (pose) {
     case 'walk':
     case 'hop': {
-      const armSwing = Math.sin(ph) * (hop ? 36 : 26);
-      hB = {x: -40 + armSwing, y: -130 - Math.abs(armSwing) * (hop ? 0.9 : 0.2)};
-      hF = {x: 42 - armSwing * 0.5, y: withSuitcase ? -122 : -130};
-      bB = 10 + armSwing * 0.3;
-      bF = -12;
+      const armSwing = Math.sin(ph) * (hop ? 40 : 28);
+      hB = {x: -46 + armSwing, y: -250 - Math.abs(armSwing) * (hop ? 0.8 : 0.2)};
+      hF = {x: 48 - armSwing * 0.5, y: withSuitcase ? -240 : -250};
+      bB = 12 + armSwing * 0.3;
+      bF = -14;
       break;
     }
     case 'wonder':
-      hB = {x: -82, y: -238};
-      hF = withSuitcase ? {x: 44, y: -122} : {x: 82, y: -238};
-      bB = -22;
-      bF = withSuitcase ? -10 : 22;
+      hB = {x: -96, y: -440};
+      hF = withSuitcase ? {x: 50, y: -240} : {x: 96, y: -440};
+      bB = -26;
+      bF = withSuitcase ? -12 : 26;
       break;
     case 'reach':
-      hB = {x: -46, y: -136};
-      hF = {x: 104, y: -262};
-      bB = 12;
-      bF = 26;
+      hB = {x: -50, y: -258};
+      hF = {x: 120, y: -470};
+      bB = 14;
+      bF = 30;
       break;
     case 'shush':
-      // Finger an die Lippen
-      hB = {x: -44, y: -128};
-      hF = {x: 12, y: -226};
-      bB = 10;
-      bF = 30;
+      hB = {x: -50, y: -250};
+      hF = {x: 10, y: -416};
+      bB = 12;
+      bF = 36;
       fingerF = true;
       break;
     case 'hips':
-      hB = {x: -40, y: -158};
-      hF = {x: 40, y: -158};
-      bB = -26;
-      bF = 26;
+      hB = {x: -44, y: -300};
+      hF = {x: 44, y: -300};
+      bB = -30;
+      bF = 30;
       break;
     case 'map':
-      hB = {x: -34, y: -176};
-      hF = {x: 46, y: -176};
-      bB = 16;
-      bF = -16;
+      hB = {x: -36, y: -320};
+      hF = {x: 52, y: -320};
+      bB = 18;
+      bF = -18;
       break;
     case 'heart':
-      hB = {x: -44, y: -128};
-      hF = {x: 2, y: -190};
-      bB = 10;
-      bF = 20;
+      hB = {x: -10, y: -340};
+      hF = {x: 8, y: -346};
+      bB = 22;
+      bF = 22;
       break;
     case 'wave':
-      hB = {x: -44, y: -128};
-      hF = {x: 70, y: -290};
-      bB = 10;
-      bF = 20;
+      hB = {x: -50, y: -250};
+      hF = {x: 80, y: -500};
+      bB = 12;
+      bF = 24;
+      break;
+    case 'braid':
+      // spielt mit dem Zopf
+      hB = {x: -50, y: -250};
+      hF = {x: -26, y: -350};
+      bB = 12;
+      bF = 34;
       break;
     default:
-      hB = {x: -44, y: -128};
-      hF = {x: 44, y: -124};
+      hB = {x: -48, y: -248};
+      hF = {x: 48, y: -244};
   }
   if (hbOverride) hB = hbOverride;
   if (hfOverride) hF = hfOverride;
@@ -346,72 +423,81 @@ export const Karima: React.FC<KarimaProps> = ({
   const braidSwing = walking ? ph : 0;
   const look = {x: lookX, y: lookY};
   const k = (n: string) => `${id}-${n}`;
-  const cw = capeWind + (walking ? Math.sin(ph * 2) * 4 : 0);
+  const cw = capeWind + (walking ? Math.sin(ph * 2) * 5 : 0);
+  const hem = walking ? Math.sin(ph) * 8 : 0;
 
   return (
     <g transform={`scale(${facing},1)`}>
-      <ellipse cx={0} cy={2} rx={Math.max(20, 58 + bob * 0.8)} ry={9} fill={palette.ink} opacity={0.13} />
+      <ellipse cx={0} cy={2} rx={Math.max(20, 54 + bob * 0.6)} ry={8} fill={palette.ink} opacity={0.13} />
       <g transform={`translate(${sway},${bob}) scale(${1 / squash},${squash})`}>
-        {/* Umhang hinten */}
-        <g transform={`rotate(${cw * 0.5},0,-214)`}>
+        {/* Umhang hinten (Rotkäppchen-Rot) */}
+        <g transform={`rotate(${cw * 0.4},0,-396)`}>
           <Rough
-            shape={{kind: 'path', d: `M-30,-214 C-50,-190 ${-62 - cw},-150 ${-58 - cw * 1.4},-140 Q-40,-134 -26,-150 Q-10,-136 0,-150 C10,-170 20,-200 28,-214 Z`}}
+            shape={{kind: 'path', d: `M-36,-398 C-60,-360 ${-74 - cw},-300 ${-70 - cw * 1.5},-262 Q-40,-252 -10,-268 Q10,-256 30,-268 C40,-320 38,-370 34,-398 Z`}}
             salt={k('cape')}
-            fill={palette.salbei}
-            wash={palette.salbei}
+            fill={palette.rosenrot}
+            wash={palette.rosenrot}
             washOpacity={0.55}
             hachureGap={5}
             hachureAngle={40}
             strokeWidth={2.6}
           />
         </g>
-        <HoseLimb from={hipL} to={{x: footL.x, y: footL.y - bob}} bend={bendL} thickness={12} salt={k('legL')} />
-        <HoseLimb from={hipR} to={{x: footR.x, y: footR.y - bob}} bend={bendR} thickness={12} salt={k('legR')} />
-        <Shoe at={{x: footL.x, y: footL.y - bob}} tilt={walking ? aL * 0.6 : 0} salt={k('shoeL')} />
-        <Shoe at={{x: footR.x, y: footR.y - bob}} tilt={walking ? aR * 0.6 : 0} salt={k('shoeR')} />
+        <HoseLimb from={hipL} to={{x: footL.x, y: footL.y - bob}} bend={bendL} thickness={11} salt={k('legL')} />
+        <HoseLimb from={hipR} to={{x: footR.x, y: footR.y - bob}} bend={bendR} thickness={11} salt={k('legR')} />
+        <Boot at={{x: footL.x, y: footL.y - bob}} tilt={walking ? aL * 0.5 : 0} salt={k('bootL')} />
+        <Boot at={{x: footR.x, y: footR.y - bob}} tilt={walking ? aR * 0.5 : 6} salt={k('bootR')} />
 
-        <HoseLimb from={sB} to={hB} bend={bB} thickness={12} color={palette.skin} salt={k('armB')} />
+        <HoseLimb from={sB} to={hB} bend={bB} thickness={10} color={palette.skin} salt={k('armB')} />
         <Hand at={hB} salt={k('handB')} />
 
-        {/* Kleid: schlicht, A-Linie, rosa Schraffur */}
+        {/* Kleid: tailliert, schwingender Rock bis zur Wade */}
         <Rough
-          shape={{kind: 'path', d: 'M-26,-214 C-34,-180 -56,-140 -68,-112 Q-34,-104 0,-110 Q34,-104 68,-112 C56,-140 34,-180 26,-214 Q0,-222 -26,-214 Z'}}
+          shape={{
+            kind: 'path',
+            d: `M-28,-394 C-34,-370 -30,-340 -22,-318 C-20,-308 -24,-300 -26,-296 C-50,-250 ${-80 - hem},-190 ${-88 - hem},-150 Q-60,-138 -30,-148 Q0,-136 30,-148 Q60,-138 ${88 - hem},-150 C${80 - hem},-190 50,-250 26,-296 C24,-300 20,-308 22,-318 C30,-340 34,-370 28,-394 Q0,-404 -28,-394 Z`,
+          }}
           salt={k('dress')}
+          base={palette.paper}
           fill={palette.rosa}
           wash={palette.rosa}
-          washOpacity={0.5}
+          washOpacity={0.55}
           hachureGap={5}
           hachureAngle={-50}
-          strokeWidth={2.8}
+          strokeWidth={2.6}
         />
-        <Rough shape={{kind: 'path', d: 'M-36,-170 Q0,-160 36,-170'}} salt={k('belt')} stroke={palette.rosenrot} strokeWidth={4} />
-        {/* Kurzer Umhang vorne über den Schultern + Schleife */}
+        {/* Mieder-Schnürung + Gürtel */}
+        <Rough shape={{kind: 'path', d: 'M-24,-304 Q0,-296 24,-304'}} salt={k('belt')} stroke={palette.rosenrot} strokeWidth={4} />
+        <Rough shape={{kind: 'path', d: 'M-6,-372 L6,-360 L-6,-348 L6,-336 L-6,-324 L6,-312'}} salt={k('lace')} stroke={palette.rosenrot} strokeWidth={1.6} />
+        {/* Ausschnitt-Bogen */}
+        <Rough shape={{kind: 'path', d: 'M-20,-394 Q0,-378 20,-394'}} salt={k('neckline')} strokeWidth={2} />
+        {/* kurzer Umhang vorn über den Schultern + Schleife */}
         <Rough
-          shape={{kind: 'path', d: 'M-32,-216 C-44,-196 -46,-182 -40,-176 Q-20,-184 0,-190 Q20,-184 40,-176 C46,-182 44,-196 32,-216 Q0,-226 -32,-216 Z'}}
+          shape={{kind: 'path', d: 'M-38,-398 C-50,-378 -52,-362 -46,-354 Q-30,-362 -14,-368 L14,-368 Q30,-362 46,-354 C52,-362 50,-378 38,-398 Q0,-410 -38,-398 Z'}}
           salt={k('capelet')}
-          fill={palette.salbei}
-          wash={palette.salbei}
+          base={palette.paper}
+          fill={palette.rosenrot}
+          wash={palette.rosenrot}
           washOpacity={0.6}
           hachureGap={4}
           hachureAngle={40}
-          strokeWidth={2.6}
+          strokeWidth={2.4}
         />
-        <Rough shape={{kind: 'path', d: 'M0,-212 C-12,-222 -16,-206 -2,-208 M0,-212 C12,-222 16,-206 2,-208 M-2,-208 L-6,-196 M2,-208 L6,-196'}} salt={k('tie')} stroke={palette.rosenrot} strokeWidth={2.4} />
+        <Rough shape={{kind: 'path', d: 'M0,-392 C-10,-402 -14,-388 -2,-388 M0,-392 C10,-402 14,-388 2,-388 M-2,-388 L-6,-376 M2,-388 L6,-376'}} salt={k('tie')} stroke={palette.white} strokeWidth={2.2} />
 
-        <HoseLimb from={sF} to={hF} bend={bF} thickness={12} color={palette.skin} salt={k('armF')} />
+        {/* Hals */}
+        <Rough shape={{kind: 'path', d: 'M-6,-396 L-6,-414 M6,-396 L6,-414'}} salt={k('neck')} strokeWidth={2} />
+        <g transform={`translate(${KARIMA_HEAD.x},${KARIMA_HEAD.y}) rotate(${headTilt + sway * 0.4})`}>
+          <Head expression={expression} blink={blink} look={look} braidSwing={braidSwing} hood={hood} blush={blush} id={id} />
+        </g>
+
+        <HoseLimb from={sF} to={hF} bend={bF} thickness={10} color={palette.skin} salt={k('armF')} />
         {withSuitcase ? (
-          <g transform={`translate(${hF.x},${hF.y})`}>
+          <g transform={`translate(${hF.x},${hF.y}) scale(0.9)`}>
             <Suitcase id={k('case')} swing={walking ? Math.sin(ph) * (hop ? 12 : 5) : 0} />
           </g>
         ) : null}
         {holding ? <g transform={`translate(${hF.x},${hF.y})`}>{holding}</g> : null}
-
-        <Rough shape={{kind: 'line', x1: -6, y1: -216, x2: -6, y2: -232}} salt={k('neckL')} strokeWidth={2.2} />
-        <Rough shape={{kind: 'line', x1: 6, y1: -216, x2: 6, y2: -232}} salt={k('neckR')} strokeWidth={2.2} />
-        <g transform={`translate(${KARIMA_HEAD.x},${KARIMA_HEAD.y}) rotate(${headTilt + sway * 0.6})`}>
-          <Head expression={expression} blink={blink} look={look} braidSwing={braidSwing} id={id} />
-        </g>
-        {/* Hand vor dem Gesicht beim "Psst" */}
         <Hand at={hF} salt={k('handF')} finger={fingerF} />
       </g>
     </g>

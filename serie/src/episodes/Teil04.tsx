@@ -8,8 +8,8 @@ import {Bread} from '../components/Props';
 import {GROUND_Y, Town} from '../components/Town';
 import {progress} from '../lib/anim';
 
-const K = {x: 300, s: 1.5};
-const P = {x: 800, s: 1.3};
+const K = {x: 300, s: 1.08};
+const P = {x: 790, s: 1.08};
 
 /** Folge 4 — Gedankenblasen: ihre zeigt ein Brot, seine ein durchgestrichenes Brot; Karima stemmt die Hände in die Hüften. */
 export const Teil04: React.FC = () => {
@@ -47,7 +47,8 @@ export const Teil04: React.FC = () => {
             lookX={certain ? 0.9 : 0.3}
             lookY={certain ? 0 : -0.8}
             headTilt={certain ? -8 : 4}
-            handFront={certain ? undefined : {x: 60, y: -300 - Math.abs(Math.sin(frame * 0.3)) * 20}}
+            handFront={certain ? undefined : {x: 80, y: -480 - Math.abs(Math.sin(frame * 0.3)) * 24}}
+            blush={laugh ? 0.5 : 0}
             blink={blinkAt(frame, [cLaughed + 4], 7)}
           />
         </g>
@@ -55,7 +56,7 @@ export const Teil04: React.FC = () => {
           <Pablo
             pose="lean"
             facing={-1}
-            expression={laugh ? 'talk' : certain ? 'thoughtful' : 'grin'}
+            expression={laugh ? 'talk' : certain ? 'smirk' : 'grin'}
             talk={laugh ? Math.abs(Math.sin(frame * 0.6)) : 0}
             shake={laugh ? Math.sin(frame * 0.9) * 0.25 : 0}
             lookX={-0.8}

@@ -10,7 +10,7 @@ import {GROUND_Y, Town} from '../components/Town';
 import {lerp, progress} from '../lib/anim';
 import {palette} from '../theme';
 
-const P_S = 1.25;
+const P_S = 1.05;
 
 /** Folge 6 — Taube mit Brief fliegt über Dächer; Pablo im Pavillon schaut auf eine Taschenuhr. */
 export const Teil06: React.FC = () => {
@@ -59,13 +59,13 @@ export const Teil06: React.FC = () => {
               pose="stand"
               withStick={false}
               expression={frame >= cLate ? 'sad' : 'thoughtful'}
-              handFront={{x: lerp(50, 60, watchUp), y: lerp(-200, -330, watchUp)}}
+              handFront={{x: lerp(80, 70, watchUp), y: lerp(-300, -470, watchUp)}}
               lookX={0.5}
               lookY={frame >= cShe ? 0.7 : 0}
               headTilt={frame >= cShe ? 8 : 0}
             />
           </g>
-          <PocketWatch x={540 + 62 * P_S} y={GROUND_Y - lerp(200, 330, watchUp) * P_S} size={0.9} spin={spin} id="t6-watch-small" />
+          <PocketWatch x={540 + lerp(80, 70, watchUp) * P_S} y={GROUND_Y - lerp(300, 470, watchUp) * P_S} size={0.9} spin={spin} id="t6-watch-small" />
           <ThoughtBubble x={540} y={pHead.y - 420} fromX={pHead.x + 40} fromY={pHead.y - 140} w={300} h={300} appear={progress(frame, cShe + 2, cShe + 14)} id="t6-tb">
             <PocketWatch x={0} y={0} size={2.2} spin={spin} id="t6-watch-big" />
           </ThoughtBubble>

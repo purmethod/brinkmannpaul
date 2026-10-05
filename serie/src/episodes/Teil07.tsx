@@ -30,7 +30,7 @@ export const Teil07: React.FC = () => {
   const turned = frame >= cThought - 4;
 
   const kx = home > 0 ? lerp(420, 780, walkAway) : lerp(-160, 360, run);
-  const kHeadY = GROUND_Y + KARIMA_HEAD.y * 1.5;
+  const kHeadY = GROUND_Y + KARIMA_HEAD.y * 1.08;
 
   return (
     <AbsoluteFill>
@@ -43,19 +43,20 @@ export const Teil07: React.FC = () => {
             <InnTable x={540} y={GROUND_Y + 10} scale={1.3} breadSplit={progress(frame, cFour - 4, cFour + 10)} id="t7-inn" />
           </g>
         ) : null}
-        <g transform={`translate(${home > 0.5 ? 300 : 760},${GROUND_Y + 20}) scale(1.25)`} opacity={home > 0.5 ? 1 - progress(frame, cThought, cThought + 14) * 0.0 : 1}>
+        <g transform={`translate(${home > 0.5 ? 300 : 760},${GROUND_Y + 20}) scale(1.05)`} opacity={home > 0.5 ? 1 - progress(frame, cThought, cThought + 14) * 0.0 : 1}>
           <Pablo
             pose={home > 0.5 ? 'stand' : 'lean'}
             facing={-1}
-            expression="smile"
+            expression={home > 0.5 ? 'smirk' : 'smile'}
             lookX={-0.6}
             blink={blinkAt(frame, [cHour + 10], 7)}
           />
         </g>
-        <g transform={`translate(${kx},${GROUND_Y}) scale(1.5)`}>
+        <g transform={`translate(${kx},${GROUND_Y}) scale(1.08)`}>
           <Karima
             pose={running || (home > 0 && walkAway < 1 && !turned) ? 'walk' : 'stand'}
-            expression={running ? 'wonder' : turned ? 'happy' : 'laugh'}
+            expression={running ? 'wonder' : turned ? 'flirt' : 'laugh'}
+            blush={turned ? 0.9 : 0.3}
             walkCycle={frame / (running ? 9 : 18)}
             facing={home > 0 && !turned ? 1 : turned ? -1 : 1}
             lookX={turned ? -0.9 : 0.6}

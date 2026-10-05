@@ -42,17 +42,18 @@ export const Teil08: React.FC = () => {
   const toDoor = frame >= cWanderer - 4;
   const zoom = progress(frame, cWanderer - 4, cWanderer + 14, Easing.inOut(Easing.cubic));
   const px = lerp(1200, 700, pIn) + progress(frame, cWanderer, cStay, (t) => t) * 60;
-  const kHeadY = FLOOR + KARIMA_HEAD.y * 1.5;
+  const kHeadY = FLOOR + KARIMA_HEAD.y * 1.08;
 
   return (
     <AbsoluteFill style={{transform: `scale(${lerp(1, 1.5, zoom)})`, transformOrigin: `760px 1500px`}}>
       <svg width={1080} height={1920}>
         <Kitchen doorLight={zoom} />
         {potIn > 0 ? <CookingPot x={300} y={1200} size={potIn * 1.1} id="t8-pot" /> : null}
-        <g transform={`translate(420,${FLOOR}) scale(1.5)`}>
+        <g transform={`translate(420,${FLOOR}) scale(1.08)`}>
           <Karima
             pose={frame >= cStraw ? 'heart' : 'stand'}
-            expression="happy"
+            expression={frame >= cStraw ? 'flirt' : 'dreamy'}
+            blush={0.8}
             lookX={frame >= cStraw ? 0.9 : 0.2}
             lookY={frame < cCooked ? -0.6 : 0}
             headTilt={Math.sin(frame * 0.08) * 8}
@@ -70,20 +71,20 @@ export const Teil08: React.FC = () => {
           );
         })}
         {pIn > 0 ? (
-          <g transform={`translate(${px},${FLOOR + 10}) scale(1.3)`}>
+          <g transform={`translate(${px},${FLOOR + 10}) scale(1.08)`}>
             <Pablo
               pose={pIn < 1 ? 'walk' : 'stand'}
               facing={toDoor ? 1 : -1}
-              expression={toDoor ? 'thoughtful' : 'smile'}
+              expression={toDoor ? 'thoughtful' : 'smirk'}
               walkCycle={frame / 20}
               withStick={false}
               withBundle
               lookX={toDoor ? -1 : -0.6}
-              handFront={toDoor ? undefined : {x: 80, y: -230}}
+              handFront={toDoor ? undefined : {x: 110, y: -340}}
             />
           </g>
         ) : null}
-        {pIn > 0.4 && !toDoor ? <StrawberryBasket x={px - 80 * 1.3} y={FLOOR + 10 - 200 * 1.3} size={0.9} id="t8-basket" /> : null}
+        {pIn > 0.4 && !toDoor ? <StrawberryBasket x={px - 110 * 1.08} y={FLOOR + 10 - 300 * 1.08} size={0.9} id="t8-basket" /> : null}
         {toDoor ? <StrawberryBasket x={600} y={1215} size={0.8} id="t8-basket2" /> : null}
       </svg>
     </AbsoluteFill>

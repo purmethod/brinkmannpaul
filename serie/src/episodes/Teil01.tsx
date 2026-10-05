@@ -12,7 +12,7 @@ import {Rose, Vine} from '../components/Vines';
 import {lerp, progress} from '../lib/anim';
 
 const BOOK_Y = 420; // Buch (1080er-Koordinaten) vertikal mittig im Hochformat
-const K_SCALE = 1.55;
+const K_SCALE = 1.12;
 
 /**
  * Folge 1 — Märchenbuch klappt auf, "Once upon a time …" schreibt sich; Karima hüpft mit
@@ -47,7 +47,7 @@ export const Teil01: React.FC = () => {
   const cityOn = frame >= cMoved;
   const camPush = progress(frame, cBut, cSecret + 8, Easing.inOut(Easing.cubic));
   const headY = GROUND_Y + KARIMA_HEAD.y * K_SCALE;
-  const camScale = lerp(1, 1.45, camPush);
+  const camScale = lerp(1, 1.6, camPush);
   const dreamsIn = progress(frame, cDreams - 6, cDreams + 16);
   const dreamsOut = 1 - progress(frame, cMoved + 10, cMoved + 30);
 
@@ -105,7 +105,8 @@ export const Teil01: React.FC = () => {
             <g transform={`translate(${kx},${GROUND_Y}) scale(${K_SCALE})`}>
               <Karima
                 pose={secret ? 'shush' : hopping ? 'hop' : cityOn ? 'wonder' : 'stand'}
-                expression={secret ? 'sly' : cityOn ? 'wonder' : 'happy'}
+                expression={frame >= cSecret ? 'wink' : secret ? 'flirt' : cityOn ? 'wonder' : 'happy'}
+                blush={secret ? progress(frame, cBut, cSecret + 6) * 0.9 : 0}
                 walkCycle={(frame - cKarima) / 16}
                 withSuitcase={!secret}
                 lookX={secret ? 0 : cityOn ? Math.sin((frame - cMoved) * 0.09) * 0.9 : 0.6}

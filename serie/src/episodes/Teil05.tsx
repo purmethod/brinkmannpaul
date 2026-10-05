@@ -28,7 +28,7 @@ export const Teil05: React.FC = () => {
   const px = lerp(400, 600, walk);
   const doorOpen = progress(frame, cDoor, cDoor + 12);
   const release = progress(frame, cPigeons - 4, cPigeons + 40, (t) => t);
-  const kHeadY = GROUND_Y + KARIMA_HEAD.y * 1.4;
+  const kHeadY = GROUND_Y + KARIMA_HEAD.y * 1.0;
 
   return (
     <AbsoluteFill>
@@ -38,10 +38,10 @@ export const Teil05: React.FC = () => {
         {bakeryDraw > 0.2 && frame < cWalked
           ? [0, 1, 2, 3].map((i) => <Sparkle key={i} x={760 + Math.cos(i * 1.6 + frame * 0.05) * 260} y={1100 + Math.sin(i * 1.6) * 200} size={36} rotation={frame * 5} salt={`t5-sp${i}`} />)
           : null}
-        <g transform={`translate(${px},${GROUND_Y + 20}) scale(1.25)`}>
+        <g transform={`translate(${px},${GROUND_Y + 20}) scale(1.05)`}>
           <Pablo
             pose={walking ? 'walk' : frame >= cParting ? 'offerHand' : 'stand'}
-            expression={frame < cWalked ? 'surprised' : 'smile'}
+            expression={frame < cWalked ? 'surprised' : frame >= cParting ? 'smirk' : 'smile'}
             walkCycle={frame / 20}
             facing={frame >= cParting ? -1 : 1}
             lookX={frame < cWalked ? 1 : -0.8}
@@ -49,14 +49,15 @@ export const Teil05: React.FC = () => {
             blink={blinkAt(frame, [cDoor + 10], 7)}
           />
         </g>
-        <g transform={`translate(${kx},${GROUND_Y}) scale(1.4)`}>
+        <g transform={`translate(${kx},${GROUND_Y}) scale(1.0)`}>
           <Karima
             pose={walking ? 'walk' : frame >= cParting ? 'reach' : 'hips'}
-            expression={frame >= cParting ? 'happy' : 'laugh'}
+            expression={frame >= cParting ? 'flirt' : 'laugh'}
+            blush={frame >= cParting ? 0.8 : 0}
             walkCycle={frame / 18}
             lookX={0.8}
             lookY={-0.4}
-            handFront={frame >= cParting ? {x: 70, y: -260 - release * 60} : undefined}
+            handFront={frame >= cParting ? {x: 96, y: -420 - release * 70} : undefined}
           />
         </g>
         {release > 0

@@ -38,10 +38,10 @@ export const Teil10: React.FC = () => {
           <rect x={-310} y={-380} width={620} height={760} fill="#b8c4cc" />
           <Rough shape={{kind: 'path', d: 'M-320,240 Q0,200 320,240 L320,400 L-320,400 Z'}} salt="t10-street" base="#9aa6ad" strokeWidth={2} />
           {pablo > 0 ? (
-            <g transform={`translate(${lerp(260, 40, pablo)},380) scale(0.95)`}>
-              <Pablo pose="stand" withStick={false} expression="smile" handFront={{x: -50, y: -190}} handBack={{x: -60, y: -186}} lookX={0} lookY={-0.3} id="t10-pablo" />
+            <g transform={`translate(${lerp(260, 40, pablo)},380) scale(0.8)`}>
+              <Pablo pose="stand" withStick={false} handFront={{x: -70, y: -300}} handBack={{x: -80, y: -296}} expression="smirk" lookX={0} lookY={-0.3} id="t10-pablo" />
               {peek > 0 ? (
-                <g transform={`translate(${-95},${-200 - peek * 40}) scale(${peek})`}>
+                <g transform={`translate(${-130},${-320 - peek * 50}) scale(${peek})`}>
                   <Rose x={0} y={0} size={1.4} salt="t10-rose" />
                 </g>
               ) : null}
@@ -54,7 +54,7 @@ export const Teil10: React.FC = () => {
         <KnockWaves x={850} y={700} t={knock1} id="t10-k1" />
         <KnockWaves x={850} y={820} t={knock2} id="t10-k2" />
         {/* Karima drinnen, von hinten-seitlich am Fenster */}
-        <g transform="translate(300,1900) scale(1.9)">
+        <g transform="translate(300,1900) scale(1.35)">
           <Karima
             pose={startled ? 'stand' : 'heart'}
             expression={frame >= cGestures ? 'happy' : startled ? 'wonder' : 'sad'}
