@@ -3263,6 +3263,471 @@
           ],
           "duration": 7.848,
           "speed": 0.95
+        },
+        "36": {
+          "file": "voice/old-wizard/szene-36.mp3",
+          "words": [
+            {
+              "word": "But",
+              "start": 0,
+              "end": 0.221
+            },
+            {
+              "word": "the",
+              "start": 0.267,
+              "end": 0.36
+            },
+            {
+              "word": "wild",
+              "start": 0.453,
+              "end": 0.987
+            },
+            {
+              "word": "forest",
+              "start": 1.08,
+              "end": 1.683
+            },
+            {
+              "word": "was",
+              "start": 2.09,
+              "end": 2.299
+            },
+            {
+              "word": "calling",
+              "start": 2.38,
+              "end": 2.81
+            },
+            {
+              "word": "him.",
+              "start": 2.891,
+              "end": 3.297
+            },
+            {
+              "word": "One",
+              "start": 4.47,
+              "end": 4.783
+            },
+            {
+              "word": "morning,",
+              "start": 4.853,
+              "end": 5.468
+            },
+            {
+              "word": "the",
+              "start": 5.654,
+              "end": 5.782
+            },
+            {
+              "word": "wanderer",
+              "start": 5.875,
+              "end": 6.478
+            },
+            {
+              "word": "walked",
+              "start": 6.571,
+              "end": 6.978
+            },
+            {
+              "word": "into",
+              "start": 7.036,
+              "end": 7.233
+            },
+            {
+              "word": "the",
+              "start": 7.314,
+              "end": 7.384
+            },
+            {
+              "word": "deep,",
+              "start": 7.512,
+              "end": 7.872
+            },
+            {
+              "word": "dark",
+              "start": 7.906,
+              "end": 8.29
+            },
+            {
+              "word": "woods.",
+              "start": 8.359,
+              "end": 9.195
+            }
+          ],
+          "duration": 9.195,
+          "speed": 0.95
+        },
+        "37": {
+          "file": "voice/old-wizard/szene-37.mp3",
+          "words": [
+            {
+              "word": "There,",
+              "start": 0,
+              "end": 0.72
+            },
+            {
+              "word": "the",
+              "start": 0.975,
+              "end": 1.115
+            },
+            {
+              "word": "dragons",
+              "start": 1.207,
+              "end": 1.811
+            },
+            {
+              "word": "were",
+              "start": 1.869,
+              "end": 2.043
+            },
+            {
+              "word": "waiting.",
+              "start": 2.078,
+              "end": 2.81
+            },
+            {
+              "word": "Fire",
+              "start": 3.216,
+              "end": 3.855
+            },
+            {
+              "word": "and",
+              "start": 3.936,
+              "end": 4.191
+            },
+            {
+              "word": "smoke!",
+              "start": 4.319,
+              "end": 5.016
+            },
+            {
+              "word": "Pablo",
+              "start": 5.306,
+              "end": 5.84
+            },
+            {
+              "word": "fought",
+              "start": 5.921,
+              "end": 6.188
+            },
+            {
+              "word": "with",
+              "start": 6.235,
+              "end": 6.385
+            },
+            {
+              "word": "all",
+              "start": 6.444,
+              "end": 6.722
+            },
+            {
+              "word": "his",
+              "start": 6.815,
+              "end": 6.954
+            },
+            {
+              "word": "strength",
+              "start": 7.001,
+              "end": 7.43
+            },
+            {
+              "word": "and",
+              "start": 7.93,
+              "end": 8.127
+            },
+            {
+              "word": "he",
+              "start": 8.208,
+              "end": 8.29
+            },
+            {
+              "word": "was",
+              "start": 8.371,
+              "end": 8.522
+            },
+            {
+              "word": "wounded.",
+              "start": 8.603,
+              "end": 9.567
+            }
+          ],
+          "duration": 9.567,
+          "speed": 0.95
+        },
+        "38": {
+          "file": "voice/old-wizard/szene-38.mp3",
+          "words": [
+            {
+              "word": "Wounded,",
+              "start": 0,
+              "end": 0.627
+            },
+            {
+              "word": "he",
+              "start": 0.662,
+              "end": 0.755
+            },
+            {
+              "word": "came",
+              "start": 0.836,
+              "end": 1.091
+            },
+            {
+              "word": "back",
+              "start": 1.138,
+              "end": 1.324
+            },
+            {
+              "word": "to",
+              "start": 1.37,
+              "end": 1.428
+            },
+            {
+              "word": "the",
+              "start": 1.498,
+              "end": 1.567
+            },
+            {
+              "word": "city.",
+              "start": 1.614,
+              "end": 2.078
+            },
+            {
+              "word": "But",
+              "start": 2.264,
+              "end": 2.438
+            },
+            {
+              "word": "her",
+              "start": 2.496,
+              "end": 2.601
+            },
+            {
+              "word": "window",
+              "start": 2.67,
+              "end": 3.053
+            },
+            {
+              "word": "was",
+              "start": 3.123,
+              "end": 3.274
+            },
+            {
+              "word": "dark.",
+              "start": 3.355,
+              "end": 4.017
+            },
+            {
+              "word": "He",
+              "start": 4.272,
+              "end": 4.412
+            },
+            {
+              "word": "searched",
+              "start": 4.54,
+              "end": 4.969
+            },
+            {
+              "word": "every",
+              "start": 5.062,
+              "end": 5.48
+            },
+            {
+              "word": "alley,",
+              "start": 5.561,
+              "end": 6.246
+            },
+            {
+              "word": "every",
+              "start": 6.536,
+              "end": 7.152
+            },
+            {
+              "word": "street.",
+              "start": 7.338,
+              "end": 8.22
+            }
+          ],
+          "duration": 8.22,
+          "speed": 0.95
+        },
+        "39": {
+          "file": "voice/old-wizard/szene-39.mp3",
+          "words": [
+            {
+              "word": "He",
+              "start": 0,
+              "end": 0.174
+            },
+            {
+              "word": "searched",
+              "start": 0.267,
+              "end": 0.65
+            },
+            {
+              "word": "the",
+              "start": 0.697,
+              "end": 0.801
+            },
+            {
+              "word": "whole",
+              "start": 0.859,
+              "end": 1.289
+            },
+            {
+              "word": "forest.",
+              "start": 1.358,
+              "end": 2.09
+            },
+            {
+              "word": "He",
+              "start": 2.31,
+              "end": 2.461
+            },
+            {
+              "word": "searched",
+              "start": 2.589,
+              "end": 3.1
+            },
+            {
+              "word": "the",
+              "start": 3.228,
+              "end": 3.39
+            },
+            {
+              "word": "whole",
+              "start": 3.46,
+              "end": 3.982
+            },
+            {
+              "word": "wide",
+              "start": 4.075,
+              "end": 4.609
+            },
+            {
+              "word": "world",
+              "start": 4.667,
+              "end": 5.201
+            },
+            {
+              "word": "over",
+              "start": 5.747,
+              "end": 6.026
+            },
+            {
+              "word": "mountains,",
+              "start": 6.118,
+              "end": 7.07
+            },
+            {
+              "word": "seas",
+              "start": 7.256,
+              "end": 7.953
+            },
+            {
+              "word": "and",
+              "start": 8.29,
+              "end": 8.545
+            },
+            {
+              "word": "deserts.",
+              "start": 8.673,
+              "end": 9.66
+            }
+          ],
+          "duration": 9.66,
+          "speed": 0.95
+        },
+        "40": {
+          "file": "voice/old-wizard/szene-40.mp3",
+          "words": [
+            {
+              "word": "But",
+              "start": 0,
+              "end": 0.197
+            },
+            {
+              "word": "Karima",
+              "start": 0.255,
+              "end": 0.778
+            },
+            {
+              "word": "was",
+              "start": 0.836,
+              "end": 0.987
+            },
+            {
+              "word": "nowhere",
+              "start": 1.068,
+              "end": 1.416
+            },
+            {
+              "word": "to",
+              "start": 1.451,
+              "end": 1.521
+            },
+            {
+              "word": "be",
+              "start": 1.579,
+              "end": 1.66
+            },
+            {
+              "word": "found.",
+              "start": 1.718,
+              "end": 2.287
+            },
+            {
+              "word": "Some",
+              "start": 2.694,
+              "end": 3.042
+            },
+            {
+              "word": "say",
+              "start": 3.111,
+              "end": 3.506
+            },
+            {
+              "word": "he",
+              "start": 3.634,
+              "end": 3.738
+            },
+            {
+              "word": "is",
+              "start": 3.808,
+              "end": 3.924
+            },
+            {
+              "word": "searching",
+              "start": 3.982,
+              "end": 4.377
+            },
+            {
+              "word": "still",
+              "start": 4.447,
+              "end": 4.783
+            },
+            {
+              "word": "to",
+              "start": 5.526,
+              "end": 5.666
+            },
+            {
+              "word": "this",
+              "start": 5.759,
+              "end": 5.921
+            },
+            {
+              "word": "very",
+              "start": 6.014,
+              "end": 6.304
+            },
+            {
+              "word": "day.",
+              "start": 6.385,
+              "end": 7.198
+            }
+          ],
+          "duration": 7.198,
+          "speed": 0.95
         }
       },
       "outro": {
