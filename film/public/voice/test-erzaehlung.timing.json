@@ -1,19 +1,211 @@
 {
-  "source": "estimate",
-  "note": "Platzhalter-Timing ohne Stimme. Wird von scripts/generate-elevenlabs.mjs mit echten Wort-Zeitstempeln überschrieben.",
-  "offsetSeconds": 0,
+  "source": "elevenlabs",
+  "note": "Erzeugt von scripts/generate-elevenlabs.mjs (with-timestamps).",
+  "offsetSeconds": 0.6,
   "audio": {
-    "voice": null,
+    "voice": "voice/test-erzaehlung.mp3",
     "music": "music/test.mp3",
     "sfx": "sfx/knistern.mp3",
-    "musicSource": "placeholder"
+    "musicSource": "elevenlabs"
   },
-  "voiceChoice": null,
+  "voiceChoice": {
+    "chosen": {
+      "id": "oae6GCCzwoEbfc5FHdEu",
+      "name": "William - Soothing and Calm",
+      "role": "Großvater",
+      "description": "This is a gentle bedtime narrator voice, made for falling asleep.\nIt’s warm, calm, and quietly reassuring like a grandparent reading a story by a fireplace.\nThe pace is slow and steady, with soft pauses and clear articulation.\nWords are spoken with care, never rushed, never loud.\nThere’s a subtle smile in the tone, and a hint of wonder in every sentence.\nPerfect for long, dreamy stories that carry listeners gently into sleep.",
+      "centroidHz": 1218,
+      "seconds": 13.38,
+      "speed": 1.2
+    },
+    "alternative": {
+      "id": "p2Wol3C7j3rHbfOrbL18",
+      "name": "Lisa - Lovely and Emotional",
+      "role": "Großmutter",
+      "description": "A warm, lively voice full of character and life experience. From heartfelt memories to mischievous anecdotes, this grandmotherly voice tells real stories with laughter, warmth, and resilience. Perfect for nostalgic narration, intimate storytelling, or any project that calls for authenticity and a touch of old-world wit. Subtle chair creaks, soft mouth sounds, and natural room tone were intentionally preserved to maintain the intimate charm of true kitchen storytelling.",
+      "centroidHz": 1603,
+      "seconds": 13.05,
+      "speed": 1.05,
+      "file": "voice/test-erzaehlung-alt.mp3"
+    }
+  },
   "phrases": [
-    {"text": "Es war einmal …", "start": 0.7, "end": 2.6},
-    {"text": "ein junges Mädchen voller Träume,", "start": 3.1, "end": 5.7},
-    {"text": "das gerade in eine neue, unbekannte Stadt gezogen war.", "start": 6.1, "end": 9.9},
-    {"text": "Jede Gasse und jedes Gebäude schienen ihr Versprechen von Überraschungen und Abenteuern zu flüstern.", "start": 10.3, "end": 14.5}
+    {
+      "text": "Es war einmal …",
+      "start": 0.7,
+      "end": 2.6
+    },
+    {
+      "text": "ein junges Mädchen voller Träume,",
+      "start": 3.1,
+      "end": 5.7
+    },
+    {
+      "text": "das gerade in eine neue, unbekannte Stadt gezogen war.",
+      "start": 6.1,
+      "end": 9.9
+    },
+    {
+      "text": "Jede Gasse und jedes Gebäude schienen ihr Versprechen von Überraschungen und Abenteuern zu flüstern.",
+      "start": 10.3,
+      "end": 14.5
+    }
   ],
-  "words": []
+  "words": [
+    {
+      "word": "Es",
+      "start": 0,
+      "end": 0.116
+    },
+    {
+      "word": "war",
+      "start": 0.163,
+      "end": 0.313
+    },
+    {
+      "word": "einmal",
+      "start": 0.372,
+      "end": 0.789
+    },
+    {
+      "word": "ein",
+      "start": 1.405,
+      "end": 1.521
+    },
+    {
+      "word": "junges",
+      "start": 1.591,
+      "end": 1.858
+    },
+    {
+      "word": "Mädchen",
+      "start": 1.95,
+      "end": 2.403
+    },
+    {
+      "word": "voller",
+      "start": 2.473,
+      "end": 2.717
+    },
+    {
+      "word": "Träume,",
+      "start": 2.763,
+      "end": 3.39
+    },
+    {
+      "word": "das",
+      "start": 3.622,
+      "end": 3.773
+    },
+    {
+      "word": "gerade",
+      "start": 3.831,
+      "end": 4.249
+    },
+    {
+      "word": "in",
+      "start": 4.284,
+      "end": 4.331
+    },
+    {
+      "word": "eine",
+      "start": 4.423,
+      "end": 4.586
+    },
+    {
+      "word": "neue,",
+      "start": 4.644,
+      "end": 4.957
+    },
+    {
+      "word": "unbekannte",
+      "start": 5.016,
+      "end": 5.55
+    },
+    {
+      "word": "Stadt",
+      "start": 5.584,
+      "end": 5.805
+    },
+    {
+      "word": "gezogen",
+      "start": 5.84,
+      "end": 6.258
+    },
+    {
+      "word": "war.",
+      "start": 6.281,
+      "end": 6.641
+    },
+    {
+      "word": "Jede",
+      "start": 7.314,
+      "end": 7.628
+    },
+    {
+      "word": "Gasse",
+      "start": 7.674,
+      "end": 8.034
+    },
+    {
+      "word": "und",
+      "start": 8.464,
+      "end": 8.649
+    },
+    {
+      "word": "jedes",
+      "start": 8.731,
+      "end": 8.963
+    },
+    {
+      "word": "Gebäude",
+      "start": 9.009,
+      "end": 9.567
+    },
+    {
+      "word": "schienen",
+      "start": 9.834,
+      "end": 10.252
+    },
+    {
+      "word": "ihr",
+      "start": 10.344,
+      "end": 10.472
+    },
+    {
+      "word": "Versprechen",
+      "start": 10.507,
+      "end": 10.937
+    },
+    {
+      "word": "von",
+      "start": 10.983,
+      "end": 11.099
+    },
+    {
+      "word": "Überraschungen",
+      "start": 11.169,
+      "end": 11.784
+    },
+    {
+      "word": "und",
+      "start": 11.877,
+      "end": 12.005
+    },
+    {
+      "word": "Abenteuern",
+      "start": 12.098,
+      "end": 12.574
+    },
+    {
+      "word": "zu",
+      "start": 12.62,
+      "end": 12.678
+    },
+    {
+      "word": "flüstern.",
+      "start": 12.736,
+      "end": 13.375
+    }
+  ]
 }

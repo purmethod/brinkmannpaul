@@ -76,12 +76,14 @@ export const CUES = (() => {
   const s = (sec: number) => Math.round(sec * FPS);
   const titleStart = clamp(wordFrame('Es') - 4, s(0.6), s(1.4));
   const titleEnd = clamp(wordFrame('einmal', 0, 'end') + 6, titleStart + s(1.2), s(2.9));
-  const girl = clamp(wordFrame('ein') - 6, s(2.8), s(3.6));
+  const girl = clamp(wordFrame('ein') - 6, s(2.2), s(3.6));
   const dreams = clamp(wordFrame('Träume'), girl + s(0.8), s(6.5));
-  const city = clamp(wordFrame('neue') - 8, s(6.2), s(7.6));
+  const city = clamp(wordFrame('neue') - 8, s(4.6), s(7.6));
   const unknown = clamp(wordFrame('unbekannte'), city + 10, s(9.2));
-  const faces = clamp(wordFrame('Jede') - 6, s(9.8), s(11.2));
+  const faces = clamp(wordFrame('Jede') - 6, s(7.4), s(11.2));
   const whisper = clamp(wordFrame('flüstern'), faces + s(1.5), s(14));
   const versprechen = clamp(wordFrame('Versprechen'), faces + s(0.6), whisper - s(0.5));
-  return {titleStart, titleEnd, girl, dreams, city, unknown, faces, versprechen, whisper};
+  // Iris schließt erst, wenn „flüstern“ verklungen ist
+  const irisClose = clamp(wordFrame('flüstern', 0, 'end') + 2, s(13.2), s(14.2));
+  return {titleStart, titleEnd, girl, dreams, city, unknown, faces, versprechen, whisper, irisClose};
 })();

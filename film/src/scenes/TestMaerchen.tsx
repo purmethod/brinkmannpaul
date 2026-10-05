@@ -370,7 +370,7 @@ export const TestMaerchen: React.FC<TestMaerchenProps> = ({vintage}) => {
 
   // Iris: öffnet am Anfang, schließt am Ende auf Kenzas Gesicht
   const irisOpen = progress(frame, 0, 26, Easing.out(Easing.cubic));
-  const irisClose = progress(frame, 414, 447, Easing.in(Easing.cubic));
+  const irisClose = progress(frame, CUES.irisClose, 447, Easing.in(Easing.cubic));
   const s = worldScale(frame);
   const head = toScreen(kenzaHead(frame), s);
   const irisCenter = frame < 200 ? {x: 540, y: 540} : {x: head.x, y: head.y + 10};

@@ -40,11 +40,16 @@ const MODEL = 'eleven_multilingual_v2';
 const api = async (path, {method = 'GET', body, query, binary = false} = {}) => {
   const url = new URL(API + path);
   for (const [k, v] of Object.entries(query ?? {})) if (v !== undefined) url.searchParams.set(k, String(v));
-  const res = await fetch(url, {
-    method,
-    headers: {'xi-api-key': KEY, ...(body ? {'Content-Type': 'application/json'} : {})},
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  let res;
+  for (let attempt = 0; ; attempt++) {
+    res = await fetch(url, {
+      method,
+      headers: {'xi-api-key': KEY, ...(body ? {'Content-Type': 'application/json'} : {})},
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    if (res.status !== 429 || attempt >= 5) break; // system_busy / Rate-Limit: mit Backoff erneut
+    await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
+  }
   if (!res.ok) throw new Error(`${method} ${path} -> ${res.status}: ${(await res.text()).slice(0, 400)}`);
   return binary ? Buffer.from(await res.arrayBuffer()) : res.json();
 };
@@ -70,11 +75,17 @@ const ensureInAccount = async (shared) => {
   const {voices = []} = await api('/v2/voices', {query: {page_size: 100}});
   const existing = voices.find((v) => v.voice_id === shared.voice_id || v.sharing?.original_voice_id === shared.voice_id);
   if (existing) return existing.voice_id;
-  const added = await api(`/v1/voices/add/${shared.public_owner_id}/${shared.voice_id}`, {
-    method: 'POST',
-    body: {new_name: `Märchen – ${shared.name}`},
-  });
-  return added.voice_id;
+  try {
+    const added = await api(`/v1/voices/add/${shared.public_owner_id}/${shared.voice_id}`, {
+      method: 'POST',
+      body: {new_name: `Märchen – ${shared.name}`},
+    });
+    return added.voice_id;
+  } catch (e) {
+    // Key ohne voices_write: Library-Stimme direkt über ihre voice_id nutzen
+    if (!/missing_permissions|voices_write/.test(e.message)) throw e;
+    return shared.voice_id;
+  }
 };
 
 const chooseVoices = async () => {
@@ -120,7 +131,7 @@ const toWords = (alignment) => {
 
 const narrate = async (voice) => {
   let speed = 0.88; // ruhig, langsam
-  for (let attempt = 0; attempt < 4; attempt++) {
+  for (let attempt = 0; attempt < 6; attempt++) {
     const res = await api(`/v1/text-to-speech/${voice.id}/with-timestamps`, {
       method: 'POST',
       query: {output_format: 'mp3_44100_128'},
@@ -135,10 +146,11 @@ const narrate = async (voice) => {
     const words = toWords(alignment);
     const duration = words[words.length - 1].end;
     console.log(`  ${voice.label}: ${duration.toFixed(2)} s bei speed ${speed}`);
-    if (duration <= MAX_VOICE_SECONDS || speed >= 1.1) {
+    if (duration <= MAX_VOICE_SECONDS) {
       return {audio: Buffer.from(res.audio_base64, 'base64'), words, duration, speed};
     }
-    speed = Math.min(1.1, Math.round(speed * (duration / MAX_VOICE_SECONDS) * 100 + 1) / 100);
+    if (speed >= 1.2) continue; // API-Maximum: Take neu würfeln (Dauer streut)
+    speed = Math.min(1.2, Math.max(speed + 0.02, Math.round(speed * (duration / MAX_VOICE_SECONDS) * 100 + 1) / 100));
   }
   throw new Error('Erzählung passt nicht in 15 s');
 };
@@ -158,10 +170,10 @@ const spectralCentroid = (mp3) => {
     let energy = 0;
     for (let i = 0; i < size; i++) energy += x[off + i] * x[off + i];
     if (energy < 1e-3) continue; // Pausen ignorieren
-    for (let k = 1; k < size / 2; k += 2) {
+    for (let k = 1; k < size / 2; k++) {
       let re = 0;
       let im = 0;
-      for (let i = 0; i < size; i += 2) {
+      for (let i = 0; i < size; i++) {
         const w = 0.5 - 0.5 * Math.cos((2 * Math.PI * i) / size);
         const a = (-2 * Math.PI * k * i) / size;
         re += x[off + i] * w * Math.cos(a);

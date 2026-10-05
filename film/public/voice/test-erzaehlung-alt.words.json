@@ -1,0 +1,165 @@
+{
+  "voice": {
+    "id": "p2Wol3C7j3rHbfOrbL18",
+    "name": "Lisa - Lovely and Emotional",
+    "label": "Großmutter",
+    "description": "A warm, lively voice full of character and life experience. From heartfelt memories to mischievous anecdotes, this grandmotherly voice tells real stories with laughter, warmth, and resilience. Perfect for nostalgic narration, intimate storytelling, or any project that calls for authenticity and a touch of old-world wit. Subtle chair creaks, soft mouth sounds, and natural room tone were intentionally preserved to maintain the intimate charm of true kitchen storytelling."
+  },
+  "words": [
+    {
+      "word": "Es",
+      "start": 0,
+      "end": 0.093
+    },
+    {
+      "word": "war",
+      "start": 0.163,
+      "end": 0.325
+    },
+    {
+      "word": "einmal",
+      "start": 0.395,
+      "end": 0.848
+    },
+    {
+      "word": "ein",
+      "start": 1.625,
+      "end": 1.73
+    },
+    {
+      "word": "junges",
+      "start": 1.811,
+      "end": 2.078
+    },
+    {
+      "word": "Mädchen",
+      "start": 2.171,
+      "end": 2.485
+    },
+    {
+      "word": "voller",
+      "start": 2.543,
+      "end": 2.81
+    },
+    {
+      "word": "Träume,",
+      "start": 2.868,
+      "end": 3.367
+    },
+    {
+      "word": "das",
+      "start": 3.39,
+      "end": 3.529
+    },
+    {
+      "word": "gerade",
+      "start": 3.587,
+      "end": 3.901
+    },
+    {
+      "word": "in",
+      "start": 3.959,
+      "end": 4.04
+    },
+    {
+      "word": "eine",
+      "start": 4.11,
+      "end": 4.214
+    },
+    {
+      "word": "neue,",
+      "start": 4.307,
+      "end": 4.632
+    },
+    {
+      "word": "unbekannte",
+      "start": 4.69,
+      "end": 5.201
+    },
+    {
+      "word": "Stadt",
+      "start": 5.224,
+      "end": 5.468
+    },
+    {
+      "word": "gezogen",
+      "start": 5.526,
+      "end": 5.968
+    },
+    {
+      "word": "war.",
+      "start": 6.002,
+      "end": 6.42
+    },
+    {
+      "word": "Jede",
+      "start": 7.001,
+      "end": 7.279
+    },
+    {
+      "word": "Gasse",
+      "start": 7.338,
+      "end": 7.628
+    },
+    {
+      "word": "und",
+      "start": 7.686,
+      "end": 7.79
+    },
+    {
+      "word": "jedes",
+      "start": 7.848,
+      "end": 8.139
+    },
+    {
+      "word": "Gebäude",
+      "start": 8.185,
+      "end": 8.661
+    },
+    {
+      "word": "schienen",
+      "start": 8.707,
+      "end": 8.986
+    },
+    {
+      "word": "ihr",
+      "start": 9.033,
+      "end": 9.16
+    },
+    {
+      "word": "Versprechen",
+      "start": 9.207,
+      "end": 9.892
+    },
+    {
+      "word": "von",
+      "start": 10.252,
+      "end": 10.449
+    },
+    {
+      "word": "Überraschungen",
+      "start": 10.519,
+      "end": 11.192
+    },
+    {
+      "word": "und",
+      "start": 11.262,
+      "end": 11.355
+    },
+    {
+      "word": "Abenteuern",
+      "start": 11.471,
+      "end": 12.005
+    },
+    {
+      "word": "zu",
+      "start": 12.051,
+      "end": 12.121
+    },
+    {
+      "word": "flüstern.",
+      "start": 12.179,
+      "end": 13.05
+    }
+  ]
+}
