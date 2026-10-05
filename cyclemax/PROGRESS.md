@@ -14,9 +14,9 @@
 - [ ] M7 Frontend-Screens: Onboarding, Home, Chat, Settings, Admin, Datenschutz, Impressum
 - [ ] M8 Capacitor-Konfiguration
 - [ ] M9 Playwright E2E (iPhone-Viewport) + Installierbarkeit + Test-Push-Nachweis
-- [x] M10 Store-Material `/store` + Screenshot-Skript
-- [x] M11 README, Selbst-Review aller Texte, Builds/Lint/Typecheck grün
-- [x] M12 Deploy (Vercel) oder exakte Dokumentation
+- [ ] M10 Store-Material `/store` + Screenshot-Skript
+- [ ] M11 README, Selbst-Review aller Texte, Builds/Lint/Typecheck grün
+- [ ] M12 Deploy (Vercel) oder exakte Dokumentation
 
 ## Blocker / Fallbacks
 
