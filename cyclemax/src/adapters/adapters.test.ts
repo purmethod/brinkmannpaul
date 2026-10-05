@@ -58,7 +58,7 @@ function mockLocal(permission = "granted") {
     checkPermissions: vi.fn(async () => ({ display: permission })),
     requestPermissions: vi.fn(async () => ({ display: "granted" })),
     getPending: vi.fn(async () => ({ notifications: pending.map(({ id }) => ({ id })) })),
-    cancel: vi.fn(async ({ notifications }) => {
+    cancel: vi.fn(async ({ notifications }: { notifications: { id: number }[] }) => {
       const ids = new Set(notifications.map((n) => n.id));
       pending = pending.filter((p) => !ids.has(p.id));
     }),

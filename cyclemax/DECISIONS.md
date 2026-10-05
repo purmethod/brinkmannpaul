@@ -28,3 +28,27 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
   gut bewertete Zeilen über `weight` (vom Server) öfter gewählt, `weight 0` = deaktiviert.
 - Die Planung (`src/engine/notifications.ts`) ist EIN Codepfad für Web und Native: Web schickt die
   Termine an den Server, Native plant sie lokal.
+
+## Backend
+- EIN Vercel-Projekt (Root `cyclemax/`): statischer Export `out/` + Vercel Function `api/index.ts`, die nur
+  `server/app.ts` re-exportiert. Backend-Code liegt in `/server`, das Frontend ruft es trotzdem immer absolut
+  über `NEXT_PUBLIC_API_BASE` auf (nötig für Capacitor). Ein Projekt = eine Domain, keine CORS-Hürden im Web,
+  ein Deploy. Alle `/api/*`-Pfade laufen per Rewrite in eine Function (Hobby-Limit für Functions).
+- Handler im Web-Standard (`Request → Response`), lokal identisch über `server/dev.ts`.
+- DB: Drizzle mit zwei spiegelgleichen Schemas (Postgres/Neon und SQLite/libsql), Tabellen werden beim
+  Kaltstart idempotent angelegt (`server/db/ddl.ts`) und mit `/knowledge` geseedet – kein Migrations-Tool
+  zur Laufzeit. Ohne `DATABASE_URL` lokal `.data/cyclemax.db`, auf Vercel `/tmp` (nicht persistent!).
+- IDs sind UUID-Texte (keine Autoincrement-Unterschiede zwischen den Dialekten), Zeitstempel in ms.
+- Meldungen („Antwort melden“) werden OHNE Geräte-ID gespeichert (anonym). Sie enthalten den Antworttext,
+  damit /admin ihn prüfen kann – nur auf ausdrückliche Aktion des Nutzers. Seine eigene Frage wird nicht gesendet.
+- Chat: max. 40 Anfragen/Gerät/Tag (Kostenschutz), danach Antwort aus der Wissensbasis.
+  Bei Gewalt/Selbstgefährdung hängt der Server die Hilfsnummern IMMER an (unabhängig vom Modell).
+- Claude: Modell per `CLAUDE_MODEL` (Default `claude-sonnet-5-5`), `effort: low` für schnelle, kurze Antworten,
+  Wissensbasis als gecachter System-Prompt-Prefix. Anthropic-Server-Fallbacks bei Ablehnung sind für
+  Sonnet 5.5 / Opus 5.x / Fable 5.1 aktiv (`CLAUDE_FALLBACKS=off` schaltet ab); lehnt alles ab → Wissensbasis.
+- Web-Push-Cron stündlich (Vorgabe). Fällig = innerhalb ±30 min (`PUSH_LEAD_MINUTES`), d. h. 07:30 kommt um
+  07:00 oder 08:00 Uhr – je nach Cron-Lauf. Mit Vercel Pro kann der Cron auf `*/15` gestellt werden (dann
+  `PUSH_LEAD_MINUTES=8`). Verpasste Pushes > 3 h werden verworfen statt verspätet gesendet.
+  Achtung: Vercel Hobby erlaubt Crons nur täglich → für stündliche Pushes ist Vercel Pro nötig.
+- Web-Push-Nachweis lokal: `server/webpush.test.ts` sendet mit echtem VAPID + aes128gcm an einen lokalen
+  HTTPS-Push-Dienst, prüft die VAPID-Signatur und entschlüsselt den Payload wie ein Browser.
