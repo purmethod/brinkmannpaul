@@ -1,10 +1,12 @@
-// EINE Datenquelle für alle 35 Folgen: Nummer, Stimmung, Erzählung (englisch), Bildbeschreibung.
-// Wird von den Remotion-Compositions UND vom Audio-Skript (scripts/generate-audio.mjs) gelesen.
+// EINE Datenquelle für die ganze Serie:
+//   STORY — die 35 Szenen (Zeilen der Tabelle): Nummer, Stimmung, Erzählung (englisch), Bild
+//   PARTS — die Folgen (20–30 s), je 2–4 Szenen hintereinander, verbunden durch Umblättern
+// Wird von den Remotion-Compositions UND von den Skripten gelesen.
 // Nur "erasable" TypeScript (Typen + Daten), damit Node es direkt importieren kann.
 
 export type Mood = 'playful' | 'longing' | 'dramatic' | 'festive';
 
-export type Episode = {
+export type StoryScene = {
   nr: number;
   mood: Mood;
   /** Erzählung — wird wortgetreu gesprochen. */
@@ -16,9 +18,21 @@ export type Episode = {
 };
 
 export const OUTRO_LINE = 'To be continued …';
-export const OUTRO_SECONDS = 1.5;
 
-export const EPISODES: Episode[] = [
+/** Zeitraster einer Folge (Sekunden). */
+export const TIMING = {
+  /** Stimme setzt nach 0,6 s ein — Bewegung ab Frame 0 (Hook). */
+  lead: 0.6,
+  /** Pause zwischen zwei Szenen; in der Mitte blättert die Seite um. */
+  gap: 1.0,
+  /** Vorlauf einer Folgeszene vor ihrer Stimme (= Dauer des Umblätterns). */
+  sceneLead: 0.5,
+  /** Bild bleibt nach der Erzählung stehen. */
+  tail: 2.2,
+  outro: 1.5,
+};
+
+export const STORY: StoryScene[] = [
   {nr: 1, mood: 'playful', narration: 'Once upon a time, there was a girl named Karima, full of dreams. She moved to a strange city. But she had a secret …', scene: 'A fairy-tale book opens, "Once upon a time …" writes itself; Karima hops with her suitcase into a doodle town and puts a finger to her lips conspiratorially.', lettering: ['Once upon a time …']},
   {nr: 2, mood: 'playful', narration: 'She had not the slightest sense of direction. And one morning, she got lost … right before the eyes of a stranger.', scene: 'Karima turns the town map around, the alleys knot themselves into a tangle; from the shadows two eyes flash beneath a hat brim.'},
   {nr: 3, mood: 'playful', narration: "His name was Pablo. A wanderer, wild and free, who would never be tied down. 'Where to?' he asked.", scene: 'Pablo strolls into the picture, a flock of birds takes off, a rope on a fence tries to wrap around him, he shakes it off; he tips his hat.'},
@@ -54,6 +68,39 @@ export const EPISODES: Episode[] = [
   {nr: 33, mood: 'longing', narration: 'In the end, Karima wrote him a book. And on the last page, it said …', scene: 'Karima writes at night by candlelight, vines and roses grow from the ink.'},
   {nr: 34, mood: 'festive', narration: "'That was only the beginning of our story. You are my gift, my blessing, my safe haven.'", scene: 'Pages fly and bind themselves into a book; at the end in red: "Я люблю тебя … mhebek".', lettering: ['Я люблю тебя … mhebek']},
   {nr: 35, mood: 'festive', narration: 'And their story? They are still writing it today. Page by page.', scene: 'The book closes, a red ribbon wraps around it; turquoise "To be continued…", small "(inshallah)"; a butterfly flies away. Outro: "Follow to see what happens next".', lettering: ['To be continued…', '(inshallah)']},
+  // --- Neues, offenes Ende für den Märchenfilm (ersetzt 23–35) ---
+  {nr: 36, mood: 'longing', narration: 'But the wild forest was calling him. One morning, the wanderer walked into the deep, dark woods.', scene: 'Pablo stands at the edge of town, looks back once at Karima\'s window, then strides into a dark doodle forest; the trees close behind him.'},
+  {nr: 37, mood: 'dramatic', narration: 'There, the dragons were waiting. Fire and smoke! Pablo fought with all his strength … and he was wounded.', scene: 'A scribbly dragon rears up and breathes doodle fire; Pablo fights with his staff, BOOM bursts; he sinks to one knee, arm wounded, hat in the dirt.'},
+  {nr: 38, mood: 'longing', narration: 'Wounded, he came back to the city. But her window was dark. He searched every alley, every street.', scene: 'Pablo limps back into the doodle town, bandaged arm; Karima\'s window is dark; he looks down alleys, question marks rise.'},
+  {nr: 39, mood: 'dramatic', narration: 'He searched the whole forest. He searched the whole wide world … over mountains, seas and deserts.', scene: 'Montage: Pablo walks on a turning doodle globe past mountains, waves and dunes, calling out.'},
+  {nr: 40, mood: 'longing', narration: 'But Karima was nowhere to be found. Some say he is searching still … to this very day.', scene: 'Pablo alone on a hill under the moon; a red butterfly flutters past him into the distance; he gazes after it. Iris closes on the butterfly: "The End …?"', lettering: ['The End …?']},
 ];
 
-export const episodeId = (nr: number) => `teil-${String(nr).padStart(2, '0')}`;
+/** Märchenfilm (3–5 min): Szenen 1–22 aus dem Buch + offenes Ende 36–40. */
+export const FILM = {
+  id: 'maerchen',
+  scenes: [...Array.from({length: 22}, (_, i) => i + 1), 36, 37, 38, 39, 40],
+};
+
+/** Folgen der Serie: je 2–4 Szenen, Cliffhanger am Ende. */
+export const PARTS: {nr: number; scenes: number[]}[] = [
+  {nr: 1, scenes: [1, 2]},
+  {nr: 2, scenes: [3, 4]},
+  {nr: 3, scenes: [5, 6]},
+  {nr: 4, scenes: [7, 8]},
+  {nr: 5, scenes: [9, 10, 11]},
+  {nr: 6, scenes: [12, 13, 14]},
+  {nr: 7, scenes: [15, 16]},
+  {nr: 8, scenes: [17, 18]},
+  {nr: 9, scenes: [19, 20]},
+  {nr: 10, scenes: [21, 22, 23]},
+  {nr: 11, scenes: [24, 25, 26]},
+  {nr: 12, scenes: [27, 28, 29]},
+  {nr: 13, scenes: [30, 31]},
+  {nr: 14, scenes: [32, 33]},
+  {nr: 15, scenes: [34, 35]},
+];
+
+const pad = (n: number) => String(n).padStart(2, '0');
+export const sceneId = (nr: number) => `szene-${pad(nr)}`;
+export const partId = (nr: number) => `teil-${pad(nr)}`;

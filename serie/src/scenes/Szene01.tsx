@@ -4,7 +4,7 @@ import {Book, RIGHT_PAGE, WoodTable} from '../components/Book';
 import {Butterfly} from '../components/Butterfly';
 import {Sparkle} from '../components/DoodleFX';
 import {DreamStars} from '../components/DreamStars';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {OrnateTitle} from '../components/OrnateTitle';
 import {GROUND_Y, Town} from '../components/Town';
@@ -18,7 +18,7 @@ const K_SCALE = 1.12;
  * Folge 1 — Märchenbuch klappt auf, "Once upon a time …" schreibt sich; Karima hüpft mit
  * Koffer in eine Kritzelstadt und legt verschwörerisch den Finger an die Lippen.
  */
-export const Teil01: React.FC = () => {
+export const Szene01: React.FC = () => {
   const {frame, cue} = useScene();
   const cOnce = cue('Once');
   const cTime = cue('time', 0, 'end');

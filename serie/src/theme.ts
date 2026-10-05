@@ -26,6 +26,6 @@ export const HEIGHT = 1920;
 /** Linien "kochen": alle N Frames neu zeichnen. */
 export const BOIL_EVERY = 4;
 
-/** Zeitraster jeder Folge (Sekunden). */
-export const HOOK_LEAD = 0.6; // Stimme setzt nach 0,6 s ein — Bewegung ab Frame 0 (Hook)
-export const TAIL = 2.2; // Bild bleibt nach der Erzählung stehen (Szenen atmen lassen)
+
+
+

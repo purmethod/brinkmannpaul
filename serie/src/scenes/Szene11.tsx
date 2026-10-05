@@ -1,14 +1,14 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Heart, Sparkle} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, blinkAt} from '../components/Karima';
 import {Letter, StarRoseBook} from '../components/Props';
 import {WoodTable} from '../components/Book';
 import {lerp, progress} from '../lib/anim';
 
 /** Folge 11 — Buch mit Stern und Rose, ein Brief gleitet heraus, ein Papierherz flattert hoch. */
-export const Teil11: React.FC = () => {
+export const Szene11: React.FC = () => {
   const {frame, cue} = useScene();
   const cPrince = cue('prince', 0, 'end');
   const cPages = cue('pages');

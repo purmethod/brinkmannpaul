@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Birds} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Fence, Rope} from '../components/Fence';
 import {Karima, blinkAt} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
@@ -16,7 +16,7 @@ const K_SCALE = 0.95;
  * Folge 3 — Pablo schlendert ins Bild, ein Vogelschwarm fliegt auf, ein Seil am Zaun
  * will sich um ihn wickeln, er schüttelt es ab und tippt an den Hut: "Where to?"
  */
-export const Teil03: React.FC = () => {
+export const Szene03: React.FC = () => {
   const {frame, cue} = useScene();
   const cWanderer = cue('wanderer');
   const cWild = cue('wild');

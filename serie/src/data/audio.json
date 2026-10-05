@@ -5,7 +5,7 @@
       "name": "Old Wizard – Deep, Engaging Storyteller",
       "episodes": {
         "1": {
-          "file": "voice/old-wizard/teil-01.mp3",
+          "file": "voice/old-wizard/szene-01.mp3",
           "words": [
             {
               "word": "Once",
@@ -132,7 +132,7 @@
           "speed": 0.95
         },
         "2": {
-          "file": "voice/old-wizard/teil-02.mp3",
+          "file": "voice/old-wizard/szene-02.mp3",
           "words": [
             {
               "word": "She",
@@ -244,7 +244,7 @@
           "speed": 0.95
         },
         "3": {
-          "file": "voice/old-wizard/teil-03.mp3",
+          "file": "voice/old-wizard/szene-03.mp3",
           "words": [
             {
               "word": "His",
@@ -346,7 +346,7 @@
           "speed": 0.99
         },
         "4": {
-          "file": "voice/old-wizard/teil-04.mp3",
+          "file": "voice/old-wizard/szene-04.mp3",
           "words": [
             {
               "word": "'To",
@@ -438,7 +438,7 @@
           "speed": 0.95
         },
         "5": {
-          "file": "voice/old-wizard/teil-05.mp3",
+          "file": "voice/old-wizard/szene-05.mp3",
           "words": [
             {
               "word": "And",
@@ -540,7 +540,7 @@
           "speed": 0.95
         },
         "6": {
-          "file": "voice/old-wizard/teil-06.mp3",
+          "file": "voice/old-wizard/szene-06.mp3",
           "words": [
             {
               "word": "The",
@@ -632,7 +632,7 @@
           "speed": 0.95
         },
         "7": {
-          "file": "voice/old-wizard/teil-07.mp3",
+          "file": "voice/old-wizard/szene-07.mp3",
           "words": [
             {
               "word": "Three",
@@ -729,7 +729,7 @@
           "speed": 0.95
         },
         "8": {
-          "file": "voice/old-wizard/teil-08.mp3",
+          "file": "voice/old-wizard/szene-08.mp3",
           "words": [
             {
               "word": "'He",
@@ -831,7 +831,7 @@
           "speed": 0.95
         },
         "9": {
-          "file": "voice/old-wizard/teil-09.mp3",
+          "file": "voice/old-wizard/szene-09.mp3",
           "words": [
             {
               "word": "One",
@@ -933,7 +933,7 @@
           "speed": 0.95
         },
         "10": {
-          "file": "voice/old-wizard/teil-10.mp3",
+          "file": "voice/old-wizard/szene-10.mp3",
           "words": [
             {
               "word": "Had",
@@ -1020,7 +1020,7 @@
           "speed": 0.95
         },
         "11": {
-          "file": "voice/old-wizard/teil-11.mp3",
+          "file": "voice/old-wizard/szene-11.mp3",
           "words": [
             {
               "word": "A",
@@ -1102,7 +1102,7 @@
           "speed": 0.95
         },
         "12": {
-          "file": "voice/old-wizard/teil-12.mp3",
+          "file": "voice/old-wizard/szene-12.mp3",
           "words": [
             {
               "word": "'For",
@@ -1219,7 +1219,7 @@
           "speed": 0.95
         },
         "13": {
-          "file": "voice/old-wizard/teil-13.mp3",
+          "file": "voice/old-wizard/szene-13.mp3",
           "words": [
             {
               "word": "The",
@@ -1306,7 +1306,7 @@
           "speed": 0.95
         },
         "14": {
-          "file": "voice/old-wizard/teil-14.mp3",
+          "file": "voice/old-wizard/szene-14.mp3",
           "words": [
             {
               "word": "One",
@@ -1408,7 +1408,7 @@
           "speed": 0.95
         },
         "15": {
-          "file": "voice/old-wizard/teil-15.mp3",
+          "file": "voice/old-wizard/szene-15.mp3",
           "words": [
             {
               "word": "But",
@@ -1490,7 +1490,7 @@
           "speed": 0.95
         },
         "16": {
-          "file": "voice/old-wizard/teil-16.mp3",
+          "file": "voice/old-wizard/szene-16.mp3",
           "words": [
             {
               "word": "'This",
@@ -1582,7 +1582,7 @@
           "speed": 0.95
         },
         "17": {
-          "file": "voice/old-wizard/teil-17.mp3",
+          "file": "voice/old-wizard/szene-17.mp3",
           "words": [
             {
               "word": "They",
@@ -1684,7 +1684,7 @@
           "speed": 0.95
         },
         "18": {
-          "file": "voice/old-wizard/teil-18.mp3",
+          "file": "voice/old-wizard/szene-18.mp3",
           "words": [
             {
               "word": "In",
@@ -1766,7 +1766,7 @@
           "speed": 0.95
         },
         "19": {
-          "file": "voice/old-wizard/teil-19.mp3",
+          "file": "voice/old-wizard/szene-19.mp3",
           "words": [
             {
               "word": "They",
@@ -1853,7 +1853,7 @@
           "speed": 0.95
         },
         "20": {
-          "file": "voice/old-wizard/teil-20.mp3",
+          "file": "voice/old-wizard/szene-20.mp3",
           "words": [
             {
               "word": "Not",
@@ -1950,7 +1950,7 @@
           "speed": 0.95
         },
         "21": {
-          "file": "voice/old-wizard/teil-21.mp3",
+          "file": "voice/old-wizard/szene-21.mp3",
           "words": [
             {
               "word": "She",
@@ -2067,7 +2067,7 @@
           "speed": 0.95
         },
         "22": {
-          "file": "voice/old-wizard/teil-22.mp3",
+          "file": "voice/old-wizard/szene-22.mp3",
           "words": [
             {
               "word": "There,",
@@ -2149,7 +2149,7 @@
           "speed": 0.95
         },
         "23": {
-          "file": "voice/old-wizard/teil-23.mp3",
+          "file": "voice/old-wizard/szene-23.mp3",
           "words": [
             {
               "word": "The",
@@ -2211,7 +2211,7 @@
           "speed": 0.95
         },
         "24": {
-          "file": "voice/old-wizard/teil-24.mp3",
+          "file": "voice/old-wizard/szene-24.mp3",
           "words": [
             {
               "word": "Then",
@@ -2283,7 +2283,7 @@
           "speed": 0.95
         },
         "25": {
-          "file": "voice/old-wizard/teil-25.mp3",
+          "file": "voice/old-wizard/szene-25.mp3",
           "words": [
             {
               "word": "he",
@@ -2355,7 +2355,7 @@
           "speed": 0.95
         },
         "26": {
-          "file": "voice/old-wizard/teil-26.mp3",
+          "file": "voice/old-wizard/szene-26.mp3",
           "words": [
             {
               "word": "On",
@@ -2452,7 +2452,7 @@
           "speed": 0.95
         },
         "27": {
-          "file": "voice/old-wizard/teil-27.mp3",
+          "file": "voice/old-wizard/szene-27.mp3",
           "words": [
             {
               "word": "the",
@@ -2524,7 +2524,7 @@
           "speed": 0.95
         },
         "28": {
-          "file": "voice/old-wizard/teil-28.mp3",
+          "file": "voice/old-wizard/szene-28.mp3",
           "words": [
             {
               "word": "As",
@@ -2651,7 +2651,7 @@
           "speed": 0.95
         },
         "29": {
-          "file": "voice/old-wizard/teil-29.mp3",
+          "file": "voice/old-wizard/szene-29.mp3",
           "words": [
             {
               "word": "She",
@@ -2723,7 +2723,7 @@
           "speed": 0.95
         },
         "30": {
-          "file": "voice/old-wizard/teil-30.mp3",
+          "file": "voice/old-wizard/szene-30.mp3",
           "words": [
             {
               "word": "He",
@@ -2830,7 +2830,7 @@
           "speed": 0.95
         },
         "31": {
-          "file": "voice/old-wizard/teil-31.mp3",
+          "file": "voice/old-wizard/szene-31.mp3",
           "words": [
             {
               "word": "Hand",
@@ -2932,7 +2932,7 @@
           "speed": 0.95
         },
         "32": {
-          "file": "voice/old-wizard/teil-32.mp3",
+          "file": "voice/old-wizard/szene-32.mp3",
           "words": [
             {
               "word": "The",
@@ -3024,7 +3024,7 @@
           "speed": 0.95
         },
         "33": {
-          "file": "voice/old-wizard/teil-33.mp3",
+          "file": "voice/old-wizard/szene-33.mp3",
           "words": [
             {
               "word": "In",
@@ -3106,7 +3106,7 @@
           "speed": 0.95
         },
         "34": {
-          "file": "voice/old-wizard/teil-34.mp3",
+          "file": "voice/old-wizard/szene-34.mp3",
           "words": [
             {
               "word": "'That",
@@ -3198,7 +3198,7 @@
           "speed": 0.95
         },
         "35": {
-          "file": "voice/old-wizard/teil-35.mp3",
+          "file": "voice/old-wizard/szene-35.mp3",
           "words": [
             {
               "word": "And",

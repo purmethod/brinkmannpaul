@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Dove} from '../components/Dove';
 import {Sparkle} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
 import {Bakery} from '../components/Props';
@@ -13,7 +13,7 @@ import {lerp, progress} from '../lib/anim';
  * Folge 5 — Die Bäckerei taucht auf, Pablo staunt, Karima triumphiert;
  * zwei weiße Tauben flattern aus ihren Händen.
  */
-export const Teil05: React.FC = () => {
+export const Szene05: React.FC = () => {
   const {frame, cue} = useScene();
   const cOne = cue('one', 0, 'end');
   const cWalked = cue('walked');

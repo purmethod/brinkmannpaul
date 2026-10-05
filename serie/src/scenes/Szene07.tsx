@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Puff, SpeedLines} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
 import {ColorWash, InnTable, Sun} from '../components/Props';
@@ -13,7 +13,7 @@ import {palette} from '../theme';
  * Folge 7 — Karima rennt keuchend an; die Sonne rast über den Himmel; geteiltes Brot im
  * Gasthaus; Heimweg, sie dreht sich lächelnd um.
  */
-export const Teil07: React.FC = () => {
+export const Szene07: React.FC = () => {
   const {frame, cue} = useScene();
   const cBreath = cue('breath', 0, 'end');
   const cHour = cue('hour');

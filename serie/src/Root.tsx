@@ -2,33 +2,28 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {CharacterSheet} from './components/CharacterSheet';
 import {Episode, EpisodeProps} from './components/Episode';
-import {EPISODES, episodeId} from './data/episodes';
-import {SCENES} from './episodes';
-import {defaultVoice, episodeTiming} from './lib/timing';
+import {PARTS, partId} from './data/story';
+import {SCENES} from './scenes';
+import {defaultVoice, partTiming} from './lib/timing';
 import {FPS, HEIGHT, WIDTH} from './theme';
 
-/** Eine Composition pro Folge — generiert aus src/data/episodes.ts. */
+/** Eine Composition pro Folge — generiert aus PARTS in src/data/story.ts. */
 export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="figuren" component={CharacterSheet} fps={FPS} width={WIDTH} height={HEIGHT} durationInFrames={90} />
-    {EPISODES.filter((e) => SCENES[e.nr]).map((e) => {
-      const Scene = SCENES[e.nr];
-      const Comp: React.FC<EpisodeProps> = ({voice, vintage}) => (
-        <Episode nr={e.nr} voice={voice} vintage={vintage}>
-          <Scene />
-        </Episode>
-      );
+    {PARTS.filter((p) => p.scenes.every((s) => SCENES[s])).map((p) => {
+      const Comp: React.FC<EpisodeProps> = ({voice, vintage}) => <Episode nr={p.nr} voice={voice} vintage={vintage} scenes={SCENES} />;
       return (
         <Composition
-          key={e.nr}
-          id={episodeId(e.nr)}
+          key={p.nr}
+          id={partId(p.nr)}
           component={Comp}
           fps={FPS}
           width={WIDTH}
           height={HEIGHT}
-          durationInFrames={episodeTiming(e.nr).durationInFrames}
+          durationInFrames={partTiming(p.nr).durationInFrames}
           defaultProps={{voice: defaultVoice(), vintage: true}}
-          calculateMetadata={({props}) => ({durationInFrames: episodeTiming(e.nr, props.voice).durationInFrames})}
+          calculateMetadata={({props}) => ({durationInFrames: partTiming(p.nr, props.voice).durationInFrames})}
         />
       );
     })}

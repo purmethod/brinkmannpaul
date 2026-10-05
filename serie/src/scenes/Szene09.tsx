@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
 import {ColorWash, Envelope} from '../components/Props';
@@ -12,7 +12,7 @@ import {palette} from '../theme';
  * Folge 9 — Pablos Silhouette verschwindet am Horizont; eine Einladung mit Siegel flattert
  * zu ihr, sie legt sie weg; die Farbe kippt grau-blau.
  */
-export const Teil09: React.FC = () => {
+export const Szene09: React.FC = () => {
   const {frame, cue} = useScene();
   const cWord = cue('word', 0, 'end');
   const cInvited = cue('invited');

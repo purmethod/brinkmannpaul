@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {QuestionMark, ShadowEyes} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {Rough} from '../components/Rough';
 import {TownMap} from '../components/TownMap';
@@ -16,7 +16,7 @@ const KX = 470;
  * Folge 2 — Karima dreht den Stadtplan, die Gassen verknoten sich zum Knäuel;
  * aus dem Schatten blitzen zwei Augen unter einer Hutkrempe.
  */
-export const Teil02: React.FC = () => {
+export const Szene02: React.FC = () => {
   const {frame, cue} = useScene();
   const cSense = cue('sense');
   const cDirection = cue('direction');

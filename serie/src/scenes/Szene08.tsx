@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Heart} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
 import {CookingPot, StrawberryBasket} from '../components/Props';
@@ -30,7 +30,7 @@ const Kitchen: React.FC<{doorLight: number}> = ({doorLight}) => (
  * Folge 8 — Herzchen über Karima; Kochtopf dampft, Erdbeerkorb; Pablos Stiefel stehen
  * schon in Richtung Tür.
  */
-export const Teil08: React.FC = () => {
+export const Szene08: React.FC = () => {
   const {frame, cue} = useScene();
   const cCooked = cue('cooked');
   const cStraw = cue('strawberries');

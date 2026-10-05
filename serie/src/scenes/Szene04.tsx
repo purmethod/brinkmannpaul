@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Sparkle, ThoughtBubble} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, KARIMA_HEAD, blinkAt} from '../components/Karima';
 import {Pablo, PABLO_HEAD} from '../components/Pablo';
 import {Bread} from '../components/Props';
@@ -12,7 +12,7 @@ const K = {x: 300, s: 1.08};
 const P = {x: 790, s: 1.08};
 
 /** Folge 4 — Gedankenblasen: ihre zeigt ein Brot, seine ein durchgestrichenes Brot; Karima stemmt die Hände in die Hüften. */
-export const Teil04: React.FC = () => {
+export const Szene04: React.FC = () => {
   const {frame, cue} = useScene();
   const cHere = cue('here');
   const cLaughed = cue('laughed');

@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-// ElevenLabs-Ton für die Märchenserie. Liest die Erzählungen aus src/data/episodes.ts
+// ElevenLabs-Ton für die Märchenserie. Liest die Szenen-Erzählungen aus src/data/story.ts
 // (eine Datenquelle) und schreibt Dateien + Wortzeiten nach public/ und src/data/audio.json.
 //
-//   node scripts/generate-audio.mjs voices --episodes 1-3      Kandidaten-Stimmen (config/voice.json) für Folgen 1–3
+//   node scripts/generate-audio.mjs voices --episodes 1-3      Kandidaten-Stimmen (config/voice.json) für Szenen 1–3
 //   node scripts/generate-audio.mjs voices --episodes 4-11     nur die freigegebene Stimme ("selected")
-//   node scripts/generate-audio.mjs select old-wizard          Stimme freigeben -> public/voice/teil-XX.mp3
+//   node scripts/generate-audio.mjs select old-wizard          Stimme freigeben
 //   node scripts/generate-audio.mjs music                      4 Varianten des Spieluhr-Liebesthemas + Outro-Jingle
 //   node scripts/generate-audio.mjs sfx                        Schallplatten-Knistern (Loop)
 //
 // Key: ELEVENLABS_API_KEY (Umgebungsvariable oder serie/.env). Benötigt Node >= 22.18 (Type-Stripping) und ffmpeg.
 
-import {copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {EPISODES, OUTRO_LINE, episodeId} from '../src/data/episodes.ts';
+import {STORY as EPISODES, OUTRO_LINE, sceneId as episodeId} from '../src/data/story.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUB = join(ROOT, 'public');
@@ -172,18 +172,10 @@ const voicesCmd = async (args) => {
       console.log(`  ${episodeId(nr)}: ${r.duration.toFixed(2)} s @ ${r.speed}${flag}`);
       writeJson(MANIFEST, manifest);
     }
-    if (cfg.selected === v.slug) copySelected(manifest, v.slug);
   }
   writeJson(MANIFEST, manifest);
 };
 
-const copySelected = (manifest, slug) => {
-  const entry = manifest.voices[slug];
-  for (const [nr, e] of Object.entries(entry.episodes)) {
-    copyFileSync(join(PUB, e.file), join(PUB, 'voice', `${episodeId(Number(nr))}.mp3`));
-  }
-  if (entry.outro) copyFileSync(join(PUB, entry.outro.file), join(PUB, 'voice', 'outro.mp3'));
-};
 
 const selectCmd = (args) => {
   const slug = args[0];
@@ -194,7 +186,6 @@ const selectCmd = (args) => {
   const manifest = readJson(MANIFEST);
   manifest.selected = slug;
   writeJson(MANIFEST, manifest);
-  if (manifest.voices[slug]) copySelected(manifest, slug);
   console.log(`Freigegeben: ${slug}`);
 };
 

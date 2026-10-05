@@ -1,64 +1,69 @@
-import React, {createContext, useContext} from 'react';
-import {AbsoluteFill, Html5Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
-import {EPISODES} from '../data/episodes';
+import React from 'react';
+import {AbsoluteFill, Easing, Html5Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {PARTS, TIMING} from '../data/story';
 import {lerp} from '../lib/anim';
 import {ensureFonts} from '../lib/fonts';
-import {AUDIO, EpisodeTiming, episodeTiming, isSpeaking, wordFrame} from '../lib/timing';
-import {FPS, HOOK_LEAD} from '../theme';
+import {AUDIO, PartTiming, Segment, isSpeakingIn, partTiming} from '../lib/timing';
+import {FPS} from '../theme';
 import {EpisodeBadge} from './EpisodeBadge';
 import {Outro} from './Outro';
+import {PageTurn} from './PageTurn';
 import {Paper} from './Paper';
+import {SceneContext} from './Scene';
 import {VintageOverlay} from './VintageOverlay';
 
 ensureFonts();
 
 export type EpisodeProps = {voice: string | null; vintage: boolean};
 
-type Ctx = EpisodeTiming & {
-  /** Frame eines Wortes der Erzählung (n-tes Vorkommen). */
-  cue: (word: string, occurrence?: number, edge?: 'start' | 'end') => number;
-  outroFrame: number;
-  endFrame: number;
-};
-
-const EpisodeContext = createContext<Ctx | null>(null);
-
-export const useEpisode = () => {
-  const c = useContext(EpisodeContext);
-  if (!c) throw new Error('useEpisode außerhalb einer Folge');
-  return c;
-};
-
 const DB_MINUS_18 = Math.pow(10, -18 / 20);
+const TURN = Math.round(TIMING.sceneLead * FPS);
+const f = (s: number) => Math.round(s * FPS);
 
-const Soundtrack: React.FC<{t: EpisodeTiming; mood: string}> = ({t, mood}) => {
-  const outroFrame = Math.round(t.outroStart * FPS);
+const Soundtrack: React.FC<{t: PartTiming}> = ({t}) => {
+  const outroFrame = f(t.outroStart);
   const end = t.durationInFrames;
-  const music = AUDIO.music[mood as keyof typeof AUDIO.music];
-  const musicVolume = (f: number) => {
-    const fadeIn = Math.min(1, f / 8);
-    const fadeOut = interpolate(f, [outroFrame - 6, outroFrame + 8], [1, 0.35], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-    const endFade = interpolate(f, [end - 10, end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-    if (!t.voiceFile) return 0.4 * fadeIn * fadeOut * endFade;
-    let speaking = 0;
-    for (let d = -6; d <= 6; d++) speaking += isSpeaking(t, f + d) ? 1 : 0;
-    return fadeIn * fadeOut * endFade * lerp(0.4, DB_MINUS_18, speaking / 13);
-  };
   return (
     <>
-      {music ? <Html5Audio src={staticFile(music)} volume={musicVolume} loop /> : null}
+      {/* Musik je Szene in ihrer Stimmung, weich überblendet, unter der Stimme geduckt */}
+      {t.segments.map((s, i) => {
+        const music = AUDIO.music[s.mood as keyof typeof AUDIO.music];
+        if (!music) return null;
+        const from = Math.max(0, f(s.start) - (i ? 8 : 0));
+        const len = f(s.end) - from + (i < t.segments.length - 1 ? 8 : 0);
+        return (
+          <Sequence key={i} from={from} durationInFrames={len}>
+            <Html5Audio
+              src={staticFile(music)}
+              loop
+              volume={(lf: number) => {
+                const g = from + lf;
+                const xfade = Math.min(1, lf / 12, (len - lf) / 12);
+                const outro = interpolate(g, [outroFrame - 6, outroFrame + 8], [1, 0.35], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+                const endFade = interpolate(g, [end - 10, end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+                let speaking = 0;
+                for (let d = -6; d <= 6; d++) speaking += isSpeakingIn(t.words, g + d) ? 1 : 0;
+                const duck = t.voice ? lerp(0.4, DB_MINUS_18, speaking / 13) : 0.4;
+                return Math.max(0, xfade) * outro * endFade * duck;
+              }}
+            />
+          </Sequence>
+        );
+      })}
       {AUDIO.crackle ? <Html5Audio src={staticFile(AUDIO.crackle)} volume={0.28} loop /> : null}
-      {t.voiceFile ? (
-        <Sequence from={Math.round(HOOK_LEAD * FPS)}>
-          <Html5Audio src={staticFile(t.voiceFile)} />
-        </Sequence>
-      ) : null}
+      {t.segments.map((s, i) =>
+        s.voiceFile ? (
+          <Sequence key={`v${i}`} from={f(s.voiceStart)}>
+            <Html5Audio src={staticFile(s.voiceFile)} />
+          </Sequence>
+        ) : null,
+      )}
       {AUDIO.jingle ? (
         <Sequence from={outroFrame}>
           <Html5Audio src={staticFile(AUDIO.jingle)} volume={0.55} />
         </Sequence>
       ) : null}
-      {t.outroVoiceFile && t.voice ? (
+      {t.outroVoiceFile ? (
         <Sequence from={outroFrame + 4}>
           <Html5Audio src={staticFile(t.outroVoiceFile)} />
         </Sequence>
@@ -67,39 +72,57 @@ const Soundtrack: React.FC<{t: EpisodeTiming; mood: string}> = ({t, mood}) => {
   );
 };
 
-/**
- * Rahmen jeder Folge: Papier, Szene, Badge "Part X", Outro, Vintage-Overlay und Ton.
- * Die Szene bekommt ihr Timing über useEpisode().
- */
-export const Episode: React.FC<{nr: number; voice: string | null; vintage?: boolean; children: React.ReactNode}> = ({
-  nr,
-  voice,
-  vintage = true,
-  children,
-}) => {
-  const ep = EPISODES.find((e) => e.nr === nr)!;
-  const t = episodeTiming(nr, voice);
-  const ctx: Ctx = {
-    ...t,
-    cue: (word, occurrence = 0, edge = 'start') => wordFrame(t, word, occurrence, edge),
-    outroFrame: Math.round(t.outroStart * FPS),
-    endFrame: t.durationInFrames,
-  };
-  const nextLine = nr >= 35 ? 'Follow to see what happens next' : `Follow for Part ${nr + 1}`;
+/** Eine Szene in ihrem eigenen Zeitfenster (lokale Frames, eigene Wortzeiten). */
+const SceneSlot: React.FC<{seg: Segment; Scene: React.FC; extra: number}> = ({seg, Scene, extra}) => {
+  const len = f(seg.end) - f(seg.start) + extra;
   return (
-    <EpisodeContext.Provider value={ctx}>
-      <AbsoluteFill style={{backgroundColor: '#0b0805'}}>
-        <VintageOverlay enabled={vintage}>
-          <Paper id={`paper-${nr}`} />
-          <LingerPush from={Math.round(t.narrationEnd * FPS) - 10} to={ctx.outroFrame}>
-            {children}
-          </LingerPush>
-          <EpisodeBadge nr={nr} />
-          <Outro start={ctx.outroFrame} nextLine={nextLine} />
-        </VintageOverlay>
-        <Soundtrack t={t} mood={ep.mood} />
-      </AbsoluteFill>
-    </EpisodeContext.Provider>
+    <Sequence from={f(seg.start)} durationInFrames={len}>
+      <SceneContext.Provider value={{scene: seg.scene, words: seg.localWords, durationInFrames: len}}>
+        <Scene />
+      </SceneContext.Provider>
+    </Sequence>
+  );
+};
+
+/** Szenenfolge mit Umblättern: die alte Seite schlägt um, darunter beginnt die neue Szene. */
+const Scenes: React.FC<{t: PartTiming; scenes: Record<number, React.FC>}> = ({t, scenes}) => {
+  const frame = useCurrentFrame();
+  const segs = t.segments;
+  const slot = (i: number) => {
+    const Scene = scenes[segs[i].scene];
+    return Scene ? <SceneSlot seg={segs[i]} Scene={Scene} extra={i < segs.length - 1 ? TURN : 0} /> : null;
+  };
+  // aktive Szene / laufendes Umblättern bestimmen
+  for (let i = 1; i < segs.length; i++) {
+    const b = f(segs[i].start);
+    if (frame >= b && frame < b + TURN) {
+      const p = interpolate(frame, [b, b + TURN], [0, 1], {easing: Easing.inOut(Easing.cubic)});
+      return (
+        <PageTurn
+          progress={p}
+          from={
+            <AbsoluteFill>
+              <Paper id={`turn-from-${i}`} />
+              {slot(i - 1)}
+            </AbsoluteFill>
+          }
+          to={
+            <AbsoluteFill>
+              <Paper id={`turn-to-${i}`} />
+              {slot(i)}
+            </AbsoluteFill>
+          }
+        />
+      );
+    }
+  }
+  let active = 0;
+  for (let i = 0; i < segs.length; i++) if (frame >= f(segs[i].start)) active = i;
+  return (
+    <AbsoluteFill>
+      <Paper id={`paper-${active}`} />
+      {slot(active)}
+    </AbsoluteFill>
   );
 };
 
@@ -111,8 +134,29 @@ const LingerPush: React.FC<{from: number; to: number; children: React.ReactNode}
   return <AbsoluteFill style={{transform: `scale(${1 + 0.09 * e})`, transformOrigin: '540px 1000px'}}>{children}</AbsoluteFill>;
 };
 
-/** Hilfs-Hook: aktueller Frame + Episode-Kontext. */
-export const useScene = () => {
-  const frame = useCurrentFrame();
-  return {frame, ...useEpisode()};
+/**
+ * Rahmen einer Folge: Szenen (mit Umblättern), Badge "Part X", Outro, Vintage-Overlay, Ton.
+ */
+export const Episode: React.FC<{nr: number; voice: string | null; vintage?: boolean; scenes: Record<number, React.FC>}> = ({
+  nr,
+  voice,
+  vintage = true,
+  scenes,
+}) => {
+  const t = partTiming(nr, voice);
+  const last = nr >= PARTS[PARTS.length - 1].nr;
+  const nextLine = last ? 'Follow to see what happens next' : `Follow for Part ${nr + 1}`;
+  const outroFrame = f(t.outroStart);
+  return (
+    <AbsoluteFill style={{backgroundColor: '#0b0805'}}>
+      <VintageOverlay enabled={vintage}>
+        <LingerPush from={f(t.narrationEnd) - 10} to={outroFrame}>
+          <Scenes t={t} scenes={scenes} />
+        </LingerPush>
+        <EpisodeBadge nr={nr} />
+        <Outro start={outroFrame} nextLine={nextLine} />
+      </VintageOverlay>
+      <Soundtrack t={t} />
+    </AbsoluteFill>
+  );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Rain, Sparkle} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Karima, blinkAt} from '../components/Karima';
 import {Pablo} from '../components/Pablo';
 import {ColorWash, KnockWaves, WindowView} from '../components/Props';
@@ -14,7 +14,7 @@ import {palette} from '../theme';
  * Folge 10 — Karima am Fenster im Regen; Klopfen; Pablo steht draußen und versteckt
  * etwas hinter dem Rücken.
  */
-export const Teil10: React.FC = () => {
+export const Szene10: React.FC = () => {
   const {frame, cue} = useScene();
   const cMeant = cue('meant');
   const cBack = cue('back', 0, 'end');

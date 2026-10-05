@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {Dove} from '../components/Dove';
 import {ThoughtBubble} from '../components/DoodleFX';
-import {useScene} from '../components/Episode';
+import {useScene} from '../components/Scene';
 import {Pablo, PABLO_HEAD} from '../components/Pablo';
 import {Pavilion, PocketWatch} from '../components/Props';
 import {Rough} from '../components/Rough';
@@ -13,7 +13,7 @@ import {palette} from '../theme';
 const P_S = 1.05;
 
 /** Folge 6 — Taube mit Brief fliegt über Dächer; Pablo im Pavillon schaut auf eine Taschenuhr. */
-export const Teil06: React.FC = () => {
+export const Szene06: React.FC = () => {
   const {frame, cue} = useScene();
   const cWaited = cue('waited');
   const cShe = cue('she');
