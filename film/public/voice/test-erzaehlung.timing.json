@@ -1,0 +1,19 @@
+{
+  "source": "estimate",
+  "note": "Platzhalter-Timing ohne Stimme. Wird von scripts/generate-elevenlabs.mjs mit echten Wort-Zeitstempeln überschrieben.",
+  "offsetSeconds": 0,
+  "audio": {
+    "voice": null,
+    "music": "music/test.mp3",
+    "sfx": "sfx/knistern.mp3",
+    "musicSource": "placeholder"
+  },
+  "voiceChoice": null,
+  "phrases": [
+    {"text": "Es war einmal …", "start": 0.7, "end": 2.6},
+    {"text": "ein junges Mädchen voller Träume,", "start": 3.1, "end": 5.7},
+    {"text": "das gerade in eine neue, unbekannte Stadt gezogen war.", "start": 6.1, "end": 9.9},
+    {"text": "Jede Gasse und jedes Gebäude schienen ihr Versprechen von Überraschungen und Abenteuern zu flüstern.", "start": 10.3, "end": 14.5}
+  ],
+  "words": []
+}

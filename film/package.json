@@ -1,0 +1,25 @@
+{
+  "name": "brinkmannpaul-film",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kritzel-Märchenfilm (Remotion + roughjs) — Testclip",
+  "scripts": {
+    "studio": "remotion studio",
+    "audio:elevenlabs": "node scripts/generate-elevenlabs.mjs",
+    "audio:placeholder": "node scripts/synth-placeholder-audio.mjs",
+    "stills": "remotion still TestMaerchen out/still-02s.png --frame=60 && remotion still TestMaerchen out/still-08s.png --frame=240 && remotion still TestMaerchen out/still-13s.png --frame=390",
+    "render": "remotion render TestMaerchen out/test-maerchen.mp4 --codec=h264",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.533",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "4.0.533",
+    "roughjs": "4.6.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}
