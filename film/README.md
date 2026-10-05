@@ -1,6 +1,6 @@
 # film — Kritzel-Märchen (Remotion + roughjs)
 
-15-Sekunden-Testclip „Es war einmal …“ im Stil eines alten Zeichentrickfilms (1930er–50er).
+18-Sekunden-Testclip „Es war einmal …“ im Stil eines alten Zeichentrickfilms (1930er–50er).
 Separates Teilprojekt, berührt `dist/` (Website) nicht.
 
 ## Schnellstart
@@ -10,7 +10,7 @@ cd film
 npm install
 cp .env.example .env            # ELEVENLABS_API_KEY eintragen
 npm run audio:elevenlabs        # Stimme (2 Kandidaten, wärmere gewinnt) + Musik + Knistern
-npm run stills                  # out/still-02s.png, still-08s.png, still-13s.png
+npm run stills                  # out/still-02s.png, still-09s.png, still-15s.png
 npm run render                  # out/test-maerchen.mp4
 npm run studio                  # interaktive Vorschau
 ```

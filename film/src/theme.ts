@@ -17,7 +17,7 @@ export const palette = {
 export const FPS = 30;
 export const WIDTH = 1080;
 export const HEIGHT = 1080;
-export const DURATION_FRAMES = 15 * FPS;
+export const DURATION_FRAMES = 18 * FPS;
 
 /** Linien "kochen": alle N Frames neu zeichnen. */
 export const BOIL_EVERY = 4;

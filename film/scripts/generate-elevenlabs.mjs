@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 // ElevenLabs-Pipeline für den Testclip:
-//   1. zwei warme, ältere deutsche Erzählerstimmen aus der Voice Library wählen
-//      (Großvater + Großmutter; überschreibbar via VOICE_ID_A / VOICE_ID_B)
+//   1. Erzählstimme: fest vorgegeben (VOICE_ID, Standard siehe FIXED_VOICE_ID) — oder mit VOICE_ID=auto
+//      zwei warme, ältere deutsche Stimmen aus der Voice Library (Großvater + Großmutter;
+//      überschreibbar via VOICE_ID_A / VOICE_ID_B), die wärmere gewinnt
 //   2. Erzählung mit beiden Stimmen über /with-timestamps erzeugen
 //   3. die wärmere Stimme wählen (niedrigerer spektraler Schwerpunkt), die andere als Alternative speichern
 //   4. Wort-Zeitstempel -> public/voice/test-erzaehlung.timing.json (steuert die Animation)
-//   5. Eleven Music (15 s, instrumental) -> public/music/test.mp3
+//   5. Eleven Music (18 s, instrumental) -> public/music/test.mp3
 //   6. Schallplatten-Knistern (Sound Effects) -> public/sfx/knistern.mp3
 //
 //   ELEVENLABS_API_KEY in film/.env, dann: npm run audio:elevenlabs
@@ -32,10 +33,15 @@ if (!KEY) {
 const TEXT =
   'Es war einmal … ein junges Mädchen voller Träume, das gerade in eine neue, unbekannte Stadt gezogen war. Jede Gasse und jedes Gebäude schienen ihr Versprechen von Überraschungen und Abenteuern zu flüstern.';
 
-const CLIP_SECONDS = 15;
+const CLIP_SECONDS = 18;
 const VOICE_OFFSET = 0.6; // Stimme setzt nach der Iris-Blende ein
-const MAX_VOICE_SECONDS = 14.1; // + Offset => endet vor der Abblende
+const MAX_VOICE_SECONDS = 17.1; // + Offset => endet vor der Abblende
 const MODEL = 'eleven_multilingual_v2';
+// Vom Nutzer vorgegebene Erzählstimme für diesen Clip („Old Wizard – Deep, Engaging Storyteller“)
+const FIXED_VOICE_ID = process.env.VOICE_ID ?? 'JoYo65swyP8hH6fVMeTO';
+const SINGLE = FIXED_VOICE_ID !== 'auto';
+// Feste Stimme: nie schneller als 1.05 ohne Rückmeldung
+const MAX_SPEED = Number(process.env.MAX_SPEED ?? (SINGLE ? 1.05 : 1.2));
 
 const api = async (path, {method = 'GET', body, query, binary = false} = {}) => {
   const url = new URL(API + path);
@@ -129,9 +135,15 @@ const toWords = (alignment) => {
   return words.filter((w) => /[\p{L}]/u.test(w.word));
 };
 
+const sharedVoiceName = async (id) => {
+  const {voices = []} = await api('/v1/shared-voices', {query: {search: id, page_size: 5}});
+  return voices.find((v) => v.voice_id === id) ?? null;
+};
+
 const narrate = async (voice) => {
-  let speed = 0.88; // ruhig, langsam
-  for (let attempt = 0; attempt < 6; attempt++) {
+  // ruhig, langsam: kleinste Stufe gewinnt, je Stufe 2 Takes (die Dauer streut pro Take um ~1 s)
+  const ladder = [0.95, 0.95, 0.98, 0.98, 1.01, 1.01, 1.04, 1.04, 1.08, 1.12, 1.16, 1.2];
+  for (const speed of ladder.filter((x) => x <= MAX_SPEED)) {
     const res = await api(`/v1/text-to-speech/${voice.id}/with-timestamps`, {
       method: 'POST',
       query: {output_format: 'mp3_44100_128'},
@@ -149,10 +161,8 @@ const narrate = async (voice) => {
     if (duration <= MAX_VOICE_SECONDS) {
       return {audio: Buffer.from(res.audio_base64, 'base64'), words, duration, speed};
     }
-    if (speed >= 1.2) continue; // API-Maximum: Take neu würfeln (Dauer streut)
-    speed = Math.min(1.2, Math.max(speed + 0.02, Math.round(speed * (duration / MAX_VOICE_SECONDS) * 100 + 1) / 100));
   }
-  throw new Error('Erzählung passt nicht in 15 s');
+  throw new Error(`Erzählung passt nicht in ${CLIP_SECONDS} s (max. speed ${MAX_SPEED})`);
 };
 
 // --- 3. Wärme: spektraler Schwerpunkt (niedriger = wärmer) -----------------
@@ -226,43 +236,6 @@ const write = (rel, buf) => {
 };
 
 const main = async () => {
-  console.log('1) Stimmen wählen');
-  const voices = await chooseVoices();
-
-  console.log('2) Erzählung mit Zeitstempeln');
-  const takes = [];
-  for (const v of voices) takes.push({voice: v, ...(await narrate(v))});
-
-  console.log('3) Wärmere Stimme wählen');
-  for (const t of takes) {
-    t.centroid = spectralCentroid(t.audio);
-    console.log(`  ${t.voice.label} (${t.voice.name}): Schwerpunkt ${t.centroid.toFixed(0)} Hz`);
-  }
-  takes.sort((a, b) => a.centroid - b.centroid);
-  const [chosen, alt] = takes;
-  write('voice/test-erzaehlung.mp3', chosen.audio);
-  write('voice/test-erzaehlung-alt.mp3', alt.audio);
-  writeFileSync(
-    join(PUB, 'voice', 'test-erzaehlung-alt.words.json'),
-    JSON.stringify({voice: alt.voice, words: alt.words}, null, 2),
-  );
-
-  console.log('4) Musik (Eleven Music)');
-  let musicSource = 'elevenlabs';
-  try {
-    write('music/test.mp3', await music());
-  } catch (e) {
-    musicSource = 'placeholder';
-    console.warn(`  Musik fehlgeschlagen, Platzhalter bleibt: ${e.message}`);
-  }
-
-  console.log('5) Schallplatten-Knistern');
-  try {
-    write('sfx/knistern.mp3', await crackle());
-  } catch (e) {
-    console.warn(`  Knistern fehlgeschlagen, Platzhalter bleibt: ${e.message}`);
-  }
-
   const timingPath = join(PUB, 'voice', 'test-erzaehlung.timing.json');
   const timing = JSON.parse(readFileSync(timingPath, 'utf8'));
   const describe = (t) => ({
@@ -274,6 +247,73 @@ const main = async () => {
     seconds: Number(t.duration.toFixed(2)),
     speed: t.speed,
   });
+
+  let chosen;
+  let alternative = timing.voiceChoice?.alternative ?? null;
+  if (SINGLE) {
+    console.log('1) Feste Erzählstimme');
+    const shared = await sharedVoiceName(FIXED_VOICE_ID);
+    const voice = {id: FIXED_VOICE_ID, name: shared?.name ?? FIXED_VOICE_ID, label: 'Erzähler', description: shared?.description ?? shared?.descriptive ?? ''};
+    console.log(`Stimme: ${voice.name} (${voice.id})`);
+    console.log('2) Erzählung mit Zeitstempeln');
+    chosen = {voice, ...(await narrate(voice))};
+    chosen.centroid = spectralCentroid(chosen.audio);
+    // bisherige Hauptstimme bleibt als Alternative erhalten (wird nicht neu erzeugt)
+    const prev = timing.voiceChoice?.chosen;
+    const prevFile = join(PUB, 'voice', 'test-erzaehlung.mp3');
+    if (prev && prev.id !== voice.id && existsSync(prevFile)) {
+      write('voice/test-erzaehlung-alt.mp3', readFileSync(prevFile));
+      writeFileSync(
+        join(PUB, 'voice', 'test-erzaehlung-alt.words.json'),
+        JSON.stringify({voice: {id: prev.id, name: prev.name, label: prev.role, description: prev.description}, words: timing.words}, null, 2),
+      );
+      alternative = {...prev, file: 'voice/test-erzaehlung-alt.mp3'};
+    }
+    write('voice/test-erzaehlung.mp3', chosen.audio);
+  } else {
+    console.log('1) Stimmen wählen');
+    const voices = await chooseVoices();
+
+    console.log('2) Erzählung mit Zeitstempeln');
+    const takes = [];
+    for (const v of voices) takes.push({voice: v, ...(await narrate(v))});
+
+    console.log('3) Wärmere Stimme wählen');
+    for (const t of takes) {
+      t.centroid = spectralCentroid(t.audio);
+      console.log(`  ${t.voice.label} (${t.voice.name}): Schwerpunkt ${t.centroid.toFixed(0)} Hz`);
+    }
+    takes.sort((a, b) => a.centroid - b.centroid);
+    const [best, alt] = takes;
+    chosen = best;
+    write('voice/test-erzaehlung.mp3', best.audio);
+    write('voice/test-erzaehlung-alt.mp3', alt.audio);
+    writeFileSync(
+      join(PUB, 'voice', 'test-erzaehlung-alt.words.json'),
+      JSON.stringify({voice: alt.voice, words: alt.words}, null, 2),
+    );
+    alternative = {...describe(alt), file: 'voice/test-erzaehlung-alt.mp3'};
+  }
+
+  // SKIP_MUSIC=1: vorhandene Musik + Knistern behalten (nur Stimme neu)
+  let musicSource = timing.audio?.musicSource ?? 'placeholder';
+  if (process.env.SKIP_MUSIC !== '1') {
+    console.log('4) Musik (Eleven Music)');
+    musicSource = 'elevenlabs';
+    try {
+      write('music/test.mp3', await music());
+    } catch (e) {
+      musicSource = 'placeholder';
+      console.warn(`  Musik fehlgeschlagen, Platzhalter bleibt: ${e.message}`);
+    }
+
+    console.log('5) Schallplatten-Knistern');
+    try {
+      write('sfx/knistern.mp3', await crackle());
+    } catch (e) {
+      console.warn(`  Knistern fehlgeschlagen, Platzhalter bleibt: ${e.message}`);
+    }
+  }
   writeFileSync(
     timingPath,
     JSON.stringify(
@@ -283,14 +323,14 @@ const main = async () => {
         note: 'Erzeugt von scripts/generate-elevenlabs.mjs (with-timestamps).',
         offsetSeconds: VOICE_OFFSET,
         audio: {voice: 'voice/test-erzaehlung.mp3', music: 'music/test.mp3', sfx: 'sfx/knistern.mp3', musicSource},
-        voiceChoice: {chosen: describe(chosen), alternative: {...describe(alt), file: 'voice/test-erzaehlung-alt.mp3'}},
+        voiceChoice: {chosen: describe(chosen), alternative},
         words: chosen.words,
       },
       null,
       2,
     ) + '\n',
   );
-  console.log(`Fertig. Gewählt: ${chosen.voice.name} (${chosen.voice.label}), Alternative: ${alt.voice.name}.`);
+  console.log(`Fertig. Stimme: ${chosen.voice.name}, speed ${chosen.speed}, ${chosen.duration.toFixed(2)} s. Alternative: ${alternative?.name ?? '–'}.`);
   console.log('Weiter: npm run stills && npm run render');
 };
 

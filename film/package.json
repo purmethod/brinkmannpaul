@@ -7,7 +7,7 @@
     "studio": "remotion studio",
     "audio:elevenlabs": "node scripts/generate-elevenlabs.mjs",
     "audio:placeholder": "node scripts/synth-placeholder-audio.mjs",
-    "stills": "remotion still TestMaerchen out/still-02s.png --frame=60 && remotion still TestMaerchen out/still-08s.png --frame=240 && remotion still TestMaerchen out/still-13s.png --frame=390",
+    "stills": "remotion still TestMaerchen out/still-02s.png --frame=60 && remotion still TestMaerchen out/still-09s.png --frame=285 && remotion still TestMaerchen out/still-15s.png --frame=465",
     "render": "remotion render TestMaerchen out/test-maerchen.mp4 --codec=h264",
     "typecheck": "tsc --noEmit"
   },

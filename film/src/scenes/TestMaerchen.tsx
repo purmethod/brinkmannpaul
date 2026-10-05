@@ -113,13 +113,13 @@ const windowPos = (hd: HouseDef, lean: number, side: number) => {
 
 const kenzaX = (frame: number) => {
   const walkIn = progress(frame, CUES.girl + 4, CUES.girl + 96, Easing.out(Easing.quad));
-  const follow = progress(frame, 386, 450, Easing.in(Easing.quad));
+  const follow = progress(frame, DURATION_FRAMES - 64, DURATION_FRAMES, Easing.in(Easing.quad));
   return lerp(-170, 540, walkIn) + follow * 70;
 };
 
 const worldScale = (frame: number) =>
   lerp(1.32, 1, progress(frame, CUES.city - 4, CUES.city + 46, Easing.inOut(Easing.cubic))) +
-  0.07 * progress(frame, CUES.city + 50, 450, Easing.inOut(Easing.sin));
+  0.07 * progress(frame, CUES.city + 50, DURATION_FRAMES, Easing.inOut(Easing.sin));
 const WORLD_PIVOT = {x: 540, y: 700};
 const toScreen = (p: {x: number; y: number}, s: number) => ({
   x: WORLD_PIVOT.x + (p.x - WORLD_PIVOT.x) * s,
@@ -132,7 +132,7 @@ const kenzaHead = (frame: number) => ({
 });
 
 const butterflyPos = (frame: number) => {
-  const t = progress(frame, CUES.faces + 34, 452, (x) => x);
+  const t = progress(frame, CUES.faces + 34, DURATION_FRAMES + 2, (x) => x);
   return {
     x: lerp(-60, 1000, t),
     y: 470 - Math.sin(t * Math.PI) * 120 + Math.sin(frame * 0.21) * 26,
@@ -183,9 +183,9 @@ const World: React.FC = () => {
   // Kenza-Zustand
   const kx = kenzaX(frame);
   const walkingIn = frame >= CUES.girl + 4 && frame < CUES.girl + 92;
-  const following = frame >= 388;
+  const following = frame >= DURATION_FRAMES - 62;
   const walking = walkingIn || following;
-  const walkCycle = walkingIn ? (frame - CUES.girl) / 17 : (frame - 388) / 20;
+  const walkCycle = walkingIn ? (frame - CUES.girl) / 17 : (frame - (DURATION_FRAMES - 62)) / 20;
   const cityOn = frame >= CUES.city + 6;
   const bfly = butterflyPos(frame);
   const bflyOn = frame >= CUES.faces + 34;
@@ -193,7 +193,7 @@ const World: React.FC = () => {
   let expression: 'happy' | 'wonder' | 'curious' = 'happy';
   if (cityOn && frame < CUES.faces + 40) expression = 'wonder';
   if (bflyOn && frame >= CUES.faces + 44) expression = 'curious';
-  if (frame > 432) expression = 'happy';
+  if (frame > DURATION_FRAMES - 18) expression = 'happy';
 
   let lookX = 0.55;
   let lookY = 0;
@@ -210,7 +210,7 @@ const World: React.FC = () => {
     lookY = Math.max(-1, Math.min(1, (dy / len) * 1.1));
   }
   const pose = walking ? 'walk' : cityOn && frame < CUES.faces + 40 ? 'wonder' : 'stand';
-  const blink = blinkAt(frame, [CUES.girl + 104, CUES.dreams + 40, CUES.city + 70, CUES.faces + 20, 438], 7);
+  const blink = blinkAt(frame, [CUES.girl + 104, CUES.dreams + 40, CUES.city + 70, CUES.faces + 20, DURATION_FRAMES - 12], 7);
   const headTilt = cityOn && !bflyOn ? Math.sin((frame - CUES.city) * 0.07) * 7 : bflyOn ? -6 : 0;
 
   // Häuser
@@ -370,7 +370,7 @@ export const TestMaerchen: React.FC<TestMaerchenProps> = ({vintage}) => {
 
   // Iris: öffnet am Anfang, schließt am Ende auf Kenzas Gesicht
   const irisOpen = progress(frame, 0, 26, Easing.out(Easing.cubic));
-  const irisClose = progress(frame, CUES.irisClose, 447, Easing.in(Easing.cubic));
+  const irisClose = progress(frame, CUES.irisClose, DURATION_FRAMES - 3, Easing.in(Easing.cubic));
   const s = worldScale(frame);
   const head = toScreen(kenzaHead(frame), s);
   const irisCenter = frame < 200 ? {x: 540, y: 540} : {x: head.x, y: head.y + 10};

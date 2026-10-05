@@ -1,165 +1,165 @@
 {
   "voice": {
-    "id": "p2Wol3C7j3rHbfOrbL18",
-    "name": "Lisa - Lovely and Emotional",
-    "label": "Großmutter",
-    "description": "A warm, lively voice full of character and life experience. From heartfelt memories to mischievous anecdotes, this grandmotherly voice tells real stories with laughter, warmth, and resilience. Perfect for nostalgic narration, intimate storytelling, or any project that calls for authenticity and a touch of old-world wit. Subtle chair creaks, soft mouth sounds, and natural room tone were intentionally preserved to maintain the intimate charm of true kitchen storytelling."
+    "id": "oae6GCCzwoEbfc5FHdEu",
+    "name": "William - Soothing and Calm",
+    "label": "Großvater",
+    "description": "This is a gentle bedtime narrator voice, made for falling asleep.\nIt’s warm, calm, and quietly reassuring like a grandparent reading a story by a fireplace.\nThe pace is slow and steady, with soft pauses and clear articulation.\nWords are spoken with care, never rushed, never loud.\nThere’s a subtle smile in the tone, and a hint of wonder in every sentence.\nPerfect for long, dreamy stories that carry listeners gently into sleep."
   },
   "words": [
     {
       "word": "Es",
       "start": 0,
-      "end": 0.093
+      "end": 0.151
     },
     {
       "word": "war",
-      "start": 0.163,
-      "end": 0.325
+      "start": 0.209,
+      "end": 0.372
     },
     {
       "word": "einmal",
-      "start": 0.395,
-      "end": 0.848
+      "start": 0.453,
+      "end": 0.998
     },
     {
       "word": "ein",
-      "start": 1.625,
-      "end": 1.73
+      "start": 1.66,
+      "end": 1.8
     },
     {
       "word": "junges",
-      "start": 1.811,
-      "end": 2.078
+      "start": 1.881,
+      "end": 2.206
     },
     {
       "word": "Mädchen",
-      "start": 2.171,
-      "end": 2.485
+      "start": 2.322,
+      "end": 2.891
     },
     {
       "word": "voller",
-      "start": 2.543,
-      "end": 2.81
+      "start": 2.984,
+      "end": 3.32
     },
     {
       "word": "Träume,",
-      "start": 2.868,
-      "end": 3.367
+      "start": 3.379,
+      "end": 4.098
     },
     {
       "word": "das",
-      "start": 3.39,
-      "end": 3.529
+      "start": 4.296,
+      "end": 4.481
     },
     {
       "word": "gerade",
-      "start": 3.587,
-      "end": 3.901
+      "start": 4.54,
+      "end": 5.016
     },
     {
       "word": "in",
-      "start": 3.959,
-      "end": 4.04
+      "start": 5.05,
+      "end": 5.132
     },
     {
       "word": "eine",
-      "start": 4.11,
-      "end": 4.214
+      "start": 5.224,
+      "end": 5.457
     },
     {
       "word": "neue,",
-      "start": 4.307,
-      "end": 4.632
+      "start": 5.515,
+      "end": 5.944
     },
     {
       "word": "unbekannte",
-      "start": 4.69,
-      "end": 5.201
+      "start": 6.037,
+      "end": 6.815
     },
     {
       "word": "Stadt",
-      "start": 5.224,
-      "end": 5.468
+      "start": 6.861,
+      "end": 7.163
     },
     {
       "word": "gezogen",
-      "start": 5.526,
-      "end": 5.968
+      "start": 7.221,
+      "end": 7.721
     },
     {
       "word": "war.",
-      "start": 6.002,
-      "end": 6.42
+      "start": 7.755,
+      "end": 8.197
     },
     {
       "word": "Jede",
-      "start": 7.001,
-      "end": 7.279
+      "start": 9.265,
+      "end": 9.636
     },
     {
       "word": "Gasse",
-      "start": 7.338,
-      "end": 7.628
+      "start": 9.706,
+      "end": 10.17
     },
     {
       "word": "und",
-      "start": 7.686,
-      "end": 7.79
+      "start": 10.751,
+      "end": 10.937
     },
     {
       "word": "jedes",
-      "start": 7.848,
-      "end": 8.139
+      "start": 11.018,
+      "end": 11.331
     },
     {
       "word": "Gebäude",
-      "start": 8.185,
-      "end": 8.661
+      "start": 11.389,
+      "end": 12.051
     },
     {
       "word": "schienen",
-      "start": 8.707,
-      "end": 8.986
+      "start": 12.249,
+      "end": 12.748
     },
     {
       "word": "ihr",
-      "start": 9.033,
-      "end": 9.16
+      "start": 12.864,
+      "end": 13.015
     },
     {
       "word": "Versprechen",
-      "start": 9.207,
-      "end": 9.892
+      "start": 13.061,
+      "end": 13.665
     },
     {
       "word": "von",
-      "start": 10.252,
-      "end": 10.449
+      "start": 13.735,
+      "end": 13.909
     },
     {
       "word": "Überraschungen",
-      "start": 10.519,
-      "end": 11.192
+      "start": 14.002,
+      "end": 14.826
     },
     {
       "word": "und",
-      "start": 11.262,
-      "end": 11.355
+      "start": 14.942,
+      "end": 15.105
     },
     {
       "word": "Abenteuern",
-      "start": 11.471,
-      "end": 12.005
+      "start": 15.232,
+      "end": 15.871
     },
     {
       "word": "zu",
-      "start": 12.051,
-      "end": 12.121
+      "start": 15.929,
+      "end": 16.022
     },
     {
       "word": "flüstern.",
-      "start": 12.179,
-      "end": 13.05
+      "start": 16.08,
+      "end": 16.904
     }
   ]
 }
