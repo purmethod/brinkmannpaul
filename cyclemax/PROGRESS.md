@@ -7,7 +7,7 @@
 - [x] M0 Projektgerüst (Next.js 16, TS, Tailwind 4, Abhängigkeiten), PROGRESS/DECISIONS
 - [x] M1 Wissensbasis `/knowledge` (PURE aus `purmethod/pur` + brinkmannpaul.com, Stoiker, Zeilen) + Generator `shared/knowledge.generated.ts`
 - [x] M2 Engine `src/engine` (Phasen, Lernen, Benachrichtigungs-Planung) + Vitest
-- [ ] M3 Adapter (Storage, Notification, Platform) Web + Native + Tests
+- [x] M3 Adapter (Storage, Notification, Platform) Web + Native + Tests
 - [ ] M4 Icons, Splash, Manifest, Service Worker (offline, push)
 - [ ] M5 Backend `/server` (Router, DB Drizzle Neon/SQLite, Push, Chat, Feedback, Admin, Cron) + Tests
 - [ ] M6 Wissens-Job (Generator → Kritiker → Duplikat-Check) + Tests mit Mock-Claude
