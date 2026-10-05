@@ -1,0 +1,33 @@
+{
+  "_note": "Page slugs per language. Read by the build (links, hreflang, language switch) and by api/checkout.js (return URL, legal links).",
+  "en": {
+    "home": "/",
+    "order": "/order",
+    "story": "/story",
+    "philosophy": "/philosophy",
+    "mission": "/mission",
+    "founders": "/founders",
+    "tracking": "/tracking",
+    "thanks": "/thanks",
+    "shipping": "/shipping",
+    "imprint": "/imprint",
+    "privacy": "/privacy",
+    "terms": "/terms",
+    "withdrawal": "/withdrawal"
+  },
+  "de": {
+    "home": "/de",
+    "order": "/de/bestellen",
+    "story": "/de/geschichte",
+    "philosophy": "/de/philosophie",
+    "mission": "/de/ziel",
+    "founders": "/de/gruender",
+    "tracking": "/de/sendungsverfolgung",
+    "thanks": "/de/danke",
+    "shipping": "/de/versand",
+    "imprint": "/de/impressum",
+    "privacy": "/de/datenschutz",
+    "terms": "/de/agb",
+    "withdrawal": "/de/widerruf"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "qefyr-tools",
+  "private": true,
+  "description": "Dev-only tooling: browser tests and image rendering. Not installed on Vercel.",
+  "type": "module",
+  "scripts": {
+    "e2e": "node e2e.mjs",
+    "images": "node render-images.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "playwright": "1.56.1"
+  }
+}

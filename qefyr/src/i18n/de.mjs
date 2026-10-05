@@ -1,0 +1,387 @@
+// Deutsche Texte. Überschriften klein (Markenstil), Fließtext normal. Wir duzen.
+// Fakten nur von Paul oder aus docs/sources.md. Keine Gesundheitsversprechen (VO 1924/2006).
+export default {
+  lang: "de",
+  htmlLang: "de",
+  ogLocale: "de_DE",
+  name: "Deutsch",
+  short: "DE",
+
+  nav: {
+    skip: "Zum Inhalt springen",
+    home: "qefyr Startseite",
+    story: "geschichte",
+    philosophy: "philosophie",
+    mission: "unser ziel",
+    founders: "gründer",
+    order: "bestellen",
+    menu: "Menü",
+    close: "Menü schließen",
+    switchTo: "English",
+    switchLabel: "This page in English",
+  },
+
+  common: {
+    orderCta: "qefyr bestellen",
+    shippingNote: "+ DHL-Versand · Sendungsverfolgung · weltweit",
+    vatIncl: "inkl. MwSt.",
+    vatSmall: "keine MwSt. gemäß § 19 UStG",
+    perLitre: "pro Liter",
+    readStory: "zur geschichte",
+    meetFounders: "die gründer kennenlernen",
+    toOrder: "zum shop",
+    madeIn: "made in germany",
+    ctaBandTitle: "starte dein <em>ritual.</em>",
+    ctaBandText: "Lebender Kefir mit echten Knollen, trinkfertig. Mit DHL und Sendungsverfolgung, weltweit.",
+    translationNote: "",
+  },
+
+  footer: {
+    tagline: "lebender kefir mit echten knollen.<br>made in germany.",
+    shop: "shop",
+    about: "qefyr",
+    legal: "rechtliches",
+    contact: "kontakt",
+    order: "qefyr bestellen",
+    shipping: "versand & zahlung",
+    tracking: "sendungsverfolgung",
+    imprint: "impressum",
+    privacy: "datenschutz",
+    terms: "agb",
+    withdrawal: "widerruf",
+    founded: "gegründet von Anne Maria & Paul Brinkmann",
+    rights: "made in germany",
+  },
+
+  home: {
+    title: "qefyr · lebender Kefir mit echten Knollen, trinkfertig",
+    description:
+      "Lebender Kefir mit echten Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trinkfertig, und zuhause kannst du ihn weiterzüchten. Made in Germany, weltweiter Versand mit DHL-Sendungsverfolgung.",
+    hero: {
+      kicker: "lebender kefir · made in germany",
+      title: "lebender <em>kefir.</em><br>trinkfertig.",
+      lead: "Echte Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trink ihn am Tag der Ankunft und halte ihn dann zuhause am Leben. Frischer Kefir, jeden Tag.",
+      cta: "qefyr bestellen",
+      secondary: "so funktioniert's",
+      facts: ["echte kefirknollen inklusive", "DHL mit sendungsverfolgung · weltweit", "made in germany"],
+      art: "Illustration: ein Glas cremiger Kefir, daneben Kefirknollen",
+    },
+    band: ["trinkfertig", "echte kefirknollen", "bio-alpenmilch", "zuhause weiterzüchten", "made in germany", "weltweiter versand"],
+    intro: {
+      kicker: "warum qefyr",
+      title: "eine kleine kultur.<br><em>ein tägliches ritual.</em>",
+      p: [
+        "Nach Jahren des Experimentierens habe ich eine Methode entwickelt, die selbstgemachten Kefir so einfach macht, dass du ihn wirklich jeden Tag machst. Fast keine Arbeit, nur lebende Kulturen und frische Milch.",
+        "Das Ergebnis ist mild, cremig und sanft süßsauer, ganz anders als der Kefir, den die meisten kennen.",
+      ],
+      sign: "Paul Brinkmann, Gründer",
+      art: "Illustration: Kefirknollen",
+    },
+    method: {
+      kicker: "die methode",
+      title: "kefir selbst machen.<br><em>so einfach wie nie.</em>",
+      lead: "qefyr kommt als fertiger Kefir bei dir an, mit den lebenden Knollen darin. Du trinkst ihn, und die Kultur bleibt bei dir.",
+      steps: [
+        { icon: "glass", title: "trinken", text: "qefyr kommt trinkfertig an: echter Kefir, mit den Knollen in Bio-Alpenmilch fermentiert." },
+        { icon: "milk", title: "milch dazu", text: "Die Knollen sind dabei. Gib ihnen frische Milch, und sie legen wieder los." },
+        { icon: "loop", title: "wiederholen", text: "Deine Kultur macht aus frischer Milch frischen Kefir. Immer wieder, solange du sie pflegst." },
+      ],
+      note: "Zu jedem qefyr gehören Pauls Methode und eine Anleitung für den Start.",
+    },
+    secret: {
+      kicker: "das geheimnis eines milden kefirs",
+      title: "mild.<br><em>und trotzdem lebendig.</em>",
+      p: [
+        "Die meisten Kefire sind entweder scharf und sauer oder mild, weil etwas fehlt. In Deutschland darf „Kefir mild“ mit Kulturen hergestellt werden, die von Kefirknollen nur abgeleitet sind, statt mit den Knollen selbst. Hefen muss er gar nicht enthalten.",
+        "qefyr geht den anderen Weg: die ganze lebende Knolle, Bakterien und Hefen zusammen, und trotzdem mild, cremig und sanft süßsauer.",
+        "Das Geheimnis ist Balance. Vier Dinge entscheiden, ob Kefir mild oder sauer wird. Unsere Methode hält alle vier im Gleichgewicht, bei uns und bei dir zuhause.",
+      ],
+      pillars: [
+        { icon: "time", title: "zeit", text: "Je länger Kefir fermentiert, desto saurer wird er." },
+        { icon: "warmth", title: "wärme", text: "Wärme beschleunigt die Fermentation und macht sie schärfer." },
+        { icon: "culture", title: "kultur", text: "Mehr Knollen auf dieselbe Milch machen Kefir schneller sauer." },
+        { icon: "mountain", title: "milch", text: "Bio-Alpenmilch aus Berchtesgaden. Die Basis jedes qefyr." },
+      ],
+      source: "„Kefir mild“: Milcherzeugnisverordnung, Anlage 1.",
+    },
+    compare: {
+      kicker: "echter kefir",
+      title: "die ganze kultur.<br><em>sonst nichts.</em>",
+      head: ["", "qefyr", "typischer Supermarkt-Kefir"],
+      rows: [
+        ["lebende Kefirknollen", "dabei", "keine in der Packung"],
+        ["zuhause weiter Kefir machen", "ja, mit den Knollen", "keine Knollen zum Weiterzüchten"],
+        ["Hefen", "Teil der lebenden Knolle", "bei „Kefir mild“ nicht vorgeschrieben"],
+        ["Milch", "Bio-Alpenmilch aus Berchtesgaden", "unterschiedlich"],
+        ["trinkfertig", "ja", "ja"],
+      ],
+      caption: "Vergleich von qefyr mit typischem Supermarkt-Kefir",
+    },
+    offer: {
+      kicker: "lebender kefir mit echten knollen",
+      title: "qefyr",
+      text: "Echte Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trinkfertig, und zuhause zum Weiterzüchten.",
+      includesTitle: "inklusive",
+      gift: "Einen für dich, einen zum Verschenken.",
+    },
+    faq: {
+      kicker: "fragen",
+      title: "gut zu <em>wissen.</em>",
+      items: [
+        {
+          q: "Was genau kommt bei mir an?",
+          a: "Fertiger Kefir, trinkfertig, hergestellt mit echten Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Die lebenden Knollen sind dabei, zusammen mit Pauls Methode und einer Anleitung für den Start.",
+        },
+        {
+          q: "Kann ich damit wirklich weiter Kefir machen?",
+          a: "Ja. Die Knollen sind eine lebende Kultur. Gib ihnen frische Milch, und sie machen wieder Kefir, solange du sie pflegst. Die Anleitung zeigt dir, wie.",
+        },
+        {
+          q: "Wie kann Kefir mit echten Knollen so mild sein?",
+          a: "Mild ist eine Frage der Balance: Zeit, Wärme, Menge der Kultur und die Milch. Unsere Methode hält alle vier im Gleichgewicht, es wird nichts weggelassen.",
+        },
+        {
+          q: "Wie wird verschickt?",
+          a: "Mit DHL und Sendungsverfolgung, nach Deutschland, in die EU und weltweit. Sobald dein Paket unterwegs ist, bekommst du die Sendungsnummer per E-Mail und kannst es auf unserer {tracking} verfolgen.",
+        },
+        {
+          q: "Zoll außerhalb der EU?",
+          a: "Bei Bestellungen außerhalb der EU können Einfuhrabgaben, Steuern und lokale Einfuhrregeln für Milchprodukte gelten. Bitte prüfe vor der Bestellung die Regeln deines Landes. Abgaben trägt der Empfänger.",
+        },
+        {
+          q: "Wie kann ich bezahlen?",
+          a: "Über den sicheren Checkout von Stripe, mit Karte, Apple Pay, Google Pay und weiteren Zahlarten, je nach Land.",
+        },
+      ],
+      trackingLink: "Sendungsverfolgung",
+    },
+    founders: {
+      kicker: "gründer",
+      title: "gemacht von anne maria<br><em>&amp; paul brinkmann.</em>",
+      text: "Made in Germany, verschickt in die ganze Welt.",
+    },
+  },
+
+  order: {
+    title: "qefyr bestellen · lebender Kefir mit echten Knollen",
+    description: "qefyr bestellen: lebender Kefir mit echten Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trinkfertig. DHL mit Sendungsverfolgung, weltweit.",
+    kicker: "lebender kefir mit echten knollen",
+    h1: "qefyr",
+    sub: "Echte Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trinkfertig, und zuhause zum Weiterzüchten.",
+    includes: ["lebender Kefir mit echten Knollen, trinkfertig", "Pauls Methode", "Anleitung für den Start"],
+    includesTitle: "inklusive",
+    shippingLegend: "versand",
+    days: "{min}–{max} Werktage",
+    qty: "menge",
+    less: "Einen weniger",
+    more: "Einen mehr",
+    total: "gesamt",
+    cta: "jetzt bestellen",
+    busy: "einen moment…",
+    back: "versand oder menge ändern",
+    secure: "Sicherer Checkout von Stripe. Adresse und Zahlung im nächsten Schritt.",
+    legal: "Mit deiner Bestellung akzeptierst du unsere {terms}. Als frisches, lebendes Lebensmittel ist qefyr vom Widerrufsrecht ausgeschlossen ({withdrawal}).",
+    termsLink: "AGB",
+    withdrawalLink: "Details",
+    gift: "Einen für dich, einen zum Verschenken.",
+    notReady: "Der Online-Checkout wird gerade eingerichtet. Du kannst per E-Mail bestellen, wir antworten persönlich.",
+    failed: "Der Checkout konnte nicht geladen werden. Bitte versuch es noch einmal oder bestell per E-Mail.",
+    testMode: "Testmodus",
+    mailCta: "per e-mail bestellen",
+    mailSubject: "qefyr Bestellung",
+    mailBody: "Hallo qefyr,\n\nich möchte qefyr bestellen.\n\nMenge: {qty}\nVersand: {zone}\nName:\nLieferadresse:\n",
+    trust: [
+      { icon: "truck", text: "DHL mit Sendungsverfolgung, weltweit" },
+      { icon: "lock", text: "sichere Zahlung über Stripe" },
+      { icon: "flag", text: "made in germany" },
+    ],
+    art: "Illustration: ein Glas cremiger Kefir mit Kefirknollen",
+    details: {
+      how: {
+        title: "so funktioniert's",
+        items: ["Trinken: qefyr kommt trinkfertig an.", "Milch dazu: Die Knollen sind dabei. Gib ihnen frische Milch.", "Wiederholen: wieder frischer Kefir, solange du die Kultur pflegst."],
+      },
+      info: {
+        title: "produktinformation",
+        name: "Bezeichnung",
+        nameValue: "Kefir mit lebenden Kefirknollen",
+        ingredients: "Zutaten",
+        ingredientsValue: "Bio-Alpenmilch aus Berchtesgaden, Kefirkultur (lebende Kefirknollen).",
+        allergens: "Allergene",
+        allergensValue: "Enthält <strong>Milch</strong> (einschließlich Laktose).",
+        volume: "Inhalt",
+        producer: "Lebensmittelunternehmer",
+        organic: "Öko-Kontrollstelle",
+      },
+      shipping: {
+        title: "versand & lieferung",
+        text: "Wir verschicken mit DHL und Sendungsverfolgung nach Deutschland, in die EU und weltweit. Sobald dein Paket unterwegs ist, bekommst du die Sendungsnummer per E-Mail.",
+        link: "alle versanddetails",
+      },
+      customs: {
+        title: "außerhalb der EU",
+        text: "Bei Bestellungen außerhalb der EU können Einfuhrabgaben, Steuern und lokale Einfuhrregeln für Milchprodukte gelten. Bitte prüfe vor der Bestellung die Regeln deines Landes. Abgaben trägt der Empfänger.",
+      },
+    },
+  },
+
+  story: {
+    title: "geschichte · qefyr",
+    description: "Woher Kefir kommt, wie echte Kefirknollen in die Welt kamen und wie Paul Brinkmann selbstgemachten Kefir einfach gemacht hat.",
+    kicker: "die geschichte",
+    h1: "vom kaukasus<br><em>in deine küche.</em>",
+    lead: "Eine kleine Kultur mit langer Geschichte, und eine Methode, die sie endlich einfach macht.",
+    sections: [
+      {
+        h: "woher kefir kommt",
+        p: [
+          "Kefirknollen haben ihre Wurzeln im Kaukasus. Über Generationen wurden sie mit frischer Milch am Leben gehalten und von Familie zu Familie weitergegeben.",
+          "Fermentierte Milch hat nomadische Kulturen über Jahrhunderte begleitet, auch die mongolische Armee von Dschingis Khan.",
+        ],
+      },
+      {
+        h: "eine kultur, die eine reise wert war",
+        p: [
+          "Man erzählt sich, dass eine Moskauer Molkerei 1908 eine junge Frau, Irina Sakharova, in den Kaukasus schickte, um Kefirknollen zu holen. Die Menschen dort wollten sich nicht von ihnen trennen.",
+          "Am Ende, so heißt es, kam sie nach einem Streit, der bis an den Hof des Zaren ging, mit Knollen zurück. Kurz darauf wurde in Moskau Kefir gemacht.",
+        ],
+      },
+      {
+        h: "eine methode, die es einfach macht",
+        p: [
+          "Nach Jahren des Experimentierens habe ich eine Methode entwickelt, die selbstgemachten Kefir so einfach macht, dass du ihn wirklich jeden Tag machst. Fast keine Arbeit, nur lebende Kulturen und frische Milch.",
+          "Das Ergebnis ist mild, cremig und sanft süßsauer, ganz anders als der Kefir, den die meisten kennen.",
+        ],
+        sign: "Paul",
+      },
+      {
+        h: "milch aus den bergen",
+        p: ["Wir machen qefyr mit Bio-Alpenmilch aus Berchtesgaden, in den bayerischen Alpen. Zwei Zutaten: Milch und eine lebende Kultur. Sonst nichts."],
+      },
+      {
+        h: "made in germany, für die welt",
+        p: ["qefyr wird in Deutschland von Anne Maria und Paul Brinkmann gemacht und mit DHL nach Deutschland, in die EU und in den Rest der Welt verschickt."],
+      },
+    ],
+  },
+
+  philosophy: {
+    title: "philosophie · qefyr",
+    description: "Fünf Prinzipien hinter qefyr: lebendig, pur, einfach, mild, deins.",
+    kicker: "philosophie",
+    h1: "weniger,<br><em>aber lebendig.</em>",
+    lead: "Fünf Prinzipien hinter jedem qefyr.",
+    principles: [
+      { h: "lebendig", p: "Echter Kefir ist eine lebende Gemeinschaft aus Bakterien und Hefen. Wir lassen sie ganz: Die Knollen sind bei jedem qefyr dabei." },
+      { h: "pur", p: "Zwei Zutaten: Bio-Alpenmilch und die Kultur selbst. Keine Zusatzstoffe, keine Aromen, keine Abkürzungen." },
+      { h: "einfach", p: "Ein Ritual hält nur, wenn es leicht ist. Deshalb macht unsere Methode fast keine Arbeit: lebende Kultur, frische Milch, ein wenig Zeit." },
+      { h: "mild", p: "Kefir muss nicht scharf sein. Mild ist eine Frage der Balance, nicht des Weglassens." },
+      { h: "deins", p: "Du kaufst qefyr nicht jede Woche. Du kaufst ihn einmal und hältst ihn am Leben: eine Kultur, die in deiner Küche lebt." },
+    ],
+    quote: "die besten dinge in einer küche leben.",
+  },
+
+  mission: {
+    title: "unser ziel · qefyr",
+    description: "Unser Ziel: eine lebende Kultur in jeder Küche. Echter Kefir mit echten Knollen, zuhause gemacht, jeden Tag.",
+    kicker: "unser ziel",
+    h1: "eine lebende kultur<br><em>in jeder küche.</em>",
+    lead: "Die meisten kennen Kefir nur aus dem Kühlregal. Wir wollen, dass alle das Original kennen: lebendig, mild, zuhause gemacht, jeden Tag.",
+    p: "Ein qefyr reicht für den Anfang. Mit etwas Pflege leben die Knollen weiter, und wenn sie wachsen, kannst du sie teilen.",
+    commitments: [
+      { h: "echt, nicht reduziert", p: "Die ganze lebende Knolle, Bakterien und Hefen zusammen. Nie eine Kultur, der etwas fehlt." },
+      { h: "aus den bergen", p: "Bio-Alpenmilch aus Berchtesgaden, in Deutschland zu qefyr gemacht." },
+      { h: "in die ganze welt", p: "Mit DHL und Sendungsverfolgung verschickt, wo immer du bist." },
+    ],
+    closing: "eine küche <em>nach der anderen.</em>",
+  },
+
+  founders: {
+    title: "gründer · qefyr",
+    description: "qefyr wird in Deutschland von Anne Maria Brinkmann und Paul Brinkmann gemacht.",
+    kicker: "gründer",
+    h1: "anne maria<br><em>&amp; paul brinkmann.</em>",
+    lead: "qefyr wird von zwei Menschen gemacht, in Deutschland.",
+    people: [
+      {
+        name: "Anne Maria Brinkmann",
+        role: "gründerin",
+        bio: ["Anne Maria Brinkmann hat qefyr zusammen mit Paul gegründet."],
+        monogram: "am",
+      },
+      {
+        name: "Paul Brinkmann",
+        role: "gründer",
+        bio: [
+          "Architekt (M.Sc.), forscht zu Neuroarchitektur und ist zertifizierter Wim-Hof-Methode-Instruktor.",
+          "Paul hat jahrelang mit Fermentation experimentiert. Die Methode hinter qefyr ist seine. Er hat auch ÂLF entwickelt, eine lebende deutsche Sauerteigkultur.",
+        ],
+        photo: "/img/paul-brinkmann.jpg",
+        photoAlt: "Porträt von Paul Brinkmann",
+        links: [
+          { href: "https://brinkmannpaul.com/", text: "brinkmannpaul.com" },
+          { href: "https://souralf.com/", text: "ÂLF Sauerteig" },
+        ],
+      },
+    ],
+  },
+
+  tracking: {
+    title: "sendungsverfolgung · qefyr",
+    description: "Verfolge dein qefyr-Paket mit deiner DHL-Sendungsnummer.",
+    kicker: "sendungsverfolgung",
+    h1: "wo ist<br><em>dein qefyr?</em>",
+    lead: "Gib deine DHL-Sendungsnummer ein. Du findest sie in der E-Mail, die wir dir schicken, sobald dein Paket unterwegs ist.",
+    label: "DHL-Sendungsnummer",
+    placeholder: "z. B. 00340434…",
+    button: "bei DHL verfolgen",
+    note: "Öffnet die Sendungsverfolgung von DHL in einem neuen Tab.",
+    action: "https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html",
+    help: "Noch keine E-Mail? Dann ist dein Paket noch nicht unterwegs. Fragen: {email}",
+  },
+
+  thanks: {
+    title: "danke · qefyr",
+    description: "Danke für deine Bestellung.",
+    kicker: "bestellung erhalten",
+    h1: "vielen<br><em>dank.</em>",
+    lead: "Dein qefyr wird vorbereitet. Deine Zahlungsbestätigung ist per E-Mail unterwegs. Sobald dein Paket verschickt ist, bekommst du deine DHL-Sendungsnummer.",
+    track: "sendung verfolgen",
+    home: "zurück zu qefyr",
+    openTitle: "zahlung <em>nicht abgeschlossen.</em>",
+    openLead: "Deine Zahlung wurde nicht abgeschlossen, es wurde also nichts abgebucht. Du kannst es jederzeit noch einmal versuchen.",
+    retry: "zurück zum checkout",
+  },
+
+  shipping: {
+    title: "versand & zahlung · qefyr",
+    description: "Versandzonen, Preise und Lieferzeiten für qefyr. DHL mit Sendungsverfolgung, weltweit. Zahlung über Stripe.",
+    kicker: "service",
+    h1: "versand<br><em>&amp; zahlung.</em>",
+    zonesTitle: "versandzonen",
+    head: ["zone", "versandart", "preis", "lieferzeit"],
+    deliveryNote: "Lieferzeiten sind die üblichen Laufzeiten von DHL ab Versand, in Werktagen.",
+    sections: [
+      { h: "sendungsverfolgung", p: "Jeder qefyr wird mit DHL-Sendungsverfolgung verschickt. Sobald dein Paket unterwegs ist, bekommst du die Sendungsnummer per E-Mail. Verfolgen kannst du es auf unserer {tracking}." },
+      { h: "ein lebendes produkt", p: "qefyr ist ein frisches, lebendes Lebensmittel. Bitte sorg dafür, dass du dein Paket bald nach der Zustellung annehmen kannst, und gib deine Adresse vollständig und richtig an." },
+      { h: "zoll außerhalb der EU", p: "Bei Bestellungen außerhalb der EU können Einfuhrabgaben, Steuern und lokale Einfuhrregeln für Milchprodukte gelten. Bitte prüfe vor der Bestellung die Regeln deines Landes. Abgaben trägt der Empfänger." },
+      { h: "zahlung", p: "Du bezahlst über den sicheren Checkout von Stripe. Je nach Land stehen Karte, Apple Pay, Google Pay und weitere Zahlarten zur Verfügung. Die Zahlung ist mit der Bestellung fällig." },
+      { h: "preise", p: "Alle Preise sind Endpreise in Euro, {vat}, zuzüglich Versand." },
+    ],
+    trackingLink: "Seite zur Sendungsverfolgung",
+  },
+
+  notFound: {
+    title: "seite nicht gefunden · qefyr",
+    h1: "diese seite<br><em>gibt es nicht.</em>",
+    lead: "Vielleicht ist sie umgezogen. Alles Wichtige ist nur einen Klick entfernt.",
+    home: "zu qefyr",
+  },
+
+  legalTitles: {
+    imprint: "impressum",
+    privacy: "datenschutzerklärung",
+    terms: "allgemeine geschäftsbedingungen",
+    withdrawal: "widerruf",
+  },
+};

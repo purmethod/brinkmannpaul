@@ -1,0 +1,60 @@
+{
+  "_note": "The one place for product, price and shipping. Read by the build (pages) and by api/checkout.js (Stripe). Amounts in cents.",
+  "currency": "eur",
+  "product": {
+    "id": "qefyr",
+    "name": "qefyr",
+    "amount": 2900,
+    "volume_ml": null,
+    "description": {
+      "en": "Living kefir with real kefir grains in organic alpine milk from Berchtesgaden. Ready to drink.",
+      "de": "Lebender Kefir mit echten Kefirknollen in Bio-Alpenmilch aus Berchtesgaden. Trinkfertig."
+    }
+  },
+  "max_quantity": 6,
+  "allow_promotion_codes": true,
+  "shipping": [
+    {
+      "id": "de",
+      "label": {
+        "en": "Germany",
+        "de": "Deutschland"
+      },
+      "service": {
+        "en": "DHL Paket · tracked",
+        "de": "DHL Paket · mit Sendungsverfolgung"
+      },
+      "amount": 619,
+      "delivery_days": [1, 3],
+      "countries": ["DE"]
+    },
+    {
+      "id": "eu",
+      "label": {
+        "en": "EU",
+        "de": "EU"
+      },
+      "service": {
+        "en": "DHL Paket International · tracked",
+        "de": "DHL Paket International · mit Sendungsverfolgung"
+      },
+      "amount": 1449,
+      "delivery_days": [2, 6],
+      "countries": ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"]
+    },
+    {
+      "id": "world",
+      "label": {
+        "en": "Worldwide",
+        "de": "Weltweit"
+      },
+      "service": {
+        "en": "DHL Paket International · tracked",
+        "de": "DHL Paket International · mit Sendungsverfolgung"
+      },
+      "amount": 2749,
+      "delivery_days": [4, 14],
+      "countries": ["AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AR", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BF", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BW", "BZ", "CA", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CV", "CW", "DJ", "DM", "DO", "DZ", "EC", "EG", "ER", "ET", "FJ", "FK", "FO", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GT", "GU", "GW", "GY", "HK", "HN", "HT", "ID", "IL", "IM", "IN", "IQ", "IS", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MK", "ML", "MM", "MN", "MO", "MQ", "MR", "MS", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NG", "NI", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PM", "PR", "PS", "PY", "QA", "RE", "RS", "RW", "SA", "SB", "SC", "SG", "SH", "SJ", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SZ", "TC", "TD", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"]
+    }
+  ]
+}
