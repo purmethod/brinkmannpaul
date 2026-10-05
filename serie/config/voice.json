@@ -6,12 +6,7 @@
       "slug": "old-wizard",
       "id": "JoYo65swyP8hH6fVMeTO",
       "name": "Old Wizard – Deep, Engaging Storyteller"
-    },
-    {
-      "slug": "spuds-oxley",
-      "id": "NOpBlnGInO9m6vDvFkFC",
-      "name": "Spuds Oxley - Grandpa"
     }
   ],
-  "selected": null
+  "selected": "old-wizard"
 }
