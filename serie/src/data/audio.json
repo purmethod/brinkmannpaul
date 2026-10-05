@@ -1,7 +1,717 @@
 {
-  "voices": {},
+  "voices": {
+    "old-wizard": {
+      "id": "JoYo65swyP8hH6fVMeTO",
+      "name": "Old Wizard – Deep, Engaging Storyteller",
+      "episodes": {
+        "1": {
+          "file": "voice/old-wizard/teil-01.mp3",
+          "words": [
+            {
+              "word": "Once",
+              "start": 0,
+              "end": 0.325
+            },
+            {
+              "word": "upon",
+              "start": 0.372,
+              "end": 0.604
+            },
+            {
+              "word": "a",
+              "start": 0.65,
+              "end": 0.685
+            },
+            {
+              "word": "time,",
+              "start": 0.743,
+              "end": 1.184
+            },
+            {
+              "word": "there",
+              "start": 1.231,
+              "end": 1.428
+            },
+            {
+              "word": "was",
+              "start": 1.463,
+              "end": 1.591
+            },
+            {
+              "word": "a",
+              "start": 1.637,
+              "end": 1.672
+            },
+            {
+              "word": "girl",
+              "start": 1.73,
+              "end": 2.02
+            },
+            {
+              "word": "named",
+              "start": 2.09,
+              "end": 2.38
+            },
+            {
+              "word": "Karima,",
+              "start": 2.496,
+              "end": 3.367
+            },
+            {
+              "word": "full",
+              "start": 3.587,
+              "end": 4.005
+            },
+            {
+              "word": "of",
+              "start": 4.11,
+              "end": 4.203
+            },
+            {
+              "word": "dreams.",
+              "start": 4.284,
+              "end": 5.05
+            },
+            {
+              "word": "She",
+              "start": 5.341,
+              "end": 5.48
+            },
+            {
+              "word": "moved",
+              "start": 5.55,
+              "end": 5.956
+            },
+            {
+              "word": "to",
+              "start": 6.014,
+              "end": 6.095
+            },
+            {
+              "word": "a",
+              "start": 6.177,
+              "end": 6.2
+            },
+            {
+              "word": "strange",
+              "start": 6.269,
+              "end": 6.734
+            },
+            {
+              "word": "city.",
+              "start": 6.78,
+              "end": 7.396
+            },
+            {
+              "word": "But",
+              "start": 7.86,
+              "end": 8.011
+            },
+            {
+              "word": "she",
+              "start": 8.046,
+              "end": 8.15
+            },
+            {
+              "word": "had",
+              "start": 8.208,
+              "end": 8.348
+            },
+            {
+              "word": "a",
+              "start": 8.394,
+              "end": 8.429
+            },
+            {
+              "word": "secret",
+              "start": 8.487,
+              "end": 8.882
+            }
+          ],
+          "duration": 8.882,
+          "speed": 1.1
+        },
+        "2": {
+          "file": "voice/old-wizard/teil-02.mp3",
+          "words": [
+            {
+              "word": "She",
+              "start": 0,
+              "end": 0.163
+            },
+            {
+              "word": "had",
+              "start": 0.232,
+              "end": 0.372
+            },
+            {
+              "word": "not",
+              "start": 0.43,
+              "end": 0.569
+            },
+            {
+              "word": "the",
+              "start": 0.615,
+              "end": 0.697
+            },
+            {
+              "word": "slightest",
+              "start": 0.743,
+              "end": 1.242
+            },
+            {
+              "word": "sense",
+              "start": 1.324,
+              "end": 1.614
+            },
+            {
+              "word": "of",
+              "start": 1.649,
+              "end": 1.695
+            },
+            {
+              "word": "direction.",
+              "start": 1.753,
+              "end": 2.345
+            },
+            {
+              "word": "And",
+              "start": 2.508,
+              "end": 2.67
+            },
+            {
+              "word": "one",
+              "start": 2.786,
+              "end": 2.972
+            },
+            {
+              "word": "morning,",
+              "start": 3.019,
+              "end": 3.495
+            },
+            {
+              "word": "she",
+              "start": 3.68,
+              "end": 3.82
+            },
+            {
+              "word": "got",
+              "start": 3.889,
+              "end": 4.075
+            },
+            {
+              "word": "lost",
+              "start": 4.145,
+              "end": 4.574
+            },
+            {
+              "word": "right",
+              "start": 5.294,
+              "end": 5.538
+            },
+            {
+              "word": "before",
+              "start": 5.608,
+              "end": 5.909
+            },
+            {
+              "word": "the",
+              "start": 5.956,
+              "end": 6.037
+            },
+            {
+              "word": "eyes",
+              "start": 6.107,
+              "end": 6.316
+            },
+            {
+              "word": "of",
+              "start": 6.362,
+              "end": 6.42
+            },
+            {
+              "word": "a",
+              "start": 6.467,
+              "end": 6.502
+            },
+            {
+              "word": "stranger.",
+              "start": 6.548,
+              "end": 7.384
+            }
+          ],
+          "duration": 7.384,
+          "speed": 0.96
+        },
+        "3": {
+          "file": "voice/old-wizard/teil-03.mp3",
+          "words": [
+            {
+              "word": "His",
+              "start": 0,
+              "end": 0.232
+            },
+            {
+              "word": "name",
+              "start": 0.337,
+              "end": 0.801
+            },
+            {
+              "word": "was",
+              "start": 1.022,
+              "end": 1.219
+            },
+            {
+              "word": "Pablo.",
+              "start": 1.289,
+              "end": 2.067
+            },
+            {
+              "word": "A",
+              "start": 2.531,
+              "end": 2.635
+            },
+            {
+              "word": "wanderer,",
+              "start": 2.775,
+              "end": 3.564
+            },
+            {
+              "word": "wild",
+              "start": 3.75,
+              "end": 4.365
+            },
+            {
+              "word": "and",
+              "start": 4.47,
+              "end": 4.656
+            },
+            {
+              "word": "free,",
+              "start": 4.76,
+              "end": 5.236
+            },
+            {
+              "word": "who",
+              "start": 5.283,
+              "end": 5.445
+            },
+            {
+              "word": "would",
+              "start": 5.48,
+              "end": 5.677
+            },
+            {
+              "word": "never",
+              "start": 5.817,
+              "end": 6.2
+            },
+            {
+              "word": "be",
+              "start": 6.304,
+              "end": 6.502
+            },
+            {
+              "word": "tied",
+              "start": 6.56,
+              "end": 6.908
+            },
+            {
+              "word": "down.",
+              "start": 6.966,
+              "end": 7.616
+            },
+            {
+              "word": "'Where",
+              "start": 8.359,
+              "end": 8.777
+            },
+            {
+              "word": "to?'",
+              "start": 8.835,
+              "end": 9.358
+            },
+            {
+              "word": "he",
+              "start": 9.578,
+              "end": 9.671
+            },
+            {
+              "word": "asked.",
+              "start": 9.741,
+              "end": 10.356
+            }
+          ],
+          "duration": 10.356,
+          "speed": 1.1
+        }
+      },
+      "outro": {
+        "file": "voice/old-wizard/outro.mp3",
+        "duration": 0.894,
+        "speed": 0.95
+      }
+    },
+    "spuds-oxley": {
+      "id": "NOpBlnGInO9m6vDvFkFC",
+      "name": "Spuds Oxley - Grandpa",
+      "episodes": {
+        "1": {
+          "file": "voice/spuds-oxley/teil-01.mp3",
+          "words": [
+            {
+              "word": "Once",
+              "start": 0,
+              "end": 0.29
+            },
+            {
+              "word": "upon",
+              "start": 0.337,
+              "end": 0.639
+            },
+            {
+              "word": "a",
+              "start": 0.697,
+              "end": 0.731
+            },
+            {
+              "word": "time,",
+              "start": 0.801,
+              "end": 1.358
+            },
+            {
+              "word": "there",
+              "start": 1.521,
+              "end": 1.73
+            },
+            {
+              "word": "was",
+              "start": 1.765,
+              "end": 1.892
+            },
+            {
+              "word": "a",
+              "start": 1.95,
+              "end": 1.985
+            },
+            {
+              "word": "girl",
+              "start": 2.055,
+              "end": 2.322
+            },
+            {
+              "word": "named",
+              "start": 2.392,
+              "end": 2.659
+            },
+            {
+              "word": "Karima,",
+              "start": 2.717,
+              "end": 3.367
+            },
+            {
+              "word": "full",
+              "start": 3.553,
+              "end": 3.889
+            },
+            {
+              "word": "of",
+              "start": 3.947,
+              "end": 4.017
+            },
+            {
+              "word": "dreams.",
+              "start": 4.087,
+              "end": 4.795
+            },
+            {
+              "word": "She",
+              "start": 5.538,
+              "end": 5.689
+            },
+            {
+              "word": "moved",
+              "start": 5.77,
+              "end": 6.165
+            },
+            {
+              "word": "to",
+              "start": 6.281,
+              "end": 6.42
+            },
+            {
+              "word": "a",
+              "start": 6.525,
+              "end": 6.56
+            },
+            {
+              "word": "strange",
+              "start": 6.629,
+              "end": 7.198
+            },
+            {
+              "word": "city.",
+              "start": 7.245,
+              "end": 7.79
+            },
+            {
+              "word": "But",
+              "start": 8.336,
+              "end": 8.499
+            },
+            {
+              "word": "she",
+              "start": 8.557,
+              "end": 8.684
+            },
+            {
+              "word": "had",
+              "start": 8.766,
+              "end": 8.951
+            },
+            {
+              "word": "a",
+              "start": 8.998,
+              "end": 9.033
+            },
+            {
+              "word": "secret",
+              "start": 9.172,
+              "end": 9.625
+            }
+          ],
+          "duration": 9.625,
+          "speed": 1.1
+        },
+        "2": {
+          "file": "voice/spuds-oxley/teil-02.mp3",
+          "words": [
+            {
+              "word": "She",
+              "start": 0,
+              "end": 0.174
+            },
+            {
+              "word": "had",
+              "start": 0.232,
+              "end": 0.383
+            },
+            {
+              "word": "not",
+              "start": 0.441,
+              "end": 0.604
+            },
+            {
+              "word": "the",
+              "start": 0.65,
+              "end": 0.743
+            },
+            {
+              "word": "slightest",
+              "start": 0.801,
+              "end": 1.312
+            },
+            {
+              "word": "sense",
+              "start": 1.358,
+              "end": 1.625
+            },
+            {
+              "word": "of",
+              "start": 1.66,
+              "end": 1.718
+            },
+            {
+              "word": "direction.",
+              "start": 1.776,
+              "end": 2.485
+            },
+            {
+              "word": "And",
+              "start": 3.228,
+              "end": 3.448
+            },
+            {
+              "word": "one",
+              "start": 3.553,
+              "end": 3.82
+            },
+            {
+              "word": "morning,",
+              "start": 3.878,
+              "end": 4.528
+            },
+            {
+              "word": "she",
+              "start": 5.166,
+              "end": 5.317
+            },
+            {
+              "word": "got",
+              "start": 5.399,
+              "end": 5.608
+            },
+            {
+              "word": "lost",
+              "start": 5.666,
+              "end": 6.118
+            },
+            {
+              "word": "right",
+              "start": 7.082,
+              "end": 7.407
+            },
+            {
+              "word": "before",
+              "start": 7.512,
+              "end": 8.011
+            },
+            {
+              "word": "the",
+              "start": 8.069,
+              "end": 8.162
+            },
+            {
+              "word": "eyes",
+              "start": 8.266,
+              "end": 8.673
+            },
+            {
+              "word": "of",
+              "start": 8.731,
+              "end": 8.812
+            },
+            {
+              "word": "a",
+              "start": 8.87,
+              "end": 8.905
+            },
+            {
+              "word": "stranger.",
+              "start": 9.009,
+              "end": 9.845
+            }
+          ],
+          "duration": 9.845,
+          "speed": 1.1
+        },
+        "3": {
+          "file": "voice/spuds-oxley/teil-03.mp3",
+          "words": [
+            {
+              "word": "His",
+              "start": 0,
+              "end": 0.232
+            },
+            {
+              "word": "name",
+              "start": 0.313,
+              "end": 0.58
+            },
+            {
+              "word": "was",
+              "start": 0.627,
+              "end": 0.789
+            },
+            {
+              "word": "Pablo.",
+              "start": 0.894,
+              "end": 1.602
+            },
+            {
+              "word": "A",
+              "start": 1.95,
+              "end": 2.055
+            },
+            {
+              "word": "wanderer,",
+              "start": 2.194,
+              "end": 2.902
+            },
+            {
+              "word": "wild",
+              "start": 3.088,
+              "end": 3.587
+            },
+            {
+              "word": "and",
+              "start": 3.646,
+              "end": 3.75
+            },
+            {
+              "word": "free,",
+              "start": 3.808,
+              "end": 4.249
+            },
+            {
+              "word": "who",
+              "start": 4.54,
+              "end": 4.702
+            },
+            {
+              "word": "would",
+              "start": 4.76,
+              "end": 4.946
+            },
+            {
+              "word": "never",
+              "start": 5.016,
+              "end": 5.271
+            },
+            {
+              "word": "be",
+              "start": 5.329,
+              "end": 5.445
+            },
+            {
+              "word": "tied",
+              "start": 5.503,
+              "end": 5.793
+            },
+            {
+              "word": "down.",
+              "start": 5.84,
+              "end": 6.351
+            },
+            {
+              "word": "'Where",
+              "start": 6.896,
+              "end": 7.326
+            },
+            {
+              "word": "to?'",
+              "start": 7.372,
+              "end": 7.86
+            },
+            {
+              "word": "he",
+              "start": 8.046,
+              "end": 8.127
+            },
+            {
+              "word": "asked.",
+              "start": 8.185,
+              "end": 8.777
+            }
+          ],
+          "duration": 8.777,
+          "speed": 1.1
+        }
+      },
+      "outro": {
+        "file": "voice/spuds-oxley/outro.mp3",
+        "duration": 1.184,
+        "speed": 0.95
+      }
+    }
+  },
   "selected": null,
-  "music": {},
-  "jingle": null,
-  "crackle": null
+  "music": {
+    "playful": "music/theme-playful.mp3",
+    "longing": "music/theme-longing.mp3",
+    "dramatic": "music/theme-dramatic.mp3",
+    "festive": "music/theme-festive.mp3"
+  },
+  "jingle": "sfx/outro-jingle.mp3",
+  "crackle": "sfx/crackle.mp3"
 }

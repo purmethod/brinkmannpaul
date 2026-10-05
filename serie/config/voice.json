@@ -2,8 +2,16 @@
   "note": "Erzählstimme der Serie. 'candidates' werden beim ersten Lauf getestet, 'selected' = slug der freigegebenen Stimme.",
   "model": "eleven_multilingual_v2",
   "candidates": [
-    {"slug": "old-wizard", "id": "JoYo65swyP8hH6fVMeTO", "name": "Old Wizard – Deep, Engaging Storyteller"},
-    {"slug": "auto", "id": "auto", "name": "zweite Stimme aus der Voice Library (englisch, älter, warm, Erzähler)"}
+    {
+      "slug": "old-wizard",
+      "id": "JoYo65swyP8hH6fVMeTO",
+      "name": "Old Wizard – Deep, Engaging Storyteller"
+    },
+    {
+      "slug": "spuds-oxley",
+      "id": "NOpBlnGInO9m6vDvFkFC",
+      "name": "Spuds Oxley - Grandpa"
+    }
   ],
   "selected": null
 }
