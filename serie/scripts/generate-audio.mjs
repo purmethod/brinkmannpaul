@@ -24,10 +24,11 @@ const API = 'https://api.elevenlabs.io';
 if (existsSync(join(ROOT, '.env'))) process.loadEnvFile(join(ROOT, '.env'));
 const KEY = process.env.ELEVENLABS_API_KEY;
 
-// Zielrahmen pro Folge: 0,3 s Hook + Erzählung + 0,4 s Luft + 1,5 s Outro = 8–10 s
-const MAX_NARRATION = 7.8;
-const START_SPEED = 0.95; // ruhig, langsam
-const MAX_SPEED = 1.1;
+// Freigabe (Variante A): ruhiges Tempo hat Vorrang vor 8–10 s — Folgen dürfen 11–14 s lang werden.
+// Folge = 0,3 s Hook + Erzählung + 0,4 s Luft + 1,5 s Outro.
+const MAX_NARRATION = Number(process.env.MAX_NARRATION ?? 11.8);
+const START_SPEED = Number(process.env.START_SPEED ?? 0.95); // ruhig, langsam
+const MAX_SPEED = Number(process.env.MAX_SPEED ?? 1.05);
 
 const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
 const writeJson = (p, d) => writeFileSync(p, JSON.stringify(d, null, 2) + '\n');
@@ -155,7 +156,7 @@ const voicesCmd = async (args) => {
   for (const v of voices) {
     console.log(`Stimme ${v.name} (${v.slug})`);
     const entry = (manifest.voices[v.slug] ??= {id: v.id, name: v.name, episodes: {}, outro: null});
-    if (!entry.outro) {
+    if (!entry.outro || args.includes('--force')) {
       const o = await tts(v.id, cfg.model, OUTRO_LINE, 1.6);
       const file = `voice/${v.slug}/outro.mp3`;
       save(file, o.audio);
