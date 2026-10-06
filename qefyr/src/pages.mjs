@@ -225,7 +225,7 @@ function productLd(ctx) {
     name: "qefyr",
     description: shop.product.description[lang],
     brand: { "@type": "Brand", name: "qefyr" },
-    image: `${site.url}/img/product.png`,
+    image: `${site.url}/img/product.jpg`,
     url: site.url + routes[lang].order,
     offers: {
       "@type": "Offer",

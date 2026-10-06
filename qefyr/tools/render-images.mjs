@@ -9,7 +9,8 @@ import { glass, favicon } from "../src/art.mjs";
 const root = path.resolve(import.meta.dirname, "..");
 const img = path.join(root, "static", "img");
 fs.mkdirSync(img, { recursive: true });
-const font = (f) => "file://" + path.join(root, "static", "fonts", f);
+// Inline the fonts: a page opened with setContent cannot load file:// URLs.
+const font = (f) => "data:font/woff2;base64," + fs.readFileSync(path.join(root, "static", "fonts", f)).toString("base64");
 
 const base = `<!doctype html><meta charset="utf-8"><style>
 @font-face{font-family:Fraunces;src:url(${font("fraunces-opsz.woff2")}) format("woff2");font-weight:100 900}
@@ -23,13 +24,13 @@ em{font-style:italic;color:#b08d57}
 const pages = {
   "og.png": {
     size: [1200, 630],
-    html: `${base}<body style="width:1200px;height:630px;display:grid;grid-template-columns:1fr 470px;align-items:center;padding:0 40px 0 90px">
+    html: `${base}<body style="width:1200px;height:630px;display:grid;grid-template-columns:1fr 400px;align-items:center;padding:0 70px 0 90px">
       <div>
         <p style="font-size:15px;font-weight:650;letter-spacing:.24em;text-transform:uppercase;color:#b08d57">living kefir · made in germany</p>
         <p class="serif" style="font-size:150px;font-weight:300;letter-spacing:-.03em;line-height:1;margin-top:18px">qefyr</p>
         <p class="serif" style="font-size:44px;font-weight:300;line-height:1.1;margin-top:20px">real kefir grains.<br><em>ready to drink.</em></p>
       </div>
-      <div style="width:470px;margin-top:70px">${glass({ shadow: true })}</div>
+      <div style="width:400px;margin-top:20px">${glass({ shadow: true })}</div>
     </body>`,
   },
   "product.png": {
@@ -55,8 +56,10 @@ await browser.close();
 
 // Compress PNGs and build favicon.ico (ImageMagick, if installed).
 try {
-  for (const f of ["og.png", "product.png"]) {
-    execFileSync("convert", [path.join(img, f), "-strip", "-quality", "92", "-define", "png:compression-level=9", path.join(img, f)]);
+  // Photos-like art compresses far better as JPEG: og ~60 KB instead of ~240 KB.
+  for (const f of ["og", "product"]) {
+    execFileSync("convert", [path.join(img, `${f}.png`), "-strip", "-sampling-factor", "4:2:0", "-quality", "86", "-interlace", "Plane", path.join(img, `${f}.jpg`)]);
+    fs.rmSync(path.join(img, `${f}.png`));
   }
   execFileSync("convert", [path.join(img, "icon-32.png"), path.join(root, "static", "favicon.ico")]);
   fs.rmSync(path.join(img, "icon-32.png"));

@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
               name: p.name,
               description: p.description[lang],
               // Stripe fetches the image itself, so only send it from a public https origin.
-              images: o.startsWith("https://") ? list([`${o}/img/product.png`]) : undefined,
+              images: o.startsWith("https://") ? list([`${o}/img/product.jpg`]) : undefined,
             },
           },
         },

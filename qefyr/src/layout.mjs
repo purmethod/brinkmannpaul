@@ -34,7 +34,7 @@ export function layout(ctx, page) {
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
     ${self ? `<meta property="og:url" content="${self}" />` : ""}
-    <meta property="og:image" content="${site.url}/img/og.png" />
+    <meta property="og:image" content="${site.url}/img/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${esc(plain(t.home.hero.art))}" />

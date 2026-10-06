@@ -94,7 +94,7 @@ test("checkout: builds the session from shop.json, server-side prices only", asy
     assert.equal(p.get("line_items[0][quantity]"), String(shop.max_quantity), "quantity is clamped");
     assert.equal(p.get("line_items[0][price_data][unit_amount]"), String(shop.product.amount), "price comes from shop.json");
     assert.equal(p.get("line_items[0][price_data][currency]"), shop.currency);
-    assert.equal(p.get("line_items[0][price_data][product_data][images][0]"), "https://qefyr.com/img/product.png");
+    assert.equal(p.get("line_items[0][price_data][product_data][images][0]"), "https://qefyr.com/img/product.jpg");
     const eu = shop.shipping.find((z) => z.id === "eu");
     assert.equal(p.get("shipping_options[0][shipping_rate_data][fixed_amount][amount]"), String(eu.amount));
     const countries = [...p.entries()].filter(([k]) => k.startsWith("shipping_address_collection[allowed_countries]")).map(([, v]) => v);
