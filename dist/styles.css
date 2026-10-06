@@ -400,15 +400,12 @@ footer p {
 .skip-link:focus { transform: translateY(0); }
 
 .neural-background {
-  position: absolute;
-  inset: 0 0 auto;
-  height: clamp(64rem, 80vw, 100rem);
+  position: fixed;
+  inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: url("assets/neuroscience-field.webp") right top / max(100%, 96rem) auto no-repeat;
+  background: url("assets/neuroscience-field.webp") right top / cover no-repeat;
   opacity: 0.68;
-  -webkit-mask-image: linear-gradient(#000 75%, transparent);
-  mask-image: linear-gradient(#000 75%, transparent);
 }
 
 /* Keep the illustration open on the right, with an uninterrupted reading column. */
@@ -421,7 +418,7 @@ footer p {
 .project-list {
   width: min(46%, 36rem);
   border-top: 0;
-  background: linear-gradient(90deg, #fff 70%, rgb(255 255 255 / 92%));
+  background: transparent;
 }
 .project-item { color: var(--ink); }
 .project-item:last-child { border-bottom-color: var(--soft-line); }
@@ -553,16 +550,13 @@ a:focus-visible {
 
   .item-story { padding-right: 0; }
   .neural-background {
-    height: 65rem;
-    background-position: right 1.5rem;
-    background-size: auto 40rem;
+    background-position: right top;
+    background-size: cover;
     opacity: 0.56;
-    -webkit-mask-image: linear-gradient(#000 12rem, rgb(0 0 0 / 22%) 23rem, transparent 42rem);
-    mask-image: linear-gradient(#000 12rem, rgb(0 0 0 / 22%) 23rem, transparent 42rem);
   }
   .index { padding-top: 14rem; }
   .index-intro { padding-bottom: 2rem; }
-  .project-list { width: 100%; background: rgb(255 255 255 / 94%); }
+  .project-list { width: 100%; background: transparent; }
   .project-item > summary { min-height: 4.75rem; }
   .project-item > summary .item-type { margin-top: 0; }
 
