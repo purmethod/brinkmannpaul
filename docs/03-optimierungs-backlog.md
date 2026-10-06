@@ -280,3 +280,10 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Auf Pauls Wunsch führt adopt âlf jetzt zu https://souralf.com/ statt zum Instagram-Profil.
 - Instagram-Symbol und zugehörige Klasse nur an diesem Shop-Link entfernt, Beschriftung und Öffnen im neuen Tab erhalten.
 - Alle anderen Inhalte und Links unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots oder Builds gemäß Nutzeranweisung.
+
+
+## Issue #49 — order qefyr direkt zur Website (2026-10-06)
+
+- Auf Pauls Wunsch führt order qefyr jetzt zu https://qefyr.com/ statt zur Bestell-E-Mail.
+- Beschriftung erhalten; Shop öffnet wie âlf in einem neuen Tab mit rel=noreferrer.
+- Alle anderen Inhalte und Links unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots oder lokalen Builds gemäß Nutzeranweisung.
