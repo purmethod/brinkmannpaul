@@ -273,3 +273,10 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Instagram-Anzeige, Follow-Link, Footer beider Seiten und strukturierte Metadaten auf @paulbuild / instagram.com/paulbuild geändert.
 - Keine Änderung an E-Mail-Adressen, PURE-Wörtern, Intro, Projektinhalt oder JavaScript.
 - Statischer unabhängiger Agent-Review im PR dokumentiert. Keine Tests, Screenshots oder Builds gemäß Pauls Anweisung.
+
+
+## Issue #47 — adopt âlf direkt zum Shop (2026-10-06)
+
+- Auf Pauls Wunsch führt adopt âlf jetzt zu https://souralf.com/ statt zum Instagram-Profil.
+- Instagram-Symbol und zugehörige Klasse nur an diesem Shop-Link entfernt, Beschriftung und Öffnen im neuen Tab erhalten.
+- Alle anderen Inhalte und Links unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots oder Builds gemäß Nutzeranweisung.
