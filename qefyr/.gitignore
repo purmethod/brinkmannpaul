@@ -1,7 +1,0 @@
-public/
-node_modules/
-.vercel
-.env
-.env.*
-.DS_Store
-!.env.example
