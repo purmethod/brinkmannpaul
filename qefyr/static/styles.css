@@ -1646,6 +1646,7 @@ dd {
 }
 
 .checkout {
+  scroll-margin-top: calc(var(--head) + 3.5rem);
   min-height: 24rem;
   margin-top: 1rem;
   overflow: hidden;

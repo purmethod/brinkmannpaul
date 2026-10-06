@@ -153,7 +153,7 @@ export default {
           a: "Über den sicheren Checkout von Stripe, mit Karte, Apple Pay, Google Pay und weiteren Zahlarten, je nach Land.",
         },
       ],
-      trackingLink: "Sendungsverfolgung",
+      trackingLink: "Tracking-Seite",
     },
     founders: {
       kicker: "gründer",
