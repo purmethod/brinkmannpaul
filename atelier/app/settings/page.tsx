@@ -27,6 +27,7 @@ export default function Settings() {
   const [s, setS] = useState<S | null>(null);
   const [setup, setSetup] = useState<Setup | null>(null);
   const [brands, setBrands] = useState<Brands | null>(null);
+  const [pwOpen, setPwOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
   const [key, setKey] = useState('');
@@ -147,6 +148,30 @@ export default function Settings() {
           <span>signed in as</span>
           <span className="value">{brands?.user?.name ? `@${brands.user.name}` : 'owner'}</span>
         </div>
+        <button onClick={() => setPwOpen(!pwOpen)}>
+          <span>change password</span>
+          <span className="value">{pwOpen ? '–' : ''}</span>
+        </button>
+        {pwOpen && (
+          <form
+            className="pw-form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const f = new FormData(e.currentTarget);
+              try {
+                await api('/api/account', { method: 'PATCH', json: { current: f.get('current'), next: f.get('next') } });
+                setPwOpen(false);
+                setMsg('password changed');
+              } catch (err) {
+                setError((err as Error).message);
+              }
+            }}
+          >
+            <input name="current" type="password" placeholder="current password" autoComplete="current-password" />
+            <input name="next" type="password" placeholder="new password (8+ characters)" autoComplete="new-password" minLength={8} />
+            <button className="primary wide">save</button>
+          </form>
+        )}
         <button
           onClick={async () => {
             await fetch('/api/login', { method: 'DELETE' });

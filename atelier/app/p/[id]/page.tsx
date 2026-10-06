@@ -225,7 +225,18 @@ export default function PostPage() {
       {!posted && (
         <>
           <section className="block">
-            <p className="kicker">caption</p>
+            <div className="row between" style={{ marginBottom: 8 }}>
+              <p className="kicker" style={{ margin: 0 }}>caption</p>
+              <button
+                className="link small-btn"
+                onClick={async () => {
+                  await navigator.clipboard?.writeText(caption).catch(() => undefined);
+                  setNote('caption copied');
+                }}
+              >
+                copy
+              </button>
+            </div>
             <textarea className="caption" value={caption} onChange={(e) => setCaption(e.target.value)} onBlur={() => caption !== post.caption && patch({ caption }, 'saving…')} />
           </section>
 

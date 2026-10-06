@@ -42,6 +42,8 @@ const SCHEMA = [
   `alter table users add column if not exists name text`,
   `alter table users add column if not exists password_hash text`,
   `create unique index if not exists users_name on users (lower(name))`,
+  `create table if not exists auth_attempts (key text not null, at timestamptz not null default now())`,
+  `create index if not exists auth_attempts_key on auth_attempts (key, at)`,
   `create table if not exists edit_feedback (
     id text primary key, brand_id text not null references brands(id) on delete cascade, post_id text,
     text text not null, consumed boolean not null default false, created_at timestamptz not null default now())`,

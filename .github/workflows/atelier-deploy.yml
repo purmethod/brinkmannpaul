@@ -113,3 +113,16 @@ jobs:
           url=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" $SCOPE)
           echo "deployed: $url"
           echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: health check
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        continue-on-error: true
+        run: |
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          sleep 5
+          for host in https://cutcake.app; do
+            echo "--- $host/api/health ---"
+            curl -s --max-time 30 "$host/api/health" || vercel curl /api/health --deployment "$host" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -5
+            echo
+          done

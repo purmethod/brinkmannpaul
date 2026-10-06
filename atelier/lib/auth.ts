@@ -21,6 +21,28 @@ export function isOwner(user: Pick<User, 'email'>) {
 
 export const NAME_RULE = /^[a-z0-9._]{3,30}$/;
 
+/** Brute-force brake: at most `max` failed tries per key in 15 minutes. */
+export async function tooManyAttempts(keys: string[], max = 8): Promise<boolean> {
+  await q("delete from auth_attempts where at < now() - interval '1 day'").catch(() => undefined);
+  const r = await one<{ n: number }>("select count(*)::int as n from auth_attempts where key = any($1::text[]) and at > now() - interval '15 minutes'", [keys]);
+  return (r?.n ?? 0) >= max;
+}
+export async function recordAttempt(keys: string[]) {
+  for (const k of keys) await q('insert into auth_attempts (key) values ($1)', [k]);
+}
+export function clientKey(req: Request) {
+  return `ip:${(req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown'}`;
+}
+
+/** Change the password of an account (the owner may also confirm with the setup password). */
+export async function changePassword(user: User, current: string, next: string) {
+  if (next.length < 8) throw new HttpError(400, 'new password: at least 8 characters');
+  const row = await one<{ password_hash: string | null }>('select password_hash from users where id = $1', [user.id]);
+  const ok = verifyPassword(current, row?.password_hash) || (isOwner(user) && checkPassword(current));
+  if (!ok) throw new HttpError(401, 'current password is wrong');
+  await q('update users set password_hash = $2 where id = $1', [user.id, hashPassword(next)]);
+}
+
 /** Name + password → user. The owner may also use the setup password, and claims a name with it once. */
 export async function signIn(name: string, password: string): Promise<User | null> {
   const n = name.trim().toLowerCase().replace(/^@/, '');
