@@ -58,7 +58,7 @@ export function layout(ctx, page) {
           <ul>${navItems.map((k) => `<li><a href="${R[k]}"${current(k)}>${t.nav[k]}</a></li>`).join("")}</ul>
         </nav>
         <div class="head-actions">
-          <a class="lang-link" href="${switchHref}" hreflang="${other.t.lang}" lang="${other.t.lang}" aria-label="${t.nav.switchLabel}">${other.t.short}</a>
+          <a class="lang-link" href="${switchHref}" hreflang="${other.t.lang}" lang="${other.t.lang}" aria-label="${other.t.short}: ${t.nav.switchLabel}">${other.t.short}</a>
           <a class="btn btn-sm head-cta" href="${R.order}"${current("order")}>${t.nav.order}</a>
           <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
             ${icon("menu")}<span class="sr">${t.nav.menu}</span>

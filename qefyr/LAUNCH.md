@@ -25,7 +25,7 @@ git push https://github.com/purmethod/qefyr.git qefyr-main:main
    - `STRIPE_SECRET_KEY` = `sk_live_…` (oder ein Restricted Key `rk_live_…` mit Schreibrecht auf Checkout Sessions)
    - `STRIPE_PUBLISHABLE_KEY` = `pk_live_…` (gleiches Konto, gleicher Modus)
    - optional `SITE_URL` = `https://qefyr.com`
-3. Settings → Domains: `qefyr.com` und `www.qefyr.com`. Die DNS-Einträge zeigen bereits auf Vercel
+3. Settings → Domains: `qefyr.com` und `www.qefyr.com` (www als Redirect auf qefyr.com). Die DNS-Einträge zeigen bereits auf Vercel
    (216.198.79.x). qefyr.com liefert gerade 503: die Domain hängt vermutlich an einem Vercel-Projekt ohne
    Deployment. Dort entfernen und hier hinzufügen.
 4. Redeploy. Dann `https://qefyr.com/api/health` öffnen: dort muss `"ready": true` stehen.
