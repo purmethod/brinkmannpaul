@@ -5,6 +5,18 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #43 — Neuroscience-Hintergrund und PURE (2026-10-06)
+
+Status: umgesetzt; Veröffentlichung von Paul ausdrücklich freigegeben, unabhängiger Code-Review im zugehörigen PR.
+
+- Freigegebener Entwurf: feine graue Gehirnkonturen und verzweigte Neuronen auf Weiß, als komprimiertes WebP (127 KB).
+- Desktop mit Lesespalte links und Illustration rechts; mobile Darstellung mit Gehirn oben und ruhigen weißen Textflächen.
+- PURE-Deskriptor und Kapiteltitel: physis, understanding, responsibility, ego. Einstieg in das erste Kapitel sprachlich angepasst.
+- Aktuelle Projekte, Reihenfolge, Links, Originalporträt, Handschrift-Intro und JavaScript erhalten.
+- Keine neuen Abhängigkeiten. Grafik dekorativ, ohne Interaktion und ohne Animation.
+- Auf Pauls bestehende Credit-Saving-Anweisung keine Tests, Browserprüfungen, Screenshots oder lokalen Builds ausgeführt. Keine visuelle Prüfung der implementierten Website behauptet.
+- Veröffentlichung über den bestehenden GitHub-PR/main/Vercel-Ablauf.
+
 ## Issue #38: Freigegebene PURE-Kapitel (2026-09-28)
 
 Status: ✅ umgesetzt und geprüft; PR #39, unabhängiger Agent-Review ohne blockierende Befunde.

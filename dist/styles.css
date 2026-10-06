@@ -401,12 +401,49 @@ footer p {
 
 .neural-background {
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
+  height: clamp(64rem, 80vw, 100rem);
   z-index: -1;
   pointer-events: none;
-  background: url("assets/neural-field.svg") center top / 1440px 1200px repeat-y;
-  opacity: 0.55;
+  background: url("assets/neuroscience-field.webp") right top / max(100%, 96rem) auto no-repeat;
+  opacity: 0.68;
+  -webkit-mask-image: linear-gradient(#000 75%, transparent);
+  mask-image: linear-gradient(#000 75%, transparent);
 }
+
+/* Keep the illustration open on the right, with an uninterrupted reading column. */
+.index {
+  width: min(100%, 100rem);
+  margin: 0 auto;
+  padding-top: clamp(10rem, 16vw, 15rem);
+}
+.index-intro { padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+.project-list {
+  width: min(46%, 36rem);
+  border-top: 0;
+  background: linear-gradient(90deg, #fff 70%, rgb(255 255 255 / 92%));
+}
+.project-item { color: var(--ink); }
+.project-item:last-child { border-bottom-color: var(--soft-line); }
+.project-item > summary {
+  grid-template-columns: minmax(0, 1fr) 1.25rem;
+  gap: 0.25rem 0.75rem;
+  min-height: 4.65rem;
+  padding: 0.9rem 0;
+}
+.project-item > summary .item-name { grid-column: 1; grid-row: 1; }
+.project-item > summary .item-type {
+  grid-column: 1;
+  grid-row: 2;
+  color: var(--muted);
+  letter-spacing: 0.015em;
+  line-height: 1.5;
+}
+.project-item > summary .plus { grid-column: 2; grid-row: 1 / 3; }
+.item-content { grid-template-columns: minmax(0, 1fr); }
+.item-content > a, .item-content > .item-status { grid-column: 1; }
+.item-story { padding-right: 0; color: var(--muted); }
+.pure-descriptor { text-wrap: balance; }
 
 .index-caption,
 .list-hint {
@@ -418,7 +455,7 @@ footer p {
 
 .index-caption { margin-top: 1.25rem; }
 .list-hint { display: flex; justify-content: space-between; margin: 0 0 1rem; }
-.item-story { grid-column: 1; max-width: 38rem; padding-right: 2rem; }
+.item-story { grid-column: 1; max-width: 38rem; padding-right: 0; }
 .item-story p { margin: 0 0 1rem; line-height: 1.7; }
 .item-story .item-lead { color: var(--ink); line-height: 1.4; }
 .item-story .item-note {
@@ -515,7 +552,19 @@ a:focus-visible {
   }
 
   .item-story { padding-right: 0; }
-  .neural-background { background-position: 36% top; background-size: 1000px auto; opacity: 0.4; }
+  .neural-background {
+    height: 65rem;
+    background-position: right 1.5rem;
+    background-size: auto 40rem;
+    opacity: 0.56;
+    -webkit-mask-image: linear-gradient(#000 12rem, rgb(0 0 0 / 22%) 23rem, transparent 42rem);
+    mask-image: linear-gradient(#000 12rem, rgb(0 0 0 / 22%) 23rem, transparent 42rem);
+  }
+  .index { padding-top: 14rem; }
+  .index-intro { padding-bottom: 2rem; }
+  .project-list { width: 100%; background: rgb(255 255 255 / 94%); }
+  .project-item > summary { min-height: 4.75rem; }
+  .project-item > summary .item-type { margin-top: 0; }
 
 }
 
