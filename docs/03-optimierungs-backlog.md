@@ -264,3 +264,12 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Tests: `scripts/test-site.mjs` an das aktuelle Video-Intro angepasst (war seit dem Wechsel zurück auf Video rot) und um Inhaltsprüfungen ergänzt.
 - Prüfung: `node --check`, `node scripts/test-site.mjs`, Playwright-Screenshots Desktop 1440×900 und Mobile 390×844/375×667, keine horizontale Scrollbar.
 - Offen für Paul: skyn-Text bestätigen; qefyr-Linktext war vorher die E-Mail-Adresse.
+
+
+## Issue #45 — Transparente Projektliste und @paulbuild (2026-10-06)
+
+- Paul meldet weiße Flächen hinter den Projekten, die das neuronale Motiv verdecken. Desktop- und Mobile-Hintergründe der Projektliste vollständig transparent gesetzt.
+- Starke Maskierung und Höhenbegrenzung der Grafik entfernt. Dekorativer Hintergrund füllt fest den Viewport, bleibt auch beim Scrollen und Öffnen langer Kapitel sichtbar und blockiert keine Interaktionen.
+- Instagram-Anzeige, Follow-Link, Footer beider Seiten und strukturierte Metadaten auf @paulbuild / instagram.com/paulbuild geändert.
+- Keine Änderung an E-Mail-Adressen, PURE-Wörtern, Intro, Projektinhalt oder JavaScript.
+- Statischer unabhängiger Agent-Review im PR dokumentiert. Keine Tests, Screenshots oder Builds gemäß Pauls Anweisung.
