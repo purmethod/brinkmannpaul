@@ -617,3 +617,27 @@ a:focus-visible {
     block-size: auto;
   }
 }
+
+/* Paul's art statement sits above the project list. */
+.art-statement {
+  margin: 0 0 clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+  color: var(--ink);
+}
+.art-statement blockquote { margin: 0; }
+.art-statement p {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+}
+.art-statement em { font-style: italic; font-synthesis: style; }
+.art-statement figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+@media (max-width: 680px) {
+  .site-header { flex-wrap: wrap; gap: 0.3rem 1rem; }
+}

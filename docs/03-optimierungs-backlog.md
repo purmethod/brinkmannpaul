@@ -312,3 +312,11 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Instagram-Linkziele, sichtbare Follow-/Footer-Texte und strukturierte Social-Metadaten auf der Startseite sowie der 404-Seite korrigiert.
 - E-Mail-Adressen, Shop-Links, Texte, Design und Intro unverändert.
 - Umsetzung im Issue-Branch mit unabhängigem statischem Agent-Review im PR. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+
+
+## Issue #57 — all art und eigene Art-Rubrik (2026-10-07)
+
+- Eigene Art-Rubrik vor PURE im vorhandenen Akkordeon ergänzt. Text erklärt Pauls Definition von Kunst durch Liebe und das Bild des ersten menschlichen Dominosteins bei KI-Projekten.
+- Geldpassage entfernt; Abschluss: people need love. whatever you build, bring love to it.
+- Kopfzeile: paul brinkmann, m.sc.; artist & architect. Mittiges kursives Zitat „all art.“ mit paul darunter.
+- Umsetzung im Issue-Branch zur Veröffentlichung über main/Vercel. Keine Tests, Screenshots, Vorschauen oder Reviews gemäß ausdrücklichem Credit-Sparwunsch.
