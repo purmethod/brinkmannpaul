@@ -403,3 +403,12 @@ Rückmeldung Paul nach Livegang von #67, mit iPhone-Screenshots: „so wie auf d
 - Der weiße Schleier hinter dem Rad erscheint jetzt nur noch ab dem Inneren. Gehirn und Mikrostruktur bleiben ohne Schleier.
 - Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint, Rauchtest Desktop und Mobile bis zum tiefsten Punkt ohne Konsolenfehler, Grund durchgehend weiß.
 - Hinweis: Das Vercel-Projekt „atelier“ (Datenbank einer App, nicht diese Seite) ist mit diesem Repo verknüpft und baut deshalb bei jedem Push mit und scheitert. Abhilfe nur im Vercel-Dashboard: atelier → Settings → Git → Disconnect.
+
+### Nachtrag: feine H01-Zeichnung statt dicker Linien (2026-10-07)
+
+Rückmeldung Paul nach Livegang von #68: „wie auf dem ersten Foto [Mikrostruktur], nicht wie auf dem zweiten, keine dicken Linien, sondern wie die Originale von Harvard und Google, aber im zeichnerischen Stil“.
+
+- `neuro-inside.webp` neu: eine Higgsfield-Zeichnung (gpt_image_2_5, freigegebene Mikrostruktur als Stilvorlage). Haarfeine Graphitlinien auf Weiß zeigen Pyramidenzellen mit langen Apikaldendriten, Basaldendriten mit Dornen, Axone, Synapsen als Punkte und Kapillaren, angelehnt an H01. Ein großes Pyramidenneuron in der Mitte ist der Fokuspunkt (975, 959); aus ihm blüht die Galaxie. Papier auf reines Weiß gesetzt, 1920², 669 KB.
+- Tuschestärke 80 %. Der weiße Schleier hinter dem Rad kommt erst mit der Galaxie, das Innere steht wie die Mikrostruktur ohne Schleier.
+- Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint, Rauchtest Desktop und Mobile bis zum tiefsten Punkt ohne Konsolenfehler.
+
