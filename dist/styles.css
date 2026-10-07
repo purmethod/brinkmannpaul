@@ -184,9 +184,9 @@ a {
 .index {
   position: relative;
   min-height: 100svh;
-  width: min(100%, 76rem);
+  width: min(100%, 100rem);
   margin: 0 auto;
-  padding: clamp(7rem, 13vw, 12rem) var(--edge) clamp(7rem, 12vw, 10rem);
+  padding: clamp(6rem, 8vw, 8rem) var(--edge) clamp(4rem, 8vw, 7rem);
   opacity: 1;
   transform: none;
   transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -195,22 +195,6 @@ a {
 .index.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.index-intro {
-  padding-bottom: clamp(4rem, 9vw, 7rem);
-}
-
-.index-intro::before {
-  content: none;
-}
-
-.index-intro p {
-  margin: 0;
-  font-size: clamp(4rem, 10vw, 8rem);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.055em;
 }
 
 .project-list {
@@ -404,17 +388,11 @@ footer p {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: url("assets/neuroscience-field.webp") right top / cover no-repeat;
-  opacity: 0.68;
+  background: url("assets/neuroscience-pencil-desktop.webp") right top / cover no-repeat;
+  opacity: 0.64;
 }
 
-/* Keep the illustration open on the right, with an uninterrupted reading column. */
-.index {
-  width: min(100%, 100rem);
-  margin: 0 auto;
-  padding-top: clamp(10rem, 16vw, 15rem);
-}
-.index-intro { padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+/* Keep the pencil drawing visible through the project column. */
 .project-list {
   width: min(46%, 36rem);
   border-top: 0;
@@ -469,6 +447,14 @@ a:focus-visible {
   outline-offset: 5px;
 }
 
+/* A portrait composition keeps the brain and DNA in view on narrow screens. */
+@media (max-aspect-ratio: 1 / 1) {
+  .neural-background {
+    background-image: url("assets/neuroscience-pencil-mobile.webp");
+    background-position: center top;
+  }
+}
+
 @media (max-width: 680px) {
   .intro-stage {
     position: absolute;
@@ -496,13 +482,6 @@ a:focus-visible {
   .index {
     padding-inline: 1.25rem;
   }
-
-  .index-intro p {
-    font-size: clamp(4rem, 16vw, 6rem);
-  }
-
-
-
 
   .project-item summary {
     grid-template-columns: minmax(0, 1fr) 1.25rem;
@@ -549,13 +528,8 @@ a:focus-visible {
   }
 
   .item-story { padding-right: 0; }
-  .neural-background {
-    background-position: right top;
-    background-size: cover;
-    opacity: 0.56;
-  }
-  .index { padding-top: 14rem; }
-  .index-intro { padding-bottom: 2rem; }
+  .neural-background { opacity: 0.48; }
+  .index { padding-top: 5.75rem; }
   .project-list { width: 100%; background: transparent; }
   .project-item > summary { min-height: 4.75rem; }
   .project-item > summary .item-type { margin-top: 0; }
