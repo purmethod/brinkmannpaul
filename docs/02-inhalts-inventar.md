@@ -4,6 +4,13 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: art-Text, KI und Liebe (2026-10-07)
+
+Auf Pauls Vorgabe (sinngemäß, seine Worte beibehalten):
+- Die doppelte Zeile „art begins with love.“ im aufgeklappten Text ist entfernt; sie steht nur noch als Untertitel.
+- Nach den Dominosteinen neu: KI kann Liebe nicht fühlen und kennt keine Liebe. Sie kann Liebe erklären, nachahmen, kopieren, aber nicht fühlen wie ein Mensch. Das ist der Unterschied zwischen KI und uns, deshalb braucht niemand Angst vor KI zu haben. Was immer du tust, tu es mit Liebe, dann wird es zur Kunst. KI ist nur ein weiteres Werkzeug, ein Mensch muss den ersten Schritt mit Liebe tun.
+- Schluss: „all art means all is art.“
+
 ## Aktualisierung: pure zuerst, „system for man“ (2026-10-07)
 
 Auf Pauls Wunsch („das erste ist pure, und dann würde ich sagen system for man“): Reihenfolge im Rad pure, art, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture. Das Rad startet auf pure. Der Untertitel von pure lautet wieder `system for man` (statt der Kapitelliste „physis · understanding · responsibility · ego“). Texte, Kapitel und Links unverändert.

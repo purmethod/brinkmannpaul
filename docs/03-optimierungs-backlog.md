@@ -526,3 +526,11 @@ Pauls Wunsch mit Foto: Wer auf die Seite kommt, sieht das ganze Gehirn; das ist 
 - **Inhalt:** pure steht vor art, das Rad startet auf pure. Untertitel `system for man`. Das Inventar ist angepasst.
 - **Prüfung:** Hinter dem Intro und am Start wird nicht neu gezeichnet. In der Tiefe treibt es weiter (etwa 22 Bilder/s). 49 Interaktionstests grün, neu: Start auf pure, Startansicht bleibt still, Tippen auf die Zeile darüber dreht zurück.
 
+### Nachtrag: art-Text überarbeitet (2026-10-07)
+
+Pauls Vorgabe: „art begins with love“ nicht doppelt beim Aufklappen. Nach den Dominosteinen soll stehen, dass KI keine Liebe fühlen kann, deshalb keine Angst vor KI, alles mit Liebe tun, KI nur als Werkzeug, der erste Schritt mit Liebe, und „all art means all is art“.
+
+- Text in Pauls Worten und Kleinschreibung umgesetzt (siehe Inventar), ohne Gedankenstriche.
+- Der Lead-Absatz ist jetzt „anything we do can become art when we bring love to it.“
+- Prüfung: `#art` öffnet die Leseansicht, „art begins with love.“ erscheint nur als Untertitel, 12 Absätze. `node scripts/test-site.mjs` grün.
+
