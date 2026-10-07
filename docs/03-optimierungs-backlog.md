@@ -483,3 +483,11 @@ Rückmeldung Paul mit Screenshot der Molekülebene: Die Bilder sind nicht scharf
   - Die Zeichenzeit pro Bild ist nicht höher als in der Vorversion.
   - Der bisherige Bildraten-Test hat nichts gemessen: Seine 2-px-Scrollschritte rasteten zurück, und es wurde nie neu gezeichnet. Die früheren 60-fps-Angaben sind damit nicht belastbar.
 
+### Nachtrag: pure-Kapitel einzeln und ruhig aufklappen (2026-10-07)
+
+Pauls Wunsch: Öffnet man in pure ein Kapitel, soll das andere zuklappen, damit man angenehmer lesen kann.
+
+- `<details name="pure-chapter">` aus #70 schloss das andere Kapitel zwar. Dessen Höhe wurde aber über 420 ms weich animiert (`::details-content`-Übergang in `styles.css`). Das angetippte Kapitel rutschte dadurch hinterher nach oben, auf dem Handy aus dem Bild.
+- Jetzt: Das geöffnete Kapitel klappt weiter weich auf. Die anderen schließen sofort (`.is-snapping` schaltet ihren Übergang für einen Frame ab). Im selben Moment wird die Ansicht so verschoben, dass das angetippte Kapitel unter dem Finger stehen bleibt. Ein Skript sorgt dafür auch dort, wo der Browser `details name` nicht kennt.
+- Prüfung: Kapitel 1 offen, Kapitel 2 angetippt. Danach ist nur Kapitel 2 offen, seine Überschrift steht vorher und nachher an derselben Stelle (Desktop 559 → 559 px, Mobile 528 → 527 px). Das gilt mit nativer Unterstützung und mit Skript. 45 Interaktionstests grün.
+
