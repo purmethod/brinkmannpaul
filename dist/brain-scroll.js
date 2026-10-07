@@ -92,8 +92,7 @@
     return button;
   });
 
-  // The reader lists every project in wheel order, starting with the one
-  // opened, so the next title is already in view when a text ends.
+  // The reader shows the one project opened.
   const reader = make('dialog', 'bs-reader', { id: 'bs-reader' });
   const readerScroll = make('div', 'bs-reader-scroll');
   const article = make('div', 'bs-reader-body');
@@ -178,9 +177,6 @@
   let focusing = false;
   let reading = -1;
   let pushed = false;
-  let order = [];
-  let place = 0;
-  let readerMoved = false;
   let closeTimer = 0;
   let aim = null; // row a glide is heading to; repeated keys add up
 
@@ -308,10 +304,6 @@
       layoutWheel(pos);
       tickDetent(pos);
       lastPosition = pos;
-    }
-    if (reading >= 0 && readerMoved) {
-      readerMoved = false;
-      followReader();
     }
     // Reduced motion removes the easing, not the zoom: it follows the
     // wheel the visitor turns by hand.
@@ -459,9 +451,7 @@
     if (index < 0 || index >= count || reading >= 0) return;
     clearTimeout(closeTimer);
     const item = items[index];
-    order = items.map((_, ahead) => mod(index + ahead, count));
-    place = 0;
-    article.replaceChildren(...order.map(slot => sections[slot].block));
+    article.replaceChildren(sections[index].block);
     // Park the wheel on the opened project, so closing returns to it. The
     // zoom stays where the wheel left it while the text is read.
     const row = nearestRow(index);
@@ -484,44 +474,18 @@
     schedule();
   }
 
-  // Reading on into the next project turns the wheel one row: the zoom
-  // takes one step and closing lands on the project last read.
-  function followReader() {
-    const view = readerScroll.getBoundingClientRect();
-    const line = view.top + view.height / 2;
-    let reached = 0;
-    for (let ahead = 1; ahead < order.length; ahead += 1) {
-      const top = sections[order[ahead]].head.getBoundingClientRect().top;
-      if (top <= line + (ahead > place ? -12 : 12)) reached = ahead;
-      else break;
-    }
-    if (reached === place) return;
-    const turn = reached - place;
-    place = reached;
-    quiet(scroller.scrollTop + turn * rowHeight);
-    travel += turn;
-    const index = order[reached];
-    mark(index);
-    try {
-      history.replaceState({ bsReader: items[index].id }, '', `#${items[index].id}`);
-    } catch {
-      // The address is a convenience; reading continues without it.
-    }
-    haptic();
-  }
-
   function close(fromHistory = false) {
     if (reading < 0) return;
+    const last = reading;
     reading = -1;
     picks.forEach(button => button.setAttribute('aria-expanded', 'false'));
     root.classList.remove('is-reading');
     reader.classList.remove('is-shown');
     clearTimeout(closeTimer);
-    const last = order[place];
     closeTimer = setTimeout(() => {
       if (reading >= 0 || !reader.open) return;
-      // Closing hands focus back to the picker; keep it on the project last
-      // read instead of letting the restored focus turn the wheel back.
+      // Closing hands focus back to the picker; keep it on the project read
+      // instead of letting the restored focus turn the wheel elsewhere.
       focusing = true;
       reader.close();
       if (picker.contains(document.activeElement)) picks[last].focus({ preventScroll: true });
@@ -547,10 +511,6 @@
   reader.addEventListener('click', event => {
     if (event.target === reader || event.target === readerScroll) close();
   });
-  readerScroll.addEventListener('scroll', () => {
-    readerMoved = true;
-    schedule();
-  }, { passive: true });
 
   const indexOf = id => items.findIndex(item => item.id === id);
 
