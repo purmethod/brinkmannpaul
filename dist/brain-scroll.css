@@ -50,8 +50,8 @@
 
 /* A soft paper band keeps the turning names clear of the drawing. */
 #site-page .bs-veil{position:absolute;z-index:1;inset:0;pointer-events:none}
-/* Behind the wheel only while a dense drawing passes under it (--veil, set by the dive). */
-#site-page .bs-veil:before{content:"";position:absolute;inset:0;background:radial-gradient(calc(min(31rem,calc(100vw - 40px)) * 1.05) calc(var(--row) * 4.9) at 50% 50%,rgba(255,255,255,.9) 0,rgba(255,255,255,.8) 50%,rgba(255,255,255,0) 100%);opacity:var(--veil,0)}
+/* A calm white veil keeps the names clear of the drawings behind them. */
+#site-page .bs-veil:before{content:"";position:absolute;inset:0;background:radial-gradient(calc(min(31rem,calc(100vw - 40px)) * 1.05) calc(var(--row) * 4.9) at 50% 50%,rgba(255,255,255,.9) 0,rgba(255,255,255,.8) 50%,rgba(255,255,255,0) 100%);opacity:.85}
 #site-page .bs-veil:after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.55);opacity:0;transition:opacity 420ms ease}
 #site-page.is-reading .bs-veil:after{opacity:1}
 
