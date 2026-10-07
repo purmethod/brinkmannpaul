@@ -330,3 +330,11 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Neuere Art-Rubrik, „all art.“, aktuelle Kopfzeile, Texte, Links und Porträt-/Handschrift-Intro aus main erhalten. Branding-Alternativen werden separat mit Paul besprochen.
 - Originale IDs, Direktlink #art und Fokus bleiben erhalten. Ohne JavaScript bleibt eine normale Projektliste verfügbar; reduzierte Bewegung verzichtet auf zusätzliches Mausrad-Easing.
 - Unabhängiger statischer Agent-Review im PR dokumentiert. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung. Veröffentlichung über main/Vercel.
+
+
+## Issue #61 — „all art.“ gestrichen (2026-10-07)
+
+- Auf Pauls Wunsch das alleinstehende Zitat „all art.“ samt Attribution „paul“ oberhalb der Projekte entfernt.
+- Den zugehörigen Einleitungssatz „when i say …“ im Art-Text entfernt; die Art-Rubrik mit der übrigen Erklärung bleibt erhalten.
+- Kopfzeile, Intro, Projekte, Links und Endlosrolle/Gehirnzoom unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+- Veröffentlichung über den bestehenden main/Vercel-Ablauf.
