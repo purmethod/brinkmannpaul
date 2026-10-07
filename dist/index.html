@@ -41,9 +41,9 @@
     />
     <link rel="preload" href="assets/paul-portrait.jpeg" as="image" type="image/jpeg" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=57" />
-    <link rel="stylesheet" href="brain-scroll.css?v=59" />
+    <link rel="stylesheet" href="brain-scroll.css?v=59b" />
     <script src="app.js?v=25" defer></script>
-    <script src="brain-scroll.js?v=59" defer></script>
+    <script src="brain-scroll.js?v=59b" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">skip to projects</a>
@@ -72,8 +72,15 @@
           <img src="assets/neuroscience-light-desktop.webp" alt="" width="1536" height="1024" decoding="async" />
         </picture>
         <div class="bs-micro">
-          <img class="bs-depth-a" src="assets/neuroscience-microstructure.webp" alt="" width="1536" height="1024" decoding="async" />
-          <img class="bs-depth-b" alt="" width="1536" height="1024" decoding="async" />
+          <div class="bs-detail-layer bs-depth-a">
+            <img src="assets/neuroscience-microstructure.webp" alt="" width="1536" height="1024" decoding="async" />
+          </div>
+          <div class="bs-detail-layer bs-depth-b">
+            <img alt="" width="1536" height="1024" decoding="async" />
+          </div>
+          <div class="bs-detail-layer bs-depth-c">
+            <img alt="" width="1536" height="1024" decoding="async" />
+          </div>
         </div>
       </div>
       <header class="site-header bs-header">

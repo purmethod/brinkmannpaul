@@ -338,3 +338,12 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Den zugehörigen Einleitungssatz „when i say …“ im Art-Text entfernt; die Art-Rubrik mit der übrigen Erklärung bleibt erhalten.
 - Kopfzeile, Intro, Projekte, Links und Endlosrolle/Gehirnzoom unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
 - Veröffentlichung über den bestehenden main/Vercel-Ablauf.
+
+
+## Issue #59 — Korrektur der Zoomrichtung (2026-10-07)
+
+- Paul meldet nach dem Hineinzoomen ein erneutes Herauszoomen. Ursache: Ganzbild-Überblendung auf eine kleinere Kopie der Detailzeichnung.
+- Detailzeichnung wächst jetzt als weich maskierte Ebene innerhalb des Gehirns vom selben Fokuspunkt aus. Auch der erste Übergang wechselt nicht mehr das ganze Bild auf einmal.
+- Drei geschachtelte Ebenen ersetzen den bisherigen Zweibild-Fade. Vor dem Zurücksetzen verdeckt die nächste Ebene die vorherige vollständig; die kleinste neue Ebene beginnt transparent. Sichtbare Strukturen bewegen sich beim Weiterscrollen nur nach außen, entsprechend einem Hineinzoomen.
+- Vorhandene Bilder wiederverwendet. Scrollverhalten, Inhalt, Links, Intro und Kopfzeile unverändert; CSS-/JS-Version angehoben.
+- Unabhängiger statischer Review im PR. Keine Tests, Browservorschauen, Screenshots oder lokalen Builds gemäß Pauls Anweisung. Veröffentlichung über main/Vercel.

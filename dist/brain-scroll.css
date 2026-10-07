@@ -1,12 +1,13 @@
 #site-page{color-scheme:light;width:100%;font-family:Arial,Helvetica,sans-serif}
 #site-page *{box-sizing:border-box}
 #site-page.scroll-ready{position:relative;height:100vh;height:100svh;min-height:0;overflow:hidden;background:#fff;color:#292929;isolation:isolate}
-#site-page .bs-art{position:fixed;z-index:-1;inset:0;overflow:hidden;pointer-events:none}
-#site-page .bs-macro{display:block;position:absolute;inset:0;transform-origin:74% 26%;opacity:.74;will-change:transform,opacity}
+#site-page .bs-art{--zoom-x:74%;--zoom-y:26%;--detail-ink:.50;position:fixed;z-index:-1;inset:0;overflow:hidden;pointer-events:none}
+#site-page .bs-macro{display:block;position:absolute;inset:0;transform-origin:var(--zoom-x) var(--zoom-y);opacity:.74;will-change:transform,opacity}
 #site-page .bs-macro img{width:100%;height:100%;object-fit:cover;object-position:right top;display:block;max-width:none}
 #site-page .bs-micro{position:absolute;inset:0;opacity:0;pointer-events:none}
-#site-page .bs-micro img{position:absolute;top:-50%;left:-50%;width:200%;height:200%;max-width:none;object-fit:cover;object-position:66% 45%;transform-origin:58% 43%;will-change:transform,opacity}
-#site-page .bs-depth-b{opacity:0}
+#site-page .bs-detail-layer{position:absolute;left:calc(var(--zoom-x) - 120%);top:calc(var(--zoom-y) - 120%);width:240%;height:240%;background:#fff;transform-origin:50% 50%;will-change:transform,opacity;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 88%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 88%,transparent 100%)}
+#site-page .bs-detail-layer img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:66% 45%;opacity:var(--detail-ink)}
+#site-page .bs-depth-c{opacity:0}
 #site-page.scroll-ready .bs-header{position:absolute;z-index:2;inset:0 0 auto;display:flex;justify-content:space-between;gap:20px;padding:21px 32px;color:#62625c;font-size:12px;letter-spacing:.055em;pointer-events:none}
 #site-page.scroll-ready .bs-scroll{position:absolute;z-index:1;inset:78px 0 61px;overflow-y:scroll;overflow-x:hidden;scrollbar-width:none;overscroll-behavior-y:contain;overflow-anchor:none;scroll-behavior:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y pinch-zoom}
 #site-page.scroll-ready .bs-scroll::-webkit-scrollbar{display:none}
@@ -42,7 +43,7 @@
   #site-page .project-list{width:100%}
   #site-page .project-item>summary .item-name{font-size:20px}
   #site-page.scroll-ready .bs-footer{padding-inline:20px}
-  #site-page .bs-macro{transform-origin:57% 25%}
+  #site-page .bs-art{--zoom-x:57%;--zoom-y:25%;--detail-ink:.38}
   #site-page .bs-macro img{object-position:center top}
 }
 

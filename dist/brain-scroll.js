@@ -10,6 +10,7 @@
   const micro = root.querySelector('.bs-micro');
   const depthA = root.querySelector('.bs-depth-a');
   const depthB = root.querySelector('.bs-depth-b');
+  const depthC = root.querySelector('.bs-depth-c');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const compact = matchMedia('(max-width: 580px)');
   const middle = 8;
@@ -35,7 +36,9 @@
   }
   track.replaceChildren(fragment);
   root.classList.add('scroll-ready');
-  depthB.src = depthA.src;
+  const detailSource = depthA.querySelector('img').src;
+  depthB.querySelector('img').src = detailSource;
+  depthC.querySelector('img').src = detailSource;
 
   let cycleHeight = 0;
   let previous = 0;
@@ -59,19 +62,26 @@
   function draw() {
     // Direct, reversible zoom of the existing drawing, beginning at the
     // first scroll pixel. Reduced motion removes easing, not this control.
-    const blend = smooth(680, 1150, distance);
-    const scale = Math.exp(Math.min(distance, 1200) * 0.00195);
+    const zoomRate = 0.00195;
+    const landing = 1150;
+    const ratio = 4;
+    const scale = Math.exp(Math.min(distance, landing) * zoomRate);
     macro.style.transform = `translate3d(0,0,0) scale(${scale})`;
-    macro.style.opacity = String((compact.matches ? 0.60 : 0.74) * (1 - blend));
-    micro.style.opacity = String((compact.matches ? 0.38 : 0.50) * blend);
+    // The detail is embedded inside the brain, growing from the same focal
+    // point. Its opaque center fully covers the viewport at scale 1.
+    macro.style.opacity = String(distance < landing ? (compact.matches ? 0.60 : 0.74) : 0);
+    micro.style.opacity = String(smooth(200, 450, distance));
 
-    // At the join, layer B is exactly the size and opacity of layer A at
-    // the next cycle. It keeps zooming without a visible scale reset.
-    const travel = Math.max(0, distance - 820) / 900;
-    const phase = travel - Math.floor(travel);
-    depthA.style.transform = `translate3d(0,0,0) scale(${Math.pow(2, phase)})`;
-    depthB.style.transform = `translate3d(0,0,0) scale(${Math.pow(2, phase - 1)})`;
-    depthB.style.opacity = String(smooth(0.28, 1, phase));
+    // Every visible layer grows. Before recycling, B completely covers A
+    // and C matches the next B; the replacement C begins fully transparent.
+    // This changes only hidden layers, not the apparent camera direction.
+    const travel = (distance - landing) * zoomRate / Math.log(ratio);
+    const phase = travel < 0 ? travel : travel - Math.floor(travel);
+    const detailScale = Math.pow(ratio, phase);
+    depthA.style.transform = `translate3d(0,0,0) scale(${detailScale})`;
+    depthB.style.transform = `translate3d(0,0,0) scale(${detailScale / ratio})`;
+    depthC.style.transform = `translate3d(0,0,0) scale(${detailScale / (ratio * ratio)})`;
+    depthC.style.opacity = String(travel < 0 ? 0 : smooth(0, 0.6, phase));
   }
 
   function quietScroll(value) {
