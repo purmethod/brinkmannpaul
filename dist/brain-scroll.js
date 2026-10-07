@@ -3,7 +3,7 @@
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
   // Turning the wheel zooms slowly from the approved brain drawing through the
-  // approved microstructure into a drawn cubic millimetre of cortex, where the
+  // approved microstructure into a cubic millimetre of cortex, where the
   // neurons open into a galaxy, and back out again; every level is a fine
   // drawing on white paper. Without JavaScript the plain project list remains.
 
@@ -285,8 +285,8 @@
 
   // A veil steps in behind the wheel only while a dense drawing passes under it.
   let veiled = -1;
-  function paint(fog) {
-    const cover = Math.round(fog * 50) / 50;
+  function paint(amount) {
+    const cover = Math.round(amount * 50) / 50;
     if (cover === veiled) return;
     veiled = cover;
     root.style.setProperty('--veil', String(cover));
@@ -602,20 +602,18 @@
     const context = canvas.getContext('2d', { alpha: false });
 
     // A chain of drawings, each nested at the focus point of the one before:
-    // the approved brain and microstructure, one cubic millimetre of cortex
-    // (after the H01 reconstruction, Harvard and Google), the inside of that
-    // cube, and the universe at its core.
+    // the approved brain and microstructure, the inside of one cubic
+    // millimetre of cortex (after the H01 reconstruction, Harvard and Google),
+    // and the universe at its core.
     const MICRO_FOCUS = [1000, 506];
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const CHAIN = [
       { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
-      { name: 'cube', src: 'assets/neuro-cube.webp', focus: [860, 971], size: [1920, 1920], scale: 1 / Math.E, enter: 0.45 },
-      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], scale: 0.42, enter: 0.05, ink: 0.72 },
+      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.72 },
       { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], scale: 0.39, enter: 0, ink: 0.72 },
     ];
     const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
-    const CUBE_BOX = [742, 684, 1186, 1199]; // the cube inside its drawing
 
     const api = { depth: 4, veil: 0, resize, draw };
     const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
@@ -702,10 +700,10 @@
       );
       micro.handover = Math.log(reach * 1.12);
       chain.slice(1).forEach(level => { level.handover = level.native - level.enter; });
-      // The galaxy blooms out of the swirl inside the cube and settles at a
-      // size that suits the screen: wide on desktop, filling a phone.
-      const inside = chain[2];
-      const universe = chain[3];
+      // The galaxy blooms out of the swirl inside the cubic millimetre and
+      // settles at a size that suits the screen: wide on desktop, filling a phone.
+      const inside = chain[1];
+      const universe = chain[2];
       const deepest = inside.handover + 1.35;
       const [fx, fy] = universe.focus;
       const [uw, uh] = universe.size;
@@ -734,12 +732,12 @@
       const travelled = smooth(camera.drift[0], camera.drift[1], depth);
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
-      const inside = chain[2];
+      const inside = chain[1];
       // A drawing that has not arrived yet leaves the previous one in place.
       const ready = chain.map(level => level.state === 'ready');
-      // From the inside of the cube on, the drawings are dense behind the wheel.
-      const dense = ready[2] ? smooth(inside.handover - 0.5, inside.handover, depth) : 0;
-      let fog = 0;
+      // From the inside of the cubic millimetre on, the drawings are dense
+      // behind the wheel, so the type gets a white veil.
+      const dense = ready[1] ? smooth(inside.handover - 0.5, inside.handover, depth) : 0;
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
@@ -764,29 +762,13 @@
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
         if (level.ink) alpha *= level.ink;
-        if (level.name === 'cube') {
-          alpha *= 0.82 + 0.18 * smooth(level.handover, inside.handover - 0.2, depth);
-          fog = alpha * behindWheel(level, zoom, cx, cy);
-        }
         context.globalCompositeOperation = 'multiply';
         context.globalAlpha = alpha;
         context.drawImage(level.image, ...spread(level.image, level.focus, level.k * zoom, cx, cy));
       });
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      api.veil = Math.max(fog, 0.85 * dense);
-    }
-
-    // How much of the wheel the cube covers, so the type gets a veil only
-    // while the cube passes behind it.
-    function behindWheel(level, zoom, cx, cy) {
-      const scale = level.k * zoom;
-      const [left, top, right, bottom] = CUBE_BOX.map((value, slot) => (slot % 2 ? cy : cx) + (value - level.focus[slot % 2]) * scale);
-      const halfWidth = Math.min(248, (width - 40) / 2);
-      const halfHeight = height * 0.25;
-      const across = Math.max(0, Math.min(right, width / 2 + halfWidth) - Math.max(left, width / 2 - halfWidth));
-      const down = Math.max(0, Math.min(bottom, height / 2 + halfHeight) - Math.max(top, height / 2 - halfHeight));
-      return smooth(0.04, 0.3, (across * down) / (4 * halfWidth * halfHeight));
+      api.veil = 0.85 * dense;
     }
 
     return api;
