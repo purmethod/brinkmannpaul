@@ -544,3 +544,8 @@ Pauls Wunsch mit Foto: Das Gehirn muss beim Ankommen deutlich erkennbar sein. Da
 - **Sternchen:** Die ✱ standen nur in der Chat-Nachricht als Markierung neuer Absätze, auf der Seite gibt es keine (geprüft).
 - **Prüfung:** Nahtstelle mit Helligkeitssprung 0,05 bzw. 0,04, mehrere Zyklen ohne Konsolenfehler, 49 Interaktionstests grün.
 
+### Nachtrag: art-Text, Einstieg „all art.“ und Schluss „you.“ (2026-10-07)
+
+- Paul: „anything we do …“ in normaler Schriftgröße in den Text. Als großer Einstieg steht stattdessen „all art.“. Am Ende: Was Kunst ist, definiert allein der Erschaffer, und es muss mindestens einem Menschen gefallen, dem, der es erschaffen hat. Letztes Wort „you.“
+- Umgesetzt in Pauls Worten, Kleinschreibung, ohne Gedankenstriche. `node scripts/test-site.mjs` grün.
+
