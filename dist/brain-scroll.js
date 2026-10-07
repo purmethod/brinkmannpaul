@@ -91,22 +91,27 @@
     return button;
   });
 
-  const reader = make('dialog', 'bs-reader', { id: 'bs-reader', 'aria-labelledby': 'bs-reader-title' });
+  // The reader lists every project in wheel order, starting with the one
+  // opened, so the next title is already in view when a text ends.
+  const reader = make('dialog', 'bs-reader', { id: 'bs-reader' });
   const readerScroll = make('div', 'bs-reader-scroll');
-  const article = make('article', 'bs-reader-body');
-  const head = make('header', 'bs-reader-head');
-  const title = make('h2', 'bs-reader-title', { id: 'bs-reader-title', tabindex: '-1' });
-  const kind = make('p', 'bs-reader-type');
-  head.append(title, kind);
-  const content = make('div', 'bs-reader-content');
-  const entries = items.map(item => {
-    const entry = make('div', 'bs-entry');
-    entry.hidden = true;
-    if (item.content) entry.append(item.content);
-    content.append(entry);
-    return entry;
+  const article = make('div', 'bs-reader-body');
+  const sections = items.map(item => {
+    const block = make('section', 'bs-entry', { 'aria-labelledby': `bs-title-${item.id}` });
+    const head = make('header', 'bs-reader-head');
+    const title = make('h2', 'bs-reader-title', { id: `bs-title-${item.id}`, tabindex: '-1' });
+    title.innerHTML = item.html;
+    head.append(title);
+    if (item.type) {
+      const kind = make('p', 'bs-reader-type');
+      kind.textContent = item.type;
+      head.append(kind);
+    }
+    const body = make('div', 'bs-reader-content');
+    if (item.content) body.append(item.content);
+    block.append(head, body);
+    return { block, head, title };
   });
-  article.append(head, content);
   readerScroll.append(article);
   const closer = make('button', 'bs-close', { type: 'button', 'aria-label': 'close' });
   reader.append(readerScroll, closer);
@@ -172,7 +177,9 @@
   let focusing = false;
   let reading = -1;
   let pushed = false;
-  let readerPrevious = 0;
+  let order = [];
+  let place = 0;
+  let readerMoved = false;
   let closeTimer = 0;
   let aim = null; // row a glide is heading to; repeated keys add up
 
@@ -292,10 +299,15 @@
       tickDetent(pos);
       lastPosition = pos;
     }
-    const still = reduced.matches;
-    eased = still ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 130));
+    if (reading >= 0 && readerMoved) {
+      readerMoved = false;
+      followReader();
+    }
+    // Reduced motion removes the easing, not the zoom: it follows the
+    // wheel the visitor turns by hand.
+    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 130));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
-    dive.draw(still ? 0 : depthAt(eased));
+    dive.draw(depthAt(eased));
     if (eased !== travel) schedule();
     else clock = 0;
   }
@@ -422,25 +434,29 @@
 
   /* ---------- reader ---------- */
 
+  function mark(index) {
+    reading = index;
+    reader.setAttribute('aria-labelledby', `bs-title-${items[index].id}`);
+    picks.forEach((button, slot) => button.setAttribute('aria-expanded', String(slot === index)));
+  }
+
   function open(index, fromHistory = false) {
-    if (index < 0 || index >= count || reading === index) return;
+    if (index < 0 || index >= count || reading >= 0) return;
     clearTimeout(closeTimer);
     const item = items[index];
-    entries.forEach((entry, slot) => { entry.hidden = slot !== index; });
-    title.innerHTML = item.html;
-    kind.textContent = item.type;
-    kind.hidden = !item.type;
-    picks.forEach((button, slot) => button.setAttribute('aria-expanded', String(slot === index)));
-    // Park the wheel on the opened project, so closing returns to it.
+    order = items.map((_, ahead) => mod(index + ahead, count));
+    place = 0;
+    article.replaceChildren(...order.map(slot => sections[slot].block));
+    // Park the wheel on the opened project, so closing returns to it. The
+    // zoom stays where the wheel left it while the text is read.
     const row = nearestRow(index);
     if (Math.round(position()) !== row) quiet(row * rowHeight + offset);
-    reading = index;
+    mark(index);
     readerScroll.scrollTop = 0;
-    readerPrevious = 0;
     root.classList.add('is-reading');
     if (!reader.open) reader.showModal();
     requestAnimationFrame(() => reader.classList.add('is-shown'));
-    title.focus({ preventScroll: true });
+    sections[index].title.focus({ preventScroll: true });
     if (!fromHistory) {
       try {
         history.pushState({ bsReader: item.id }, '', `#${item.id}`);
@@ -453,6 +469,32 @@
     schedule();
   }
 
+  // Reading on into the next project turns the wheel one row: the zoom
+  // takes one step and closing lands on the project last read.
+  function followReader() {
+    const view = readerScroll.getBoundingClientRect();
+    const line = view.top + view.height / 2;
+    let reached = 0;
+    for (let ahead = 1; ahead < order.length; ahead += 1) {
+      const top = sections[order[ahead]].head.getBoundingClientRect().top;
+      if (top <= line + (ahead > place ? -12 : 12)) reached = ahead;
+      else break;
+    }
+    if (reached === place) return;
+    const turn = reached - place;
+    place = reached;
+    quiet(scroller.scrollTop + turn * rowHeight);
+    travel += turn;
+    const index = order[reached];
+    mark(index);
+    try {
+      history.replaceState({ bsReader: items[index].id }, '', `#${items[index].id}`);
+    } catch {
+      // The address is a convenience; reading continues without it.
+    }
+    haptic();
+  }
+
   function close(fromHistory = false) {
     if (reading < 0) return;
     reading = -1;
@@ -460,8 +502,15 @@
     root.classList.remove('is-reading');
     reader.classList.remove('is-shown');
     clearTimeout(closeTimer);
+    const last = order[place];
     closeTimer = setTimeout(() => {
-      if (reading < 0 && reader.open) reader.close();
+      if (reading >= 0 || !reader.open) return;
+      // Closing hands focus back to the picker; keep it on the project last
+      // read instead of letting the restored focus turn the wheel back.
+      focusing = true;
+      reader.close();
+      if (picker.contains(document.activeElement)) picks[last].focus({ preventScroll: true });
+      focusing = false;
     }, reduced.matches ? 0 : 340);
     if (!fromHistory) {
       if (pushed) {
@@ -484,9 +533,7 @@
     if (event.target === reader || event.target === readerScroll) close();
   });
   readerScroll.addEventListener('scroll', () => {
-    const top = readerScroll.scrollTop;
-    if (rowHeight) travel += (top - readerPrevious) / rowHeight * 0.5;
-    readerPrevious = top;
+    readerMoved = true;
     schedule();
   }, { passive: true });
 
@@ -496,7 +543,7 @@
     const id = history.state && history.state.bsReader;
     const index = id ? indexOf(id) : -1;
     if (index >= 0) {
-      if (reading !== index) {
+      if (reading < 0) {
         pushed = true;
         open(index, true);
       }
@@ -626,12 +673,20 @@
       lastDepth = NaN;
       rasterBlank = false;
       vectorBlank = false;
-      if (!world && !reduced.matches) idle(() => {
-        world = buildWorld();
-        lastDepth = NaN;
-        schedule();
-      });
-      if (!micro && !reduced.matches) loadMicro();
+      if (world === null) {
+        world = false;
+        idle(() => {
+          try {
+            world = buildWorld();
+          } catch {
+            // Without the vector levels the drawing keeps zooming as raster.
+            world = false;
+          }
+          lastDepth = NaN;
+          schedule();
+        });
+      }
+      if (micro === null) loadMicro();
     }
 
     function idle(callback) {
@@ -677,7 +732,7 @@
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
 
       const macroAlpha = camera.inkMacro * (1 - smooth(camera.macroOut[0], camera.macroOut[1], depth));
-      const microAlpha = micro ? camera.inkMicro * smooth(camera.microIn[0], camera.microIn[1], depth) * (1 - smooth(camera.microOut[0], camera.microOut[1], depth)) : 0;
+      const microAlpha = micro ? camera.inkMicro * smooth(camera.microIn[0], camera.microIn[1], depth) * (world ? 1 - smooth(camera.microOut[0], camera.microOut[1], depth) : 1) : 0;
       const blank = macroAlpha < 0.002 && microAlpha < 0.002;
       if (!blank || !rasterBlank) {
         raster.setTransform(1, 0, 0, 1, 0, 0);
@@ -1037,28 +1092,23 @@
 
     // Closed outline for filling; the open variant leaves the joint to the
     // neck or axon unstroked, so the tube flows into the shape.
-    function spineHead(outline = false) {
-      const path = new Path2D();
-      path.moveTo(-0.065, 0.56);
-      path.bezierCurveTo(-0.09, 0.5, -0.17, 0.47, -0.24, 0.38);
-      path.bezierCurveTo(-0.33, 0.26, -0.31, 0.07, -0.2, 0.05);
-      path.quadraticCurveTo(0, 0.035, 0.2, 0.05);
-      path.bezierCurveTo(0.31, 0.07, 0.33, 0.26, 0.24, 0.38);
-      path.bezierCurveTo(0.17, 0.47, 0.09, 0.5, 0.065, 0.56);
-      if (!outline) path.closePath();
-      return path;
-    }
+    const HEAD = [['M', -0.065, 0.56], ['C', -0.09, 0.5, -0.17, 0.47, -0.24, 0.38], ['C', -0.33, 0.26, -0.31, 0.07, -0.2, 0.05],
+      ['Q', 0, 0.035, 0.2, 0.05], ['C', 0.31, 0.07, 0.33, 0.26, 0.24, 0.38], ['C', 0.17, 0.47, 0.09, 0.5, 0.065, 0.56]];
+    const BOUTON = [['M', -0.04, -0.64], ['C', 0.06, -0.655, 0.22, -0.6, 0.3, -0.47], ['C', 0.38, -0.33, 0.36, -0.07, 0.24, -0.05],
+      ['Q', 0, -0.035, -0.24, -0.05], ['C', -0.36, -0.15, -0.33, -0.45, -0.2, -0.55]];
 
-    function bouton(outline = false) {
-      const path = new Path2D();
-      path.moveTo(-0.04, -0.64);
-      path.bezierCurveTo(0.06, -0.655, 0.22, -0.6, 0.3, -0.47);
-      path.bezierCurveTo(0.38, -0.33, 0.36, -0.07, 0.24, -0.05);
-      path.quadraticCurveTo(0, -0.035, -0.24, -0.05);
-      path.bezierCurveTo(-0.36, -0.15, -0.33, -0.45, -0.2, -0.55);
-      if (!outline) path.closePath();
+    function trace(commands, { closed = false, center = [0, 0], shrink = 1, path = new Path2D() } = {}) {
+      for (const [command, ...values] of commands) {
+        const points = values.map((value, slot) => center[slot % 2] + (value - center[slot % 2]) * shrink);
+        if (command === 'M') path.moveTo(...points);
+        else if (command === 'C') path.bezierCurveTo(...points);
+        else path.quadraticCurveTo(...points);
+      }
+      if (closed) path.closePath();
       return path;
     }
+    const spineHead = (outline = false) => trace(HEAD, { closed: !outline });
+    const bouton = (outline = false) => trace(BOUTON, { closed: !outline });
 
     function buildSynapse(random) {
       const ink = [98, 98, 94];
@@ -1160,12 +1210,8 @@
 
       // Second membrane line: lipid bilayers show at close range.
       const membranes = new Path2D();
-      const inner = (shape, cx, cy, factor) => {
-        const matrix = new DOMMatrix().translate(cx, cy).scale(factor).translate(-cx, -cy);
-        membranes.addPath(shape, matrix);
-      };
-      inner(bouton(true), 0.02, -0.34, 0.965);
-      inner(spineHead(true), 0, 0.3, 0.955);
+      trace(BOUTON, { center: [0.02, -0.34], shrink: 0.965, path: membranes });
+      trace(HEAD, { center: [0, 0.3], shrink: 0.955, path: membranes });
 
       const stipple = new Path2D();
       const dot = (x, y) => {
@@ -1271,10 +1317,10 @@
         extend(box, shape.box.x0, shape.box.y0, 0);
         extend(box, shape.box.x1, shape.box.y1, 0);
       });
-      const order = (map, direction) => Array.from(map.values())
+      const sorted = (map, direction) => Array.from(map.values())
         .sort((a, b) => (a.size - b.size) * direction)
         .map(bucket => ({ ...bucket, cells: Array.from(bucket.cells.values()) }));
-      return { ink: source.ink, fade: source.fade, box, tubes: order(tubes, 1), blobs: order(blobs, -1), shapes: source.shapes };
+      return { ink: source.ink, fade: source.fade, box, tubes: sorted(tubes, 1), blobs: sorted(blobs, -1), shapes: source.shapes };
     }
 
     function spline(control, spacing) {
