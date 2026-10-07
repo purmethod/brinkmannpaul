@@ -444,3 +444,15 @@ Pauls Wunsch: Es soll nicht mehr stoppen und nicht wieder herauszoomen. Er will 
   - Nahtstelle: Helligkeitssprung 0,04, kleiner als ein normaler Zoomschritt (0,1). Der größte Helligkeitsschritt im ganzen Zyklus liegt bei 1,9 pro 0,02 Tiefe, beim Auflösen der Galaxie.
   - Leseansicht: ein Projekt, ein offenes pure-Kapitel.
 
+### Nachtrag: Neuronen-Kosmos und Galaxie aus Neuronen (2026-10-07)
+
+Pauls Wunsch, mit Referenzbild (1 mm³, Netz aus Neuronen wie Sterne): Der Kubikmillimeter soll in ein Detail übergehen, in dem man das Universum sieht, gezeichnet in Grautönen. Beim Scrollen soll man sich darin verlieren; der Aha-Effekt: Das Gehirn ist so verzweigt wie eine Galaxie. Den Würfel hatte Paul zuvor abgelehnt, er bleibt draußen.
+
+- Neu (Higgsfield, Mikrostruktur als Stilvorlage, Graphit auf Weiß):
+  - `neuro-cosmos.webp` (636 KB): das Neuronennetz als Kosmos. Zellkörper wie Sterne mit Punkthalo, Dendriten und Axone wie Sternbilder und kosmisches Netz, mit starker Tiefe. In der Mitte steht der hellste Neuronen-Stern (964, 947).
+  - `neuro-galaxy.webp` (342 KB): eine Spiralgalaxie ganz aus Neuronen mit offenem, hellem Kern (964, 967), Radius etwa 600 px.
+- `neuro-universe.webp` (die umgekehrte Nacht-Galaxie) ist entfernt.
+- Kette: Gehirn → Mikrostruktur → Inneres → Kosmos → Galaxie → Synapse → Moleküle → nächstes Gehirn.
+- Ruhiger: Die Galaxie kommt nach drei statt zwei Raddrehungen; ein voller Durchgang sind etwa 63 Zeilen, rund 7 Drehungen.
+- Prüfung (ohne Screenshots): `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund. Rauchtest über mehrere Zyklen ohne Konsolenfehler. An der Nahtstelle ändert sich die Helligkeit um 0,04; der größte Helligkeitsschritt liegt bei 1,85 pro 0,02 Tiefe. Leseansicht unverändert.
+
