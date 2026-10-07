@@ -5,6 +5,16 @@ auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Age
 
 Legende Status: `⏳ offen` · `🚧 in Arbeit` · `✅ fertig`
 
+## Issue #73 — Vercel-Projekt „atelier" schlägt auf jedem Branch fehl (2026-10-07)
+
+Status: 🚧 in Arbeit; PR offen.
+
+- Zwei Vercel-Projekte hängen am Repo: `brinkmannpaul` (Root Directory `dist`, grün) und `atelier`, ehemals `cutcake` (Root Directory = Repo-Root, rot).
+- Ursache: `atelier` baut vom Repo-Root, dort liegt keine Website.
+- Fix: `vercel.json` im Repo-Root erzwingt statisches Deployment ohne Install/Build aus `dist/`.
+- `brinkmannpaul` unberührt: Vercel liest `vercel.json` nur im jeweiligen Root Directory (`dist`).
+- Keine Änderungen an `dist/`, keine neuen Abhängigkeiten.
+
 ## Issue #43 — Neuroscience-Hintergrund und PURE (2026-10-06)
 
 Status: umgesetzt; Veröffentlichung von Paul ausdrücklich freigegeben, unabhängiger Code-Review im zugehörigen PR.
