@@ -362,3 +362,13 @@ Auftrag Paul: Schrift mittig wie das Timer-Rad am iPhone, Mitte dunkler hervorge
 - **Neue Projekte:** Ein weiteres `<details class="project-item" id="…">` in `dist/index.html` erscheint automatisch im Rad; die Tauchfahrt passt sich der Anzahl an.
 - **Technik:** Vanilla JS/CSS, keine Abhängigkeiten, keine neuen Assets. Zwei Canvas-Ebenen (Raster, Vektor), Pfade nach Breite und Raster-Zellen vorsortiert, nur Sichtbares wird gezeichnet. Gemessen: konstant 60 fps über die ganze Fahrt, < 0,5 ms Main-Thread pro Frame (Desktop 1×/2×, Mobile 3×).
 - **Prüfung:** `node --check`, `node scripts/test-site.mjs` (an aktuelle Seite angepasst; war seit Entfernen von „i build." rot), 37 Playwright-Interaktionstests (Tippen, Zentrieren, Lesen, Zurück-Geste, Escape, Pfeiltasten, Tab-Fokus, Direktlink, Endlos-Scroll, reduzierte Bewegung, ohne JavaScript), Screenshots 1440×900, 1920×1080, 1024×768, 768×1024, 844×390, 390×844, 320×568, keine horizontale Scrollbar, keine Konsolenfehler. Nur Chromium verfügbar — Safari/iPhone bitte auf dem echten Gerät prüfen.
+
+
+## Picker-Rad: Zoom auch bei „Bewegung reduzieren", Lesefluss ins nächste Thema (2026-10-07)
+
+Rückmeldung Paul nach Livegang von #65: „es scrollt nicht rein"; beim Öffnen muss das hineingezoomte Bild im Hintergrund in seiner Position bleiben; am Ende des Textes soll das nächste Thema schon sichtbar sein.
+
+- **Zoom:** Ursache war die Systemeinstellung „Bewegung reduzieren" — #65 hatte den Zoom dort komplett abgeschaltet. Wie schon in #59 entschieden, entfällt jetzt nur die Dämpfung; der Zoom folgt weiter dem Rad, das man selbst dreht. Vektor-Ebenen und Mikrostruktur werden immer geladen; schlägt der Aufbau der Vektor-Ebenen fehl, zoomt die Zeichnung als Raster weiter statt weiß zu werden. `Path2D.addPath`/`DOMMatrix` entfernt.
+- **Leseansicht:** Der Zoom bleibt beim Lesen exakt stehen. Schleier nur noch 55 % plus helle Lesespalte hinter dem Text, damit das gezoomte Bild sichtbar bleibt.
+- **Weiterlesen:** Die Leseansicht zeigt alle Projekte in Radreihenfolge ab dem geöffneten. Das nächste Thema steht direkt unter dem Textende. Liest man hinein, dreht das Rad eine Zeile weiter: Zoom macht einen Schritt, Adresse wechselt (z. B. `#mysidibou`), Haptik-Tick. Schließen landet auf dem zuletzt gelesenen Projekt; der Fokus springt nicht mehr auf das Ausgangsprojekt zurück.
+- **Prüfung:** `node --check`, `node scripts/test-site.mjs`, eslint ohne Befund, 49 Playwright-Interaktionstests (neu: Zoom bleibt beim Lesen stehen, nächstes Thema am Textende sichtbar, Weiterlesen dreht Rad und Zoom, Zurückscrollen, Schließen nach Weiterlesen, Zoom bei reduzierter Bewegung), 60 fps. Nur Chromium verfügbar.
