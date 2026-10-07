@@ -37,7 +37,7 @@
 
 /* ---------- picker wheel (JavaScript) ---------- */
 
-#site-page.scroll-ready{--row:76px;--band:min(31rem,calc(100% - 40px));--name:clamp(1.6rem,1.05rem + 1.55vw,2.3rem);--ink:#101010;position:relative;height:100vh;height:100svh;min-height:0;overflow:hidden;background:#fff;color:#292929;isolation:isolate}
+#site-page.scroll-ready{--row:76px;--band:min(31rem,calc(100% - 40px));--name:clamp(1.3rem,.95rem + 1.1vw,1.85rem);--ink:#101010;position:relative;height:100vh;height:100svh;min-height:0;overflow:hidden;background:#fff;color:#292929;isolation:isolate}
 #site-page.scroll-ready .bs-art{position:absolute;z-index:0}
 #site-page.scroll-ready .bs-macro{display:none}
 #site-page .bs-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -56,7 +56,7 @@
 #site-page.is-reading .bs-veil:after{opacity:1}
 
 #site-page .bs-wheel{position:absolute;z-index:2;inset:0;pointer-events:none;transition:opacity 320ms ease}
-#site-page .bs-face{position:absolute;left:50%;top:50%;display:grid;justify-items:center;align-content:center;gap:7px;width:var(--band);height:var(--row);text-align:center;white-space:nowrap;visibility:hidden;transform-origin:50% 50%}
+#site-page .bs-face{position:absolute;left:50%;top:50%;display:grid;justify-items:start;align-content:center;gap:7px;width:var(--band);height:var(--row);padding-right:28px;text-align:left;white-space:nowrap;visibility:hidden;transform-origin:0 50%}
 #site-page .bs-name{font-size:var(--name);line-height:1.05;letter-spacing:-.035em;color:#232323}
 #site-page .bs-type{max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:12px;line-height:1.3;letter-spacing:.035em;color:#5f5f59}
 
@@ -83,10 +83,10 @@
 #site-page .bs-reader::backdrop{background:transparent}
 #site-page .bs-reader.is-shown{opacity:1}
 #site-page .bs-reader-scroll{position:absolute;inset:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent 58px,#000 112px,#000 calc(100% - 120px),transparent calc(100% - 70px));mask-image:linear-gradient(to bottom,transparent 0,transparent 58px,#000 112px,#000 calc(100% - 120px),transparent calc(100% - 70px))}
-#site-page .bs-reader-body{width:min(35rem,100%);margin:0 auto;padding:calc(50svh - var(--row) / 2) 20px 150px}
+#site-page .bs-reader-body{width:calc(var(--band) + 40px);margin:0 auto;padding:calc(50svh - var(--row) / 2) 20px 150px}
 /* The zoomed drawing stays in view around a pale reading column. */
 #site-page .bs-entry{margin:0 -20px;padding:0 20px 8px;background:linear-gradient(90deg,rgba(255,255,255,0) 0,rgba(255,255,255,.8) 20px,rgba(255,255,255,.8) calc(100% - 20px),rgba(255,255,255,0) 100%)}
-#site-page .bs-reader-head{display:grid;justify-items:center;align-content:center;gap:7px;height:var(--row);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);text-align:center;transform:translateY(0);transition:transform 420ms cubic-bezier(.22,1,.36,1)}
+#site-page .bs-reader-head{display:grid;justify-items:start;align-content:center;gap:7px;height:var(--row);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);text-align:left;transform:translateY(0);transition:transform 420ms cubic-bezier(.22,1,.36,1)}
 #site-page .bs-reader-title{margin:0;font-size:var(--name);font-weight:400;line-height:1.05;letter-spacing:-.035em;color:#232323;white-space:nowrap;outline:none}
 #site-page .bs-reader-type{margin:0;font-size:12px;line-height:1.3;letter-spacing:.035em;color:#5f5f59}
 #site-page .bs-reader-content{padding-top:30px;transform:translateY(14px);transition:transform 520ms cubic-bezier(.22,1,.36,1)}
