@@ -394,3 +394,12 @@ Rückmeldung Paul zur Vektor-Synapse aus #65/#66: „gefällt mir nicht, die Ver
 - **Entfernt:** die vektorgezeichnete Synapse samt Vektor-Canvas. Alles läuft auf einem Canvas.
 - **Dateigrößen:** 427 KB, 628 KB und 624 KB, jeweils 1920 × 1920 WebP. Sie liegen über der 300-KB-Faustregel, weil sie bis etwa vierfach vergrößert gezeichnet werden. Sie laden erst kurz bevor die Fahrt sie erreicht, der Seitenaufruf bleibt gleich groß. `scripts/test-site.mjs` erlaubt dafür bis 700 KB, nur für `assets/neuro-*`, und prüft das Nachladen.
 - **Prüfung (auf Pauls Wunsch reduziert, ohne Screenshots):** `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund. Rauchtest Desktop und Mobile bis zum tiefsten Punkt: keine Konsolenfehler, Bild durchgehend auf weißem Grund. Die Nacht-Fassung davor hatte 49 Interaktionstests und 60 fps bestanden; die Mechanik von Rad und Leseansicht ist unverändert.
+
+### Nachtrag: Würfel entfernt (2026-10-07)
+
+Rückmeldung Paul nach Livegang von #67, mit iPhone-Screenshots: „so wie auf dem zweiten Foto, kein Würfel, der stört“.
+
+- Die Kubus-Zeichnung (`neuro-cube.webp`) ist entfernt. Kette jetzt: Gehirn → Mikrostruktur → Inneres des Kubikmillimeters → Universum. Das Innere übernimmt Maßstab und Zeitpunkt des bisherigen Kubus, blüht also direkt aus der Mikrostruktur auf.
+- Der weiße Schleier hinter dem Rad erscheint jetzt nur noch ab dem Inneren. Gehirn und Mikrostruktur bleiben ohne Schleier.
+- Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint, Rauchtest Desktop und Mobile bis zum tiefsten Punkt ohne Konsolenfehler, Grund durchgehend weiß.
+- Hinweis: Das Vercel-Projekt „atelier“ (Datenbank einer App, nicht diese Seite) ist mit diesem Repo verknüpft und baut deshalb bei jedem Push mit und scheitert. Abhilfe nur im Vercel-Dashboard: atelier → Settings → Git → Disconnect.
