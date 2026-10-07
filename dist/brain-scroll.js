@@ -3,9 +3,9 @@
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
   // Turning the wheel zooms slowly from the approved brain drawing through the
-  // approved microstructure into a cubic millimetre of cortex, where the
-  // neurons open into a galaxy, and back out again; every level is a fine
-  // drawing on white paper. Without JavaScript the plain project list remains.
+  // approved microstructure into a cubic millimetre of cortex, a galaxy of
+  // neurons, one synapse and its molecules, until a vesicle holds the next
+  // brain: the dive never turns back. Every level is a fine drawing on white. Without JavaScript the plain project list remains.
 
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
@@ -21,7 +21,6 @@
   if (!details.length) return;
   root.dataset.ready = 'true';
 
-  const TAU = Math.PI * 2;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = matchMedia('(pointer: coarse)');
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
@@ -271,21 +270,10 @@
     if (reading < 0) haptic();
   }
 
-  // Two revolutions of the wheel dive slowly from the brain into the
-  // universe at its core, two more rise back out. Both ends ease gently.
+  // Depth only grows while the wheel turns on: two revolutions reach the
+  // galaxy, and the dive carries on into the next brain without a seam.
   function depthAt(rowsTurned) {
-    const phase = mod(rowsTurned / (4 * count), 1);
-    const tri = phase < 0.5 ? phase * 2 : 2 - phase * 2;
-    return (tri - 0.85 * Math.sin(TAU * tri) / TAU) * dive.depth;
-  }
-
-  // A veil steps in behind the wheel only while a dense drawing passes under it.
-  let veiled = -1;
-  function paint(amount) {
-    const cover = Math.round(amount * 50) / 50;
-    if (cover === veiled) return;
-    veiled = cover;
-    root.style.setProperty('--veil', String(cover));
+    return rowsTurned * dive.deepest / (2 * count);
   }
 
   function schedule() {
@@ -310,7 +298,6 @@
     eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     dive.draw(depthAt(eased));
-    paint(dive.veil);
     if (pos !== lastPosition) {
       layoutWheel(pos);
       lastPosition = pos;
@@ -564,18 +551,24 @@
     // A chain of drawings, each nested at the focus point of the one before:
     // the approved brain and microstructure, the inside of one cubic
     // millimetre of cortex (after the H01 reconstruction, Harvard and Google),
-    // and the universe at its core.
+    // the universe at its core, one synapse as electron microscopy shows it,
+    // and its molecules as cryo-electron tomography shows them. The open
+    // vesicle at their centre holds the next brain.
     const MICRO_FOCUS = [1000, 506];
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const CHAIN = [
       { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
       { name: 'inside', src: 'assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.8 },
-      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], scale: 0.39, enter: 0, ink: 0.72 },
+      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], ink: 0.72, leave: [-0.95, -0.05] },
+      { name: 'synapse', src: 'assets/neuro-synapse.webp', focus: [985, 876], size: [1920, 1920], ink: 0.85, rise: 1 },
+      { name: 'molecules', src: 'assets/neuro-molecules.webp', focus: [960, 882], size: [1920, 1920], ink: 0.85 },
     ];
-    const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
+    const GALAXY = 600; // radius of the galaxy in its drawing, in its pixels
+    // The synapse's centre vesicle and the open vesicle of the molecules.
+    const VESICLE = { synapse: 34, molecules: 302 };
 
-    const api = { depth: 4, veil: 0, resize, draw };
+    const api = { deepest: 4, cycle: 12, resize, draw };
     const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
     let width = 0;
     let height = 0;
@@ -644,14 +637,10 @@
       const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, height * 0.3];
 
       // Scales: screen pixels per drawing pixel before any zoom.
-      let scale = scaleBrain * relative;
-      chain.forEach((level, index) => {
-        if (index) scale *= level.scale;
-        level.k = scale;
-        level.native = Math.log(1 / scale);
-      });
+      const [micro, inside, universe, synapse, molecules] = chain;
+      micro.k = scaleBrain * relative;
+      inside.k = micro.k * inside.scale;
       // The microstructure takes over once it covers the screen.
-      const micro = chain[0];
       const reach = Math.max(
         start[0] / (micro.focus[0] * micro.k),
         start[1] / (micro.focus[1] * micro.k),
@@ -659,11 +648,9 @@
         (height - start[1]) / ((micro.size[1] - micro.focus[1]) * micro.k),
       );
       micro.handover = Math.log(reach * 1.12);
-      chain.slice(1).forEach(level => { level.handover = level.native - level.enter; });
+      inside.handover = Math.log(1 / inside.k) - inside.enter;
       // The galaxy blooms out of the central neuron of the cubic millimetre and
-      // settles at a size that suits the screen: wide on desktop, filling a phone.
-      const inside = chain[1];
-      const universe = chain[2];
+      // passes at a size that suits the screen: wide on desktop, filling a phone.
       const deepest = inside.handover + 1.35;
       const [fx, fy] = universe.focus;
       const [uw, uh] = universe.size;
@@ -671,8 +658,25 @@
       const galaxy = Math.max((landscape ? 0.5 * width : 0.62 * width) / GALAXY, cover);
       universe.k = galaxy / Math.exp(deepest);
       universe.handover = deepest - 0.6;
-      camera = { node, start, finish, scaleBrain, ink: portrait ? 0.6 : 0.74, inkMicro: portrait ? 0.5 : 0.58, drift: [0.4, deepest * 0.6] };
-      api.depth = deepest;
+      // Flying on into its heart, the galaxy dissolves into one synapse,
+      synapse.handover = deepest + 1.2;
+      synapse.k = Math.exp(-(synapse.handover + 0.35));
+      // whose centre vesicle opens into the molecular drawing,
+      molecules.k = synapse.k * VESICLE.synapse / VESICLE.molecules;
+      molecules.handover = Math.log(1 / molecules.k) - 0.3;
+      // and in that vesicle's open white the next brain appears, small enough
+      // to sit well inside it, then grows until the dive begins again.
+      const extent = Math.max(node[0], imageWidth - node[0], node[1], imageHeight - node[1]) * scaleBrain;
+      const cycle = molecules.handover + Math.max(1.8, 0.3 + Math.log(1.1 * extent / VESICLE.molecules));
+      camera = {
+        node, start, finish, scaleBrain,
+        ink: portrait ? 0.6 : 0.74,
+        inkMicro: portrait ? 0.5 : 0.58,
+        out: [0.4, deepest * 0.6],
+        back: [deepest + 0.5, cycle - 1.6],
+      };
+      api.deepest = deepest;
+      api.cycle = cycle;
       lastDepth = NaN;
       load(micro);
     }
@@ -682,21 +686,20 @@
       return [ratio * cx - focus[0] * s, ratio * cy - focus[1] * s, image.width * s, image.height * s];
     }
 
-    function draw(depth) {
+    function draw(travelled) {
       if (!camera) return;
+      const depth = mod(travelled, api.cycle);
       if (Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
       // Fetch each drawing a little before the dive reaches it.
       chain.forEach(level => { if (depth > level.handover - 1.4) load(level); });
-      const zoom = Math.exp(depth);
-      const travelled = smooth(camera.drift[0], camera.drift[1], depth);
-      const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
-      const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
-      const universe = chain[2];
+      // The view drifts from the brain to beside the wheel and, on the way to
+      // the next brain, back again.
+      const away = smooth(camera.out[0], camera.out[1], depth) * (1 - smooth(camera.back[0], camera.back[1], depth));
+      const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * away;
+      const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * away;
       // A drawing that has not arrived yet leaves the previous one in place.
       const ready = chain.map(level => level.state === 'ready');
-      // The galaxy is dense behind the wheel, so the type gets a white veil.
-      const dense = ready[2] ? smooth(universe.handover - 0.5, universe.handover, depth) : 0;
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
@@ -705,29 +708,36 @@
       context.fillRect(0, 0, canvas.width, canvas.height);
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = 'high';
+      context.globalCompositeOperation = 'multiply';
 
-      const brainAlpha = camera.ink * (ready[0] ? 1 - smooth(chain[0].handover - 0.02, chain[0].handover + 0.35, depth) : 1);
-      if (brainAlpha > 0.002 && macro.complete && macro.naturalWidth) {
-        const s = camera.scaleBrain * zoom * ratio;
-        context.globalAlpha = brainAlpha;
-        context.drawImage(macro, ratio * cx - camera.node[0] * s, ratio * cy - camera.node[1] * s, macro.naturalWidth * s, macro.naturalHeight * s);
-      }
+      brain(depth, ready[0], cx, cy);
       chain.forEach((level, index) => {
         if (!ready[index]) return;
-        const next = index + 1 < chain.length && ready[index + 1] ? 1 : 0;
-        const shown = smooth(level.handover - 0.5, level.handover, depth);
-        const kept = next ? 1 - smooth(chain[index + 1].handover - 0.02, chain[index + 1].handover + 0.35, depth) : 1;
-        let alpha = shown * kept;
+        const next = chain[index + 1];
+        const [early, late] = level.leave || [-0.02, 0.35];
+        const kept = !next ? 1 - smooth(api.cycle - 1, api.cycle - 0.2, depth)
+          : ready[index + 1] ? 1 - smooth(next.handover + early, next.handover + late, depth) : 1;
+        let alpha = smooth(level.handover - (level.rise || 0.5), level.handover, depth) * kept;
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
         if (level.ink) alpha *= level.ink;
-        context.globalCompositeOperation = 'multiply';
         context.globalAlpha = alpha;
-        context.drawImage(level.image, ...spread(level.image, level.focus, level.k * zoom, cx, cy));
+        context.drawImage(level.image, ...spread(level.image, level.focus, level.k * Math.exp(depth), cx, cy));
       });
+      // The next brain, already growing inside the vesicle.
+      if (depth > api.cycle - 1.6) brain(depth - api.cycle, ready[0], cx, cy);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      api.veil = 0.85 * dense;
+    }
+
+    function brain(depth, microReady, cx, cy) {
+      const micro = chain[0];
+      const fade = microReady ? 1 - smooth(micro.handover - 0.02, micro.handover + 0.35, depth) : 1;
+      const alpha = camera.ink * smooth(-1.5, -0.7, depth) * fade;
+      if (alpha < 0.002 || !macro.complete || !macro.naturalWidth) return;
+      const s = camera.scaleBrain * Math.exp(depth) * ratio;
+      context.globalAlpha = alpha;
+      context.drawImage(macro, ratio * cx - camera.node[0] * s, ratio * cy - camera.node[1] * s, macro.naturalWidth * s, macro.naturalHeight * s);
     }
 
     return api;

@@ -420,3 +420,27 @@ Pauls Wunsch: „beim Draufklicken nur eine Sache aufklappen“, auf Nachfrage f
 - In pure ist immer nur ein Kapitel offen: Öffnet man ein anderes, schließt sich das vorige. Das läuft nativ über `<details name="pure-chapter">`, ohne zusätzliches Skript, und gilt auch in der Liste ohne JavaScript.
 - Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint und ein Rauchtest auf Desktop und Mobile. Er zeigt einen Abschnitt in der Leseansicht und genau ein offenes Kapitel, Escape schließt die Ansicht und leert die Adresse, keine Konsolenfehler.
 
+### Nachtrag: Endlos-Tauchfahrt nur hinein, tiefer bis zu den Molekülen (2026-10-07)
+
+Pauls Wunsch: Es soll nicht mehr stoppen und nicht wieder herauszoomen. Er will noch tiefer ins Universum, falls es echte Aufnahmen davon gibt; sonst soll es so zurückspringen, dass man es nicht merkt. Schrift und Bilder sollen nicht konkurrieren.
+
+- **Recherche:**
+  - H01 (Shapson-Coe et al., Science 2024): 1 mm³ menschlicher Kortex, mit dem Elektronenmikroskop in 34 nm dünnen Schnitten aufgenommen; jede einzelne Synapse ist abgebildet.
+  - Kryo-Elektronentomographie zeigt Synapsen im Molekülmaßstab (2–4 nm): Vesikel, Tethers aus Munc13 und SNAP25, Glutamat-Rezeptoren (Lučić-Gruppe, MPI für Biochemie, Science Advances 2021).
+  - Es gibt also echte Aufnahmen bis zur Molekülebene.
+- **Neue Ebenen (Higgsfield, Mikrostruktur als Stilvorlage, Graphit auf Weiß):**
+  - `neuro-synapse.webp` (573 KB): eine Synapse wie im Elektronenmikroskop, mit Bouton voller Vesikel, Mitochondrium, Spalt und Dorn.
+  - `neuro-molecules.webp` (290 KB): ein großes Vesikel mit Tethers, SNARE-Komplexen, Rezeptoren und Transmittermolekülen.
+- **Kette:** Gehirn → Mikrostruktur → Inneres des Kubikmillimeters → Universum → Synapse → Moleküle → im offenen Weiß des Vesikels erscheint das nächste Gehirn.
+  - Die Tiefe wächst nur noch mit dem Drehen und läuft modulo eines Zyklus von etwa 50 Zeilen.
+  - Synapse und Moleküle liegen exakt ineinander: Das zentrale Vesikel der Synapse (r = 34 px) liegt deckungsgleich auf dem großen Vesikel (r = 302 px).
+  - Das Gehirn sitzt mit mindestens 10 % Abstand im Vesikel und wächst bis zur Startgröße. Die Kamera kehrt rechtzeitig zum Ausgangspunkt zurück.
+  - Rückwärtsdrehen fährt denselben Weg zurück.
+  - Die Galaxie löst sich beim Hineinfliegen in die Synapse auf. Ihre weißen Lücken (≈ 16 px) sind für ein exaktes Ineinander zu klein.
+- **Schrift vs. Bild:** Ein ruhiger weißer Schleier liegt jetzt dauerhaft hinter dem Rad (85 %) und wird nicht mehr je nach Ebene geschaltet.
+- **Prüfung (ohne Screenshots):**
+  - `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund.
+  - Rauchtest über mehr als zwei Zyklen auf Desktop und Mobile ohne Konsolenfehler, durchgehend auf Weiß.
+  - Nahtstelle: Helligkeitssprung 0,04, kleiner als ein normaler Zoomschritt (0,1). Der größte Helligkeitsschritt im ganzen Zyklus liegt bei 1,9 pro 0,02 Tiefe, beim Auflösen der Galaxie.
+  - Leseansicht: ein Projekt, ein offenes pure-Kapitel.
+
