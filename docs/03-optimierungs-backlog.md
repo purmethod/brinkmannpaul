@@ -373,17 +373,24 @@ Rückmeldung Paul nach Livegang von #65: „es scrollt nicht rein"; beim Öffnen
 - **Weiterlesen:** Die Leseansicht zeigt alle Projekte in Radreihenfolge ab dem geöffneten. Das nächste Thema steht direkt unter dem Textende. Liest man hinein, dreht das Rad eine Zeile weiter: Zoom macht einen Schritt, Adresse wechselt (z. B. `#mysidibou`), Haptik-Tick. Schließen landet auf dem zuletzt gelesenen Projekt; der Fokus springt nicht mehr auf das Ausgangsprojekt zurück.
 - **Prüfung:** `node --check`, `node scripts/test-site.mjs`, eslint ohne Befund, 49 Playwright-Interaktionstests (neu: Zoom bleibt beim Lesen stehen, nächstes Thema am Textende sichtbar, Weiterlesen dreht Rad und Zoom, Zurückscrollen, Schließen nach Weiterlesen, Zoom bei reduzierter Bewegung), 60 fps. Nur Chromium verfügbar.
 
-## Tauchfahrt neu: gezeichnet, ruhig, Ende als Universum (2026-10-07)
+## Tauchfahrt neu: gezeichnet auf Weiß, ruhig, Ende als Universum (2026-10-07)
 
-Status: ✅ live auf Pauls Wunsch („mach erstmal nacht fertig und ich schaue es mir live an“). Offen: Paul entscheidet nach Ansicht, ob es Nacht bleibt oder durchgehend feine Zeichnungen auf weißem Grund werden.
+Status: ✅ live. Paul prüft selbst auf seinen Geräten.
 
-Rückmeldung Paul zur Vektor-Synapse aus #65/#66: „gefällt mir nicht, die Version davor war besser"; der Zoom soll wie bei der ChatGPT-Version zeichnerisch und kunstvoll zeigen, wie 1 mm³ Gehirn aussieht, langsam und ruhig hineinzoomen und am Ende „wie ein Universum, ein neues Universum in jedem Gehirn" sein. Pauls Entscheidungen: Ende als Nacht-Universum, Bilder über Higgsfield.
+Rückmeldung Paul zur Vektor-Synapse aus #65/#66: „gefällt mir nicht, die Version davor war besser“. Der Zoom soll wie bei der ChatGPT-Version zeichnerisch und kunstvoll zeigen, wie 1 mm³ Gehirn aussieht, langsam und ruhig hineinzoomen und am Ende „wie ein Universum, ein neues Universum in jedem Gehirn“ sein. Eine Nacht-Variante wurde gebaut und auf Pauls Entscheid verworfen: „lass alles gezeichnet auf weißem Grund, genau so, aber nicht Nacht“.
 
-- **Vorlage 1 mm³:** Der H01-Datensatz (Harvard, Lichtman-Labor, mit Google; Science 2024) zeigt 1 mm³ menschlichen Schläfenlappen-Kortex: rund 57.000 Zellen, rund 150 Millionen Synapsen, rund 230 mm Blutgefäße, 1,4 Petabyte Daten. Die Zeichnungen folgen diesem Aufbau (Schichten, Pyramidenzellen, Gefäße); keine dieser Zahlen erscheint auf der Seite.
-- **Bildkette:** freigegebene Gehirnzeichnung → freigegebene Mikrostruktur → `neuro-cube.webp` (der Kubikmillimeter als Federzeichnung auf Papier) → `neuro-inside.webp` (im Kubus, Neuronen leuchten auf Nachtblau) → `neuro-universe.webp` (das Netz wird zur Galaxie). Drei neue Zeichnungen über Higgsfield erzeugt, jede Ebene sitzt exakt im Fokuspunkt der vorigen und blendet weich über.
-- **Ruhiger:** Hinein- und Hinausfahrt je zwei volle Raddrehungen statt einer, sanftes Ein- und Ausgleiten, Dämpfung 280 ms.
-- **Nacht-Universum:** Im Kubus wird das Papier zur Nacht (erst wenn die Nachtzeichnung geladen ist); Linien, Rad, Kopf- und Fußzeile und die Leseansicht wechseln in einer ruhigen Überblendung von etwa einer halben Sekunde auf helle Schrift, sobald das Bild mehr Nacht als Tag ist. So steht keine Raste halb zwischen hell und dunkel. Beim Hinauszoomen wird es wieder weiß. Ein Schleier hinter dem Rad hält die Namen lesbar: nachts dunkel über der Galaxie, tagsüber weiß, aber nur solange der dunkle Kubus hinter dem Rad liegt (aus seiner Lage auf dem Bildschirm berechnet). Gehirn und Mikrostruktur bleiben ohne Schleier wie bisher. Die Galaxie landet auf breiten Bildschirmen rechts neben dem Rad, auf schmalen darüber.
-- **Entfernt:** die vektorgezeichnete Synapse samt Vektor-Canvas; alles läuft auf einem Canvas.
-- **Schleier-Fehler behoben:** Der weiße Tag-Schleier aus #65 wurde nie gezeichnet (Verlaufsgröße mit `min(…, 100% …)` ist ungültig). Der freigegebene Tag-Look bleibt deshalb ohne Dauerschleier; der neue Schleier nutzt `vw`.
-- **Dateigrößen:** 402 KB, 643 KB, 602 KB, 1920 × 1920 WebP. Sie liegen über der 300-KB-Faustregel, weil sie bis etwa 4-fach vergrößert gezeichnet werden; sie laden erst kurz bevor die Fahrt sie erreicht, der Seitenaufruf bleibt gleich groß. `scripts/test-site.mjs` erlaubt dafür bis 700 KB nur für `assets/neuro-*` und prüft das Nachladen.
-- **Prüfung:** `node --check`, `node scripts/test-site.mjs`, eslint ohne Befund, 49 Playwright-Interaktionstests zweimal grün (der Test „Zoom bleibt beim Lesen stehen" zählt jetzt Zeichenaufrufe, statt Pixel-Hashes zu vergleichen), konstant 60 fps über einen vollen Zyklus inklusive Nacht und Universum (Desktop 1×/2×, Mobile 3×), Tiefstpunkt geprüft auf 1440×900, 1920×1080, 1024×768, 768×1024, 844×390, 390×844 und 320×568. Nur Chromium verfügbar.
+- **Vorlage 1 mm³:** Der H01-Datensatz (Harvard, Lichtman-Labor, mit Google; Science 2024) zeigt 1 mm³ menschlichen Schläfenlappen-Kortex: rund 57.000 Zellen, rund 150 Millionen Synapsen, rund 230 mm Blutgefäße, 1,4 Petabyte Daten. Die Zeichnungen folgen diesem Aufbau. Keine dieser Zahlen erscheint auf der Seite.
+- **Bildkette, alles Tusche auf weißem Papier:**
+  - freigegebene Gehirnzeichnung
+  - freigegebene Mikrostruktur
+  - `neuro-cube.webp`: der Kubikmillimeter
+  - `neuro-inside.webp`: im Kubus
+  - `neuro-universe.webp`: das Netz wird zur Galaxie
+
+  Die drei neuen Zeichnungen wurden über Higgsfield erzeugt (zunächst leuchtend auf Nachtblau). Für die Weiß-Fassung wurden sie per Tonwertumkehr ohne neue Generierung zu Tusche auf Weiß umgesetzt; beim Kubus nur sein Inneres. Jede Ebene sitzt exakt im Fokuspunkt der vorigen und blendet weich über. Die tiefen Ebenen sind mit 72 % Tusche gezeichnet, damit sie so fein wirken wie Gehirn und Mikrostruktur.
+- **Ruhiger:** Hinein- und Hinausfahrt dauern je zwei volle Raddrehungen statt einer, mit sanftem Ein- und Ausgleiten und einer Dämpfung von 280 ms.
+- **Lesbarkeit:** Ein weißer Schleier erscheint hinter dem Rad nur, solange der Kubus dahinter liegt (aus seiner Lage auf dem Bildschirm berechnet), und ab dem Inneren des Kubus. Gehirn und Mikrostruktur bleiben ohne Schleier wie bisher. Farben und Schrift sind exakt wie in #66.
+- **Schleier-Fehler behoben:** Der weiße Schleier aus #65 wurde nie gezeichnet (eine Verlaufsgröße mit `min(…, 100% …)` ist ungültig). Er ist entfernt; der neue Schleier nutzt `vw`.
+- **Entfernt:** die vektorgezeichnete Synapse samt Vektor-Canvas. Alles läuft auf einem Canvas.
+- **Dateigrößen:** 427 KB, 628 KB und 624 KB, jeweils 1920 × 1920 WebP. Sie liegen über der 300-KB-Faustregel, weil sie bis etwa vierfach vergrößert gezeichnet werden. Sie laden erst kurz bevor die Fahrt sie erreicht, der Seitenaufruf bleibt gleich groß. `scripts/test-site.mjs` erlaubt dafür bis 700 KB, nur für `assets/neuro-*`, und prüft das Nachladen.
+- **Prüfung (auf Pauls Wunsch reduziert, ohne Screenshots):** `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund. Rauchtest Desktop und Mobile bis zum tiefsten Punkt: keine Konsolenfehler, Bild durchgehend auf weißem Grund. Die Nacht-Fassung davor hatte 49 Interaktionstests und 60 fps bestanden; die Mechanik von Rad und Leseansicht ist unverändert.

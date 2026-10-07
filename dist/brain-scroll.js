@@ -4,8 +4,8 @@
   // Picker wheel over a scroll-driven dive into the brain drawing.
   // Turning the wheel zooms slowly from the approved brain drawing through the
   // approved microstructure into a drawn cubic millimetre of cortex, where the
-  // paper turns to night and the neurons open into a galaxy, and back out
-  // again. Without JavaScript the plain project list remains.
+  // neurons open into a galaxy, and back out again; every level is a fine
+  // drawing on white paper. Without JavaScript the plain project list remains.
 
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
@@ -168,7 +168,6 @@
   let previous = 0;
   let travel = 0; // rows turned, signed; drives the zoom
   let eased = 0;
-  let dusk = 0;
   let lastPosition = NaN;
   let detent = null;
   let touching = 0;
@@ -251,12 +250,10 @@
       const y = radius * Math.sin(theta) * scale;
       const near = smooth(0, 1, 1 - Math.abs(row - pos));
       const fade = Math.pow((cos - edge) / (1 - edge), 1.35);
-      const centre = 35 + (242 - 35) * shade;
-      const rest = 146 + 34 * shade;
-      const tone = Math.round(rest + (centre - rest) * near);
+      const tone = Math.round(146 - 111 * near);
       face.face.style.transform = `translate(-50%,-50%) translate(0,${y.toFixed(2)}px) scale(${scale.toFixed(4)},${(cos * scale).toFixed(4)})`;
       face.face.style.opacity = fade.toFixed(3);
-      face.name.style.color = `rgb(${tone},${tone},${Math.min(255, tone - 3 + Math.round(10 * shade))})`;
+      face.name.style.color = `rgb(${tone},${tone},${tone - 3})`;
       face.type.style.opacity = (near * near).toFixed(3);
       if (!face.shown) {
         face.face.style.visibility = 'visible';
@@ -286,29 +283,13 @@
     return (tri - 0.85 * Math.sin(TAU * tri) / TAU) * dive.depth;
   }
 
-  // Paper turns to night inside the cube; lines and type turn light with it.
-  const DAY = { ink: [16, 16, 16], text: [35, 35, 35], muted: [95, 95, 89], body: [75, 75, 70], paper: [255, 255, 255] };
-  const DUSK = { ink: [233, 236, 244], text: [241, 243, 248], muted: [168, 175, 194], body: [201, 206, 219], paper: [8, 12, 30] };
-  let shade = -1;
+  // A veil steps in behind the wheel only while a dense drawing passes under it.
   let veiled = -1;
-  function paint(night, fog) {
+  function paint(fog) {
     const cover = Math.round(fog * 50) / 50;
-    if (cover !== veiled) {
-      veiled = cover;
-      root.style.setProperty('--veil', String(cover));
-    }
-    const amount = Math.round(night * 100) / 100;
-    if (amount === shade) return;
-    shade = amount;
-    const mix = key => DAY[key].map((channel, slot) => Math.round(channel + (DUSK[key][slot] - channel) * amount));
-    const hex = key => `rgb(${mix(key).join(',')})`;
-    root.style.setProperty('--ink', hex('ink'));
-    root.style.setProperty('--text', hex('text'));
-    root.style.setProperty('--muted', hex('muted'));
-    root.style.setProperty('--body', hex('body'));
-    root.style.setProperty('--paper-rgb', mix('paper').join(','));
-    root.classList.toggle('is-night', amount > 0.5);
-    lastPosition = NaN;
+    if (cover === veiled) return;
+    veiled = cover;
+    root.style.setProperty('--veil', String(cover));
   }
 
   function schedule() {
@@ -337,17 +318,12 @@
     eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     dive.draw(depthAt(eased));
-    // Type turns light in one calm crossfade once the picture is more night
-    // than day, so no resting row is caught halfway between the two.
-    const dark = dive.night > 0.5 ? 1 : 0;
-    dusk = reduced.matches ? dark : dusk + (dark - dusk) * (1 - Math.exp(-elapsed / 180));
-    if (Math.abs(dark - dusk) < 0.01) dusk = dark;
-    paint(dusk, dive.veil);
+    paint(dive.veil);
     if (pos !== lastPosition) {
       layoutWheel(pos);
       lastPosition = pos;
     }
-    if (eased !== travel || dusk !== dark) schedule();
+    if (eased !== travel) schedule();
     else clock = 0;
   }
 
@@ -627,22 +603,21 @@
 
     // A chain of drawings, each nested at the focus point of the one before:
     // the approved brain and microstructure, one cubic millimetre of cortex
-    // (after the H01 reconstruction, Harvard and Google), the night inside
-    // that cube, and the universe at its core.
+    // (after the H01 reconstruction, Harvard and Google), the inside of that
+    // cube, and the universe at its core.
     const MICRO_FOCUS = [1000, 506];
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
-    const NIGHT = [8, 12, 30];
     const CHAIN = [
-      { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024], paper: true },
-      { name: 'cube', src: 'assets/neuro-cube.webp', focus: [860, 971], size: [1920, 1920], paper: true, scale: 1 / Math.E, enter: 0.45 },
-      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], paper: false, scale: 0.42, enter: 0.05 },
-      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], paper: false, scale: 0.39, enter: 0 },
+      { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
+      { name: 'cube', src: 'assets/neuro-cube.webp', focus: [860, 971], size: [1920, 1920], scale: 1 / Math.E, enter: 0.45 },
+      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], scale: 0.42, enter: 0.05, ink: 0.72 },
+      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], scale: 0.39, enter: 0, ink: 0.72 },
     ];
     const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
-    const CUBE_BOX = [742, 684, 1186, 1199]; // the dark cube inside its drawing
+    const CUBE_BOX = [742, 684, 1186, 1199]; // the cube inside its drawing
 
-    const api = { depth: 4, night: 0, veil: 0, resize, draw };
+    const api = { depth: 4, veil: 0, resize, draw };
     const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
     let width = 0;
     let height = 0;
@@ -650,22 +625,20 @@
     let camera = null;
     let lastDepth = NaN;
 
-    function soften(image, paper) {
-      // Fade each drawing's border, so a smaller drawing blooms inside the
-      // larger one instead of showing an edge.
+    function soften(image) {
+      // Fade each drawing's border to paper, so a smaller drawing blooms
+      // inside the larger one instead of showing an edge.
       const sheet = document.createElement('canvas');
       sheet.width = image.naturalWidth;
       sheet.height = image.naturalHeight;
       const pen = sheet.getContext('2d');
       pen.drawImage(image, 0, 0);
-      const edge = Math.round(Math.min(sheet.width, sheet.height) * (paper ? 0.07 : 0.12));
-      if (!paper) pen.globalCompositeOperation = 'destination-out';
-      const tint = paper ? '255,255,255' : '0,0,0';
+      const edge = Math.round(Math.min(sheet.width, sheet.height) * 0.07);
       [[0, 0, edge, 0], [sheet.width, 0, sheet.width - edge, 0], [0, 0, 0, edge], [0, sheet.height, 0, sheet.height - edge]]
         .forEach(([x0, y0, x1, y1]) => {
           const gradient = pen.createLinearGradient(x0, y0, x1, y1);
-          gradient.addColorStop(0, `rgba(${tint},1)`);
-          gradient.addColorStop(1, `rgba(${tint},0)`);
+          gradient.addColorStop(0, 'rgba(255,255,255,1)');
+          gradient.addColorStop(1, 'rgba(255,255,255,0)');
           pen.fillStyle = gradient;
           pen.fillRect(0, 0, sheet.width, sheet.height);
         });
@@ -678,7 +651,7 @@
       const image = new Image();
       image.decoding = 'async';
       image.onload = () => {
-        level.image = soften(image, level.paper);
+        level.image = soften(image);
         level.state = 'ready';
         lastDepth = NaN;
         schedule();
@@ -762,17 +735,16 @@
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
       const inside = chain[2];
-      // A drawing that has not arrived yet leaves the previous one in place,
-      // and the paper turns to night only once the night drawing is there.
+      // A drawing that has not arrived yet leaves the previous one in place.
       const ready = chain.map(level => level.state === 'ready');
-      const night = ready[2] ? smooth(inside.handover - 0.2, inside.handover + 0.1, depth) : 0;
-      api.night = night;
+      // From the inside of the cube on, the drawings are dense behind the wheel.
+      const dense = ready[2] ? smooth(inside.handover - 0.5, inside.handover, depth) : 0;
       let fog = 0;
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      context.fillStyle = `rgb(${NIGHT.map(channel => Math.round(255 + (channel - 255) * night)).join(',')})`;
+      context.fillStyle = '#fff';
       context.fillRect(0, 0, canvas.width, canvas.height);
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = 'high';
@@ -791,21 +763,22 @@
         let alpha = shown * kept;
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
+        if (level.ink) alpha *= level.ink;
         if (level.name === 'cube') {
           alpha *= 0.82 + 0.18 * smooth(level.handover, inside.handover - 0.2, depth);
           fog = alpha * behindWheel(level, zoom, cx, cy);
         }
-        context.globalCompositeOperation = level.paper ? 'multiply' : 'source-over';
+        context.globalCompositeOperation = 'multiply';
         context.globalAlpha = alpha;
         context.drawImage(level.image, ...spread(level.image, level.focus, level.k * zoom, cx, cy));
       });
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      api.veil = Math.max(fog, night);
+      api.veil = Math.max(fog, 0.85 * dense);
     }
 
-    // How much of the wheel the dark cube covers, so the type gets a veil
-    // only while the cube passes behind it.
+    // How much of the wheel the cube covers, so the type gets a veil only
+    // while the cube passes behind it.
     function behindWheel(level, zoom, cx, cy) {
       const scale = level.k * zoom;
       const [left, top, right, bottom] = CUBE_BOX.map((value, slot) => (slot % 2 ? cy : cx) + (value - level.focus[slot % 2]) * scale);
