@@ -534,3 +534,13 @@ Pauls Vorgabe: „art begins with love“ nicht doppelt beim Aufklappen. Nach de
 - Der Lead-Absatz ist jetzt „anything we do can become art when we bring love to it.“
 - Prüfung: `#art` öffnet die Leseansicht, „art begins with love.“ erscheint nur als Untertitel, 12 Absätze. `node scripts/test-site.mjs` grün.
 
+### Nachtrag: Gehirn deutlich, danach nur Universum (2026-10-07)
+
+Pauls Wunsch mit Foto: Das Gehirn muss beim Ankommen deutlich erkennbar sein. Danach soll es wie ein Universum aussehen und immer tiefer gehen. Man soll die Komplexität spüren, und das geht nur mit der universumsähnlichen Struktur.
+
+- **Gehirn kräftiger:** Tinte 0,95 statt 0,6 (Mobile) bzw. 0,74 (Desktop).
+- **Schleier abhängig von der Tiefe:** Am Gehirn 50 % statt 85 %, in der Tiefe 85 %. Zum nächsten Gehirn hin wird er wieder leichter, sodass die Naht stimmt. Gemessene Tintendichte im Gehirnbereich beim Start: Mobile 5,2 → 10,6, Desktop 8,3 → 12,1.
+- **Flug nur durch Universums-Sphären:** Nach dem Kubikmillimeter folgen im Wechsel kosmisches Netz und Neuronen-Kosmos, ohne Rückkehr zum Kortex. Das nächste Gehirn wächst aus einem Neuronen-Stern.
+- **Sternchen:** Die ✱ standen nur in der Chat-Nachricht als Markierung neuer Absätze, auf der Seite gibt es keine (geprüft).
+- **Prüfung:** Nahtstelle mit Helligkeitssprung 0,05 bzw. 0,04, mehrere Zyklen ohne Konsolenfehler, 49 Interaktionstests grün.
+
