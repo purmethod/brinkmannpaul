@@ -296,3 +296,11 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Die große Zeile „i build.“ entfernt, Projektliste direkt unter den kleinen Header gerückt; keine Ersatz-Headline. Social-Beschreibungen und 404-Rücklink angepasst.
 - Porträt/Handschrift-Intro, JavaScript, alle Projekttexte und bestehende Shop-/Instagram-Links bleiben unverändert.
 - Status: umgesetzt; PR #52, unabhängiger statischer Agent-Review ohne blockierende Befunde. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+
+
+## Issue #53 — Leichte Gehirnkonturen und sichtbare Synapsen (2026-10-07)
+
+- Paul hat die neue Vorschau ausdrücklich zur Veröffentlichung freigegeben: feine helle Gehirnkonturen, sichtbarere neuronale Verbindungen auch im Gehirn und dezente DNA.
+- Exakt das freigegebene Querformatmotiv als komprimiertes WebP übernommen; dazu eine angepasste Hochformatkomposition für schmale Bildschirme.
+- Ausschließlich Hintergrundgrafiken und Stylesheet-Cache erneuert. Transparente Projektzeilen, Layout, Texte, Links, Porträt-/Handschrift-Intro und JavaScript bleiben erhalten.
+- Status: umgesetzt; PR #54, unabhängiger statischer Agent-Review ohne blockierende Befunde. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
