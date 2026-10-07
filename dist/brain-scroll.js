@@ -168,6 +168,7 @@
   let previous = 0;
   let travel = 0; // rows turned, signed; drives the zoom
   let eased = 0;
+  let dusk = 0;
   let lastPosition = NaN;
   let detent = null;
   let touching = 0;
@@ -289,7 +290,13 @@
   const DAY = { ink: [16, 16, 16], text: [35, 35, 35], muted: [95, 95, 89], body: [75, 75, 70], paper: [255, 255, 255] };
   const DUSK = { ink: [233, 236, 244], text: [241, 243, 248], muted: [168, 175, 194], body: [201, 206, 219], paper: [8, 12, 30] };
   let shade = -1;
-  function paint(night) {
+  let veiled = -1;
+  function paint(night, fog) {
+    const cover = Math.round(fog * 50) / 50;
+    if (cover !== veiled) {
+      veiled = cover;
+      root.style.setProperty('--veil', String(cover));
+    }
     const amount = Math.round(night * 100) / 100;
     if (amount === shade) return;
     shade = amount;
@@ -330,12 +337,17 @@
     eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     dive.draw(depthAt(eased));
-    paint(dive.night);
+    // Type turns light in one calm crossfade once the picture is more night
+    // than day, so no resting row is caught halfway between the two.
+    const dark = dive.night > 0.5 ? 1 : 0;
+    dusk = reduced.matches ? dark : dusk + (dark - dusk) * (1 - Math.exp(-elapsed / 180));
+    if (Math.abs(dark - dusk) < 0.01) dusk = dark;
+    paint(dusk, dive.veil);
     if (pos !== lastPosition) {
       layoutWheel(pos);
       lastPosition = pos;
     }
-    if (eased !== travel) schedule();
+    if (eased !== travel || dusk !== dark) schedule();
     else clock = 0;
   }
 
@@ -628,8 +640,9 @@
       { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], paper: false, scale: 0.39, enter: 0 },
     ];
     const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
+    const CUBE_BOX = [742, 684, 1186, 1199]; // the dark cube inside its drawing
 
-    const api = { depth: 4, night: 0, resize, draw };
+    const api = { depth: 4, night: 0, veil: 0, resize, draw };
     const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
     let width = 0;
     let height = 0;
@@ -749,8 +762,12 @@
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
       const inside = chain[2];
-      const night = smooth(inside.handover - 0.1, inside.handover + 0.3, depth);
-      api.night = smooth(inside.handover - 0.05, inside.handover + 0.2, depth);
+      // A drawing that has not arrived yet leaves the previous one in place,
+      // and the paper turns to night only once the night drawing is there.
+      const ready = chain.map(level => level.state === 'ready');
+      const night = ready[2] ? smooth(inside.handover - 0.2, inside.handover + 0.1, depth) : 0;
+      api.night = night;
+      let fog = 0;
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
@@ -760,8 +777,6 @@
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = 'high';
 
-      // A drawing that has not arrived yet leaves the previous one in place.
-      const ready = chain.map(level => level.state === 'ready');
       const brainAlpha = camera.ink * (ready[0] ? 1 - smooth(chain[0].handover - 0.02, chain[0].handover + 0.35, depth) : 1);
       if (brainAlpha > 0.002 && macro.complete && macro.naturalWidth) {
         const s = camera.scaleBrain * zoom * ratio;
@@ -776,13 +791,29 @@
         let alpha = shown * kept;
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
-        if (level.name === 'cube') alpha *= 0.82 + 0.18 * smooth(level.handover, inside.handover - 0.2, depth);
+        if (level.name === 'cube') {
+          alpha *= 0.82 + 0.18 * smooth(level.handover, inside.handover - 0.2, depth);
+          fog = alpha * behindWheel(level, zoom, cx, cy);
+        }
         context.globalCompositeOperation = level.paper ? 'multiply' : 'source-over';
         context.globalAlpha = alpha;
         context.drawImage(level.image, ...spread(level.image, level.focus, level.k * zoom, cx, cy));
       });
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
+      api.veil = Math.max(fog, night);
+    }
+
+    // How much of the wheel the dark cube covers, so the type gets a veil
+    // only while the cube passes behind it.
+    function behindWheel(level, zoom, cx, cy) {
+      const scale = level.k * zoom;
+      const [left, top, right, bottom] = CUBE_BOX.map((value, slot) => (slot % 2 ? cy : cx) + (value - level.focus[slot % 2]) * scale);
+      const halfWidth = Math.min(248, (width - 40) / 2);
+      const halfHeight = height * 0.25;
+      const across = Math.max(0, Math.min(right, width / 2 + halfWidth) - Math.max(left, width / 2 - halfWidth));
+      const down = Math.max(0, Math.min(bottom, height / 2 + halfHeight) - Math.max(top, height / 2 - halfHeight));
+      return smooth(0.04, 0.3, (across * down) / (4 * halfWidth * halfHeight));
     }
 
     return api;

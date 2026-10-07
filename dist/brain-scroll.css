@@ -51,8 +51,7 @@
 /* A soft paper band keeps the turning names clear of the drawing. */
 #site-page .bs-veil{position:absolute;z-index:1;inset:0;pointer-events:none}
 /* At night a deeper, wider shadow keeps the names clear of the galaxy. */
-#site-page .bs-veil:before{content:"";position:absolute;inset:0;background:radial-gradient(calc(min(31rem,calc(100vw - 40px)) * 1.05) calc(var(--row) * 4.9) at 50% 50%,rgba(var(--paper-rgb),.9) 0,rgba(var(--paper-rgb),.8) 50%,rgba(var(--paper-rgb),0) 100%);opacity:0;transition:opacity 600ms ease}
-#site-page.is-night .bs-veil:before{opacity:1}
+#site-page .bs-veil:before{content:"";position:absolute;inset:0;background:radial-gradient(calc(min(31rem,calc(100vw - 40px)) * 1.05) calc(var(--row) * 4.9) at 50% 50%,rgba(var(--paper-rgb),.9) 0,rgba(var(--paper-rgb),.8) 50%,rgba(var(--paper-rgb),0) 100%);opacity:var(--veil,0)}
 #site-page .bs-veil:after{content:"";position:absolute;inset:0;background:rgba(var(--paper-rgb),.55);opacity:0;transition:opacity 420ms ease}
 #site-page.is-reading .bs-veil:after{opacity:1}
 
