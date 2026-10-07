@@ -388,7 +388,7 @@ footer p {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: url("assets/neuroscience-pencil-desktop.webp") right top / cover no-repeat;
+  background: url("assets/neuroscience-light-desktop.webp") right top / cover no-repeat;
   opacity: 0.64;
 }
 
@@ -450,7 +450,7 @@ a:focus-visible {
 /* A portrait composition keeps the brain and DNA in view on narrow screens. */
 @media (max-aspect-ratio: 1 / 1) {
   .neural-background {
-    background-image: url("assets/neuroscience-pencil-mobile.webp");
+    background-image: url("assets/neuroscience-light-mobile.webp");
     background-position: center top;
   }
 }
