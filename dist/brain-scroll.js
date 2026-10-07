@@ -42,7 +42,7 @@
     const label = (name ? name.textContent : '').replace(/\s+/g, ' ').trim();
     return {
       index,
-      id: detail.id || label.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      id: detail.id || label.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       html: name ? name.innerHTML : '',
       label,
       type: type ? type.textContent.replace(/\s+/g, ' ').trim() : '',
