@@ -491,3 +491,12 @@ Pauls Wunsch: Öffnet man in pure ein Kapitel, soll das andere zuklappen, damit 
 - Jetzt: Das geöffnete Kapitel klappt weiter weich auf. Die anderen schließen sofort (`.is-snapping` schaltet ihren Übergang für einen Frame ab). Im selben Moment wird die Ansicht so verschoben, dass das angetippte Kapitel unter dem Finger stehen bleibt. Ein Skript sorgt dafür auch dort, wo der Browser `details name` nicht kennt.
 - Prüfung: Kapitel 1 offen, Kapitel 2 angetippt. Danach ist nur Kapitel 2 offen, seine Überschrift steht vorher und nachher an derselben Stelle (Desktop 559 → 559 px, Mobile 528 → 527 px). Das gilt mit nativer Unterstützung und mit Skript. 45 Interaktionstests grün.
 
+### Nachtrag: Schrift im Rad kleiner und linksbündig (2026-10-07)
+
+Pauls Wunsch: Die Schrift im Rad verbessern, etwas kleiner und links angeschlagen.
+
+- Namen etwa 20 % kleiner: `--name` von `clamp(1.6rem, 1.05rem + 1.55vw, 2.3rem)` auf `clamp(1.3rem, .95rem + 1.1vw, 1.85rem)`. Desktop 36,8 → 29,6 px, Mobile 25,6 → 20,8 px.
+- Linksbündig an der linken Kante der Ink-Linien. Die Zylinder-Skalierung läuft um den linken Rand (`transform-origin: 0 50%`), sodass auch die kleiner werdenden Nachbarn exakt an derselben Kante stehen. Rechts bleibt Platz für das „+“.
+- Die Leseansicht zieht mit: Titel, Linien und Text stehen an derselben Kante wie im Rad (Spalte = Bandbreite), beim Öffnen springt nichts.
+- Prüfung: gemessen auf Desktop, Mobile und 320 px. Alle sichtbaren Namen beginnen an der Bandkante (472 bzw. 20 px), der längste Name endet weit vor dem „+“, der Lesetitel steht an derselben x-Position. 45 Interaktionstests grün.
+
