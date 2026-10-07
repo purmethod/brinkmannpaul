@@ -121,16 +121,20 @@ for (const [, id, item] of items) {
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
 
-// Picker wheel and brain dive: valid script, its drawing exists and stays small.
+// Picker wheel and brain dive: valid script, its drawings exist and stay small.
+// The deep-zoom drawings (neuro-*) are fetched only when the dive nears them and
+// are drawn up to ~4x, so they may be larger; everything else keeps the 300 KB rule.
 const wheel = fs.readFileSync(path.join(root, 'dist/brain-scroll.js'), 'utf8');
 new vm.Script(wheel, { filename: 'brain-scroll.js' });
 assert.ok(html.includes('brain-scroll.js'), 'page loads the wheel');
 assert.ok(wheel.includes("matchMedia('(prefers-reduced-motion: reduce)')"), 'wheel respects reduced motion');
 for (const [, local] of wheel.matchAll(/'(assets\/[^']+)'/g)) {
   const file = path.join(root, 'dist', local);
+  const limit = /^assets\/neuro-/.test(local) ? 700 : 300;
   assert.ok(fs.existsSync(file), `Missing ${local}`);
-  assert.ok(fs.statSync(file).size < 300 * 1024, `${local} exceeds 300 KB`);
+  assert.ok(fs.statSync(file).size < limit * 1024, `${local} exceeds ${limit} KB`);
 }
+assert.ok(/depth > level\.handover - [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand');
 
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of [['dist', html], ['dist', notFound]]) {

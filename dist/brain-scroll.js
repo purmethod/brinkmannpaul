@@ -2,9 +2,10 @@
   'use strict';
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
-  // Turning the wheel zooms from the approved brain drawing through the
-  // approved microstructure into a vector neuron, down to a single synapse,
-  // and back out again. Without JavaScript the plain project list remains.
+  // Turning the wheel zooms slowly from the approved brain drawing through the
+  // approved microstructure into a drawn cubic millimetre of cortex, where the
+  // neurons open into a galaxy, and back out again; every level is a fine
+  // drawing on white paper. Without JavaScript the plain project list remains.
 
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
@@ -274,12 +275,21 @@
     if (reading < 0) haptic();
   }
 
-  // One revolution of the wheel dives down to the synapse, the next one
-  // rises back to the whole brain. The ends ease, so the turn is soft.
+  // Two revolutions of the wheel dive slowly from the brain into the
+  // universe at its core, two more rise back out. Both ends ease gently.
   function depthAt(rowsTurned) {
-    const phase = mod(rowsTurned / (2 * count), 1);
+    const phase = mod(rowsTurned / (4 * count), 1);
     const tri = phase < 0.5 ? phase * 2 : 2 - phase * 2;
-    return (tri - 0.72 * Math.sin(TAU * tri) / TAU) * dive.depth;
+    return (tri - 0.85 * Math.sin(TAU * tri) / TAU) * dive.depth;
+  }
+
+  // A veil steps in behind the wheel only while a dense drawing passes under it.
+  let veiled = -1;
+  function paint(fog) {
+    const cover = Math.round(fog * 50) / 50;
+    if (cover === veiled) return;
+    veiled = cover;
+    root.style.setProperty('--veil', String(cover));
   }
 
   function schedule() {
@@ -305,9 +315,14 @@
     }
     // Reduced motion removes the easing, not the zoom: it follows the
     // wheel the visitor turns by hand.
-    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 130));
+    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     dive.draw(depthAt(eased));
+    paint(dive.veil);
+    if (pos !== lastPosition) {
+      layoutWheel(pos);
+      lastPosition = pos;
+    }
     if (eased !== travel) schedule();
     else clock = 0;
   }
@@ -582,33 +597,68 @@
   /* =================================================================== */
 
   function createDive(host, macro) {
-    const rasterCanvas = make('canvas', 'bs-canvas bs-raster');
-    const vectorCanvas = make('canvas', 'bs-canvas bs-vector');
-    host.append(rasterCanvas, vectorCanvas);
-    const raster = rasterCanvas.getContext('2d', { alpha: false });
-    const vector = vectorCanvas.getContext('2d');
+    const canvas = make('canvas', 'bs-canvas');
+    host.append(canvas);
+    const context = canvas.getContext('2d', { alpha: false });
 
-    // Matching points in the two approved drawings: the zoom enters the
-    // brain at a neuron and arrives at a dendrite of the large neuron.
-    const MICRO_SOURCE = 'assets/neuroscience-microstructure.webp';
+    // A chain of drawings, each nested at the focus point of the one before:
+    // the approved brain and microstructure, one cubic millimetre of cortex
+    // (after the H01 reconstruction, Harvard and Google), the inside of that
+    // cube, and the universe at its core.
     const MICRO_FOCUS = [1000, 506];
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
-    const SOMA = [38, -1.55]; // the same neuron in vector units
-    const TURN = Math.atan2(MICRO_SOMA[1] - MICRO_FOCUS[1], MICRO_SOMA[0] - MICRO_FOCUS[0]) - Math.atan2(SOMA[1], SOMA[0]);
-    const PAPER = 'rgb(253,253,251)';
-    const BODY = 0.13; // tone of the inside of tubes and cells
+    const CHAIN = [
+      { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
+      { name: 'cube', src: 'assets/neuro-cube.webp', focus: [860, 971], size: [1920, 1920], scale: 1 / Math.E, enter: 0.45 },
+      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], scale: 0.42, enter: 0.05, ink: 0.72 },
+      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], scale: 0.39, enter: 0, ink: 0.72 },
+    ];
+    const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
+    const CUBE_BOX = [742, 684, 1186, 1199]; // the cube inside its drawing
 
-    const api = { depth: 6, resize, draw };
-    let micro = null;
-    let world = null;
+    const api = { depth: 4, veil: 0, resize, draw };
+    const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
     let width = 0;
     let height = 0;
     let ratio = 1;
     let camera = null;
     let lastDepth = NaN;
-    let rasterBlank = false;
-    let vectorBlank = true;
+
+    function soften(image) {
+      // Fade each drawing's border to paper, so a smaller drawing blooms
+      // inside the larger one instead of showing an edge.
+      const sheet = document.createElement('canvas');
+      sheet.width = image.naturalWidth;
+      sheet.height = image.naturalHeight;
+      const pen = sheet.getContext('2d');
+      pen.drawImage(image, 0, 0);
+      const edge = Math.round(Math.min(sheet.width, sheet.height) * 0.07);
+      [[0, 0, edge, 0], [sheet.width, 0, sheet.width - edge, 0], [0, 0, 0, edge], [0, sheet.height, 0, sheet.height - edge]]
+        .forEach(([x0, y0, x1, y1]) => {
+          const gradient = pen.createLinearGradient(x0, y0, x1, y1);
+          gradient.addColorStop(0, 'rgba(255,255,255,1)');
+          gradient.addColorStop(1, 'rgba(255,255,255,0)');
+          pen.fillStyle = gradient;
+          pen.fillRect(0, 0, sheet.width, sheet.height);
+        });
+      return sheet;
+    }
+
+    function load(level) {
+      if (level.state !== 'idle') return;
+      level.state = 'loading';
+      const image = new Image();
+      image.decoding = 'async';
+      image.onload = () => {
+        level.image = soften(image);
+        level.state = 'ready';
+        lastDepth = NaN;
+        schedule();
+      };
+      image.onerror = () => { level.state = 'failed'; };
+      image.src = level.src;
+    }
 
     function resize() {
       width = host.clientWidth;
@@ -617,742 +667,126 @@
       ratio = Math.min(window.devicePixelRatio || 1, 2);
       const backingWidth = Math.round(width * ratio);
       const backingHeight = Math.round(height * ratio);
-      [rasterCanvas, vectorCanvas].forEach(canvas => {
-        if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
-          canvas.width = backingWidth;
-          canvas.height = backingHeight;
-        }
-      });
-      raster.fillStyle = '#fff';
-      raster.fillRect(0, 0, backingWidth, backingHeight);
+      if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
+        canvas.width = backingWidth;
+        canvas.height = backingHeight;
+      }
       const imageWidth = macro.naturalWidth || 1536;
       const imageHeight = macro.naturalHeight || 1024;
       const portrait = imageHeight > imageWidth;
       const relative = portrait ? 0.6 : 0.45;
       const brainNode = portrait ? MACRO_NODE.tall : MACRO_NODE.wide;
       const node = [0, 1].map(axis => brainNode[axis] + (MICRO_FOCUS[axis] - MICRO_SOMA[axis]) * relative);
-      const scaleMacro = Math.max(width / imageWidth, height / imageHeight);
-      const start = [(width - imageWidth * scaleMacro) * (portrait ? 0.5 : 1) + node[0] * scaleMacro, node[1] * scaleMacro];
-      // The synapse lands beside the wheel on wide screens and above it on
-      // tall ones, so the names never sit on top of it.
+      const scaleBrain = Math.max(width / imageWidth, height / imageHeight);
+      const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, node[1] * scaleBrain];
+      // The heart of the universe settles beside the wheel on wide screens
+      // and above it on tall ones.
       const landscape = width > height * 1.1;
       const side = width / 2 - Math.min(248, (width - 40) / 2);
-      const above = height / 2 - Math.round(clamp(height * 0.086, 60, 84)) / 2 - 66;
-      const closest = landscape ? clamp(side / 0.95, 0.35 * height, 0.62 * height) : Math.max(60, Math.min(0.62 * width, above / 1.35));
-      const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, 66 + closest * 0.7];
-      const scaleMicro = scaleMacro * relative;
-      const scaleVector = scaleMicro * Math.hypot(MICRO_SOMA[0] - MICRO_FOCUS[0], MICRO_SOMA[1] - MICRO_FOCUS[1]) / Math.hypot(SOMA[0], SOMA[1]);
-      const deepest = Math.log(closest / scaleVector);
-      const [mw, mh] = [1536, 1024];
-      const cover = Math.max(
-        start[0] / (MICRO_FOCUS[0] * scaleMicro),
-        start[1] / (MICRO_FOCUS[1] * scaleMicro),
-        (width - start[0]) / ((mw - MICRO_FOCUS[0]) * scaleMicro),
-        (height - start[1]) / ((mh - MICRO_FOCUS[1]) * scaleMicro),
+      const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, height * 0.3];
+
+      // Scales: screen pixels per drawing pixel before any zoom.
+      let scale = scaleBrain * relative;
+      chain.forEach((level, index) => {
+        if (index) scale *= level.scale;
+        level.k = scale;
+        level.native = Math.log(1 / scale);
+      });
+      // The microstructure takes over once it covers the screen.
+      const micro = chain[0];
+      const reach = Math.max(
+        start[0] / (micro.focus[0] * micro.k),
+        start[1] / (micro.focus[1] * micro.k),
+        (width - start[0]) / ((micro.size[0] - micro.focus[0]) * micro.k),
+        (height - start[1]) / ((micro.size[1] - micro.focus[1]) * micro.k),
       );
-      const covered = Math.log(cover * 1.12);
-      const blurStart = Math.max(Math.log(2.1 / scaleMicro), covered + 0.2);
-      camera = {
-        imageWidth,
-        imageHeight,
-        node,
-        start,
-        finish,
-        scaleMacro,
-        scaleMicro,
-        scaleVector,
-        inkMacro: portrait ? 0.6 : 0.74,
-        inkMicro: portrait ? 0.5 : 0.58,
-        macroOut: [covered - 0.3, covered + 0.05],
-        microIn: [covered - 0.85, covered - 0.25],
-        microOut: [blurStart, blurStart + 1.5],
-        vectorIn: [blurStart - 0.5, blurStart + 0.05],
-        drift: [0.4, deepest * 0.55],
-      };
+      micro.handover = Math.log(reach * 1.12);
+      chain.slice(1).forEach(level => { level.handover = level.native - level.enter; });
+      // The galaxy blooms out of the swirl inside the cube and settles at a
+      // size that suits the screen: wide on desktop, filling a phone.
+      const inside = chain[2];
+      const universe = chain[3];
+      const deepest = inside.handover + 1.35;
+      const [fx, fy] = universe.focus;
+      const [uw, uh] = universe.size;
+      const cover = Math.max(finish[0] / fx, finish[1] / fy, (width - finish[0]) / (uw - fx), (height - finish[1]) / (uh - fy)) / 0.86;
+      const galaxy = Math.max((landscape ? 0.5 * width : 0.62 * width) / GALAXY, cover);
+      universe.k = galaxy / Math.exp(deepest);
+      universe.handover = deepest - 0.6;
+      camera = { node, start, finish, scaleBrain, ink: portrait ? 0.6 : 0.74, inkMicro: portrait ? 0.5 : 0.58, drift: [0.4, deepest * 0.6] };
       api.depth = deepest;
       lastDepth = NaN;
-      rasterBlank = false;
-      vectorBlank = false;
-      if (world === null) {
-        world = false;
-        idle(() => {
-          try {
-            world = buildWorld();
-          } catch {
-            // Without the vector levels the drawing keeps zooming as raster.
-            world = false;
-          }
-          lastDepth = NaN;
-          schedule();
-        });
-      }
-      if (micro === null) loadMicro();
+      load(micro);
     }
 
-    function idle(callback) {
-      if (window.requestIdleCallback) window.requestIdleCallback(callback, { timeout: 900 });
-      else setTimeout(callback, 120);
-    }
-
-    function loadMicro() {
-      micro = false;
-      const image = new Image();
-      image.decoding = 'async';
-      image.onload = () => {
-        // Fade the drawing's borders into paper so it blooms inside the brain.
-        const canvas = document.createElement('canvas');
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        const context = canvas.getContext('2d');
-        context.drawImage(image, 0, 0);
-        const edge = Math.round(Math.min(canvas.width, canvas.height) * 0.07);
-        const sides = [[0, 0, edge, 0], [canvas.width, 0, canvas.width - edge, 0], [0, 0, 0, edge], [0, canvas.height, 0, canvas.height - edge]];
-        sides.forEach(([x0, y0, x1, y1]) => {
-          const gradient = context.createLinearGradient(x0, y0, x1, y1);
-          gradient.addColorStop(0, 'rgba(255,255,255,1)');
-          gradient.addColorStop(1, 'rgba(255,255,255,0)');
-          context.fillStyle = gradient;
-          context.fillRect(0, 0, canvas.width, canvas.height);
-        });
-        micro = canvas;
-        lastDepth = NaN;
-        schedule();
-      };
-      image.onerror = () => { micro = false; };
-      image.src = MICRO_SOURCE;
+    function spread(image, focus, scale, cx, cy) {
+      const s = scale * ratio;
+      return [ratio * cx - focus[0] * s, ratio * cy - focus[1] * s, image.width * s, image.height * s];
     }
 
     function draw(depth) {
       if (!camera) return;
       if (Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
+      // Fetch each drawing a little before the dive reaches it.
+      chain.forEach(level => { if (depth > level.handover - 1.4) load(level); });
       const zoom = Math.exp(depth);
       const travelled = smooth(camera.drift[0], camera.drift[1], depth);
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
+      const inside = chain[2];
+      // A drawing that has not arrived yet leaves the previous one in place.
+      const ready = chain.map(level => level.state === 'ready');
+      // From the inside of the cube on, the drawings are dense behind the wheel.
+      const dense = ready[2] ? smooth(inside.handover - 0.5, inside.handover, depth) : 0;
+      let fog = 0;
 
-      const macroAlpha = camera.inkMacro * (1 - smooth(camera.macroOut[0], camera.macroOut[1], depth));
-      const microAlpha = micro ? camera.inkMicro * smooth(camera.microIn[0], camera.microIn[1], depth) * (world ? 1 - smooth(camera.microOut[0], camera.microOut[1], depth) : 1) : 0;
-      const blank = macroAlpha < 0.002 && microAlpha < 0.002;
-      if (!blank || !rasterBlank) {
-        raster.setTransform(1, 0, 0, 1, 0, 0);
-        raster.globalCompositeOperation = 'source-over';
-        raster.globalAlpha = 1;
-        raster.fillStyle = '#fff';
-        raster.fillRect(0, 0, rasterCanvas.width, rasterCanvas.height);
-        raster.imageSmoothingEnabled = true;
-        raster.imageSmoothingQuality = 'high';
-        if (macroAlpha >= 0.002 && macro.complete && macro.naturalWidth) {
-          const scale = camera.scaleMacro * zoom * ratio;
-          raster.globalAlpha = macroAlpha;
-          raster.drawImage(macro, ratio * cx - camera.node[0] * scale, ratio * cy - camera.node[1] * scale, macro.naturalWidth * scale, macro.naturalHeight * scale);
-        }
-        if (microAlpha >= 0.002) {
-          const scale = camera.scaleMicro * zoom * ratio;
-          raster.globalCompositeOperation = 'multiply';
-          raster.globalAlpha = microAlpha;
-          raster.drawImage(micro, ratio * cx - MICRO_FOCUS[0] * scale, ratio * cy - MICRO_FOCUS[1] * scale, micro.width * scale, micro.height * scale);
-          raster.globalCompositeOperation = 'source-over';
-        }
-        raster.globalAlpha = 1;
-        rasterBlank = blank;
-      }
-
-      const vectorAlpha = world ? smooth(camera.vectorIn[0], camera.vectorIn[1], depth) : 0;
-      vectorCanvas.style.opacity = vectorAlpha.toFixed(3);
-      if (vectorAlpha > 0.002) {
-        renderWorld(camera.scaleVector * zoom, cx, cy);
-        vectorBlank = false;
-      } else if (!vectorBlank) {
-        vector.setTransform(1, 0, 0, 1, 0, 0);
-        vector.clearRect(0, 0, vectorCanvas.width, vectorCanvas.height);
-        vectorBlank = true;
-      }
-    }
-
-    /* ----- vector world: neurons, spines and one synapse ----- */
-
-    function renderWorld(scale, cx, cy) {
-      const context = vector;
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      context.clearRect(0, 0, vectorCanvas.width, vectorCanvas.height);
-      const cos = Math.cos(TURN) * scale;
-      const sin = Math.sin(TURN) * scale;
-      context.setTransform(ratio * cos, ratio * sin, -ratio * sin, ratio * cos, ratio * cx, ratio * cy);
-      context.lineCap = 'round';
-      context.lineJoin = 'round';
-      // Visible area in world units: the rotated screen's bounding box.
-      const corners = [[0, 0], [width, 0], [0, height], [width, height]].map(([x, y]) => {
-        const dx = x - cx;
-        const dy = y - cy;
-        return [(dx * cos + dy * sin) / (scale * scale), (-dx * sin + dy * cos) / (scale * scale)];
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = 'high';
+
+      const brainAlpha = camera.ink * (ready[0] ? 1 - smooth(chain[0].handover - 0.02, chain[0].handover + 0.35, depth) : 1);
+      if (brainAlpha > 0.002 && macro.complete && macro.naturalWidth) {
+        const s = camera.scaleBrain * zoom * ratio;
+        context.globalAlpha = brainAlpha;
+        context.drawImage(macro, ratio * cx - camera.node[0] * s, ratio * cy - camera.node[1] * s, macro.naturalWidth * s, macro.naturalHeight * s);
+      }
+      chain.forEach((level, index) => {
+        if (!ready[index]) return;
+        const next = index + 1 < chain.length && ready[index + 1] ? 1 : 0;
+        const shown = smooth(level.handover - 0.5, level.handover, depth);
+        const kept = next ? 1 - smooth(chain[index + 1].handover - 0.02, chain[index + 1].handover + 0.35, depth) : 1;
+        let alpha = shown * kept;
+        if (alpha < 0.002) return;
+        if (index === 0) alpha *= camera.inkMicro;
+        if (level.ink) alpha *= level.ink;
+        if (level.name === 'cube') {
+          alpha *= 0.82 + 0.18 * smooth(level.handover, inside.handover - 0.2, depth);
+          fog = alpha * behindWheel(level, zoom, cx, cy);
+        }
+        context.globalCompositeOperation = 'multiply';
+        context.globalAlpha = alpha;
+        context.drawImage(level.image, ...spread(level.image, level.focus, level.k * zoom, cx, cy));
       });
-      const view = {
-        x0: Math.min(...corners.map(c => c[0])),
-        y0: Math.min(...corners.map(c => c[1])),
-        x1: Math.max(...corners.map(c => c[0])),
-        y1: Math.max(...corners.map(c => c[1])),
-      };
-      world.layers.forEach(layer => drawLayer(context, layer, scale, view));
-      drawSynapse(context, scale, view);
-    }
-
-    const tone = (ink, amount) => {
-      const mix = channel => Math.round(255 - (255 - channel) * clamp(amount, 0, 1));
-      return `rgb(${mix(ink[0])},${mix(ink[1])},${mix(ink[2])})`;
-    };
-    const overlaps = (box, view) => !(box.x1 < view.x0 || box.x0 > view.x1 || box.y1 < view.y0 || box.y0 > view.y1);
-
-    function paint(context, bucket, view, mode) {
-      if (!overlaps(bucket.box, view)) return;
-      const box = bucket.box;
-      const viewArea = (view.x1 - view.x0) * (view.y1 - view.y0);
-      const area = Math.max(1e-6, (box.x1 - box.x0) * (box.y1 - box.y0));
-      if (bucket.cells.length < 3 || viewArea > area * 0.25) {
-        if (mode === 'fill') context.fill(bucket.all);
-        else context.stroke(bucket.all);
-        return;
-      }
-      for (const cell of bucket.cells) {
-        if (!overlaps(cell.box, view)) continue;
-        if (mode === 'fill') context.fill(cell.path);
-        else context.stroke(cell.path);
-      }
-    }
-
-    // Layers with a focus range fade out once they grow past it, like a
-    // shallow depth of field: only the dive's own structures stay sharp.
-    const focus = (layer, size) => (layer.fade ? 1 - smooth(layer.fade[0], layer.fade[1], size) : 1);
-
-    // Every tube is stroked dark, then its inside is painted over in a pale
-    // tone once it is wider than a few pixels: thin processes stay pencil
-    // lines, close ones become outlined forms. Joints fuse without seams.
-    function drawLayer(context, layer, scale, view) {
-      if (!overlaps(layer.box, view)) return;
-      const pixel = 1 / scale;
-      const inside = tone(layer.ink, BODY);
-      for (const bucket of layer.tubes) {
-        const size = bucket.size * scale;
-        const sharp = focus(layer, size);
-        if (size < 0.2 || sharp < 0.02) continue;
-        context.globalAlpha = sharp;
-        context.lineWidth = Math.max(bucket.size, 0.85 * pixel);
-        context.strokeStyle = tone(layer.ink, Math.min(1, size / 0.85));
-        paint(context, bucket, view, 'stroke');
-      }
-      for (const bucket of layer.tubes) {
-        const size = bucket.size * scale;
-        const sharp = focus(layer, size);
-        if (size <= 3 || sharp < 0.02) continue;
-        context.globalAlpha = sharp;
-        context.lineWidth = (size - 2.1) * pixel;
-        context.strokeStyle = tone(layer.ink, 1 - (1 - BODY) * smooth(3, 6, size));
-        paint(context, bucket, view, 'stroke');
-      }
-      // A paler core gives wide processes their roundness.
-      for (const bucket of layer.tubes) {
-        const size = bucket.size * scale;
-        const sharp = focus(layer, size) * smooth(10, 24, size);
-        if (sharp < 0.02) continue;
-        context.globalAlpha = sharp;
-        context.lineWidth = bucket.size * 0.6;
-        context.strokeStyle = tone(layer.ink, BODY * 0.6);
-        paint(context, bucket, view, 'stroke');
-      }
-      for (const bucket of layer.blobs) {
-        const size = bucket.size * scale;
-        const sharp = focus(layer, size);
-        if (size < 0.3 || sharp < 0.02) continue;
-        context.globalAlpha = sharp;
-        if (bucket.dot) {
-          // Graphite dots stay dots; up close they dissolve.
-          const amount = Math.min(1, size / 0.9) * (1 - smooth(2.5, 6, size));
-          if (amount < 0.02) continue;
-          context.fillStyle = tone(layer.ink, amount);
-          paint(context, bucket, view, 'fill');
-          continue;
-        }
-        const ring = smooth(1.8, 3.6, size);
-        context.fillStyle = tone(layer.ink, Math.min(1, size / 0.9) * (1 - ring) + BODY * ring);
-        paint(context, bucket, view, 'fill');
-        if (ring > 0.01) {
-          context.lineWidth = 1.05 * pixel;
-          context.strokeStyle = tone(layer.ink, ring);
-          paint(context, bucket, view, 'stroke');
-        }
-      }
+      context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
-      for (const shape of layer.shapes) {
-        if (!overlaps(shape.box, view)) continue;
-        const size = shape.size * scale;
-        const ring = smooth(1.8, 3.6, size);
-        context.fillStyle = ring > 0.5 ? inside : tone(layer.ink, 1 - ring * (1 - BODY));
-        context.fill(shape.fill);
-        if (ring > 0.01) {
-          context.lineWidth = 1.05 * pixel;
-          context.strokeStyle = tone(layer.ink, ring);
-          context.stroke(shape.stroke);
-        }
-      }
+      api.veil = Math.max(fog, 0.85 * dense);
     }
 
-    function drawSynapse(context, scale, view) {
-      const synapse = world.synapse;
-      if (!overlaps(synapse.box, view)) return;
-      const detail = smooth(26, 95, scale);
-      if (detail <= 0) return;
-      const pixel = 1 / scale;
-      const ink = tone(synapse.ink, 1);
-      const soft = tone(synapse.ink, 0.62);
-      context.globalAlpha = detail;
-      context.lineWidth = pixel;
-      context.strokeStyle = ink;
-      context.fillStyle = PAPER;
-      context.fill(synapse.mito);
-      context.stroke(synapse.mito);
-      context.fill(synapse.vesicles);
-      context.stroke(synapse.vesicles);
-      context.stroke(synapse.fusion);
-      context.stroke(synapse.psd);
-      context.strokeStyle = soft;
-      context.lineWidth = 0.85 * pixel;
-      context.stroke(synapse.cristae);
-      context.stroke(synapse.receptors);
-      context.stroke(synapse.apparatus);
-      context.fillStyle = soft;
-      context.fill(synapse.projections);
-      context.fill(synapse.transmitters);
-      const near = smooth(150, 340, scale);
-      if (near > 0) {
-        context.globalAlpha = detail * near * 0.6;
-        context.fill(synapse.cores);
-        context.globalAlpha = detail * near * 0.55;
-        context.lineWidth = 0.8 * pixel;
-        context.stroke(synapse.membranes);
-        context.stroke(synapse.hatch);
-        context.globalAlpha = detail * near * 0.6;
-        context.fill(synapse.stipple);
-      }
-      context.globalAlpha = 1;
-    }
-
-    function buildWorld() {
-      const random = seeded(20261007);
-      const far = sheet([182, 182, 177], [7, 18]);
-      const fibers = sheet([174, 174, 169], [4, 13]);
-      const neuron = sheet([124, 124, 119]);
-      const contact = sheet([108, 108, 104]);
-      const clear = (points, keep) => {
-        for (let index = 0; index < points.length; index += 2) {
-          if (Math.hypot(points[index], points[index + 1]) < keep) return false;
-        }
-        return true;
-      };
-
-      const grow = (target, x, y, angle, length, size, depth, options) => {
-        const steps = Math.max(3, Math.round(length / options.step));
-        const bend = (random() - 0.5) * 0.06;
-        const points = [x, y];
-        for (let index = 0; index < steps; index += 1) {
-          angle += bend + (random() - 0.5) * 0.24;
-          x += Math.cos(angle) * length / steps;
-          y += Math.sin(angle) * length / steps;
-          points.push(x, y);
-        }
-        if (!clear(points, 1.7)) return;
-        target.tube(points, size, options.spines);
-        if (size < 1.1) {
-          for (let index = 2; index < points.length - 2; index += 2) {
-            if (random() < 0.4) target.dot(points[index] + (random() - 0.5) * 0.4, points[index + 1] + (random() - 0.5) * 0.4, 0.1 + random() * 0.05);
-          }
-        }
-        const next = size * 0.72;
-        if (depth >= options.depth || next < 0.3) {
-          target.dot(x, y, 0.15 + random() * 0.07);
-          return;
-        }
-        const forks = random() < 0.2 ? 3 : 2;
-        for (let fork = 0; fork < forks; fork += 1) {
-          const spread = forks === 2 ? (fork ? 1 : -1) * (0.28 + random() * 0.3) : (fork - 1) * (0.42 + random() * 0.2);
-          grow(target, x, y, angle + spread, length * (0.66 + random() * 0.22), next, depth + 1, options);
-        }
-      };
-
-      const cell = (target, x, y, size, options) => {
-        target.blob(x, y, size, size * 0.84, random() * Math.PI);
-        target.blob(x + size * 0.1, y - size * 0.05, size * 0.36, size * 0.33, 0);
-        target.blob(x + size * 0.16, y - size * 0.1, size * 0.1, size * 0.1, 0);
-        const turn = random() * TAU;
-        const skip = options.skip === undefined ? -1 : options.skip;
-        for (let index = 0; index < options.primaries; index += 1) {
-          const angle = options.angles ? options.angles[index] : turn + index * TAU / options.primaries + (random() - 0.5) * 0.5;
-          if (index === skip) continue;
-          grow(target, x + Math.cos(angle) * size * 0.6, y + Math.sin(angle) * size * 0.6, angle, options.length * (0.7 + random() * 0.6), options.size * (0.8 + random() * 0.4), 0, options);
-        }
-        const axon = options.axon === undefined ? random() * TAU : options.axon;
-        grow(target, x + Math.cos(axon) * size * 0.6, y + Math.sin(axon) * size * 0.6, axon, options.length * 2.6, 0.42, options.depth - 1, { ...options, spines: false, step: 4 });
-      };
-
-      // Neighbouring neurons, lighter, so depth reads from tone alone.
-      [[-150, -95, 7], [-100, 128, 6.5], [168, -125, 7.5], [182, 108, 6], [-238, 18, 6], [60, -205, 6.5], [30, 196, 6]]
-        .forEach(([x, y, size]) => cell(far, x, y, size, { primaries: 6, length: 40, size: 1.45, depth: 4, step: 3.2, spines: false }));
-
-      // Neuropil: fine meandering fibres near the synapse, never through it.
-      for (let index = 0; index < 18; index += 1) {
-        const angle = random() * Math.PI;
-        const distance = (random() < 0.5 ? -1 : 1) * (1.8 + Math.pow(random(), 1.6) * 36);
-        const direction = [Math.cos(angle), Math.sin(angle)];
-        const normal = [-direction[1], direction[0]];
-        const waves = [[1.5 + random() * 3, 18 + random() * 22, random() * TAU], [0.4 + random() * 0.8, 5 + random() * 6, random() * TAU], [0.08 + random() * 0.12, 1.2 + random() * 1.4, random() * TAU]];
-        const span = 80 + random() * 110;
-        const points = [];
-        for (let t = -span; t <= span; t += Math.abs(t) < 14 ? 0.25 : 2.5) {
-          const lateral = distance + waves.reduce((sum, [amplitude, length, phase]) => sum + amplitude * Math.sin(t / length + phase), 0);
-          points.push(direction[0] * t + normal[0] * lateral, direction[1] * t + normal[1] * lateral);
-        }
-        if (!clear(points, 1.5)) continue;
-        const size = 0.06 + random() * 0.05;
-        fibers.tube(points, size, false);
-        for (let point = 0; point < points.length; point += 2) {
-          if (random() < 0.03 && Math.hypot(points[point], points[point + 1]) > 2.4) fibers.blob(points[point], points[point + 1], size * 1.7, size * 1.25, random() * Math.PI);
-        }
-      }
-
-      // The neuron whose dendrite carries the synapse.
-      const dendrite = spline([[31.5, -0.6], [24, 0.2], [16, 0.95], [8, 1.55], [0, 1.9], [-8, 2.2], [-17, 2.9], [-27, 4.1], [-36, 5.7]], 0.35);
-      const split = dendrite.findIndex((value, index) => index % 2 === 0 && value < 14);
-      neuron.tube(dendrite.slice(0, split + 2), 1.45, true);
-      neuron.tube(dendrite.slice(split), 1, true);
-      const options = { primaries: 7, length: 34, size: 1.3, depth: 5, step: 2.2, spines: true, skip: 3, axon: 0.95,
-        angles: [-2.25, -1.35, -0.45, Math.PI, 0.45, 1.35, 2.35] };
-      cell(neuron, SOMA[0], SOMA[1], 8.5, options);
-      grow(neuron, 18, 0.7, -2.3, 30, 0.8, 2, options);
-      grow(neuron, -12, 2.55, 2.45, 28, 0.74, 2, options);
-      grow(neuron, -36, 5.7, 2.8, 26, 0.74, 2, options);
-      grow(neuron, -36, 5.7, 3.5, 24, 0.7, 2, options);
-
-      // Dendritic spines close to the synapse.
-      neuron.tubes.slice().forEach(({ points, size, spines }) => {
-        if (!spines || size < 0.5) return;
-        let walked = 0;
-        let next = 0.5;
-        for (let index = 2; index < points.length; index += 2) {
-          const x0 = points[index - 2];
-          const y0 = points[index - 1];
-          const dx = points[index] - x0;
-          const dy = points[index + 1] - y0;
-          const length = Math.hypot(dx, dy);
-          while (walked + length >= next) {
-            const t = (next - walked) / length;
-            const x = x0 + dx * t;
-            const y = y0 + dy * t;
-            next += 1 + random() * 0.8;
-            if (Math.hypot(x, y) > 70) continue;
-            const side = random() < 0.5 ? -1 : 1;
-            const angle = Math.atan2(dy, dx) + side * (Math.PI / 2 + (random() - 0.5) * 1.1);
-            const form = random(); // mushroom, thin or stubby
-            const reach = form < 0.6 ? 0.7 + random() * 0.5 : form < 0.85 ? 0.9 + random() * 0.6 : 0.35 + random() * 0.15;
-            const knob = form < 0.6 ? 0.14 + random() * 0.07 : form < 0.85 ? 0.08 + random() * 0.03 : 0.14 + random() * 0.05;
-            const ux = Math.cos(angle);
-            const uy = Math.sin(angle);
-            const bx = x + ux * (size * 0.5 - 0.12);
-            const by = y + uy * (size * 0.5 - 0.12);
-            const ex = bx + ux * (reach + 0.12);
-            const ey = by + uy * (reach + 0.12);
-            const hx = ex + ux * knob * 0.7;
-            const hy = ey + uy * knob * 0.7;
-            if (Math.hypot(hx, hy) < 1.3 || Math.hypot((bx + ex) / 2, (by + ey) / 2) < 1) continue;
-            const wobble = (random() - 0.5) * 0.3;
-            neuron.tube([bx, by, (bx + ex) / 2 - uy * wobble, (by + ey) / 2 + ux * wobble, ex, ey], 0.07 + random() * 0.035, false);
-            neuron.blob(hx, hy, knob, knob * (0.78 + random() * 0.12), angle);
-          }
-          walked += length;
-        }
-      });
-
-      // The synapse: a mushroom spine below, a terminal bouton above.
-      neuron.tube([0.02, 1.5, 0.05, 1.2, 0.03, 0.9, 0, 0.62, -0.01, 0.5], 0.13, false);
-      neuron.shape(spineHead(), spineHead(true), 0.3);
-      neuron.tube([0.95, 1.45, 1.02, 1.12, 1.12, 0.86], 0.09, false);
-      neuron.blob(1.2, 0.74, 0.14, 0.12, -1.2);
-      const axon = spline([[-52, -40], [-41, -36.5], [-30, -22], [-21, -17.5], [-13, -9], [-7.5, -6.2], [-4, -2.6], [-1.6, -1.6], [-0.45, -0.85], [-0.12, -0.58]], 0.3);
-      contact.tube(axon, 0.17, false);
-      for (let index = 0; index < axon.length - 12; index += 2 * (10 + Math.floor(random() * 14))) {
-        if (Math.hypot(axon[index], axon[index + 1]) > 3) contact.blob(axon[index], axon[index + 1], 0.21, 0.15, Math.atan2(axon[index + 3] - axon[index + 1], axon[index + 2] - axon[index]));
-      }
-      contact.shape(bouton(), bouton(true), 0.3);
-      const passing = spline([[30, -24], [8, -5.2], [2.4, -1.5], [1.05, -0.62], [0.82, 0.3], [1.15, 1.25], [3.6, 5.5], [14, 26]], 0.2);
-      contact.tube(passing, 0.085, false);
-      contact.blob(1.05, -0.62, 0.12, 0.085, -1.4);
-
-      return { layers: [far, fibers, neuron, contact].map(finishLayer), synapse: buildSynapse(random) };
-    }
-
-    // Closed outline for filling; the open variant leaves the joint to the
-    // neck or axon unstroked, so the tube flows into the shape.
-    const HEAD = [['M', -0.065, 0.56], ['C', -0.09, 0.5, -0.17, 0.47, -0.24, 0.38], ['C', -0.33, 0.26, -0.31, 0.07, -0.2, 0.05],
-      ['Q', 0, 0.035, 0.2, 0.05], ['C', 0.31, 0.07, 0.33, 0.26, 0.24, 0.38], ['C', 0.17, 0.47, 0.09, 0.5, 0.065, 0.56]];
-    const BOUTON = [['M', -0.04, -0.64], ['C', 0.06, -0.655, 0.22, -0.6, 0.3, -0.47], ['C', 0.38, -0.33, 0.36, -0.07, 0.24, -0.05],
-      ['Q', 0, -0.035, -0.24, -0.05], ['C', -0.36, -0.15, -0.33, -0.45, -0.2, -0.55]];
-
-    function trace(commands, { closed = false, center = [0, 0], shrink = 1, path = new Path2D() } = {}) {
-      for (const [command, ...values] of commands) {
-        const points = values.map((value, slot) => center[slot % 2] + (value - center[slot % 2]) * shrink);
-        if (command === 'M') path.moveTo(...points);
-        else if (command === 'C') path.bezierCurveTo(...points);
-        else path.quadraticCurveTo(...points);
-      }
-      if (closed) path.closePath();
-      return path;
-    }
-    const spineHead = (outline = false) => trace(HEAD, { closed: !outline });
-    const bouton = (outline = false) => trace(BOUTON, { closed: !outline });
-
-    function buildSynapse(random) {
-      const ink = [98, 98, 94];
-      const vesicles = new Path2D();
-      const cores = new Path2D();
-      const placed = [];
-      const circle = (path, x, y, r) => {
-        path.moveTo(x + r, y);
-        path.arc(x, y, r, 0, TAU);
-      };
-      const mito = { x: -0.1, y: -0.47, rx: 0.12, ry: 0.048, turn: -0.35 };
-      const insideMito = (x, y, margin) => {
-        const c = Math.cos(-mito.turn);
-        const s = Math.sin(-mito.turn);
-        const lx = (x - mito.x) * c - (y - mito.y) * s;
-        const ly = (x - mito.x) * s + (y - mito.y) * c;
-        return (lx / (mito.rx + margin)) ** 2 + (ly / (mito.ry + margin)) ** 2 < 1;
-      };
-      const add = (x, y, r) => {
-        placed.push({ x, y, r });
-        circle(vesicles, x, y, r);
-        circle(cores, x, y, r * 0.16);
-      };
-      [-0.16, -0.085, 0.11, 0.18].forEach(x => add(x, -0.074, 0.022));
-      let guard = 0;
-      while (placed.length < 42 && guard < 6000) {
-        guard += 1;
-        const x = -0.27 + random() * 0.56;
-        const y = -0.6 + random() * 0.5;
-        if (((x - 0.03) / 0.27) ** 2 + ((y + 0.32) / 0.25) ** 2 > 1 || y > -0.1) continue;
-        if (random() > 0.2 + 0.8 * clamp((y + 0.55) / 0.42, 0, 1)) continue;
-        const r = 0.02 + random() * 0.007;
-        if (insideMito(x, y, r + 0.01)) continue;
-        if (placed.some(other => Math.hypot(other.x - x, other.y - y) < other.r + r + 0.008)) continue;
-        add(x, y, r);
-      }
-
-      // A vesicle fusing with the membrane, releasing transmitter.
-      const fusion = new Path2D();
-      fusion.arc(0.03, -0.068, 0.024, Math.PI / 2 + 0.6, Math.PI / 2 - 0.6 + TAU);
-      const transmitters = new Path2D();
-      for (let index = 0; index < 26; index += 1) {
-        const x = 0.03 + (random() - 0.5) * 0.24 * (0.4 + random());
-        const y = -0.04 + random() * 0.08;
-        const r = 0.0028 + random() * 0.0016;
-        transmitters.moveTo(x + r, y);
-        transmitters.arc(x, y, r, 0, TAU);
-      }
-
-      const mitoPath = new Path2D();
-      mitoPath.ellipse(mito.x, mito.y, mito.rx, mito.ry, mito.turn, 0, TAU);
-      mitoPath.moveTo(mito.x + (mito.rx - 0.012) * Math.cos(mito.turn), mito.y + (mito.rx - 0.012) * Math.sin(mito.turn));
-      mitoPath.ellipse(mito.x, mito.y, mito.rx - 0.012, mito.ry - 0.012, mito.turn, 0, TAU);
-      const cristae = new Path2D();
-      for (let index = -3; index <= 3; index += 1) {
-        const along = index * 0.03;
-        const c = Math.cos(mito.turn);
-        const s = Math.sin(mito.turn);
-        const px = mito.x + along * c;
-        const py = mito.y + along * s;
-        const reach = (mito.ry - 0.014) * Math.sqrt(1 - (along / mito.rx) ** 2);
-        const side = index % 2 ? 1 : -1;
-        cristae.moveTo(px - s * reach * side, py + c * reach * side);
-        cristae.quadraticCurveTo(px + c * 0.012, py + s * 0.012, px + s * reach * side * 0.15, py - c * reach * side * 0.15);
-      }
-
-      // Postsynaptic density: a hatched band under the cleft.
-      const surface = x => 0.05 - 0.015 * (1 - (x / 0.2) ** 2);
-      const psd = new Path2D();
-      const hatch = new Path2D();
-      const receptors = new Path2D();
-      psd.moveTo(-0.19, surface(-0.19));
-      for (let x = -0.19; x <= 0.19; x += 0.01) psd.lineTo(x, surface(x) + 0.004);
-      for (let x = 0.19; x >= -0.19; x -= 0.01) psd.lineTo(x, surface(x) + 0.032);
-      psd.closePath();
-      for (let x = -0.18; x <= 0.18; x += 0.011) {
-        hatch.moveTo(x, surface(x) + 0.006);
-        hatch.lineTo(x + 0.006, surface(x) + 0.03);
-      }
-      for (let x = -0.16; x <= 0.165; x += 0.036) {
-        const y = surface(x);
-        receptors.moveTo(x, y);
-        receptors.lineTo(x, y - 0.018);
-        receptors.moveTo(x - 0.007, y - 0.027);
-        receptors.lineTo(x, y - 0.018);
-        receptors.lineTo(x + 0.007, y - 0.027);
-      }
-      const projections = new Path2D();
-      [-0.2, -0.12, -0.045, 0.075, 0.145, 0.21].forEach(x => {
-        projections.moveTo(x - 0.008, -0.044);
-        projections.quadraticCurveTo(x, -0.066, x + 0.008, -0.044);
-        projections.closePath();
-      });
-      const apparatus = new Path2D();
-      [0.4, 0.43, 0.46].forEach((y, index) => {
-        apparatus.moveTo(-0.05 + index * 0.006, y);
-        apparatus.quadraticCurveTo(0, y - 0.018, 0.05 - index * 0.006, y);
-      });
-
-      // Second membrane line: lipid bilayers show at close range.
-      const membranes = new Path2D();
-      trace(BOUTON, { center: [0.02, -0.34], shrink: 0.965, path: membranes });
-      trace(HEAD, { center: [0, 0.3], shrink: 0.955, path: membranes });
-
-      const stipple = new Path2D();
-      const dot = (x, y) => {
-        stipple.moveTo(x + 0.0017, y);
-        stipple.arc(x, y, 0.0017, 0, TAU);
-      };
-      for (let index = 0; index < 900; index += 1) {
-        const angle = random() * TAU;
-        const reach = Math.sqrt(random());
-        const shade = 0.55 + 0.45 * reach;
-        if (random() > shade) continue;
-        if (index % 2) dot(0.02 + Math.cos(angle) * reach * 0.31, -0.33 + Math.sin(angle) * reach * 0.27);
-        else dot(Math.cos(angle) * reach * 0.27, 0.27 + Math.sin(angle) * reach * 0.2);
-      }
-
-      return {
-        ink,
-        box: { x0: -0.45, y0: -0.75, x1: 0.45, y1: 0.65 },
-        vesicles, cores, fusion, transmitters, mito: mitoPath, cristae, psd, hatch, receptors, projections, apparatus, membranes, stipple,
-      };
-    }
-
-    function sheet(ink, fade = null) {
-      return {
-        ink,
-        fade,
-        tubes: [],
-        blobs: [],
-        shapes: [],
-        tube(points, size, spines) { this.tubes.push({ points, size, spines }); },
-        blob(x, y, rx, ry = rx, turn = 0) { this.blobs.push({ x, y, rx, ry, turn, dot: false }); },
-        dot(x, y, r) { this.blobs.push({ x, y, rx: r, ry: r, turn: 0, dot: true }); },
-        shape(fill, stroke, size) {
-          this.shapes.push({ fill, stroke, size, box: { x0: -0.45, y0: -0.75, x1: 0.45, y1: 0.65 } });
-        },
-      };
-    }
-
-    // Bucket paths by width and space so each frame strokes only what shows.
-    function finishLayer(source) {
-      const GRID = 16;
-      const empty = () => ({ x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity });
-      const extend = (box, x, y, pad) => {
-        box.x0 = Math.min(box.x0, x - pad);
-        box.y0 = Math.min(box.y0, y - pad);
-        box.x1 = Math.max(box.x1, x + pad);
-        box.y1 = Math.max(box.y1, y + pad);
-      };
-      const bucketFor = (map, size, dot = false) => {
-        const level = Math.round(Math.log(size) / Math.log(1.16));
-        const key = `${dot ? 'd' : 'b'}${level}`;
-        if (!map.has(key)) map.set(key, { size: Math.pow(1.16, level), dot, all: new Path2D(), cells: new Map(), box: empty() });
-        return map.get(key);
-      };
-      const cellFor = (bucket, x, y) => {
-        const key = `${Math.floor(x / GRID)},${Math.floor(y / GRID)}`;
-        if (!bucket.cells.has(key)) bucket.cells.set(key, { key, path: new Path2D(), box: empty() });
-        return bucket.cells.get(key);
-      };
-      const box = empty();
-      const tubes = new Map();
-      source.tubes.forEach(({ points, size }) => {
-        const bucket = bucketFor(tubes, size);
-        const pad = bucket.size;
-        bucket.all.moveTo(points[0], points[1]);
-        let current = null;
-        for (let index = 2; index < points.length; index += 2) {
-          const x0 = points[index - 2];
-          const y0 = points[index - 1];
-          const x1 = points[index];
-          const y1 = points[index + 1];
-          bucket.all.lineTo(x1, y1);
-          const cell = cellFor(bucket, x0, y0);
-          if (cell !== current) {
-            cell.path.moveTo(x0, y0);
-            current = cell;
-          }
-          cell.path.lineTo(x1, y1);
-          extend(cell.box, x0, y0, pad);
-          extend(cell.box, x1, y1, pad);
-          extend(bucket.box, x0, y0, pad);
-          extend(bucket.box, x1, y1, pad);
-        }
-        extend(box, bucket.box.x0, bucket.box.y0, 0);
-        extend(box, bucket.box.x1, bucket.box.y1, 0);
-      });
-      const blobs = new Map();
-      source.blobs.forEach(({ x, y, rx, ry, turn, dot }) => {
-        const bucket = bucketFor(blobs, Math.max(rx, ry), dot);
-        const cell = cellFor(bucket, x, y);
-        const sx = x + rx * Math.cos(turn);
-        const sy = y + rx * Math.sin(turn);
-        [bucket.all, cell.path].forEach(path => {
-          path.moveTo(sx, sy);
-          path.ellipse(x, y, rx, ry, turn, 0, TAU);
-        });
-        const pad = Math.max(rx, ry);
-        extend(cell.box, x, y, pad);
-        extend(bucket.box, x, y, pad);
-        extend(box, x, y, pad);
-      });
-      source.shapes.forEach(shape => {
-        extend(box, shape.box.x0, shape.box.y0, 0);
-        extend(box, shape.box.x1, shape.box.y1, 0);
-      });
-      const sorted = (map, direction) => Array.from(map.values())
-        .sort((a, b) => (a.size - b.size) * direction)
-        .map(bucket => ({ ...bucket, cells: Array.from(bucket.cells.values()) }));
-      return { ink: source.ink, fade: source.fade, box, tubes: sorted(tubes, 1), blobs: sorted(blobs, -1), shapes: source.shapes };
-    }
-
-    function spline(control, spacing) {
-      const points = [];
-      for (let index = 0; index < control.length - 1; index += 1) {
-        const p0 = control[Math.max(0, index - 1)];
-        const p1 = control[index];
-        const p2 = control[index + 1];
-        const p3 = control[Math.min(control.length - 1, index + 2)];
-        const parts = Math.max(2, Math.ceil(Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / spacing));
-        for (let part = 0; part < parts; part += 1) {
-          const t = part / parts;
-          const t2 = t * t;
-          const t3 = t2 * t;
-          const at = axis => 0.5 * ((2 * p1[axis]) + (-p0[axis] + p2[axis]) * t + (2 * p0[axis] - 5 * p1[axis] + 4 * p2[axis] - p3[axis]) * t2 + (-p0[axis] + 3 * p1[axis] - 3 * p2[axis] + p3[axis]) * t3);
-          points.push(at(0), at(1));
-        }
-      }
-      const last = control[control.length - 1];
-      points.push(last[0], last[1]);
-      return points;
-    }
-
-    function seeded(seed) {
-      let state = seed >>> 0;
-      return () => {
-        state = (state + 0x6d2b79f5) >>> 0;
-        let value = state;
-        value = Math.imul(value ^ (value >>> 15), value | 1);
-        value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
-        return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
-      };
+    // How much of the wheel the cube covers, so the type gets a veil only
+    // while the cube passes behind it.
+    function behindWheel(level, zoom, cx, cy) {
+      const scale = level.k * zoom;
+      const [left, top, right, bottom] = CUBE_BOX.map((value, slot) => (slot % 2 ? cy : cx) + (value - level.focus[slot % 2]) * scale);
+      const halfWidth = Math.min(248, (width - 40) / 2);
+      const halfHeight = height * 0.25;
+      const across = Math.max(0, Math.min(right, width / 2 + halfWidth) - Math.max(left, width / 2 - halfWidth));
+      const down = Math.max(0, Math.min(bottom, height / 2 + halfHeight) - Math.max(top, height / 2 - halfHeight));
+      return smooth(0.04, 0.3, (across * down) / (4 * halfWidth * halfHeight));
     }
 
     return api;

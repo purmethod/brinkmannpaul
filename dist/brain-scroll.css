@@ -41,7 +41,6 @@
 #site-page.scroll-ready .bs-art{position:absolute;z-index:0}
 #site-page.scroll-ready .bs-macro{display:none}
 #site-page .bs-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-#site-page .bs-vector{opacity:0}
 #site-page.scroll-ready main{outline:none}
 #site-page.scroll-ready .index{position:absolute;inset:0;min-height:0;width:auto;margin:0;padding:0;transform:none;transition:none}
 
@@ -50,7 +49,9 @@
 #site-page .bs-slot{height:var(--row);scroll-snap-align:center}
 
 /* A soft paper band keeps the turning names clear of the drawing. */
-#site-page .bs-veil{position:absolute;z-index:1;inset:0;pointer-events:none;background:radial-gradient(calc(var(--band) * .78) calc(var(--row) * 2.9) at 50% 50%,rgba(255,255,255,.9) 0,rgba(255,255,255,.82) 34%,rgba(255,255,255,.42) 66%,rgba(255,255,255,0) 100%)}
+#site-page .bs-veil{position:absolute;z-index:1;inset:0;pointer-events:none}
+/* Behind the wheel only while a dense drawing passes under it (--veil, set by the dive). */
+#site-page .bs-veil:before{content:"";position:absolute;inset:0;background:radial-gradient(calc(min(31rem,calc(100vw - 40px)) * 1.05) calc(var(--row) * 4.9) at 50% 50%,rgba(255,255,255,.9) 0,rgba(255,255,255,.8) 50%,rgba(255,255,255,0) 100%);opacity:var(--veil,0)}
 #site-page .bs-veil:after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.55);opacity:0;transition:opacity 420ms ease}
 #site-page.is-reading .bs-veil:after{opacity:1}
 
