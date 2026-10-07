@@ -3,10 +3,10 @@
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
   // Turning the wheel zooms slowly from the approved brain drawing through the
-  // approved microstructure into a cubic millimetre of cortex, a cosmos of
-  // neurons, a galaxy of neurons, one synapse and its molecules, until a
-  // vesicle holds the next brain: the dive never turns back. Every level is a
-  // fine drawing on white. Without JavaScript the plain project list remains.
+  // approved microstructure into a cubic millimetre of cortex and on into a
+  // universe of neurons that streams past like stars, until the next brain
+  // appears in the distance: the dive never turns back. Everything is drawn
+  // in graphite on white. Without JavaScript the plain project list remains.
 
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
@@ -25,6 +25,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = matchMedia('(pointer: coarse)');
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
+  const TAU = Math.PI * 2;
   const smooth = (low, high, value) => {
     const x = clamp((value - low) / (high - low), 0, 1);
     return x * x * (3 - 2 * x);
@@ -159,6 +160,7 @@
 
   const LIMIT = 1.38; // rows beyond ~79 degrees are hidden
   const PERSPECTIVE = 900;
+  const DRIFT = 0.000012; // depth per millisecond the universe floats on
   let rowHeight = 0;
   let viewHeight = 0;
   let offset = 0;
@@ -167,6 +169,7 @@
   let previous = 0;
   let travel = 0; // rows turned, signed; drives the zoom
   let eased = 0;
+  let drift = 0; // depth the universe has floated on by itself
   let lastPosition = NaN;
   let detent = null;
   let touching = 0;
@@ -271,10 +274,10 @@
     if (reading < 0) haptic();
   }
 
-  // Depth only grows while the wheel turns on: three calm revolutions reach
-  // the galaxy, and the dive carries on into the next brain without a seam.
+  // Depth only grows while the wheel turns on, and the dive carries on into
+  // the next brain without a seam.
   function depthAt(rowsTurned) {
-    return rowsTurned * dive.deepest / (3 * count);
+    return rowsTurned * dive.pace;
   }
 
   function schedule() {
@@ -298,12 +301,16 @@
     // wheel the visitor turns by hand.
     eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
-    dive.draw(depthAt(eased));
+    // The universe never stands quite still: it floats on by itself, except
+    // while a text is read or motion is reduced.
+    const floating = reading < 0 && !reduced.matches;
+    if (floating) drift += elapsed * DRIFT;
+    dive.draw(depthAt(eased) + drift);
     if (pos !== lastPosition) {
       layoutWheel(pos);
       lastPosition = pos;
     }
-    if (eased !== travel) schedule();
+    if (eased !== travel || floating) schedule();
     else clock = 0;
   }
 
@@ -549,29 +556,29 @@
     host.append(canvas);
     const context = canvas.getContext('2d', { alpha: false });
 
-    // A chain of drawings, each nested at the focus point of the one before:
+    // The way in, each drawing nested at the focus point of the one before:
     // the approved brain and microstructure, the inside of one cubic
-    // millimetre of cortex (after the H01 reconstruction, Harvard and Google),
-    // its network drawn as a cosmos whose stars are neurons, a galaxy of
-    // neurons in its brightest star, one synapse as electron microscopy shows it,
-    // and its molecules as cryo-electron tomography shows them. The open
-    // vesicle at their centre holds the next brain.
+    // millimetre of cortex (after the H01 reconstruction, Harvard and Google)
+    // and its network drawn as a cosmos whose stars are neurons.
     const MICRO_FOCUS = [1000, 506];
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const CHAIN = [
       { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
       { name: 'inside', src: 'assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.8 },
-      { name: 'cosmos', src: 'assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.85 },
-      { name: 'galaxy', src: 'assets/neuro-galaxy.webp', focus: [964, 967], size: [1920, 1920], ink: 0.85, leave: [-0.95, -0.05] },
-      { name: 'synapse', src: 'assets/neuro-synapse.webp', focus: [985, 876], size: [1920, 1920], ink: 0.85, rise: 1 },
-      { name: 'molecules', src: 'assets/neuro-molecules.webp', focus: [960, 882], size: [1920, 1920], ink: 0.85 },
+      { name: 'cosmos', src: 'assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920], scale: Math.exp(-0.8), enter: 0.3, ink: 0.85 },
     ];
-    const GALAXY = 600; // radius of the galaxy in its drawing, in its pixels
-    // The synapse's centre vesicle and the open vesicle of the molecules.
-    const VESICLE = { synapse: 34, molecules: 302 };
+    // Then the flight: neurons cut from the drawings stream out of the
+    // distance like stars, galaxies of neurons pass now and then, fine dust
+    // drifts between, and at the end the next brain waits in the distance.
+    const stars = { src: 'assets/neuro-stars.webp', plain: true, mips: true, state: 'idle', image: null };
+    const galaxy = { src: 'assets/neuro-galaxy.webp', mips: true, state: 'idle', image: null };
+    const TILE = 400; // one neuron in the star sheet, 4 x 4 of them
+    const GALAXY = { radius: 600, centre: [964, 967] };
+    const FLIGHT = 5; // depth of open universe before the next brain
+    const SPIN = 0.22; // radians the stream turns per depth unit
 
-    const api = { deepest: 4, cycle: 12, resize, draw };
+    const api = { pace: 0.14, cycle: 12, resize, draw };
     const chain = CHAIN.map(level => ({ ...level, image: null, state: 'idle' }));
     let width = 0;
     let height = 0;
@@ -599,13 +606,38 @@
       return sheet;
     }
 
+    // The same sheet at half, quarter and eighth size: small things are drawn
+    // from small copies, which keeps them sharp and cheap.
+    function halves(image) {
+      const copies = [image];
+      for (let level = 1; level < 4; level += 1) {
+        const last = copies[level - 1];
+        const copy = document.createElement('canvas');
+        copy.width = Math.round(last.width / 2);
+        copy.height = Math.round(last.height / 2);
+        const pen = copy.getContext('2d');
+        pen.imageSmoothingQuality = 'high';
+        pen.drawImage(last, 0, 0, copy.width, copy.height);
+        copies.push(copy);
+      }
+      return copies;
+    }
+
+    // The copy whose pixels come closest to the screen without falling short.
+    function pick(copies, scale) {
+      let level = 0;
+      while (level < copies.length - 1 && scale * 2 ** (level + 1) <= 1) level += 1;
+      return level;
+    }
+
     function load(level) {
       if (level.state !== 'idle') return;
       level.state = 'loading';
       const image = new Image();
       image.decoding = 'async';
       image.onload = () => {
-        level.image = soften(image);
+        level.image = level.plain ? image : soften(image);
+        if (level.mips) level.mips = halves(level.image);
         level.state = 'ready';
         lastDepth = NaN;
         schedule();
@@ -633,14 +665,14 @@
       const node = [0, 1].map(axis => brainNode[axis] + (MICRO_FOCUS[axis] - MICRO_SOMA[axis]) * relative);
       const scaleBrain = Math.max(width / imageWidth, height / imageHeight);
       const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, node[1] * scaleBrain];
-      // The heart of the galaxy passes beside the wheel on wide screens
+      // The universe streams out of a point beside the wheel on wide screens
       // and above it on tall ones.
       const landscape = width > height * 1.1;
       const side = width / 2 - Math.min(248, (width - 40) / 2);
       const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, height * 0.3];
 
       // Scales: screen pixels per drawing pixel before any zoom.
-      const [micro, inside, cosmos, galaxy, synapse, molecules] = chain;
+      const [micro, inside, cosmos] = chain;
       micro.k = scaleBrain * relative;
       inside.k = micro.k * inside.scale;
       cosmos.k = inside.k * cosmos.scale;
@@ -653,35 +685,21 @@
       );
       micro.handover = Math.log(reach * 1.12);
       inside.handover = Math.log(1 / inside.k) - inside.enter;
-      // Its central neuron opens into the network drawn as a cosmos,
       cosmos.handover = Math.log(1 / cosmos.k) - cosmos.enter;
-      // and its brightest neuron-star blooms into a galaxy of neurons that
-      // passes at a size that suits the screen: wide on desktop, filling a phone.
-      const deepest = cosmos.handover + 1.35;
-      const [fx, fy] = galaxy.focus;
-      const [uw, uh] = galaxy.size;
-      const cover = Math.max(finish[0] / fx, finish[1] / fy, (width - finish[0]) / (uw - fx), (height - finish[1]) / (uh - fy)) / 0.86;
-      const galaxyScale = Math.max((landscape ? 0.5 * width : 0.62 * width) / GALAXY, cover);
-      galaxy.k = galaxyScale / Math.exp(deepest);
-      galaxy.handover = deepest - 0.6;
-      // Flying on into its heart, the galaxy dissolves into one synapse,
-      synapse.handover = deepest + 1.2;
-      synapse.k = Math.exp(-(synapse.handover + 0.35));
-      // whose centre vesicle opens into the molecular drawing,
-      molecules.k = synapse.k * VESICLE.synapse / VESICLE.molecules;
-      molecules.handover = Math.log(1 / molecules.k) - 0.3;
-      // and in that vesicle's open white the next brain appears, small enough
-      // to sit well inside it, then grows until the dive begins again.
-      const extent = Math.max(node[0], imageWidth - node[0], node[1], imageHeight - node[1]) * scaleBrain;
-      const cycle = molecules.handover + Math.max(1.8, 0.3 + Math.log(1.1 * extent / VESICLE.molecules));
+      // The open universe begins where the cosmos drawing is at full size and
+      // still sharp; after the flight the next brain grows out of the distance
+      // until the dive begins again.
+      const opening = cosmos.handover + cosmos.enter;
+      const cycle = opening + FLIGHT + 1.6;
       camera = {
         node, start, finish, scaleBrain,
         ink: portrait ? 0.6 : 0.74,
         inkMicro: portrait ? 0.5 : 0.58,
-        out: [0.4, deepest * 0.6],
-        back: [deepest + 0.5, cycle - 1.6],
+        out: [0.4, opening],
+        back: [cycle - 3.2, cycle - 1.6],
+        span: Math.hypot(width, height) / 2,
       };
-      api.deepest = deepest;
+      api.open = opening;
       api.cycle = cycle;
       lastDepth = NaN;
       load(micro);
@@ -695,10 +713,16 @@
     function draw(travelled) {
       if (!camera) return;
       const depth = mod(travelled, api.cycle);
-      if (Math.abs(depth - lastDepth) < 1e-4) return;
+      // Floating alone moves the picture by a fraction of a pixel per frame;
+      // about two dozen redraws a second keep it smooth and spare the battery.
+      if (Math.abs(depth - lastDepth) < 4e-4) return;
       lastDepth = depth;
       // Fetch each drawing a little before the dive reaches it.
       chain.forEach(level => { if (depth > level.handover - 1.4) load(level); });
+      if (depth > api.open - 1.4) {
+        load(stars);
+        load(galaxy);
+      }
       // The view drifts from the brain to beside the wheel and, on the way to
       // the next brain, back again.
       const away = smooth(camera.out[0], camera.out[1], depth) * (1 - smooth(camera.back[0], camera.back[1], depth));
@@ -720,18 +744,23 @@
       chain.forEach((level, index) => {
         if (!ready[index]) return;
         const next = chain[index + 1];
-        const [early, late] = level.leave || [-0.02, 0.35];
-        const kept = !next ? 1 - smooth(api.cycle - 1, api.cycle - 0.2, depth)
-          : ready[index + 1] ? 1 - smooth(next.handover + early, next.handover + late, depth) : 1;
-        let alpha = smooth(level.handover - (level.rise || 0.5), level.handover, depth) * kept;
+        // Each drawing hands over while it is still sharp.
+        const kept = next ? (ready[index + 1] ? 1 - smooth(next.handover - 0.3, next.handover + 0.1, depth) : 1)
+          : stars.state === 'ready' ? 1 - smooth(api.open, api.open + 0.45, depth)
+            : 1 - smooth(api.cycle - 1, api.cycle - 0.2, depth);
+        let alpha = smooth(level.handover - 0.5, level.handover, depth) * kept;
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
         if (level.ink) alpha *= level.ink;
         context.globalAlpha = alpha;
         context.drawImage(level.image, ...spread(level.image, level.focus, level.k * Math.exp(depth), cx, cy));
       });
-      // The next brain, already growing inside the vesicle.
+      flight(depth, cx, cy);
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      context.imageSmoothingQuality = 'high';
+      // The next brain, already growing out of the distance.
       if (depth > api.cycle - 1.6) brain(depth - api.cycle, ready[0], cx, cy);
+      context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
     }
@@ -744,6 +773,85 @@
       const s = camera.scaleBrain * Math.exp(depth) * ratio;
       context.globalAlpha = alpha;
       context.drawImage(macro, ratio * cx - camera.node[0] * s, ratio * cy - camera.node[1] * s, macro.naturalWidth * s, macro.naturalHeight * s);
+    }
+
+    // Steady pseudo-random numbers, so each star keeps its place and look.
+    function random(index, salt) {
+      let x = Math.imul(index ^ Math.imul(salt, 0x9e3779b1), 0x85ebca6b);
+      x ^= x >>> 13;
+      x = Math.imul(x, 0xc2b2ae35);
+      x ^= x >>> 16;
+      return (x >>> 0) / 4294967296;
+    }
+
+    // Everything in the flight is born at a depth and grows with
+    // e^(depth - born): it comes out of the distance at the centre, spirals
+    // outward and leaves the screen, or fades before it would turn soft.
+    function flight(depth, cx, cy) {
+      const presence = smooth(api.open - 0.35, api.open + 0.25, depth) * (1 - smooth(api.cycle - 1.7, api.cycle - 0.2, depth));
+      if (presence < 0.002) return;
+      const span = camera.span;
+      const place = (index, salt, grow, near) => {
+        const angle = random(index, salt) * TAU + SPIN * Math.log(grow);
+        const far = span * (near + (1 - near) * random(index, salt + 1) ** 0.8) * grow;
+        return [cx + Math.cos(angle) * far, cy + Math.sin(angle) * far, far];
+      };
+
+      // Dust: crisp points, sharp at any depth.
+      context.fillStyle = '#5f5f59';
+      context.globalAlpha = 0.5 * presence;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.beginPath();
+      const dustGap = 0.012;
+      for (let index = Math.floor((depth - 2.2) / dustGap); index <= Math.floor((depth + 1.6) / dustGap); index += 1) {
+        const grow = Math.exp(depth - index * dustGap);
+        const [x, y, far] = place(index, 11, grow, 0.02);
+        if (far > span * 1.1 || grow < 0.3) continue;
+        const dot = Math.min(2.4, (0.5 + random(index, 13)) * Math.sqrt(grow));
+        context.rect(x - dot / 2, y - dot / 2, dot, dot);
+      }
+      context.fill();
+
+      if (galaxy.state === 'ready') {
+        const gap = 1.3;
+        for (let index = Math.floor((depth - 3) / gap); index <= Math.floor((depth + 3) / gap); index += 1) {
+          const grow = Math.exp(depth - index * gap);
+          const reachOut = span * (0.14 + 0.1 * random(index, 21)) * grow;
+          const [x, y, far] = place(index, 22, grow, 0.18);
+          const sharp = 1.3 * GALAXY.radius / ratio;
+          const alpha = presence * 0.8 * smooth(10, 70, reachOut) * (1 - smooth(sharp * 0.5, sharp, reachOut));
+          if (alpha < 0.01 || far - reachOut > span * 1.2) continue;
+          const level = pick(galaxy.mips, reachOut / GALAXY.radius * ratio);
+          const s = reachOut / GALAXY.radius * ratio * 2 ** level;
+          const turn = random(index, 24) * TAU + SPIN * Math.log(grow);
+          context.globalAlpha = alpha;
+          context.setTransform(Math.cos(turn) * s, Math.sin(turn) * s, -Math.sin(turn) * s, Math.cos(turn) * s, x * ratio, y * ratio);
+          context.drawImage(galaxy.mips[level], -GALAXY.centre[0] / 2 ** level, -GALAXY.centre[1] / 2 ** level);
+        }
+      }
+
+      if (stars.state === 'ready') {
+        context.imageSmoothingQuality = 'low';
+        const gap = 0.055;
+        const sharp = 1.25 * TILE / ratio;
+        for (let index = Math.floor((depth - 3) / gap); index <= Math.floor((depth + 3.4) / gap); index += 1) {
+          const grow = Math.exp(depth - index * gap);
+          const size = span * (0.05 + 0.08 * random(index, 1)) * grow;
+          if (size < 3) continue;
+          const [x, y, far] = place(index, 2, grow, 0.05);
+          if (far - size > span * 1.15) continue;
+          const alpha = presence * (0.5 + 0.4 * random(index, 4)) * smooth(3, 34, size) * (1 - smooth(sharp * 0.8, sharp, size));
+          if (alpha < 0.01) continue;
+          const tile = Math.floor(random(index, 5) * 16);
+          const turn = random(index, 6) * TAU;
+          const level = pick(stars.mips, size / TILE * ratio);
+          const cell = TILE / 2 ** level;
+          const s = size / cell * ratio;
+          context.globalAlpha = alpha;
+          context.setTransform(Math.cos(turn) * s, Math.sin(turn) * s, -Math.sin(turn) * s, Math.cos(turn) * s, x * ratio, y * ratio);
+          context.drawImage(stars.mips[level], (tile % 4) * cell, Math.floor(tile / 4) * cell, cell, cell, -cell / 2, -cell / 2, cell, cell);
+        }
+      }
     }
 
     return api;

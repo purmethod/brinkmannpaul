@@ -456,3 +456,30 @@ Pauls Wunsch, mit Referenzbild (1 mm³, Netz aus Neuronen wie Sterne): Der Kubik
 - Ruhiger: Die Galaxie kommt nach drei statt zwei Raddrehungen; ein voller Durchgang sind etwa 63 Zeilen, rund 7 Drehungen.
 - Prüfung (ohne Screenshots): `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund. Rauchtest über mehrere Zyklen ohne Konsolenfehler. An der Nahtstelle ändert sich die Helligkeit um 0,04; der größte Helligkeitsschritt liegt bei 1,85 pro 0,02 Tiefe. Leseansicht unverändert.
 
+### Nachtrag: scharfer, lebendiger Flug durch ein Universum aus Neuronen (2026-10-07)
+
+Rückmeldung Paul mit Screenshot der Molekülebene: Die Bilder sind nicht scharf. Er will den Eindruck, in ein Universum einzutauchen, nicht eine Zeichnung wie diese und nicht zu statisch: unser Gehirn ist ein Universum.
+
+- **Ursache der Unschärfe:** Rasterzeichnungen wurden bis etwa 4-fach über ihre Auflösung vergrößert.
+  - Jede Zeichnung übergibt jetzt, solange sie scharf ist: Ausblenden über [nächste Übergabe − 0,3, + 0,1], der Kosmos höchstens bis etwa 1,5-fach.
+  - Neuronen-Sterne und Galaxien blenden aus, bevor sie über ihre Pixel hinaus wachsen.
+  - Der Staub ist Vektorgrafik und bei jeder Größe scharf.
+- **Flug statt Standbild:** Nach dem Kosmos beginnt ein endloser Flug.
+  - Neuronen-Sterne strömen aus der Ferne, wachsen und ziehen spiralförmig vorbei. Ferne Sterne sind blass, nahe kräftig.
+  - Dazu ziehen Galaxien aus Neuronen vorbei, und feiner Staub treibt dazwischen.
+  - Alle Objekte sind deterministisch platziert. Rückwärts fliegt man denselben Weg zurück.
+  - Nach etwa 5 Tiefeneinheiten Flug wächst in der Ferne das nächste Gehirn heran, und die Fahrt beginnt nahtlos neu.
+- **Nicht statisch:** Das Universum treibt auch ohne Scrollen langsam weiter (0,012 Tiefe/s), außer beim Lesen und bei „Bewegung reduzieren“. Im Stillstand wird mit etwa 24 Bildern/s gezeichnet, um den Akku zu schonen.
+- **Assets:**
+  - `neuro-stars.webp` (274 KB): 16 Neuronen-Sterne aus den Originalen in 2880 px (Kosmos und Inneres), weich ins Papier auslaufend, 4 × 4 zu je 400 px.
+  - Atlas und Galaxie werden beim Laden in halber, viertel und achtel Größe vorberechnet (Mipmaps).
+  - `neuro-synapse.webp` und `neuro-molecules.webp` sind entfernt.
+- **Fehler unterwegs behoben:** Nach den Sternen blieb ihre Transformation aktiv, sodass das nächste Gehirn verdreht und außerhalb des Bildes gezeichnet wurde. Jetzt wird die Transformation zurückgesetzt.
+- **Prüfung:**
+  - `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund.
+  - 45 Playwright-Interaktionstests, angepasst an die Ein-Projekt-Leseansicht.
+  - Rauchtest über mehrere Zyklen ohne Konsolenfehler.
+  - Nahtstelle: Helligkeitssprung 0,04. Größter Helligkeitsschritt 1,2 pro 0,02 Tiefe.
+  - Die Zeichenzeit pro Bild ist nicht höher als in der Vorversion.
+  - Der bisherige Bildraten-Test hat nichts gemessen: Seine 2-px-Scrollschritte rasteten zurück, und es wurde nie neu gezeichnet. Die früheren 60-fps-Angaben sind damit nicht belastbar.
+
