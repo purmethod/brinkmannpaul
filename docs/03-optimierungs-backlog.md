@@ -320,3 +320,13 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Geldpassage entfernt; Abschluss: people need love. whatever you build, bring love to it.
 - Kopfzeile: paul brinkmann, m.sc.; artist & architect. Mittiges kursives Zitat „all art.“ mit paul darunter.
 - Umsetzung im Issue-Branch zur Veröffentlichung über main/Vercel. Keine Tests, Screenshots, Vorschauen oder Reviews gemäß ausdrücklichem Credit-Sparwunsch.
+
+
+## Issue #59 — Endlosrolle und scrollgesteuerter Gehirnzoom (2026-10-07)
+
+- Paul hat die überarbeitete interaktive Vorschau ausdrücklich zur Veröffentlichung freigegeben: dunkle Projektnamen, hellere Beschreibungen, flüssiges Scrollen und sichtbarer Zoom ab der ersten Bewegung.
+- Vorhandene Gehirnzeichnung wird direkt vergrößert und geht in die bereits freigegebene gezeichnete Mikrostruktur über. WebP-Detailgrafik unter 300 KB; keine zusätzlichen Abhängigkeiten.
+- Nativer Touch-Nachlauf mit Stoppen beim Berühren. Identische Projektkopien werden im Stillstand zurückgesetzt; beim Mausrad werden Position und Ziel gemeinsam am Rand versetzt, damit die Bewegung weiterläuft.
+- Neuere Art-Rubrik, „all art.“, aktuelle Kopfzeile, Texte, Links und Porträt-/Handschrift-Intro aus main erhalten. Branding-Alternativen werden separat mit Paul besprochen.
+- Originale IDs, Direktlink #art und Fokus bleiben erhalten. Ohne JavaScript bleibt eine normale Projektliste verfügbar; reduzierte Bewegung verzichtet auf zusätzliches Mausrad-Easing.
+- Unabhängiger statischer Agent-Review im PR dokumentiert. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung. Veröffentlichung über main/Vercel.

@@ -41,7 +41,9 @@
     />
     <link rel="preload" href="assets/paul-portrait.jpeg" as="image" type="image/jpeg" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=57" />
+    <link rel="stylesheet" href="brain-scroll.css?v=59" />
     <script src="app.js?v=25" defer></script>
+    <script src="brain-scroll.js?v=59" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">skip to projects</a>
@@ -64,14 +66,26 @@
     </button>
 
     <div class="site-page" id="site-page">
-      <div class="neural-background" aria-hidden="true"></div>
-      <header class="site-header">
+      <div class="bs-art" aria-hidden="true">
+        <picture class="bs-macro">
+          <source media="(max-width: 580px)" srcset="assets/neuroscience-light-mobile.webp" />
+          <img src="assets/neuroscience-light-desktop.webp" alt="" width="1536" height="1024" decoding="async" />
+        </picture>
+        <div class="bs-micro">
+          <img class="bs-depth-a" src="assets/neuroscience-microstructure.webp" alt="" width="1536" height="1024" decoding="async" />
+          <img class="bs-depth-b" alt="" width="1536" height="1024" decoding="async" />
+        </div>
+      </div>
+      <header class="site-header bs-header">
         <h1>paul brinkmann, <span>m.sc.</span></h1>
         <span>artist &amp; architect</span>
       </header>
 
       <main id="main-content" tabindex="-1">
         <section class="index" id="index" aria-label="projects and products">
+          <div class="bs-scroll" role="region" aria-label="projects; scroll to zoom into the brain drawing">
+            <div class="bs-track">
+              <div class="bs-cycle">
           <figure class="art-statement">
             <blockquote><p><em>„all art.“</em></p></blockquote>
             <figcaption>paul</figcaption>
@@ -290,10 +304,13 @@
               </div>
             </details>
           </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
-      <footer>
+      <footer class="bs-footer">
         <p>paul brinkmann</p>
         <a href="mailto:brinkmannbuild@gmail.com">contact</a>
         <a href="https://www.instagram.com/buildpaul/" target="_blank" rel="noreferrer">@buildpaul</a>
