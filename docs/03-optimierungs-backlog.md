@@ -303,4 +303,4 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Paul hat die neue Vorschau ausdrücklich zur Veröffentlichung freigegeben: feine helle Gehirnkonturen, sichtbarere neuronale Verbindungen auch im Gehirn und dezente DNA.
 - Exakt das freigegebene Querformatmotiv als komprimiertes WebP übernommen; dazu eine angepasste Hochformatkomposition für schmale Bildschirme.
 - Ausschließlich Hintergrundgrafiken und Stylesheet-Cache erneuert. Transparente Projektzeilen, Layout, Texte, Links, Porträt-/Handschrift-Intro und JavaScript bleiben erhalten.
-- Umsetzung im Issue-Branch; unabhängiger statischer Agent-Review wird im PR dokumentiert. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+- Status: umgesetzt; PR #54, unabhängiger statischer Agent-Review ohne blockierende Befunde. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
