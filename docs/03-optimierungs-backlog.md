@@ -517,3 +517,12 @@ Rückmeldung Paul mit Screenshot: Die Milchstraßen-Galaxien erscheinen plötzli
   - Nahtstelle: Helligkeitssprung 0,04. Größter Helligkeitsschritt 1,1 (Desktop) bzw. 2,1 (Mobile) pro 0,02 Tiefe, jeweils beim Übergang in das dichtere Netz.
   - 45 Interaktionstests grün.
 
+### Nachtrag: Start mit dem ganzen Gehirn, pure zuerst (2026-10-07)
+
+Pauls Wunsch mit Foto: Wer auf die Seite kommt, sieht das ganze Gehirn; das ist die Startseite. Das erste Projekt ist pure, Untertitel „system for man“.
+
+- **Ursache:** Das Universum trieb seit #75 schon ab dem Laden der Seite langsam weiter, auch während des Intros. Bis der Leser das Rad sah, war das Gehirn längst hineingezoomt.
+- **Jetzt:** Das Treiben läuft nur noch im tiefen Teil (ab dem Kosmos). Das Gehirn beim Ankommen steht still und vollständig. Treibt der Flug bis zum nächsten Gehirn, bleibt er dort in derselben ruhigen Startansicht stehen. Am Start wird nicht laufend neu gezeichnet, das schont den Akku.
+- **Inhalt:** pure steht vor art, das Rad startet auf pure. Untertitel `system for man`. Das Inventar ist angepasst.
+- **Prüfung:** Hinter dem Intro und am Start wird nicht neu gezeichnet. In der Tiefe treibt es weiter (etwa 22 Bilder/s). 49 Interaktionstests grün, neu: Start auf pure, Startansicht bleibt still, Tippen auf die Zeile darüber dreht zurück.
+

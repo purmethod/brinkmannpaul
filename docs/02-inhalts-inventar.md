@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: pure zuerst, „system for man“ (2026-10-07)
+
+Auf Pauls Wunsch („das erste ist pure, und dann würde ich sagen system for man“): Reihenfolge im Rad pure, art, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture. Das Rad startet auf pure. Der Untertitel von pure lautet wieder `system for man` (statt der Kapitelliste „physis · understanding · responsibility · ego“). Texte, Kapitel und Links unverändert.
+
 ## Aktualisierung: Picker-Rad (2026-10-07)
 
 Reihenfolge im Rad: art, pure, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture (endlos). Texte und Links unverändert. Neu sind nur Anker pro Projekt, die die Leseansicht direkt öffnen: `#art`, `#pure`, `#mysidibou`, `#qefyr`, `#rye`, `#skyn`, `#alf`, `#wim-hof-weekends`, `#neuroarchitecture`.
