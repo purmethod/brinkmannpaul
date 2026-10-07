@@ -683,8 +683,11 @@
       const relative = portrait ? 0.6 : 0.45;
       const brainNode = portrait ? MACRO_NODE.tall : MACRO_NODE.wide;
       const node = [0, 1].map(axis => brainNode[axis] + (MICRO_FOCUS[axis] - MICRO_SOMA[axis]) * relative);
-      const scaleBrain = Math.max(width / imageWidth, height / imageHeight);
-      const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, node[1] * scaleBrain];
+      // On phones the visitor arrives at the whole drawing, exactly as Paul
+      // chose it: 97.5 % of the width, centred, its top 32 px below the page
+      // edge. Wide screens keep the drawing filling the view.
+      const scaleBrain = portrait ? width * 0.975 / imageWidth : Math.max(width / imageWidth, height / imageHeight);
+      const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, (portrait ? 32 : 0) + node[1] * scaleBrain];
       // The deep spheres open beside the wheel on wide screens and above it
       // on tall ones.
       const landscape = width > height * 1.1;

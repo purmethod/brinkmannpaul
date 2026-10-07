@@ -549,3 +549,11 @@ Pauls Wunsch mit Foto: Das Gehirn muss beim Ankommen deutlich erkennbar sein. Da
 - Paul: „anything we do …“ in normaler Schriftgröße in den Text. Als großer Einstieg steht stattdessen „all art.“. Am Ende: Was Kunst ist, definiert allein der Erschaffer, und es muss mindestens einem Menschen gefallen, dem, der es erschaffen hat. Letztes Wort „you.“
 - Umgesetzt in Pauls Worten, Kleinschreibung, ohne Gedankenstriche. `node scripts/test-site.mjs` grün.
 
+### Nachtrag: Startansicht exakt wie Pauls Foto (2026-10-07)
+
+Paul hat mit einem iPhone-Screenshot die Gehirngröße vorgegeben, die beim ersten Besuch zu sehen sein soll, mit pure in der Mitte.
+
+- **Vermessung:** Die Gehirnzeichnung (Mobile-Version) wurde rechnerisch auf den Screenshot gelegt; Maßstab und Lage folgen aus der besten Kreuzkorrelation. Ergebnis bei 393 px Breite: 0,374 CSS-px pro Bildpixel, 383 px breit (97,5 % der Breite), mittig, Oberkante 32 px unter dem Seitenrand.
+- **Umgesetzt für Hochformat:** Die Zeichnung startet mit 97,5 % der Breite, mittig, Oberkante bei 32 px, statt bildschirmfüllend und beschnitten. Desktop und Tablet bleiben bildschirmfüllend.
+- **Prüfung:** Gemessen bei 393 × 791 px Maßstab 0,3742, Breite 383,2 px, links 4,9 px, oben 32 px; „pure“ in der Mitte. Naht 0,01, mehrere Zyklen ohne Fehler, 49 Interaktionstests grün.
+
