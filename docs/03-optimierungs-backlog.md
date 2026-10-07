@@ -304,3 +304,11 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Exakt das freigegebene Querformatmotiv als komprimiertes WebP übernommen; dazu eine angepasste Hochformatkomposition für schmale Bildschirme.
 - Ausschließlich Hintergrundgrafiken und Stylesheet-Cache erneuert. Transparente Projektzeilen, Layout, Texte, Links, Porträt-/Handschrift-Intro und JavaScript bleiben erhalten.
 - Status: umgesetzt; PR #54, unabhängiger statischer Agent-Review ohne blockierende Befunde. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+
+
+## Issue #55 — Instagram auf @buildpaul korrigiert (2026-10-07)
+
+- Paul hat den richtigen Handle klargestellt: @buildpaul.
+- Instagram-Linkziele, sichtbare Follow-/Footer-Texte und strukturierte Social-Metadaten auf der Startseite sowie der 404-Seite korrigiert.
+- E-Mail-Adressen, Shop-Links, Texte, Design und Intro unverändert.
+- Umsetzung im Issue-Branch mit unabhängigem statischem Agent-Review im PR. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
