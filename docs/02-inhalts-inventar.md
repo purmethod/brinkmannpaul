@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Picker-Rad (2026-10-07)
+
+Reihenfolge im Rad: art, pure, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture (endlos). Texte und Links unverändert. Neu sind nur Anker pro Projekt, die die Leseansicht direkt öffnen: `#art`, `#pure`, `#mysidibou`, `#qefyr`, `#rye`, `#skyn`, `#alf`, `#wim-hof-weekends`, `#neuroarchitecture`.
+
 ## Aktualisierung: Landingpage fertigstellen (2026-10-02)
 
 Reihenfolge: pure, mysidibou, qefyr, rye, skyn, âlf, wim hof weekends, neuroarchitecture. Alle acht Zeilen sind aufklappbar, haben Text und eine Aktion.
