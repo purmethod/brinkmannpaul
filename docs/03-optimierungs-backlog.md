@@ -500,3 +500,20 @@ Pauls Wunsch: Die Schrift im Rad verbessern, etwas kleiner und links angeschlage
 - Die Leseansicht zieht mit: Titel, Linien und Text stehen an derselben Kante wie im Rad (Spalte = Bandbreite), beim Öffnen springt nichts.
 - Prüfung: gemessen auf Desktop, Mobile und 320 px. Alle sichtbaren Namen beginnen an der Bandkante (472 bzw. 20 px), der längste Name endet weit vor dem „+“, der Lesetitel steht an derselben x-Position. 45 Interaktionstests grün.
 
+### Nachtrag: tiefer statt vorbei, alles verbunden (2026-10-07)
+
+Rückmeldung Paul mit Screenshot: Die Milchstraßen-Galaxien erscheinen plötzlich und schweben allein. Das ist unrealistisch, denn im Gehirn ist alles verbunden. Man soll tiefer und tiefer gehen und so in immer andere Sphären gelangen.
+
+- **Kein Sternenfeld mehr:** Die frei fliegenden Neuronen-Sterne, die einzelnen Galaxien und der Staub sind entfernt (`neuro-stars.webp`, `neuro-galaxy.webp`).
+- **Verbundene Sphären:** Jede Ebene wächst aus dem zentralen Neuron der vorigen, das Netz reißt nie ab.
+  - Abfolge: Mikrostruktur → Kortex → Kosmos → kosmisches Netz → Kosmos → Kortex → kosmisches Netz → Kosmos → Kortex → nächstes Gehirn.
+  - Abstand zwischen zwei Sphären: 0,85 Tiefe. Übergabe, solange die Zeichnung scharf ist (bis etwa 1,3–1,9-fach).
+- **Neue Zeichnung `neuro-web.webp`** (677 KB, Higgsfield, Mikrostruktur als Stilvorlage): das kosmische Netz aus Neuronen. Knoten sind Neuronen-Haufen, verbunden durch Axon- und Dendritenfasern, dazwischen offene Leerräume. Mittelknoten bei (1003, 973).
+  - Grundlage: Vazza & Feletti, Frontiers in Physics 2020. Sie verglichen das Neuronennetz des Gehirns quantitativ mit dem kosmischen Netz und fanden über 27 Größenordnungen vergleichbare Komplexität und Selbstorganisation.
+- **Sog:** Über den Flug dreht sich die ganze Ansicht einmal langsam um 360°. Weil es genau eine Umdrehung ist, kommt das nächste Gehirn aufrecht an und die Naht bleibt unsichtbar. Jede wiederkehrende Sphäre ist zusätzlich anders gedreht, damit sie sich nicht wiederholt anfühlt.
+- **Prüfung (ohne Screenshots):**
+  - `node --check`, `node scripts/test-site.mjs` und eslint ohne Befund.
+  - Mehrere Zyklen ohne Konsolenfehler.
+  - Nahtstelle: Helligkeitssprung 0,04. Größter Helligkeitsschritt 1,1 (Desktop) bzw. 2,1 (Mobile) pro 0,02 Tiefe, jeweils beim Übergang in das dichtere Netz.
+  - 45 Interaktionstests grün.
+
