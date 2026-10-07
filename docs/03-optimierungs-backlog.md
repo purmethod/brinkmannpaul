@@ -287,3 +287,12 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Auf Pauls Wunsch führt order qefyr jetzt zu https://qefyr.com/ statt zur Bestell-E-Mail.
 - Beschriftung erhalten; Shop öffnet wie âlf in einem neuen Tab mit rel=noreferrer.
 - Alle anderen Inhalte und Links unverändert. Unabhängiger statischer Review im PR; keine Tests, Screenshots oder lokalen Builds gemäß Nutzeranweisung.
+
+
+## Issue #51 — Abstrakte Gehirnzeichnung ohne „i build.“ (2026-10-07)
+
+- Paul hat den letzten Entwurf (05) zur Veröffentlichung freigegeben: abstraktes Gehirn, DNA und neuronale Verbindungen als feine graue Bleistiftzeichnung.
+- Zwei transparente WebP-Grafiken für Quer- und Hochformat halten die zentralen Motive auch auf schmalen Bildschirmen sichtbar. Der feste Hintergrund bleibt beim Öffnen langer Kapitel präsent, Projektzeilen bleiben transparent.
+- Die große Zeile „i build.“ entfernt, Projektliste direkt unter den kleinen Header gerückt; keine Ersatz-Headline. Social-Beschreibungen und 404-Rücklink angepasst.
+- Porträt/Handschrift-Intro, JavaScript, alle Projekttexte und bestehende Shop-/Instagram-Links bleiben unverändert.
+- Unabhängiger statischer Agent-Review wird im PR dokumentiert. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
