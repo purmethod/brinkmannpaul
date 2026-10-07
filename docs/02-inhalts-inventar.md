@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: art-Text, „all art.“ und „you.“ (2026-10-07)
+
+Auf Pauls Vorgabe: Der große Einstiegssatz ist jetzt „all art.“. „anything we do can become art when we bring love to it.“ steht als normaler Absatz im Text. Neuer Schluss: „all art means everything is art when it is made with love. what art is, only its creator defines. and it has to please at least one person in this world: the person who created it.“ Letzte Zeile: „you.“
+
 ## Aktualisierung: art-Text, KI und Liebe (2026-10-07)
 
 Auf Pauls Vorgabe (sinngemäß, seine Worte beibehalten):
