@@ -8,6 +8,31 @@
   // appears in the distance: the dive never turns back. Everything is drawn
   // in graphite on white. Without JavaScript the plain project list remains.
 
+  // Pure's chapters read one at a time: opening one closes the others, also
+  // where <details name> is unsupported, and the tapped chapter stays under
+  // the finger instead of jumping when a longer one above it closes.
+  let tapped = null;
+  document.addEventListener('click', event => {
+    const summary = event.target.closest && event.target.closest('details.pure-branch > summary');
+    if (summary) tapped = { summary, top: summary.getBoundingClientRect().top };
+  }, true);
+  document.addEventListener('toggle', event => {
+    const opened = event.target;
+    if (!opened.matches || !opened.matches('details.pure-branch') || !opened.open) return;
+    const others = [...document.querySelectorAll('details.pure-branch')].filter(other => other !== opened);
+    others.forEach(other => {
+      other.classList.add('is-snapping');
+      other.open = false;
+    });
+    const summary = opened.querySelector('summary');
+    if (tapped && tapped.summary === summary) {
+      const shift = summary.getBoundingClientRect().top - tapped.top;
+      if (Math.abs(shift) > 1) (opened.closest('.bs-reader-scroll') || window).scrollBy(0, shift);
+    }
+    tapped = null;
+    requestAnimationFrame(() => others.forEach(other => other.classList.remove('is-snapping')));
+  }, true);
+
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
   const section = root && root.querySelector('.index');

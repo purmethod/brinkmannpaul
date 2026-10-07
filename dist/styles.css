@@ -616,6 +616,9 @@ a:focus-visible {
   .pure-branch[open]::details-content {
     block-size: auto;
   }
+
+  /* A chapter closed because another opened shuts at once, so the opened one stays put. */
+  .pure-branch.is-snapping::details-content { transition: none; }
 }
 
 /* Paul's art statement sits above the project list. */
