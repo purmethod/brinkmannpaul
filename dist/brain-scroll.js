@@ -326,9 +326,10 @@
     // wheel the visitor turns by hand.
     eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
-    // The universe never stands quite still: it floats on by itself, except
-    // while a text is read or motion is reduced.
-    const floating = reading < 0 && !reduced.matches;
+    // Deep in the universe nothing stands quite still: it floats on by
+    // itself, except while a text is read or motion is reduced. The brain the
+    // visitor arrives at, and the one the flight ends in, stays calm and whole.
+    const floating = reading < 0 && !reduced.matches && mod(depthAt(eased) + drift, dive.cycle) > dive.open;
     if (floating) drift += elapsed * DRIFT;
     dive.draw(depthAt(eased) + drift);
     if (pos !== lastPosition) {
@@ -607,7 +608,7 @@
     const STEP = 0.85; // depth between two spheres of the flight
     const ENTER = 0.3; // a sphere takes over this far before its natural size
 
-    const api = { pace: 0.14, cycle: 12, resize, draw };
+    const api = { pace: 0.14, cycle: 12, open: 12, resize, draw };
     const sheets = Object.fromEntries(Object.entries(SHEETS).map(([name, sheet]) => [name, { ...sheet, state: 'idle', image: null }]));
     const chain = [
       ...WAY,
@@ -703,6 +704,7 @@
         back: [cycle - 3.2, cycle - 1.6],
         turn: [opening, cycle - 1.6],
       };
+      api.open = opening;
       api.cycle = cycle;
       lastDepth = NaN;
       load(micro);
