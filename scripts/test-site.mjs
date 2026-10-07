@@ -106,24 +106,35 @@ s = boot({ legacy: true }); s.motion.listener({ matches: true }); assert.ok(stil
 s = boot({ hash: '#main-content' }); released(s); assert.ok(s.animation.paused);
 s = boot({ missing: '#intro-animation' }); released(s);
 
-// Content: every project row opens, has copy and an action.
+// Content: every project row opens and has copy; every product has an action.
+// The wheel and reader are built from these rows, so their ids are deep links.
 const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('</section>'));
-const items = list.split(/<details class="project-item">/).slice(1);
+const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
-assert.equal(items.length, 8);
-for (const item of items) {
-  const name = item.match(/<h2 class="item-name">([^<]+)/)[1].trim();
+assert.equal(items.length, 9, 'nine projects, each with an id');
+assert.equal(new Set(items.map(item => item[1])).size, 9, 'project ids are unique');
+for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
-  assert.ok(/<p[ >]/.test(story), `${name} has copy`);
-  assert.ok(/<a href="(mailto:|https:)/.test(story), `${name} has a call to action`);
+  assert.ok(/<p[ >]/.test(story), `${id} has copy`);
+  if (id !== 'art') assert.ok(/<a href="(mailto:|https:)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
-assert.ok(html.includes('<p>i build.</p>'));
+
+// Picker wheel and brain dive: valid script, its drawing exists and stays small.
+const wheel = fs.readFileSync(path.join(root, 'dist/brain-scroll.js'), 'utf8');
+new vm.Script(wheel, { filename: 'brain-scroll.js' });
+assert.ok(html.includes('brain-scroll.js'), 'page loads the wheel');
+assert.ok(wheel.includes("matchMedia('(prefers-reduced-motion: reduce)')"), 'wheel respects reduced motion');
+for (const [, local] of wheel.matchAll(/'(assets\/[^']+)'/g)) {
+  const file = path.join(root, 'dist', local);
+  assert.ok(fs.existsSync(file), `Missing ${local}`);
+  assert.ok(fs.statSync(file).size < 300 * 1024, `${local} exceeds 300 KB`);
+}
 
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of [['dist', html], ['dist', notFound]]) {
-  for (const [, local] of source.matchAll(/(?:src|href)="([^"#]+)"/g)) {
+  for (const [, local] of source.matchAll(/(?:src|srcset|href)="([^"#]+)"/g)) {
     if (/^(https?:|mailto:|data:)/.test(local) || local === '/') continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
     assert.ok(fs.existsSync(file), `Missing ${local}`);
@@ -133,4 +144,4 @@ for (const [page, source] of [['dist', html], ['dist', notFound]]) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 8 clickable projects with copy and actions, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, local assets, og image.');

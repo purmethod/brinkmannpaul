@@ -41,9 +41,9 @@
     />
     <link rel="preload" href="assets/paul-portrait.jpeg" as="image" type="image/jpeg" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=57" />
-    <link rel="stylesheet" href="brain-scroll.css?v=59b" />
+    <link rel="stylesheet" href="brain-scroll.css?v=64" />
     <script src="app.js?v=25" defer></script>
-    <script src="brain-scroll.js?v=59b" defer></script>
+    <script src="brain-scroll.js?v=64" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">skip to projects</a>
@@ -71,17 +71,6 @@
           <source media="(max-width: 580px)" srcset="assets/neuroscience-light-mobile.webp" />
           <img src="assets/neuroscience-light-desktop.webp" alt="" width="1536" height="1024" decoding="async" />
         </picture>
-        <div class="bs-micro">
-          <div class="bs-detail-layer bs-depth-a">
-            <img src="assets/neuroscience-microstructure.webp" alt="" width="1536" height="1024" decoding="async" />
-          </div>
-          <div class="bs-detail-layer bs-depth-b">
-            <img alt="" width="1536" height="1024" decoding="async" />
-          </div>
-          <div class="bs-detail-layer bs-depth-c">
-            <img alt="" width="1536" height="1024" decoding="async" />
-          </div>
-        </div>
       </div>
       <header class="site-header bs-header">
         <h1>paul brinkmann, <span>m.sc.</span></h1>
@@ -90,9 +79,6 @@
 
       <main id="main-content" tabindex="-1">
         <section class="index" id="index" aria-label="projects and products">
-          <div class="bs-scroll" role="region" aria-label="projects; scroll to zoom into the brain drawing">
-            <div class="bs-track">
-              <div class="bs-cycle">
           <div class="project-list">
             <details class="project-item" id="art">
               <summary>
@@ -114,7 +100,7 @@
                 </div>
               </div>
             </details>
-            <details class="project-item">
+            <details class="project-item" id="pure">
               <summary>
                 <h2 class="item-name">pure</h2>
                 <span class="item-type pure-descriptor">physis · understanding · responsibility · ego</span>
@@ -176,7 +162,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="mysidibou">
               <summary>
                 <h2 class="item-name">mysidibou</h2>
                 <span class="item-type">unesco project</span>
@@ -194,7 +180,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="qefyr">
               <summary>
                 <h2 class="item-name">qefyr <span class="by-brinkmann">by brinkmann</span></h2>
                 <span class="item-type">living kefir cultures</span>
@@ -212,7 +198,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="rye">
               <summary>
                 <h2 class="item-name">rye <span class="by-brinkmann">by brinkmann</span></h2>
                 <span class="item-type">sourdough starter · german organic rye</span>
@@ -229,7 +215,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="skyn">
               <summary>
                 <h2 class="item-name">skyn <span class="by-brinkmann">by brinkmann</span></h2>
                 <span class="item-type">beef tallow skin care</span>
@@ -246,7 +232,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="alf">
               <summary>
                 <h2 class="item-name">âlf</h2>
                 <span class="item-type">the talking sourdough</span>
@@ -260,7 +246,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="wim-hof-weekends">
               <summary>
                 <h2 class="item-name">wim hof weekends</h2>
                 <span class="item-type">poland · november & december</span>
@@ -278,7 +264,7 @@
               </div>
             </details>
 
-            <details class="project-item">
+            <details class="project-item" id="neuroarchitecture">
               <summary>
                 <h2 class="item-name">neuroarchitecture</h2>
                 <span class="item-type">phd</span>
@@ -306,9 +292,6 @@
                 <a href="mailto:brinkmannbuild@gmail.com?subject=neuroarchitecture">get in touch ↗</a>
               </div>
             </details>
-          </div>
-              </div>
-            </div>
           </div>
         </section>
       </main>
