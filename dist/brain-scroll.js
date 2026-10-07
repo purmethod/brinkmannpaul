@@ -610,7 +610,7 @@
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const CHAIN = [
       { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
-      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [982, 939], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.72 },
+      { name: 'inside', src: 'assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.8 },
       { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], scale: 0.39, enter: 0, ink: 0.72 },
     ];
     const GALAXY = 600; // radius of the galaxy in the last drawing, in its pixels
@@ -700,7 +700,7 @@
       );
       micro.handover = Math.log(reach * 1.12);
       chain.slice(1).forEach(level => { level.handover = level.native - level.enter; });
-      // The galaxy blooms out of the swirl inside the cubic millimetre and
+      // The galaxy blooms out of the central neuron of the cubic millimetre and
       // settles at a size that suits the screen: wide on desktop, filling a phone.
       const inside = chain[1];
       const universe = chain[2];
@@ -732,12 +732,11 @@
       const travelled = smooth(camera.drift[0], camera.drift[1], depth);
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * travelled;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * travelled;
-      const inside = chain[1];
+      const universe = chain[2];
       // A drawing that has not arrived yet leaves the previous one in place.
       const ready = chain.map(level => level.state === 'ready');
-      // From the inside of the cubic millimetre on, the drawings are dense
-      // behind the wheel, so the type gets a white veil.
-      const dense = ready[1] ? smooth(inside.handover - 0.5, inside.handover, depth) : 0;
+      // The galaxy is dense behind the wheel, so the type gets a white veil.
+      const dense = ready[2] ? smooth(universe.handover - 0.5, universe.handover, depth) : 0;
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
