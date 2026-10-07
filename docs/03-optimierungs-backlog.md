@@ -295,4 +295,4 @@ Auftrag Paul: Fehler finden, flüssig machen, fehlende Texte ergänzen, jede Zei
 - Zwei transparente WebP-Grafiken für Quer- und Hochformat halten die zentralen Motive auch auf schmalen Bildschirmen sichtbar. Der feste Hintergrund bleibt beim Öffnen langer Kapitel präsent, Projektzeilen bleiben transparent.
 - Die große Zeile „i build.“ entfernt, Projektliste direkt unter den kleinen Header gerückt; keine Ersatz-Headline. Social-Beschreibungen und 404-Rücklink angepasst.
 - Porträt/Handschrift-Intro, JavaScript, alle Projekttexte und bestehende Shop-/Instagram-Links bleiben unverändert.
-- Unabhängiger statischer Agent-Review wird im PR dokumentiert. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
+- Status: umgesetzt; PR #52, unabhängiger statischer Agent-Review ohne blockierende Befunde. Keine Tests, Screenshots, Browservorschauen oder lokalen Builds gemäß Pauls Anweisung.
