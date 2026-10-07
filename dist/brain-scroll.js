@@ -305,6 +305,14 @@
     return rowsTurned * dive.pace;
   }
 
+  let veiled = -1;
+  function paint(amount) {
+    const cover = Math.round(amount * 50) / 50;
+    if (cover === veiled) return;
+    veiled = cover;
+    root.style.setProperty('--veil', String(cover));
+  }
+
   function schedule() {
     if (!frame) frame = requestAnimationFrame(tick);
   }
@@ -332,6 +340,7 @@
     const floating = reading < 0 && !reduced.matches && mod(depthAt(eased) + drift, dive.cycle) > dive.open;
     if (floating) drift += elapsed * DRIFT;
     dive.draw(depthAt(eased) + drift);
+    paint(dive.veil);
     if (pos !== lastPosition) {
       layoutWheel(pos);
       lastPosition = pos;
@@ -597,18 +606,19 @@
       web: { src: 'assets/neuro-web.webp', focus: [1003, 973], size: [1920, 1920] },
     };
     const INK = { inside: 0.8, cosmos: 0.85, web: 0.85 };
-    // The way in, then the flight: every sphere grows out of the central
-    // neuron of the one before, so the network never comes apart.
+    // The way in, then the flight through universe-like spheres only: every
+    // sphere grows out of the central neuron of the one before, so the
+    // network never comes apart.
     const WAY = [
       { name: 'micro' },
       { name: 'inside', scale: 1 / Math.E },
       { name: 'cosmos', scale: Math.exp(-0.8) },
     ];
-    const FLIGHT = ['web', 'cosmos', 'inside', 'web', 'cosmos', 'inside'];
+    const FLIGHT = ['web', 'cosmos', 'web', 'cosmos', 'web', 'cosmos'];
     const STEP = 0.85; // depth between two spheres of the flight
     const ENTER = 0.3; // a sphere takes over this far before its natural size
 
-    const api = { pace: 0.14, cycle: 12, open: 12, resize, draw };
+    const api = { pace: 0.14, cycle: 12, open: 12, veil: 0.5, resize, draw };
     const sheets = Object.fromEntries(Object.entries(SHEETS).map(([name, sheet]) => [name, { ...sheet, state: 'idle', image: null }]));
     const chain = [
       ...WAY,
@@ -698,7 +708,7 @@
       const cycle = chain[chain.length - 1].handover + 1.6;
       camera = {
         node, start, finish, scaleBrain,
-        ink: portrait ? 0.6 : 0.74,
+        ink: 0.95,
         inkMicro: portrait ? 0.5 : 0.58,
         out: [0.4, opening],
         back: [cycle - 3.2, cycle - 1.6],
@@ -734,6 +744,10 @@
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * away;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * away;
       const spin = TAU * smooth(camera.turn[0], camera.turn[1], depth);
+      // The brain the visitor arrives at stays clearly visible behind a light
+      // veil; deeper in, the veil grows so the names stay clear of the web.
+      const deep = smooth(chain[0].handover - 0.5, chain[0].handover + 0.3, depth) * (1 - smooth(api.cycle - 1.5, api.cycle - 0.2, depth));
+      api.veil = 0.5 + 0.35 * deep;
       // A drawing that has not arrived yet leaves the previous one in place.
       const ready = chain.map(level => level.sheet.state === 'ready');
 
