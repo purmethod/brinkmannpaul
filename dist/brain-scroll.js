@@ -3,9 +3,10 @@
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
   // Turning the wheel zooms slowly from the approved brain drawing through the
-  // approved microstructure into a cubic millimetre of cortex, a galaxy of
-  // neurons, one synapse and its molecules, until a vesicle holds the next
-  // brain: the dive never turns back. Every level is a fine drawing on white. Without JavaScript the plain project list remains.
+  // approved microstructure into a cubic millimetre of cortex, a cosmos of
+  // neurons, a galaxy of neurons, one synapse and its molecules, until a
+  // vesicle holds the next brain: the dive never turns back. Every level is a
+  // fine drawing on white. Without JavaScript the plain project list remains.
 
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
@@ -270,10 +271,10 @@
     if (reading < 0) haptic();
   }
 
-  // Depth only grows while the wheel turns on: two revolutions reach the
-  // galaxy, and the dive carries on into the next brain without a seam.
+  // Depth only grows while the wheel turns on: three calm revolutions reach
+  // the galaxy, and the dive carries on into the next brain without a seam.
   function depthAt(rowsTurned) {
-    return rowsTurned * dive.deepest / (2 * count);
+    return rowsTurned * dive.deepest / (3 * count);
   }
 
   function schedule() {
@@ -551,7 +552,8 @@
     // A chain of drawings, each nested at the focus point of the one before:
     // the approved brain and microstructure, the inside of one cubic
     // millimetre of cortex (after the H01 reconstruction, Harvard and Google),
-    // the universe at its core, one synapse as electron microscopy shows it,
+    // its network drawn as a cosmos whose stars are neurons, a galaxy of
+    // neurons in its brightest star, one synapse as electron microscopy shows it,
     // and its molecules as cryo-electron tomography shows them. The open
     // vesicle at their centre holds the next brain.
     const MICRO_FOCUS = [1000, 506];
@@ -560,7 +562,8 @@
     const CHAIN = [
       { name: 'micro', src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
       { name: 'inside', src: 'assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.8 },
-      { name: 'universe', src: 'assets/neuro-universe.webp', focus: [960, 950], size: [1920, 1920], ink: 0.72, leave: [-0.95, -0.05] },
+      { name: 'cosmos', src: 'assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920], scale: 1 / Math.E, enter: 0.3, ink: 0.85 },
+      { name: 'galaxy', src: 'assets/neuro-galaxy.webp', focus: [964, 967], size: [1920, 1920], ink: 0.85, leave: [-0.95, -0.05] },
       { name: 'synapse', src: 'assets/neuro-synapse.webp', focus: [985, 876], size: [1920, 1920], ink: 0.85, rise: 1 },
       { name: 'molecules', src: 'assets/neuro-molecules.webp', focus: [960, 882], size: [1920, 1920], ink: 0.85 },
     ];
@@ -630,16 +633,17 @@
       const node = [0, 1].map(axis => brainNode[axis] + (MICRO_FOCUS[axis] - MICRO_SOMA[axis]) * relative);
       const scaleBrain = Math.max(width / imageWidth, height / imageHeight);
       const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, node[1] * scaleBrain];
-      // The heart of the universe settles beside the wheel on wide screens
+      // The heart of the galaxy passes beside the wheel on wide screens
       // and above it on tall ones.
       const landscape = width > height * 1.1;
       const side = width / 2 - Math.min(248, (width - 40) / 2);
       const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, height * 0.3];
 
       // Scales: screen pixels per drawing pixel before any zoom.
-      const [micro, inside, universe, synapse, molecules] = chain;
+      const [micro, inside, cosmos, galaxy, synapse, molecules] = chain;
       micro.k = scaleBrain * relative;
       inside.k = micro.k * inside.scale;
+      cosmos.k = inside.k * cosmos.scale;
       // The microstructure takes over once it covers the screen.
       const reach = Math.max(
         start[0] / (micro.focus[0] * micro.k),
@@ -649,15 +653,17 @@
       );
       micro.handover = Math.log(reach * 1.12);
       inside.handover = Math.log(1 / inside.k) - inside.enter;
-      // The galaxy blooms out of the central neuron of the cubic millimetre and
+      // Its central neuron opens into the network drawn as a cosmos,
+      cosmos.handover = Math.log(1 / cosmos.k) - cosmos.enter;
+      // and its brightest neuron-star blooms into a galaxy of neurons that
       // passes at a size that suits the screen: wide on desktop, filling a phone.
-      const deepest = inside.handover + 1.35;
-      const [fx, fy] = universe.focus;
-      const [uw, uh] = universe.size;
+      const deepest = cosmos.handover + 1.35;
+      const [fx, fy] = galaxy.focus;
+      const [uw, uh] = galaxy.size;
       const cover = Math.max(finish[0] / fx, finish[1] / fy, (width - finish[0]) / (uw - fx), (height - finish[1]) / (uh - fy)) / 0.86;
-      const galaxy = Math.max((landscape ? 0.5 * width : 0.62 * width) / GALAXY, cover);
-      universe.k = galaxy / Math.exp(deepest);
-      universe.handover = deepest - 0.6;
+      const galaxyScale = Math.max((landscape ? 0.5 * width : 0.62 * width) / GALAXY, cover);
+      galaxy.k = galaxyScale / Math.exp(deepest);
+      galaxy.handover = deepest - 0.6;
       // Flying on into its heart, the galaxy dissolves into one synapse,
       synapse.handover = deepest + 1.2;
       synapse.k = Math.exp(-(synapse.handover + 0.35));
