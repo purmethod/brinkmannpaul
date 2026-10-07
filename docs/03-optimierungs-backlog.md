@@ -412,3 +412,11 @@ Rückmeldung Paul nach Livegang von #68: „wie auf dem ersten Foto [Mikrostrukt
 - Tuschestärke 80 %. Der weiße Schleier hinter dem Rad kommt erst mit der Galaxie, das Innere steht wie die Mikrostruktur ohne Schleier.
 - Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint, Rauchtest Desktop und Mobile bis zum tiefsten Punkt ohne Konsolenfehler.
 
+### Nachtrag: beim Antippen nur eine Sache aufklappen (2026-10-07)
+
+Pauls Wunsch: „beim Draufklicken nur eine Sache aufklappen“, auf Nachfrage für beides entschieden.
+
+- Die Leseansicht zeigt nur das angetippte Projekt. Die folgenden Projekte stehen nicht mehr darunter, und Weiterlesen dreht das Rad nicht mehr. Das ersetzt den Lesefluss ins nächste Thema aus #66.
+- In pure ist immer nur ein Kapitel offen: Öffnet man ein anderes, schließt sich das vorige. Das läuft nativ über `<details name="pure-chapter">`, ohne zusätzliches Skript, und gilt auch in der Liste ohne JavaScript.
+- Prüfung (reduziert, ohne Screenshots): `node --check`, `node scripts/test-site.mjs`, eslint und ein Rauchtest auf Desktop und Mobile. Er zeigt einen Abschnitt in der Leseansicht und genau ein offenes Kapitel, Escape schließt die Ansicht und leert die Adresse, keine Konsolenfehler.
+
