@@ -518,8 +518,19 @@
     schedule();
   }
 
+  // A photo opens whole and uncropped over the text; tap, × or Escape closes it.
+  let photo = null;
+  const closePhoto = () => {
+    if (!photo) return;
+    const { view, link } = photo;
+    photo = null;
+    view.remove();
+    if (reader.open) link.focus({ preventScroll: true });
+  };
+
   function close(fromHistory = false) {
     if (reading < 0) return;
+    closePhoto();
     const last = reading;
     reading = -1;
     picks.forEach(button => button.setAttribute('aria-expanded', 'false'));
@@ -547,9 +558,25 @@
     schedule();
   }
 
+  reader.addEventListener('click', event => {
+    const link = event.target.closest('.photo-open');
+    if (!link) return;
+    event.preventDefault();
+    closePhoto();
+    const view = make('div', 'photo-view', { role: 'dialog', 'aria-modal': 'true', 'aria-label': link.getAttribute('aria-label') || '' });
+    const image = make('img', '', { src: link.href, alt: link.querySelector('img')?.alt || '' });
+    const shut = make('button', 'photo-shut', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
+    view.append(image, shut);
+    view.addEventListener('click', closePhoto);
+    reader.append(view);
+    photo = { view, link };
+    shut.focus({ preventScroll: true });
+  });
+
   reader.addEventListener('cancel', event => {
     event.preventDefault();
-    close();
+    if (photo) closePhoto();
+    else close();
   });
   closer.addEventListener('click', () => close());
   sections.forEach(entry => entry.shut.addEventListener('click', () => close()));
