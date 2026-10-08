@@ -2,7 +2,7 @@
 
 const TOPICS: [string, RegExp][] = [
   ["Gewalt/Krise", /gew[äa]lt|bedroh|suizid|selbstmord|schl[äa]gt|geschlagen/i],
-  ["Streit", /streit|gestritten|zoff|anschrei|geschrien|lauter|vorw[üu]rf|eskal/i],
+  ["Streit", /streit|gestritten|zoff|schrei|geschrien|lauter|vorw[üu]rf|eskal/i],
   ["Wut", /wut|w[üu]tend|sauer|aggress|ausgerastet|ausrasten/i],
   ["Eifersucht", /eifers[üu]cht|eifers[üu]chtig|ex[- ]?freund|fremdgeh/i],
   ["Vertrauen", /vertrau|gelogen|l[üu]ge|betrug|betrogen/i],

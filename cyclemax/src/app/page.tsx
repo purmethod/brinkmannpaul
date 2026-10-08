@@ -1,69 +1,146 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { AFTER_ENTRY_TEXT, PHASES } from "@shared/texts";
+import { Gate } from "@/components/Gate";
+import { IconSettings } from "@/components/icons";
+import { Ring } from "@/components/Ring";
+import { Thumbs } from "@/components/Thumbs";
+import { Button, Screen, Sheet } from "@/components/ui";
+import { Wheel } from "@/components/Wheel";
+import { addBleeding } from "@/engine/cycle";
+import type { DateStr } from "@/engine/dates";
+import { api } from "@/lib/api";
+import { useApp } from "@/lib/app-context";
+import { pastDays } from "@/lib/format";
+import { useCycle, useToday, useTodayLine } from "@/lib/hooks";
+import type { AppState } from "@/lib/state";
+import type { Adapters } from "@/adapters";
+
+export default function HomePage() {
+  return <Gate>{(state, adapters) => <Home state={state} adapters={adapters} />}</Gate>;
+}
+
+function Home({ state, adapters }: { state: AppState; adapters: Adapters }) {
+  const { update } = useApp();
+  const today = useToday();
+  const cycle = useCycle(state, today);
+  const line = useTodayLine(state, today);
+  const [sheet, setSheet] = useState(false);
+  const [pick, setPick] = useState<DateStr>(today);
+  const [toast, setToast] = useState<{ prev: DateStr[] } | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => void (toastTimer.current && clearTimeout(toastTimer.current)), []);
+
+  const logBleeding = (date: DateStr) => {
+    const prev = state.entries;
+    update({ entries: addBleeding(prev, date) });
+    void adapters.platform.haptic("success");
+    setToast({ prev });
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToast(null), 8000);
+  };
+
+  const vote = (v: 1 | -1) => {
+    if (!line) return;
+    void adapters.platform.haptic("impact");
+    update((s) => ({ lineVotes: { ...s.lineVotes, [line.id]: v } }));
+    api.feedback(state.deviceId, "line", line.id, v).catch(() => undefined);
+  };
+
+  const single = state.mode === "single";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <Screen>
+      <header className="flex h-12 items-center justify-end">
+        <Link href="/settings/" aria-label="Einstellungen" className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full active:bg-surface">
+          <IconSettings />
+        </Link>
+      </header>
+
+      <section className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
+        {!single && cycle && (
+          <div className="fade-up flex flex-col items-center gap-6">
+            <Ring phase={cycle.phase} />
+            <p className="max-w-[20rem] text-[19px] leading-snug font-medium" data-testid="attitude">
+              {PHASES[cycle.phase].attitude}
+            </p>
+          </div>
+        )}
+        {!single && !cycle && (
+          <p className="max-w-[18rem] text-[19px] leading-snug">Trag den ersten Tag ihrer letzten Blutung ein.</p>
+        )}
+
+        {line && (
+          <figure className={`fade-up flex flex-col items-center gap-2 ${single ? "" : "border-t border-line pt-6"} w-full`}>
+            <blockquote
+              className={single ? "max-w-[20rem] text-[28px] leading-tight font-semibold tracking-tight" : "max-w-[20rem] text-[16px] leading-relaxed text-muted"}
+              data-testid="daily-line"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              {line.text}
+            </blockquote>
+            <Thumbs value={state.lineVotes[line.id]} onVote={vote} label="Zeile bewerten" />
+          </figure>
+        )}
+      </section>
+
+      {toast && (
+        <div role="status" className="fade-up mb-4 flex items-center justify-between gap-4 rounded-2xl bg-surface px-5 py-4">
+          <p className="text-[15px] leading-snug" data-testid="after-entry">{AFTER_ENTRY_TEXT}</p>
+          <button
+            type="button"
+            className="shrink-0 text-[15px] font-medium underline underline-offset-4"
+            onClick={() => {
+              update({ entries: toast.prev });
+              setToast(null);
+            }}
+          >
+            Rückgängig
+          </button>
+        </div>
+      )}
+
+      <nav className="flex flex-col gap-3">
+        {!single && (
+          <>
+            <Button variant="danger" onClick={() => logBleeding(today)} data-testid="bleeding">
+              Blutung hat begonnen
+            </Button>
+            <button
+              type="button"
+              className="mx-auto -mt-1 h-9 px-3 text-[14px] text-muted underline-offset-4 hover:underline"
+              onClick={() => {
+                setPick(today);
+                setSheet(true);
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              anderes Datum
+            </button>
+          </>
+        )}
+        <Link href="/chat/" className="flex min-h-14 w-full items-center justify-center rounded-2xl bg-ink px-6 text-[17px] font-medium text-white">
+          Chat
+        </Link>
+      </nav>
+
+      <Sheet open={sheet} onClose={() => setSheet(false)} title="Erster Tag der Blutung">
+        <Wheel items={pastDays(today, 45)} value={pick} onChange={setPick} label="Datum" testId="date-wheel" />
+        <div className="mt-6 flex flex-col gap-3">
+          <Button
+            onClick={() => {
+              logBleeding(pick);
+              setSheet(false);
+            }}
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Eintragen
+          </Button>
+          <Button variant="ghost" onClick={() => setSheet(false)}>
+            Abbrechen
+          </Button>
         </div>
-      </main>
-    </div>
+      </Sheet>
+    </Screen>
   );
 }

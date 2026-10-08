@@ -56,3 +56,22 @@ export const api = {
 };
 
 export type Api = typeof api;
+
+/** /admin (web only). The password is sent as Bearer token and kept in sessionStorage. */
+export function adminApi(password: string) {
+  const auth = { authorization: `Bearer ${password}` };
+  const req = <T>(method: string, path: string, body?: unknown) =>
+    call<T>(path, { method, headers: auth, body: body === undefined ? undefined : json(body) }, 90_000);
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    overview: () => req<any>("GET", "/api/admin/overview"),
+    patchLine: (id: string, patch: { text?: string; status?: string; category?: string }) => req("PATCH", `/api/admin/lines/${id}`, patch),
+    deleteLine: (id: string) => req("DELETE", `/api/admin/lines/${id}`),
+    addLine: (text: string, category: string) => req("POST", "/api/admin/lines", { text, category }),
+    patchPrinciple: (id: string, patch: { text?: string; status?: string }) => req("PATCH", `/api/admin/principles/${id}`, patch),
+    deletePrinciple: (id: string) => req("DELETE", `/api/admin/principles/${id}`),
+    setReport: (id: string, status: "open" | "ok" | "removed") => req("PATCH", `/api/admin/reports/${id}`, { status }),
+    runJob: () => req<Record<string, unknown>>("POST", "/api/admin/job"),
+    testPush: () => req<{ subscriptions: number; delivered: number; errors: string[] }>("POST", "/api/admin/test-push"),
+  };
+}
