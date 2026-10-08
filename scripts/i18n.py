@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html, dist/weekends/index.html and dist/skyn/index.html are the sources. i18n/<lang>.json
+dist/index.html and the sub pages in PAGES (weekends, skyn and its thank-you page)
+are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
 title, meta texts and labels) to its translation.
@@ -20,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/', 'skyn/']
+PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="robots" content="noindex" />
+    <title>gracias · skyn by brinkmann</title>
+    <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
+    <style>
+      :root{--dark:#5c5c56;--light:#5f5f59;--line:#cfcfca;--band:min(31rem,calc(100% - 40px))}
+      *{box-sizing:border-box}
+      [hidden]{display:none!important}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;background:#fff;color:var(--dark);font-family:Arial,Helvetica,sans-serif}
+      a{color:inherit}
+      a:focus-visible,input:focus-visible{outline:2px solid var(--dark);outline-offset:3px}
+      .top{display:flex;justify-content:space-between;gap:20px;padding:21px 32px;border-top:2px solid var(--dark);font-size:clamp(11px,3.6vw,14px);letter-spacing:.025em}
+      .top a{text-decoration:none;font-size:clamp(12px,3.9vw,15px);direction:ltr;unicode-bidi:isolate}
+      main{width:var(--band);margin:0 auto;padding:28px 0 40px}
+      .head{position:relative;display:grid;gap:7px;padding:18px 44px 18px 0;border-top:1px solid var(--dark);border-bottom:1px solid var(--dark)}
+      .head h1{margin:0;font-size:clamp(1.3rem,.95rem + 1.1vw,1.85rem);font-weight:400;letter-spacing:-.035em;line-height:1.05}
+      .head .by{font-size:.58em;letter-spacing:.015em}
+      .head p{margin:0;font-size:12px;letter-spacing:.035em;line-height:1.3;color:var(--light)}
+      .shut{position:absolute;right:-14px;top:50%;width:44px;height:44px;margin-top:-22px}
+      .shut:before,.shut:after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;margin:-.5px 0 0 -6px;background:currentColor;transform:rotate(45deg)}
+      .shut:after{transform:rotate(-45deg)}
+      p{font-size:15.5px;line-height:1.72;margin:0 0 1.05em}
+      .lead{margin:30px 0 18px;font-size:19px;line-height:1.45}
+      h2{margin:46px 0 12px;font-size:12px;font-weight:400;letter-spacing:.08em;color:var(--light)}
+      .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+      .rows li{display:flex;align-items:center;min-height:52px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.4}
+      .price{margin:0 0 6px;font-size:19px}
+      .note{font-size:12px;letter-spacing:.035em;line-height:1.7;color:var(--light)}
+      .safety{padding:16px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+      .safety p{font-size:14px;line-height:1.65}
+      footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 32px 24px;font-size:14px;letter-spacing:.04em}
+      footer nav{display:flex;gap:8px}
+      .contact-links a{display:inline-flex;width:34px;height:34px;box-shadow:inset 0 0 0 1px var(--line)}
+      .contact-links svg{width:34px;height:34px;fill:none;stroke:var(--dark);stroke-width:1.1}
+      .footer-langs a{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;box-shadow:inset 0 0 0 1px var(--line);font-size:12px;text-decoration:none}
+      .footer-langs a[aria-current="page"]{box-shadow:inset 0 0 0 1px var(--dark)}
+      @media(max-width:580px){.top{padding-inline:20px}footer{padding-inline:20px}.footer-langs{gap:5px}}
+      [dir="rtl"] .shut{right:auto;left:-14px}
+      [dir="rtl"] .head{padding:18px 0 18px 44px}
+      .soon{color:var(--light)}
+      .order .price{margin:0 0 22px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .buy-row{display:flex;justify-content:space-between;align-items:center;margin:22px 0 16px}
+      .qty{display:flex;align-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+      .qty button{width:44px;height:44px;border:0;background:none;color:var(--dark);font-size:18px;cursor:pointer}
+      .qty output{min-width:28px;text-align:center;font-size:15px}
+      .total{margin:0;font-size:15.5px}
+      .pay{display:flex;align-items:center;justify-content:center;min-height:52px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none}
+      .pay[aria-busy="true"]{opacity:.5;pointer-events:none}
+      .back{display:inline-block;margin:12px 0;font-size:13px;letter-spacing:.035em}
+      .checkout{margin:12px 0 18px}
+      .order .note{margin-top:14px}
+      .error{color:#7a3b2e}
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <a href="/es/">paul brinkmann, <span>m.sc.</span></a>
+      <span>artista &amp; arquitecto</span>
+    </header>
+    <main>
+      <div class="head">
+        <h1>skyn <span class="by">by brinkmann</span></h1>
+        <p>cuidado de la piel con sebo de vacuno · envío a todo el mundo</p>
+        <a class="shut" href="/es/skyn/" aria-label="cerrar"></a>
+      </div>
+      <p class="lead" id="done">gracias.</p>
+      <p id="done-text">tu reserva está confirmada. stripe te envía el recibo por e-mail, y te escribiré cuando tu skyn salga.</p>
+      <p class="error" id="open" hidden>el pago no se completó. puedes intentarlo de nuevo en la página de skyn.</p>
+      <p><a href="/es/skyn/">volver a skyn</a></p>
+    </main>
+    <footer>
+      <nav class="contact-links" aria-label="contacto">
+        <a href="mailto:brinkmannbuild@gmail.com" aria-label="correo electrónico"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="10" y="12.5" width="20" height="15" rx="1.5"/><path d="M11 13.5l9 6.7 9-6.7"/></svg></a>
+        <a href="https://wa.me/491756257788" target="_blank" rel="noreferrer" aria-label="whatsapp"><svg viewBox="0 0 40 40" aria-hidden="true"><g transform="translate(20 20) scale(1.033) translate(-12 -12)"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9"/><path d="M9 10a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></g></svg></a>
+        <a href="https://www.instagram.com/buildpaul/" target="_blank" rel="noreferrer" aria-label="instagram"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="10.7" y="10.7" width="18.6" height="18.6" rx="5.2"/><circle cx="20" cy="20" r="4.2"/><circle cx="25.6" cy="14.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      </nav>
+      <nav class="footer-langs" aria-label="idioma">
+        <a href="/skyn/thanks/" hreflang="en" lang="en" aria-label="english">en</a>
+        <a href="/de/skyn/thanks/" hreflang="de" lang="de" aria-label="deutsch">de</a>
+        <a href="/fr/skyn/thanks/" hreflang="fr" lang="fr" aria-label="français">fr</a>
+        <a href="/es/skyn/thanks/" hreflang="es" lang="es" aria-label="español" aria-current="page">es</a>
+        <a href="/ar/skyn/thanks/" hreflang="ar" lang="ar" aria-label="العربية">ع</a>
+        <a href="/ru/skyn/thanks/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
+      </nav>
+    </footer>
+    <script>
+      // A session that was not paid shows how to try again instead of the thanks.
+      (function () {
+        var id = new URLSearchParams(location.search).get('session_id');
+        if (!id || !window.fetch) return;
+        fetch('/api/session-status?session_id=' + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (s) {
+          if (s.status === 'open') {
+            document.getElementById('done').hidden = true;
+            document.getElementById('done-text').hidden = true;
+            document.getElementById('open').hidden = false;
+          }
+        }).catch(function () {});
+      })();
+    </script>
+  </body>
+</html>

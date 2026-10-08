@@ -22,9 +22,11 @@
     <meta property="og:url" content="https://brinkmannpaul.com/fr/skyn/" />
     <meta property="og:image" content="https://brinkmannpaul.com/assets/og-image.jpg" />
     <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://js.stripe.com" />
     <style>
       :root{--dark:#5c5c56;--light:#5f5f59;--line:#cfcfca;--band:min(31rem,calc(100% - 40px))}
       *{box-sizing:border-box}
+      [hidden]{display:none!important}
       html{-webkit-text-size-adjust:100%}
       body{margin:0;background:#fff;color:var(--dark);font-family:Arial,Helvetica,sans-serif}
       a{color:inherit}
@@ -46,18 +48,8 @@
       .rows li{display:flex;align-items:center;min-height:52px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.4}
       .price{margin:0 0 6px;font-size:19px}
       .note{font-size:12px;letter-spacing:.035em;line-height:1.7;color:var(--light)}
-      .steps{margin:0;padding:0;list-style:none;counter-reset:step}
-      .steps li{counter-increment:step;position:relative;padding-left:28px;margin-bottom:.7em;font-size:15.5px;line-height:1.6}
-      .steps li:before{content:counter(step);position:absolute;left:0;top:2px;font-size:13px;color:var(--light)}
       .safety{padding:16px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
       .safety p{font-size:14px;line-height:1.65}
-      .agree{display:flex;gap:12px;align-items:flex-start;margin:18px 0 22px}
-      .agree input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border-radius:0;box-shadow:inset 0 0 0 1px var(--dark);cursor:pointer}
-      .agree input:checked{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 11.5l3.5 3.5L16.5 7.5' fill='none' stroke='%235c5c56' stroke-width='1.3'/%3E%3C/svg%3E") center/100% no-repeat}
-      .agree label{font-size:14px;line-height:1.55;cursor:pointer}
-      .request{display:grid;gap:10px}
-      .request a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 16px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none;transition:opacity 200ms ease}
-      .request a[aria-disabled="true"]{opacity:.3;pointer-events:none}
       footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 32px 24px;font-size:14px;letter-spacing:.04em}
       footer nav{display:flex;gap:8px}
       .contact-links a{display:inline-flex;width:34px;height:34px;box-shadow:inset 0 0 0 1px var(--line)}
@@ -67,8 +59,27 @@
       @media(max-width:580px){.top{padding-inline:20px}footer{padding-inline:20px}.footer-langs{gap:5px}}
       [dir="rtl"] .shut{right:auto;left:-14px}
       [dir="rtl"] .head{padding:18px 0 18px 44px}
-      [dir="rtl"] .steps li{padding-left:0;padding-right:28px}
-      [dir="rtl"] .steps li:before{left:auto;right:0}
+      .soon{color:var(--light)}
+      .order .price{margin:0 0 22px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .buy-row{display:flex;justify-content:space-between;align-items:center;margin:22px 0 16px}
+      .qty{display:flex;align-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+      .qty button{width:44px;height:44px;border:0;background:none;color:var(--dark);font-size:18px;cursor:pointer}
+      .qty output{min-width:28px;text-align:center;font-size:15px}
+      .total{margin:0;font-size:15.5px}
+      .pay{display:flex;align-items:center;justify-content:center;min-height:52px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none}
+      .pay[aria-busy="true"]{opacity:.5;pointer-events:none}
+      .back{display:inline-block;margin:12px 0;font-size:13px;letter-spacing:.035em}
+      .checkout{margin:12px 0 18px}
+      .order .note{margin-top:14px}
+      .error{color:#7a3b2e}
     </style>
   </head>
   <body>
@@ -86,17 +97,33 @@
       <p>pendant des années, j'ai expérimenté pour trouver le meilleur mélange pour une crème aussi pure qu'un aliment : uniquement des graisses et des huiles naturelles, pas de pétrole, rien de synthétique.</p>
       <p>un voyage autour du monde m'a finalement mené dans les souks de la médina de tunis. j'y ai trouvé l'ingrédient le plus précieux : l'huile des graines de figue de barbarie, l'une des huiles les plus rares au monde.</p>
       <p>la base est le suif de bœuf. ses principaux acides gras, l'acide oléique, palmitique et stéarique, comptent aussi parmi les principaux acides gras des huiles propres à notre peau. le jojoba est une cire liquide, proche des cires que notre peau produit elle-même. cinq ingrédients en tout.</p>
-      <p>je la teste sur moi-même depuis deux ans. comme tous mes produits, je l'ai d'abord faite pour moi, ma famille et mes amis les plus proches. parce que j'en suis convaincu, je la partage maintenant.</p>
+      <p>je la teste sur moi-même depuis deux ans. comme tous mes produits, je l'ai d'abord faite pour moi, ma famille et mes amis les plus proches.</p>
+      <p>je la partage parce que j'en suis convaincu, et parce que j'aime ça. développer des produits, construire, créer : c'est ma passion. à travers les choses que je crée, je veux transmettre ce que j'ai appris et mon énergie à celui qui les utilise.</p>
+      <p>parce que je les fais pour moi-même, chaque lot est petit et toujours très limité.</p>
 
-      <h2>comment précommander</h2>
-      <ol class="steps">
-        <li>envoie-moi ta précommande par e-mail ou whatsapp : combien de pots, et où les envoyer.</li>
-        <li>je confirme ta commande avec le prix, livraison dans ton pays comprise, et je t'envoie le lien de paiement.</li>
-        <li>dès que le lot est prêt, il t'est expédié, partout dans le monde.</li>
-      </ol>
-      <div class="request">
-        <a href="mailto:brinkmannbuild@gmail.com?subject=skyn%20pre-order">précommander par e-mail</a>
-        <a href="https://wa.me/491756257788" target="_blank" rel="noreferrer">précommander sur whatsapp</a>
+      <h2>précommander</h2>
+      <p class="soon" id="soon">la précommande ouvre ici très bientôt.</p>
+      <div class="order" id="order" hidden data-label-wait="un instant" data-label-error="le paiement n'a pas pu s'ouvrir. réessaie dans un instant.">
+        <p class="price"><span data-price></span> le pot</p>
+        <p class="legend">livraison</p>
+        <div class="zones">
+          <label class="zone"><input type="radio" name="shipping" value="de" checked /><span class="where">allemagne</span><span class="how">dhl paket · suivi</span><span class="cost" data-zone="de"></span></label>
+          <label class="zone"><input type="radio" name="shipping" value="eu" /><span class="where">ue</span><span class="how">dhl paket international · suivi</span><span class="cost" data-zone="eu"></span></label>
+          <label class="zone"><input type="radio" name="shipping" value="world" /><span class="where">monde entier</span><span class="how">dhl paket international · suivi</span><span class="cost" data-zone="world"></span></label>
+        </div>
+        <div class="buy-row">
+          <div class="qty" role="group" aria-label="quantité">
+            <button type="button" data-step="-1" aria-label="un de moins">−</button>
+            <output aria-live="polite">1</output>
+            <button type="button" data-step="1" aria-label="un de plus">+</button>
+          </div>
+          <p class="total">total <span data-total></span></p>
+        </div>
+        <a class="pay" href="#checkout" role="button">précommander</a>
+        <p class="note error" role="alert" hidden></p>
+        <a class="back" href="#order" role="button" hidden>changer la livraison ou la quantité</a>
+        <div class="checkout" id="checkout" hidden></div>
+        <p class="note">une précommande : ton skyn est expédié dès que le lot est prêt.</p>
       </div>
 
       <h2>questions</h2>
@@ -117,5 +144,109 @@
         <a href="/ru/skyn/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
+    <script>
+      // The pre-order opens once a price and the stripe key are set (/api/shop).
+      // Payment stays on the page with stripe's embedded checkout, as on souralf.com.
+      (function () {
+        var order = document.getElementById('order');
+        var soon = document.getElementById('soon');
+        if (!order || !window.fetch) return;
+        var lang = document.documentElement.lang || 'en';
+        var KEY = 'pk_live_51UJWsTC8fTaq0EZMhykhQH1BLysHNIzNWPPSUk5UiTwT14y9mzQqRCkjf2bu6uuWpT3FSSnIUcJ8ROXtAvjudzdB00D8OVtfX2';
+        var state = { qty: 1, zone: 'de', shop: null, active: null };
+        var money = function (cents, currency) {
+          return new Intl.NumberFormat(lang, { style: 'currency', currency: currency.toUpperCase() }).format(cents / 100);
+        };
+        var pay = order.querySelector('.pay');
+        var back = order.querySelector('.back');
+        var box = document.getElementById('checkout');
+        var error = order.querySelector('.error');
+        var chooser = [].slice.call(order.querySelectorAll('.price, .legend, .zones, .buy-row, .pay'));
+        var payLabel = pay.textContent;
+
+        function update() {
+          var shop = state.shop;
+          var zone = shop.shipping.filter(function (z) { return z.id === state.zone; })[0] || shop.shipping[0];
+          order.querySelector('output').textContent = String(state.qty);
+          order.querySelector('[data-total]').textContent = money(shop.amount * state.qty + zone.amount, shop.currency);
+        }
+        function loadStripe() {
+          if (window.Stripe) return Promise.resolve(window.Stripe);
+          return new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = 'https://js.stripe.com/v3/';
+            s.onload = function () { window.Stripe ? resolve(window.Stripe) : reject(new Error('stripe unavailable')); };
+            s.onerror = function () { reject(new Error('stripe unavailable')); };
+            document.head.appendChild(s);
+          });
+        }
+
+        fetch('/api/shop').then(function (r) { return r.json(); }).then(function (shop) {
+          if (!shop.ready) return;
+          state.shop = shop;
+          order.querySelector('[data-price]').textContent = money(shop.amount, shop.currency);
+          shop.shipping.forEach(function (z) {
+            var cost = order.querySelector('[data-zone="' + z.id + '"]');
+            if (cost) cost.textContent = money(z.amount, shop.currency);
+          });
+          [].forEach.call(order.querySelectorAll('input[name="shipping"]'), function (r) {
+            r.addEventListener('change', function () { state.zone = r.value; update(); });
+          });
+          [].forEach.call(order.querySelectorAll('.qty button'), function (b) {
+            b.addEventListener('click', function () {
+              state.qty = Math.min(shop.max_quantity, Math.max(1, state.qty + Number(b.dataset.step)));
+              update();
+            });
+          });
+          update();
+          soon.hidden = true;
+          order.hidden = false;
+        }).catch(function () {});
+
+        pay.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (pay.getAttribute('aria-busy') === 'true') return;
+          pay.setAttribute('aria-busy', 'true');
+          pay.textContent = order.dataset.labelWait;
+          error.hidden = true;
+          fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity: state.qty, shipping: state.zone, lang: lang === 'en' ? '' : lang })
+          }).then(function (r) { return r.json().then(function (d) { if (!r.ok || !d.clientSecret) throw new Error(d.error || 'checkout'); return d; }); })
+            .then(function (data) {
+              return loadStripe().then(function (Stripe) {
+                var stripe = Stripe(KEY);
+                if (state.active) state.active.destroy();
+                return stripe.initEmbeddedCheckout({ fetchClientSecret: function () { return Promise.resolve(data.clientSecret); } });
+              });
+            })
+            .then(function (checkout) {
+              state.active = checkout;
+              chooser.forEach(function (el) { el.hidden = true; });
+              back.hidden = false;
+              box.hidden = false;
+              checkout.mount(box);
+              box.scrollIntoView({ block: 'start' });
+            })
+            .catch(function () {
+              error.textContent = order.dataset.labelError;
+              error.hidden = false;
+            })
+            .then(function () {
+              pay.removeAttribute('aria-busy');
+              pay.textContent = payLabel;
+            });
+        });
+        back.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (state.active) state.active.destroy();
+          state.active = null;
+          box.hidden = true;
+          back.hidden = true;
+          chooser.forEach(function (el) { el.hidden = false; });
+        });
+      })();
+    </script>
   </body>
 </html>
