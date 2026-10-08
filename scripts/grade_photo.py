@@ -2,8 +2,8 @@
 
 Every photo on the site gets the same grade, so pictures from any camera or
 light read as one series: subtle but warm, colour held back (loud oranges
-more so), amber highlights, warm brown shadows, a gentle curve, fine grain
-and no hard black.
+more so), warm skin, amber highlights, warm brown shadows, a gentle curve,
+fine grain and no hard black.
 
   python3 scripts/grade_photo.py SOURCE NAME CX CY R
 
@@ -18,11 +18,12 @@ import numpy as np
 from PIL import Image, ImageOps
 
 ASSETS = Path(__file__).resolve().parent.parent / 'dist' / 'assets'
-LOOK = dict(sat=0.68, orange=0.5, fade=0.12, white=0.972, curve=0.12, gamma=0.86, vignette=0.0,
-            shadow=(0.024, 0.008, -0.016), high=(0.045, 0.022, -0.035), warm=(1.015, 0.99, 0.935), grain=0.012)
+LOOK = dict(sat=0.72, orange=0.5, fade=0.12, white=0.972, curve=0.12, gamma=0.86, vignette=0.0,
+            shadow=(0.026, 0.008, -0.018), high=(0.055, 0.026, -0.042), warm=(1.03, 0.995, 0.915), grain=0.012,
+            skin_sat=0.3, skin_warm=0.07)
 
 
-def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain):
+def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain, skin_sat=0.0, skin_warm=0.0):
     a = (np.asarray(img).astype(np.float32) / 255) ** gamma
     luma = np.array([0.2126, 0.7152, 0.0722])
     L = (a * luma).sum(2, keepdims=True)
@@ -31,9 +32,15 @@ def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, w
     r, g, b = a[..., 0], a[..., 1], a[..., 2]
     hue = np.where(mx == r, ((g - b) / d) % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4)) * 60
     s = d / (mx + 1e-6)
-    # Hold back loud oranges and reds; skin stays natural.
-    loud = np.exp(-((((hue - 22 + 180) % 360) - 180) / 18) ** 2) * np.clip((s - 0.35) / 0.4, 0, 1)
-    a = L + (sat * (1 - orange * loud))[..., None] * (a - L)
+    # Hold back loud oranges and reds; skin, far less saturated, is left out.
+    near = np.exp(-((((hue - 22 + 180) % 360) - 180) / 18) ** 2)
+    loud = near * np.clip((s - 0.5) / 0.35, 0, 1)
+    # Skin, pink to peach and softly saturated, keeps its colour and turns
+    # from cool pink towards peach, so faces never look cold.
+    skin = (np.exp(-((((hue - 10 + 180) % 360) - 180) / 24) ** 2)
+            * np.clip((s - 0.06) / 0.08, 0, 1) * np.clip((0.5 - s) / 0.15, 0, 1))
+    a = L + (sat * (1 - orange * loud) * (1 + skin_sat * skin))[..., None] * (a - L)
+    a = a * (1 + skin_warm * skin[..., None] * np.array([1.0, 0.35, -1.5]))
     a = np.clip(a, 0, 1)
     a = a + curve * (a - a ** 2) * (a - 0.5) * 2
     L = (a * luma).sum(2, keepdims=True)
