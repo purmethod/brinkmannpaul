@@ -30,7 +30,7 @@ LANGS = {
 }
 
 # Inner HTML of these elements is one unit; links inside a paragraph travel with it.
-BLOCK = re.compile(r'<(p|h1|h2|a|li|title)(\s[^>]*)?>(.*?)</\1>', re.S)
+BLOCK = re.compile(r'<(p|h1|h2|a|li|title|figcaption)(\s[^>]*)?>(.*?)</\1>', re.S)
 ITEM_TYPE = re.compile(r'(<span class="item-type[^"]*">)(.*?)(</span>)', re.S)
 HEADER_SPAN = re.compile(r'(</h1>\s*<span>)(.*?)(</span>\s*</header>)', re.S)
 META = re.compile(r'(<meta (?:name|property)="(?:description|og:title|og:description|og:image:alt|twitter:title|twitter:description)" content=")([^"]*)(")')

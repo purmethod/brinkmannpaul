@@ -51,7 +51,7 @@ Auf Pauls Vorgabe heißt die Rubrik jetzt „wim hof method instructor“ statt 
 - **Neuer Absatz:** 15 Jahre Atemarbeit, Begleitung durch Atemsessions und Kälte, zertifizierter Instructor, „a friend of wim“.
 - **Unverändert:** Der Text zum Polen-Wochenende steht weiter darunter.
 - **Foto:**
-  - Paul und Wim beim Händedruck in Polen, als Kreis mit feinem Ring und der Bildzeile „with wim hof · poland“.
+  - Paul und Wim beim Händedruck in Polen, als Kreis mit feinem Ring und der Bildzeile „at wim's house · poland“. Das Foto steht nach dem Instructor-Absatz, also nach „a friend of wim.“. Die Bildzeile wird jetzt in allen Sprachen übersetzt.
   - Antippen öffnet das ganze Foto unbeschnitten. ×, Escape oder ein Tippen schließt es.
 - **Bildstil für alle Fotos:** „warm golden“. Satte, aber gezähmte Farben, laute Orangetöne zurückgenommen, warme Lichter, türkis geneigte Schatten, weiche S-Kurve, leichte Randabdunklung, feines Korn, kein hartes Schwarz.
 - **Neue Fotos:** `python3 scripts/grade_photo.py QUELLE NAME CX CY R` erzeugt `photo-NAME.webp` (Kreis, 720 px) und `photo-NAME-full.webp` (ganzes Foto). CX, CY und R setzen den Kreis in Pixeln der Quelle, Gesichter ins obere Drittel.
