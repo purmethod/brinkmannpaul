@@ -50,7 +50,7 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 | Teil | Aufgabe |
 |---|---|
-| `shop.json` (Repo-Wurzel, nicht öffentlich) | Produkt, Preis (`amount` in Cent), Versandzonen. Die Zonen sind von souralf übernommen: DHL Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €. |
+| `dist/shop.json` (öffentlich lesbar, wie bei souralf) | Produkt, Preis (`amount` in Cent), Versandzonen. Die Zonen sind von souralf übernommen: DHL Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €. |
 | `api/shop.js` | sagt der Seite, ob die Vorbestellung offen ist (Preis gesetzt und `STRIPE_SECRET_KEY` vorhanden), dazu Preis und Zonen; ruft Stripe nicht auf |
 | `api/checkout.js` | legt die Checkout-Session an. Nach der Zahlung geht es auf die Danke-Seite in der Sprache der Bestellung. |
 | `api/session-status.js`, `api/_stripe.js` | wie bei souralf |
@@ -59,10 +59,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 Der öffentliche Stripe-Schlüssel ist derselbe wie bei souralf, also dasselbe Stripe-Konto.
 
+Die Funktionen liegen in `dist/api/`, weil das Vercel-Projekt `dist/` als Wurzel nutzt. Ein `api/` im Repo-Hauptverzeichnis wird nicht ausgeliefert.
+
 **Zum Freischalten fehlt:**
 1. **Schlüssel:** Im Vercel-Projekt brinkmannpaul unter Settings → Environment Variables `STRIPE_SECRET_KEY` anlegen, mit demselben Wert wie im Projekt souralf. Claude hat keinen Zugriff auf das Vercel-Team „pur1“.
-2. **Preis:** In `shop.json` `product.amount` setzen, in Cent, z. B. 3900 für 39 €. Dazu Tiegelgröße und Lieferzeit.
-3. **Versand:** prüfen, ob skyn wie âlf mit DHL aus Deutschland verschickt wird. Sonst die Zonen in `shop.json` anpassen.
+2. **Preis:** In `dist/shop.json` `product.amount` setzen, in Cent, z. B. 3900 für 39 €. Dazu Tiegelgröße und Lieferzeit.
+3. **Versand:** prüfen, ob skyn wie âlf mit DHL aus Deutschland verschickt wird. Sonst die Zonen in `dist/shop.json` anpassen.
 
 ## Aktualisierung: Videos loopen unsichtbar, skyn-Video, Sidi langsamer (2026-10-08)
 
