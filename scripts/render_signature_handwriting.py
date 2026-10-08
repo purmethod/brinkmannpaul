@@ -92,13 +92,14 @@ IS_MY = (
 
 # Lines: (name, letters, pause before the line, pen time, region x0, y0, x1, y1).
 # Times are video seconds; the site plays the video at 1.25x, so a viewer sees
-# 4/5 of them: the signature in about 2.6 s, the motto line by line after it.
+# 4/5 of them: the signature quick, in about 2.6 s; the motto calmer, line by
+# line after it.
 LINES = [
     ("signature", SIGNATURE, 0.30, 3.25, (40, 295, 862, 662)),
-    ("trust", TRUST, 0.30, 0.95, (545, 682, 862, 742)),
-    ("is my", IS_MY, 0.22, 0.80, (575, 768, 790, 868)),
+    ("trust", TRUST, 0.40, 1.35, (545, 682, 862, 742)),
+    ("is my", IS_MY, 0.30, 1.15, (575, 768, 790, 868)),
 ]
-CURRENCY = (0.22, 1.45, (548, 875, 860, 1020))
+CURRENCY = (0.30, 2.05, (548, 875, 860, 1020))
 
 
 def load_ink():

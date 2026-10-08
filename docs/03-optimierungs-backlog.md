@@ -774,3 +774,14 @@ Paul: Die Buchstaben öffneten sich von links nach rechts, statt geschrieben zu 
   - Einzelbilder direkt aus der fertigen MP4: Das letzte Bild gleicht dem Standbild.
   - Die Seite lädt das Video auf allen sechs Sprachen. Der Fallback auf das Standbild (Browser ohne H.264) funktioniert.
 
+### Nachtrag: Motto ruhiger (2026-10-08)
+
+Paul: Die Unterschrift bleibt so schnell, „trust is my currency“ wirkt hektisch und soll langsamer laufen.
+
+- **Unterschrift:** unverändert, fertig nach rund 2,6 s auf der Seite.
+- **Motto:**
+  - Pen-Zeit pro Zeile: trust 1,35 s (vorher 0,95), is my 1,15 s (0,80), currency 2,05 s (1,45), jeweils Videosekunden.
+  - Pausen vor den Zeilen: 0,40, 0,30 und 0,30 s.
+  - Auf der Seite schreibt sich das Motto damit in rund 4 s statt 2,8 s. Das ganze Intro dauert 7,9 s.
+- `intro-handwriting-signed.mp4?v=2` (136 KB), damit kein Handy das alte Video aus dem Cache zeigt.
+
