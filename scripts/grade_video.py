@@ -6,13 +6,11 @@ writes, from the same grade as scripts/grade_photo.py (without grain, which
 would only cost bytes and flicker):
 
   dist/assets/video-NAME.mp4         the circle, 480 px square, CX CY R in source pixels
-  dist/assets/video-NAME-full.mp4    the whole clip, 640 px wide, opened on tap
   dist/assets/video-NAME-poster.webp the circle's first frame, shown until the clip plays
 
 The last frames dissolve into the first ones, so the loop runs on without a
-jump. Both clips are H.264 without sound and start playing while loading.
+jump. The clip is H.264 without sound and starts playing while loading.
 """
-import io
 import subprocess
 import sys
 from collections import deque
@@ -25,13 +23,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from grade_photo import ASSETS, LOOK, grade  # noqa: E402
 
 FADE = 12  # frames dissolved at the loop point
-
-
-def size(source):
-    """Width and height as played, after the phone's rotation."""
-    png = subprocess.run(['ffmpeg', '-v', 'error', '-i', source, '-frames:v', '1', '-f', 'image2pipe',
-                          '-vcodec', 'png', '-'], capture_output=True, check=True).stdout
-    return Image.open(io.BytesIO(png)).size
 
 
 def render(source, crop, out_size, target, look, crf):
@@ -72,10 +63,6 @@ def main(source, name, cx, cy, r, ev=0.0, blue=0.0):
     look = {**LOOK, 'grain': 0.0, 'ev': ev, 'blue': blue}
     poster = render(source, f'{2 * r}:{2 * r}:{cx - r}:{cy - r}', (480, 480), ASSETS / f'video-{name}.mp4', look, 29)
     poster.save(ASSETS / f'video-{name}-poster.webp', quality=78, method=6)
-    width, height = size(source)
-    full_w = 640
-    full_h = round(full_w * height / width / 2) * 2
-    render(source, f'{width}:{height}:0:0', (full_w, full_h), ASSETS / f'video-{name}-full.mp4', look, 30)
 
 
 if __name__ == '__main__':

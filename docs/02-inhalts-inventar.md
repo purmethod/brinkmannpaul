@@ -42,6 +42,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: max 20 Personen, Kreise ohne Vergrößern (2026-10-08)
+
+Auf Pauls Vorgabe:
+- **Gruppengröße:** Statt „20–25 people“ steht überall „max 20 people“. Das gilt für den wim-hof-Text („in a small group, max 20 people“), die Notizzeile und die Buchungsseite („small group, max 20 people“), in allen Sprachen.
+- **Kreise:** Fotos und Video vergrößern sich beim Antippen nicht mehr, sie bleiben, wie sie sind. Die Vollbilder (`*-full.webp`, `*-full.mp4`) sind entfernt. `grade_photo.py` und `grade_video.py` erzeugen nur noch den Kreis und beim Video das Vorschaubild.
+
 ## Aktualisierung: mysidibou mit Fotos und Video aus Sidi Bou Saïd (2026-10-08)
 
 Pauls Fotos und sein Video aus Sidi Bou Saïd stehen in der Rubrik mysidibou. Text und Medien wechseln sich ab. Die drei Absätze sind dafür an ihren Satzgrenzen geteilt, der Wortlaut ist unverändert.
@@ -58,7 +64,7 @@ Pauls Fotos und sein Video aus Sidi Bou Saïd stehen in der Rubrik mysidibou. Te
 - **Das Video:** `scripts/grade_video.py` erzeugt es aus dem Original (4 s, 4K, HDR, 14 MB).
   - Gleicher Look Bild für Bild, ohne Korn.
   - Die letzten 0,4 s blenden in den Anfang über, so loopt es ohne Sprung.
-  - Kreis: 480 px, 225 KB. Ganzes Video zum Antippen: 640 px, 665 KB. Dazu ein Vorschaubild.
+  - Kreis: 480 px, 225 KB. Dazu ein Vorschaubild.
   - Kodiert als H.264 mit Schnellstart, ohne Ton.
 - **Flüssiges Laden:** Das Video lädt erst, wenn es beim Lesen in die Nähe kommt (300 px vorher), spielt im Bild und pausiert außerhalb. Bei „weniger Bewegung“ bleibt das Vorschaubild stehen, das ganze Video hat dann Steuerelemente. Die Fotos laden ebenfalls erst bei Bedarf.
 
