@@ -697,3 +697,16 @@ Paul: Die Buttons sehen nicht gut aus. Sie sollen dezent und zeichnerisch wirken
   - Messung: en, ar, ru und 404 bei 320, 393 und 1440 px. Alle Buttons gleich, Text mittig, eine Zeile, Kanten 20 px (Desktop 32 px), kein Überlauf.
   - 49 Interaktionstests grün.
 
+### Nachtrag: Header kräftiger für Vertrauen in der ersten Sekunde (2026-10-08)
+
+Paul: Die Seite ist der Funnel nach einem Reel. Name, Abschluss und Beruf müssen in ein, zwei Sekunden Vertrauen schaffen, also oben klar sichtbar sein.
+
+- **Vorher:** alles 11 px (Desktop 12 px) in #5c5c56 mit weiter Laufweite. Am Handy blass und klein.
+- **Varianten verglichen** (Screenshots 393 px): beides dunkel und gleich groß; Name groß und m.sc. grau; Titel grau; Name 16 px.
+  - Gewählt: Name mit „m.sc.“ in #1d1d1b, 15 px. Titel in #3d3d39, 14 px. Laufweite 0,025em.
+  - Das liest sich wie ein Briefkopf. Der Abschluss bleibt Teil des Namens.
+- **Fließend:** `clamp(12px, 3.9vw, 15px)` für den Namen und `clamp(11px, 3.6vw, 14px)` für den Titel. Damit stehen alle sechs Sprachen und die 404-Seite bei 320, 360, 393 und 1440 px in einer Zeile, auch „художник & архитектор“.
+- **Desktop:** Die Zeichnung läuft dort bis unter den Header. Ein papierweißer Schriftschatten (`text-shadow` 3/6/10 px) stellt die Schrift frei, ohne eine Fläche zu zeigen.
+- **404:** `.site-header` in `styles.css` bekommt dieselben Werte.
+- **Geprüft:** Screenshots am Handy (en, ru) und am Desktop. Fit-Messung in allen Sprachen. `test-site` und 49 Interaktionstests grün.
+

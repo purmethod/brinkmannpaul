@@ -72,7 +72,8 @@
 #site-page .bs-pick{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;background:none;color:transparent;font:inherit;font-size:1px;opacity:0;cursor:pointer}
 .bs-haptic{display:none}
 
-#site-page.scroll-ready .bs-header{position:absolute;z-index:5;inset:0 0 auto;display:flex;justify-content:space-between;gap:20px;padding:21px 32px;color:#5c5c56;font-size:12px;letter-spacing:.055em;pointer-events:none}
+#site-page.scroll-ready .bs-header{position:absolute;z-index:5;inset:0 0 auto;display:flex;justify-content:space-between;gap:20px;padding:21px 32px;color:#3d3d39;font-size:clamp(11px,3.6vw,14px);letter-spacing:.025em;text-shadow:0 0 3px #fff,0 0 6px #fff,0 0 10px #fff;pointer-events:none}
+#site-page.scroll-ready .bs-header h1{font-size:clamp(12px,3.9vw,15px);color:#1d1d1b}
 #site-page.scroll-ready .bs-footer{position:absolute;z-index:5;inset:auto 0 0;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:61px;padding:16px 32px;border:0;flex-wrap:nowrap;font-size:14px;letter-spacing:.04em;color:#5c5c56;pointer-events:none;transition:opacity 320ms ease}
 #site-page.scroll-ready .bs-footer a{pointer-events:auto}
 #site-page.is-reading .bs-footer{opacity:0}
@@ -110,7 +111,7 @@
 @media(hover:hover){#site-page .bs-close:hover{background:var(--ink);color:#fff}}
 
 @media(max-width:580px){
-  #site-page.scroll-ready .bs-header{padding-inline:20px;font-size:11px}
+  #site-page.scroll-ready .bs-header{padding-inline:20px}
   #site-page.scroll-ready .bs-footer{padding-inline:20px}
   #site-page .bs-reader .item-content p{font-size:15.5px}
 }
