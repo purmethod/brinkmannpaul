@@ -198,7 +198,12 @@ for (const lang of LANGS) {
 // pre-orders by e-mail and whatsapp and links that stay in the language.
 const skyn = fs.readFileSync(path.join(root, 'dist/skyn/index.html'), 'utf8');
 assert.ok(html.includes('<a href="skyn/">'), 'the skyn row links to the pre-order page');
-assert.ok(skyn.includes('mailto:brinkmannbuild@gmail.com?subject=skyn%20pre-order') && skyn.includes('href="https://wa.me/491756257788"'), 'skyn: pre-orders by e-mail and whatsapp');
+assert.ok(skyn.includes('id="order"') && skyn.includes("fetch('/api/checkout'") && skyn.includes("fetch('/api/shop')"), 'skyn: pre-order through the embedded stripe checkout');
+assert.ok(!/subject=skyn%20pre-order|pre-order on whatsapp/.test(skyn), 'skyn: no pre-orders by e-mail or whatsapp');
+for (const api of ['_stripe', 'checkout', 'shop', 'session-status']) new vm.Script(fs.readFileSync(path.join(root, 'api', api + '.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: api + '.js' });
+const shopJson = JSON.parse(fs.readFileSync(path.join(root, 'shop.json'), 'utf8'));
+assert.ok(shopJson.shipping.length && shopJson.product.currency, 'skyn: shop.json has shipping zones and a currency');
+assert.ok(fs.existsSync(path.join(root, 'dist/skyn/thanks/index.html')), 'skyn: thank-you page');
 pages.push(['dist', skyn]);
 for (const lang of LANGS) {
   const file = path.join(root, 'dist', lang, 'skyn', 'index.html');

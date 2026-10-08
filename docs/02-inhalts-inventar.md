@@ -42,6 +42,28 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: skyn, Leidenschaft im Text, Vorbestellung über Stripe-Checkout (2026-10-08)
+
+**Text, in Pauls Worten:** Er teilt skyn, weil er davon überzeugt ist und weil er es liebt. Produkte entwickeln, bauen und erschaffen ist seine Leidenschaft. Durch die Dinge, die er erschafft, will er seine Erkenntnisse und seine Energie an den weitergeben, der sie benutzt. Weil er sie für sich selbst macht, ist jede Charge klein und immer sehr begrenzt. Die Notizzeile lautet jetzt „pre-order · limited batch · shipped worldwide“.
+
+**Vorbestellung:** nicht mehr per E-Mail oder WhatsApp, sondern direkt per eingebettetem Stripe-Checkout, gebaut wie „adopt âlf“ auf souralf.com.
+
+| Teil | Aufgabe |
+|---|---|
+| `shop.json` (Repo-Wurzel, nicht öffentlich) | Produkt, Preis (`amount` in Cent), Versandzonen. Die Zonen sind von souralf übernommen: DHL Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €. |
+| `api/shop.js` | sagt der Seite, ob die Vorbestellung offen ist (Preis gesetzt und `STRIPE_SECRET_KEY` vorhanden), dazu Preis und Zonen; ruft Stripe nicht auf |
+| `api/checkout.js` | legt die Checkout-Session an. Nach der Zahlung geht es auf die Danke-Seite in der Sprache der Bestellung. |
+| `api/session-status.js`, `api/_stripe.js` | wie bei souralf |
+| `/skyn/` | Preis pro Tiegel, Versandzone, Menge, Gesamtsumme, „pre-order“, danach Stripe direkt auf der Seite. Solange nicht bereit: „the pre-order opens here shortly.“ |
+| `/skyn/thanks/` | Danke-Seite in allen Sprachen, zeigt bei nicht bezahlter Session, wie man es noch einmal versucht |
+
+Der öffentliche Stripe-Schlüssel ist derselbe wie bei souralf, also dasselbe Stripe-Konto.
+
+**Zum Freischalten fehlt:**
+1. **Schlüssel:** Im Vercel-Projekt brinkmannpaul unter Settings → Environment Variables `STRIPE_SECRET_KEY` anlegen, mit demselben Wert wie im Projekt souralf. Claude hat keinen Zugriff auf das Vercel-Team „pur1“.
+2. **Preis:** In `shop.json` `product.amount` setzen, in Cent, z. B. 3900 für 39 €. Dazu Tiegelgröße und Lieferzeit.
+3. **Versand:** prüfen, ob skyn wie âlf mit DHL aus Deutschland verschickt wird. Sonst die Zonen in `shop.json` anpassen.
+
 ## Aktualisierung: Videos loopen unsichtbar, skyn-Video, Sidi langsamer (2026-10-08)
 
 Pauls Vorgabe: endlose Schleife, deren Neubeginn man nicht bemerkt. Das Sidi-Video soll langsamer laufen.
