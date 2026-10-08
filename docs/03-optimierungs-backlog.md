@@ -805,3 +805,25 @@ Paul: 6,2 s war zu viel. Gemeint war etwas langsamer, nicht dreifach. Vorgabe: 4
 - Das Motto bleibt unverändert. Das ganze Intro dauert 9,6 s.
 - `intro-handwriting-signed.mp4?v=4` (136 KB).
 
+### Nachtrag: je 3,5 s und flüssiger (2026-10-08)
+
+Paul: Unterschrift und Motto je 3,5 s, alles flüssiger, testen.
+
+- **Zeiten auf der Seite:**
+  - `SIGNATURE_SECONDS = 3.5` und `MOTTO_SECONDS = 3.5`, gemessen vom ersten Tintenpunkt bis zum letzten. Für das Motto heißt das von „trust“ bis zum Ende der Unterstreichung.
+  - Das Skript rechnet die 1,25-fache Wiedergabe selbst ein. Alle drei Motto-Zeilen teilen ein Tempo.
+- **Flüssiger:**
+  - **Luft statt fester Pausen:** Zwischen zwei Strichen fährt der Stift durch die Luft weiter. Kurze Wege dauern kurz, lange länger. Die festen 50-ms-Pausen sind weg.
+  - **Anfahren und Abbremsen:** Nach dem Aufsetzen beschleunigt der Stift sanft, vor dem Abheben bremst er. Die Länge passt sich der Strichlänge an.
+  - **Glatteres Tempo:** Krümmung über 35 px geglättet und das Tempo nochmals über 15 px, damit es in Kurven nicht ruckt.
+  - **Weichere Tinte:** Jedes Pixel fließt in 60 statt 35 ms ein.
+- **Test:** Tempo-Änderung von Bild zu Bild, nur auf der Tinte gemessen (Luftsprünge ausgenommen), relativ zum Median:
+
+  | | p95 alt | p95 neu | max alt | max neu |
+  |---|---|---|---|---|
+  | Unterschrift | 0,64 | 0,63 | 1,03 | 0,84 |
+  | Motto | 0,85 | 0,68 | 1,86 | 1,15 |
+
+  Abgehobene Momente im Motto: 9 statt 21. Drei Einstellungen wurden verglichen, gewählt ist die ruhigste.
+- **Datei:** `intro-handwriting-signed.mp4?v=5` (140 KB). Das ganze Intro dauert 8,5 s.
+
