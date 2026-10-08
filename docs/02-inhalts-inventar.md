@@ -4,6 +4,16 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: fünf Sprachen, art kürzer, pure-Architektensatz (2026-10-08)
+
+- **Sprachen:** en (Quelle, `/`), de (`/de/`), fr (`/fr/`), es (`/es/`), ar (`/ar/`, von rechts nach links).
+  - Übersetzt wird sinngemäß nach festen Regeln: Pauls Stimme, Kleinschreibung (auch deutsche Substantive), keine Gedankenstriche, keine Heilversprechen. Der Leser wird mit du, tu, tú bzw. أنت angesprochen.
+  - Unverändert bleiben pure, mysidibou, qefyr, rye, skyn, âlf, by brinkmann, wim hof, unesco, sidi bou saïd sowie die Kapitelnamen von pure.
+  - Übersetzt werden art (kunst, art, arte, فن), neuroarchitecture (neuroarchitektur, neuroarchitecture, neuroarquitectura, العمارة العصبية) und wim hof weekends. „all art.“ wird als kurzes Motto übertragen.
+- **Footer:** Sprachauswahl `en de fr es ar` statt „contact“. Die Kontaktadresse bleibt in jedem Projekt über dessen Aktion erreichbar.
+- **art:** Pauls Kurzfassung, Einstieg „all art.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
+- **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
+
 ## Aktualisierung: art-Text, „all art.“ und „you.“ (2026-10-07)
 
 Auf Pauls Vorgabe: Der große Einstiegssatz ist jetzt „all art.“. „anything we do can become art when we bring love to it.“ steht als normaler Absatz im Text. Neuer Schluss: „all art means everything is art when it is made with love. what art is, only its creator defines. and it has to please at least one person in this world: the person who created it.“ Letzte Zeile: „you.“

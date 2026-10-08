@@ -33,6 +33,11 @@
     requestAnimationFrame(() => others.forEach(other => other.classList.remove('is-snapping')));
   }, true);
 
+  // Switching language keeps the project that is open.
+  document.querySelectorAll('.bs-langs a').forEach(link => link.addEventListener('click', () => {
+    if (window.location.hash) link.href = link.getAttribute('href').split('#')[0] + window.location.hash;
+  }));
+
   const root = document.getElementById('site-page');
   const list = root && root.querySelector('.project-list');
   const section = root && root.querySelector('.index');
@@ -50,7 +55,6 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = matchMedia('(pointer: coarse)');
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
-  const TAU = Math.PI * 2;
   const smooth = (low, high, value) => {
     const x = clamp((value - low) / (high - low), 0, 1);
     return x * x * (3 - 2 * x);
@@ -108,7 +112,7 @@
   band.append(make('span', 'plus'));
 
   // Keyboard and screen reader access: one real button per project.
-  const picker = make('ul', 'bs-picker', { 'aria-label': 'projects' });
+  const picker = make('ul', 'bs-picker', { 'aria-label': root.dataset.labelProjects || 'projects' });
   const picks = items.map(item => {
     const entry = make('li');
     const button = make('button', 'bs-pick', { type: 'button', 'aria-controls': 'bs-reader', 'aria-expanded': 'false' });
@@ -139,7 +143,7 @@
     return { block, head, title };
   });
   readerScroll.append(article);
-  const closer = make('button', 'bs-close', { type: 'button', 'aria-label': 'close' });
+  const closer = make('button', 'bs-close', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
   reader.append(readerScroll, closer);
 
   list.hidden = true;
@@ -332,7 +336,7 @@
     }
     // Reduced motion removes the easing, not the zoom: it follows the
     // wheel the visitor turns by hand.
-    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
+    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 420));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     // Deep in the universe nothing stands quite still: it floats on by
     // itself, except while a text is read or motion is reduced. The brain the
@@ -600,10 +604,10 @@
     const MICRO_SOMA = [1108, 462];
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const SHEETS = {
-      micro: { src: 'assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
-      inside: { src: 'assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920] },
-      cosmos: { src: 'assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920] },
-      web: { src: 'assets/neuro-web.webp', focus: [1003, 973], size: [1920, 1920] },
+      micro: { src: '/assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
+      inside: { src: '/assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920] },
+      cosmos: { src: '/assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920] },
+      web: { src: '/assets/neuro-web.webp', focus: [1003, 973], size: [1920, 1920] },
     };
     const INK = { inside: 0.8, cosmos: 0.85, web: 0.85 };
     // The way in, then the flight through universe-like spheres only: every
@@ -622,7 +626,7 @@
     const sheets = Object.fromEntries(Object.entries(SHEETS).map(([name, sheet]) => [name, { ...sheet, state: 'idle', image: null }]));
     const chain = [
       ...WAY,
-      ...FLIGHT.map((name, index) => ({ name, scale: Math.exp(-STEP), turn: 2.4 * (index + 1) })),
+      ...FLIGHT.map(name => ({ name, scale: Math.exp(-STEP) })),
     ].map(level => ({ ...level, sheet: sheets[level.name], ink: INK[level.name] }));
     let width = 0;
     let height = 0;
@@ -705,8 +709,8 @@
       const reach = Math.max(start[0] / (mx * micro.k), start[1] / (my * micro.k), (width - start[0]) / ((mw - mx) * micro.k), (height - start[1]) / ((mh - my) * micro.k));
       micro.handover = Math.log(reach * 1.12);
       chain.slice(1).forEach(level => { level.handover = Math.log(1 / level.k) - ENTER; });
-      // The flight begins with the cosmos at its natural size; one slow turn
-      // of the whole view runs through it, so the next brain arrives upright.
+      // The flight begins with the cosmos at its natural size. Nothing turns:
+      // the view only ever goes deeper.
       const opening = chain[WAY.length - 1].handover + ENTER;
       const cycle = chain[chain.length - 1].handover + 1.6;
       camera = {
@@ -715,7 +719,6 @@
         inkMicro: portrait ? 0.5 : 0.58,
         out: [0.4, opening],
         back: [cycle - 3.2, cycle - 1.6],
-        turn: [opening, cycle - 1.6],
       };
       api.open = opening;
       api.cycle = cycle;
@@ -723,21 +726,18 @@
       load(micro);
     }
 
-    // Draws a drawing at its focus on the camera point, turned by `turn`.
-    function place(image, focus, scale, turn, cx, cy) {
+    // Draws a drawing with its focus on the camera point.
+    function place(image, focus, scale, cx, cy) {
       const s = scale * ratio;
-      const cos = Math.cos(turn) * s;
-      const sin = Math.sin(turn) * s;
-      context.setTransform(cos, sin, -sin, cos, ratio * cx, ratio * cy);
+      context.setTransform(s, 0, 0, s, ratio * cx, ratio * cy);
       context.drawImage(image, -focus[0], -focus[1]);
     }
 
     function draw(travelled) {
       if (!camera) return;
       const depth = mod(travelled, api.cycle);
-      // Floating alone moves the picture by a fraction of a pixel per frame;
-      // about two dozen redraws a second keep it smooth and spare the battery.
-      if (Math.abs(depth - lastDepth) < 4e-4) return;
+      // Every change is drawn, so floating and scrolling run like a film.
+      if (Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
       // Fetch each drawing a little before the dive reaches it.
       chain.forEach(level => { if (depth > level.handover - 1.4) load(level); });
@@ -746,7 +746,6 @@
       const away = smooth(camera.out[0], camera.out[1], depth) * (1 - smooth(camera.back[0], camera.back[1], depth));
       const cx = camera.start[0] + (camera.finish[0] - camera.start[0]) * away;
       const cy = camera.start[1] + (camera.finish[1] - camera.start[1]) * away;
-      const spin = TAU * smooth(camera.turn[0], camera.turn[1], depth);
       // The brain the visitor arrives at stays clearly visible behind a light
       // veil; deeper in, the veil grows so the names stay clear of the web.
       const deep = smooth(chain[0].handover - 0.5, chain[0].handover + 0.3, depth) * (1 - smooth(api.cycle - 1.5, api.cycle - 0.2, depth));
@@ -763,7 +762,7 @@
       context.imageSmoothingQuality = 'high';
       context.globalCompositeOperation = 'multiply';
 
-      brain(depth, ready[0], cx, cy, spin);
+      brain(depth, ready[0], cx, cy);
       chain.forEach((level, index) => {
         if (!ready[index]) return;
         const next = chain[index + 1];
@@ -775,22 +774,22 @@
         if (index === 0) alpha *= camera.inkMicro;
         if (level.ink) alpha *= level.ink;
         context.globalAlpha = alpha;
-        place(level.sheet.image, level.sheet.focus, level.k * Math.exp(depth), spin + (level.turn || 0), cx, cy);
+        place(level.sheet.image, level.sheet.focus, level.k * Math.exp(depth), cx, cy);
       });
       // The next brain, already growing out of the last neuron.
-      if (depth > api.cycle - 1.6) brain(depth - api.cycle, ready[0], cx, cy, spin);
+      if (depth > api.cycle - 1.6) brain(depth - api.cycle, ready[0], cx, cy);
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
     }
 
-    function brain(depth, microReady, cx, cy, spin) {
+    function brain(depth, microReady, cx, cy) {
       const micro = chain[0];
       const fade = microReady ? 1 - smooth(micro.handover - 0.02, micro.handover + 0.35, depth) : 1;
       const alpha = camera.ink * smooth(-1.5, -0.7, depth) * fade;
       if (alpha < 0.002 || !macro.complete || !macro.naturalWidth) return;
       context.globalAlpha = alpha;
-      place(macro, camera.node, camera.scaleBrain * Math.exp(depth), spin, cx, cy);
+      place(macro, camera.node, camera.scaleBrain * Math.exp(depth), cx, cy);
     }
 
     return api;

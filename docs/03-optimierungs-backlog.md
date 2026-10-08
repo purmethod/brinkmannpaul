@@ -557,3 +557,26 @@ Paul hat mit einem iPhone-Screenshot die Gehirngröße vorgegeben, die beim erst
 - **Umgesetzt für Hochformat:** Die Zeichnung startet mit 97,5 % der Breite, mittig, Oberkante bei 32 px, statt bildschirmfüllend und beschnitten. Desktop und Tablet bleiben bildschirmfüllend.
 - **Prüfung:** Gemessen bei 393 × 791 px Maßstab 0,3742, Breite 383,2 px, links 4,9 px, oben 32 px; „pure“ in der Mitte. Naht 0,01, mehrere Zyklen ohne Fehler, 49 Interaktionstests grün.
 
+## Fünf Sprachen, art-Text, ruhiger Film (2026-10-08)
+
+Pauls Auftrag über Nacht: die Seite autonom prüfen und fertig machen. Dazu gehören der überarbeitete art-Text, der Architekten-Satz bei pure, keine Drehung, Scrollen wie ein Film und die Seite in Englisch, Deutsch, Französisch, Spanisch und Arabisch mit Sprachauswahl unten mittig statt „contact“.
+
+- **art:** Pauls freigegebene Kurzfassung mit „whatever we do with love becomes art.“, 9 statt 14 Absätze, Schluss „you.“
+- **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete.“
+- **Keine Drehung:** Die 360°-Drehung des Flugs und die gedrehten Sphären sind entfernt, es geht nur noch geradeaus in die Tiefe. Jede Tiefenänderung wird gezeichnet, und die Gleitbewegung nach dem Scrollen ist mit 420 statt 280 ms länger. Der Übergang zum nächsten Gehirn bleibt.
+- **Sprachen:**
+  - `dist/index.html` (Englisch) ist die Quelle. `scripts/i18n.py extract` listet 124 Textbausteine (`i18n/units.json`). `scripts/i18n.py build` erzeugt daraus `dist/de|fr|es|ar/index.html`.
+  - Der Build bricht ab, wenn eine Übersetzung fehlt oder Markup (Links, Klassen) verändert. Lokale Dateien werden auf Unterseiten ab dem Seitenstamm adressiert.
+  - Je Seite werden `lang`, Arabisch mit `dir="rtl"`, Canonical, `og:url`, `og:locale` und hreflang-Verweise gesetzt.
+  - Projektnamen und Anker (`#pure`, `#art` …) bleiben gleich, Direktlinks funktionieren also in jeder Sprache. Die Kapitelnamen von pure (physis, understanding, responsibility, ego) bleiben Englisch, denn ihre Anfangsbuchstaben bilden p·u·r·e.
+- **Sprachauswahl:** Im Footer steht exakt mittig `en de fr es ar` statt „contact“, die aktuelle Sprache ist unterstrichen. Beim Wechsel bleibt ein offenes Projekt offen (der Anker wird mitgenommen). Die Bedienbeschriftungen des Rads („projects“, „close“) kommen aus der Seite und werden mit übersetzt.
+- **Arabisch:** Rad, „+“, Lesekopf und die pure-Markierung sind gespiegelt, rechtsbündig mit Skalierung um den rechten Rand. Ohne Laufweite, damit die Buchstaben verbunden bleiben.
+- **Prüfung und Bereinigung:**
+  - 404-Seite einheitlich „paul brinkmann, m.sc. · artist & architect“, aktuelle Styles, Sprachlinks statt „contact“.
+  - `og:site_name` lautet „paul brinkmann“.
+  - HTML geprüft: Verschachtelung, Sprungmarken und Alt-Texte sind korrekt.- **Prüfung vor dem Livegang:**
+  - `node scripts/test-site.mjs` grün, inklusive der neuen Sprachprüfungen: jede Seite mit Sprache, Canonical, markierter Auswahl, denselben Projekten und Bestell-Links, Dateien ab Seitenstamm.
+  - Je Sprache auf Mobile (393 px) und Desktop gemessen: Namen exakt an der Kante, Arabisch rechtsbündig mit „+“ links, Auswahl exakt mittig, kein Überlauf, übersetzte Bedienbeschriftungen, Leseansicht mit übersetztem Untertitel. Keine Konsolenfehler, keine fehlenden Dateien.
+  - Auf `/de/` lädt die Tauchfahrt alle Zeichnungen. `/fr/#qefyr` öffnet direkt. Der Wechsel zu `es` führt auf `/es/#qefyr` mit offenem Projekt.
+  - Nahtstelle mit Helligkeitssprung 0,05 bzw. 0,01. 49 Interaktionstests grün.
+
