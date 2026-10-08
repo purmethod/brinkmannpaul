@@ -620,3 +620,19 @@ Pauls Vorgabe: Mail und Instagram nach links, die Sprachauswahl rechts an die Ka
   - `scripts/test-site.mjs` prüft die Reihenfolge.
   - 49 Interaktionstests grün, der Sprachwechsel behält das offene Projekt.
 
+### Nachtrag: alles als gerahmte Buttons gleicher Größe (2026-10-08)
+
+Pauls Vorgabe: Briefumschlag und Instagram-Zeichen bekommen eine Umrandung und sind gleich. Jede Sprache ist ein eigener Button in genau derselben Größe.
+
+- **Buttons:** Alle acht Elemente (Mail, Instagram, en, de, fr, es, ar, ru) sind quadratisch.
+  - Rahmen 1 px in der Footerfarbe, Ecken mit 28 % der Seitenlänge gerundet, wie beim Instagram-Zeichen. Abstand 6 px.
+  - Beim Überfahren und bei der aktuellen Sprache werden Rahmen und Inhalt schwarz. Die Unterstreichung entfällt.
+- **Zeichen:** Beide SVGs zeichnen im 40er-Raster auf voller Buttongröße.
+  - Bei Instagram ist der Buttonrahmen der Umriss der Kamera, innen sitzen Kreis (17 Einheiten) und Punkt. Der Umschlag ist 17 Einheiten breit, also gleich breit wie der Kreis.
+  - Linien mit `vector-effect: non-scaling-stroke` bleiben bei jeder Größe 1 px fein wie der Rahmen.
+- **Größe:** `--button: clamp(28px, (100vw − 92px) / 8, 40px)`. Die 92 px sind 2 × 20 px Rand, 6 × 6 px Abstand und 16 px Mindestabstand in der Mitte, damit acht Buttons immer in eine Zeile passen. Der Footer-Abstand ist jetzt überall 16 px, sonst brach die 404-Seite bei 393 px um.
+- **Aufgeräumt:** `min-height: 32px` der Footer-Links in `brain-scroll.css` entfällt, sonst wären die Buttons bei 320 px nicht quadratisch.
+- **Prüfung:**
+  - en, ar, ru und 404 bei 320, 360, 393, 430 und 1440 px gemessen: alle acht Buttons exakt gleich groß und quadratisch, Texte auf 0,0 px zentriert, Kanten 20 px (Desktop 32 px), Abstände 6 px, eine Zeile, kein Überlauf, Arabisch gespiegelt.
+  - 49 Interaktionstests grün.
+
