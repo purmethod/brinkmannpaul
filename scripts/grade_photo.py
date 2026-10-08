@@ -1,9 +1,9 @@
-"""Give a photo the site's film look and cut its circle.
+"""Give a photo the site's nordic matte look and cut its circle.
 
 Every photo on the site gets the same grade, so pictures from any camera or
-light read as one series: analogue film colour, slightly held back (loud
-oranges more so), warm skin and highlights, teal-leaning shadows, a soft
-s-curve, fine grain and no hard black.
+light read as one series: light and airy, colour held well back (loud
+oranges most), lifted matte shadows with a cool touch, a barely-there
+curve, fine grain and no hard black.
 
   python3 scripts/grade_photo.py SOURCE NAME CX CY R
 
@@ -18,8 +18,8 @@ import numpy as np
 from PIL import Image, ImageOps
 
 ASSETS = Path(__file__).resolve().parent.parent / 'dist' / 'assets'
-LOOK = dict(sat=0.82, orange=0.5, fade=0.12, white=0.965, curve=0.22, gamma=0.9, vignette=0.0,
-            shadow=(-0.035, 0.015, 0.045), high=(0.06, 0.03, -0.05), warm=(1.0, 0.985, 0.95), grain=0.022)
+LOOK = dict(sat=0.5, orange=0.6, fade=0.22, white=0.985, curve=0.05, gamma=0.82, vignette=0.0,
+            shadow=(-0.01, 0.012, 0.03), high=(0.0, 0.01, 0.012), warm=(0.985, 1.0, 1.01), grain=0.012)
 
 
 def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain):
@@ -55,7 +55,7 @@ def main(source, name, cx, cy, r):
     whole = photo.copy()
     whole.thumbnail((1080, 1440), Image.LANCZOS)
     # The whole photo is shown larger, so its grain can be finer.
-    grade(whole, **{**LOOK, 'grain': 0.014}).save(ASSETS / f'photo-{name}-full.webp', quality=60, method=6)
+    grade(whole, **{**LOOK, 'grain': LOOK['grain'] * 0.7}).save(ASSETS / f'photo-{name}-full.webp', quality=60, method=6)
 
 
 if __name__ == '__main__':
