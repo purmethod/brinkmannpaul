@@ -33,8 +33,12 @@
     requestAnimationFrame(() => others.forEach(other => other.classList.remove('is-snapping')));
   }, true);
 
-  // Switching language keeps the project that is open.
+  // Switching language changes only the language: no intro again, the open
+  // project stays open, and the wheel and the dive stay where they were.
+  const SWITCH = 'bs-language-switch';
+  let wheelState = () => null;
   document.querySelectorAll('.bs-langs a').forEach(link => link.addEventListener('click', () => {
+    try { window.sessionStorage.setItem(SWITCH, JSON.stringify(wheelState())); } catch { /* storage off: the intro shows */ }
     if (window.location.hash) link.href = link.getAttribute('href').split('#')[0] + window.location.hash;
   }));
 
@@ -137,10 +141,13 @@
       kind.textContent = item.type;
       head.append(kind);
     }
+    // Where the wheel showed "+", the open project shows "×" to close it.
+    const shut = make('button', 'bs-head-close', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
+    head.append(shut);
     const body = make('div', 'bs-reader-content');
     if (item.content) body.append(item.content);
     block.append(head, body);
-    return { block, head, title };
+    return { block, head, title, shut };
   });
   readerScroll.append(article);
   const closer = make('button', 'bs-close', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
@@ -543,6 +550,7 @@
     close();
   });
   closer.addEventListener('click', () => close());
+  sections.forEach(entry => entry.shut.addEventListener('click', () => close()));
   reader.addEventListener('click', event => {
     if (event.target === reader || event.target === readerScroll) close();
   });
@@ -585,7 +593,25 @@
     schedule();
   });
 
+  wheelState = () => ({ id: items[mod(Math.round(position()), count)].id, travel, drift });
+
+  function restoreAfterSwitch() {
+    let state = null;
+    try {
+      state = JSON.parse(window.sessionStorage.getItem(SWITCH));
+      window.sessionStorage.removeItem(SWITCH);
+    } catch { return; }
+    if (!state || window.location.hash) return;
+    const index = indexOf(state.id);
+    if (index < 0) return;
+    quiet((MIDDLE * count + index) * rowHeight + offset);
+    detent = Math.round(position());
+    if (Number.isFinite(state.travel)) eased = travel = state.travel;
+    if (Number.isFinite(state.drift)) drift = state.drift;
+  }
+
   measure();
+  restoreAfterSwitch();
   openFromHash();
   schedule();
 
