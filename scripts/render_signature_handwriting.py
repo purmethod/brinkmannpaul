@@ -8,8 +8,9 @@ order Paul writes them, given as a few waypoints that are snapped to the
 centreline of the ink and followed along it.
 
 Pen speed follows the two-thirds power law of human handwriting: the pen
-slows in tight curves and runs on straight strokes, so the signature reads as
-one quick, fluid movement.
+slows in curves and runs on straight strokes, smoothed so it never jerks.
+Between strokes it travels on through the air instead of pausing, so the
+writing flows. The signature and the motto each take 3.5 s on the site.
 
 Run: python3 scripts/render_signature_handwriting.py [--sheet contact.png]
 """
@@ -34,9 +35,16 @@ SOURCE = ROOT / "dist/assets/intro-handwriting-split-complete.png"
 OUTPUT = ROOT / "dist/assets/intro-handwriting-signed.mp4"
 SIZE = (900, 1100)
 FPS = 60
-FADE = 0.035          # each ink pixel settles in 35 ms behind the pen
-HOLD = 1.2            # the finished page rests before the loop ends
-LIFT = 0.05           # pen lift between strokes and letters
+PLAYBACK = 1.25       # the site plays the video at 1.25x
+SIGNATURE_SECONDS = 3.5  # on the site: the whole signature
+MOTTO_SECONDS = 3.5      # on the site: "trust is my currency", first ink to underline
+START = 0.30          # video s: the photo is seen before the pen starts
+BREATH = 0.35         # video s between the signature and the motto
+LINE_GAP = 0.22       # video s between the motto lines
+FADE = 0.06           # each ink pixel flows in over 60 ms behind the pen
+HOLD = 1.2            # the finished page rests before the video ends
+AIR = 0.2             # pen weight per px of travel through the air between strokes
+AIR_MIN = 4.0         # the shortest lift still takes a moment
 CROSSING = 3.0        # px: where strokes cross, the first pass deposits the ink
 
 # Waypoints in canvas pixels. Each letter is a list of strokes; each stroke is
@@ -90,17 +98,13 @@ IS_MY = (
             (778, 835), (765, 843), (740, 851), (709, 861)]]),
 )
 
-# Lines: (name, letters, pause before the line, pen time, region x0, y0, x1, y1).
-# Times are video seconds; the site plays the video at 1.25x, so a viewer sees
-# 4/5 of them. The signature is written calmly in 4 s on the site (5.3 s of pen
-# time here, of which the joins between letters save 0.3 s). A duration of None
-# would give a line the motto's pace instead.
-LINES = [
-    ("signature", SIGNATURE, 0.30, 5.30, (40, 295, 862, 662)),
-    ("trust", TRUST, 0.40, 1.35, (545, 682, 862, 742)),
-    ("is my", IS_MY, 0.30, 1.15, (575, 768, 790, 868)),
-]
-CURRENCY = (0.30, 2.05, (548, 875, 860, 1020))
+# Lines and the ink region each one owns (x0, y0, x1, y1).
+REGIONS = {
+    "signature": (40, 295, 862, 662),
+    "trust": (545, 682, 862, 742),
+    "is my": (575, 768, 790, 868),
+    "currency": (548, 875, 860, 1020),
+}
 
 
 def load_ink():
@@ -168,79 +172,97 @@ def trace(waypoints, coords, index, tree):
 
 
 def pen_weights(points):
-    """Time per 1 px step: the pen slows in curves (two-thirds power law)."""
+    """Time per 1 px step, after the two-thirds power law of handwriting.
+
+    The pen slows in curves and runs on straight strokes; curvature and the
+    resulting weights are smoothed along the stroke so the pen never brakes or
+    surges abruptly.
+    """
     if len(points) < 3:
         return np.ones(max(len(points) - 1, 1))
     heading = np.unwrap(np.arctan2(*np.diff(points, axis=0)[:, ::-1].T))
-    curvature = np.abs(np.gradient(heading))
-    curvature = ndimage.uniform_filter1d(curvature, 9)
-    return np.cbrt(curvature + 0.03)
+    curvature = ndimage.uniform_filter1d(np.abs(np.gradient(heading)), 35)
+    return ndimage.uniform_filter1d(np.cbrt(curvature + 0.06), 15)
 
 
-def schedule(letters, start, duration, coords, index, tree):
-    traced = []
-    for name, strokes in letters:
-        traced.append((name, [trace(stroke, coords, index, tree) for stroke in strokes]))
-    lifts = sum(len(strokes) for _, strokes in traced) - 1
-    total = sum(pen_weights(points).sum() for _, strokes in traced for points in strokes)
-    scale = (duration - LIFT * lifts) / total
-    cursor, result = start, []
-    for name, strokes in traced:
-        points_all, times_all, letter_start = [], [], cursor
-        for points in strokes:
-            weights = pen_weights(points) * scale
-            times = cursor + np.r_[0, np.cumsum(weights)]
-            points_all.append(points)
-            times_all.append(times[: len(points)])
-            cursor = times[len(points) - 1] + LIFT
-        # Strokes that continue the previous letter do not lift the pen.
-        result.append({"name": name, "points": np.vstack(points_all), "times": np.concatenate(times_all),
-                       "start": letter_start, "end": cursor - LIFT})
-    # Letters joined in one movement share their ends: remove the lift between them.
-    for number in range(1, len(result)):
-        before, after = result[number - 1], result[number]
-        if np.hypot(*(before["points"][-1] - after["points"][0])) < 2.5:
-            shift = after["start"] - before["end"]
-            for item in result[number:]:
-                item["times"] = item["times"] - shift
-                item["start"] -= shift
-                item["end"] -= shift
-    return result
+def eased(weights, lifts_in, lifts_out, reach=14):
+    """A pen speeds up after touching down and slows before lifting off."""
+    weights = weights.copy()
+    # Short strokes of the small motto letters get a shorter run-up.
+    reach = int(max(3, min(reach, 0.2 * len(weights))))
+    ramp = np.linspace(0, 1, min(reach, len(weights)))
+    slow = 1 + 0.6 * (1 - ramp * ramp * (3 - 2 * ramp))
+    if lifts_in:
+        weights[: len(slow)] *= slow
+    if lifts_out:
+        weights[len(weights) - len(slow):] *= slow[::-1]
+    return weights
+
+
+def air(a, b):
+    """Pen weight for moving through the air from one stroke to the next."""
+    distance = float(np.hypot(*(b - a)))
+    return 0.0 if distance < 2.5 else max(AIR_MIN, AIR * distance)
 
 
 def currency_letters():
+    """currency keeps its approved hand-traced paths."""
     from render_handwriting_photo import catmull_rom, cumulative_lengths
-    start, duration, glyphs = CURRENCY_LINES[0]
-    return [(glyph.name, [np.asarray(path, dtype=np.float32) for path in glyph.paths]) for glyph in glyphs], \
-        (catmull_rom, cumulative_lengths)
-
-
-def schedule_currency(start, duration):
-    """currency keeps its approved hand-traced paths, at the new pace."""
-    letters, (catmull_rom, cumulative_lengths) = currency_letters()
-    prepared = []
-    for name, paths in letters:
+    letters = []
+    for glyph in CURRENCY_LINES[0][2]:
         strokes = []
-        for anchors in paths:
-            points = catmull_rom(anchors, 32)
+        for anchors in glyph.paths:
+            points = catmull_rom(np.asarray(anchors, dtype=np.float32), 32)
             distance, length = cumulative_lengths(points)
             samples = np.linspace(0, length, max(2, int(length) + 1))
             strokes.append(np.column_stack([np.interp(samples, distance, points[:, i]) for i in (0, 1)]))
-        prepared.append((name, strokes))
-    lifts = sum(len(strokes) for _, strokes in prepared) - 1
-    total = sum(pen_weights(points).sum() for _, strokes in prepared for points in strokes)
-    scale = (duration - LIFT * lifts) / total
-    cursor, result = start, []
-    for name, strokes in prepared:
-        pts, tms, letter_start = [], [], cursor
-        for points in strokes:
-            times = cursor + np.r_[0, np.cumsum(pen_weights(points) * scale)]
-            pts.append(points)
-            tms.append(times[: len(points)])
-            cursor = times[len(points) - 1] + LIFT
-        result.append({"name": name, "points": np.vstack(pts), "times": np.concatenate(tms),
-                       "start": letter_start, "end": cursor - LIFT})
+        letters.append((glyph.name, strokes))
+    return letters
+
+
+def stroke_weights(strokes):
+    """Weights of each stroke in a line, eased where the pen touches or lifts."""
+    result = []
+    for number, points in enumerate(strokes):
+        lifts_in = number == 0 or air(strokes[number - 1][-1], points[0]) > 0
+        lifts_out = number == len(strokes) - 1 or air(points[-1], strokes[number + 1][0]) > 0
+        result.append(eased(pen_weights(points), lifts_in, lifts_out))
     return result
+
+
+def group_weight(lines):
+    """Ink plus air weight of a group of lines written at one pace."""
+    total = 0.0
+    for _, letters in lines:
+        strokes = [points for _, letter in letters for points in letter]
+        total += sum(weights.sum() for weights in stroke_weights(strokes))
+        total += sum(air(a[-1], b[0]) for a, b in zip(strokes, strokes[1:]))
+    return total
+
+
+def lay_out(lines, start, span, gap):
+    """Give every point of every stroke its time; the group takes `span`."""
+    scale = (span - gap * (len(lines) - 1)) / group_weight(lines)
+    cursor, result = start, []
+    for number, (name, letters) in enumerate(lines):
+        if number:
+            cursor += gap
+        scheduled, previous = [], None
+        weights = iter(stroke_weights([points for _, letter in letters for points in letter]))
+        for letter_name, strokes in letters:
+            points_all, times_all = [], []
+            for points in strokes:
+                if previous is not None:
+                    cursor += air(previous, points[0]) * scale
+                times = cursor + np.r_[0, np.cumsum(next(weights) * scale)]
+                points_all.append(points)
+                times_all.append(times[: len(points)])
+                cursor, previous = float(times[len(points) - 1]), points[-1]
+            times = np.concatenate(times_all)
+            scheduled.append({"name": letter_name, "points": np.vstack(points_all), "times": times,
+                              "start": float(times[0]), "end": float(times[-1])})
+        result.append((name, scheduled))
+    return result, cursor
 
 
 def reveal_map(gray, letters, region, reveal):
@@ -272,31 +294,19 @@ def frame(gray, reveal, timestamp):
 def build():
     gray, binary = load_ink()
     coords, index, tree = skeleton_graph(binary)
+
+    def traced(letters):
+        return [(name, [trace(stroke, coords, index, tree) for stroke in strokes]) for name, strokes in letters]
+
+    signature = [("signature", traced(SIGNATURE))]
+    motto = [("trust", traced(TRUST)), ("is my", traced(IS_MY)), ("currency", currency_letters())]
+    # Each part takes its time on the site; the video plays 1.25x faster.
+    first, cursor = lay_out(signature, START, SIGNATURE_SECONDS * PLAYBACK, 0.0)
+    second, _ = lay_out(motto, cursor + BREATH, MOTTO_SECONDS * PLAYBACK, LINE_GAP)
+    lines = first + second
     reveal = np.full(gray.shape, np.inf, dtype=np.float32)
-    # The motto's pace: seconds of pen time per unit of pen weight.
-    def weight(letters):
-        traced = [[trace(stroke, coords, index, tree) for stroke in strokes] for _, strokes in letters]
-        return sum(pen_weights(points).sum() for strokes in traced for points in strokes), \
-            sum(len(strokes) for strokes in traced) - 1
-    paces = []
-    for _, letters, _, duration, _ in LINES:
-        if duration is not None:
-            total, lifts = weight(letters)
-            paces.append((duration - LIFT * lifts) / total)
-    pace = float(np.mean(paces))
-    lines, cursor = [], 0.0
-    for name, letters, pause, duration, region in LINES:
-        if duration is None:
-            total, lifts = weight(letters)
-            duration = total * pace + LIFT * lifts
-        scheduled = schedule(letters, cursor + pause, duration, coords, index, tree)
-        reveal_map(gray, scheduled, region, reveal)
-        lines.append((name, scheduled))
-        cursor = max(item["end"] for item in scheduled)
-    pause, duration, region = CURRENCY
-    scheduled = schedule_currency(cursor + pause, duration)
-    reveal_map(gray, scheduled, region, reveal)
-    lines.append(("currency", scheduled))
+    for name, scheduled in lines:
+        reveal_map(gray, scheduled, REGIONS[name], reveal)
     missing = (gray < 200) & ~np.isfinite(reveal)
     if missing.sum():
         print(f"warning: {missing.sum()} ink pixels outside every line region stay hidden")
