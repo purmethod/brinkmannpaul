@@ -20,7 +20,12 @@
 
 ## Blocker / Fallbacks
 
-(wird laufend gepflegt)
+- Gestoppt auf Wunsch von Paul (Credits) mitten in M7. Stand: Engine, Adapter, Backend, Wissens-Job,
+  Icons/SW fertig und getestet. M7 begonnen: `src/lib/{state,sync,app-context,hooks,format}.ts`,
+  `src/components/{Logo,Ring,Wheel,Splash,Thumbs,ui,icons}.tsx`, `src/app/globals.css`.
+  Noch offen: Seiten (Onboarding, Home, Chat, Settings, Admin, Datenschutz, Impressum), layout.tsx,
+  SW-Registrierung, Capacitor-Config, Playwright, /store, README, Deploy.
+- Kein VERCEL_TOKEN, kein ANTHROPIC_API_KEY, kein Xcode/Android SDK in dieser Umgebung.
 
 ## Offene Punkte für Paul
 

@@ -3,6 +3,7 @@ import { KNOWLEDGE_DOCS } from "../shared/knowledge.generated";
 import { HELP_TEXT, needsHelp } from "../shared/safety";
 import { PHASES } from "../shared/texts";
 import { topicOf } from "../shared/topics";
+import { fallbackAnswer } from "../shared/fallback";
 import type { ChatRequest, ChatResponse, Line } from "../shared/types";
 import type { Llm } from "./llm";
 
@@ -40,16 +41,6 @@ export function buildContext(req: Pick<ChatRequest, "mode" | "phase" | "cycleDay
   }
   if (req.notes.length) parts.push(`Seine letzten Notizen: ${req.notes.map((n) => `„${n}“`).join(" ")}`);
   return parts.join(" ");
-}
-
-/** Offline/no-key answer: a fitting line from the knowledge base. */
-export function fallbackAnswer(req: ChatRequest, lines: Line[]): string {
-  const category = req.mode === "single" ? "single" : req.phase;
-  const pool = lines.filter((l) => l.category === category || l.category === "any");
-  const last = req.messages.filter((m) => m.role === "user").at(-1)?.content ?? "";
-  let h = 0;
-  for (const ch of last) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return pool.length ? pool[h % pool.length].text : "Es ist nichts Großes passiert. Atme. Weiter.";
 }
 
 export async function answerChat(
