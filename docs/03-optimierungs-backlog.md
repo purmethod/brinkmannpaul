@@ -710,3 +710,19 @@ Paul: Die Seite ist der Funnel nach einem Reel. Name, Abschluss und Beruf müsse
 - **404:** `.site-header` in `styles.css` bekommt dieselben Werte.
 - **Geprüft:** Screenshots am Handy (en, ru) und am Desktop. Fit-Messung in allen Sprachen. `test-site` und 49 Interaktionstests grün.
 
+### Nachtrag: drei Farbtöne statt Schwarz (2026-10-08, noch nicht live)
+
+Pauls Vorgabe: Name und Beruf oben sowie der Name in der Mitte des Rads im selben Dunkelgrau wie die Sprachkürzel („en“). Hellgrau ist der Ton von „system for man“. Dazu kommt als drittes die Linienfarbe der nicht gewählten Buttons.
+
+- **Töne** als Variablen auf `#site-page`:
+  - `--tone-dark: #5c5c56` (wie „en“);
+  - `--tone-light: #5f5f59` (wie „system for man“);
+  - `--tone-line: #cfcfca` (Rahmen der Buttons).
+- **Dunkelgrau:** Header, Name in der Mitte und die blassen Nachbarn (über ihre Deckkraft), „+“, Lesetitel, Leittext, Fließtext, Kapitel, Links. Auch die Liste ohne JavaScript.
+- **Hellgrau:** Untertitel im Rad und im Leser, Projekttypen in der Liste, Hinweise.
+- **Kein Schwarz mehr:** `--ink` ist jetzt `var(--tone-dark)`. Damit sind die Linien um die Mitte, die Linien des Lesekopfs, der Schließen-Kreis und die Fokusrahmen im Dunkelgrau. Die obere Kante des Headers ebenfalls, auch auf der 404-Seite.
+- **Geprüft:**
+  - Vorher/Nachher-Screenshots von Startbildschirm und geöffnetem pure.
+  - Die Mitte hebt sich weiter von den Nachbarn ab, der Lesetext ist gut lesbar (Kontrast 6,6 : 1).
+  - `test-site` und 49 Interaktionstests grün.
+
