@@ -42,6 +42,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: art wieder ohne Bilder (2026-10-08)
+
+Nach Rücksprache mit Paul sind die vier Bilder wieder raus. Der Text trägt sich allein, Bilder hätten die Gedankenkette bis zum „you.“ unterbrochen. art bleibt die einzige Rubrik nur mit Text, als Manifest.
+
+Die Dateien liegen in `archive/photos/` (nicht veröffentlicht), falls sie später woanders hinkommen. Für die Lehmziegel und das Verputzen wäre das zum Beispiel neuroarchitecture, für Zeichnung und Mona Lisa eine eigene Werkschau.
+
 ## Aktualisierung: art mit vier Bildern (2026-10-08)
 
 Auf Pauls Vorgabe stehen in art vier Bilder im Wechsel mit dem Text. Alle haben den Honig-Look:
