@@ -372,11 +372,11 @@ footer p {
   margin: 0;
 }
 
-/* Footer: e-mail and instagram on one edge, the languages on the other. Every
-   item is a small framed button of the same size, 28px; below a 316px screen
-   they shrink so all eight still share one row. */
+/* Footer: e-mail, whatsapp and instagram on one edge, the languages on the
+   other. Every item is a small framed button of the same size, 28px; below a
+   350px screen they shrink so all nine still share one row. */
 footer {
-  --button: clamp(1.5rem, calc((100vw - 5.75rem) / 8), 1.75rem);
+  --button: clamp(1.5rem, calc((100vw - 6.125rem) / 9), 1.75rem);
 }
 
 .contact-links,
@@ -393,7 +393,9 @@ footer {
   box-sizing: border-box;
   width: var(--button);
   height: var(--button);
-  border: 1px solid currentColor;
+  /* A 1.5px frame drawn as an inset shadow: browsers would round a 1.5px
+     border down to 1px. */
+  box-shadow: inset 0 0 0 1.5px currentColor;
   border-radius: calc(var(--button) * 0.28);
   color: inherit;
   text-decoration: none;
@@ -404,7 +406,7 @@ footer {
   height: 100%;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1px;
+  stroke-width: 1.5px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
