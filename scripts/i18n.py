@@ -26,6 +26,7 @@ LANGS = {
     'fr': {'locale': 'fr_FR'},
     'es': {'locale': 'es_ES'},
     'ar': {'locale': 'ar_AR', 'dir': 'rtl'},
+    'ru': {'locale': 'ru_RU'},
 }
 
 # Inner HTML of these elements is one unit; links inside a paragraph travel with it.

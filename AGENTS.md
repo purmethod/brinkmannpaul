@@ -57,7 +57,7 @@ orders@brinkmannpaul.com.
   oder aus Aussagen von Paul übernehmen.
 - Neue Produkte/Projekte erst als Issue-Konzept, dann Text, dann Code.
 - CTA-Schema ist `mailto:orders@brinkmannpaul.com?subject=...` — neue Ziele (z. B. eigene Produktseiten) nur mit Freigabe.
-- **Fünf Sprachen:** `dist/index.html` (Englisch) ist die Quelle. `dist/de|fr|es|ar/index.html` werden mit `python3 scripts/i18n.py build`
+- **Sechs Sprachen:** `dist/index.html` (Englisch) ist die Quelle. `dist/de|fr|es|ar|ru/index.html` werden mit `python3 scripts/i18n.py build`
   aus `i18n/<sprache>.json` erzeugt und nie von Hand bearbeitet. Wer englischen Text ändert, zieht die Übersetzungen nach
   (`python3 scripts/i18n.py extract` listet die Bausteine); der Build bricht ab, wenn eine Übersetzung fehlt oder Markup verändert.
 
