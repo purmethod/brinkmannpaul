@@ -118,7 +118,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 9, 'project ids are uniqu
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -194,6 +194,23 @@ for (const lang of LANGS) {
   pages.push(['dist', page]);
 }
 
+// The skyn pre-order page: in every language, linked from the skyn row, with
+// pre-orders by e-mail and whatsapp and links that stay in the language.
+const skyn = fs.readFileSync(path.join(root, 'dist/skyn/index.html'), 'utf8');
+assert.ok(html.includes('<a href="skyn/">'), 'the skyn row links to the pre-order page');
+assert.ok(skyn.includes('mailto:brinkmannbuild@gmail.com?subject=skyn%20pre-order') && skyn.includes('href="https://wa.me/491756257788"'), 'skyn: pre-orders by e-mail and whatsapp');
+pages.push(['dist', skyn]);
+for (const lang of LANGS) {
+  const file = path.join(root, 'dist', lang, 'skyn', 'index.html');
+  assert.ok(fs.existsSync(file), `dist/${lang}/skyn/index.html exists (run python3 scripts/i18n.py build)`);
+  const page = fs.readFileSync(file, 'utf8');
+  assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/skyn/" />`), `${lang} skyn canonical`);
+  assert.ok(new RegExp(`href="/${lang}/skyn/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} skyn marked in the selector`);
+  assert.ok(page.includes(`href="/${lang}/#skyn"`), `${lang} skyn closes back to its own language`);
+  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/skyn/">`), `${lang} row links to its skyn page`);
+  pages.push(['dist', page]);
+}
+
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href|poster)="([^"#]+)"/g)) {
@@ -206,4 +223,4 @@ for (const [page, source] of pages) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn pre-order page, local assets, og image.');

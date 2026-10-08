@@ -42,6 +42,32 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: skyn neu erzählt, Vorbestellseite (2026-10-08)
+
+Pauls Geschichte zu skyn:
+- jahrelange Experimente für eine Creme, so rein wie ein Lebensmittel
+- nur natürliche Fette und Öle, kein Erdöl, nichts Synthetisches
+- die Weltreise bis in die Souks der Medina von Tunis
+- das Kaktusfeigenkernöl als kostbarste Zutat
+- Rindertalg als Basis, dazu Jojoba, fünf Zutaten insgesamt
+- zwei Jahre Selbsttest
+- zuerst gemacht für sich, die Familie und die engsten Freunde
+- jetzt zum Vorbestellen, Versand weltweit
+
+**Bewusst so formuliert, weil es belegbar ist:**
+- „so rein wie ein Lebensmittel“ statt „nur essbare Zutaten“. Jojoba ist ein unverdauliches Wachs mit Erucasäure und gilt nicht als Lebensmittel.
+- Zum Talg nur die belegte Aussage: Seine Hauptfettsäuren gehören auch zu den Hauptfettsäuren im Hautfett. Nicht „identisch mit dem Sebum“, denn Sebum besteht zu großen Teilen aus Wachsestern und Squalen.
+- Jojoba als flüssiges Wachs, nah an den Wachsen der Haut.
+- Kaktusfeigenkernöl als „eines der seltensten Öle der Welt“: Die Kerne enthalten nur etwa 5 bis 14 % Öl.
+- Keine Heil- oder Superlativ-Versprechen.
+
+**Neue Seite `/skyn/`** in allen 6 Sprachen. Der Button in der Rubrik heißt jetzt „pre-order skyn ↗“. Ablauf: Vorbestellung per E-Mail oder WhatsApp (Anzahl Tiegel, Land) → Paul bestätigt den Preis inklusive Versand und schickt den Zahlungslink → Versand weltweit, sobald die Charge fertig ist.
+
+**Offen:**
+- **Angaben:** Preis, Tiegelgröße, Lieferzeit und die zwei weiteren Zutaten.
+- **Stripe:** Die Schlüssel kommen von Paul.
+- **Vor dem ersten Versand in die EU:** Sicherheitsbewertung (CPSR), verantwortliche Person, CPNP-Meldung und Etikett mit INCI-Liste nach EU-Kosmetikverordnung 1223/2009.
+
 ## Aktualisierung: art wieder ohne Bilder (2026-10-08)
 
 Nach Rücksprache mit Paul sind die vier Bilder wieder raus. Der Text trägt sich allein, Bilder hätten die Gedankenkette bis zum „you.“ unterbrochen. art bleibt die einzige Rubrik nur mit Text, als Manifest.
