@@ -42,6 +42,26 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: mysidibou mit Fotos und Video aus Sidi Bou Saïd (2026-10-08)
+
+Pauls Fotos und sein Video aus Sidi Bou Saïd stehen in der Rubrik mysidibou. Text und Medien wechseln sich ab. Die drei Absätze sind dafür an ihren Satzgrenzen geteilt, der Wortlaut ist unverändert.
+
+| Medium | Bildzeile |
+|---|---|
+| Foto | „the gulf of tunis“ |
+| Foto | „a blue door in white marble“ |
+| Video | „a lane in the village“ |
+| Foto | „the rooftops of the village“ |
+| Foto | „bougainvillea at a blue gate“ |
+
+- **Das Blau:** Paul war es wichtig. `scripts/grade_photo.py` hat dafür den Wert BLUE (0 bis 1). Er hält kräftige Blautöne (Türen, Gitter, Fensterläden, Meer, Himmel) in voller Farbe und nimmt sie aus dem warmen Honig-Ton heraus. Der Rest bekommt den gewohnten Look. Alle Sidi-Fotos nutzen BLUE 1. Bestehende Fotos bleiben unverändert, BLUE ist dort 0.
+- **Das Video:** `scripts/grade_video.py` erzeugt es aus dem Original (4 s, 4K, HDR, 14 MB).
+  - Gleicher Look Bild für Bild, ohne Korn.
+  - Die letzten 0,4 s blenden in den Anfang über, so loopt es ohne Sprung.
+  - Kreis: 480 px, 225 KB. Ganzes Video zum Antippen: 640 px, 665 KB. Dazu ein Vorschaubild.
+  - Kodiert als H.264 mit Schnellstart, ohne Ton.
+- **Flüssiges Laden:** Das Video lädt erst, wenn es beim Lesen in die Nähe kommt (300 px vorher), spielt im Bild und pausiert außerhalb. Bei „weniger Bewegung“ bleibt das Vorschaubild stehen, das ganze Video hat dann Steuerelemente. Die Fotos laden ebenfalls erst bei Bedarf.
+
 ## Aktualisierung: Buchungsseite für die wim hof weekends (2026-10-08)
 
 Neue Seite `/weekends/` in allen 6 Sprachen (`/de/weekends/` usw.). In der wim-hof-Rubrik führt „book a weekend ↗“ dorthin statt auf eine Mail.

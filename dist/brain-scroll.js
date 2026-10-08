@@ -564,7 +564,12 @@
     event.preventDefault();
     closePhoto();
     const view = make('div', 'photo-view', { role: 'dialog', 'aria-modal': 'true', 'aria-label': link.getAttribute('aria-label') || '' });
-    const image = make('img', '', { src: link.href, alt: link.querySelector('img')?.alt || '' });
+    // A clip opens whole as well: playing on its own, or with controls when motion is reduced.
+    const clip = /\.mp4(\?|$)/.test(link.href);
+    const image = clip
+      ? make('video', '', { src: link.href, playsinline: '', loop: '', ...(reduced.matches ? { controls: '' } : { autoplay: '' }) })
+      : make('img', '', { src: link.href, alt: link.querySelector('img')?.alt || '' });
+    if (clip) image.muted = true;
     const shut = make('button', 'photo-shut', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
     view.append(image, shut);
     view.addEventListener('click', closePhoto);
@@ -572,6 +577,24 @@
     photo = { view, link };
     shut.focus({ preventScroll: true });
   });
+
+  // Clips in the text load only when they come near and play while in view,
+  // so the page stays light and the loop runs smoothly.
+  const clips = sections.flatMap(({ block }) => [...block.querySelectorAll('video[data-src]')]);
+  if (clips.length && 'IntersectionObserver' in window) {
+    const watch = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return target.pause();
+      if (!target.getAttribute('src')) {
+        target.preload = 'auto';
+        target.src = target.dataset.src;
+      }
+      if (!reduced.matches) target.play().catch(() => {});
+    }), { rootMargin: '300px 0px' });
+    clips.forEach(clip => {
+      clip.muted = true;
+      watch.observe(clip);
+    });
+  }
 
   reader.addEventListener('cancel', event => {
     event.preventDefault();

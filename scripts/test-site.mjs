@@ -196,11 +196,13 @@ for (const lang of LANGS) {
 
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
-  for (const [, local] of source.matchAll(/(?:src|srcset|href)="([^"#]+)"/g)) {
+  for (const [, local] of source.matchAll(/(?:src|srcset|href|poster)="([^"#]+)"/g)) {
     if (/^(https?:|mailto:|data:)/.test(local) || local === '/') continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
     assert.ok(fs.existsSync(file), `Missing ${local}`);
-    assert.ok(fs.statSync(file).size < 300 * 1024, `${local} exceeds 300 KB`);
+    // A whole clip opened on tap may be larger; everything shown on the page keeps 300 KB.
+    const limit = /video-[a-z-]+-full\.mp4$/.test(local) ? 1024 : 300;
+    assert.ok(fs.statSync(file).size < limit * 1024, `${local} exceeds ${limit} KB`);
   }
 }
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];

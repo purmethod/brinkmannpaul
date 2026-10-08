@@ -106,11 +106,11 @@
 /* Every photo is the same circle with a drawn ring; tapping opens it whole. */
 #site-page .photo{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:14px;margin:8px 0 30px}
 #site-page .item-content .photo-open{position:relative;display:block;grid-column:1;justify-self:center;width:min(240px,68vw);min-height:0;aspect-ratio:1;margin:0;border-radius:50%;text-decoration:none;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
-#site-page .photo-open img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+#site-page .photo-open img,#site-page .photo-open video{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#f4f2ee}
 #site-page .photo-open:after{content:"";position:absolute;inset:-7px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--tone-line)}
 #site-page .photo figcaption{font-size:12px;letter-spacing:.035em;color:var(--tone-light)}
 #site-page .photo-view{position:fixed;inset:0;z-index:5;display:grid;place-items:center;padding:64px 20px 40px;background:#fff;cursor:zoom-out}
-#site-page .photo-view img{max-width:100%;max-height:100%;object-fit:contain}
+#site-page .photo-view img,#site-page .photo-view video{max-width:100%;max-height:100%;object-fit:contain}
 #site-page .photo-shut{position:absolute;right:8px;top:12px;width:44px;height:44px;padding:0;border:0;background:none;color:var(--tone-dark);cursor:pointer}
 #site-page .photo-shut:before,#site-page .photo-shut:after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1px;margin:-.5px 0 0 -7px;background:currentColor;transform:rotate(45deg)}
 #site-page .photo-shut:after{transform:rotate(-45deg)}
