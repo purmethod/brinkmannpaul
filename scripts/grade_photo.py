@@ -1,9 +1,9 @@
-"""Give a photo the site's nordic matte look and cut its circle.
+"""Give a photo the site's honey look and cut its circle.
 
 Every photo on the site gets the same grade, so pictures from any camera or
-light read as one series: light and airy, colour held well back (loud
-oranges most), lifted matte shadows with a cool touch, a barely-there
-curve, fine grain and no hard black.
+light read as one series: subtle but warm, colour held back (loud oranges
+more so), amber highlights, warm brown shadows, a gentle curve, fine grain
+and no hard black.
 
   python3 scripts/grade_photo.py SOURCE NAME CX CY R
 
@@ -18,8 +18,8 @@ import numpy as np
 from PIL import Image, ImageOps
 
 ASSETS = Path(__file__).resolve().parent.parent / 'dist' / 'assets'
-LOOK = dict(sat=0.5, orange=0.6, fade=0.22, white=0.985, curve=0.05, gamma=0.82, vignette=0.0,
-            shadow=(-0.01, 0.012, 0.03), high=(0.0, 0.01, 0.012), warm=(0.985, 1.0, 1.01), grain=0.012)
+LOOK = dict(sat=0.68, orange=0.5, fade=0.12, white=0.972, curve=0.12, gamma=0.86, vignette=0.0,
+            shadow=(0.024, 0.008, -0.016), high=(0.045, 0.022, -0.035), warm=(1.015, 0.99, 0.935), grain=0.012)
 
 
 def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain):
