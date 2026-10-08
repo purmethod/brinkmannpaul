@@ -278,10 +278,11 @@
       const y = radius * Math.sin(theta) * scale;
       const near = smooth(0, 1, 1 - Math.abs(row - pos));
       const fade = Math.pow((cos - edge) / (1 - edge), 1.35);
-      const tone = Math.round(146 - 111 * near);
+      // Centre in the site's dark grey (#5c5c56), never black; neighbours fade lighter.
+      const tone = Math.round(146 - 54 * near);
       face.face.style.transform = `translate(-50%,-50%) translate(0,${y.toFixed(2)}px) scale(${scale.toFixed(4)},${(cos * scale).toFixed(4)})`;
       face.face.style.opacity = fade.toFixed(3);
-      face.name.style.color = `rgb(${tone},${tone},${tone - 3})`;
+      face.name.style.color = `rgb(${tone},${tone},${tone - 6})`;
       face.type.style.opacity = (near * near).toFixed(3);
       if (!face.shown) {
         face.face.style.visibility = 'visible';
