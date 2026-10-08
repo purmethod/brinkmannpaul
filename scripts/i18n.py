@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html and dist/weekends/index.html are the sources. i18n/<lang>.json
+dist/index.html, dist/weekends/index.html and dist/skyn/index.html are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
 title, meta texts and labels) to its translation.
 
   python3 scripts/i18n.py extract   # writes i18n/units.json, the units to translate
-  python3 scripts/i18n.py build     # writes dist/<lang>/index.html and dist/<lang>/weekends/index.html
+  python3 scripts/i18n.py build     # writes dist/<lang>/index.html and the language's weekends and skyn pages
 
 The build fails on any unit without a translation and on any translation that
 changes the markup inside a unit (tags, links, classes), so a text change on
@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/']
+PAGES = ['', 'weekends/', 'skyn/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
@@ -110,9 +110,9 @@ def localise(html, lang, conf, page=''):
     html = html.replace('<meta property="og:locale" content="en_US" />', f'<meta property="og:locale" content="{conf["locale"]}" />', 1)
     # The pages live one folder down: local files are addressed from the site root.
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
-    # Links to pages stay in the language: the start page, its anchors, the weekends.
+    # Links to pages stay in the language: the start page, its anchors and the sub pages.
     html = re.sub(r'<a\s[^>]*>', lambda m: m.group(0) if 'hreflang=' in m.group(0) else
-                  re.sub(r'href="/(#[^"]*|weekends/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
+                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
     html = re.sub(rf'(<a href="/{lang}/{page}" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)
