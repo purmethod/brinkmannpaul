@@ -128,7 +128,7 @@ const wheel = fs.readFileSync(path.join(root, 'dist/brain-scroll.js'), 'utf8');
 new vm.Script(wheel, { filename: 'brain-scroll.js' });
 assert.ok(html.includes('brain-scroll.js'), 'page loads the wheel');
 assert.ok(wheel.includes("matchMedia('(prefers-reduced-motion: reduce)')"), 'wheel respects reduced motion');
-for (const [, local] of wheel.matchAll(/'(assets\/[^']+)'/g)) {
+for (const [, local] of wheel.matchAll(/'\/?(assets\/[^']+)'/g)) {
   const file = path.join(root, 'dist', local);
   const limit = /^assets\/neuro-/.test(local) ? 700 : 300;
   assert.ok(fs.existsSync(file), `Missing ${local}`);
@@ -136,8 +136,30 @@ for (const [, local] of wheel.matchAll(/'(assets\/[^']+)'/g)) {
 }
 assert.ok(/depth > level\.handover - [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand');
 
+// Five languages: English at the root, the others one folder down, all built
+// from the English page by scripts/i18n.py with the same projects and links.
+const LANGS = ['de', 'fr', 'es', 'ar'];
+const pages = [['dist', html], ['dist', notFound]];
+const ids = page => [...page.matchAll(/<details class="project-item" id="([a-z0-9-]+)">/g)].map(m => m[1]).join();
+const links = page => [...page.matchAll(/href="(mailto:[^"]+|https:\/\/www\.instagram[^"]+)"/g)].map(m => m[1]).join();
+for (const lang of ['en', ...LANGS]) assert.ok(html.includes(`hreflang="${lang}" href="https://brinkmannpaul.com/${lang === 'en' ? '' : lang + '/'}"`), `alternate link for ${lang}`);
+assert.ok(html.includes('aria-current="page">en</a>'), 'english marked in the selector');
+assert.ok(!html.includes('>contact</a>'), 'the language selector replaces contact');
+for (const lang of LANGS) {
+  const file = path.join(root, 'dist', lang, 'index.html');
+  assert.ok(fs.existsSync(file), `dist/${lang}/index.html exists (run python3 scripts/i18n.py build)`);
+  const page = fs.readFileSync(file, 'utf8');
+  assert.ok(page.includes(`<html lang="${lang}"${lang === 'ar' ? ' dir="rtl"' : ''}>`), `${lang} page language`);
+  assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/" />`), `${lang} canonical`);
+  assert.ok(page.includes(`lang="${lang}" aria-current="page">${lang}</a>`), `${lang} marked in the selector`);
+  assert.equal(ids(page), ids(html), `${lang} has the same projects in the same order`);
+  assert.equal(links(page), links(html), `${lang} keeps every order link`);
+  assert.ok(!/(src|href|srcset)="(?![a-z]+:|\/|#)/.test(page), `${lang} addresses local files from the site root`);
+  pages.push(['dist', page]);
+}
+
 // Every local asset referenced by the pages exists and stays small.
-for (const [page, source] of [['dist', html], ['dist', notFound]]) {
+for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href)="([^"#]+)"/g)) {
     if (/^(https?:|mailto:|data:)/.test(local) || local === '/') continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
@@ -148,4 +170,4 @@ for (const [page, source] of [['dist', html], ['dist', notFound]]) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, five languages, local assets, og image.');

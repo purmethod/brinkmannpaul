@@ -585,6 +585,7 @@ a:focus-visible {
   transition: background-size 220ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pure-branch[open] > summary { color: var(--ink); }
+[dir="rtl"] .pure-branch > summary::after { margin-left: 0; margin-right: 0.7rem; }
 .item-story .pure-branch-text:first-of-type { margin-top: 0.6rem; }
 .pure-branch[open] > summary::after { background-size: 100% 1px, 1px 0; }
 @media (hover: hover) {
