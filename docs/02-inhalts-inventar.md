@@ -27,7 +27,7 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **Sprachen:** zusätzlich ru (`/ru/`). Auswahl im Footer jetzt `en de fr es ar ru`.
 - **Regeln wie bei den anderen Sprachen:** sinngemäß, Pauls Stimme, durchgehend klein (auch юнеско, ии), keine Gedankenstriche, Anrede ты. Wo das Russische einen Gedankenstrich verlangen würde, ist der Satz umgebaut (является, и есть, Doppelpunkt, Verneinung).
   - Unverändert in lateinischer Schrift: pure, physis, mysidibou, qefyr, rye, skyn, âlf, by brinkmann, @buildpaul, paul brinkmann, m.sc.
-  - Übersetzt: art (искусство), neuroarchitecture (нейроархитектура), wim hof weekends (выходные по виму хофу, wie das gängige „дыхание по Виму Хофу“), system for man (система для мужчины), „all art.“ (всё есть искусство.), „you.“ (ты.).
+  - Übersetzt: art (искусство), neuroarchitecture (нейроархитектура), wim hof weekends (выходные по виму хофу, wie das gängige „дыхание по Виму Хофу“), system for man (система для мужчины), „all art.“ (всё — искусство.), „you.“ (ты.).
   - Namen russisch: пауль клее, август макке, луи муайе, сиди-бу-саид, чингисхан, гора снежка.
   - „mind“ heißt психика (Gedanken, Gefühle, Bewusstsein), nicht разум (Verstand); „boundaries“ werden нарушать (verletzt), nicht überschritten.
   - Gegengelesen von einem zweiten, unabhängigen Durchgang auf Bedeutung, Grammatik, Zeichensetzung und Natürlichkeit; alle Fehler sind behoben.
@@ -39,8 +39,22 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
   - Unverändert bleiben pure, mysidibou, qefyr, rye, skyn, âlf, by brinkmann, wim hof, unesco, sidi bou saïd sowie die Kapitelnamen von pure.
   - Übersetzt werden art (kunst, art, arte, فن), neuroarchitecture (neuroarchitektur, neuroarchitecture, neuroarquitectura, العمارة العصبية) und wim hof weekends. „all art.“ wird als kurzes Motto übertragen.
 - **Footer:** Sprachauswahl `en de fr es ar` statt „contact“. Die Kontaktadresse bleibt in jedem Projekt über dessen Aktion erreichbar.
-- **art:** Pauls Kurzfassung, Einstieg „all art.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
+- **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
+
+## Aktualisierung: Untertitel „all art.“ (2026-10-08)
+
+Auf Pauls Vorgabe steht bei art im Rad und im Kopf des geöffneten Textes jetzt „all art.“ statt „art begins with love.“. Damit der Satz nicht direkt zweimal untereinander steht, ist „art begins with love.“ der große Einstiegssatz im Text.
+
+| Sprache | Untertitel | Einstieg |
+|---|---|---|
+| Deutsch | alles kunst. | kunst beginnt mit liebe. |
+| Französisch | tout est art. | l'art commence par l'amour. |
+| Spanisch | todo es arte. | el arte empieza con amor. |
+| Arabisch | كل شيء فن. | الفن يبدأ بالحب. |
+| Russisch | всё — искусство. | искусство начинается с любви. |
+
+Im Russischen ist die Form kürzer und natürlicher geworden: „всё — искусство.“ statt „всё есть искусство.“.
 
 ## Aktualisierung: art-Text, „all art.“ und „you.“ (2026-10-07)
 
