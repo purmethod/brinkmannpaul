@@ -35,7 +35,8 @@ orders@brinkmannpaul.com.
 - **Typografie:** System-Stack (Arial/Helvetica) — keine Webfonts ohne ausdrücklichen Issue-Entscheid.
 - **Layout-Gesetze:** horizontale Ink-Linien als Trenner, viel Weißraum, `clamp()`-Fluid-Typo,
   Header mit 2px oberer Linie, alles im Raster rechtsbündig ausgerichtet.
-- **Signatur-Intro:** die Handschrift-Animation (`asset/intro-handwriting-split.mp4`) ist das Markenzeichen.
+- **Signatur-Intro:** die Handschrift-Animation (`assets/intro-handwriting-signed.mp4`, gerendert von
+  `scripts/render_signature_handwriting.py` in Pauls Strichreihenfolge) ist das Markenzeichen.
   Sie kürzen/ändern nur mit ausdrücklicher Freigabe von Paul.
 
 ## 5. Code-Regeln
