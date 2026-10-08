@@ -56,8 +56,15 @@ def units(html):
         add(inner)
     for pattern in (ITEM_TYPE, HEADER_SPAN, META, ATTR):
         for match in pattern.finditer(html):
-            add(match.group(2))
+            if not in_language_link(match):
+                add(match.group(2))
     return found
+
+
+def in_language_link(match):
+    """Language names (aria-label on a link with hreflang) stay in their own language."""
+    text = match.string
+    return 'hreflang=' in text[text.rfind('<', 0, match.start()):match.start()]
 
 
 def translate(html, table, lang):
@@ -83,7 +90,7 @@ def translate(html, table, lang):
 
     html = BLOCK.sub(block, html)
     for pattern in (ITEM_TYPE, HEADER_SPAN, META, ATTR):
-        html = pattern.sub(lambda m: m.group(1) + look(m.group(2)) + m.group(3), html)
+        html = pattern.sub(lambda m: m.group(0) if in_language_link(m) else m.group(1) + look(m.group(2)) + m.group(3), html)
     if missing or broken:
         for text in missing:
             print(f'{lang}: missing translation: {text[:90]}', file=sys.stderr)
@@ -103,7 +110,7 @@ def localise(html, lang, conf):
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
-    html = html.replace(f'lang="{lang}">{lang}</a>', f'lang="{lang}" aria-current="page">{lang}</a>', 1)
+    html = re.sub(rf'(<a href="/{lang}/" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)
     return html
 
 
