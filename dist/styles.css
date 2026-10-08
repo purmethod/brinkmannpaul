@@ -358,7 +358,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
   padding: 1.2rem var(--edge) 3rem;
   border-top: 1px solid var(--soft-line);
@@ -372,62 +372,55 @@ footer p {
   margin: 0;
 }
 
-/* Footer: contact icons on one edge, languages on the other. Each language is
-   a button of the same height as the icons, 18px apart like the icons. Both rows are pulled out by their
-   inner space, so the outermost icon and code sit exactly on the page edge. */
-.footer-langs {
-  display: flex;
-  margin-inline-end: -0.5625rem;
+/* Footer: e-mail and instagram on one edge, the languages on the other. Every
+   item is a framed button of the same size. All eight share one row, so the
+   size follows the screen: 28px on a 320px phone, 40px from 412px up. */
+footer {
+  --button: clamp(1.75rem, calc((100vw - 5.75rem) / 8), 2.5rem);
 }
 
+.contact-links,
+.footer-langs {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.contact-links a,
 .footer-langs a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 0.5625rem;
-  height: 2.5rem;
+  box-sizing: border-box;
+  width: var(--button);
+  height: var(--button);
+  border: 1px solid currentColor;
+  border-radius: calc(var(--button) * 0.28);
   color: inherit;
   text-decoration: none;
 }
 
+.contact-links svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The drawn lines stay as fine as the frame at every button size. */
+.contact-links svg * {
+  vector-effect: non-scaling-stroke;
+}
+
+.contact-links a:hover,
+.contact-links a:focus-visible,
 .footer-langs a:hover,
 .footer-langs a:focus-visible {
   color: var(--ink);
 }
 
-@media (max-width: 380px) {
-  footer { gap: 0.75rem; }
-}
-
-.contact-links {
-  display: flex;
-  align-items: center;
-  margin-inline-start: -0.5625rem;
-}
-
-.contact-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  color: inherit;
-}
-
-.contact-links svg {
-  width: 1.375rem;
-  height: 1.375rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.contact-links a:hover,
-.contact-links a:focus-visible {
-  color: var(--ink);
-}
 
 .skip-link {
   position: fixed;
