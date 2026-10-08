@@ -726,3 +726,25 @@ Pauls Vorgabe: Name und Beruf oben sowie der Name in der Mitte des Rads im selbe
   - Die Mitte hebt sich weiter von den Nachbarn ab, der Lesetext ist gut lesbar (Kontrast 6,6 : 1).
   - `test-site` und 49 Interaktionstests grün.
 
+### Nachtrag: Sprachwechsel ohne Intro, „×“ im offenen Projekt (2026-10-08)
+
+Paul: Beim Sprachwechsel soll sich nur die Sprache ändern, ohne erneut Porträt und Unterschrift zu zeigen. Wo ein „+“ etwas öffnet, muss es im offenen Zustand oben ein „×“ zum Schließen geben, nicht nur unten.
+
+- **Sprachwechsel:**
+  - Ein Klick auf eine Sprache legt in `sessionStorage` (`bs-language-switch`) das Projekt in der Mitte des Rads, die gedrehten Raster und die Drift der Tauchfahrt ab.
+  - `app.js` überspringt bei diesem Eintrag das Intro, genau wie bei einem Direktlink.
+  - `brain-scroll.js` dreht das Rad auf dasselbe Projekt, setzt die Tiefe ohne Gleitbewegung und löscht den Eintrag. Der nächste frische Besuch zeigt das Intro wieder.
+  - Ein offenes Projekt bleibt wie bisher über den Anker offen.
+  - Ohne `sessionStorage` erscheint das Intro wie früher.
+- **„×“ im Kopf:**
+  - Jedes geöffnete Projekt hat im Lesekopf einen Schließen-Knopf (`.bs-head-close`), 44 × 44 px, exakt auf der Mitte des „+“ im Rad.
+  - Das Zeichen ist aus zwei 1-px-Linien im Dunkelgrau gezeichnet. Die Beschriftung kommt aus der Seite und ist übersetzt, etwa „fermer“.
+  - Auf Arabisch sitzt es links.
+  - Die pure-Kapitel zeigen geöffnet schon „−“.
+- **Getestet** (ohne Screenshots):
+  - Erster Besuch zeigt das Intro. Der Wechsel en → fr kommt ohne Intro, mit demselben Projekt in der Mitte und derselben Tiefe, auch tief im Universum (Schleier 0,86 vorher wie nachher).
+  - Ein offenes qefyr bleibt beim Wechsel zu de offen.
+  - „×“ liegt auf der Stelle des „+“ (Abweichung 0 px) und schließt. Auf Arabisch ist es gespiegelt.
+  - Ein späterer frischer Besuch zeigt das Intro. Keine Skriptfehler.
+  - `test-site` enthält jetzt beide Fälle. 49 Interaktionstests grün.
+

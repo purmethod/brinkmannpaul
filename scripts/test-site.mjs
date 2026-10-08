@@ -47,6 +47,7 @@ function boot(options = {}) {
   const document = { body, activeElement: gate, querySelector: sel => (options.missing === sel ? null : elems[sel]) };
   const window = {
     matchMedia: () => motion, location: { hash: options.hash || '' },
+    ...(options.switched ? { sessionStorage: { getItem: key => (key === 'bs-language-switch' ? '{}' : null) } } : {}),
     addEventListener: (k, cb) => events.set(k, cb), removeEventListener: k => events.delete(k),
     setTimeout: (cb, ms) => { nextTimer += 1; timers.set(nextTimer, { cb, ms }); return nextTimer; },
     clearTimeout: id => timers.delete(id),
@@ -104,6 +105,7 @@ s.gate.events.get('click')(); released(s);
 s = boot({ reduced: true }); assert.ok(still(s)); assert.equal(s.animation.plays, 0); s.gate.events.get('click')(); released(s);
 s = boot({ legacy: true }); s.motion.listener({ matches: true }); assert.ok(still(s));
 s = boot({ hash: '#main-content' }); released(s); assert.ok(s.animation.paused);
+s = boot({ switched: true }); released(s); assert.ok(s.animation.paused, 'a language switch skips the intro');
 s = boot({ missing: '#intro-animation' }); released(s);
 
 // Content: every project row opens and has copy; every product has an action.
@@ -135,6 +137,8 @@ for (const [, local] of wheel.matchAll(/'\/?(assets\/[^']+)'/g)) {
   assert.ok(fs.statSync(file).size < limit * 1024, `${local} exceeds ${limit} KB`);
 }
 assert.ok(/depth > level\.handover - [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand');
+assert.ok(wheel.includes("make('button', 'bs-head-close'"), 'an open project can be closed where the + was');
+assert.ok(wheel.includes('bs-language-switch'), 'a language switch keeps the wheel and skips the intro');
 
 // Six languages: English at the root, the others one folder down, all built
 // from the English page by scripts/i18n.py with the same projects and links.
@@ -183,4 +187,4 @@ for (const [page, source] of pages) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, local assets, og image.');

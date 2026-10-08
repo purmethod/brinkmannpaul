@@ -78,8 +78,15 @@
   if (motion.addEventListener) motion.addEventListener("change", onMotion);
   else if (motion.addListener) motion.addListener(onMotion);
 
-  // Direct links never leave someone stranded behind the intro.
-  if (window.location.hash) {
+  // Direct links never leave someone stranded behind the intro, and a
+  // language switch shows the same page in another language without it.
+  let switched = false;
+  try {
+    switched = window.sessionStorage.getItem("bs-language-switch") !== null;
+  } catch {
+    switched = false;
+  }
+  if (window.location.hash || switched) {
     animation.pause();
     return;
   }
