@@ -136,9 +136,9 @@ for (const [, local] of wheel.matchAll(/'\/?(assets\/[^']+)'/g)) {
 }
 assert.ok(/depth > level\.handover - [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand');
 
-// Five languages: English at the root, the others one folder down, all built
+// Six languages: English at the root, the others one folder down, all built
 // from the English page by scripts/i18n.py with the same projects and links.
-const LANGS = ['de', 'fr', 'es', 'ar'];
+const LANGS = ['de', 'fr', 'es', 'ar', 'ru'];
 const pages = [['dist', html], ['dist', notFound]];
 const ids = page => [...page.matchAll(/<details class="project-item" id="([a-z0-9-]+)">/g)].map(m => m[1]).join();
 const links = page => [...page.matchAll(/href="(mailto:[^"]+|https:\/\/www\.instagram[^"]+)"/g)].map(m => m[1]).join();
@@ -170,4 +170,4 @@ for (const [page, source] of pages) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, five languages, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, local assets, og image.');

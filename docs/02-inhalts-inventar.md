@@ -4,6 +4,15 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Russisch als sechste Sprache (2026-10-08)
+
+- **Sprachen:** zusätzlich ru (`/ru/`). Auswahl im Footer jetzt `en de fr es ar ru`.
+- **Regeln wie bei den anderen Sprachen:** sinngemäß, Pauls Stimme, durchgehend klein (auch юнеско, ии), keine Gedankenstriche, Anrede ты. Wo das Russische einen Gedankenstrich verlangen würde, ist der Satz umgebaut (является, и есть, Doppelpunkt, Verneinung).
+  - Unverändert in lateinischer Schrift: pure, physis, mysidibou, qefyr, rye, skyn, âlf, by brinkmann, @buildpaul, paul brinkmann, m.sc.
+  - Übersetzt: art (искусство), neuroarchitecture (нейроархитектура), wim hof weekends (выходные вима хофа), system for man (система для мужчины), „all art.“ (всё есть искусство.), „you.“ (ты.).
+  - Namen russisch: пауль клее, август макке, луи муайе, сиди-бу-саид, чингисхан, гора снежка.
+  - Für Russen ist Kefir Alltag: „nothing like the kefir most people know“ heißt deshalb „совсем не похожий на магазинный“ (anders als der aus dem Laden).
+
 ## Aktualisierung: fünf Sprachen, art kürzer, pure-Architektensatz (2026-10-08)
 
 - **Sprachen:** en (Quelle, `/`), de (`/de/`), fr (`/fr/`), es (`/es/`), ar (`/ar/`, von rechts nach links).
