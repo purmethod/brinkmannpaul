@@ -570,7 +570,9 @@
     close();
   });
   closer.addEventListener('click', () => close());
-  sections.forEach(entry => entry.shut.addEventListener('click', () => close()));
+  // The whole band between the two lines closes, where the row was tapped open;
+  // the × inside it stays the keyboard's way out.
+  sections.forEach(entry => entry.head.addEventListener('click', () => close()));
   reader.addEventListener('click', event => {
     if (event.target === reader || event.target === readerScroll) close();
   });
