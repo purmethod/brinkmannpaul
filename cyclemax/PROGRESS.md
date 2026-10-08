@@ -23,11 +23,11 @@
 - [x] P1 Logo neu: ein schwarzer Kreis (Ring) = App-Icon = Logo, Wortmarke CYCLEMAX, Luxus-Anmutung; alle Icons/Splash neu
 - [x] P2 Sprache: „Leiser“ → „Ruhiger“/„Standfest“ überall (Phasenwörter, Kernsatz, Pushes, Zeilen, Prompts, Store)
 - [x] P3 Zykluslänge-Drehrad raus (Onboarding + Settings); Länge lernt automatisch
-- [ ] P4 Home: „Blutung hat heute begonnen“ als Haupt-Aktion, prominent wenn fällig; Vorschau/Warnung „Hey Man …“
+- [x] P4 Home: „Blutung hat heute begonnen“ als Haupt-Aktion, prominent wenn fällig; Vorschau/Warnung „Hey Man …“
 - [x] P5 Spracheingabe überall (SpeechAdapter: Web Speech API / Capacitor-Plugin) – Chat + Profil
 - [x] P6 Profil: „Erzähl mir von ihr“ (frei sprechen) → Claude analysiert → Profil auf dem Gerät → Coaching nutzt es
        (Beziehung: Emotionen, Reaktionen, Haushalt, Nähe/Intimität, Kinderwunsch; Single: wer er ist, was er sucht)
-- [ ] P7 Mentor: Balance Nähe ↔ Abstand, Ziel liebevolle Beziehung, „Hey Man“-Ton; Profil im Kontext
+- [x] P7 Mentor: Balance Nähe ↔ Abstand, Ziel liebevolle Beziehung, „Hey Man“-Ton; Profil im Kontext
 - [ ] P8 Usability-Pass aus Sicht eines Mannes mit vollem Kopf: null Mehraufwand, ein Tap, nur Nutzen
 - [ ] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
 - [ ] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen

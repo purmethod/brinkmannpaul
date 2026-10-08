@@ -41,6 +41,7 @@ export const PHASE_PUSH_TEXT: Record<PhasePushKey, string> = {
   red2: "Halt die Linie. Wenn sie lauter wird, wirst du ruhiger.",
   pink: "Hey Man, Rückenwind. Plan was mit ihr.",
   green: "Gute Woche für Nähe – und für Gespräche, die anstehen.",
+  late: "Hey Man, hat ihre Blutung schon begonnen? Ein Tap in Cyclemax hält alles aktuell.",
 };
 
 /** Shown in the app right after "Blutung hat begonnen" (yellow). */
@@ -51,7 +52,7 @@ export const NEUTRAL_TITLE = APP_NAME;
 export const NEUTRAL_BODY = "";
 
 export function isPhasePushKey(key: string): key is PhasePushKey {
-  return key === "red7" || key === "red2" || key === "pink" || key === "green";
+  return key === "red7" || key === "red2" || key === "pink" || key === "green" || key === "late";
 }
 
 /** Heads-up on the home screen, 1–2 days before a phase starts. `{when}` = "Morgen" / "Übermorgen". */

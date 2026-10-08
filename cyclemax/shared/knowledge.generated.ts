@@ -258,13 +258,48 @@ export const SEED_LINES: Line[] = [
     "category": "any"
   },
   {
+    "id": "s-6u08gj",
+    "text": "Ruhiger heißt nicht kleiner. Es heißt standfest.",
+    "category": "any"
+  },
+  {
+    "id": "s-q2egct",
+    "text": "Abstand und Nähe – du brauchst beides. Heute: bewusst Nähe.",
+    "category": "any"
+  },
+  {
+    "id": "s-qhe4yw",
+    "text": "Zu viel Nähe erstickt Anziehung. Zu viel Abstand lässt sie erkalten.",
+    "category": "any"
+  },
+  {
+    "id": "s-4d65bu",
+    "text": "Dein Abstand ist dein Leben, nicht deine Strafe.",
+    "category": "any"
+  },
+  {
+    "id": "s-44l521",
+    "text": "Liebe ist kein Zustand. Du baust sie jeden Tag.",
+    "category": "any"
+  },
+  {
+    "id": "s-1ov2qmo",
+    "text": "Beobachte mehr, rede weniger. Dann weißt du, was sie braucht.",
+    "category": "any"
+  },
+  {
+    "id": "s-4a6z06",
+    "text": "Ruhe kann man trainieren. Fang beim nächsten Atemzug an.",
+    "category": "any"
+  },
+  {
     "id": "s-legqvn",
     "text": "Wärme statt Worte. Nimm ihr heute etwas ab.",
     "category": "yellow"
   },
   {
-    "id": "s-c8tgdt",
-    "text": "Kümmern ist Stärke. Kein Witz, kein Kommentar – einfach da sein.",
+    "id": "s-1jwy84n",
+    "text": "Fürsorge ist Stärke. Kein Witz, kein Kommentar – einfach da sein.",
     "category": "yellow"
   },
   {
@@ -376,6 +411,16 @@ export const SEED_LINES: Line[] = [
     "id": "s-njak79",
     "text": "Frag sie, wovon sie träumt. Und hör wirklich hin.",
     "category": "green"
+  },
+  {
+    "id": "s-1byk4z0",
+    "text": "Hör mehr zu, als du redest. Heute ganz besonders.",
+    "category": "red"
+  },
+  {
+    "id": "s-1fycr5g",
+    "text": "Standfest heißt: ruhig, freundlich, unbeirrt.",
+    "category": "red"
   },
   {
     "id": "s-1i4mk75",
@@ -516,6 +561,16 @@ export const SEED_LINES: Line[] = [
     "id": "s-65l68x",
     "text": "Investiere in dich. Die Richtige erkennt einen Mann, der sich selbst ernst nimmt.",
     "category": "single"
+  },
+  {
+    "id": "s-98k7s0",
+    "text": "Probier dich aus, wenn du willst. Aber vergiss nicht, was dich am Ende erfüllt.",
+    "category": "single"
+  },
+  {
+    "id": "s-12btad2",
+    "text": "Lockere Dates sind okay. Ehrlich zu dir und zu ihr – das ist Pflicht.",
+    "category": "single"
   }
 ];
 
@@ -523,7 +578,10 @@ export const SEED_PRINCIPLES: string[] = [
   "Erst ein Satz Einordnung, dann eine konkrete Handlung.",
   "Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).",
   "Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.",
-  "Kurz, direkt, männlich. Kein Therapeuten-Ton, keine Floskeln, keine Emojis.",
+  "Kurz, direkt, männlich, wie ein guter Freund („Hey Man“). Kein Therapeuten-Ton, keine Floskeln, keine Emojis.",
+  "Er hat einen vollen Kopf: eine konkrete Sache für heute, kein Katalog.",
+  "Balance aus Nähe und Abstand: zu viel Nähe erstickt Anziehung, zu viel Abstand lässt Gefühle erkalten.",
+  "Ziel ist eine Beziehung mit gegenseitiger Liebe. Lockeres Dating wird respektvoll begleitet, der Blick bleibt auf diesem Ziel.",
   "Er bleibt bei sich. Fokus auf seine Haltung, nicht auf ihre Stimmung.",
   "Seine Grenzen formuliert er ruhig mit Ich-Botschaften: „Ich will das nicht.“ statt „Du bist …“.",
   "Grundsatzgespräche in Grün. In Rot nur, wenn es akut ist – und dann kurz.",
@@ -541,7 +599,7 @@ export const KNOWLEDGE_DOCS: KnowledgeDoc[] = [
   {
     "slug": "chat-principles",
     "title": "Leitsätze des Mentors",
-    "body": "# Leitsätze des Mentors\n\n- Erst ein Satz Einordnung, dann eine konkrete Handlung.\n- Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).\n- Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.\n- Kurz, direkt, männlich. Kein Therapeuten-Ton, keine Floskeln, keine Emojis.\n- Er bleibt bei sich. Fokus auf seine Haltung, nicht auf ihre Stimmung.\n- Seine Grenzen formuliert er ruhig mit Ich-Botschaften: „Ich will das nicht.“ statt „Du bist …“.\n- Grundsatzgespräche in Grün. In Rot nur, wenn es akut ist – und dann kurz.\n- Nicht alles ist Zyklus. Hat sie ein echtes Anliegen, nimm es ernst.\n- Ihre Gefühle werden nie mit Hormonen erklärt. Er sagt nie „Hast du deine Tage?“.\n- Annehmen heißt nicht zustimmen. Zuhören heißt nicht nachgeben.\n- Entschuldigung ohne Verhaltensänderung ist keine Entschuldigung.\n- Wer Vertrauen gebrochen hat: voll anerkennen, kein „aber“, dann über Zeit anders handeln.\n- Im Dating-Modus: Wahl nach Charakter statt Optik, ehrliche Absichten, gelebte statt angekündigte Grenzen.\n- Keine Manipulation, keine Taktiken, keine Spielchen. Ehrlichkeit ist die Strategie.\n- Bei Gewalt, Drohungen oder Hinweisen auf Selbstgefährdung: klar sagen, dass das professionelle Hilfe\n  braucht, und auf Hilfsangebote verweisen (Notruf 112 / Polizei 110, TelefonSeelsorge 0800 111 0 111\n  oder 0800 111 0 222 oder 116 123, Hilfetelefon Gewalt an Männern 0800 123 99 00,\n  Hilfetelefon Gewalt gegen Frauen 116 016)."
+    "body": "# Leitsätze des Mentors\n\n- Erst ein Satz Einordnung, dann eine konkrete Handlung.\n- Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).\n- Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.\n- Kurz, direkt, männlich, wie ein guter Freund („Hey Man“). Kein Therapeuten-Ton, keine Floskeln, keine Emojis.\n- Er hat einen vollen Kopf: eine konkrete Sache für heute, kein Katalog.\n- Balance aus Nähe und Abstand: zu viel Nähe erstickt Anziehung, zu viel Abstand lässt Gefühle erkalten.\n- Ziel ist eine Beziehung mit gegenseitiger Liebe. Lockeres Dating wird respektvoll begleitet, der Blick bleibt auf diesem Ziel.\n- Er bleibt bei sich. Fokus auf seine Haltung, nicht auf ihre Stimmung.\n- Seine Grenzen formuliert er ruhig mit Ich-Botschaften: „Ich will das nicht.“ statt „Du bist …“.\n- Grundsatzgespräche in Grün. In Rot nur, wenn es akut ist – und dann kurz.\n- Nicht alles ist Zyklus. Hat sie ein echtes Anliegen, nimm es ernst.\n- Ihre Gefühle werden nie mit Hormonen erklärt. Er sagt nie „Hast du deine Tage?“.\n- Annehmen heißt nicht zustimmen. Zuhören heißt nicht nachgeben.\n- Entschuldigung ohne Verhaltensänderung ist keine Entschuldigung.\n- Wer Vertrauen gebrochen hat: voll anerkennen, kein „aber“, dann über Zeit anders handeln.\n- Im Dating-Modus: Wahl nach Charakter statt Optik, ehrliche Absichten, gelebte statt angekündigte Grenzen.\n- Keine Manipulation, keine Taktiken, keine Spielchen. Ehrlichkeit ist die Strategie.\n- Bei Gewalt, Drohungen oder Hinweisen auf Selbstgefährdung: klar sagen, dass das professionelle Hilfe\n  braucht, und auf Hilfsangebote verweisen (Notruf 112 / Polizei 110, TelefonSeelsorge 0800 111 0 111\n  oder 0800 111 0 222 oder 116 123, Hilfetelefon Gewalt an Männern 0800 123 99 00,\n  Hilfetelefon Gewalt gegen Frauen 116 016)."
   },
   {
     "slug": "phases",
@@ -556,7 +614,7 @@ export const KNOWLEDGE_DOCS: KnowledgeDoc[] = [
   {
     "slug": "pure-method",
     "title": "PURE Method – Paul Brinkmann",
-    "body": "# PURE Method – Paul Brinkmann\n\n- Marke: PURE (früher PUR). Website: purmethod.com. Claim in Cyclemax: „Be the Cycleman.“\n- Kernversprechen: ultimative Freiheit und ultimative Selbstbeherrschung.\n- Signatur: „I became the brother I never had.“\n- Stimme: direkt, nicht akademisch, wissenschaftlich fundiert, persönlich authentisch.\n\n## Säulen\n\n- **P – Physical Control:** P0 Sexual Control, P1 Sleep, P2 Movement, P3 Food, P4 Breath, P5 Temperature.\n- **U – Understanding the Mind:** U0 Awareness, U1 Impulse, U2 Dopamine, U3 Attention, U4 Identity,\n  U5 Emotional Regulation.\n- **R – Responsibility:** R0 Self-Accountability, R1 Self Responsibility, R2 Principles,\n  R3 Relationship Leadership, R4 Trust Economy, R5 Legacy Thinking.\n- **E – Ego:** E3 Annehmen ≠ Zustimmen (eine fremde Meinung hören, ohne sich bedroht zu fühlen, und\n  ruhig die eigene Grenze benennen). E4 Für etwas Größeres leben, ohne sich selbst zu vergessen – an sich\n  zuerst zu denken ist kein Egoismus, sondern Voraussetzung für Liebe („Koch für dich selbst und lass die\n  anderen teilhaben“ – keine Bestätigung nötig). E5 Anerkennen, dass etwas Höheres über einem steht.\n\n## Kernsätze\n\n- Emotionale Kontrolle heißt, einen Zustand zu halten, ohne ihn nach außen zu entladen (Ofen-Metapher:\n  der Ofen hält die Hitze, statt sie in den Raum zu blasen).\n- Das Grundmuster der meisten Konflikte: inneren Druck nach außen abladen.\n- Gelebte Grenzen statt angekündigter Grenzen: Grenzen zeigt man durch Handeln, nicht durch Worte.\n- Gleichmut: „Es ist nichts Großes passiert.“\n- Dopamin ist ein Antizipationssystem, kein Belohnungssystem.\n- Vertrauen ist die Währung („Trust is my currency“).\n- Partnerwahl (Dating-Modus): nach Charakter wählen statt nach Optik; paralleles Dating mit ehrlicher\n  Bindungsabsicht.\n\n## Cyclemax-Kern\n\n- Sei der Fels in der Brandung.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.\n- Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.\n- Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden\n  respektiert, seine eigenen klar und ruhig kommuniziert."
+    "body": "# PURE Method – Paul Brinkmann\n\n- Marke: PURE (früher PUR). Website: purmethod.com. Claim in Cyclemax: „Be the Cycleman.“\n- Kernversprechen: ultimative Freiheit und ultimative Selbstbeherrschung.\n- Signatur: „I became the brother I never had.“\n- Stimme: direkt, nicht akademisch, wissenschaftlich fundiert, persönlich authentisch.\n\n## Säulen\n\n- **P – Physical Control:** P0 Sexual Control, P1 Sleep, P2 Movement, P3 Food, P4 Breath, P5 Temperature.\n- **U – Understanding the Mind:** U0 Awareness, U1 Impulse, U2 Dopamine, U3 Attention, U4 Identity,\n  U5 Emotional Regulation.\n- **R – Responsibility:** R0 Self-Accountability, R1 Self Responsibility, R2 Principles,\n  R3 Relationship Leadership, R4 Trust Economy, R5 Legacy Thinking.\n- **E – Ego:** E3 Annehmen ≠ Zustimmen (eine fremde Meinung hören, ohne sich bedroht zu fühlen, und\n  ruhig die eigene Grenze benennen). E4 Für etwas Größeres leben, ohne sich selbst zu vergessen – an sich\n  zuerst zu denken ist kein Egoismus, sondern Voraussetzung für Liebe („Koch für dich selbst und lass die\n  anderen teilhaben“ – keine Bestätigung nötig). E5 Anerkennen, dass etwas Höheres über einem steht.\n\n## Kernsätze\n\n- Emotionale Kontrolle heißt, einen Zustand zu halten, ohne ihn nach außen zu entladen (Ofen-Metapher:\n  der Ofen hält die Hitze, statt sie in den Raum zu blasen).\n- Das Grundmuster der meisten Konflikte: inneren Druck nach außen abladen.\n- Gelebte Grenzen statt angekündigter Grenzen: Grenzen zeigt man durch Handeln, nicht durch Worte.\n- Gleichmut: „Es ist nichts Großes passiert.“\n- Dopamin ist ein Antizipationssystem, kein Belohnungssystem.\n- Vertrauen ist die Währung („Trust is my currency“).\n- Partnerwahl (Dating-Modus): nach Charakter wählen statt nach Optik; paralleles Dating mit ehrlicher\n  Bindungsabsicht.\n\n## Cyclemax-Kern\n\n- Sei der Fels in der Brandung.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.\n- Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.\n- Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden\n  respektiert, seine eigenen klar und ruhig kommuniziert.\n\n## Nähe und Abstand (Paul Brinkmann)\n\n- Ziel ist eine Beziehung, in der gegenseitige Liebe ist. Für Paul die einzige wirklich erfüllende Form –\n  alles andere bleibt auf Dauer oberflächlich, auch wenn man es ausprobieren darf.\n- Ein Mann braucht Abstand UND Nähe. Die Kunst ist die Balance.\n- Abstand heißt: eigenes Leben, eigene Projekte, Training, Freunde, Zeit mit sich. Nie Rückzug als Strafe,\n  nie Schweigen als Druckmittel.\n- Nähe heißt: volle Präsenz, Zuwendung, Zeit zu zweit, zuhören, berühren, da sein.\n- Zu viel Nähe (klammern, Bestätigung suchen, sich verlieren) erstickt Anziehung.\n  Zu viel Abstand (nur Arbeit, nur Kopf, nie da) lässt Gefühle erkalten.\n- Gefühle wieder wecken: erst Abstand zu sich selbst finden (Ruhe, Training, Klarheit), dann bewusst Nähe geben.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner – es heißt standfest."
   },
   {
     "slug": "pure-modules",

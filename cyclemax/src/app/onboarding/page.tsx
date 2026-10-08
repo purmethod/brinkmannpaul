@@ -123,8 +123,14 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
       {step === "notify" && (
         <section className="fade-up flex flex-1 flex-col">
           <div className="flex flex-1 flex-col justify-center gap-6">
-            <h1 className="text-[32px] leading-tight font-semibold tracking-tight">Jeden Tag eine Zeile.</h1>
-            <p className="text-[17px] leading-relaxed text-muted">Maximal eine Nachricht am Tag. Kurz. Zur richtigen Zeit.</p>
+            <h1 className="text-[32px] leading-tight font-semibold tracking-tight">
+              {mode === "single" ? "Jeden Tag eine Zeile." : "Ich sag dir rechtzeitig Bescheid."}
+            </h1>
+            <p className="text-[17px] leading-relaxed text-muted">
+              {mode === "single"
+                ? "Maximal eine Nachricht am Tag. Kurz. Zur richtigen Zeit."
+                : "Maximal eine Nachricht am Tag: eine Zeile für dich – und eine Vorwarnung, bevor es stürmisch wird."}
+            </p>
             {needsInstall && <InstallHint />}
             {denied && <p className="text-[15px] text-accent">Benachrichtigungen sind blockiert. Du kannst sie später in den Einstellungen deines Geräts erlauben.</p>}
           </div>

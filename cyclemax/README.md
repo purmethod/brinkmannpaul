@@ -9,9 +9,9 @@ Backend als Vercel Function in `/server`, Neon Postgres (Fallback SQLite), Web P
 ## Struktur
 
 ```
-src/app/          Screens: / (Home), /onboarding, /chat, /settings, /admin, /datenschutz, /impressum
+src/app/          Screens: / (Start: Ring), /heute (Menü), /onboarding, /profil, /chat, /settings, /admin, /datenschutz, /impressum
 src/engine/       Zyklus-Engine + Benachrichtigungs-Planung (reine Funktionen, Vitest)
-src/adapters/     StorageAdapter, NotificationAdapter, PlatformAdapter (Web + Native)
+src/adapters/     StorageAdapter, NotificationAdapter, PlatformAdapter, SpeechAdapter (Web + Native)
 src/lib/          App-State, Sync, API-Client
 server/           Backend: Router, DB (Drizzle), Chat, Push, Wissens-Job, Admin
 api/index.ts      Vercel-Function-Einstieg (re-export von server/app.ts)
@@ -91,6 +91,10 @@ npx cap sync ios
 npx cap open ios
 ```
 
+In `ios/App/App/Info.plist` ergänzen (Spracheingabe):
+`NSMicrophoneUsageDescription` = „Damit du mit Cyclemax sprechen kannst, statt zu tippen.“ und
+`NSSpeechRecognitionUsageDescription` = „Cyclemax wandelt deine Sprache in Text um.“
+
 In Xcode: Target *App* → Signing & Capabilities → Team wählen, Bundle Identifier `com.cyclemax.app`,
 Capability **Push Notifications** ist für lokale Benachrichtigungen *nicht* nötig. Version/Build setzen →
 Product → Archive → Distribute App → App Store Connect → Upload. In App Store Connect: App anlegen
@@ -112,7 +116,8 @@ npx cap open android
 Android Studio: Build → Generate Signed App Bundle (.aab, neuen Upload-Key anlegen und sicher aufbewahren) →
 Play Console: App erstellen → Interner Test → `.aab` hochladen → Store-Eintrag (`store/metadata.md`),
 Data Safety (`store/privacy-labels.md`), Inhaltseinstufung, Zielgruppe (18+ empfohlen) → Produktion.
-Für Android 13+ fragt die App die Benachrichtigungs-Berechtigung selbst; für exakte Zeiten ggf.
+`android/app/src/main/AndroidManifest.xml`: `<uses-permission android:name="android.permission.RECORD_AUDIO" />`
+für die Spracheingabe. Für Android 13+ fragt die App die Benachrichtigungs-Berechtigung selbst; für exakte Zeiten ggf.
 `SCHEDULE_EXACT_ALARM` im Manifest ergänzen.
 
 Bei jedem Web-Update: `npm run build && npx cap sync` → neuer Build in Xcode/Android Studio.

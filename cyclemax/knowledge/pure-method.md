@@ -36,3 +36,16 @@
 - Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.
 - Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden
   respektiert, seine eigenen klar und ruhig kommuniziert.
+
+## Nähe und Abstand (Paul Brinkmann)
+
+- Ziel ist eine Beziehung, in der gegenseitige Liebe ist. Für Paul die einzige wirklich erfüllende Form –
+  alles andere bleibt auf Dauer oberflächlich, auch wenn man es ausprobieren darf.
+- Ein Mann braucht Abstand UND Nähe. Die Kunst ist die Balance.
+- Abstand heißt: eigenes Leben, eigene Projekte, Training, Freunde, Zeit mit sich. Nie Rückzug als Strafe,
+  nie Schweigen als Druckmittel.
+- Nähe heißt: volle Präsenz, Zuwendung, Zeit zu zweit, zuhören, berühren, da sein.
+- Zu viel Nähe (klammern, Bestätigung suchen, sich verlieren) erstickt Anziehung.
+  Zu viel Abstand (nur Arbeit, nur Kopf, nie da) lässt Gefühle erkalten.
+- Gefühle wieder wecken: erst Abstand zu sich selbst finden (Ruhe, Training, Klarheit), dann bewusst Nähe geben.
+- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner – es heißt standfest.

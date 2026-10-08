@@ -19,7 +19,7 @@ export interface KnowledgeDoc {
 }
 
 /** Phase pushes in relationship mode. */
-export type PhasePushKey = "red7" | "red2" | "pink" | "green";
+export type PhasePushKey = "red7" | "red2" | "pink" | "green" | "late";
 
 /** One planned notification. `key` is a PhasePushKey (kind "phase") or a line id (kind "daily"). */
 export interface ScheduledItem {

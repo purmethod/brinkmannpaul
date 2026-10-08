@@ -17,7 +17,7 @@ export async function onboard(page: Page, mode: "relationship" | "single", daysA
     await expect(wheel.getByRole("option").nth(daysAgo)).toHaveAttribute("aria-selected", "true");
     await page.getByRole("button", { name: "Weiter" }).click();
   }
-  await expect(page.getByRole("heading", { name: "Jeden Tag eine Zeile." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: mode === "single" ? "Jeden Tag eine Zeile." : "Ich sag dir rechtzeitig Bescheid." })).toBeVisible();
 }
 
 export async function finishWithoutNotifications(page: Page) {

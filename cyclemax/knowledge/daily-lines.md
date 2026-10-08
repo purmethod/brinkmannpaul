@@ -57,9 +57,17 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [any] Führen heißt vorangehen, nicht vorschreiben.
 - [any] Du bist verantwortlich für deine Antwort. Immer.
 
+- [any] Ruhiger heißt nicht kleiner. Es heißt standfest.
+- [any] Abstand und Nähe – du brauchst beides. Heute: bewusst Nähe.
+- [any] Zu viel Nähe erstickt Anziehung. Zu viel Abstand lässt sie erkalten.
+- [any] Dein Abstand ist dein Leben, nicht deine Strafe.
+- [any] Liebe ist kein Zustand. Du baust sie jeden Tag.
+- [any] Beobachte mehr, rede weniger. Dann weißt du, was sie braucht.
+- [any] Ruhe kann man trainieren. Fang beim nächsten Atemzug an.
+
 ## Gelb · Wärme
 - [yellow] Wärme statt Worte. Nimm ihr heute etwas ab.
-- [yellow] Kümmern ist Stärke. Kein Witz, kein Kommentar – einfach da sein.
+- [yellow] Fürsorge ist Stärke. Kein Witz, kein Kommentar – einfach da sein.
 - [yellow] Tee, Essen, Ruhe. Sie merkt sich, wer da war.
 - [yellow] Hilf ihr. Und vergiss dein eigenes Training nicht.
 - [yellow] Übernimm heute den Alltag, ohne darüber zu reden.
@@ -88,6 +96,8 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [green] Frag sie, wovon sie träumt. Und hör wirklich hin.
 
 ## Rot · Standfest
+- [red] Hör mehr zu, als du redest. Heute ganz besonders.
+- [red] Standfest heißt: ruhig, freundlich, unbeirrt.
 - [red] Sturmtage sind Übungstage. Bleib ruhig, bleib da.
 - [red] Nimm nichts persönlich. Heute schon gar nicht.
 - [red] Nicht argumentieren. Da sein.
@@ -118,3 +128,5 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [single] Lerne sie kennen, bevor du dich festlegst. Aber leg dich fest, wenn du es weißt.
 - [single] Du triffst sie, um sie zu verstehen – nicht um zu gewinnen.
 - [single] Investiere in dich. Die Richtige erkennt einen Mann, der sich selbst ernst nimmt.
+- [single] Probier dich aus, wenn du willst. Aber vergiss nicht, was dich am Ende erfüllt.
+- [single] Lockere Dates sind okay. Ehrlich zu dir und zu ihr – das ist Pflicht.

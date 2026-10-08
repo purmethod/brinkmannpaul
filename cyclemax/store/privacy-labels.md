@@ -8,7 +8,9 @@ Grundlage: native App (iOS/Android). Benachrichtigungen werden lokal geplant, ke
 
 | Datentyp (Apple) | Erhoben? | Mit Identität verknüpft? | Zweck |
 |---|---|---|---|
-| Nutzerinhalte → Sonstige Nutzerinhalte (Chat-Nachrichten) | Ja | Nein | App-Funktionalität (Weiterleitung an KI, keine Speicherung) |
+| Nutzerinhalte → Sonstige Nutzerinhalte (Chat-Nachrichten, Profil-Erzählung) | Ja | Nein | App-Funktionalität (Weiterleitung an KI, keine Speicherung) |
+| Sensible Informationen (Beziehungs-/Intimitätsthemen in der Profil-Erzählung) | Konservativ: Ja | Nein | App-Funktionalität, flüchtig verarbeitet |
+| Audiodaten | Nein – Spracheingabe läuft über die Spracherkennung des Betriebssystems, die App speichert/sendet kein Audio | – | – |
 | Kennungen → Geräte-ID (zufällige App-ID, nicht IDFA) | Ja | Nein (nicht mit Person verknüpft) | App-Funktionalität (eine Stimme pro Gerät, Missbrauchsschutz) |
 | Nutzungsdaten → Produktinteraktion (Daumen hoch/runter) | Ja | Nein | App-Funktionalität (bessere Zeilen) |
 | Gesundheit & Fitness | **Nein** – Zyklusdaten verlassen das Gerät nicht. Achtung: Im Chat schickt die App die *aktuelle Phase* und den *Zyklustag* als Kontext mit. Konservativ: „Gesundheit“ = Ja, nicht verknüpft, Zweck App-Funktionalität. Empfehlung: konservativ angeben. |

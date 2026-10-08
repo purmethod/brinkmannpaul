@@ -5,7 +5,7 @@ import { PHASES } from "@shared/texts";
 export function Ring({ phase }: { phase: Phase }) {
   const { color, word } = PHASES[phase];
   return (
-    <div className="relative mx-auto aspect-square w-[min(72vw,300px)]" data-phase={phase}>
+    <div className="relative mx-auto aspect-square w-[min(62vw,280px)] max-h-[30dvh] max-w-[30dvh]" data-phase={phase}>
       <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <circle cx="100" cy="100" r="88" fill="none" stroke={color} strokeWidth="14" style={{ transition: "stroke 600ms ease" }} />
       </svg>

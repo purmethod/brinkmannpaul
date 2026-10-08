@@ -41,8 +41,13 @@ describe("phase pushes", () => {
     expect([...keys].sort()).toEqual(["green", "red2", "red7"]);
   });
 
-  it("no further phase pushes while late", () => {
-    for (let d = 28; d < 80; d++) expect(phasePushOn(["2026-03-01"], addDays("2026-03-01", d), 28)).toBeNull();
+  it("while late: only the gentle nudge 3 and 10 days after the expected start", () => {
+    const keys: Record<number, string> = {};
+    for (let d = 28; d < 80; d++) {
+      const k = phasePushOn(["2026-03-01"], addDays("2026-03-01", d), 28);
+      if (k) keys[d + 1] = k;
+    }
+    expect(keys).toEqual({ 32: "late", 39: "late" }); // expected on cycle day 29 → 3 and 10 days later
   });
 
   it("red7 is exactly 7 and red2 exactly 2 days before the expected bleeding for all lengths", () => {

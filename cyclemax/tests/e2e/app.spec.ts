@@ -21,7 +21,10 @@ test("Onboarding Single → nur Tageszeile und Chat", async ({ page }) => {
   await expect(page.getByTestId("daily-line")).toBeVisible();
   await expect(page.getByTestId("phase-word")).toHaveCount(0);
   await expect(page.getByTestId("bleeding")).toHaveCount(0);
-  await expect(page.getByRole("link", { name: "Cyclemax fragen" })).toBeVisible();
+  await page.getByRole("link", { name: "Cyclemax fragen" }).click();
+  // one-tap question for a man with a full head
+  await page.getByRole("button", { name: "Erstes Date morgen. Worauf kommt es an?" }).click();
+  await expect(page.getByTestId("answer")).toHaveCount(1);
 });
 
 test("Blutung eintragen → Gelb, Nachricht, Rückgängig", async ({ page }) => {
@@ -52,7 +55,7 @@ test("Chat mit Mock-Claude, Bewertung und Melden", async ({ page, request }) => 
   await page.getByLabel("Nachricht").fill("Sie schreit mich an. Wie soll ich antworten?");
   await page.getByRole("button", { name: "Senden" }).click();
   const answer = page.getByTestId("answer").last();
-  await expect(answer).toContainText("Sag: „Ich bin da.");
+  await expect(answer.getByTestId("say")).toContainText("„Ich bin da. Wir reden morgen in Ruhe.“");
   await answer.getByRole("button", { name: "Daumen hoch" }).click();
   await expect(answer.getByRole("button", { name: "Daumen hoch" })).toHaveAttribute("aria-pressed", "true");
   page.once("dialog", (d) => d.accept());

@@ -6,6 +6,7 @@ What the app does natively (beyond a website):
 - **Local notifications** (`@capacitor/local-notifications`): one notification per day max, scheduled entirely on the device for the next 30 days (iOS limit of 64 pending notifications respected, refilled on every app start). Cycle data never leaves the device for this.
 - **Offline**: the full app (UI, phase engine, knowledge base of daily lines) is bundled; the mentor chat falls back to on-device content without network.
 - **Local storage** (`@capacitor/preferences`): all cycle data and the chat history stay on the device.
+- **Speech input** (`@capacitor-community/speech-recognition`): he can talk instead of type (chat and "Erzähl mir von ihr" profile). Uses the OS speech recognizer; the app stores no audio.
 - **Haptics** (`@capacitor/haptics`) on "Blutung hat begonnen" and on the thumbs up/down feedback.
 - **Delete all data** in Settings removes local data and all server data linked to the random device id (Guideline 5.1.1(v)).
 

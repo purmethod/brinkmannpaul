@@ -8,6 +8,7 @@ import { topicOf } from "@shared/topics";
 import type { ChatMessage } from "@shared/types";
 import { Gate } from "@/components/Gate";
 import { IconSend } from "@/components/icons";
+import { AnswerText } from "@/components/Answer";
 import { MicButton, useDictation } from "@/components/Mic";
 import { Thumbs } from "@/components/Thumbs";
 import { TopBar } from "@/components/ui";
@@ -23,6 +24,23 @@ export default function ChatPage() {
 }
 
 const CONTEXT_MESSAGES = 12;
+/** Timestamp for new chat entries (only called from event handlers). */
+const stamp = () => Date.now();
+
+const QUICK = {
+  relationship: [
+    "Sie ist gereizt. Was mache ich jetzt?",
+    "Wir haben gestritten. Wie fange ich wieder an?",
+    "Wie sag ich ihr ruhig, dass mich etwas stört?",
+    "Idee für einen Abend nur für uns zwei?",
+  ],
+  single: [
+    "Erstes Date morgen. Worauf kommt es an?",
+    "Was schreibe ich ihr nach dem Date?",
+    "Wie zeige ich Interesse ohne Druck?",
+    "Woran merke ich, dass sie es ernst meint?",
+  ],
+};
 
 function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const { update } = useApp();
@@ -43,12 +61,12 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
     void dictation.start();
   }, [dictation]);
 
-  const send = async (e?: FormEvent) => {
+  const send = async (e?: FormEvent, quick?: string) => {
     e?.preventDefault();
-    const content = text.trim();
+    const content = (quick ?? text).trim();
     if (!content || busy) return;
     if (dictation.listening) await dictation.stop();
-    const userEntry: ChatEntry = { id: crypto.randomUUID(), role: "user", content, at: Date.now() };
+    const userEntry: ChatEntry = { id: crypto.randomUUID(), role: "user", content, at: stamp() };
     const history = [...state.chat, userEntry];
     update({ chat: history.slice(-MAX_CHAT) });
     setText("");
@@ -76,12 +94,12 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
     let answer: ChatEntry;
     try {
       const res = await api.chat(req);
-      answer = { id: res.id, role: "assistant", content: res.text, at: Date.now(), source: res.source, topic: res.topic };
+      answer = { id: res.id, role: "assistant", content: res.text, at: stamp(), source: res.source, topic: res.topic };
     } catch {
       // Offline: answer from the knowledge base on the device.
       let t = fallbackAnswer(req, effectiveCatalog(state));
       if (needsHelp(content)) t = `${HELP_TEXT}\n\n${t}`;
-      answer = { id: `offline-${crypto.randomUUID()}`, role: "assistant", content: t, at: Date.now(), source: "offline", topic: topicOf(content) };
+      answer = { id: `offline-${crypto.randomUUID()}`, role: "assistant", content: t, at: stamp(), source: "offline", topic: topicOf(content) };
     }
     update((s) => ({ chat: [...s.chat, answer].slice(-MAX_CHAT) }));
     setBusy(false);
@@ -114,7 +132,18 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
 
       <div className="flex-1 overflow-y-auto px-6 py-4" aria-live="polite">
         {state.chat.length === 0 && (
-          <p className="mt-[25vh] text-center text-[19px] leading-snug text-muted">Was ist los? Sprich oder schreib.</p>
+          <div className="mt-[14vh] flex flex-col gap-6">
+            <p className="text-center text-[19px] leading-snug text-muted">Was ist los? Sprich oder schreib.</p>
+            <ul className="flex flex-col gap-2" aria-label="Schnellfragen">
+              {QUICK[state.mode].map((q) => (
+                <li key={q}>
+                  <button type="button" onClick={() => void send(undefined, q)} className="w-full rounded-2xl border border-line px-4 py-3 text-left text-[15px] active:bg-surface">
+                    {q}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <ul className="flex flex-col gap-5">
           {state.chat.map((m) =>
@@ -124,7 +153,7 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
               </li>
             ) : (
               <li key={m.id} className="mr-6 flex flex-col gap-1" data-testid="answer">
-                <p className="text-[17px] leading-relaxed whitespace-pre-wrap">{m.content}</p>
+                <AnswerText text={m.content} />
                 <div className="-ml-3 flex items-center gap-2">
                   <Thumbs value={m.vote} onVote={(v) => vote(m, v)} label="Antwort bewerten" />
                   {!m.id.startsWith("offline-") &&

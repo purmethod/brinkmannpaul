@@ -7,6 +7,8 @@ import { cycleStateOn, phaseRanges, sortEntries } from "./cycle";
 import { categoryFor, pickLine, pruneHistory, type LineHistory } from "./lines";
 
 export const PLAN_DAYS = 30;
+/** Days after the expected bleeding when we ask once whether it has started. */
+export const LATE_NUDGE_DAYS = [4, 11] as const; // = 3 and 10 days after the expected day
 
 export interface PlanInput {
   today: DateStr;
@@ -38,7 +40,12 @@ export interface Plan {
 /** Phase push due on `date` (relationship mode), computed from the latest entry before it. */
 export function phasePushOn(entries: DateStr[], date: DateStr, usualLength: number): PhasePushKey | null {
   const s = cycleStateOn(entries, date, usualLength);
-  if (!s || s.late) return null;
+  if (!s) return null;
+  if (s.late) {
+    // Forgot to tap? A gentle nudge 3 and 10 days after the expected start – nothing else while late.
+    const over = s.cycleDay - s.cycleLength;
+    return over === LATE_NUDGE_DAYS[0] || over === LATE_NUDGE_DAYS[1] ? "late" : null;
+  }
   const r = phaseRanges(s.cycleLength);
   const day = s.cycleDay;
   if (day === r.red[0]) return "red7"; // 7 days before expected bleeding

@@ -57,19 +57,27 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
     api.feedback(state.deviceId, "line", line.id, v).catch(() => undefined);
   };
 
-  const bleedingButton = (
+  const openDateSheet = () => {
+    setPick(today);
+    setSheet(true);
+  };
+
+  // Due: big primary button. Otherwise one slim line – no visual noise.
+  const bleeding = due ? (
     <div className="flex flex-col">
-      <Button variant={due ? "primary" : "secondary"} onClick={() => logBleeding(today)} data-testid="bleeding">
+      <Button onClick={() => logBleeding(today)} data-testid="bleeding">
         Blutung hat heute begonnen
       </Button>
-      <button
-        type="button"
-        className="mx-auto h-10 px-3 text-[14px] text-muted"
-        onClick={() => {
-          setPick(today);
-          setSheet(true);
-        }}
-      >
+      <button type="button" className="mx-auto h-10 px-3 text-[14px] text-muted" onClick={openDateSheet}>
+        anderes Datum
+      </button>
+    </div>
+  ) : (
+    <div className="flex items-center justify-between border-t border-line pt-1 text-[15px]">
+      <button type="button" className="h-11 pr-3 text-left text-ink" onClick={() => logBleeding(today)} data-testid="bleeding">
+        Blutung hat heute begonnen
+      </button>
+      <button type="button" className="h-11 pl-3 text-muted" onClick={openDateSheet}>
         anderes Datum
       </button>
     </div>
@@ -86,7 +94,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
         </Link>
       </header>
 
-      <section className="flex flex-1 flex-col items-center justify-center gap-7 py-4 text-center">
+      <section className="flex flex-1 flex-col items-center justify-center gap-6 py-3 text-center">
         {!single && cycle && (
           <div className="fade-up flex flex-col items-center gap-5">
             <Ring phase={cycle.phase} />
@@ -97,13 +105,18 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
         )}
         {!single && !cycle && <p className="max-w-[18rem] text-[19px] leading-snug">Tipp unten, wenn ihre Blutung beginnt. Mehr musst du nicht tun.</p>}
 
+        {cycle?.late && cycle.cycleDay - cycle.cycleLength >= 3 && (
+          <p className="max-w-[21rem] rounded-2xl bg-surface px-5 py-3 text-[15px] leading-snug" data-testid="late-hint">
+            Hat ihre Blutung schon begonnen? Ein Tap unten genügt – auch nachträglich über „anderes Datum“.
+          </p>
+        )}
         {upcoming && (
           <p className="max-w-[21rem] rounded-2xl bg-surface px-5 py-3 text-[15px] leading-snug" data-testid="heads-up">
             {headsUp(upcoming.phase, upcoming.inDays)}
           </p>
         )}
 
-        {line && (
+        {line && !toast && (
           <figure className={`fade-up flex w-full flex-col items-center gap-1 ${single ? "" : "border-t border-line pt-6"}`}>
             <blockquote
               className={single ? "max-w-[20rem] text-[28px] leading-tight font-semibold tracking-tight" : "max-w-[20rem] text-[16px] leading-relaxed text-muted"}
@@ -138,24 +151,27 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
       )}
 
       <nav className="flex flex-col gap-3">
-        {due && bleedingButton}
+        {due && bleeding}
         <div className="flex gap-3">
-          <Link href="/chat/" className="flex min-h-14 flex-1 items-center justify-center rounded-2xl bg-ink px-5 text-[17px] font-medium text-white">
+          <Link
+            href="/chat/"
+            className={`flex min-h-14 flex-1 items-center justify-center rounded-2xl px-5 text-[17px] font-medium ${due ? "bg-surface text-ink" : "bg-ink text-white"}`}
+          >
             Cyclemax fragen
           </Link>
-          <Link href="/chat/?voice=1" aria-label="Cyclemax per Sprache fragen" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ink text-white">
+          <Link
+            href="/chat/?voice=1"
+            aria-label="Cyclemax per Sprache fragen"
+            className={`flex h-14 w-14 items-center justify-center rounded-2xl ${due ? "bg-surface text-ink" : "bg-ink text-white"}`}
+          >
             <IconMic />
           </Link>
         </div>
-        <Link
-          href="/profil/"
-          className="flex min-h-14 items-center justify-between rounded-2xl bg-surface px-5 text-[16px]"
-          data-testid="profile-link"
-        >
+        <Link href="/profil/" className="flex min-h-12 items-center justify-between rounded-2xl bg-surface px-5 text-[16px]" data-testid="profile-link">
           <span>{hasProfile ? (single ? "Dein Profil" : "Ihr Profil") : single ? "Erzähl mir von dir" : "Erzähl mir von ihr"}</span>
           <span className="text-[13px] text-muted">{hasProfile ? "ansehen" : "2 Minuten, frei sprechen"}</span>
         </Link>
-        {!single && !due && bleedingButton}
+        {!single && !due && bleeding}
       </nav>
 
       <Sheet open={sheet} onClose={() => setSheet(false)} title="Erster Tag der Blutung">
