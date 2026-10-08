@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html is the source. i18n/<lang>.json maps every English text unit
+dist/index.html and dist/weekends/index.html are the sources. i18n/<lang>.json
+maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
 title, meta texts and labels) to its translation.
 
   python3 scripts/i18n.py extract   # writes i18n/units.json, the units to translate
-  python3 scripts/i18n.py build     # writes dist/<lang>/index.html for every language
+  python3 scripts/i18n.py build     # writes dist/<lang>/index.html and dist/<lang>/weekends/index.html
 
 The build fails on any unit without a translation and on any translation that
 changes the markup inside a unit (tags, links, classes), so a text change on
@@ -18,7 +19,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / 'dist' / 'index.html'
+# Pages, relative to dist/; each language gets the same pages one folder down.
+PAGES = ['', 'weekends/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
@@ -30,9 +32,9 @@ LANGS = {
 }
 
 # Inner HTML of these elements is one unit; links inside a paragraph travel with it.
-BLOCK = re.compile(r'<(p|h1|h2|a|li|title|figcaption)(\s[^>]*)?>(.*?)</\1>', re.S)
+BLOCK = re.compile(r'<(p|h1|h2|a|li|title|figcaption|label)(\s[^>]*)?>(.*?)</\1>', re.S)
 ITEM_TYPE = re.compile(r'(<span class="item-type[^"]*">)(.*?)(</span>)', re.S)
-HEADER_SPAN = re.compile(r'(</h1>\s*<span>)(.*?)(</span>\s*</header>)', re.S)
+HEADER_SPAN = re.compile(r'((?:</h1>|</a>)\s*<span>)(.*?)(</span>\s*</header>)', re.S)
 META = re.compile(r'(<meta (?:name|property)="(?:description|og:title|og:description|og:image:alt|twitter:title|twitter:description)" content=")([^"]*)(")')
 ATTR = re.compile(r'(\s(?:aria-label|alt|data-label-[a-z-]+)=")([^"]+)(")')
 TAGS = re.compile(r'<[^>]+>')
@@ -100,35 +102,41 @@ def translate(html, table, lang):
     return html
 
 
-def localise(html, lang, conf):
-    url = f'{SITE}{lang}/'
+def localise(html, lang, conf, page=''):
+    url = f'{SITE}{lang}/{page}'
     html = html.replace('<html lang="en">', f'<html lang="{lang}"' + (f' dir="{conf["dir"]}"' if conf.get('dir') else '') + '>', 1)
-    html = html.replace(f'<link rel="canonical" href="{SITE}" />', f'<link rel="canonical" href="{url}" />', 1)
-    html = html.replace(f'<meta property="og:url" content="{SITE}" />', f'<meta property="og:url" content="{url}" />', 1)
+    html = html.replace(f'<link rel="canonical" href="{SITE}{page}" />', f'<link rel="canonical" href="{url}" />', 1)
+    html = html.replace(f'<meta property="og:url" content="{SITE}{page}" />', f'<meta property="og:url" content="{url}" />', 1)
     html = html.replace('<meta property="og:locale" content="en_US" />', f'<meta property="og:locale" content="{conf["locale"]}" />', 1)
     # The pages live one folder down: local files are addressed from the site root.
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
+    # Links to pages stay in the language: the start page, its anchors, the weekends.
+    html = re.sub(r'<a\s[^>]*>', lambda m: m.group(0) if 'hreflang=' in m.group(0) else
+                  re.sub(r'href="/(#[^"]*|weekends/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
-    html = re.sub(rf'(<a href="/{lang}/" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)
+    html = re.sub(rf'(<a href="/{lang}/{page}" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)
     return html
 
 
 def main():
     command = sys.argv[1] if len(sys.argv) > 1 else 'build'
-    html = SOURCE.read_text()
+    sources = {page: (ROOT / 'dist' / page / 'index.html').read_text() for page in PAGES}
     if command == 'extract':
         I18N.mkdir(exist_ok=True)
-        (I18N / 'units.json').write_text(json.dumps(units(html), ensure_ascii=False, indent=1) + '\n')
-        print(f'{len(units(html))} units')
+        found = []
+        for html in sources.values():
+            found += [text for text in units(html) if text not in found]
+        (I18N / 'units.json').write_text(json.dumps(found, ensure_ascii=False, indent=1) + '\n')
+        print(f'{len(found)} units')
         return
     for lang, conf in LANGS.items():
         table = json.loads((I18N / f'{lang}.json').read_text())
-        page = localise(translate(html, table, lang), lang, conf)
-        out = ROOT / 'dist' / lang / 'index.html'
-        out.parent.mkdir(exist_ok=True)
-        out.write_text(page)
-        print(f'{lang}: {out.relative_to(ROOT)}')
+        for page, html in sources.items():
+            out = ROOT / 'dist' / lang / page / 'index.html'
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(localise(translate(html, table, lang), lang, conf, page))
+            print(f'{lang}: {out.relative_to(ROOT)}')
 
 
 if __name__ == '__main__':

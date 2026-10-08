@@ -42,6 +42,32 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: Buchungsseite für die wim hof weekends (2026-10-08)
+
+Neue Seite `/weekends/` in allen 6 Sprachen (`/de/weekends/` usw.). In der wim-hof-Rubrik führt „book a weekend ↗“ dorthin statt auf eine Mail.
+
+**Pauls Angaben:**
+- 490 € pro Person, alles inklusive, voller Preis bei Buchung.
+- Donnerstag Anreise, Sonntag Abreise.
+
+**Inhalt der Seite:**
+- Kopf „wim hof weekends · poland · november & december · thursday to sunday“, × zurück zur Rubrik.
+- Einstieg und Gruppenfoto.
+- „the weekend“: die Programmpunkte aus Pauls Text.
+- „dates“: Anreise und Abreise, kleine Gruppen von 20 bis 25 Menschen.
+- „price“, „how booking works“ in 3 Schritten, „safety“ mit den offiziellen Sicherheitsregeln.
+- Die Anfrage-Buttons (E-Mail, WhatsApp) öffnen erst nach dem Häkchen „i have read the safety notes“.
+
+**Noch offen:**
+- **Termine:** Die genauen Wochenenden fehlen. Pauls Bild mit den eingekreisten Terminen kam nicht an, bis dahin steht „follow here shortly“.
+- **Stripe:** Pauls Wunsch „am Schluss“. Dann bekommt jeder Termin einen eigenen Zahlungslink mit Platzlimit.
+- **Rechtliches:** Anbieterangaben, Buchungsbedingungen und Datenschutz fehlen. Sie sind spätestens nötig, sobald online bezahlt wird.
+
+**Technik:**
+- `scripts/i18n.py` baut jetzt mehrere Seiten (`PAGES`).
+- Links auf Startseite, Anker und Buchungsseite bleiben in der jeweiligen Sprache.
+- `label` wird mit übersetzt.
+
 ## Aktualisierung: wim hof, Text und Bilder im Wechsel (2026-10-08)
 
 Auf Pauls Vorgabe ist „the idea is simple …“ gestrichen. „places are limited“ steht jetzt kurz in der Notizzeile („· limited places“).
