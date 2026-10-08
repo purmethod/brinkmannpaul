@@ -676,3 +676,24 @@ Pauls Vorgabe: Die Buttons wirken zu schwarz und konkurrieren mit der Schrift im
 - **Aktive Sprache und Berührung:** Statt Schwarz (#101010) gibt es eine Füllung mit 12 % des Grautons (`color-mix`, mit rgba-Rückfall). Hover und Fokus nutzen dieselbe Füllung. Die Regel für Schwarz in `brain-scroll.css` ist entfernt.
 - **Prüfung:** Die berechneten Farben auf der Startseite sind für Header, Footer, Icons, Kürzel und aktive Sprache alle rgb(92, 92, 86). Die Füllung der aktiven Sprache liegt bei 12 %.
 
+### Nachtrag: Buttons dezent und gezeichnet (2026-10-08)
+
+Paul: Die Buttons sehen nicht gut aus. Sie sollen dezent und zeichnerisch wirken wie die Seite, ohne graue Innenfläche. Ich soll das selbst ansehen und lösen.
+
+- **Befund im Screenshot (393 px, dreifache Pixeldichte):**
+  - Dicke dunkle Rahmen mit runden Ecken wirkten wie App-Chips.
+  - Die graue Fläche bei „en“ wirkte wie ein Formular.
+  - Die Schrift war mit 14 px größer als der Header mit 11 px.
+  - Zusammen mit dem Rad wirkte das zu laut.
+- **Varianten verglichen:** abgerundet, eckig, rund, 24, 26 und 28 px, verschiedene Rahmentöne. Am besten passt eckig mit Haarlinie in `--soft-line`. Das liest sich wie eine Legende in einer Architekturzeichnung und nimmt die eckigen Linien des Rads auf.
+- **Umsetzung:**
+  - Die Buttons sind 26 px groß, bei sehr schmalen Handys kleiner.
+  - Rahmen `inset 0 0 0 1px var(--soft-line)`, Grund `var(--paper)`. So deckt der Button am Desktop die Zeichnung dahinter ab, ohne als Fläche aufzufallen.
+  - Schrift 12 px, unter 580 px 11 px wie der Header, Zeilenhöhe 1, 1 px optischer Ausgleich oben.
+  - Zeichen mit 86 % der Buttongröße und 1-px-Linien. Der Umschlag ist auf 20 × 15 Einheiten vergrößert, damit er optisch so groß ist wie Sprechblase und Instagram-Logo.
+  - Aktive Sprache, Hover und Fokus zeigen nur einen Rahmen in der Textfarbe, keine Füllung mehr.
+- **Geprüft:**
+  - Screenshots: Handy en und ar (gespiegelt) sowie Desktop 1440 px im Gesamtbild.
+  - Messung: en, ar, ru und 404 bei 320, 393 und 1440 px. Alle Buttons gleich, Text mittig, eine Zeile, Kanten 20 px (Desktop 32 px), kein Überlauf.
+  - 49 Interaktionstests grün.
+

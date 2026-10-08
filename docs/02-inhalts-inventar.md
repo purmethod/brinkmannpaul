@@ -12,11 +12,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
   - WhatsApp Business (`https://wa.me/491756257788`, Pauls Geschäftsnummer);
   - Instagram (`https://www.instagram.com/buildpaul/`).
 - **Rechts, an der Kante:** die Sprachauswahl `en de fr es ar ru`.
-- **Alle neun Elemente sind kleine gerahmte Buttons gleicher Größe (28 px):** Mail, WhatsApp, Instagram und jede Sprache einzeln.
-  - Linie 1,5 px in Grau, Ecken gerundet wie das Instagram-Logo.
-  - Im Instagram-Button sitzt das komplette Logo dezent klein, der Briefumschlag ist gleich breit.
-  - Farbe exakt wie der Header („paul brinkmann, m.sc.“, „artist & architect“): Grau #5c5c56, damit der Footer nicht mit dem Rad konkurriert.
-  - Die aktuelle Sprache hat eine zarte graue Füllung statt Schwarz.
+- **Alle neun Elemente sind kleine Quadrate gleicher Größe (26 px)**, gezeichnet wie eine Legende auf einem Plan: Mail, WhatsApp, Instagram und jede Sprache einzeln.
+  - Haarlinien-Rahmen (1 px) in der Linienfarbe der Seite (#cfcfca), eckig wie die Linien des Rads, innen papierweiß.
+  - Zeichen und Kürzel im Grau und in der Größe des Headers (#5c5c56, 11 px am Handy, 12 px am Desktop). Die Zeichen sind feine 1-px-Linien, Umschlag, Sprechblase und Instagram-Logo optisch gleich groß.
+  - Die aktuelle Sprache erkennt man nur am Rahmen im Textgrau, ohne Füllung. Beim Antippen bekommt jeder Button kurz denselben Rahmen.
 - **Sprachen in ihrer eigenen Schrift:** en, de, fr, es, ع (Arabisch), ру (Russisch). Bildschirmleser hören den vollen Namen in der jeweiligen Sprache (english, deutsch, français, español, العربية, русский). Diese Namen werden nicht übersetzt.
 - **WhatsApp:** nur die Business-Nummer, nie die private.
 - Schrift 14 px.
