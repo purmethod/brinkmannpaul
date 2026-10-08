@@ -200,9 +200,7 @@ for (const [page, source] of pages) {
     if (/^(https?:|mailto:|data:)/.test(local) || local === '/') continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
     assert.ok(fs.existsSync(file), `Missing ${local}`);
-    // A whole clip opened on tap may be larger; everything shown on the page keeps 300 KB.
-    const limit = /video-[a-z-]+-full\.mp4$/.test(local) ? 1024 : 300;
-    assert.ok(fs.statSync(file).size < limit * 1024, `${local} exceeds ${limit} KB`);
+    assert.ok(fs.statSync(file).size < 300 * 1024, `${local} exceeds 300 KB`);
   }
 }
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];

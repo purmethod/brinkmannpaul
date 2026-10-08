@@ -7,9 +7,8 @@ fine grain and no hard black.
 
   python3 scripts/grade_photo.py SOURCE NAME CX CY R [EV] [BLUE]
 
-writes dist/assets/photo-NAME.webp (the circle, 720 px) and
-dist/assets/photo-NAME-full.webp (the whole photo, uncropped). CX, CY and R
-place the circle in source pixels: faces and gestures in its upper third.
+writes dist/assets/photo-NAME.webp, the circle at 720 px. CX, CY and R place
+the circle in source pixels: faces and gestures in its upper third.
 EV corrects exposure in stops before the grade, e.g. -0.4 for bright snow so
 it keeps its texture. BLUE (0 to 1) keeps strong blues clear and out of the
 warm cast, for places whose blue is the point, such as sidi bou saïd.
@@ -67,10 +66,6 @@ def main(source, name, cx, cy, r, ev=0.0, blue=0.0):
     photo = ImageOps.exif_transpose(Image.open(source)).convert('RGB')
     circle = photo.crop((cx - r, cy - r, cx + r, cy + r)).resize((720, 720), Image.LANCZOS)
     grade(circle, **LOOK, ev=ev, blue=blue).save(ASSETS / f'photo-{name}.webp', quality=78, method=6)
-    whole = photo.copy()
-    whole.thumbnail((1080, 1440), Image.LANCZOS)
-    # The whole photo is shown larger, so its grain can be finer.
-    grade(whole, **{**LOOK, 'grain': LOOK['grain'] * 0.7}, ev=ev, blue=blue).save(ASSETS / f'photo-{name}-full.webp', quality=60, method=6)
 
 
 if __name__ == '__main__':
