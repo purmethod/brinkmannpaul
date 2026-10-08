@@ -53,7 +53,7 @@ Auf Pauls Vorgabe heißt die Rubrik jetzt „wim hof method instructor“ statt 
 - **Foto:**
   - Paul und Wim beim Händedruck in Polen, als Kreis mit feinem Ring und der Bildzeile „at wim's house · poland“. Das Foto steht nach dem Instructor-Absatz, also nach „a friend of wim.“. Die Bildzeile wird jetzt in allen Sprachen übersetzt.
   - Antippen öffnet das ganze Foto unbeschnitten. ×, Escape oder ein Tippen schließt es.
-- **Bildstil für alle Fotos:** „honig“ (Pauls Wahl nach „warm golden“, „film“ und „nordisch matt“). Dezent, aber warm: Farben zurückgenommen, laute Orangetöne stärker, bernsteinfarbene Lichter, warmbraune Schatten, sanfte Kurve, feines Korn, kein hartes Schwarz.
+- **Bildstil für alle Fotos:** „honig“ (Pauls Wahl nach „warm golden“, „film“ und „nordisch matt“). Dezent, aber warm: Farben zurückgenommen, laute Orangetöne stärker, bernsteinfarbene Lichter, warmbraune Schatten, sanfte Kurve, feines Korn, kein hartes Schwarz. Auf Pauls Hinweis „Gesichter zu kalt“: Hauttöne (rosa bis pfirsich, sanft gesättigt) werden gezielt erkannt, behalten ihre Farbe und werden von kühlem Rosa Richtung Pfirsich geschoben; das ganze Bild ist etwas wärmer.
 - **Neue Fotos:** `python3 scripts/grade_photo.py QUELLE NAME CX CY R` erzeugt `photo-NAME.webp` (Kreis, 720 px) und `photo-NAME-full.webp` (ganzes Foto). CX, CY und R setzen den Kreis in Pixeln der Quelle, Gesichter ins obere Drittel.
 - **Alle Sprachen:**
 
