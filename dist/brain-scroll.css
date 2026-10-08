@@ -110,7 +110,7 @@
 #site-page .photo-circle:after{content:"";position:absolute;inset:-7px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--tone-line)}
 #site-page .photo figcaption{font-size:12px;letter-spacing:.035em;color:var(--tone-light)}
 #site-page .bs-reader a:focus-visible,#site-page .bs-reader summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-#site-page .bs-reader-head{position:relative}
+#site-page .bs-reader-head{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #site-page .bs-head-close{position:absolute;right:-14px;top:50%;width:44px;height:44px;margin-top:-22px;padding:0;border:0;background:none;color:var(--tone-dark);cursor:pointer;-webkit-tap-highlight-color:transparent}
 #site-page .bs-head-close:before,#site-page .bs-head-close:after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;margin:-.5px 0 0 -6px;background:currentColor;transform:rotate(45deg)}
 #site-page .bs-head-close:after{transform:rotate(-45deg)}
