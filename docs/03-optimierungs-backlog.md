@@ -748,3 +748,29 @@ Paul: Beim Sprachwechsel soll sich nur die Sprache ändern, ohne erneut Porträt
   - Ein späterer frischer Besuch zeigt das Intro. Keine Skriptfehler.
   - `test-site` enthält jetzt beide Fälle. 49 Interaktionstests grün.
 
+### Nachtrag: Intro-Handschrift in Pauls Strichreihenfolge (2026-10-08)
+
+Paul: Die Buchstaben öffneten sich von links nach rechts, statt geschrieben zu werden. Jeder Buchstabe soll in seiner echten Strichfolge erscheinen, flüssig wie eine schnelle Unterschrift, danach „trust is my currency“, nicht zu langsam.
+
+- **Ursache:** Nur „currency“ hatte echte Stiftwege. Unterschrift, „trust“ und „is my“ wurden je zusammenhängendem Tintenstück vom linken Ende aus aufgedeckt (`trace_region`).
+- **Neu: `scripts/render_signature_handwriting.py`.**
+  - Jeder Buchstabe hat Striche in Pauls Reihenfolge, als wenige Wegpunkte.
+  - Die Wegpunkte rasten auf der Mittellinie der Tinte ein (Skelett aus dem Standbild). Dazwischen folgt der Stift der Tinte per kürzestem Weg.
+  - Die Tinte selbst bleibt die des freigegebenen Standbilds aus Pauls Fotos. Das Skript bestimmt nur, wann jedes Pixel erscheint. Kreuzt ein Strich einen anderen, legt der erste Durchgang die Tinte.
+- **Strichfolge:**
+  - B: linker Strich hoch, oben rüber, rechts runter, unten nach links.
+  - r: von links hoch über den Bogen.
+  - i: von oben nach unten.
+  - n und k: runter, hoch, runter.
+  - m: runter, hoch, runter, hoch, runter. „ann“ folgt ohne Absetzen.
+  - P: der lange Strich ganz nach unten, dann die Schleife von links hoch nach rechts rüber.
+  - Danach „aul“. „trust“, „is my“ und „currency“ ebenso Buchstabe für Buchstabe; „currency“ mit seinen bisherigen Wegen.
+- **Tempo:**
+  - Der Stift folgt dem Zwei-Drittel-Gesetz der Handbewegung: langsamer in Kurven, schneller auf geraden Strichen. Zwischen Buchstaben hebt er 50 ms ab.
+  - Auf der Seite (1,25-fach): Unterschrift ab 0,24 s, fertig nach rund 2,6 s. Das ganze Intro dauert 6,6 s statt bisher rund 7,9 s.
+- **Datei:** `dist/assets/intro-handwriting-signed.mp4`, H.264, 60 fps, 101 KB. Das Standbild bleibt `intro-handwriting-split-complete.png`.
+- **Geprüft:**
+  - Kontrollblatt (`--sheet`) mit den Stiftwegen und Zeitstreifen für B, r, m, P-Strich, P-Schleife und trust.
+  - Einzelbilder direkt aus der fertigen MP4: Das letzte Bild gleicht dem Standbild.
+  - Die Seite lädt das Video auf allen sechs Sprachen. Der Fallback auf das Standbild (Browser ohne H.264) funktioniert.
+
