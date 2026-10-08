@@ -581,3 +581,12 @@ Pauls Auftrag über Nacht: die Seite autonom prüfen und fertig machen. Dazu geh
   - Auf `/de/` lädt die Tauchfahrt alle Zeichnungen. `/fr/#qefyr` öffnet direkt. Der Wechsel zu `es` führt auf `/es/#qefyr` mit offenem Projekt.
   - Nahtstelle mit Helligkeitssprung 0,05 bzw. 0,01. 49 Interaktionstests grün.
 
+## Russisch als sechste Sprache (2026-10-08)
+
+Pauls Auftrag: Russisch hinzufügen, sinngemäß und perfekt übersetzt, getestet und live.
+
+- **Seite:** `/ru/` aus `i18n/ru.json` (124 Bausteine) über `scripts/i18n.py`. Auswahl im Footer `en de fr es ar ru`, hreflang `ru` auf der englischen Quelle und damit auf allen Sprachseiten, 404-Seite mit `ru`.
+- **Footer schmal:** Mit sechs Kürzeln brach „paul brinkmann“ bei 360 px um. Unter 380 px ist der Abstand zwischen den Kürzeln 10 statt 14 px. Bei 320 px bricht der Name weiterhin um, wie schon mit fünf Sprachen.
+- **Übersetzung geprüft:** Ein unabhängiger zweiter Durchgang hat alle 124 Bausteine gegen das Englische gelesen. Er fand 10 Fehler in Bedeutung oder Grammatik (fehlende Verben, Fall, mehrdeutige Pronomen), dazu ungelenke Stellen. Alle sind behoben, ein dritter Durchgang hat das bestätigt.
+- **Prüfung:** `node scripts/test-site.mjs` grün mit sechs Sprachen. Auf `/ru/` sitzen die Namen an der Kante, das „+“ rechts, die Auswahl mittig, kein Überlauf, die Bedienung ist russisch, die Leseansicht zeigt „система для мужчины“. Der längste Name passt auch bei 320 px (219 von 256 px). `/ru/#qefyr` öffnet direkt, der Wechsel zu `de` behält das Projekt. Alle Zeichnungen laden, keine Fehler.
+
