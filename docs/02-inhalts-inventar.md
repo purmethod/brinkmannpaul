@@ -42,6 +42,32 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: wim hof, Text und Bilder im Wechsel (2026-10-08)
+
+Auf Pauls Vorgabe ist „the idea is simple …“ gestrichen. „places are limited“ steht jetzt kurz in der Notizzeile („· limited places“).
+
+Text und Bilder wechseln sich ab:
+
+1. fifteen years of breath.
+2. Instructor-Absatz
+3. Foto „at wim's house · poland“
+4. november/dezember, kleine Gruppe, atmen und Kälte
+5. Foto „breathing in the snow“ (Paul meditiert im Schnee)
+6. śnieżka, kochen, Feuer
+7. Foto „on the way up“ (Gruppe im Schnee auf dem Bergweg)
+8. Kefir, Sauerteig, Mikrobiom, mit dem Hinweis „keine Heilversprechen“
+9. Foto „together on the mountain“ (Gruppenbild)
+10. Notizzeile
+11. „join a weekend“
+
+Alle Fotos laufen durch denselben Honig-Filter. Für helle Schneebilder nimmt `scripts/grade_photo.py` eine Belichtungskorrektur EV in Blendenstufen an, damit der Schnee Struktur behält:
+
+| Foto | EV |
+|---|---|
+| Meditation | -0,2 |
+| Aufstieg | -0,6 |
+| Gruppe | -0,25 |
+
 ## Aktualisierung: wim hof method instructor mit Foto (2026-10-08)
 
 Auf Pauls Vorgabe heißt die Rubrik jetzt „wim hof method instructor“ statt „wim hof weekends“. Der offizielle Titel lautet „Wim Hof Method Instructor“.
