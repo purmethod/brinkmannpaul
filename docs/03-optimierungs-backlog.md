@@ -827,3 +827,40 @@ Paul: Unterschrift und Motto je 3,5 s, alles flüssiger, testen.
   Abgehobene Momente im Motto: 9 statt 21. Drei Einstellungen wurden verglichen, gewählt ist die ruhigste.
 - **Datei:** `intro-handwriting-signed.mp4?v=5` (140 KB). Das ganze Intro dauert 8,5 s.
 
+
+### Nachtrag: Tauchgang ohne Wiederholung, vom Gehirn ins Universum (2026-10-08)
+Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer tieferes Eintauchen von groß nach fein, bis das Feinste ins Universum mit seiner unendlichen Weite übergeht. Das muss korrekt recherchiert sein.
+
+- **Neue Reise, jede Zeichnung genau einmal:**
+
+  | # | Zeichnung | Maßstab |
+  |---|---|---|
+  | 1 | Gehirn (Startzeichnung, unverändert) | ~10 cm |
+  | 2 | Gehirnwindungen (Gyri) mit Neuronen | ~1 cm |
+  | 3 | 1 mm³ Cortex-Verdrahtung (nach H01, Harvard/Google) | ~1 mm |
+  | 4 | Dendrit mit Dornen | ~1 µm |
+  | 5 | Synapse mit Vesikeln | Spalt ~20 nm, Vesikel ~40 nm |
+  | 6 | Moleküle im Vesikel, die schon wie Sterne wirken | |
+  | 7 | Galaxien | |
+  | 8 | Kosmisches Netz | |
+  | 9 | Unendliche Tiefe | |
+
+  Danach wächst das nächste Gehirn.
+- **Jede Zeichnung wächst aus der Mitte der vorigen:**
+  - das Neuron aus den Windungen;
+  - die Synapse auf dem Dendriten;
+  - das andockende Vesikel;
+  - der dichteste Molekülhaufen;
+  - der Knoten, an dem sich die kosmischen Fäden treffen.
+- **Grundlage:** Vazza und Feletti (2020, Frontiers in Physics, doi 10.3389/fphy.2020.525731) zeigen, dass das neuronale Netz und das kosmische Netz ähnlich strukturiert sind. Die Vesikelgröße stammt aus BioNumbers (ID 102775).
+- **Technik:**
+  - Fünf neue Zeichnungen: `neuro-gyri`, `neuro-dendrite`, `neuro-synapse`, `neuro-molecule` und `neuro-deep`. Alle 1920 px, im Ton der bestehenden Zeichnungen und unter 700 KB.
+  - Die alte Mikro-Zeichnung ist aus der Kette entfernt. Sie war im Querformat und ließ auf dem Handy weiße Ränder.
+  - Auf breiten Bildschirmen öffnet sich die Tiefe bei 56 % der Breite. So reicht jede Zeichnung bis zum linken Rand.
+  - `brain-scroll.js?v=83`.
+- **Länge:** Ein Durchgang bis zum nächsten Gehirn ist Tiefe 9,1 auf dem Handy und 8,5 auf dem Desktop, also rund 60 bis 65 Zeilen am Rad.
+- **Test:**
+  - **Reise:** Je 25 Bilder durch einen Durchgang auf dem Handy (393×852) und auf dem Desktop (1440×900). Jede Stufe erscheint genau einmal, ohne weiße Löcher.
+  - **Helligkeit:** Keine harten Sprünge, alle Übergänge sind Rampen über etwa 0,3 Tiefe. Die Naht zum nächsten Gehirn misst 0,02 Helligkeitsstufen.
+  - **Interaktion:** 49 von 49 bestanden.
+  - **Seiten-Test:** `test-site` bestanden.
