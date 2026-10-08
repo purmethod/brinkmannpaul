@@ -416,11 +416,15 @@ footer {
   vector-effect: non-scaling-stroke;
 }
 
+/* The buttons keep the header's grey so they never compete with the wheel.
+   The current language and a touched button get a soft fill of that grey. */
 .contact-links a:hover,
 .contact-links a:focus-visible,
 .footer-langs a:hover,
-.footer-langs a:focus-visible {
-  color: var(--ink);
+.footer-langs a:focus-visible,
+.footer-langs a[aria-current="page"] {
+  background: rgba(92, 92, 86, 0.12);
+  background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
 
