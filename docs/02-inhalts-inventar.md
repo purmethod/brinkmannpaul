@@ -42,6 +42,32 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: Videos loopen unsichtbar, skyn-Video, Sidi langsamer (2026-10-08)
+
+Pauls Vorgabe: endlose Schleife, deren Neubeginn man nicht bemerkt. Das Sidi-Video soll langsamer laufen.
+
+`scripts/grade_video.py` hat dafür zwei Arten, die Schleife zu verbergen:
+
+- **dissolve:** für Texturen und ruhige Szenen. Das Skript sucht die zwei ähnlichsten Momente des Clips und blendet sie 1,2 s lang ineinander.
+  - Neues skyn-Video: Creme beim Aufschlagen, ohne Bildzeile, nach dem ersten Absatz.
+  - 4,5 s Schleife, 176 KB.
+- **glide:** für eine fahrende Kamera, deren Anfang und Ende nie gleich aussehen. Der Clip läuft vor, bremst auf null ab, läuft zurück und bremst wieder ab, wie eine Kosinuskurve. Dazwischen werden Bilder für die Zeitlupe gemischt.
+  - Sidi Bou Saïd: Höchsttempo 0,75 statt 1, im Schnitt etwa halb so schnell wie gefilmt.
+  - 16,9 s Schleife, 469 KB.
+
+**Gemessen** als mittlere Bilddifferenz:
+
+| Video | Schritt am Loop-Punkt | Normaler Bildschritt |
+|---|---|---|
+| Sidi | 5,0 | 6,1 |
+| skyn | 9,0 | 8,3 bis 11,4 |
+
+Der Loop-Punkt ist damit von einem normalen Bildwechsel nicht zu unterscheiden.
+
+**Weitere Änderungen:**
+- Schleifen-Videos dürfen bis 600 KB groß sein, weil sie erst laden, wenn man beim Lesen in ihre Nähe kommt. Alles andere bleibt unter 300 KB.
+- Das Skript erkennt jetzt, ob ein Video HDR (bt2020) oder normal (bt709) ist, und dekodiert entsprechend.
+
 ## Aktualisierung: skyn neu erzählt, Vorbestellseite (2026-10-08)
 
 Pauls Geschichte zu skyn:
