@@ -145,6 +145,7 @@ const links = page => [...page.matchAll(/href="(mailto:[^"]+|https:\/\/www\.inst
 for (const lang of ['en', ...LANGS]) assert.ok(html.includes(`hreflang="${lang}" href="https://brinkmannpaul.com/${lang === 'en' ? '' : lang + '/'}"`), `alternate link for ${lang}`);
 assert.ok(html.includes('aria-current="page">en</a>'), 'english marked in the selector');
 assert.ok(!html.includes('>contact</a>'), 'the language selector replaces contact');
+for (const [code, label] of [['en', 'en'], ['de', 'de'], ['fr', 'fr'], ['es', 'es'], ['ar', 'ع'], ['ru', 'ру']]) assert.ok(new RegExp(`hreflang="${code}" lang="${code}" aria-label="[^"]+"[^>]*>${label}</a>`).test(html), `${code} shown in its own script`);
 // Footer: e-mail and instagram as icons on the left, languages on the right.
 for (const [name, page] of [['index', html], ['404', notFound]]) {
   const contact = page.slice(page.indexOf('<nav class="contact-links"'), page.indexOf('</footer>'));
@@ -161,7 +162,8 @@ for (const lang of LANGS) {
   const page = fs.readFileSync(file, 'utf8');
   assert.ok(page.includes(`<html lang="${lang}"${lang === 'ar' ? ' dir="rtl"' : ''}>`), `${lang} page language`);
   assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/" />`), `${lang} canonical`);
-  assert.ok(page.includes(`lang="${lang}" aria-current="page">${lang}</a>`), `${lang} marked in the selector`);
+  assert.ok(new RegExp(`hreflang="${lang}" lang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} marked in the selector`);
+  assert.equal(page.match(/aria-current="page"/g).length, 1, `${lang}: one language marked`);
   assert.equal(ids(page), ids(html), `${lang} has the same projects in the same order`);
   assert.equal(links(page), links(html), `${lang} keeps every order link`);
   assert.ok(!/(src|href|srcset)="(?![a-z]+:|\/|#)/.test(page), `${lang} addresses local files from the site root`);

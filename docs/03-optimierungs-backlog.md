@@ -636,3 +636,21 @@ Pauls Vorgabe: Briefumschlag und Instagram-Zeichen bekommen eine Umrandung und s
   - en, ar, ru und 404 bei 320, 360, 393, 430 und 1440 px gemessen: alle acht Buttons exakt gleich groß und quadratisch, Texte auf 0,0 px zentriert, Kanten 20 px (Desktop 32 px), Abstände 6 px, eine Zeile, kein Überlauf, Arabisch gespiegelt.
   - 49 Interaktionstests grün.
 
+### Nachtrag: kleinere Buttons, Instagram-Logo, Sprachen in eigener Schrift (2026-10-08)
+
+Pauls Vorgabe: Die Buttons sind zu groß. Das Instagram-Logo selbst soll im Button sitzen, kleiner und dezenter. Die Sprachauswahl zeigt die Anfangsbuchstaben in der jeweiligen Landessprache.
+
+- **Größe:** `--button: clamp(24px, (100vw − 92px) / 8, 28px)`, also 28 px auf allen Handys ab 316 px Breite und auf dem Desktop.
+- **Zeichen:**
+  - Im Instagram-Button sitzt das komplette Logo (abgerundetes Quadrat, Linse, Punkt) mit 18,6 von 40 Einheiten, bei 28 px Button also rund 13 px.
+  - Der Umschlag ist gleich breit.
+  - Linien 1 px, wie der Rahmen.
+- **Sprachen:** en, de, fr, es, ع, ру.
+  - Jeder Link trägt `aria-label` mit dem Namen in der eigenen Sprache.
+  - `scripts/i18n.py` übersetzt `aria-label` an Links mit `hreflang` nicht.
+  - Die aktuelle Sprache wird über die Attribute markiert statt über den Linktext.
+- **Tests:**
+  - `scripts/test-site.mjs` prüft die eigenen Schriftzeichen und dass je Seite genau eine Sprache markiert ist.
+  - en, ar, ru und 404 bei 300, 320, 393 und 1440 px gemessen: alle Buttons gleich und quadratisch, Text auf 0,0 px mittig (auch ع und ру), eine Zeile, Kanten 20 px, kein Überlauf.
+  - Der Sprachwechsel behält das offene Projekt. 49 Interaktionstests grün.
+

@@ -373,10 +373,10 @@ footer p {
 }
 
 /* Footer: e-mail and instagram on one edge, the languages on the other. Every
-   item is a framed button of the same size. All eight share one row, so the
-   size follows the screen: 28px on a 320px phone, 40px from 412px up. */
+   item is a small framed button of the same size, 28px; below a 316px screen
+   they shrink so all eight still share one row. */
 footer {
-  --button: clamp(1.75rem, calc((100vw - 5.75rem) / 8), 2.5rem);
+  --button: clamp(1.5rem, calc((100vw - 5.75rem) / 8), 1.75rem);
 }
 
 .contact-links,

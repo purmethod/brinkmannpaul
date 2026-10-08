@@ -9,10 +9,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - Der Name unten links ist weg (er steht schon oben).
 - **Links, an der Kante:** zwei gezeichnete Icons in Grau, zuerst E-Mail (`mailto:brinkmannbuild@gmail.com`), dann Instagram (`https://www.instagram.com/buildpaul/`).
 - **Rechts, an der Kante:** die Sprachauswahl `en de fr es ar ru`.
-- **Alle acht Elemente sind gerahmte Buttons gleicher Größe:** Mail, Instagram und jede Sprache einzeln.
-  - Linie 1 px in Grau, Ecken gerundet wie das Instagram-Zeichen. Der Rahmen ist zugleich der Umriss der Instagram-Kamera, innen sitzen Kreis und Punkt. Der Briefumschlag ist so breit wie der Instagram-Kreis.
-  - Größe nach Bildschirmbreite: 40 px ab 412 px Breite, 38 px bei 393 px, 28 px bei 320 px. So passen alle acht immer in eine Zeile.
+- **Alle acht Elemente sind kleine gerahmte Buttons gleicher Größe (28 px):** Mail, Instagram und jede Sprache einzeln.
+  - Linie 1 px in Grau, Ecken gerundet wie das Instagram-Logo.
+  - Im Instagram-Button sitzt das komplette Logo dezent klein, der Briefumschlag ist gleich breit.
   - Die aktuelle Sprache hat Rahmen und Schrift in Schwarz.
+- **Sprachen in ihrer eigenen Schrift:** en, de, fr, es, ع (Arabisch), ру (Russisch). Bildschirmleser hören den vollen Namen in der jeweiligen Sprache (english, deutsch, français, español, العربية, русский). Diese Namen werden nicht übersetzt.
 - **Kein WhatsApp:** Pauls Entscheidung, keine Telefonnummer öffentlich. Alle Anfragen laufen über E-Mail.
 - Schrift 14 px.
 - Bildschirmleser hören „e-mail“ und „instagram“ in der jeweiligen Sprache.
