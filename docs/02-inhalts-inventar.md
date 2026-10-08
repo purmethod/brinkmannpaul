@@ -4,17 +4,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
-## Aktualisierung: Footer mit Sprachen links, Kontakt-Icons rechts (2026-10-08)
+## Aktualisierung: Footer mit Kontakt-Icons links, Sprachen rechts (2026-10-08)
 
 - Der Name unten links ist weg (er steht schon oben).
-- **Links:** Sprachauswahl `en de fr es ar ru`.
-- **Rechts, an der Kante:** zwei gezeichnete Icons in Grau:
-  - Instagram (`https://www.instagram.com/buildpaul/`);
-  - E-Mail (`mailto:brinkmannbuild@gmail.com`).
+- **Links, an der Kante:** zwei gezeichnete Icons in Grau, zuerst E-Mail (`mailto:brinkmannbuild@gmail.com`), dann Instagram (`https://www.instagram.com/buildpaul/`).
+- **Rechts, an der Kante:** die Sprachauswahl `en de fr es ar ru`.
+  - Jedes Kürzel ist ein Button wie die Icons: 40 px hoch, im gleichen 18-px-Abstand.
+  - Die aktuelle Sprache ist schwarz und unterstrichen.
 - **Kein WhatsApp:** Pauls Entscheidung, keine Telefonnummer öffentlich. Alle Anfragen laufen über E-Mail.
-- Schrift 14 statt 11 px, Icons 22 px mit 40 × 40 px Tippfläche.
-- Bildschirmleser hören „instagram“ und „e-mail“ in der jeweiligen Sprache.
-- Die 404-Seite hat denselben Footer.
+- Schrift 14 px, Icons 22 px mit 40 × 40 px Tippfläche.
+- Bildschirmleser hören „e-mail“ und „instagram“ in der jeweiligen Sprache.
+- Die 404-Seite hat denselben Footer, auf Arabisch ist er gespiegelt.
 
 ## Aktualisierung: Russisch als sechste Sprache (2026-10-08)
 

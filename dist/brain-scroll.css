@@ -28,9 +28,6 @@
 #site-page .pure-letter{color:#292929;font-weight:500}
 #site-page .item-status,#site-page .item-note{font-size:12px}
 #site-page .bs-footer a{display:inline-flex;align-items:center;min-height:32px}
-#site-page .bs-langs{display:flex;gap:14px}
-@media (max-width:380px){#site-page .bs-langs{gap:10px}}
-#site-page .bs-langs a{color:inherit;text-decoration:none}
 #site-page .bs-langs a[aria-current="page"]{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 @media(max-width:580px){
   #site-page .project-list{width:100%}
