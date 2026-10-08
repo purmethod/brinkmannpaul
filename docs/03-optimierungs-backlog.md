@@ -654,3 +654,17 @@ Pauls Vorgabe: Die Buttons sind zu groß. Das Instagram-Logo selbst soll im Butt
   - en, ar, ru und 404 bei 300, 320, 393 und 1440 px gemessen: alle Buttons gleich und quadratisch, Text auf 0,0 px mittig (auch ع und ру), eine Zeile, Kanten 20 px, kein Überlauf.
   - Der Sprachwechsel behält das offene Projekt. 49 Interaktionstests grün.
 
+### Nachtrag: WhatsApp Business, Linien 1,5 px (2026-10-08)
+
+Paul hat eine eigene WhatsApp-Business-Nummer (+49 175 6257788). Sie kommt als Button in die Mitte der Kontaktgruppe. Die Linien von Rahmen und Zeichen werden für die Bedienbarkeit etwas kräftiger.
+
+- **Reihenfolge links:** Mail, WhatsApp, Instagram. Das WhatsApp-Zeichen (Sprechblase mit Hörer) ist im 40er-Raster genauso breit wie Instagram-Logo und Umschlag (18,6 Einheiten) und mittig.
+- **Größe:** Bei neun Buttons gilt `--button: clamp(24px, (100vw − 98px) / 9, 28px)`. Ab 350 px Breite sind es 28 px, bei 320 px 24,7 px, alle in einer Zeile.
+- **Linien:**
+  - Rahmen und Zeichen sind 1,5 statt 1 px.
+  - Der Rahmen ist ein `box-shadow: inset 0 0 0 1.5px`, denn Browser runden einen 1,5-px-`border` auf 1 px ab (gemessen bei 1-, 2- und 3-facher Pixeldichte).
+- **Test:**
+  - `scripts/test-site.mjs` prüft die Reihenfolge Mail, WhatsApp, Instagram und die Business-Nummer.
+  - Er stellt sicher, dass die frühere private Nummer und `tel:`-Links nirgends stehen.
+- **Prüfung:** en, ar, ru und 404 bei 320, 360, 393 und 1440 px gemessen: neun gleich große quadratische Buttons, Zeichen und Texte mittig, eine Zeile, Kanten 20 px, kein Überlauf. 49 Interaktionstests grün.
+

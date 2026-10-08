@@ -146,12 +146,13 @@ for (const lang of ['en', ...LANGS]) assert.ok(html.includes(`hreflang="${lang}"
 assert.ok(html.includes('aria-current="page">en</a>'), 'english marked in the selector');
 assert.ok(!html.includes('>contact</a>'), 'the language selector replaces contact');
 for (const [code, label] of [['en', 'en'], ['de', 'de'], ['fr', 'fr'], ['es', 'es'], ['ar', 'ع'], ['ru', 'ру']]) assert.ok(new RegExp(`hreflang="${code}" lang="${code}" aria-label="[^"]+"[^>]*>${label}</a>`).test(html), `${code} shown in its own script`);
-// Footer: e-mail and instagram as icons on the left, languages on the right.
+// Footer: e-mail, whatsapp business and instagram as icons on the left, languages on the right.
 for (const [name, page] of [['index', html], ['404', notFound]]) {
   const contact = page.slice(page.indexOf('<nav class="contact-links"'), page.indexOf('</footer>'));
   const targets = [...contact.matchAll(/<a href="([^"]+)"[^>]*aria-label="([^"]+)"><svg /g)].map(m => m[2] + ' ' + m[1].split(/[/:?]/).filter(Boolean)[1]);
-  assert.deepEqual(targets, ['e-mail brinkmannbuild@gmail.com', 'instagram www.instagram.com'], `${name}: contact icons in order`);
-  assert.ok(!/wa\.me|whatsapp|tel:/i.test(page), `${name}: no phone number published`);
+  assert.deepEqual(targets, ['e-mail brinkmannbuild@gmail.com', 'whatsapp wa.me', 'instagram www.instagram.com'], `${name}: contact icons in order`);
+  assert.ok(contact.includes('href="https://wa.me/491756257788"'), `${name}: whatsapp business number`);
+  assert.ok(!/491788884486|tel:/.test(page), `${name}: no private number, no tel: link`);
   const footer = page.slice(page.indexOf('<footer'));
   assert.ok(footer.indexOf('contact-links') < footer.indexOf('footer-langs'), `${name}: contact first, languages second`);
   assert.ok(!/<footer[^>]*>\s*<p>/.test(page), `${name}: no repeated name in the footer`);

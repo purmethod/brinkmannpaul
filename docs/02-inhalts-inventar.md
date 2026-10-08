@@ -7,14 +7,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 ## Aktualisierung: Footer mit Kontakt-Icons links, Sprachen rechts (2026-10-08)
 
 - Der Name unten links ist weg (er steht schon oben).
-- **Links, an der Kante:** zwei gezeichnete Icons in Grau, zuerst E-Mail (`mailto:brinkmannbuild@gmail.com`), dann Instagram (`https://www.instagram.com/buildpaul/`).
+- **Links, an der Kante:** drei gezeichnete Icons in Grau:
+  - E-Mail (`mailto:brinkmannbuild@gmail.com`);
+  - WhatsApp Business (`https://wa.me/491756257788`, Pauls Geschäftsnummer);
+  - Instagram (`https://www.instagram.com/buildpaul/`).
 - **Rechts, an der Kante:** die Sprachauswahl `en de fr es ar ru`.
-- **Alle acht Elemente sind kleine gerahmte Buttons gleicher Größe (28 px):** Mail, Instagram und jede Sprache einzeln.
-  - Linie 1 px in Grau, Ecken gerundet wie das Instagram-Logo.
+- **Alle neun Elemente sind kleine gerahmte Buttons gleicher Größe (28 px):** Mail, WhatsApp, Instagram und jede Sprache einzeln.
+  - Linie 1,5 px in Grau, Ecken gerundet wie das Instagram-Logo.
   - Im Instagram-Button sitzt das komplette Logo dezent klein, der Briefumschlag ist gleich breit.
   - Die aktuelle Sprache hat Rahmen und Schrift in Schwarz.
 - **Sprachen in ihrer eigenen Schrift:** en, de, fr, es, ع (Arabisch), ру (Russisch). Bildschirmleser hören den vollen Namen in der jeweiligen Sprache (english, deutsch, français, español, العربية, русский). Diese Namen werden nicht übersetzt.
-- **Kein WhatsApp:** Pauls Entscheidung, keine Telefonnummer öffentlich. Alle Anfragen laufen über E-Mail.
+- **WhatsApp:** nur die Business-Nummer, nie die private.
 - Schrift 14 px.
 - Bildschirmleser hören „e-mail“ und „instagram“ in der jeweiligen Sprache.
 - Die 404-Seite hat denselben Footer, auf Arabisch ist er gespiegelt.
