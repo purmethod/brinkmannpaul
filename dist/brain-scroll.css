@@ -104,7 +104,7 @@
 #site-page .bs-reader .pure-branch[open]>summary{color:var(--ink)}
 #site-page .bs-reader .pure-branch-text{font-size:16px}
 /* Every photo is the same circle with a drawn ring. */
-#site-page .photo{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:14px;margin:8px 0 30px}
+#site-page .photo{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:14px;margin:14px 0 30px}
 #site-page .photo-circle{position:relative;display:block;width:min(240px,68vw);aspect-ratio:1;border-radius:50%}
 #site-page .photo-circle img,#site-page .photo-circle video{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#f4f2ee}
 #site-page .photo-circle:after{content:"";position:absolute;inset:-7px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--tone-line)}
