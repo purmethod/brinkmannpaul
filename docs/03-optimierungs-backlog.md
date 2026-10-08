@@ -592,7 +592,7 @@ Pauls Auftrag: Russisch hinzufügen, sinngemäß und perfekt übersetzt, geteste
 
 ## Footer: Sprachen links, Instagram, WhatsApp und Mail rechts (2026-10-08)
 
-Pauls Vorgabe: Der Name unten links wiederholt sich und kommt weg. Links stehen die Sprachen, rechts an der Kante die Kontakt-Icons Instagram, WhatsApp und Mail, grau und gezeichnet wie der Rest. Schrift und Buttons werden größer.
+Pauls Vorgabe: Der Name unten links wiederholt sich und kommt weg. Links stehen die Sprachen, rechts an der Kante die Kontakt-Icons (zuerst Instagram, WhatsApp und Mail, WhatsApp siehe Nachtrag), grau und gezeichnet wie der Rest. Schrift und Buttons werden größer.
 
 - **Markup:** `<nav class="contact-links" aria-label="contact">` mit drei Links. Jeder Link trägt ein Linien-SVG (`stroke: currentColor`, 1,6), das Instagram-Zeichen ist dasselbe wie bei pure. Die Beschriftungen (contact, instagram, whatsapp, e-mail) sind in allen sechs Sprachen übersetzt.
 - **Stil:**
@@ -602,4 +602,8 @@ Pauls Vorgabe: Der Name unten links wiederholt sich und kommt weg. Links stehen 
 - **404:** Gleicher Aufbau, Sprachen ohne Trennpunkte, unter 380 px enger.
 - **Test:** `scripts/test-site.mjs` prüft, dass auf Startseite und 404 die drei Icons in dieser Reihenfolge stehen, WhatsApp eine Nummer hat und im Footer kein Name mehr steht.
 - **Prüfung:** en, ar und ru bei 320, 360, 393 und 1440 px gemessen. Sprachen und Icons stehen auf einer Zeile, je 20 px (Desktop 32 px) von der Kante, ohne Überlauf. Die 404-Seite steht bei 320 px ebenfalls einzeilig. 49 Interaktionstests sind grün.
+
+### Nachtrag: WhatsApp wieder entfernt (2026-10-08)
+
+Paul will keine private Nummer veröffentlichen und nicht pro Nachricht zahlen, was die WhatsApp Business Platform für einen eigenen Bot verlangt. Deshalb laufen alle Anfragen über E-Mail. Der Footer zeigt rechts nur noch Instagram und Mail. `scripts/test-site.mjs` stellt sicher, dass auf Startseite und 404 keine Telefonnummer, kein `wa.me` und kein `tel:` steht.
 
