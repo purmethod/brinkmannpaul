@@ -42,6 +42,14 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: mysidibou, neues Dorf-Panorama und der Hafen bei Nacht (2026-10-08)
+
+Auf Pauls Vorgabe ersetzt sein Panorama das bisherige Dächer-Foto: weiße Häuser über dem Golf von Tunis, klarer Himmel. Die Bildzeile „the rooftops of the village“ bleibt.
+
+Neu als Abschlussbild nach dem letzten Absatz: „the harbour at night“. Der Hafen unterhalb von Sidi Bou Saïd bei Nacht, der Mond über dem Meer.
+
+Der Hafen ist mit EV -0,5 und BLUE 3 gerendert. BLUE über 1 hält auch weichere Blautöne wie den Nachthimmel. Bei BLUE bis 1 bleibt alles wie zuvor, die übrigen Fotos sind unverändert.
+
 ## Aktualisierung: max 20 Personen, Kreise ohne Vergrößern (2026-10-08)
 
 Auf Pauls Vorgabe:

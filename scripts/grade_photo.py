@@ -11,7 +11,8 @@ writes dist/assets/photo-NAME.webp, the circle at 720 px. CX, CY and R place
 the circle in source pixels: faces and gestures in its upper third.
 EV corrects exposure in stops before the grade, e.g. -0.4 for bright snow so
 it keeps its texture. BLUE (0 to 1) keeps strong blues clear and out of the
-warm cast, for places whose blue is the point, such as sidi bou saïd.
+warm cast, for places whose blue is the point, such as sidi bou saïd; above 1
+it also holds softer blues, such as a night sky.
 """
 import sys
 from pathlib import Path
@@ -42,7 +43,7 @@ def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, w
     skin = (np.exp(-((((hue - 10 + 180) % 360) - 180) / 24) ** 2)
             * np.clip((s - 0.06) / 0.08, 0, 1) * np.clip((0.5 - s) / 0.15, 0, 1))
     # Strong blues (doors, shutters, sea and sky) can keep their full colour.
-    keep = blue * np.exp(-((((hue - 215 + 180) % 360) - 180) / 30) ** 2) * np.clip((s - 0.15) / 0.2, 0, 1)
+    keep = np.clip(blue * np.exp(-((((hue - 215 + 180) % 360) - 180) / 30) ** 2) * np.clip((s - 0.15) / 0.2, 0, 1), 0, 1)
     k = sat * (1 - orange * loud) * (1 + skin_sat * skin)
     a = L + (k * (1 - keep) + 1.08 * keep)[..., None] * (a - L)
     a = a * (1 + skin_warm * skin[..., None] * np.array([1.0, 0.35, -1.5]))
