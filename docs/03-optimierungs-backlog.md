@@ -797,3 +797,11 @@ Paul: Die Unterschrift wirkt hektisch. Sie soll so ruhig laufen wie „trust is 
   - Ganzes Intro 11,8 s. Wer will, tippt oder scrollt jederzeit weiter.
 - `intro-handwriting-signed.mp4?v=3` (167 KB).
 
+### Nachtrag: Unterschrift 4 s (2026-10-08)
+
+Paul: 6,2 s war zu viel. Gemeint war etwas langsamer, nicht dreifach. Vorgabe: 4 s.
+
+- Die Unterschrift hat wieder eine feste Pen-Zeit: 5,30 Videosekunden. Davon sparen die Übergänge ohne Absetzen 0,3 s. Auf der Seite (1,25-fach) schreibt sie sich damit in genau 4,0 s (vorher 2,6 s, dann 6,2 s).
+- Das Motto bleibt unverändert. Das ganze Intro dauert 9,6 s.
+- `intro-handwriting-signed.mp4?v=4` (136 KB).
+
