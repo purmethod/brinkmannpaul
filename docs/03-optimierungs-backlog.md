@@ -574,5 +574,9 @@ Pauls Auftrag über Nacht: die Seite autonom prüfen und fertig machen. Dazu geh
 - **Prüfung und Bereinigung:**
   - 404-Seite einheitlich „paul brinkmann, m.sc. · artist & architect“, aktuelle Styles, Sprachlinks statt „contact“.
   - `og:site_name` lautet „paul brinkmann“.
-  - HTML geprüft: Verschachtelung, Sprungmarken und Alt-Texte sind korrekt.
+  - HTML geprüft: Verschachtelung, Sprungmarken und Alt-Texte sind korrekt.- **Prüfung vor dem Livegang:**
+  - `node scripts/test-site.mjs` grün, inklusive der neuen Sprachprüfungen: jede Seite mit Sprache, Canonical, markierter Auswahl, denselben Projekten und Bestell-Links, Dateien ab Seitenstamm.
+  - Je Sprache auf Mobile (393 px) und Desktop gemessen: Namen exakt an der Kante, Arabisch rechtsbündig mit „+“ links, Auswahl exakt mittig, kein Überlauf, übersetzte Bedienbeschriftungen, Leseansicht mit übersetztem Untertitel. Keine Konsolenfehler, keine fehlenden Dateien.
+  - Auf `/de/` lädt die Tauchfahrt alle Zeichnungen. `/fr/#qefyr` öffnet direkt. Der Wechsel zu `es` führt auf `/es/#qefyr` mit offenem Projekt.
+  - Nahtstelle mit Helligkeitssprung 0,05 bzw. 0,01. 49 Interaktionstests grün.
 
