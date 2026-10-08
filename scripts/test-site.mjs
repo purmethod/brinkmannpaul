@@ -118,7 +118,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 9, 'project ids are uniqu
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a href="(mailto:|https:)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -175,6 +175,25 @@ for (const lang of LANGS) {
   pages.push(['dist', page]);
 }
 
+// The weekends booking page: in every language, linked from the wim hof row,
+// with price, safety notes before any request and links that stay in the language.
+const weekends = fs.readFileSync(path.join(root, 'dist/weekends/index.html'), 'utf8');
+assert.ok(html.includes('<a href="weekends/">'), 'the wim hof row links to the booking page');
+assert.ok(weekends.includes('490 € per person'), 'weekends: price shown');
+assert.ok(weekends.indexOf('id="agree"') < weekends.indexOf('class="request"'), 'weekends: safety notes come before the requests');
+assert.ok(weekends.includes('href="https://wa.me/491756257788"') && weekends.includes('mailto:brinkmannbuild@gmail.com'), 'weekends: requests by whatsapp and e-mail');
+pages.push(['dist', weekends]);
+for (const lang of LANGS) {
+  const file = path.join(root, 'dist', lang, 'weekends', 'index.html');
+  assert.ok(fs.existsSync(file), `dist/${lang}/weekends/index.html exists (run python3 scripts/i18n.py build)`);
+  const page = fs.readFileSync(file, 'utf8');
+  assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/weekends/" />`), `${lang} weekends canonical`);
+  assert.ok(new RegExp(`href="/${lang}/weekends/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} weekends marked in the selector`);
+  assert.ok(page.includes(`href="/${lang}/#wim-hof-weekends"`), `${lang} weekends closes back to its own language`);
+  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/weekends/">`), `${lang} row links to its weekends page`);
+  pages.push(['dist', page]);
+}
+
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href)="([^"#]+)"/g)) {
@@ -187,4 +206,4 @@ for (const [page, source] of pages) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, local assets, og image.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, local assets, og image.');
