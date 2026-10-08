@@ -145,6 +145,14 @@ const links = page => [...page.matchAll(/href="(mailto:[^"]+|https:\/\/www\.inst
 for (const lang of ['en', ...LANGS]) assert.ok(html.includes(`hreflang="${lang}" href="https://brinkmannpaul.com/${lang === 'en' ? '' : lang + '/'}"`), `alternate link for ${lang}`);
 assert.ok(html.includes('aria-current="page">en</a>'), 'english marked in the selector');
 assert.ok(!html.includes('>contact</a>'), 'the language selector replaces contact');
+// Footer: languages on the left, instagram, whatsapp and e-mail as icons on the right.
+for (const [name, page] of [['index', html], ['404', notFound]]) {
+  const contact = page.slice(page.indexOf('<nav class="contact-links"'), page.indexOf('</footer>'));
+  const targets = [...contact.matchAll(/<a href="([^"]+)"[^>]*aria-label="([^"]+)"><svg /g)].map(m => m[2] + ' ' + m[1].split(/[/:?]/).filter(Boolean)[1]);
+  assert.deepEqual(targets, ['instagram www.instagram.com', 'whatsapp wa.me', 'e-mail brinkmannbuild@gmail.com'], `${name}: contact icons in order`);
+  assert.ok(/wa\.me\/\d{8,15}"/.test(contact), `${name}: whatsapp link has a number`);
+  assert.ok(!/<footer[^>]*>\s*<p>/.test(page), `${name}: no repeated name in the footer`);
+}
 for (const lang of LANGS) {
   const file = path.join(root, 'dist', lang, 'index.html');
   assert.ok(fs.existsSync(file), `dist/${lang}/index.html exists (run python3 scripts/i18n.py build)`);

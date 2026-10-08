@@ -590,3 +590,16 @@ Pauls Auftrag: Russisch hinzufügen, sinngemäß und perfekt übersetzt, geteste
 - **Übersetzung geprüft:** Ein unabhängiger zweiter Durchgang hat alle 124 Bausteine gegen das Englische gelesen. Er fand 10 Fehler in Bedeutung oder Grammatik (fehlende Verben, Fall, mehrdeutige Pronomen), dazu ungelenke Stellen. Alle sind behoben, ein dritter Durchgang hat das bestätigt.
 - **Prüfung:** `node scripts/test-site.mjs` grün mit sechs Sprachen. Auf `/ru/` sitzen die Namen an der Kante, das „+“ rechts, die Auswahl mittig, kein Überlauf, die Bedienung ist russisch, die Leseansicht zeigt „система для мужчины“. Der längste Name passt auch bei 320 px (219 von 256 px). `/ru/#qefyr` öffnet direkt, der Wechsel zu `de` behält das Projekt. Alle Zeichnungen laden, keine Fehler.
 
+## Footer: Sprachen links, Instagram, WhatsApp und Mail rechts (2026-10-08)
+
+Pauls Vorgabe: Der Name unten links wiederholt sich und kommt weg. Links stehen die Sprachen, rechts an der Kante die Kontakt-Icons Instagram, WhatsApp und Mail, grau und gezeichnet wie der Rest. Schrift und Buttons werden größer.
+
+- **Markup:** `<nav class="contact-links" aria-label="contact">` mit drei Links. Jeder Link trägt ein Linien-SVG (`stroke: currentColor`, 1,6), das Instagram-Zeichen ist dasselbe wie bei pure. Die Beschriftungen (contact, instagram, whatsapp, e-mail) sind in allen sechs Sprachen übersetzt.
+- **Stil:**
+  - Footer-Schrift 14 statt 11 px. Icons 22 px mit 40 × 40 px Tippfläche, Farbe wie der Footer (#52524e), beim Überfahren Tinte.
+  - Die Reihe ist um den Innenraum des Icons nach außen gezogen, so steht das Mail-Zeichen exakt an derselben Kante wie die Sprachen links.
+  - Arabisch ist gespiegelt.
+- **404:** Gleicher Aufbau, Sprachen ohne Trennpunkte, unter 380 px enger.
+- **Test:** `scripts/test-site.mjs` prüft, dass auf Startseite und 404 die drei Icons in dieser Reihenfolge stehen, WhatsApp eine Nummer hat und im Footer kein Name mehr steht.
+- **Prüfung:** en, ar und ru bei 320, 360, 393 und 1440 px gemessen. Sprachen und Icons stehen auf einer Zeile, je 20 px (Desktop 32 px) von der Kante, ohne Überlauf. Die 404-Seite steht bei 320 px ebenfalls einzeilig. 49 Interaktionstests sind grün.
+
