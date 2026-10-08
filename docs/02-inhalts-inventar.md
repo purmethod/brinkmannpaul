@@ -42,6 +42,31 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: wim hof method instructor mit Foto (2026-10-08)
+
+Auf Pauls Vorgabe heißt die Rubrik jetzt „wim hof method instructor“ statt „wim hof weekends“. Der offizielle Titel lautet „Wim Hof Method Instructor“.
+
+- **Untertitel:** „certified · 15 years of breathwork“.
+- **Erster Satz:** „fifteen years of breath.“
+- **Neuer Absatz:** 15 Jahre Atemarbeit, Begleitung durch Atemsessions und Kälte, zertifizierter Instructor, „a friend of wim“.
+- **Unverändert:** Der Text zum Polen-Wochenende steht weiter darunter.
+- **Foto:**
+  - Paul und Wim beim Händedruck in Polen, als Kreis mit feinem Ring und der Bildzeile „with wim hof · poland“.
+  - Antippen öffnet das ganze Foto unbeschnitten. ×, Escape oder ein Tippen schließt es.
+- **Bildstil für alle Fotos:** „warm golden“. Satte, aber gezähmte Farben, laute Orangetöne zurückgenommen, warme Lichter, türkis geneigte Schatten, weiche S-Kurve, leichte Randabdunklung, feines Korn, kein hartes Schwarz.
+- **Neue Fotos:** `python3 scripts/grade_photo.py QUELLE NAME CX CY R` erzeugt `photo-NAME.webp` (Kreis, 720 px) und `photo-NAME-full.webp` (ganzes Foto). CX, CY und R setzen den Kreis in Pixeln der Quelle, Gesichter ins obere Drittel.
+- **Alle Sprachen:**
+
+  | Sprache | Rubrik |
+  |---|---|
+  | Deutsch | wim hof methode instructor |
+  | Französisch | instructeur méthode wim hof |
+  | Spanisch | instructor método wim hof |
+  | Arabisch | مدرّب طريقة ويم هوف |
+  | Russisch | инструктор метода вима хофа |
+
+- **Meta-Beschreibungen:** in allen Sprachen angepasst.
+
 ## Aktualisierung: Untertitel „all art.“ (2026-10-08)
 
 Auf Pauls Vorgabe steht bei art im Rad und im Kopf des geöffneten Textes jetzt „all art.“ statt „art begins with love.“. Damit der Satz nicht direkt zweimal untereinander steht, ist „art begins with love.“ der große Einstiegssatz im Text.
