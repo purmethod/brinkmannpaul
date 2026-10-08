@@ -42,6 +42,19 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **art:** Pauls Kurzfassung, Untertitel „all art.“, Einstieg „art begins with love.“, dann „whatever we do with love becomes art.“, 9 Absätze, Schluss „you.“
 - **pure, ego:** „i am an architect, and i built this system the way i design a building: from the foundation up. i believe your boundaries need foundations as solid as concrete. …“
 
+## Aktualisierung: art mit vier Bildern (2026-10-08)
+
+Auf Pauls Vorgabe stehen in art vier Bilder im Wechsel mit dem Text. Alle haben den Honig-Look:
+
+| Nach dem Absatz | Bild | Bildzeile |
+|---|---|---|
+| „whatever we do with love becomes art.“ | seine Zeichnung eines Gesichts auf braunem Papier | „a drawing on brown paper“ |
+| „a meal. a building. …“ | Lehmziegel beim Trocknen | „clay bricks drying in the sun“ |
+| „… that is where art begins.“ | Paul verputzt eine Lehmwand an einer Kasbah | „plastering a clay wall“ |
+| „ai cannot feel love …“ | die neu interpretierte Mona Lisa | „after leonardo“ |
+
+Die Zeichnung ist mit EV +0,3 aufgehellt, weil das Foto dunkel war.
+
 ## Aktualisierung: mysidibou, neues Dorf-Panorama und der Hafen bei Nacht (2026-10-08)
 
 Auf Pauls Vorgabe ersetzt sein Panorama das bisherige Dächer-Foto: weiße Häuser über dem Golf von Tunis, klarer Himmel. Die Bildzeile „the rooftops of the village“ bleibt.
