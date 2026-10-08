@@ -92,10 +92,11 @@ IS_MY = (
 
 # Lines: (name, letters, pause before the line, pen time, region x0, y0, x1, y1).
 # Times are video seconds; the site plays the video at 1.25x, so a viewer sees
-# 4/5 of them. The pen moves at one calm pace throughout: the signature has no
-# duration of its own (None) and takes the pace of the motto lines below it.
+# 4/5 of them. The signature is written calmly in 4 s on the site (5.3 s of pen
+# time here, of which the joins between letters save 0.3 s). A duration of None
+# would give a line the motto's pace instead.
 LINES = [
-    ("signature", SIGNATURE, 0.30, None, (40, 295, 862, 662)),
+    ("signature", SIGNATURE, 0.30, 5.30, (40, 295, 862, 662)),
     ("trust", TRUST, 0.40, 1.35, (545, 682, 862, 742)),
     ("is my", IS_MY, 0.30, 1.15, (575, 768, 790, 868)),
 ]
