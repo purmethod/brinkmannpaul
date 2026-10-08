@@ -785,3 +785,15 @@ Paul: Die Unterschrift bleibt so schnell, „trust is my currency“ wirkt hekti
   - Auf der Seite schreibt sich das Motto damit in rund 4 s statt 2,8 s. Das ganze Intro dauert 7,9 s.
 - `intro-handwriting-signed.mp4?v=2` (136 KB), damit kein Handy das alte Video aus dem Cache zeigt.
 
+### Nachtrag: Unterschrift im ruhigen Tempo des Mottos (2026-10-08)
+
+Paul: Die Unterschrift wirkt hektisch. Sie soll so ruhig laufen wie „trust is my currency“, damit der Zuschauer merkt: Hier ist es entspannt, ruhig und angenehm.
+
+- **Befund:** Pro Einheit Stiftweg lief die Unterschrift 3-mal so schnell wie das Motto (0,0018 gegenüber 0,0052 s). Ihre großen Buchstaben ließen den Stift dadurch sichtbar rasen.
+- **Umsetzung:** Die Unterschrift hat keine eigene Dauer mehr. `render_signature_handwriting.py` misst das Tempo der Motto-Zeilen und gibt der Unterschrift genau dieses Tempo. Damit bleiben beide immer gleich ruhig.
+- **Ergebnis auf der Seite (1,25-fach):**
+  - Unterschrift von 0,24 s bis rund 6,5 s.
+  - Motto danach wie bisher.
+  - Ganzes Intro 11,8 s. Wer will, tippt oder scrollt jederzeit weiter.
+- `intro-handwriting-signed.mp4?v=3` (167 KB).
+

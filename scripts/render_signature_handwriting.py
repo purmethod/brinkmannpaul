@@ -92,10 +92,10 @@ IS_MY = (
 
 # Lines: (name, letters, pause before the line, pen time, region x0, y0, x1, y1).
 # Times are video seconds; the site plays the video at 1.25x, so a viewer sees
-# 4/5 of them: the signature quick, in about 2.6 s; the motto calmer, line by
-# line after it.
+# 4/5 of them. The pen moves at one calm pace throughout: the signature has no
+# duration of its own (None) and takes the pace of the motto lines below it.
 LINES = [
-    ("signature", SIGNATURE, 0.30, 3.25, (40, 295, 862, 662)),
+    ("signature", SIGNATURE, 0.30, None, (40, 295, 862, 662)),
     ("trust", TRUST, 0.40, 1.35, (545, 682, 862, 742)),
     ("is my", IS_MY, 0.30, 1.15, (575, 768, 790, 868)),
 ]
@@ -272,8 +272,22 @@ def build():
     gray, binary = load_ink()
     coords, index, tree = skeleton_graph(binary)
     reveal = np.full(gray.shape, np.inf, dtype=np.float32)
+    # The motto's pace: seconds of pen time per unit of pen weight.
+    def weight(letters):
+        traced = [[trace(stroke, coords, index, tree) for stroke in strokes] for _, strokes in letters]
+        return sum(pen_weights(points).sum() for strokes in traced for points in strokes), \
+            sum(len(strokes) for strokes in traced) - 1
+    paces = []
+    for _, letters, _, duration, _ in LINES:
+        if duration is not None:
+            total, lifts = weight(letters)
+            paces.append((duration - LIFT * lifts) / total)
+    pace = float(np.mean(paces))
     lines, cursor = [], 0.0
     for name, letters, pause, duration, region in LINES:
+        if duration is None:
+            total, lifts = weight(letters)
+            duration = total * pace + LIFT * lifts
         scheduled = schedule(letters, cursor + pause, duration, coords, index, tree)
         reveal_map(gray, scheduled, region, reveal)
         lines.append((name, scheduled))
