@@ -668,3 +668,11 @@ Paul hat eine eigene WhatsApp-Business-Nummer (+49 175 6257788). Sie kommt als B
   - Er stellt sicher, dass die frühere private Nummer und `tel:`-Links nirgends stehen.
 - **Prüfung:** en, ar, ru und 404 bei 320, 360, 393 und 1440 px gemessen: neun gleich große quadratische Buttons, Zeichen und Texte mittig, eine Zeile, Kanten 20 px, kein Überlauf. 49 Interaktionstests grün.
 
+### Nachtrag: Footer im Header-Grau (2026-10-08)
+
+Pauls Vorgabe: Die Buttons wirken zu schwarz und konkurrieren mit der Schrift im Rad. Sie sollen dasselbe Grau haben wie „paul brinkmann, m.sc.“ und „artist & architect“ und sich farblich zurücknehmen.
+
+- **Farbe:** Der Footer der Startseite hat jetzt #5c5c56 wie der Header, vorher #52524e. Rahmen, Zeichen und Sprachkürzel erben diese Farbe. Auf der 404-Seite sind Header und Footer gleich (#6a6a63).
+- **Aktive Sprache und Berührung:** Statt Schwarz (#101010) gibt es eine Füllung mit 12 % des Grautons (`color-mix`, mit rgba-Rückfall). Hover und Fokus nutzen dieselbe Füllung. Die Regel für Schwarz in `brain-scroll.css` ist entfernt.
+- **Prüfung:** Die berechneten Farben auf der Startseite sind für Header, Footer, Icons, Kürzel und aktive Sprache alle rgb(92, 92, 86). Die Füllung der aktiven Sprache liegt bei 12 %.
+

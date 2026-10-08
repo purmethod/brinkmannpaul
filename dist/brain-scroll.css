@@ -28,7 +28,6 @@
 #site-page .pure-letter{color:#292929;font-weight:500}
 #site-page .item-status,#site-page .item-note{font-size:12px}
 #site-page .bs-footer a{display:inline-flex;align-items:center}
-#site-page .bs-langs a[aria-current="page"]{color:var(--ink)}
 @media(max-width:580px){
   #site-page .project-list{width:100%}
   #site-page .project-item>summary .item-name{font-size:20px}
@@ -74,7 +73,7 @@
 .bs-haptic{display:none}
 
 #site-page.scroll-ready .bs-header{position:absolute;z-index:5;inset:0 0 auto;display:flex;justify-content:space-between;gap:20px;padding:21px 32px;color:#5c5c56;font-size:12px;letter-spacing:.055em;pointer-events:none}
-#site-page.scroll-ready .bs-footer{position:absolute;z-index:5;inset:auto 0 0;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:61px;padding:16px 32px;border:0;flex-wrap:nowrap;font-size:14px;letter-spacing:.04em;color:#52524e;pointer-events:none;transition:opacity 320ms ease}
+#site-page.scroll-ready .bs-footer{position:absolute;z-index:5;inset:auto 0 0;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:61px;padding:16px 32px;border:0;flex-wrap:nowrap;font-size:14px;letter-spacing:.04em;color:#5c5c56;pointer-events:none;transition:opacity 320ms ease}
 #site-page.scroll-ready .bs-footer a{pointer-events:auto}
 #site-page.is-reading .bs-footer{opacity:0}
 

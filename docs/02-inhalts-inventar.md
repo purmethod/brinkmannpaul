@@ -15,7 +15,8 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 - **Alle neun Elemente sind kleine gerahmte Buttons gleicher Größe (28 px):** Mail, WhatsApp, Instagram und jede Sprache einzeln.
   - Linie 1,5 px in Grau, Ecken gerundet wie das Instagram-Logo.
   - Im Instagram-Button sitzt das komplette Logo dezent klein, der Briefumschlag ist gleich breit.
-  - Die aktuelle Sprache hat Rahmen und Schrift in Schwarz.
+  - Farbe exakt wie der Header („paul brinkmann, m.sc.“, „artist & architect“): Grau #5c5c56, damit der Footer nicht mit dem Rad konkurriert.
+  - Die aktuelle Sprache hat eine zarte graue Füllung statt Schwarz.
 - **Sprachen in ihrer eigenen Schrift:** en, de, fr, es, ع (Arabisch), ру (Russisch). Bildschirmleser hören den vollen Namen in der jeweiligen Sprache (english, deutsch, français, español, العربية, русский). Diese Namen werden nicht übersetzt.
 - **WhatsApp:** nur die Business-Nummer, nie die private.
 - Schrift 14 px.
