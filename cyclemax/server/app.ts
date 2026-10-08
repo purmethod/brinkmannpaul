@@ -4,6 +4,7 @@ import * as z from "zod/v4";
 import { KNOWLEDGE_DOCS } from "../shared/knowledge.generated";
 import { topicOf } from "../shared/topics";
 import { answerChat } from "./chat";
+import { analyzeProfile, ProfileSchema } from "./profile";
 import { getDatabase } from "./db";
 import { readConfig, type Config } from "./env";
 import { runKnowledgeJob } from "./knowledge-job";
@@ -48,11 +49,18 @@ const ChatBody = z.object({
   phase: Phase.nullable(),
   cycleDay: z.number().int().min(1).max(400).nullable(),
   notes: z.array(z.string().max(300)).max(5).default([]),
+  profile: z.string().max(2000).optional(),
   messages: z
     .array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().min(1).max(2000) }))
     .min(1)
     .max(16)
     .refine((m) => m.length > 0 && m[m.length - 1].role === "user", "last message must be from the user"),
+});
+const ProfileBody = z.object({
+  deviceId: DeviceId,
+  mode: z.enum(["relationship", "single"]),
+  text: z.string().min(1).max(12000),
+  previous: ProfileSchema.nullable().default(null),
 });
 const FeedbackBody = z.object({
   deviceId: DeviceId,
@@ -157,6 +165,13 @@ export function createHandler(getContext: () => Promise<AppContext>) {
         const [lines, principles] = await Promise.all([store.catalog(), store.livePrinciples()]);
         const res = await answerChat(req2, { llm: allowed ? ctx.llm : null, lines, principles });
         return json(res);
+      }
+
+      if (m === "POST" && path === "/api/profile") {
+        const b = await body(req, ProfileBody);
+        await store.touchDevice(b.deviceId);
+        const allowed = await store.takeChatQuota(b.deviceId);
+        return json(await analyzeProfile(b, allowed ? ctx.llm : null));
       }
 
       if (m === "POST" && path === "/api/feedback") {

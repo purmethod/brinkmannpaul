@@ -4,7 +4,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 
 ## Start-Set (Paul)
 - [any] Ein Mann reagiert nicht. Er entscheidet.
-- [any] Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.
+- [any] Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 - [any] Halte den Druck, statt ihn abzuladen. Das ist Stärke.
 - [any] Grenzen zeigt man durch Handeln, nicht durch Ankündigungen.
 - [any] Es ist nichts Großes passiert. Atme. Weiter.
@@ -57,7 +57,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [any] Führen heißt vorangehen, nicht vorschreiben.
 - [any] Du bist verantwortlich für deine Antwort. Immer.
 
-## Gelb · Kümmern
+## Gelb · Wärme
 - [yellow] Wärme statt Worte. Nimm ihr heute etwas ab.
 - [yellow] Kümmern ist Stärke. Kein Witz, kein Kommentar – einfach da sein.
 - [yellow] Tee, Essen, Ruhe. Sie merkt sich, wer da war.
@@ -67,7 +67,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [yellow] Frag nicht lange, was sie braucht. Mach einfach.
 - [yellow] Sanft sein ist keine Schwäche. Es ist Größe mit ruhiger Hand.
 
-## Pink · Spielen
+## Pink · Führen
 - [pink] Führ heute. Plan das Date, nicht nur die Idee.
 - [pink] Mach ihr ein ehrliches Kompliment. Eins, das nur für sie gilt.
 - [pink] Rückenwind. Nutze ihn für ein Abenteuer zu zweit.
@@ -87,12 +87,12 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [green] Ein Abend nur für euch zwei. Du planst ihn.
 - [green] Frag sie, wovon sie träumt. Und hör wirklich hin.
 
-## Rot · Leiser
+## Rot · Standfest
 - [red] Sturmtage sind Übungstage. Bleib ruhig, bleib da.
 - [red] Nimm nichts persönlich. Heute schon gar nicht.
 - [red] Nicht argumentieren. Da sein.
 - [red] Ein kurzer Satz, ein ruhiger Ton. Mehr braucht es nicht.
-- [red] Leiser heißt nicht kleiner. Zieh deine Routinen durch.
+- [red] Ruhiger heißt nicht kleiner. Zieh deine Routinen durch.
 - [red] Atme, bevor du antwortest. Der Fels hat keine Eile.
 - [red] Grundsatzgespräche haben Zeit. Heute zählt Ruhe.
 - [red] Training, Schlaf, Routine. Gerade jetzt.

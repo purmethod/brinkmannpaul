@@ -1,4 +1,4 @@
-// Generates every icon and splash image from assets/logo.svg (exact brand SVG) with sharp.
+// Generates every icon and splash image from assets/logo.svg (the Cyclemax ring) with sharp.
 // Run: npm run icons
 import sharp from "sharp";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -39,9 +39,9 @@ async function canvas(width, height, logoSize) {
 await render(logo, 192).png().toFile(out("public/icons/icon-192.png"));
 await render(logo, 512).png().toFile(out("public/icons/icon-512.png"));
 // maskable: keep the artwork inside the 80 % safe circle
-await (await padded(512, 0.72)).flatten({ background: WHITE }).toFile(out("public/icons/maskable-512.png"));
-await (await padded(192, 0.72)).flatten({ background: WHITE }).toFile(out("public/icons/maskable-192.png"));
-await (await padded(180, 0.86)).flatten({ background: WHITE }).toFile(out("public/apple-touch-icon.png"));
+await (await padded(512, 0.8)).flatten({ background: WHITE }).toFile(out("public/icons/maskable-512.png"));
+await (await padded(192, 0.8)).flatten({ background: WHITE }).toFile(out("public/icons/maskable-192.png"));
+await (await padded(180, 1)).flatten({ background: WHITE }).toFile(out("public/apple-touch-icon.png"));
 writeFileSync(out("public/icon.svg"), logo);
 
 // favicon.ico (PNG-compressed ICO with 16/32/48)
@@ -72,7 +72,7 @@ export const APPLE_SPLASH = [
   [1170, 2532, 3], [1125, 2436, 3], [1242, 2688, 3], [828, 1792, 2], [1242, 2208, 3], [750, 1334, 2],
 ];
 for (const [w, h] of APPLE_SPLASH) {
-  await (await canvas(w, h, Math.round(w * 0.42))).toFile(out(`public/splash/apple-splash-${w}x${h}.png`));
+  await (await canvas(w, h, Math.round(w * 0.5))).toFile(out(`public/splash/apple-splash-${w}x${h}.png`));
 }
 
 // ---- native (Capacitor) – used later by `npx @capacitor/assets generate` or copied by hand
@@ -108,6 +108,6 @@ writeFileSync(
 `,
 );
 // Native splash (Capacitor SplashScreen): 2732² with the logo centred on white
-await (await canvas(2732, 2732, 820)).toFile(out("resources/splash.png"));
+await (await canvas(2732, 2732, 1100)).toFile(out("resources/splash.png"));
 
 console.log("icons + splash generated");

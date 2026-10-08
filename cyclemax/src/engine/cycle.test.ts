@@ -159,3 +159,22 @@ describe("month, year and leap-year boundaries", () => {
     expect(cycleStateOn(["2026-10-20"], "2026-11-02", 28)!.cycleDay).toBe(14);
   });
 });
+
+import { upcomingPhase } from "./cycle";
+
+describe("upcomingPhase (heads-up)", () => {
+  const at = (day: number, L = 28) => cycleStateOn(["2026-03-01"], addDays("2026-03-01", day - 1), L);
+  it("announces the next phase 1–2 days ahead", () => {
+    expect(upcomingPhase(at(20))).toEqual({ phase: "red", inDays: 2 });
+    expect(upcomingPhase(at(21))).toEqual({ phase: "red", inDays: 1 });
+    expect(upcomingPhase(at(13))).toEqual({ phase: "green", inDays: 2 });
+    expect(upcomingPhase(at(7))).toEqual({ phase: "pink", inDays: 1 });
+    expect(upcomingPhase(at(27))).toEqual({ phase: "yellow", inDays: 2 });
+    expect(upcomingPhase(at(10))).toBeNull();
+  });
+  it("21-day cycle skips pink; nothing while late", () => {
+    expect(upcomingPhase(at(7, 21))).toEqual({ phase: "green", inDays: 1 });
+    expect(upcomingPhase(at(40))).toBeNull();
+    expect(upcomingPhase(null)).toBeNull();
+  });
+});

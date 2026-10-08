@@ -50,7 +50,7 @@ for (const [name, viewport] of Object.entries(SIZES)) {
   await page.getByRole("button", { name: "Weiter" }).click();
   await page.getByTestId("skip-notifications").click();
   await page.getByTestId("phase-word").waitFor();
-  await shot("3-home-leiser");
+  await shot("3-home-standfest");
   await page.getByRole("link", { name: "Chat" }).click();
   await page.getByLabel("Nachricht").fill("Sie ist gereizt und wir streiten. Wie soll ich antworten?");
   await page.getByRole("button", { name: "Senden" }).click();
@@ -59,7 +59,7 @@ for (const [name, viewport] of Object.entries(SIZES)) {
   await page.goto("http://localhost:3100/");
   await page.getByTestId("bleeding").click();
   await page.getByTestId("after-entry").waitFor();
-  await shot("5-home-kuemmern");
+  await shot("5-home-waerme");
   await page.goto("http://localhost:3100/settings/");
   await shot("6-settings");
   await ctx.close();

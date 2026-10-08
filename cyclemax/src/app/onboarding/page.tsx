@@ -6,10 +6,9 @@ import { PURE_URL } from "@shared/texts";
 import type { Mode } from "@shared/types";
 import { Gate } from "@/components/Gate";
 import { InstallHint } from "@/components/InstallHint";
-import { Logo } from "@/components/Logo";
+import { Logo, Wordmark } from "@/components/Logo";
 import { Button, Screen } from "@/components/ui";
 import { Wheel } from "@/components/Wheel";
-import { DEFAULT_CYCLE_LENGTH, MAX_CYCLE_LENGTH, MIN_CYCLE_LENGTH } from "@/engine/cycle";
 import type { DateStr } from "@/engine/dates";
 import { useApp } from "@/lib/app-context";
 import { pastDays } from "@/lib/format";
@@ -23,11 +22,6 @@ export default function OnboardingPage() {
 
 type Step = "welcome" | "mode" | "cycle" | "notify";
 
-const LENGTHS = Array.from({ length: MAX_CYCLE_LENGTH - MIN_CYCLE_LENGTH + 1 }, (_, i) => {
-  const v = MIN_CYCLE_LENGTH + i;
-  return { value: v, label: `${v} Tage` };
-});
-
 function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const { update } = useApp();
   const router = useRouter();
@@ -35,7 +29,6 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
   const [step, setStep] = useState<Step>("welcome");
   const [mode, setMode] = useState<Mode>(state.mode);
   const [date, setDate] = useState<DateStr>(today);
-  const [length, setLength] = useState(DEFAULT_CYCLE_LENGTH);
   const [busy, setBusy] = useState(false);
   const [denied, setDenied] = useState(false);
 
@@ -46,10 +39,9 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
       onboarded: true,
       mode,
       entries: mode === "relationship" ? [date] : [],
-      usualLength: length,
       notifications,
     });
-    router.replace("/");
+    router.replace("/heute/");
   };
 
   const enable = async () => {
@@ -75,7 +67,10 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
       {step === "welcome" && (
         <section className="fade-up flex flex-1 flex-col">
           <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
-            <Logo size={148} />
+            <div className="flex flex-col items-center gap-4">
+              <Logo size={120} />
+              <Wordmark />
+            </div>
             <h1 className="max-w-[16rem] text-[34px] leading-[1.1] font-semibold tracking-tight">Sei der Fels in der Brandung.</h1>
             <a href={PURE_URL} target="_blank" rel="noreferrer" className="text-[15px] text-muted underline underline-offset-4">
               Fundament: PURE Method
@@ -117,12 +112,9 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
       {step === "cycle" && (
         <section className="fade-up flex flex-1 flex-col">
           <div className="flex flex-1 flex-col justify-center gap-6">
-            <h1 className="text-[28px] leading-tight font-semibold tracking-tight">Erster Tag ihrer letzten Blutung</h1>
+            <h1 className="text-[28px] leading-tight font-semibold tracking-tight">Wann hat ihre letzte Blutung begonnen?</h1>
             <Wheel items={pastDays(today, 60)} value={date} onChange={setDate} label="Erster Tag der Blutung" testId="date-wheel" />
-            <div className="flex flex-col gap-2">
-              <p className="text-center text-[14px] text-muted">Übliche Zykluslänge (optional)</p>
-              <Wheel items={LENGTHS} value={length} onChange={setLength} label="Zykluslänge" testId="length-wheel" />
-            </div>
+            <p className="text-center text-[14px] text-muted">Den Rest lernt Cyclemax mit jedem Eintrag.</p>
           </div>
           <Button onClick={() => setStep("notify")}>Weiter</Button>
         </section>

@@ -15,6 +15,7 @@ export default function Datenschutz() {
       <ul>
         <li>Alle Zyklusdaten: Blutungstage, Zykluslänge, Phase.</li>
         <li>Dein kompletter Chatverlauf.</li>
+        <li>Dein Profil („Erzähl mir von ihr / von dir“): deine Erzählung und die Auswertung.</li>
         <li>Deine Einstellungen und welche Tageszeilen du gesehen hast.</li>
       </ul>
       <p>Gespeichert wird im Web in IndexedDB deines Browsers, in der App im lokalen App-Speicher.</p>
@@ -36,6 +37,15 @@ export default function Datenschutz() {
           Zyklustag. Der Server leitet das an den KI-Dienst weiter und speichert keine Inhalte. Gespeichert wird nur ein anonymes
           Themen-Stichwort (z. B. „Streit“, „Grenzen“, „erstes Date“) mit Datum, ohne Geräte-ID, und ein Tageszähler pro Geräte-ID
           gegen Missbrauch.
+        </li>
+        <li>
+          <b>Profil:</b> Wenn du „Profil erstellen/aktualisieren“ tippst, geht deine neue Erzählung und das bisherige Profil an den Server,
+          der sie zur Auswertung an den KI-Dienst weiterleitet. Der Server speichert davon nichts. Im Chat wird eine Kurzfassung des
+          Profils als Kontext mitgeschickt.
+        </li>
+        <li>
+          <b>Spracheingabe:</b> Sprichst du statt zu tippen, wandelt die Spracherkennung deines Geräts bzw. Browsers die Sprache in Text
+          um (Apple, Google oder der Browser-Anbieter verarbeiten dafür ggf. die Aufnahme). Cyclemax speichert keine Audioaufnahmen.
         </li>
         <li>
           <b>Bewertungen:</b> Daumen hoch/runter mit Geräte-ID (damit pro Gerät nur eine Stimme zählt) und der ID der Zeile bzw. Antwort.

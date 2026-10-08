@@ -9,7 +9,6 @@ import { IconExternal } from "@/components/icons";
 import { InstallHint } from "@/components/InstallHint";
 import { Button, Screen, Sheet, Toggle, TopBar } from "@/components/ui";
 import { Wheel } from "@/components/Wheel";
-import { MAX_CYCLE_LENGTH, MIN_CYCLE_LENGTH } from "@/engine/cycle";
 import { isTimeStr, type DateStr } from "@/engine/dates";
 import { api } from "@/lib/api";
 import { useApp } from "@/lib/app-context";
@@ -33,20 +32,13 @@ function Row({ label, children, htmlFor }: { label: string; children: ReactNode;
   );
 }
 
-const LENGTHS = Array.from({ length: MAX_CYCLE_LENGTH - MIN_CYCLE_LENGTH + 1 }, (_, i) => ({
-  value: MIN_CYCLE_LENGTH + i,
-  label: `${MIN_CYCLE_LENGTH + i} Tage`,
-}));
-
 function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const { update, reset } = useApp();
   const router = useRouter();
   const today = useToday();
   const [hint, setHint] = useState<string | null>(null);
   const [dateSheet, setDateSheet] = useState(false);
-  const [lengthSheet, setLengthSheet] = useState(false);
   const [pick, setPick] = useState<DateStr>(today);
-  const [length, setLength] = useState(state.usualLength);
   const [confirm, setConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const needsInstall = adapters.platform.isIosWeb() && !adapters.platform.isInstalled();
@@ -109,21 +101,6 @@ function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) 
           </div>
         </div>
 
-        {state.mode === "relationship" && (
-          <Row label="Zykluslänge">
-            <button
-              type="button"
-              className="h-11 text-[17px] text-muted"
-              onClick={() => {
-                setLength(state.usualLength);
-                setLengthSheet(true);
-              }}
-            >
-              {state.usualLength} Tage
-            </button>
-          </Row>
-        )}
-
         <Row label="Tägliche Nachricht" htmlFor="daily-time">
           <input
             id="daily-time"
@@ -154,6 +131,9 @@ function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) 
           <a href={PURE_URL} target="_blank" rel="noreferrer" className="flex min-h-14 items-center justify-between border-b border-line text-[17px]">
             PURE Method <IconExternal />
           </a>
+          <Link href="/profil/" className="flex min-h-14 items-center border-b border-line text-[17px]">
+            {state.mode === "single" ? "Dein Profil" : "Ihr Profil"}
+          </Link>
           <Link href="/datenschutz/" className="flex min-h-14 items-center border-b border-line text-[17px]">
             Datenschutz
           </Link>
@@ -176,21 +156,6 @@ function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) 
             onClick={() => {
               update({ mode: "relationship", entries: [pick] });
               setDateSheet(false);
-            }}
-          >
-            Übernehmen
-          </Button>
-        </div>
-      </Sheet>
-
-      <Sheet open={lengthSheet} onClose={() => setLengthSheet(false)} title="Übliche Zykluslänge">
-        <Wheel items={LENGTHS} value={length} onChange={setLength} label="Zykluslänge" />
-        <p className="mt-3 text-center text-[13px] text-muted">Mit jedem Eintrag lernt Cyclemax die echte Länge.</p>
-        <div className="mt-6">
-          <Button
-            onClick={() => {
-              update({ usualLength: length });
-              setLengthSheet(false);
             }}
           >
             Übernehmen

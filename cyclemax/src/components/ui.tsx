@@ -49,7 +49,7 @@ export function Screen({ children, className = "" }: { children: ReactNode; clas
   return <main className={`mx-auto flex min-h-[100dvh] w-full max-w-md flex-col px-6 pt-safe pb-safe ${className}`}>{children}</main>;
 }
 
-export function TopBar({ title, back = "/", right }: { title?: string; back?: string | null; right?: ReactNode }) {
+export function TopBar({ title, back = "/heute/", right }: { title?: string; back?: string | null; right?: ReactNode }) {
   return (
     <header className="flex h-12 items-center justify-between">
       {back ? (

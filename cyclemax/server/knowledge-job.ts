@@ -30,14 +30,14 @@ export const CriticSchema = z.object({
 
 export const RULES = `Regeln für jede Zeile:
 1. PURE-Stimme von Paul Brinkmann: direkt, nicht akademisch, persönlich, männlich, ruhig. Deutsch, du-Form.
-2. Fels-Haltung: Er bleibt bei sich, wird leiser statt lauter, hält Druck, statt ihn abzuladen. Die Frau ist wertvoll.
+2. Fels-Haltung: Er bleibt bei sich, wird ruhiger statt lauter, hält Druck, statt ihn abzuladen. Die Frau ist wertvoll.
 3. Maximal 2 kurze Sätze, höchstens 140 Zeichen. Keine Emojis, keine Hashtags.
 4. Keine sexuellen Inhalte, keine Sex-Taktiken.
 5. Keine Manipulation, keine Spielchen, keine Abwertung von Frauen oder Männern.
 6. Keine Aussagen über ihre Denkfähigkeit oder Rationalität; ihre Gefühle nie mit Hormonen erklären.
 7. Keine medizinischen Aussagen, nichts über Fruchtbarkeit oder Verhütung.`;
 
-const CATEGORY_HELP = `Kategorien: any (allgemein), yellow (Kümmern: Wärme, Entlastung, eigenes Training), pink (Spielen: Führen, Date, Kompliment, Initiative), green (Nähe: Präsenz, Gespräche, Aufmerksamkeit), red (Leiser: nicht argumentieren, nichts persönlich nehmen, Routinen), single (Dating: Charakter statt Optik, ehrliche Absichten, gelebte Grenzen).`;
+const CATEGORY_HELP = `Kategorien: any (allgemein), yellow (Wärme: Wärme, Entlastung, eigenes Training), pink (Führen: Führen, Date, Kompliment, Initiative), green (Nähe: Präsenz, Gespräche, Aufmerksamkeit), red (Standfest: nicht argumentieren, nichts persönlich nehmen, Routinen), single (Dating: Charakter statt Optik, ehrliche Absichten, gelebte Grenzen).`;
 
 /** Mechanical pre-check, independent of the critic. */
 export function passesFormat(text: string): boolean {
@@ -92,7 +92,7 @@ export async function runKnowledgeJob(store: Store, llm: Llm | null, now = Date.
 
     const gen = await llm.json(
       GeneratorSchema,
-      `Du schreibst Inhalte für Cyclemax, eine App für Männer (Fundament: PURE Method von Paul Brinkmann, Stoa). Kernthema: Sei der Fels in der Brandung. Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.\n\n${RULES}\n\n${CATEGORY_HELP}\n\nWissensbasis:\n${knowledge}`,
+      `Du schreibst Inhalte für Cyclemax, eine App für Männer (Fundament: PURE Method von Paul Brinkmann, Stoa). Kernthema: Sei der Fels in der Brandung. Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.\n\n${RULES}\n\n${CATEGORY_HELP}\n\nWissensbasis:\n${knowledge}`,
       `Schreibe genau 7 neue tägliche 1–2-Zeiler über wahre Männlichkeit (verteilt über die Kategorien, mindestens eine single) und genau 2 neue Leitsätze für den Chat-Mentor (je ein Satz, Handlungsregel für ihn).\n\nBestbewertete Zeilen als Vorbild (nicht kopieren):\n${examples}\n\nHäufigste anonyme Chat-Themen der letzten 7 Tage: ${summary.topics.join(", ") || "keine"}.\nGreife diese Themen auf. Wiederhole keine bestehende Zeile.`,
     );
     if (!gen) throw new Error("Generator lieferte kein Ergebnis");

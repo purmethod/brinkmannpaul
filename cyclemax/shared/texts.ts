@@ -2,7 +2,7 @@ import type { Phase, PhasePushKey } from "./types";
 
 export const APP_NAME = "Cyclemax";
 export const CLAIM = "Be the Cycleman.";
-export const CORE_SENTENCE = "Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.";
+export const CORE_SENTENCE = "Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.";
 export const PURE_URL = "https://purmethod.com";
 
 export const PHASE_COLORS: Record<Phase, string> = {
@@ -14,14 +14,14 @@ export const PHASE_COLORS: Record<Phase, string> = {
 
 export const PHASES: Record<Phase, { word: string; color: string; attitude: string }> = {
   yellow: {
-    word: "Kümmern",
+    word: "Wärme",
     color: PHASE_COLORS.yellow,
     attitude: "Wärme geben, Last abnehmen – und dein Training durchziehen.",
   },
   pink: {
-    word: "Spielen",
+    word: "Führen",
     color: PHASE_COLORS.pink,
-    attitude: "Führ, plan, übernimm die Initiative.",
+    attitude: "Plan was mit ihr – du gibst den Takt vor.",
   },
   green: {
     word: "Nähe",
@@ -29,22 +29,22 @@ export const PHASES: Record<Phase, { word: string; color: string; attitude: stri
     attitude: "Sei präsent, nicht bedürftig – jetzt ist Zeit für Gespräche.",
   },
   red: {
-    word: "Leiser",
+    word: "Standfest",
     color: PHASE_COLORS.red,
-    attitude: "Wenn sie lauter wird, wirst du leiser – leiser heißt nicht kleiner.",
+    attitude: "Wenn sie lauter wird, wirst du ruhiger – ruhiger heißt nicht kleiner.",
   },
 };
 
-/** Bro tone, short. Max one notification per day. */
+/** "Hey Man" tone, short. Max one notification per day. */
 export const PHASE_PUSH_TEXT: Record<PhasePushKey, string> = {
-  red7: "Bro, Sturm zieht auf. Wenn sie lauter wird, wirst du leiser.",
-  red2: "Halt die Linie. Du bist der Fels.",
-  pink: "Rückenwind, Bro. Plan was mit ihr.",
+  red7: "Hey Man, ab jetzt mehr beobachten, mehr zuhören. Ruhe trainieren.",
+  red2: "Halt die Linie. Wenn sie lauter wird, wirst du ruhiger.",
+  pink: "Hey Man, Rückenwind. Plan was mit ihr.",
   green: "Gute Woche für Nähe – und für Gespräche, die anstehen.",
 };
 
 /** Shown in the app right after "Blutung hat begonnen" (yellow). */
-export const AFTER_ENTRY_TEXT = "Sturm vorbei. Jetzt kümmern: Wärme, Ruhe.";
+export const AFTER_ENTRY_TEXT = "Eingetragen. Sturm vorbei – jetzt Wärme: entlasten, da sein.";
 
 /** Lock screen text when "neutrale Benachrichtigungen" is on. */
 export const NEUTRAL_TITLE = APP_NAME;
@@ -52,4 +52,16 @@ export const NEUTRAL_BODY = "";
 
 export function isPhasePushKey(key: string): key is PhasePushKey {
   return key === "red7" || key === "red2" || key === "pink" || key === "green";
+}
+
+/** Heads-up on the home screen, 1–2 days before a phase starts. `{when}` = "Morgen" / "Übermorgen". */
+export const HEADS_UP: Record<Phase, string> = {
+  red: "Hey Man, {when} beginnt Standfest. Mehr beobachten, mehr zuhören, Ruhe trainieren.",
+  green: "{when} beginnt Nähe. Gute Tage für Gespräche, die anstehen.",
+  pink: "{when} beginnt Führen. Plan schon mal was mit ihr.",
+  yellow: "Ihre Tage stehen bevor. Halt dich bereit: Wärme, Entlastung.",
+};
+
+export function headsUp(phase: Phase, inDays: number): string {
+  return HEADS_UP[phase].replace("{when}", inDays === 1 ? "Morgen" : "Übermorgen");
 }

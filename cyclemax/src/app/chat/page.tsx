@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { fallbackAnswer } from "@shared/fallback";
+import { profileContext } from "@shared/profile";
 import { HELP_TEXT, needsHelp } from "@shared/safety";
 import { topicOf } from "@shared/topics";
 import type { ChatMessage } from "@shared/types";
 import { Gate } from "@/components/Gate";
 import { IconSend } from "@/components/icons";
+import { MicButton, useDictation } from "@/components/Mic";
 import { Thumbs } from "@/components/Thumbs";
 import { TopBar } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -29,13 +31,23 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const end = useRef<HTMLDivElement>(null);
+  const dictation = useDictation(adapters.speech, text, setText);
 
   useEffect(() => end.current?.scrollIntoView({ block: "end" }), [state.chat.length, busy]);
+
+  // "/chat/?voice=1" (mic on the home screen) starts listening right away.
+  const autoVoice = useRef(false);
+  useEffect(() => {
+    if (autoVoice.current || !new URLSearchParams(window.location.search).has("voice")) return;
+    autoVoice.current = true;
+    void dictation.start();
+  }, [dictation]);
 
   const send = async (e?: FormEvent) => {
     e?.preventDefault();
     const content = text.trim();
     if (!content || busy) return;
+    if (dictation.listening) await dictation.stop();
     const userEntry: ChatEntry = { id: crypto.randomUUID(), role: "user", content, at: Date.now() };
     const history = [...state.chat, userEntry];
     update({ chat: history.slice(-MAX_CHAT) });
@@ -57,6 +69,7 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
       phase: cycle?.phase ?? null,
       cycleDay: cycle?.cycleDay ?? null,
       notes,
+      profile: profileContext(state.profile.analysis),
       messages,
     };
 
@@ -96,12 +109,12 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
   return (
     <main className="mx-auto flex h-[100dvh] w-full max-w-md flex-col">
       <div className="px-6 pt-safe">
-        <TopBar title="Chat" />
+        <TopBar title="Cyclemax" />
       </div>
 
       <div className="flex-1 overflow-y-auto px-6 py-4" aria-live="polite">
         {state.chat.length === 0 && (
-          <p className="mt-[25vh] text-center text-[19px] leading-snug text-muted">Was ist los? Schreib es kurz.</p>
+          <p className="mt-[25vh] text-center text-[19px] leading-snug text-muted">Was ist los? Sprich oder schreib.</p>
         )}
         <ul className="flex flex-col gap-5">
           {state.chat.map((m) =>
@@ -137,7 +150,9 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
         <div ref={end} />
       </div>
 
+      {dictation.error && <p className="px-6 pb-2 text-[13px] text-accent">{dictation.error}</p>}
       <form onSubmit={send} className="flex items-end gap-2 border-t border-line px-4 pt-3 pb-safe">
+        <MicButton listening={dictation.listening} onClick={dictation.toggle} />
         <label htmlFor="chat-input" className="sr-only">
           Nachricht
         </label>
@@ -153,7 +168,7 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
               void send();
             }
           }}
-          placeholder="Schreib dem Mentor"
+          placeholder={dictation.listening ? "Ich höre zu …" : "Frag Cyclemax"}
           className="max-h-40 min-h-12 flex-1 resize-none rounded-2xl bg-surface px-4 py-3 text-[16px] outline-none placeholder:text-muted"
         />
         <button

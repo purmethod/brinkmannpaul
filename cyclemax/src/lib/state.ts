@@ -1,5 +1,5 @@
 // App state: lives only on the device (StorageAdapter). Nothing here is sent anywhere by itself.
-import type { Line, Mode } from "@shared/types";
+import type { Line, Mode, ProfileAnalysis } from "@shared/types";
 import type { DateStr } from "@/engine/dates";
 import type { LineHistory } from "@/engine/lines";
 import { DEFAULT_CYCLE_LENGTH } from "@/engine/cycle";
@@ -13,6 +13,15 @@ export interface ChatEntry {
   topic?: string;
   vote?: 1 | -1;
   reported?: boolean;
+}
+
+/** "Erzähl mir von ihr / von dir" – stays on the device. */
+export interface Profile {
+  /** Everything he told, newest last (kept to re-analyse later). */
+  text: string;
+  analysis: ProfileAnalysis | null;
+  source: "claude" | "fallback" | null;
+  updatedAt: number;
 }
 
 export interface AppState {
@@ -30,12 +39,14 @@ export interface AppState {
   catalogAt: number;
   lineVotes: Record<string, 1 | -1>;
   chat: ChatEntry[];
+  profile: Profile;
   /** Device ids whose server-side deletion still has to be confirmed (offline at delete time). */
   pendingDeletes: string[];
 }
 
 export const STATE_KEY = "state";
 export const MAX_CHAT = 200;
+export const MAX_PROFILE_TEXT = 12000;
 
 export function newDeviceId(): string {
   return crypto.randomUUID();
@@ -57,6 +68,7 @@ export function initialState(deviceId = newDeviceId()): AppState {
     catalogAt: 0,
     lineVotes: {},
     chat: [],
+    profile: { text: "", analysis: null, source: null, updatedAt: 0 },
     pendingDeletes: [],
   };
 }

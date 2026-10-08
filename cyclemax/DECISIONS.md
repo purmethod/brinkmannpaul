@@ -52,3 +52,12 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
   Achtung: Vercel Hobby erlaubt Crons nur täglich → für stündliche Pushes ist Vercel Pro nötig.
 - Web-Push-Nachweis lokal: `server/webpush.test.ts` sendet mit echtem VAPID + aes128gcm an einen lokalen
   HTTPS-Push-Dienst, prüft die VAPID-Signatur und entschlüsselt den Payload wie ein Browser.
+
+## Phase 2 – Pauls Feedback (09.10.)
+- Pauls neue Vorgaben überschreiben den ursprünglichen Auftrag, wo sie sich widersprechen: Fels-Logo raus,
+  ein schwarzer Kreis ist App-Icon und Logo. „Leiser“ heißt jetzt „ruhiger“: „Wenn sie lauter wird, wirst du
+  ruhiger. Ruhiger heißt nicht kleiner.“ Phasenwörter: Gelb „Wärme“, Pink „Initiative“, Grün „Nähe“, Rot „Standfest“.
+- Neue Screens erlaubt (Profil). Intimität ist als Beziehungsthema im Profil/Coaching erlaubt (Paul: „ob im Bett
+  Probleme sind“) – sachlich, ohne explizite Inhalte, ohne Sex-Taktiken, ohne Tracking.
+- Ziel jeder Beratung: eine Beziehung, in der gegenseitige Liebe ist. Single-Modus begleitet auch lockeres Dating
+  respektvoll, richtet aber auf dieses Ziel aus. Kernkompetenz Paul: Balance aus Nähe und Abstand.

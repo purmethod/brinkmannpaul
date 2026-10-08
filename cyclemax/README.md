@@ -1,6 +1,6 @@
 # Cyclemax
 
-App für Männer: **Sei der Fels in der Brandung.** Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.
+App für Männer: **Sei der Fels in der Brandung.** Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 Fundament: PURE Method von Paul Brinkmann. Claim: *Be the Cycleman.*
 
 Ein Code für Web (PWA) und später iOS/Android (Capacitor): Next.js 16 (statischer Export) + Tailwind 4,

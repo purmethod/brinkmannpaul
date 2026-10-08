@@ -32,7 +32,7 @@
 ## Cyclemax-Kern
 
 - Sei der Fels in der Brandung.
-- Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.
+- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 - Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.
 - Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden
   respektiert, seine eigenen klar und ruhig kommuniziert.

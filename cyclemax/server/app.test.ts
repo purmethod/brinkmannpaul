@@ -56,7 +56,7 @@ describe("api", () => {
     const params = llm.chat.mock.calls[0][0];
     expect(params.system).toContain("Du bist der Cyclemax-Mentor");
     expect(params.system).toContain("PURE");
-    expect(params.context).toContain("Leiser");
+    expect(params.context).toContain("Standfest");
     expect(params.context).toContain("Zyklustag 24");
     expect(params.context).toContain("Sie war heute müde.");
   });
@@ -190,9 +190,52 @@ describe("api", () => {
 describe("prompt", () => {
   it("system prompt contains the base prompt, rules and knowledge; context the device data", () => {
     const sys = buildSystemPrompt(["Leitsatz A"]);
-    expect(sys).toContain("leiser heißt nicht kleiner");
+    expect(sys).toContain("ruhiger heißt nicht kleiner");
     expect(sys).toContain("- Leitsatz A");
     expect(sys).toContain("Marc Aurel");
     expect(buildContext({ mode: "single", phase: null, cycleDay: null, notes: [] })).toContain("Single/Dating");
+  });
+});
+
+describe("profile", () => {
+  const text =
+    "Sie ist oft gestresst von der Arbeit, wir streiten über den Haushalt, im Bett läuft seit Monaten wenig und sie wünscht sich ein Kind.";
+
+  it("Claude turns his story into a structured profile (nothing stored)", async () => {
+    const profile = {
+      summary: "Sie ist gestresst, ihr streitet über Alltag.",
+      traits: ["gestresst"],
+      topics: [{ label: "Haushalt", note: "Übernimm was." }],
+      balance: 140,
+      balanceNote: "Du ziehst dich zurück.",
+      focus: "Entlasten.",
+      steps: ["a", "b", "c", "d"],
+    };
+    const llm = { chat: vi.fn(), json: vi.fn(async () => profile) } as never;
+    const { call, store } = await testContext({ llm });
+    const res = await call("POST", "/api/profile", { deviceId: DEVICE, mode: "relationship", text, previous: null });
+    expect(res.status).toBe(200);
+    expect(res.data.source).toBe("claude");
+    expect(res.data.profile.balance).toBe(100);
+    expect(res.data.profile.steps).toHaveLength(3);
+    const [, system, prompt] = (llm as { json: ReturnType<typeof vi.fn> }).json.mock.calls[0];
+    expect(system).toContain("Nähe und Abstand");
+    expect(prompt).toContain("Haushalt");
+    expect(await store.reports()).toHaveLength(0);
+  });
+
+  it("falls back to a keyword profile without Claude", async () => {
+    const { call } = await testContext();
+    const res = await call("POST", "/api/profile", { deviceId: DEVICE, mode: "relationship", text, previous: null });
+    expect(res.data.source).toBe("fallback");
+    const labels = res.data.profile.topics.map((t: { label: string }) => t.label);
+    expect(labels).toEqual(expect.arrayContaining(["Haushalt", "Nähe & Intimität", "Kinderwunsch", "Stress & Arbeit", "Streit"]));
+  });
+
+  it("chat sends the device profile as context", async () => {
+    const llm = { chat: vi.fn(async (p: { context: string }) => ({ text: p.context ? "Ok." : "", refused: false })), json: vi.fn() };
+    const { call } = await testContext({ llm: llm as never });
+    await call("POST", "/api/chat", chatBody("Was tun?", { profile: "Sie ist gestresst. Fokus: Entlasten." }));
+    expect(llm.chat.mock.calls[0][0].context).toContain("Sie ist gestresst");
   });
 });

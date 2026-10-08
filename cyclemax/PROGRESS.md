@@ -18,6 +18,20 @@
 - [x] M11 README, Selbst-Review aller Texte, Builds/Lint/Typecheck grün
 - [~] M12 Deploy (Vercel) – exakt dokumentiert (README › Deploy), Ausführung blockiert (siehe unten)
 
+## Phase 2 – Pauls Feedback (09.10., autonom bis 12:30 Berlin)
+
+- [x] P1 Logo neu: ein schwarzer Kreis (Ring) = App-Icon = Logo, Wortmarke CYCLEMAX, Luxus-Anmutung; alle Icons/Splash neu
+- [x] P2 Sprache: „Leiser“ → „Ruhiger“/„Standfest“ überall (Phasenwörter, Kernsatz, Pushes, Zeilen, Prompts, Store)
+- [x] P3 Zykluslänge-Drehrad raus (Onboarding + Settings); Länge lernt automatisch
+- [ ] P4 Home: „Blutung hat heute begonnen“ als Haupt-Aktion, prominent wenn fällig; Vorschau/Warnung „Hey Man …“
+- [x] P5 Spracheingabe überall (SpeechAdapter: Web Speech API / Capacitor-Plugin) – Chat + Profil
+- [x] P6 Profil: „Erzähl mir von ihr“ (frei sprechen) → Claude analysiert → Profil auf dem Gerät → Coaching nutzt es
+       (Beziehung: Emotionen, Reaktionen, Haushalt, Nähe/Intimität, Kinderwunsch; Single: wer er ist, was er sucht)
+- [ ] P7 Mentor: Balance Nähe ↔ Abstand, Ziel liebevolle Beziehung, „Hey Man“-Ton; Profil im Kontext
+- [ ] P8 Usability-Pass aus Sicht eines Mannes mit vollem Kopf: null Mehraufwand, ein Tap, nur Nutzen
+- [ ] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
+- [ ] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen
+
 ## Stand (Verifikation)
 
 - `npm run check`: tsc, ESLint, 81 Vitest-Tests, statischer Export (8 Routen), Backend-Bundle – grün.

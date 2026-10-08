@@ -13,7 +13,7 @@ export function Gate({ children, onboarding = false }: { children: (s: AppState,
   const router = useRouter();
   const redirect = state && (onboarding ? state.onboarded : !state.onboarded);
   useEffect(() => {
-    if (redirect) router.replace(onboarding ? "/" : "/onboarding/");
+    if (redirect) router.replace(onboarding ? "/heute/" : "/onboarding/");
   }, [redirect, onboarding, router]);
   if (!state || !adapters || redirect) return <Splash />;
   return <>{children(state, adapters)}</>;

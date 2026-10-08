@@ -40,6 +40,8 @@ export interface ChatRequest {
   phase: Phase | null;
   cycleDay: number | null;
   notes: string[];
+  /** Compact profile from the device ("Erzähl mir von ihr"), optional. */
+  profile?: string;
   messages: ChatMessage[];
 }
 
@@ -48,4 +50,33 @@ export interface ChatResponse {
   text: string;
   source: "claude" | "fallback";
   topic: string;
+}
+
+/** Result of "Erzähl mir von ihr / von dir" – lives only on the device. */
+export interface ProfileAnalysis {
+  /** 2–3 sentences. */
+  summary: string;
+  /** How she ticks (relationship) / who he is (single). Max 5. */
+  traits: string[];
+  /** Themes with a short note, e.g. Haushalt, Nähe & Intimität, Kinderwunsch. Max 6. */
+  topics: { label: string; note: string }[];
+  /** 0 = zu viel Abstand, 50 = Balance, 100 = zu viel Nähe/Klammern. */
+  balance: number;
+  balanceNote: string;
+  /** One sentence: what matters most right now. */
+  focus: string;
+  /** Three concrete next actions. */
+  steps: string[];
+}
+
+export interface ProfileRequest {
+  deviceId: string;
+  mode: Mode;
+  text: string;
+  previous: ProfileAnalysis | null;
+}
+
+export interface ProfileResponse {
+  profile: ProfileAnalysis;
+  source: "claude" | "fallback";
 }

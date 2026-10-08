@@ -1,10 +1,10 @@
 // Cycle engine: the man only enters the first day of bleeding. Phases are computed
 // BACKWARDS from the next expected bleeding (the post-ovulation part is the most stable).
 //
-//   yellow · Kümmern  day 1–7
-//   pink   · Spielen  day 8 until green starts (variable; empty for 21-day cycles)
+//   yellow · Wärme    day 1–7
+//   pink   · Führen   day 8 until green starts (variable; empty for 21-day cycles)
 //   green  · Nähe     the 7 days before red
-//   red    · Leiser   the 7 days before the expected bleeding – stays until a new entry
+//   red    · Standfest the 7 days before the expected bleeding – stays until a new entry
 import type { Phase } from "@shared/types";
 import { addDays, diffDays, type DateStr } from "./dates";
 
@@ -113,4 +113,27 @@ export function cycleStateOn(entries: DateStr[], date: DateStr, usualLength = DE
     expectedBleeding: addDays(last, cycleLength),
     late: cycleDay > cycleLength,
   };
+}
+
+export interface UpcomingPhase {
+  phase: Phase;
+  /** Days until it starts (1 = tomorrow). */
+  inDays: number;
+}
+
+/** The next phase change within `horizon` days (heads-up on the home screen). Null while late. */
+export function upcomingPhase(state: CycleState | null, horizon = 2): UpcomingPhase | null {
+  if (!state || state.late) return null;
+  const r = phaseRanges(state.cycleLength);
+  const starts: [Phase, number][] = [
+    ["pink", r.pink?.[0] ?? Infinity],
+    ["green", r.green[0]],
+    ["red", r.red[0]],
+    ["yellow", state.cycleLength + 1],
+  ];
+  for (const [phase, start] of starts) {
+    const inDays = start - state.cycleDay;
+    if (inDays >= 1 && inDays <= horizon && phase !== state.phase) return { phase, inDays };
+  }
+  return null;
 }

@@ -3,12 +3,14 @@ import { Capacitor } from "@capacitor/core";
 import { api } from "@/lib/api";
 import { createWebPushNotifications, createLocalNotifications, type NotificationAdapter } from "./notifications";
 import { createNativePlatform, createWebPlatform, type PlatformAdapter } from "./platform";
+import { createNativeSpeech, createWebSpeech, type SpeechAdapter } from "./speech";
 import { createIndexedDbStorage, createMemoryStorage, createPreferencesStorage, type StorageAdapter } from "./storage";
 
 export interface Adapters {
   storage: StorageAdapter;
   notifications: NotificationAdapter;
   platform: PlatformAdapter;
+  speech: SpeechAdapter;
 }
 
 let cached: Promise<Adapters> | null = null;
@@ -21,10 +23,11 @@ async function swRegistration(): Promise<ServiceWorkerRegistration | null> {
 
 async function create(): Promise<Adapters> {
   if (Capacitor.isNativePlatform()) {
-    const [{ Preferences }, { LocalNotifications }, { Haptics }] = await Promise.all([
+    const [{ Preferences }, { LocalNotifications }, { Haptics }, { SpeechRecognition }] = await Promise.all([
       import("@capacitor/preferences"),
       import("@capacitor/local-notifications"),
       import("@capacitor/haptics"),
+      import("@capacitor-community/speech-recognition"),
     ]);
     const name = Capacitor.getPlatform() === "ios" ? "ios" : "android";
     return {
@@ -34,6 +37,7 @@ async function create(): Promise<Adapters> {
         impact: (o) => Haptics.impact(o as never),
         notification: (o) => Haptics.notification(o as never),
       }),
+      speech: createNativeSpeech(SpeechRecognition as never),
     };
   }
   return {
@@ -44,6 +48,7 @@ async function create(): Promise<Adapters> {
       notification: typeof Notification !== "undefined" ? Notification : null,
     }),
     platform: createWebPlatform(),
+    speech: createWebSpeech(window),
   };
 }
 

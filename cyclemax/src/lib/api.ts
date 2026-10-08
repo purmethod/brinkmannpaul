@@ -1,6 +1,6 @@
 // Backend client. Always absolute via NEXT_PUBLIC_API_BASE – the same build runs inside
 // Capacitor (capacitor://localhost), where relative URLs would hit the device.
-import type { ChatRequest, ChatResponse, Line, ScheduledItem } from "@shared/types";
+import type { ChatRequest, ChatResponse, Line, ProfileRequest, ProfileResponse, ScheduledItem } from "@shared/types";
 
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8787").replace(/\/+$/, "");
 
@@ -43,6 +43,7 @@ export interface PushSchedulePayload {
 export const api = {
   lines: () => call<{ lines: Line[] }>("/api/lines"),
   chat: (req: ChatRequest) => call<ChatResponse>("/api/chat", { method: "POST", body: json(req) }, 45_000),
+  profile: (req: ProfileRequest) => call<ProfileResponse>("/api/profile", { method: "POST", body: json(req) }, 60_000),
   feedback: (deviceId: string, kind: "line" | "answer", id: string, vote: 1 | -1, topic?: string) =>
     call<{ ok: true }>("/api/feedback", { method: "POST", body: json({ deviceId, kind, id, vote, topic }) }),
   report: (deviceId: string, answerId: string, text: string, topic: string) =>

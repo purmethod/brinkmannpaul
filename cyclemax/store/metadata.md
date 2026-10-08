@@ -8,19 +8,19 @@ Preis: kostenlos. Support-URL: https://purmethod.com · Datenschutz-URL: `<deine
 - **Titel (30):** Cyclemax: Ihr Zyklus
 - **Untertitel (30):** Versteh deine Partnerin
 - **Keywords (100):** Periode,Zyklus,Partnerin,Freundin,Beziehung,Dating,PMS,Stoiker,Männer
-- **Werbetext (170):** Sei der Fels in der Brandung. Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.
+- **Werbetext (170):** Sei der Fels in der Brandung. Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 
 **Beschreibung**
 
 Cyclemax ist die App für Männer, die in ihrer Beziehung der Fels in der Brandung sein wollen.
 
-Wenn sie lauter wird, wirst du leiser. Leiser heißt nicht kleiner.
+Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 
 Du bleibst bei dir – bei deiner Haltung, nicht bei ihrer Stimmung. Genau damit hilfst du ihr. Und baust an dem, worum es geht: eine glückliche, lange Beziehung und Familie.
 
 SO FUNKTIONIERT ES
 - Du trägst nur den ersten Tag ihrer Blutung ein. Mehr nicht.
-- Cyclemax zeigt dir jeden Tag eine von vier Phasen: Kümmern, Spielen, Nähe, Leiser – mit einem Satz Haltung.
+- Cyclemax zeigt dir jeden Tag eine von vier Phasen: Wärme, Führen, Nähe, Standfest – mit einem Satz Haltung.
 - Jeden Morgen eine Zeile über wahre Männlichkeit. Maximal eine Nachricht am Tag.
 - Der Mentor im Chat antwortet kurz und klar: erst Einordnung, dann eine konkrete Handlung. Fragst du „Was soll ich sagen?“, bekommst du den Satz.
 - Single? Dann begleitet dich Cyclemax beim Dating: Charakter statt Optik, ehrliche Absichten, gelebte Grenzen.
@@ -40,19 +40,19 @@ Be the Cycleman.
 - **Title (30):** Cyclemax: Her Cycle
 - **Subtitle (30):** Know her cycle
 - **Keywords (100):** period,cycle,partner,girlfriend,relationship,dating,PMS,stoic,men
-- **Promotional text (170):** Be the rock in the surf. When she gets louder, you get quieter. Quieter doesn't mean smaller.
+- **Promotional text (170):** Be the rock in the surf. When she gets louder, you get calmer. Calmer doesn't mean smaller.
 
 **Description**
 
 Cyclemax is the app for men who want to be the rock in the surf of their relationship.
 
-When she gets louder, you get quieter. Quieter doesn't mean smaller.
+When she gets louder, you get calmer. Calmer doesn't mean smaller.
 
 You stay grounded – focused on your attitude, not her mood. That is exactly how you help her. And how you build what matters: a happy, lasting relationship and family.
 
 HOW IT WORKS
 - You only enter the first day of her period. Nothing else.
-- Every day Cyclemax shows one of four phases – Care, Play, Closeness, Quieter – with one sentence of attitude.
+- Every day Cyclemax shows one of four phases – Warmth, Lead, Closeness, Steadfast – with one sentence of attitude.
 - Every morning one line on true masculinity. Never more than one notification a day.
 - The mentor chat answers short and clear: first context, then one concrete action. Ask "what should I say?" and you get the sentence.
 - Single? Cyclemax coaches your dating: character over looks, honest intentions, lived boundaries.
