@@ -161,15 +161,19 @@ a {
   gap: 2rem;
   padding: 1.15rem var(--edge);
   border-top: 2px solid var(--ink);
-  color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.09em;
+  color: #3d3d39;
+  font-size: clamp(0.6875rem, 3.6vw, 0.875rem);
+  letter-spacing: 0.025em;
   text-transform: lowercase;
 }
 
+/* Name and degree are the first thing a visitor reads: near-black and a
+   step larger than the title beside them. */
 .site-header h1 {
   margin: 0;
   font: inherit;
+  font-size: clamp(0.75rem, 3.9vw, 0.9375rem);
+  color: #1d1d1b;
 }
 
 .site-header a {
