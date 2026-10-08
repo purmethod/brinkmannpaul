@@ -607,3 +607,16 @@ Pauls Vorgabe: Der Name unten links wiederholt sich und kommt weg. Links stehen 
 
 Paul will keine private Nummer veröffentlichen und nicht pro Nachricht zahlen, was die WhatsApp Business Platform für einen eigenen Bot verlangt. Deshalb laufen alle Anfragen über E-Mail. Der Footer zeigt rechts nur noch Instagram und Mail. `scripts/test-site.mjs` stellt sicher, dass auf Startseite und 404 keine Telefonnummer, kein `wa.me` und kein `tel:` steht.
 
+### Nachtrag: Seiten getauscht, Sprachen als Buttons (2026-10-08)
+
+Pauls Vorgabe: Mail und Instagram nach links, die Sprachauswahl rechts an die Kante, gestaltet wie die Buttons.
+
+- **Reihenfolge:** Im Footer steht zuerst `.contact-links` (Mail, dann Instagram), danach `.footer-langs`. Arabisch spiegelt automatisch.
+- **Sprachen als Buttons:** Jedes Kürzel ist 40 px hoch mit 9 px Innenabstand je Seite. Dadurch liegen alle Kürzel 18 px auseinander, genau wie die Icons.
+- **Kanten:** Beide Reihen sind um ihren Innenraum nach außen gezogen. Mail-Icon und letztes Kürzel stehen exakt 20 px vom Rand (Desktop 32 px).
+- **Aufgeräumt:** Startseite und 404 teilen sich die Klasse `.footer-langs` in `styles.css`. Die doppelten Regeln in `brain-scroll.css` sind entfernt.
+- **Prüfung:**
+  - en, ar, ru und 404 bei 320, 393 und 1440 px gemessen: Kanten 20 px, alle Abstände 18 px, Icons und Kürzel auf einer Linie, kein Überlauf.
+  - `scripts/test-site.mjs` prüft die Reihenfolge.
+  - 49 Interaktionstests grün, der Sprachwechsel behält das offene Projekt.
+
