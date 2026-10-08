@@ -2,11 +2,13 @@
   'use strict';
 
   // Picker wheel over a scroll-driven dive into the brain drawing.
-  // Turning the wheel zooms slowly from the approved brain drawing through the
-  // approved microstructure into a cubic millimetre of cortex and on through
-  // ever deeper spheres of its network, the cosmos and the cosmic web it
-  // resembles, until the next brain grows out of a neuron: the dive never
-  // turns back. Everything is drawn in graphite on white. Without JavaScript the plain project list remains.
+  // Turning the wheel zooms from the approved brain drawing ever finer: the
+  // folds, the neurons, a cubic millimetre of wiring, a dendrite, a synapse,
+  // the molecules of a vesicle. There the smallest turns into the universe:
+  // galaxies, the cosmic web and its endless depth, until the next brain
+  // grows: the dive never turns back and no drawing repeats on the way.
+  // Everything is drawn in graphite on white. Without JavaScript the plain
+  // project list remains.
 
   // Pure's chapters read one at a time: opening one closes the others, also
   // where <details name> is unsupported, and the tapped chapter stays under
@@ -622,30 +624,40 @@
     host.append(canvas);
     const context = canvas.getContext('2d', { alpha: false });
 
-    // The drawings: the approved brain and microstructure, the inside of one
-    // cubic millimetre of cortex (after the H01 reconstruction, Harvard and
-    // Google), its network drawn as a cosmos whose stars are neurons, and the
-    // cosmic web drawn from neurons (Vazza and Feletti, 2020, found the two
-    // networks comparably structured).
-    const MICRO_FOCUS = [1000, 506];
-    const MICRO_SOMA = [1108, 462];
+    // One journey from large to ever finer, every drawing exactly once:
+    // the brain, its folds (gyri) with their neurons, one cubic millimetre
+    // of cortex wiring (after the H01 reconstruction, Harvard and Google),
+    // a dendrite with its spines (about 1 um), one synapse with its 40 nm
+    // vesicles (cryo-electron tomography), the molecules inside a vesicle,
+    // which already read as stars. There the smallest becomes the largest:
+    // galaxies, the cosmic web (Vazza and Feletti, 2020, found it structured
+    // like the brain's network) and its endless depth, then the next brain.
     const MACRO_NODE = { wide: [1050, 284], tall: [563, 412] };
     const SHEETS = {
-      micro: { src: '/assets/neuroscience-microstructure.webp', focus: MICRO_FOCUS, size: [1536, 1024] },
+      gyri: { src: '/assets/neuro-gyri.webp', focus: [1013, 900], size: [1920, 1920] },
       inside: { src: '/assets/neuro-inside.webp', focus: [975, 959], size: [1920, 1920] },
+      dendrite: { src: '/assets/neuro-dendrite.webp', focus: [1037, 860], size: [1920, 1920] },
+      synapse: { src: '/assets/neuro-synapse.webp', focus: [947, 1057], size: [1920, 1920] },
+      molecule: { src: '/assets/neuro-molecule.webp', focus: [947, 953], size: [1920, 1920] },
       cosmos: { src: '/assets/neuro-cosmos.webp', focus: [964, 947], size: [1920, 1920] },
       web: { src: '/assets/neuro-web.webp', focus: [1003, 973], size: [1920, 1920] },
+      deep: { src: '/assets/neuro-deep.webp', focus: [947, 937], size: [1920, 1920] },
     };
-    const INK = { inside: 0.8, cosmos: 0.85, web: 0.85 };
-    // The way in, then the flight through universe-like spheres only: every
-    // sphere grows out of the central neuron of the one before, so the
-    // network never comes apart.
+    // Ink per drawing: the close-ups are held back so their lines stay as fine
+    // as the H01 drawing while they grow.
+    const INK = { gyri: 0.85, inside: 0.8, dendrite: 0.7, synapse: 0.68, molecule: 0.8, cosmos: 0.85, web: 0.82, deep: 0.72 };
+    // The way in through the brain, then the flight through the universe.
+    // Each drawing grows out of the centre of the one before: the neuron in
+    // the folds, the synapse on the dendrite, the docking vesicle, the
+    // densest cluster of molecules, the knot where the cosmic filaments meet.
     const WAY = [
-      { name: 'micro' },
-      { name: 'inside', scale: 1 / Math.E },
-      { name: 'cosmos', scale: Math.exp(-0.8) },
+      { name: 'gyri' },
+      { name: 'inside', scale: Math.exp(-1.1) },
+      { name: 'dendrite', scale: Math.exp(-0.9) },
+      { name: 'synapse', scale: Math.exp(-0.9) },
+      { name: 'molecule', scale: Math.exp(-0.9) },
     ];
-    const FLIGHT = ['web', 'cosmos', 'web', 'cosmos', 'web', 'cosmos'];
+    const FLIGHT = ['cosmos', 'web', 'deep'];
     const STEP = 0.85; // depth between two spheres of the flight
     const ENTER = 0.3; // a sphere takes over this far before its natural size
 
@@ -713,28 +725,28 @@
       const portrait = imageHeight > imageWidth;
       const relative = portrait ? 0.6 : 0.45;
       const brainNode = portrait ? MACRO_NODE.tall : MACRO_NODE.wide;
-      const node = [0, 1].map(axis => brainNode[axis] + (MICRO_FOCUS[axis] - MICRO_SOMA[axis]) * relative);
+      // The dive enters the brain where its fibres meet: the centre of the folds.
+      const node = brainNode;
       // On phones the visitor arrives at the whole drawing, exactly as Paul
       // chose it: 97.5 % of the width, centred, its top 32 px below the page
       // edge. Wide screens keep the drawing filling the view.
       const scaleBrain = portrait ? width * 0.975 / imageWidth : Math.max(width / imageWidth, height / imageHeight);
       const start = [(width - imageWidth * scaleBrain) * (portrait ? 0.5 : 1) + node[0] * scaleBrain, (portrait ? 32 : 0) + node[1] * scaleBrain];
-      // The deep spheres open beside the wheel on wide screens and above it
-      // on tall ones.
+      // The deep spheres open just right of the wheel on wide screens, so
+      // each drawing still reaches the left edge, and above it on tall ones.
       const landscape = width > height * 1.1;
-      const side = width / 2 - Math.min(248, (width - 40) / 2);
-      const finish = landscape ? [width - side / 2, height * 0.5] : [width * 0.5, height * 0.3];
+      const finish = landscape ? [width * 0.56, height * 0.5] : [width * 0.5, height * 0.3];
 
       // Scales: screen pixels per drawing pixel before any zoom.
-      const micro = chain[0];
-      micro.k = scaleBrain * relative;
+      const first = chain[0];
+      first.k = scaleBrain * relative;
       chain.slice(1).forEach((level, index) => { level.k = chain[index].k * level.scale; });
-      // The microstructure takes over once it covers the screen; every other
+      // The folds take over once they cover the screen; every other
       // sphere a little before its natural size, while it is still sharp.
-      const [mx, my] = micro.sheet.focus;
-      const [mw, mh] = micro.sheet.size;
-      const reach = Math.max(start[0] / (mx * micro.k), start[1] / (my * micro.k), (width - start[0]) / ((mw - mx) * micro.k), (height - start[1]) / ((mh - my) * micro.k));
-      micro.handover = Math.log(reach * 1.12);
+      const [mx, my] = first.sheet.focus;
+      const [mw, mh] = first.sheet.size;
+      const reach = Math.max(start[0] / (mx * first.k), start[1] / (my * first.k), (width - start[0]) / ((mw - mx) * first.k), (height - start[1]) / ((mh - my) * first.k));
+      first.handover = Math.log(reach * 1.12);
       chain.slice(1).forEach(level => { level.handover = Math.log(1 / level.k) - ENTER; });
       // The flight begins with the cosmos at its natural size. Nothing turns:
       // the view only ever goes deeper.
@@ -750,7 +762,7 @@
       api.open = opening;
       api.cycle = cycle;
       lastDepth = NaN;
-      load(micro);
+      load(first);
     }
 
     // Draws a drawing with its focus on the camera point.
@@ -810,9 +822,9 @@
       context.globalAlpha = 1;
     }
 
-    function brain(depth, microReady, cx, cy) {
-      const micro = chain[0];
-      const fade = microReady ? 1 - smooth(micro.handover - 0.02, micro.handover + 0.35, depth) : 1;
+    function brain(depth, firstReady, cx, cy) {
+      const first = chain[0];
+      const fade = firstReady ? 1 - smooth(first.handover - 0.02, first.handover + 0.35, depth) : 1;
       const alpha = camera.ink * smooth(-1.5, -0.7, depth) * fade;
       if (alpha < 0.002 || !macro.complete || !macro.naturalWidth) return;
       context.globalAlpha = alpha;
