@@ -4,6 +4,20 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: skyn-Creme rein weiß, ohne Flimmern, Sidi ruhig, Bilder ohne Unterschrift (2026-10-08)
+
+- **Bildunterschriften:** alle entfernt, außer „at wim's house · poland“. Die Bilder sprechen für sich; die alt-Texte für Bildschirmleser bleiben. Die neun Übersetzungen der alten Unterschriften sind aus `i18n/*.json` gelöscht.
+- **Abstand der Kreise:** oben 14 px statt 8 px, damit der Kreis ohne Unterschrift mittig zwischen den Absätzen sitzt (Startseite und `/weekends/`).
+- **skyn-Video** (`video-skyn.mp4?v=2`):
+  - Neuer Look `--look clean` in `scripts/grade_video.py`: Weißabgleich aus den hellsten Stellen des Clips, die Creme ist neutral weiß (helle Bereiche RGB 246/246/246 statt vorher 240/229/204 honigwarm), mehr Kontrast, Farbe stark zurückgenommen, kein Korn.
+  - Das „Zittern“ war Lampenflimmern: Die Helligkeit pulsierte 12,5-mal pro Sekunde um rund ±5 Stufen, in Bändern von oben nach unten. `--deflicker` gleicht jedes Zeilenband an seinen Mittelwert über 12 Bilder an. Flimmern −89 % (7,5 → 0,8).
+  - Keine Stabilisierung: Der Clip ist ruhig gefilmt, vidstab brachte hier erst Wackeln hinein.
+- **Sidi-Gasse** (`video-sidi-lane.mp4?v=3`):
+  - `--steady`: vidstab in zwei Durchgängen hält die Handkamera ruhig. Das Bildzittern sinkt von 1,46 auf 0,21 px.
+  - minterpolate rechnet echte Zwischenbilder aus der Bewegung (4 pro gefilmtem Bild), statt benachbarte Bilder zu überblenden. Die Zeitlupe läuft damit ohne Ruckeln.
+  - Höchsttempo 1,0 statt 0,75, also etwa ein Drittel schneller. Vor, zurück und die weichen Wendepunkte bleiben.
+  - 277 KB statt 469 KB.
+
 ## Aktualisierung: Footer mit Kontakt-Icons links, Sprachen rechts (2026-10-08)
 
 - Der Name unten links ist weg (er steht schon oben).
