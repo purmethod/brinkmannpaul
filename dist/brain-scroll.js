@@ -243,6 +243,8 @@
     started = true;
     lastPosition = NaN;
     dive.resize();
+    // Redrawn in the same frame, so a resize never shows an empty canvas.
+    dive.draw(depthAt(eased) + drift);
     schedule();
   }
 
@@ -709,8 +711,16 @@
       // After the intro and the page itself: the drawings are needed a few turns later.
       image.fetchPriority = 'low';
       image.src = sheet.src;
-      const decoded = typeof image.decode === 'function' ? image.decode()
-        : new Promise((resolve, reject) => { image.onload = resolve; image.onerror = reject; });
+      const loaded = () => new Promise((resolve, reject) => {
+        if (image.complete && image.naturalWidth) resolve();
+        else {
+          image.onload = resolve;
+          image.onerror = reject;
+        }
+      });
+      // decode() can refuse under memory pressure although the file is fine;
+      // the drawing then still arrives, decoded when first drawn.
+      const decoded = typeof image.decode === 'function' ? image.decode().catch(loaded) : loaded();
       decoded.then(() => {
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.globalCompositeOperation = 'source-over';
@@ -732,8 +742,12 @@
       const backingWidth = Math.round(width * ratio);
       const backingHeight = Math.round(height * ratio);
       if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
+        // A resized canvas without alpha is black until painted, and phones
+        // resize it whenever the address bar slides in or out: paper at once.
         canvas.width = backingWidth;
         canvas.height = backingHeight;
+        context.fillStyle = '#fff';
+        context.fillRect(0, 0, backingWidth, backingHeight);
       }
       const imageWidth = macro.naturalWidth || 1536;
       const imageHeight = macro.naturalHeight || 1024;
@@ -784,7 +798,10 @@
       // fetched once the page has settled, not only when it is needed.
       if (!prefetched) {
         prefetched = true;
-        setTimeout(() => load(chain[chain.length - 1]), 2500);
+        setTimeout(() => {
+          load(chain[chain.length - 1]);
+          galaxies();
+        }, 2500);
       }
     }
 
@@ -992,7 +1009,7 @@
       // A drawing that has just arrived fades in instead of appearing at once.
       const now = performance.now();
       const shown = chain.map(level => (level.sheet.state === 'ready' ? smooth(0, ARRIVE, now - level.sheet.since) : 0));
-      api.arriving = shown.some(value => value > 0 && value < 1);
+      api.arriving = chain.some((level, index) => level.sheet.state === 'ready' && shown[index] < 1);
       // Every change is drawn, so floating and scrolling run like a film.
       if (!api.arriving && Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
