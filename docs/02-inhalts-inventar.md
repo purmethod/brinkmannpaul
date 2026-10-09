@@ -41,6 +41,8 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
     - Bilder werden im Hintergrund dekodiert und beim Laden einmal an die Grafik übergeben.
     - Gemessen im Software-Renderer: erster sichtbarer Frame vorher 61–95 ms, jetzt 31–38 ms. Normale Frames sind schneller als vorher.
   - **Ladepriorität:** Die Zeichnungen laden mit niedriger Priorität. Beim ersten Besuch kommt das Intro (Porträt, Handschrift) zuerst.
+  - **Kein schwarzer Frame mehr nach einer Größenänderung** (alter Fehler, gefunden bei einer unabhängigen Prüfung): Die Leinwand hat keine Transparenz. Beim Drehen des Handys oder wenn ein In-App-Browser seine Höhe ändert, war sie bis zum nächsten Frame komplett schwarz (gemessen: Helligkeit 0). Jetzt wird sofort Papier gemalt und im selben Frame neu gezeichnet.
+  - **Ausfallsicher:** Verweigert der Browser unter Speicherdruck das Dekodieren, kommt die Zeichnung trotzdem. Die Galaxien werden 2,5 s nach dem Start in Ruhe vorgezeichnet.
 - **Suchmaschinen:**
   - `dist/robots.txt` (Sitemap, `/api/` ausgeschlossen).
   - `dist/sitemap.xml` erzeugt `scripts/i18n.py build`: 18 Seiten mit hreflang, Danke-Seiten ausgeschlossen.
