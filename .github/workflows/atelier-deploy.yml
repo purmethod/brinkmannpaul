@@ -106,23 +106,46 @@ jobs:
           vercel domains inspect cutcake.app --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -25 || true
 
       - name: deploy
+        id: deploy
         if: steps.gate.outputs.ok == 'true'
         working-directory: atelier
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          url=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" $SCOPE)
+          # the commit travels with the deployment, so the health check can tell which one cutcake.app serves
+          url=$(vercel deploy --prod --yes --env APP_VERSION=${GITHUB_SHA::7} --token "$VERCEL_TOKEN" $SCOPE)
           echo "deployed: $url"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
+
+      # a rollback in the dashboard pins the domain to an old deployment and stops it from following
+      # new ones; promoting the fresh one puts cutcake.app back on the newest code every time
+      - name: cutcake.app → this deployment
+        if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
+        continue-on-error: true
+        run: |
+          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
+          url="${{ steps.deploy.outputs.url }}"
+          vercel promote "$url" --yes --timeout 3m --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -3 || true
+          for d in cutcake.app www.cutcake.app; do
+            vercel alias set "$url" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -2 || true
+          done
 
       - name: health check
         if: steps.gate.outputs.ok == 'true'
         working-directory: atelier
         continue-on-error: true
         run: |
-          SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          sleep 5
-          for host in https://cutcake.app; do
-            echo "--- $host/api/health ---"
-            curl -s --max-time 30 "$host/api/health" || vercel curl /api/health --deployment "$host" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -5
-            echo
+          want=${GITHUB_SHA::7}
+          for i in $(seq 12); do
+            body=$(curl -s --max-time 30 "https://cutcake.app/api/health" || true)
+            echo "$body" | grep -q "\"version\":\"$want\"" && break
+            sleep 5
           done
+          echo "--- https://cutcake.app/api/health ---"
+          echo "$body"
+          if echo "$body" | grep -q "\"version\":\"$want\""; then
+            echo "### cutcake.app serves $want" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::cutcake.app does not serve $want yet"
+          fi
