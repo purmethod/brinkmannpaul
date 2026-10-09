@@ -1,0 +1,61 @@
+{
+  "name": "cyclemax",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:server": "tsx --env-file-if-exists=.env.local server/dev.ts",
+    "knowledge": "node scripts/build-knowledge.mjs",
+    "icons": "node scripts/icons.mjs",
+    "build": "npm run knowledge && next build && node scripts/build-sw.mjs",
+    "build:server": "esbuild api/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=.data/server-bundle.mjs --log-level=warning && echo backend bundle ok",
+    "typecheck": "tsc --noEmit -p .",
+    "lint": "eslint .",
+    "test": "npm run knowledge && vitest run",
+    "test:e2e": "playwright test",
+    "screenshots": "node scripts/screenshots.mjs",
+    "cap:sync": "npm run build && cap sync",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run build:server"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@capacitor-community/speech-recognition": "^7.0.1",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/local-notifications": "^8.3.1",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@libsql/client": "^0.18.0",
+    "@neondatabase/serverless": "^1.2.0",
+    "drizzle-orm": "^0.45.3",
+    "next": "16.3.8",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "web-push": "^3.6.7",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@capacitor/cli": "^8.5.2",
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
+    "esbuild": "^0.28.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "fake-indexeddb": "^6.2.5",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}
