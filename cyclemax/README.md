@@ -129,13 +129,13 @@ Jeder Push kompiliert die App unsigniert. Der Upload läuft per Knopfdruck:
    App Store Connect → TestFlight. Die Build-Nummer ist die Laufnummer des Workflows.
 7. In App Store Connect: Texte aus `store/metadata.md`, App-Datenschutz aus `store/privacy-labels.md`, Review-Notes aus
    `store/review-notes.md`, Screenshots aus `store/screenshots/6.7`, Altersfreigabe-Fragebogen (16+ empfohlen),
-   Datenschutz-URL `https://<domain>/datenschutz/` → Build auswählen → **Zur Prüfung einreichen**.
+   Datenschutz-URL `https://cyclemax.app/datenschutz/` → Build auswählen → **Zur Prüfung einreichen**.
 
 ### iOS mit Mac (Xcode 26)
 
 ```bash
 cd cyclemax
-NEXT_PUBLIC_API_BASE=https://<domain> npm run ios   # build + cap sync ios
+NEXT_PUBLIC_API_BASE=https://cyclemax.app npm run ios   # build + cap sync ios
 npm run ios:open                                   # öffnet Xcode
 ```
 
@@ -146,7 +146,7 @@ Push-Notifications-Capability ist nicht nötig (lokale Benachrichtigungen).
 
 ```bash
 cd cyclemax
-NEXT_PUBLIC_API_BASE=https://<domain> npm run build
+NEXT_PUBLIC_API_BASE=https://cyclemax.app npm run build
 npm i -D @capacitor/android && npx cap add android
 npx @capacitor/assets generate --android    # oder resources/android/* nach android/app/src/main/res kopieren
 npx cap sync android
