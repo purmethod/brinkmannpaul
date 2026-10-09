@@ -7,16 +7,57 @@
   "cleanUrls": false,
   "trailingSlash": true,
   "functions": {
-    "api/index.ts": { "maxDuration": 60 }
+    "api/index.ts": {
+      "maxDuration": 60
+    }
   },
-  "rewrites": [{ "source": "/api/:path*", "destination": "/api/index?route=:path*" }],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index?route=:path*"
+    }
+  ],
   "headers": [
-    { "source": "/sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
-    { "source": "/manifest.webmanifest", "headers": [{ "key": "Content-Type", "value": "application/manifest+json" }] },
-    { "source": "/_next/static/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ],
   "crons": [
-    { "path": "/api/cron/push", "schedule": "0 * * * *" },
-    { "path": "/api/cron/knowledge", "schedule": "0 3 * * *" }
+    {
+      "path": "/api/cron/push",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/knowledge",
+      "schedule": "0 3 * * *"
+    }
   ]
 }

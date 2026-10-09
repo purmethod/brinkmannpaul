@@ -86,10 +86,11 @@ Ein Vercel-Projekt liefert die PWA (`out/`) und das Backend (`api/index.ts`) aus
    Jede Warnung dort nennt eine fehlende Variable.
 5. `/admin` mit `ADMIN_PASSWORD` öffnen → System → „Test-Push an alle“.
 
-**Hinweis Vercel-Plan:** Auf Hobby laufen Cron-Jobs nur einmal täglich – für den stündlichen Push-Cron ist
-**Pro** nötig. Alternative: externer Cron (z. B. cron-job.org) ruft stündlich
-`GET /api/cron/push` mit Header `Authorization: Bearer $CRON_SECRET` auf und `vercel.json` bekommt
-für Push `"0 7 * * *"`.
+**Hinweis Vercel-Plan:** `vercel.json` ist auf **Hobby** eingestellt: Push-Cron täglich 06:00 UTC (08:00 Sommerzeit /
+07:00 Winterzeit) – dazu `PUSH_LEAD_MINUTES=60` setzen, damit die 07:30-Nachricht in beiden Zeiten mitgeht. Mit **Pro**
+den Push-Cron auf `"0 * * * *"` (stündlich, `PUSH_LEAD_MINUTES=30`) oder `"*/15 * * * *"` (`PUSH_LEAD_MINUTES=8`) stellen.
+Alternative ohne Pro: externer Cron (z. B. cron-job.org) ruft stündlich `GET /api/cron/push` mit Header
+`Authorization: Bearer $CRON_SECRET` auf.
 
 Per CLI: `cd cyclemax && npx vercel link && npx vercel env add … && npx vercel --prod`.
 
