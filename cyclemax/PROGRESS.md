@@ -28,19 +28,20 @@
 - [x] P6 Profil: „Erzähl mir von ihr“ (frei sprechen) → Claude analysiert → Profil auf dem Gerät → Coaching nutzt es
        (Beziehung: Emotionen, Reaktionen, Haushalt, Nähe/Intimität, Kinderwunsch; Single: wer er ist, was er sucht)
 - [x] P7 Mentor: Balance Nähe ↔ Abstand, Ziel liebevolle Beziehung, „Hey Man“-Ton; Profil im Kontext
-- [ ] P8 Usability-Pass aus Sicht eines Mannes mit vollem Kopf: null Mehraufwand, ein Tap, nur Nutzen
-- [ ] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
+- [x] P8 Usability-Pass aus Sicht eines Mannes mit vollem Kopf: null Mehraufwand, ein Tap, nur Nutzen
+- [x] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
 - [ ] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen
 
-## Stand (Verifikation)
+## Stand (Verifikation, 09.10. früh)
 
-- `npm run check`: tsc, ESLint, 81 Vitest-Tests, statischer Export (8 Routen), Backend-Bundle – grün.
-- Playwright (iPhone 14 Pro, Chromium): 10/10 grün – Onboarding Beziehung + Single, Blutung eintragen
-  (+ Rückgängig, Drehrad), Chat mit Mock-Claude, Bewerten, Melden, Settings, Alle Daten löschen (lokal + Server),
-  Offline-Start + Offline-Chat, PWA installierbar (Chrome `getInstallabilityErrors` leer), Push → Service Worker
-  zeigt Benachrichtigung.
+- `npm run check`: tsc, ESLint, 102 Vitest-Tests, statischer Export (10 Routen), Backend-Bundle – grün.
+- Playwright (iPhone 14 Pro, Chromium): 13/13 grün – Start (nur Ring), Onboarding Beziehung + Single, Blutung
+  eintragen (+ Rückgängig, Drehrad), Vorschau „Hey Man, morgen beginnt Standfest“, Profil per Sprache → Profil →
+  Tages-Schritt → Chat per Sprache, Chat mit Mock-Claude + kopierbarer Satz + Bewerten + Melden, Schnellfragen,
+  Settings, Alle Daten löschen (lokal + Server), Offline-Start + Offline-Chat, PWA installierbar, Push → Service Worker.
 - Web Push lokal nachgewiesen: `server/webpush.test.ts` (echtes VAPID + aes128gcm, entschlüsselt wie ein Browser).
-- Lighthouse 12+ hat keine PWA-Kategorie mehr; Installierbarkeit wird stattdessen mit Chromes eigener Prüfung getestet.
+- Code-Review (medium) über die ganze App: 10 Funde, alle behoben und mit Tests abgesichert (siehe DECISIONS).
+- GitHub Actions `.github/workflows/cyclemax.yml`: check + E2E bei jedem Push nach `cyclemax/**`.
 
 ## Blocker / Fallbacks
 
@@ -59,7 +60,7 @@
    `NEXT_PUBLIC_API_BASE`.
 4. Vercel Pro für den stündlichen Push-Cron (Hobby: Crons nur täglich) – oder externer Cron (README).
 5. Impressum: [NAME], [ADRESSE], [E-MAIL] in `src/app/impressum/page.tsx` eintragen.
-6. Inhalte gegenlesen: `knowledge/daily-lines.md` (103 Zeilen), Haltungssätze in `shared/texts.ts`,
+6. Inhalte gegenlesen: `knowledge/daily-lines.md` (114 Zeilen), Haltungssätze in `shared/texts.ts`,
    Datenschutztext `src/app/datenschutz/page.tsx` (rechtlich prüfen lassen).
 7. App Store / Play: Mac mit Xcode bzw. Android Studio → README › „Vom Web in den App Store“.
 8. App-Oberfläche ist nur Deutsch; englischer Store-Eintrag erst nach Übersetzung.
