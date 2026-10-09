@@ -1,10 +1,13 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { zoned } from '@/lib/time';
+import { parseWhen } from '@/lib/when';
 import { api, uploadFiles, useMic, type MediaItem } from './client';
-import { Icon, TemplatePreview, Wheel, type WheelItem } from './ui';
+import { Icon, Wheel, type WheelItem } from './ui';
 
-type Step = 'media' | 'about' | 'time' | 'template' | 'sending' | 'done';
+type Step = 'media' | 'speak' | 'ready' | 'sending' | 'done';
+type Format = 'reel' | 'carousel' | 'photo';
 interface Tpl {
   id: string;
   label: string;
@@ -15,6 +18,9 @@ interface Setup {
   timezone: string;
   slot: string;
   templates: Tpl[];
+  style: { look?: string; text?: string; photos?: 'reel' | 'carousel' };
+  looks: { id: string; label: string }[];
+  textStyles: string[];
 }
 interface Picked {
   file: File;
@@ -46,9 +52,38 @@ export function describeSlot(local: string, tz: string) {
   return `${day} · ${local.slice(11, 16)}`;
 }
 
+const nowIn = (tz: string) => {
+  const z = zoned(tz);
+  return `${z.date}T${z.time}`;
+};
+
+/** "cinematic", "schwarz-weiß", "als karussell" — the look and the format can be said too. */
+// letter-aware edges: \b knows no umlauts ("schwarz-weiß")
+const L = (src: string) => new RegExp(`(?<![a-zäöüß])(?:${src})(?![a-zäöüß])`, 'i');
+const SAID_LOOKS: [RegExp, string][] = [
+  [L('cinematic|kinematisch|wie im kino|film ?look'), 'cinematic'],
+  [L('schwarz[- ]?wei(?:ß|ss)|black and white|b/w|mono'), 'mono'],
+  [L('warm(?:er)? look|warme farben|golden'), 'warm'],
+  [L('knallig|vivid|kräftige farben|bunt'), 'vivid'],
+];
+const SAID_FORMAT = /\b(?:(?:als|as)\s+(?:an?\s+|ein\s+)?)?(karussell|carousel|slides|reel)\b/i;
+function saidStyle(text: string) {
+  const hit = SAID_LOOKS.find(([re]) => re.test(text));
+  const f = SAID_FORMAT.exec(text)?.[1]?.toLowerCase();
+  const format: Format | undefined = f ? (f === 'reel' ? 'reel' : 'carousel') : undefined;
+  // the style words steer the picture, they are not part of the story
+  let rest = text;
+  if (hit) rest = rest.replace(new RegExp(`(?:\\b(?:in|im|als|mit|as|with)\\s+(?:an?\\s+|einem\\s+|einen\\s+|ein\\s+)?)?${hit[0].source}(?:\\s+(?:look|filter|style|stil))?`, 'i'), ' ');
+  if (f) rest = rest.replace(SAID_FORMAT, ' ');
+  rest = rest.replace(/\s+([,.!?;:])/g, '$1').replace(/([,;:])(?=\s*[,.!?;:]|\s*$)/g, '').replace(/^[\s,;:]+/, '').replace(/\s{2,}/g, ' ').trim();
+  return { look: hit?.[1], format, rest };
+}
+
 /**
- * The create interview: one question per screen, every choice moves on by itself.
- * Uploads start the moment media is picked, so the rest of the interview hides the wait.
+ * Create: pick or shoot → say what it is and when → post.
+ * One spoken sentence carries the content, the time ("morgen um 18 uhr", "jetzt") and even the look;
+ * the one screen after it shows what was understood, every choice one tap away.
+ * Uploads start the moment media is picked, so talking hides the wait.
  */
 export default function CreateFlow({ onClose, onCreated }: { onClose: () => void; onCreated: () => void }) {
   const [step, setStep] = useState<Step>('media');
@@ -56,7 +91,15 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
   const [picked, setPicked] = useState<Picked[]>([]);
   const [about, setAbout] = useState('');
   const [typing, setTyping] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [at, setAt] = useState('');
+  const [now, setNow] = useState(false);
+  const [suggested, setSuggested] = useState(''); // the heard time, else the next free slot
+  const [wheels, setWheels] = useState(false);
+  const [format, setFormat] = useState<Format>('reel');
+  const [look, setLook] = useState('natural');
+  const [words, setWords] = useState('clean');
+  const [template, setTemplate] = useState('');
   const [progress, setProgress] = useState('');
   const [error, setError] = useState('');
   const [planned, setPlanned] = useState('');
@@ -66,6 +109,10 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     const s = await api<Setup>('/api/create');
     setSetup(s);
     setAt(s.slot);
+    setSuggested(s.slot);
+    setLook(s.style.look ?? 'natural');
+    setWords(s.style.text ?? 'clean');
+    setTemplate(s.templates[0]?.id ?? '');
   }, []);
   useEffect(() => {
     loadSetup().catch((e) => setError(e.message));
@@ -76,6 +123,9 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     setPicked([]);
     setAbout('');
     setTyping(false);
+    setEditing(false);
+    setNow(false);
+    setWheels(false);
     setProgress('');
     setError('');
     uploads.current = null;
@@ -87,42 +137,67 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     const files = Array.from(list ?? []);
     if (!files.length) return;
     const video = files.some((f) => f.type.startsWith('video/'));
-    // a reel takes its videos; photos-only becomes a carousel or a single photo
+    // a reel takes its videos; photos become a reel or a carousel
     const use = video ? files.filter((f) => f.type.startsWith('video/')) : files.slice(0, 10);
     setPicked(use.map((file) => ({ file, preview: URL.createObjectURL(file), video: file.type.startsWith('video/') })));
+    setFormat(video ? 'reel' : (setup?.style.photos ?? 'reel'));
     setError('');
     uploads.current = uploadFiles(use, setProgress);
     uploads.current.catch((e) => setError((e as Error).message));
-    setStep('about');
+    setStep('speak');
   }
 
-  const mic = useMic(
-    useCallback((text: string) => {
-      setAbout(text);
-      setStep('time');
-    }, []),
+  /** what was said → content, time, look, format */
+  const understand = useCallback(
+    (text: string) => {
+      if (!setup) return setAbout(text);
+      const w = parseWhen(text, nowIn(setup.timezone), setup.slot);
+      const s = saidStyle(w.rest);
+      setAbout(s.rest);
+      if (w.at) {
+        setAt(w.at);
+        setSuggested(w.at);
+        setNow(w.now);
+        setWheels(false);
+      }
+      if (s.look) setLook(s.look);
+      if (s.format && !picked.some((p) => p.video)) setFormat(s.format === 'carousel' && picked.length === 1 ? 'photo' : s.format);
+      setStep('ready');
+    },
+    [setup, picked],
   );
+  const mic = useMic(understand);
 
-  async function finish(templateId: string) {
+  async function post() {
     setStep('sending');
     setError('');
     try {
       const media = await uploads.current!;
-      await api('/api/create', { method: 'POST', json: { media: media.map((m) => m.id), description: about, at, template: templateId } });
-      setPlanned(setup ? describeSlot(at, setup.timezone) : at);
+      const reel = format === 'reel';
+      await api('/api/create', {
+        method: 'POST',
+        json: {
+          media: media.map((m) => m.id),
+          description: about,
+          at: now ? 'now' : at,
+          format: hasVideo ? 'auto' : format === 'reel' ? 'reel' : 'carousel',
+          ...(reel ? { look, textStyle: words } : { template }),
+        },
+      });
+      setPlanned(now ? 'now' : setup ? describeSlot(at, setup.timezone) : at);
       setStep('done');
       onCreated();
     } catch (e) {
       setError((e as Error).message);
-      setStep('template');
+      setStep('ready');
     }
   }
 
   const days = useMemo(() => (setup ? dayItems(new Intl.DateTimeFormat('en-CA', { timeZone: setup.timezone }).format(new Date())) : []), [setup]);
-  const kind = picked.some((p) => p.video) ? 'reel' : picked.length > 1 ? 'carousel' : 'photo';
-  const firstPhoto = picked.find((p) => !p.video)?.preview ?? null;
-  const steps: Step[] = ['media', 'about', 'time', 'template'];
-  const stepIndex = steps.indexOf(step);
+  const hasVideo = picked.some((p) => p.video);
+  const steps: Step[] = ['media', 'speak', 'ready'];
+  const stepIndex = steps.indexOf(step === 'sending' ? 'ready' : step);
+  const when = now ? 'now' : setup && at ? describeSlot(at, setup.timezone) : '';
 
   function back() {
     if (stepIndex > 0) setStep(steps[stepIndex - 1]);
@@ -132,18 +207,18 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
   return (
     <div className="flow" role="dialog" aria-modal="true" aria-label="new post">
       <header className="flow-top">
-        <button className="icon-btn" onClick={step === 'done' ? onClose : back} aria-label={stepIndex > 0 ? 'back' : 'close'}>
+        <button className="icon-btn" onClick={step === 'done' ? onClose : back} aria-label={stepIndex > 0 && step !== 'done' ? 'back' : 'close'}>
           <Icon name={stepIndex > 0 && step !== 'done' ? 'back' : 'close'} />
         </button>
         <div className="dots" aria-hidden="true">
           {steps.map((s, i) => (
-            <span key={s} className={i <= stepIndex || step === 'done' || step === 'sending' ? 'on' : ''} />
+            <span key={s} className={i <= stepIndex || step === 'done' ? 'on' : ''} />
           ))}
         </div>
         <span className="icon-btn" />
       </header>
 
-      <section className="flow-body" key={step}>
+      <section className="flow-body" key={step === 'sending' ? 'ready' : step}>
         {step === 'media' && (
           <>
             <h1 className="q">what do you want to share?</h1>
@@ -159,19 +234,14 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                 <input type="file" accept="image/*,video/*" multiple hidden onChange={(e) => pick(e.target.files)} />
               </label>
             </div>
-            <p className="hint">a video becomes a reel. several photos become a carousel.</p>
+            <p className="hint">a photo or a video — cutcake cuts, writes and posts it.</p>
           </>
         )}
 
-        {step === 'about' && (
+        {step === 'speak' && (
           <>
-            <div className="strip">
-              {picked.map((p) =>
-                p.video ? <video key={p.preview} src={p.preview} muted playsInline /> : <img key={p.preview} src={p.preview} alt="" />,
-              )}
-            </div>
-            <p className="kicker">{kind}</p>
-            <h1 className="q">what is it about?</h1>
+            <Strip picked={picked} />
+            <h1 className="q">what is it — and when?</h1>
             {!typing ? (
               <>
                 {mic.supported ? (
@@ -179,58 +249,132 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                     <Icon name="mic" size={36} stroke={1.2} />
                   </button>
                 ) : null}
-                <p className="live">{mic.listening ? mic.interim || 'listening…' : mic.supported ? 'tap and tell me — any language' : ''}</p>
-                {mic.listening && <p className="muted small">take your time — tap the mic when you are done</p>}
+                <p className="live">
+                  {mic.listening ? mic.interim || 'listening…' : mic.supported ? '“bread fresh from the oven — post it tomorrow at 6 pm”' : ''}
+                </p>
+                {mic.listening && <p className="muted small center-text">take your time — tap the mic when you are done</p>}
                 <div className="row center">
-                  <button className="link" onClick={() => setTyping(true)}>type instead</button>
+                  <button className="link" onClick={() => setTyping(true)}>
+                    type instead
+                  </button>
                   <span className="sep" />
-                  <button className="link" onClick={() => setStep('time')}>skip</button>
+                  <button className="link" onClick={() => setStep('ready')}>
+                    skip
+                  </button>
                 </div>
               </>
             ) : (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setStep('time');
+                  understand(String(new FormData(e.currentTarget).get('t') || ''));
                 }}
               >
-                <input className="big-input" autoFocus value={about} onChange={(e) => setAbout(e.target.value)} placeholder="a few words…" enterKeyHint="done" />
+                <input className="big-input" name="t" autoFocus defaultValue={about} placeholder="what is it, and when…" enterKeyHint="done" />
               </form>
             )}
           </>
         )}
 
-        {step === 'time' && setup && (
+        {(step === 'ready' || step === 'sending') && setup && (
           <>
-            <h1 className="q">when should it go out?</h1>
-            <p className="hint">the next free slot is set. turn the wheel to change it, tap the highlighted time to confirm.</p>
-            <div className="wheels" onClick={(e) => (e.target as HTMLElement).classList.contains('on') && setStep('template')}>
-              <div className="wheel-band" aria-hidden="true" />
-              <Wheel items={days} value={at.slice(0, 10)} onChange={(v) => setAt(`${v}T${at.slice(11)}`)} width="50%" />
-              <Wheel items={HOURS} value={at.slice(11, 13)} onChange={(v) => setAt(`${at.slice(0, 11)}${v}:${at.slice(14, 16)}`)} width="25%" />
-              <Wheel items={MINUTES} value={at.slice(14, 16)} onChange={(v) => setAt(`${at.slice(0, 14)}${v}`)} width="25%" />
-            </div>
-            <button className="slot-confirm" onClick={() => setStep('template')}>
-              {describeSlot(at, setup.timezone)}
-            </button>
-          </>
-        )}
+            <Strip picked={picked} />
 
-        {(step === 'template' || step === 'sending') && setup && (
-          <>
-            <h1 className="q">which look?</h1>
-            <div className="templates">
-              {setup.templates.map((t, i) => (
-                <button key={t.id} className="tpl" disabled={step === 'sending'} onClick={() => finish(t.id)}>
-                  <TemplatePreview layout={t.layout} photo={firstPhoto} line={about ? about.split(/[.!?]/)[0].toLowerCase().slice(0, 40) : undefined} />
-                  <span className="tpl-name">
-                    {t.label}
-                    {i === 0 && <em> · last used</em>}
-                  </span>
+            <div className="said">
+              {editing ? (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setEditing(false);
+                  }}
+                >
+                  <input className="big-input" autoFocus value={about} onChange={(e) => setAbout(e.target.value)} onBlur={() => setEditing(false)} enterKeyHint="done" />
+                </form>
+              ) : (
+                <button className="said-text" onClick={() => setEditing(true)}>
+                  {about || <span className="muted">nothing said — cutcake reads the picture</span>}
                 </button>
-              ))}
+              )}
+              {mic.supported && (
+                <button className={`mic-xl small ${mic.listening ? 'on' : ''}`} onClick={mic.toggle} aria-label={mic.listening ? 'stop' : 'say it again'}>
+                  <Icon name="mic" size={24} stroke={1.3} />
+                </button>
+              )}
             </div>
-            {step === 'sending' && <p className="live">{progress ? `uploading ${progress}` : 'saving…'}</p>}
+            {mic.listening && <p className="live">{mic.interim || 'listening…'}</p>}
+
+            <p className="kicker">when</p>
+            <div className="chips">
+              <button aria-pressed={now} onClick={() => (setNow(true), setWheels(false))}>
+                now
+              </button>
+              <button aria-pressed={!now && !wheels} onClick={() => (setNow(false), setWheels(false), setAt(suggested))}>
+                {describeSlot(suggested, setup.timezone)}
+              </button>
+              <button aria-pressed={wheels} onClick={() => (setNow(false), setWheels(true))}>
+                {wheels ? when : 'other…'}
+              </button>
+            </div>
+            {wheels && (
+              <div className="wheels compact">
+                <div className="wheel-band" aria-hidden="true" />
+                <Wheel items={days} value={at.slice(0, 10)} onChange={(v) => setAt(`${v}T${at.slice(11)}`)} width="50%" />
+                <Wheel items={HOURS} value={at.slice(11, 13)} onChange={(v) => setAt(`${at.slice(0, 11)}${v}:${at.slice(14, 16)}`)} width="25%" />
+                <Wheel items={MINUTES} value={at.slice(14, 16)} onChange={(v) => setAt(`${at.slice(0, 14)}${v}`)} width="25%" />
+              </div>
+            )}
+
+            {!hasVideo && (
+              <>
+                <p className="kicker">becomes</p>
+                <div className="chips">
+                  <button aria-pressed={format === 'reel'} onClick={() => setFormat('reel')}>
+                    reel
+                  </button>
+                  <button aria-pressed={format !== 'reel'} onClick={() => setFormat(picked.length > 1 ? 'carousel' : 'photo')}>
+                    {picked.length > 1 ? 'carousel' : 'photo'}
+                  </button>
+                </div>
+              </>
+            )}
+
+            {format === 'reel' ? (
+              <>
+                <p className="kicker">look</p>
+                <div className="chips">
+                  {setup.looks.map((l) => (
+                    <button key={l.id} aria-pressed={look === l.id} onClick={() => setLook(l.id)}>
+                      {l.label}
+                    </button>
+                  ))}
+                </div>
+                <p className="kicker">words</p>
+                <div className="chips">
+                  {setup.textStyles.map((t) => (
+                    <button key={t} aria-pressed={words === t} onClick={() => setWords(t)} className={`ts-${t}`}>
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="kicker">design</p>
+                <div className="chips">
+                  {setup.templates.map((t) => (
+                    <button key={t.id} aria-pressed={template === t.id} onClick={() => setTemplate(t.id)}>
+                      {t.label.toLowerCase()}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div className="post-bar">
+              <button className="primary wide post-btn" disabled={step === 'sending'} onClick={post}>
+                {step === 'sending' ? (progress ? `uploading ${progress}` : 'saving…') : now ? 'post now' : `post · ${when}`}
+              </button>
+            </div>
           </>
         )}
 
@@ -239,9 +383,13 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
             <span className="done-mark">
               <Icon name="check" size={30} stroke={1.3} />
             </span>
-            <h1 className="q">planned</h1>
-            <p className="done-when">{planned}</p>
-            <p className="hint">cutting, subtitles and caption happen in the background. it goes out on its own.</p>
+            <h1 className="q">{planned === 'now' ? 'on its way' : 'planned'}</h1>
+            {planned !== 'now' && <p className="done-when">{planned}</p>}
+            <p className="hint">
+              {planned === 'now'
+                ? 'it is being cut and written now and goes out the moment it is ready.'
+                : 'cutting, words and caption happen in the background. it goes out on its own.'}
+            </p>
             <div className="stack wide">
               <button className="primary wide" onClick={restart}>
                 next post
@@ -255,6 +403,14 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
 
         {error && <p className="error center-text">{error}</p>}
       </section>
+    </div>
+  );
+}
+
+function Strip({ picked }: { picked: Picked[] }) {
+  return (
+    <div className="strip">
+      {picked.map((p) => (p.video ? <video key={p.preview} src={p.preview} muted playsInline /> : <img key={p.preview} src={p.preview} alt="" />))}
     </div>
   );
 }

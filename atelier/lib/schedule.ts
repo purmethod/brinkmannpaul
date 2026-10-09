@@ -173,6 +173,12 @@ export async function runSchedule(scheduleId: string) {
   }
 }
 
+/** A post whose time came while it was still being cut goes out the moment it is ready. */
+export async function runDueFor(postId: string) {
+  const s = await one<{ id: string }>("select id from schedules where post_id = $1 and status = 'pending' and at <= now() + interval '1 minute'", [postId]);
+  return s ? runSchedule(s.id) : null;
+}
+
 export async function upcoming(brandId: string, fromDays = 1, toDays = 14) {
   return q<Schedule & { kind: string; post_status: string; template: string; cover: string | null; media_numbers: number[] }>(
     `select s.*, p.kind, p.status as post_status, p.template,
