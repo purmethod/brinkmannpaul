@@ -1,0 +1,26 @@
+name: cyclemax
+
+on:
+  push:
+    paths: ["cyclemax/**", ".github/workflows/cyclemax.yml"]
+  pull_request:
+    paths: ["cyclemax/**", ".github/workflows/cyclemax.yml"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cyclemax
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: cyclemax/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: NEXT_PUBLIC_API_BASE=http://localhost:8787 npm run build
+      - run: npm run test:e2e

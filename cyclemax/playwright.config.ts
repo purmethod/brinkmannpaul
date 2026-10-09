@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 
 // E2E against the real static export + real backend (SQLite) + mocked Claude API.
@@ -18,7 +19,10 @@ export default defineConfig({
     baseURL: "http://localhost:3100",
     locale: "de-DE",
     timezoneId: "Europe/Berlin",
-    launchOptions: { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" },
+    // Cloud sandbox ships Chromium here; CI uses Playwright's own download.
+    launchOptions: existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium")
+      ? { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" }
+      : {},
     serviceWorkers: "allow",
   },
   webServer: [

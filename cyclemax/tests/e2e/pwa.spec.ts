@@ -1,5 +1,5 @@
 import { chromium, expect, test } from "@playwright/test";
-import { mkdtempSync } from "node:fs";
+import { existsSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { API } from "./helpers";
@@ -7,7 +7,7 @@ import { API } from "./helpers";
 test("PWA ist installierbar (Chrome-Kriterien)", async () => {
   // Installability is never reported in incognito contexts → real (persistent) profile.
   const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), "cm-")), {
-    executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium",
+    ...(existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium") ? { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" } : {}),
     viewport: { width: 393, height: 852 },
   });
   const page = await ctx.newPage();
