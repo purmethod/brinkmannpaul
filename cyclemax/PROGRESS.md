@@ -32,6 +32,23 @@
 - [x] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
 - [x] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen
 
+## Phase 3 – Der Mann führt (09.10. vormittags)
+
+- [x] Q1 Review gegen Pauls Vision: Mann im Vordergrund, führt, keine Zusatzaufgabe, App sieht voraus
+- [x] Q2 „Was kommen kann“ je Phase (evidenzbasiert, mit Quellen) auf Heute; Pushes und Vorwarnungen mit Prognose
+- [x] Q3 Neuer Screen „Verstehen“: 24 Stunden vs. 28 Tage, nächste Phasen mit Datum, „Du führst“, Marc Aurel 4,49, Quellen
+- [x] Q4 Keine Aufgaben: Verspätungs- und Check-in-Push raus; „Ihre Tage“ statt „Blutung“; Profil gehört ihm
+- [x] Q5 Mentor/Wissensbasis: Führung durch Vorleben, Zyklus = Wissensvorsprung, nie Pflege-Aufgabe; 14 neue Zeilen
+- [x] Q6 iOS-Projekt eingecheckt (SPM, iPhone, Deutsch, Privacy Manifest, eigenes Sprach-Plugin in Swift)
+- [x] Q7 GitHub Actions `cyclemax-ios`: Compile bei jedem Push, Upload zu TestFlight per Knopfdruck (ohne Mac)
+- [x] Q8 Store-Texte neu (Mann im Vordergrund), Review-Notes, Screenshots + Marketing-Frames `store/screenshots/framed`
+
+## Stand (Verifikation, 09.10. vormittags)
+
+- `npm run check`: tsc, ESLint, 108 Vitest-Tests, statischer Export (11 Routen), Backend-Bundle – grün.
+- Playwright (iPhone 14 Pro): 15/15 grün inkl. neuem Test „Verstehen“ und axe-Audit (WCAG AA) aller Screens inkl. /verstehen.
+- iOS: siehe Workflow `cyclemax-ios` (macos-26, Xcode 26) auf dem Branch.
+
 ## Stand (Verifikation, 09.10. früh)
 
 - `npm run check`: tsc, ESLint, 103 Vitest-Tests, statischer Export (10 Routen), Backend-Bundle – grün.
@@ -49,21 +66,31 @@
 
 - Vercel: Die Vercel-Verbindung dieser Session bekommt im Team `pur1` 403 („re-authenticate to this scope“) –
   kein Projekt anlegen, keine Env-Variablen lesen. Damit auch kein Zugriff auf den ANTHROPIC_API_KEY im Projekt `pur`.
-- Kein VERCEL_TOKEN / ANTHROPIC_API_KEY als Umgebungsvariable; kein Xcode/Android SDK (native Projekte nicht erzeugt,
-  Befehle im README).
+- Kein VERCEL_TOKEN / ANTHROPIC_API_KEY als Umgebungsvariable. Kein Xcode in der Cloud-Umgebung → das iOS-Projekt wird
+  hier erzeugt und auf GitHub Actions (`macos-26`, Xcode 26) kompiliert. Kein Android SDK (Befehle im README).
 
 ## Offene Punkte für Paul
 
-1. Vercel freischalten: Vercel-Verbindung in claude.ai neu autorisieren (Team `pur1` mit Schreibrecht) ODER in den
-   Environment-Settings dieser Cloud-Umgebung `VERCEL_TOKEN` und `ANTHROPIC_API_KEY` als Secret hinterlegen → neue Session.
-   Oder selbst deployen: README › Deploy (Root Directory `cyclemax`, Preset „Other“).
-2. Neon-Datenbank anlegen → `DATABASE_URL` (ohne: Daten auf Vercel nicht dauerhaft).
-3. Env setzen: `ANTHROPIC_API_KEY`, VAPID-Keys (`npx web-push generate-vapid-keys`), `ADMIN_PASSWORD`, `CRON_SECRET`,
-   `NEXT_PUBLIC_API_BASE`.
-4. Vercel Pro für den stündlichen Push-Cron (Hobby: Crons nur täglich) – oder externer Cron (README).
-5. Impressum: [NAME], [ADRESSE], [E-MAIL] in `src/app/impressum/page.tsx` eintragen.
-6. Inhalte gegenlesen: `knowledge/daily-lines.md` (114 Zeilen), Haltungssätze in `shared/texts.ts`,
-   Datenschutztext `src/app/datenschutz/page.tsx` (rechtlich prüfen lassen).
-7. App Store / Play: Mac mit Xcode bzw. Android Studio → README › „Vom Web in den App Store“.
-8. App-Oberfläche ist nur Deutsch; englischer Store-Eintrag erst nach Übersetzung.
-9. Zwei Cyclemax-Versionen existieren (ältere Session, Branch `claude/laughing-rubin-gh83dv`). Empfehlung: diese hier.
+**Weg in den App Store (in dieser Reihenfolge, Details README › „iOS ohne Mac“):**
+
+1. Apple Developer Program (99 €/Jahr) – als Person oder Firma. Ohne geht nichts.
+2. Bundle ID `com.purmethod.cyclemax` registrieren und App in App Store Connect anlegen (Name „Cyclemax – Sei der Fels“).
+3. App Store Connect API-Key (Rolle Admin) → GitHub Secrets `APPLE_TEAM_ID`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`.
+4. Backend deployen (README › Deploy, Root Directory `cyclemax`): Neon `DATABASE_URL`, `ANTHROPIC_API_KEY`, VAPID-Keys,
+   `ADMIN_PASSWORD`, `CRON_SECRET`, `NEXT_PUBLIC_API_BASE`. Dann GitHub-Variable `CYCLEMAX_API_BASE` = diese Domain.
+   Die Vercel-Verbindung dieser Session sieht kein Team (Liste leer) – Deploy also durch dich oder nach Neu-Autorisierung.
+   Ohne Backend läuft die App trotzdem (Mentor antwortet aus der Wissensbasis), aber die Datenschutz-URL braucht eine Domain.
+5. Impressum: Anschrift in `src/app/impressum/page.tsx` eintragen (Pflicht in DE).
+6. Actions → cyclemax-ios → Run workflow → Build in TestFlight auf deinem iPhone testen.
+7. App Store Connect: Texte `store/metadata.md`, Datenschutz `store/privacy-labels.md`, Review-Notes `store/review-notes.md`,
+   Screenshots `store/screenshots/framed` (6,9"), Altersfreigabe 16+, Datenschutz-URL → Zur Prüfung einreichen.
+
+**Inhalt:**
+
+8. Gegenlesen: „Was kommen kann“ und „Du führst“ (`shared/texts.ts`), neue Zeilen in `knowledge/daily-lines.md`
+   (Abschnitt „Führen & Verstehen“), Datenschutztext (rechtlich prüfen lassen).
+9. Markenprüfung „Cyclemax“ / „Be the Cycleman“ (DPMA/EUIPO) vor dem Launch.
+10. App-Oberfläche nur Deutsch; englischer Store-Eintrag erst nach Übersetzung.
+11. Android/Play Store: README › Android (Android Studio nötig).
+12. Zwei ältere Cyclemax-Stände liegen auf `claude/focused-mendel-udfpde` und `claude/laughing-rubin-gh83dv`. Maßgeblich ist
+    dieser Branch (`claude/cool-turing-huj1fh`, auf aktuellem main).

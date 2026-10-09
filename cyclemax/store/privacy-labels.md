@@ -26,3 +26,9 @@ Grundlage: native App (iOS/Android). Benachrichtigungen werden lokal geplant, ke
   - Gesundheit und Fitness → Gesundheitsinformationen (Phase/Zyklustag im Chat-Kontext): erhoben, optional, App-Funktionalität, flüchtig.
   - App-Aktivität → Sonstige Aktionen (Bewertungen): erhoben, optional, App-Funktionalität.
   - Geräte- oder andere IDs (zufällige App-ID): erhoben, App-Funktionalität, Betrugsprävention.
+
+## Privacy Manifest (iOS)
+
+`ios/App/App/PrivacyInfo.xcprivacy` spiegelt diese Tabelle: kein Tracking, erhoben (nicht verknüpft, Zweck App-Funktionalität)
+werden Sonstige Nutzerinhalte, Gesundheit (konservativ: Phase/Zyklustag im Chat-Kontext), Geräte-ID und Produktinteraktion.
+Required-Reason-API: UserDefaults (`CA92.1`, über `@capacitor/preferences`). Wer hier etwas ändert, ändert beides.

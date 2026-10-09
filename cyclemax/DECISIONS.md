@@ -90,3 +90,37 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
   Profil-Prompt (Fokus/Schritte betreffen IHN), Wissens-Job-Regel 8 (Kritiker verwirft Gefälligkeits-Zeilen),
   Haltungssatz Gelb, Text nach dem Eintrag, Tageszeilen (Dienst-Zeilen ersetzt, 6 neue Mindset-Zeilen), Offline-Profil,
   Profil-Fragen („Und du: Wie lebst du gerade?“), Chat-Schnellfrage, Store-Beschreibung.
+
+## Phase 3 – Der Mann führt, keine Aufgabe (Paul, 09.10. vormittags)
+- Pauls Auftrag: Die App stellt den Mann in den Vordergrund. Männer führen, sind der Kopf der Beziehung. Er kümmert sich nicht
+  zusätzlich um ihre Periode und bekommt keine neue Aufgabe. Er versteht, dass sie hormonell anders gebaut ist; er fragt sie
+  (oder sie sagt es ihm), die App übernimmt im Hintergrund, sieht voraus, was kommen kann, und erinnert ihn, der Fels zu sein.
+- Umsetzung „führen“: als Führung durch Vorleben, Richtung, Ruhe, Entscheidungen – nie Kontrolle, Druck oder Abwertung.
+  Pauls Formulierung „ein anderes Tier“ steht bewusst nicht in der App: App Store Richtlinie 1.1.1 (abwertende Inhalte
+  über Gruppen) wäre ein Ablehnungsgrund. In der App heißt es: „Sie tickt anders.“ / „hormonell anders gebaut“.
+- „Was kommen kann“ ist jetzt sichtbar (früher: Phasenwissen nur als Hintergrund). Evidenzbasiert und vorsichtig formuliert
+  („kann“, „oft“, „viele“): ACOG CPG 7 (2023, bis 90 % mind. ein prämenstruelles Symptom, 20–30 % PMS), Armour 2019
+  (Dysmenorrhö ~71 %), Brain Sciences 2023 (Stimmungshoch zur Zyklusmitte), Baker & Driver 2007 (Schlaf in der späten
+  Lutealphase), Diver 2003 (Testosteron-Tagesrhythmus beim Mann). Keine Aussagen zu Eisprung als Zeitfenster,
+  Fruchtbarkeit, Verhütung. Quellen stehen auf „Verstehen“ und in `knowledge/phases.md`.
+- Neuer Screen `/verstehen` statt mehr Text auf Heute: Heute zeigt eine Zeile Prognose, Tipp darauf (oder auf den Ring) öffnet
+  Verstehen mit den nächsten Phasen-Terminen (`phaseOutlook`). Heute bleibt ohne Datum.
+- Keine Aufforderungen mehr: Nachfrage-Push bei Verspätung (+3/+10 Tage) und Check-in-Push alle zwei Wochen entfernt.
+  Es bleiben die vier Phasen-Pushes und die Tageszeile. Der stille Hinweis auf Heute bei Verspätung bleibt.
+- Sprache: „Ihre Tage“ statt „Blutung“ (so reden Männer, so redet Paul). Profil heißt „Dein Profil“, Einstieg „Erzähl mir von
+  euch“, seine Fragen zuerst.
+
+## iOS / App Store (09.10.)
+- `ios/` wird jetzt eingecheckt (vorher ignoriert): reproduzierbarer Build ohne lokales `cap add`, Cloud-Build möglich.
+- Bundle ID `com.purmethod.cyclemax` statt `com.cyclemax.app`: Reverse-DNS auf eine Domain, die Paul gehört; noch nichts
+  registriert, also kein Wechselaufwand.
+- Nur iPhone, nur Hochformat, nur Light Mode, Deutsch: weniger Screenshot-Pflichten (kein iPad), passt zum Design.
+- `@capacitor-community/speech-recognition` hat kein Swift Package → unter SPM nicht eingebunden. Lösung: eigenes Swift-Plugin
+  mit gleichem jsName und gleichen Events (`SpeechRecognitionPlugin.swift`, registriert in `MainViewController`), keine
+  Änderung am JS. Android nutzt weiter das Community-Plugin.
+- Cloud-Signierung per App Store Connect API-Key (Rolle Admin) auf `macos-26` (Xcode 26, Pflicht seit 28.04.2026).
+  Build-Nummer = Workflow-Laufnummer. Jeder Push kompiliert unsigniert – Swift-Fehler fallen vor dem Upload auf.
+- Store-Auftritt auf den Mann ausgerichtet: „Cyclemax – Sei der Fels“ / „Für Männer, die führen“ statt „Ihr Zyklus /
+  Versteh deine Partnerin“. Altersfreigabe 16+ empfohlen (Intimitätsthemen, KI-Chat), Kategorie nur Lifestyle.
+- Impressum: Name und E-Mail eingetragen (Paul Brinkmann, orders@brinkmannpaul.com – beides öffentlich auf brinkmannpaul.com);
+  die Anschrift bleibt Platzhalter (nichts erfinden).

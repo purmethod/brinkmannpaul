@@ -92,7 +92,8 @@ test("Settings: Modus, Uhrzeit, neutrale Benachrichtigungen, Links", async ({ pa
   await expect(page.getByRole("heading", { name: "Was an unseren Server geht" })).toBeVisible();
   await page.getByRole("link", { name: "Zurück" }).click();
   await page.getByRole("link", { name: "Impressum" }).click();
-  await expect(page.locator("[data-placeholder]").first()).toHaveText("[NAME]");
+  await expect(page.locator("main")).toContainText("Paul Brinkmann");
+  await expect(page.locator("[data-placeholder]")).toHaveText(["[ADRESSE]"]);
   await page.goto("/settings/");
   await expect(page.getByLabel("Tägliche Nachricht")).toHaveValue("06:45");
   await page.getByRole("link", { name: "Zurück" }).click();

@@ -12,21 +12,22 @@ const Placeholder = ({ children }: { children: string }) => (
 export default function Impressum() {
   return (
     <Legal title="Impressum">
-      <p className="rounded-xl bg-surface p-4 text-[14px]">Platzhalter – Paul trägt die markierten Angaben vor dem Launch ein.</p>
+      <p className="rounded-xl bg-surface p-4 text-[14px]">Platzhalter – Paul trägt die markierte Anschrift vor dem Launch ein.</p>
       <h2>Angaben gemäß § 5 DDG</h2>
       <p>
-        <Placeholder>[NAME]</Placeholder>
+        Paul Brinkmann
         <br />
         <Placeholder>[ADRESSE]</Placeholder>
       </p>
       <h2>Kontakt</h2>
       <p>
-        E-Mail: <Placeholder>[E-MAIL]</Placeholder>
+        E-Mail:{" "}
+        <a className="underline" href="mailto:orders@brinkmannpaul.com">
+          orders@brinkmannpaul.com
+        </a>
       </p>
       <h2>Verantwortlich für den Inhalt</h2>
-      <p>
-        <Placeholder>[NAME]</Placeholder>, Anschrift wie oben.
-      </p>
+      <p>Paul Brinkmann, Anschrift wie oben.</p>
       <h2>Fundament</h2>
       <p>
         Inhalte basieren auf der PURE Method von Paul Brinkmann –{" "}
