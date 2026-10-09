@@ -2,12 +2,12 @@
 import type { Mode, ProfileAnalysis } from "./types";
 
 const THEMES: { label: string; re: RegExp; relationship: string; single: string }[] = [
-  { label: "Streit", re: /streit|schrei|laut|vorw[üu]rf|eskal|zoff/i, relationship: "Konflikte eskalieren. Du wirst ruhiger, nicht lauter.", single: "Konflikte früh ruhig ansprechen." },
-  { label: "Haushalt", re: /haushalt|putzen|aufr[äa]um|w[äa]sche|k[üu]che|einkauf|m[üu]ll/i, relationship: "Alltag ist Reibung. Übernimm etwas, ohne darüber zu reden.", single: "" },
-  { label: "Nähe & Intimität", re: /bett|sex|intim|n[äa]he|z[äa]rtlich|ber[üu]hr|kuscheln|lust/i, relationship: "Nähe entsteht durch Präsenz und Vertrauen, nicht durch Druck.", single: "Nähe entsteht durch Vertrauen. Kein Druck." },
+  { label: "Streit", re: /streit|schrei|laut|vorw[üu]rf|eskal|zoff/i, relationship: "Wenn sie lauter wird, wirst du ruhiger – und bleibst bei deinem Standard.", single: "Konflikte früh ruhig ansprechen." },
+  { label: "Haushalt", re: /haushalt|putzen|aufr[äa]um|w[äa]sche|k[üu]che|einkauf|m[üu]ll/i, relationship: "Ordnung ist dein Standard, nicht ihr Wunsch. Halte deinen Raum, als würdest du allein leben.", single: "Dein Raum zeigt, wer du bist. Halte ihn für dich." },
+  { label: "Nähe & Intimität", re: /bett|sex|intim|n[äa]he|z[äa]rtlich|ber[üu]hr|kuscheln|lust/i, relationship: "Anziehung entsteht, wenn du bei dir bist – nicht durch Bemühen oder Druck.", single: "Nähe entsteht durch Vertrauen. Kein Druck." },
   { label: "Kinderwunsch", re: /kind|kinder|schwanger|familie gr[üu]nd|baby/i, relationship: "Kinderwunsch braucht ein ruhiges Grundsatzgespräch – in einer guten Woche.", single: "Sag früh, ob du Familie willst." },
   { label: "Vertrauen", re: /vertrau|eifers|l[üu]g|betrog|fremd/i, relationship: "Vertrauen wächst durch gehaltene kleine Versprechen.", single: "Ehrlich von Anfang an." },
-  { label: "Stress & Arbeit", re: /stress|arbeit|job|m[üu]de|ersch[öo]pft|projekt/i, relationship: "Dein Kopf ist voll. Trotzdem: zehn Minuten volle Präsenz am Tag.", single: "Volle Woche? Ein gutes Date schlägt fünf halbe." },
+  { label: "Stress & Arbeit", re: /stress|arbeit|job|m[üu]de|ersch[öo]pft|projekt/i, relationship: "Voller Kopf ist kein Grund, deinen Standard fallen zu lassen. Training und Ordnung zuerst.", single: "Volle Woche? Ein gutes Date schlägt fünf halbe." },
   { label: "Kommunikation", re: /reden|zuh[öo]r|gespr[äa]ch|versteh|schweig/i, relationship: "Zuhören, bis sie fertig ist. Dann erst du.", single: "Neugierig fragen, ehrlich antworten." },
   { label: "Dating", re: /date|tinder|hinge|bumble|kennenlern|ansprechen|single/i, relationship: "", single: "Charakter statt Optik. Ehrliche Absicht." },
 ];
@@ -27,7 +27,7 @@ export function fallbackProfile(mode: Mode, text: string, previous: ProfileAnaly
     topics: merged,
     balance: previous?.balance ?? 50,
     balanceNote: previous?.balanceNote ?? "Nähe und Abstand – beides braucht es. Finde die Balance.",
-    focus: previous?.focus ?? (mode === "single" ? "Klar sein, was du suchst – und ehrlich sagen." : "Ruhig bleiben, zuhören, präsent sein."),
+    focus: previous?.focus ?? (mode === "single" ? "Klar sein, was du suchst – und ehrlich sagen." : "Lebe, als würdest du allein leben: dein Standard, deine Ordnung, dein Weg."),
     steps: previous?.steps ?? (merged.length ? merged.slice(0, 3).map((t) => t.note) : ["Erzähl mehr – je mehr ich weiß, desto genauer wird es."]),
   };
 }

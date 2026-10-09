@@ -35,7 +35,9 @@ export const RULES = `Regeln für jede Zeile:
 4. Keine sexuellen Inhalte, keine Sex-Taktiken.
 5. Keine Manipulation, keine Spielchen, keine Abwertung von Frauen oder Männern.
 6. Keine Aussagen über ihre Denkfähigkeit oder Rationalität; ihre Gefühle nie mit Hormonen erklären.
-7. Keine medizinischen Aussagen, nichts über Fruchtbarkeit oder Verhütung.`;
+7. Keine medizinischen Aussagen, nichts über Fruchtbarkeit oder Verhütung.
+8. Mindset statt Gefälligkeit: Die Zeile stärkt SEINE Haltung und seinen Standard (lebt, als würde er allein leben; pflegt
+   seine Hülle; Ordnung als eigener Standard; führt durch Vorleben). Nie Dienste, um ihr zu gefallen („Mach ihr einen Tee“).`;
 
 const CATEGORY_HELP = `Kategorien: any (allgemein), yellow (Wärme: Wärme, Entlastung, eigenes Training), pink (Führen: Führen, Date, Kompliment, Initiative), green (Nähe: Präsenz, Gespräche, Aufmerksamkeit), red (Standfest: nicht argumentieren, nichts persönlich nehmen, Routinen), single (Dating: Charakter statt Optik, ehrliche Absichten, gelebte Grenzen).`;
 

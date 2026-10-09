@@ -7,8 +7,8 @@ gegenüber nie mit Hormonen erklärt.
 
 ## Gelb · Wärme (Tag 1–7 ab Blutungsbeginn)
 Sie blutet, beide Hormone sind unten. Körperlich anstrengend, der Sturm davor ist meist vorbei.
-Er: Wärme, Entlastung, nie Witze über ihre Tage.
-Für ihn selbst: Hilf ihr, aber vergiss dein Training nicht.
+Er: Wärme und Ruhe ausstrahlen, nie Witze über ihre Tage.
+Für ihn selbst: Sein eigenes Programm durchziehen – Training, Ordnung, Projekte. Er lebt seinen Standard weiter.
 
 ## Pink · Führen (ab Tag 8 bis Beginn Grün)
 Östrogen steigt. Sie ist oft optimistischer, geselliger und fühlt sich um den Eisprung herum besonders

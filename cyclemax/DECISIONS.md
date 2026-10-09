@@ -81,3 +81,12 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 - Production ohne VAPID-Keys: kein Fallback auf Zufallsschlüssel (würde pro Serverless-Instanz anders sein) → 503 +
   Warnung in `/api/health`. Ebenso Warnungen für fehlende DATABASE_URL, Claude-Key, Admin-Passwort, Cron-Secret.
 - Push-Cron: pro Gerät nur die neueste fällige Nachricht; bei vorübergehendem Fehler bleibt alles für den nächsten Lauf.
+
+## Mindset statt Gefälligkeit (Paul, 09.10. morgens)
+- Cyclemax zeigt dem Mann nicht, was er tun soll, um ihr zu gefallen („Übernimm den Abwasch“ ist falsch – es liegt nie
+  am Abwasch, es liegt an der Einstellung). Cyclemax verändert sein Mindset: Er lebt, als würde er allein leben – im
+  positiven Sinn. Eigener Standard, Hülle pflegen, Sauberkeit/Ordnung für sich, führen durch Vorleben, Exempel sein.
+- Umgesetzt in: Wissensbasis (`pure-method.md`, `chat-principles.md`, `phases.md`), Mentor-Prompt (MISSION + Stilregel),
+  Profil-Prompt (Fokus/Schritte betreffen IHN), Wissens-Job-Regel 8 (Kritiker verwirft Gefälligkeits-Zeilen),
+  Haltungssatz Gelb, Text nach dem Eintrag, Tageszeilen (Dienst-Zeilen ersetzt, 6 neue Mindset-Zeilen), Offline-Profil,
+  Profil-Fragen („Und du: Wie lebst du gerade?“), Chat-Schnellfrage, Store-Beschreibung.

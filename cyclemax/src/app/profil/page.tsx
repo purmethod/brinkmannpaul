@@ -18,12 +18,13 @@ export default function ProfilePage() {
 const COPY = {
   relationship: {
     title: "Erzähl mir von ihr.",
-    intro: "Sprich einfach frei. Je mehr ich weiß, desto genauer helfe ich dir. Alles bleibt auf deinem Gerät.",
+    intro: "Sprich einfach frei – über sie, über euch und über dich. Je mehr ich weiß, desto genauer helfe ich dir. Alles bleibt auf deinem Gerät.",
     prompts: [
       "Wie ist sie – und was liebst du an ihr?",
       "Wie reagiert sie, wenn sie gestresst ist oder es knallt?",
       "Was hakt im Alltag? Haushalt, Zeit, Nähe, Bett?",
       "Kinderwunsch, Zukunft, Familie – wo steht ihr?",
+      "Und du: Wie lebst du gerade? Training, Ordnung, eigene Projekte?",
     ],
     heading: "Ihr Profil",
   },
@@ -149,7 +150,7 @@ function Profile({ state, adapters }: { state: AppState; adapters: Adapters }) {
 
         {analysis.steps.length > 0 && (
           <section className="flex flex-col gap-3">
-            <h2 className="text-[13px] tracking-[0.2em] text-muted uppercase">Diese Woche</h2>
+            <h2 className="text-[13px] tracking-[0.2em] text-muted uppercase">Deine Woche</h2>
             <ol className="flex flex-col gap-3">
               {analysis.steps.map((s, i) => {
                 const done = (state.profile.done ?? []).includes(s);

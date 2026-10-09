@@ -42,7 +42,7 @@ test("Blutung eintragen → Gelb, Nachricht, Rückgängig", async ({ page }) => 
   await finishWithoutNotifications(page);
   await expect(page.getByTestId("phase-word")).toHaveText("Standfest");
   await page.getByTestId("bleeding").click();
-  await expect(page.getByTestId("after-entry")).toHaveText("Eingetragen. Sturm vorbei – jetzt Wärme: entlasten, da sein.");
+  await expect(page.getByTestId("after-entry")).toHaveText("Eingetragen. Sturm vorbei. Bleib warm, bleib bei dir.");
   await expect(page.getByTestId("phase-word")).toHaveText("Wärme");
   await page.getByRole("button", { name: "Rückgängig" }).click();
   await expect(page.getByTestId("phase-word")).toHaveText("Standfest");
@@ -189,16 +189,16 @@ test("Profil per Sprache: Erzähl mir von ihr → Profil → Kontext im Chat", a
   await expect(page.getByTestId("profile-input")).toHaveValue("Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");
   await page.getByRole("button", { name: "Aufnahme beenden" }).click();
   await page.getByTestId("profile-submit").click();
-  await expect(page.getByTestId("profile")).toContainText("Entlaste sie im Alltag");
+  await expect(page.getByTestId("profile")).toContainText("Lebe, als würdest du allein leben");
   await expect(page.getByTestId("balance")).toContainText("Du ziehst dich eher zurück");
-  await expect(page.getByTestId("profile")).toContainText("Übernimm diese Woche den Abwasch.");
+  await expect(page.getByTestId("profile")).toContainText("Jeden Morgen trainieren, egal wie die Stimmung ist.");
   // persists, and the home menu now links to the profile
   await page.goto("/heute/");
   await expect(page.getByTestId("profile-link")).toContainText("Ihr Profil");
   // the profile turns into one small step per day on the home screen
-  await expect(page.getByTestId("next-step")).toContainText("Übernimm diese Woche den Abwasch.");
+  await expect(page.getByTestId("next-step")).toContainText("Jeden Morgen trainieren, egal wie die Stimmung ist.");
   await page.getByRole("button", { name: "Erledigt" }).click();
-  await expect(page.getByTestId("next-step")).toContainText("Zehn Minuten am Abend, Handy weg.");
+  await expect(page.getByTestId("next-step")).toContainText("Deinen Raum so halten, wie du ihn für dich willst.");
   // chat: mic dictation into the input
   await page.goto("/chat/?voice=1");
   await expect(page.getByLabel("Nachricht")).toHaveValue("Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");

@@ -10,16 +10,16 @@ createServer(async (req, res) => {
   if (body.output_config?.format) {
     // Structured output (profile analysis)
     const profile = {
-      summary: "Sie trägt gerade viel. Ihr reibt euch am Alltag, Nähe ist zu kurz gekommen.",
+      summary: "Sie trägt gerade viel, ihr reibt euch am Alltag. Du hast deinen eigenen Standard schleifen lassen.",
       traits: ["gestresst", "warmherzig", "will gesehen werden"],
       topics: [
-        { label: "Haushalt", note: "Übernimm eine feste Aufgabe, ohne darüber zu reden." },
-        { label: "Nähe & Intimität", note: "Nähe entsteht durch Präsenz, nicht durch Druck." },
+        { label: "Ordnung", note: "Dein Raum ist dein Standard – halte ihn, als würdest du allein leben." },
+        { label: "Nähe & Intimität", note: "Anziehung entsteht, wenn du bei dir bist – nicht durch Bemühen." },
       ],
       balance: 30,
-      balanceNote: "Du ziehst dich eher zurück. Geh einen Schritt auf sie zu.",
-      focus: "Entlaste sie im Alltag und sei abends ganz da.",
-      steps: ["Übernimm diese Woche den Abwasch.", "Zehn Minuten am Abend, Handy weg.", "Plan am Wochenende etwas nur für euch."],
+      balanceNote: "Du ziehst dich eher zurück. Mehr Präsenz – ohne dich zu verlieren.",
+      focus: "Lebe, als würdest du allein leben – nach deinem Standard, nicht nach ihrem Applaus.",
+      steps: ["Jeden Morgen trainieren, egal wie die Stimmung ist.", "Deinen Raum so halten, wie du ihn für dich willst.", "Ein eigenes Projekt diese Woche einen Schritt weiterbringen."],
     };
     res.writeHead(200, { "content-type": "application/json" });
     res.end(JSON.stringify({ id: "msg_mock", type: "message", role: "assistant", model: body.model, content: [{ type: "text", text: JSON.stringify(profile) }], stop_reason: "end_turn", stop_sequence: null, usage: { input_tokens: 10, output_tokens: 10 } }));

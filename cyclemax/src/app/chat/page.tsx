@@ -32,7 +32,7 @@ const QUICK = {
     "Sie ist gereizt. Was mache ich jetzt?",
     "Wir haben gestritten. Wie fange ich wieder an?",
     "Wie sag ich ihr ruhig, dass mich etwas stört?",
-    "Idee für einen Abend nur für uns zwei?",
+    "Wie lebe ich wieder nach meinem eigenen Standard?",
   ],
   single: [
     "Erstes Date morgen. Worauf kommt es an?",

@@ -16,7 +16,7 @@ Cyclemax ist die App für Männer, die in ihrer Beziehung der Fels in der Brandu
 
 Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.
 
-Du bleibst bei dir – bei deiner Haltung, nicht bei ihrer Stimmung. Genau damit hilfst du ihr. Und baust an dem, worum es geht: eine glückliche, lange Beziehung und Familie.
+Du bleibst bei dir – bei deiner Haltung, nicht bei ihrer Stimmung. Du lebst, als würdest du allein leben: nach deinem Standard, nicht nach ihrem Applaus. Du pflegst dich, hältst Ordnung, führst durch Vorleben. Genau damit hilfst du ihr. Und baust an dem, worum es geht: eine glückliche, lange Beziehung und Familie.
 
 SO FUNKTIONIERT ES
 - Du tippst nur einmal, wenn ihre Blutung beginnt. Mehr nicht.
@@ -50,7 +50,7 @@ Cyclemax is the app for men who want to be the rock in the surf of their relatio
 
 When she gets louder, you get calmer. Calmer doesn't mean smaller.
 
-You stay grounded – focused on your attitude, not her mood. That is exactly how you help her. And how you build what matters: a happy, lasting relationship and family.
+You stay grounded – focused on your attitude, not her mood. You live as if you lived alone: by your own standard, not for her applause. You take care of yourself, keep order, lead by example. That is exactly how you help her. And how you build what matters: a happy, lasting relationship and family.
 
 HOW IT WORKS
 - You tap once when her period starts. Nothing else.

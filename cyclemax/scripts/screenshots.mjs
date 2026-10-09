@@ -61,7 +61,7 @@ for (const [name, viewport] of Object.entries(SIZES)) {
   await page.getByTestId("phase-word").waitFor();
   await shot("4-heute-vorschau");
   await page.getByTestId("profile-link").click();
-  await page.getByTestId("profile-input").fill("Sie ist oft gestresst von der Arbeit, wir streiten über den Haushalt, Nähe kommt zu kurz. Ich liebe ihre Wärme.");
+  await page.getByTestId("profile-input").fill("Sie ist oft gestresst von der Arbeit, wir streiten über den Haushalt, Nähe kommt zu kurz. Ich liebe ihre Wärme. Ich selbst habe mein Training schleifen lassen.");
   await shot("5-profil-erzaehlen");
   await page.getByTestId("profile-submit").click();
   await page.getByTestId("profile").waitFor();

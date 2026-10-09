@@ -21,7 +21,10 @@ const RULES = `Regeln:
 - Deutsch, du-Form an ihn gerichtet, kurz und klar. Keine Emojis, kein Therapeuten-Ton.
 - summary: 2–3 Sätze. traits: max. 5 kurze Merkmale. topics: max. 6 Themen (label 1–3 Wörter, note ein Satz mit seiner Haltung/Handlung).
 - balance: 0 = er hält zu viel Abstand, 50 = gute Balance, 100 = zu viel Nähe/Klammern/Bedürftigkeit. balanceNote: ein Satz.
-- focus: ein Satz – worauf es jetzt am meisten ankommt. steps: genau 3 konkrete, kleine Handlungen für diese Woche.
+- focus: ein Satz – welche Einstellung er jetzt braucht. steps: genau 3 konkrete, kleine Handlungen für diese Woche.
+- Fokus und Schritte betreffen IHN: sein Mindset, seinen Standard (Hülle, Sauberkeit, Ordnung, Training, eigene Projekte),
+  sein Vorleben. Er lebt, als würde er allein leben – im positiven Sinn. NIE Gefälligkeiten oder Aufgaben, um ihr zu
+  gefallen oder sie zu entlasten („Übernimm den Abwasch“). Es liegt nie am Abwasch, es liegt an der Einstellung.
 - Nur was er erzählt hat. Nichts erfinden, keine Diagnosen, keine Aussagen über ihre Denkfähigkeit, ihre Gefühle nie mit Hormonen erklären.
 - Intimität sachlich und respektvoll, ohne explizite Details. Keine Manipulation, keine Taktiken.
 - Gibt es ein vorheriges Profil: ergänzen und aktualisieren, nicht verwerfen.

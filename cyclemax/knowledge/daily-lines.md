@@ -58,6 +58,12 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [any] Du bist verantwortlich für deine Antwort. Immer.
 
 - [any] Ruhiger heißt nicht kleiner. Es heißt standfest.
+- [any] Lebe, als würdest du allein leben. Nach deinem Standard, nicht nach ihrem Applaus.
+- [any] Es liegt nie am Abwasch. Es liegt an deiner Einstellung.
+- [any] Pflege deine Hülle. Körper, Kleidung, Haltung – weil du es dir wert bist.
+- [any] Ordnung im Raum, Ordnung im Kopf. Fang bei dir an.
+- [any] Du bist das Exempel. Lebe es vor, statt es zu erklären.
+- [any] Du brauchst keine Erlaubnis, um gut zu leben.
 - [any] Abstand und Nähe – du brauchst beides. Heute: bewusst Nähe.
 - [any] Zu viel Nähe erstickt Anziehung. Zu viel Abstand lässt sie erkalten.
 - [any] Dein Abstand ist dein Leben, nicht deine Strafe.
@@ -66,13 +72,13 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [any] Ruhe kann man trainieren. Fang beim nächsten Atemzug an.
 
 ## Gelb · Wärme
-- [yellow] Wärme statt Worte. Nimm ihr heute etwas ab.
+- [yellow] Wärme ist Ausstrahlung, kein Dienst. Bleib klar und bei dir.
 - [yellow] Fürsorge ist Stärke. Kein Witz, kein Kommentar – einfach da sein.
-- [yellow] Tee, Essen, Ruhe. Sie merkt sich, wer da war.
-- [yellow] Hilf ihr. Und vergiss dein eigenes Training nicht.
-- [yellow] Übernimm heute den Alltag, ohne darüber zu reden.
-- [yellow] Der Sturm ist vorbei. Jetzt zeigt sich, wie du kümmerst.
-- [yellow] Frag nicht lange, was sie braucht. Mach einfach.
+- [yellow] Dein Programm läuft weiter. Training, Ordnung, deine Projekte.
+- [yellow] Sei da, ohne dich aufzugeben. Dein Standard bleibt.
+- [yellow] Halte deinen Raum so, wie du ihn für dich willst. Nicht für ihren Applaus.
+- [yellow] Der Sturm ist vorbei. Du warst ruhig. Jetzt weiter mit deinem Leben.
+- [yellow] Führen heißt vorleben. Nicht fragen, ob es ihr recht ist, dass du gut lebst.
 - [yellow] Sanft sein ist keine Schwäche. Es ist Größe mit ruhiger Hand.
 
 ## Pink · Führen
@@ -88,7 +94,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 ## Grün · Nähe
 - [green] Jetzt ist Zeit für das Gespräch, das ansteht. Ruhig und ehrlich.
 - [green] Nähe braucht Präsenz. Handy weg, Blick zu ihr.
-- [green] Blumen ohne Anlass sind der beste Anlass.
+- [green] Nähe entsteht, wenn du bei dir bist – nicht, wenn du dich bemühst.
 - [green] Hör zu, bis sie fertig ist. Dann erst du.
 - [green] Sprich deine Grenzen jetzt an. In Ich-Botschaften.
 - [green] Präsent, nicht bedürftig. Gib Nähe, ohne sie einzufordern.
@@ -107,7 +113,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [red] Grundsatzgespräche haben Zeit. Heute zählt Ruhe.
 - [red] Training, Schlaf, Routine. Gerade jetzt.
 - [red] Ihr Sturm ist kein Urteil über dich.
-- [red] Mach ihr einen Tee. Sag wenig. Bleib.
+- [red] Sag wenig. Bleib. Dein Tag gehört trotzdem dir.
 
 ## Dating · Single
 - [single] Wähl nach Charakter, nicht nach Optik.

@@ -16,7 +16,7 @@ export const PHASES: Record<Phase, { word: string; color: string; attitude: stri
   yellow: {
     word: "Wärme",
     color: PHASE_COLORS.yellow,
-    attitude: "Wärme geben, Last abnehmen – und dein Training durchziehen.",
+    attitude: "Bleib warm und klar – und zieh dein eigenes Programm durch.",
   },
   pink: {
     word: "Führen",
@@ -52,7 +52,7 @@ export function pushUrl(key: string): string {
 }
 
 /** Shown in the app right after "Blutung hat begonnen" (yellow). */
-export const AFTER_ENTRY_TEXT = "Eingetragen. Sturm vorbei – jetzt Wärme: entlasten, da sein.";
+export const AFTER_ENTRY_TEXT = "Eingetragen. Sturm vorbei. Bleib warm, bleib bei dir.";
 
 /** Lock screen text when "neutrale Benachrichtigungen" is on. */
 export const NEUTRAL_TITLE = APP_NAME;
