@@ -4,6 +4,52 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: großer Durchgang, Texte, Zoom mit Tiefe, Sitemap (2026-10-09, zur Freigabe, noch nicht live)
+
+- **all art. (Pauls Kürzung):** Die Absätze „ai is one more tool …“ und „learn the tools …“ sind gestrichen. „ai cannot feel love …“, „all art means …“ und „you.“ bleiben.
+- **Textdurchgang (Englisch), Pauls Worte bleiben, nur klarer:**
+  - **pure:**
+    - „what it needs, how it responds …“
+    - „gives you the foundation to lead your life“
+    - „your mind is not your brain … your mind is your thoughts, your feelings, your awareness, your inner experience.“
+    - „picture it as hardware and software. your brain is the hardware, your mind is the software. they are connected, but they are not the same.“
+    - „understand this: …“
+    - „self-control“
+  - **kefir:** „in one milk kefir study, vitamin b3 rose by about 202%, b5 by about 42% and b7 by about 58% compared with the milk it was made from.“ Quelle der Zahlen ist Pauls Commit 9dd9fde: B3 von 116,64 auf 352,67 µg/l.
+  - **sourdough (rye):** „a starter is a living culture: you feed it flour and water, it raises your dough, and a small part is always kept for the next bake.“
+  - **sourdough (âlf):** „âlf brings you news and tips about everything sourdough. adopt âlf, wherever you are in the world.“
+  - **skincare:** „… my energy to whoever uses them.“
+  - **neuroarchitecture:**
+    - britische Schreibweise wie der Rest der Seite: behaviour, colours, organisation, standardisation
+    - kein Serienkomma
+    - „what shapes us every day without our being aware of it?“
+    - „we already know that architecture affects us consciously. the more compelling question is:“
+  - **weekends/skyn:** „write to me on whatsapp or by e-mail. i answer personally.“ Sicherheitshinweis als Anweisung: „never practise the breathing in or near water, while driving or standing.“
+  - **Teilen-Beschreibung (og/twitter):** „pure, all art, mysidibou, qefyr, rye, skyn, âlf, wim hof method instructor and neuroarchitecture.“
+- **Übersetzungen:**
+  - Alle inhaltlichen Änderungen sind in de, fr, es, ar und ru nachgezogen.
+  - **Deutsch zusätzlich geglättet:** „das fundament“, „es ständig weiter reizt“, „wir wissen bereits …“, „unseres eigenen hautfetts“, „weil ich sie liebe“, „an jeden weitergeben“.
+  - **Russisch:** drei Gedankenstriche entfernt, gemäß der Regel „keine Gedankenstriche“: „всё есть искусство.“, „основа: говяжий жир.“, „… творить: вот моя страсть.“
+- **Zoom (Tiefe und Weltall):**
+  - **Tiefenfeld:** Graphitpunkte, durch die die Fahrt hindurchfliegt. Im Gehirn sind es Vesikel, nach der Schwelle Sterne, einige davon funkelnd. Jeder Punkt hängt nur von der Tiefe ab, beim Zurückdrehen fliegt man also durch dasselbe Feld zurück.
+  - **Galaxien:** Fünf Spiralgalaxien aus Graphitpunkten (drei Varianten, einmal gezeichnet) gleiten nach außen vorbei. Sie drehen sich nicht.
+  - **Schwelle:** Wo das Kleinste zum Größten wird (Molekül → Kosmos), ein weicher Lichtschein aus der Mitte und ein feiner Ring, der sich öffnet.
+  - **Schnelles Drehen:** kurze Spuren in Bewegungsrichtung. Im Lesetempo bleiben die Punkte Punkte.
+  - **Reduzierte Bewegung:** Das Feld bleibt aus, nur das Licht an der Schwelle bleibt.
+  - **Kein Hänger mehr beim ersten Erscheinen einer Zeichnung:**
+    - Die Randverblendung steckt jetzt fest in den Dateien (`scripts/bake_dive_edges.py`, markiert, nicht größer als vorher).
+    - Bilder werden im Hintergrund dekodiert und beim Laden einmal an die Grafik übergeben.
+    - Gemessen im Software-Renderer: erster sichtbarer Frame vorher 61–95 ms, jetzt 31–38 ms. Normale Frames sind schneller als vorher.
+  - **Ladepriorität:** Die Zeichnungen laden mit niedriger Priorität. Beim ersten Besuch kommt das Intro (Porträt, Handschrift) zuerst.
+- **Suchmaschinen:**
+  - `dist/robots.txt` (Sitemap, `/api/` ausgeschlossen).
+  - `dist/sitemap.xml` erzeugt `scripts/i18n.py build`: 18 Seiten mit hreflang, Danke-Seiten ausgeschlossen.
+  - Strukturierte Daten: knowsAbout um Wim Hof Method, Breathwork und Fermentation ergänzt.
+- **Geprüft:** alle 25 Seiten in sechs Sprachen auf Handy und Desktop. Ohne Konsolenfehler, kaputte Links, doppelte IDs, fehlende Alt-Texte und horizontales Scrollen. Sprache und Leserichtung, Canonical und hreflang stimmen.
+- **Offen (braucht Paul):**
+  - Impressum (§ 5 DDG) und Datenschutzerklärung, vor dem ersten Verkauf zusätzlich Widerrufsbelehrung.
+  - Die Wochenend-Termine.
+
 ## Aktualisierung: neue Projektnamen, kein Grauschleier beim Zurückdrehen (2026-10-09)
 
 - **Projektnamen im Rad** (groß / klein):
