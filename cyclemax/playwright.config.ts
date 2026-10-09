@@ -23,6 +23,8 @@ export default defineConfig({
     launchOptions: existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium")
       ? { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" }
       : {},
+    // Full Chromium in new headless mode (the headless shell has no notifications).
+    ...(existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium") ? {} : { channel: "chromium" }),
     serviceWorkers: "allow",
   },
   webServer: [

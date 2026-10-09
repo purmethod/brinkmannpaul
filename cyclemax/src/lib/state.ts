@@ -44,6 +44,8 @@ export interface AppState {
   profile: Profile;
   /** Device ids whose server-side deletion still has to be confirmed (offline at delete time). */
   pendingDeletes: string[];
+  /** Write time (ms) – the newer of IndexedDB and the sync journal wins on load. */
+  savedAt?: number;
 }
 
 export const STATE_KEY = "state";
@@ -73,6 +75,44 @@ export function initialState(deviceId = newDeviceId()): AppState {
     profile: { text: "", analysis: null, source: null, updatedAt: 0 },
     pendingDeletes: [],
   };
+}
+
+export const JOURNAL_KEY = "cyclemax-journal";
+
+/**
+ * Web: IndexedDB writes are async and get aborted when the page unloads right after a tap.
+ * A synchronous localStorage journal of the latest state survives an immediate reload.
+ */
+export function writeJournal(state: AppState): void {
+  try {
+    globalThis.localStorage?.setItem(JOURNAL_KEY, JSON.stringify(state));
+  } catch {
+    // quota or private mode – IndexedDB still has the state
+  }
+}
+
+export function readJournal(): Partial<AppState> | undefined {
+  try {
+    const raw = globalThis.localStorage?.getItem(JOURNAL_KEY);
+    return raw ? (JSON.parse(raw) as Partial<AppState>) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export function clearJournal(): void {
+  try {
+    globalThis.localStorage?.removeItem(JOURNAL_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+/** Picks the newer of two stored copies. */
+export function newest(a: Partial<AppState> | undefined, b: Partial<AppState> | undefined): Partial<AppState> | undefined {
+  if (!a) return b;
+  if (!b) return a;
+  return (b.savedAt ?? 0) > (a.savedAt ?? 0) ? b : a;
 }
 
 /** Tolerant load: unknown/missing fields get defaults. */

@@ -12,7 +12,9 @@ test.beforeEach(({ page }) => {
 test("PWA ist installierbar (Chrome-Kriterien)", async () => {
   // Installability is never reported in incognito contexts → real (persistent) profile.
   const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), "cm-")), {
-    ...(existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium") ? { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" } : {}),
+    ...(existsSync(process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium")
+      ? { executablePath: process.env.PW_CHROMIUM ?? "/opt/pw-browsers/chromium" }
+      : { channel: "chromium" }),
     viewport: { width: 393, height: 852 },
   });
   const page = await ctx.newPage();

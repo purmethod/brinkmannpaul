@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { getAdapters, type Adapters } from "@/adapters";
-import { hydrate, initialState, STATE_KEY, type AppState } from "./state";
+import { clearJournal, hydrate, initialState, newest, readJournal, STATE_KEY, writeJournal, type AppState } from "./state";
 import { refreshCatalog, retryPendingDeletes, syncNotifications } from "./sync";
 
 interface AppContextValue {
@@ -25,8 +25,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const persist = useCallback(async (next: AppState) => {
+    const stamped = { ...next, savedAt: Date.now() };
+    writeJournal(stamped); // synchronous – survives an immediate reload
     const a = await getAdapters();
-    await a.storage.set(STATE_KEY, next);
+    await a.storage.set(STATE_KEY, stamped);
   }, []);
 
   const scheduleSync = useCallback(() => {
@@ -62,6 +64,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const a = await getAdapters();
       await a.notifications.cancelAll({ deviceId: stateRef.current?.deviceId ?? "", neutral: false }).catch(() => undefined);
       await a.storage.clear();
+      clearJournal();
       const fresh = { ...initialState(), pendingDeletes };
       stateRef.current = fresh;
       setState(fresh);
@@ -77,7 +80,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const a = await getAdapters();
       let loaded: AppState;
       try {
-        loaded = hydrate(await a.storage.get<AppState>(STATE_KEY));
+        const stored = await a.storage.get<AppState>(STATE_KEY);
+        loaded = hydrate(newest(stored, a.platform.isNative ? undefined : readJournal()));
       } catch {
         loaded = initialState();
       }

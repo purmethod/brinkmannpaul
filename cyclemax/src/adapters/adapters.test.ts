@@ -177,3 +177,15 @@ describe("PlatformAdapter", () => {
     expect(haptics.impact).toHaveBeenCalledWith({ style: "LIGHT" });
   });
 });
+
+describe("state journal (web)", () => {
+  it("the newer copy wins; a missing copy falls back to the other", async () => {
+    const { newest } = await import("@/lib/state");
+    const a = { deviceId: "a", savedAt: 1 };
+    const b = { deviceId: "b", savedAt: 2 };
+    expect(newest(a, b)?.deviceId).toBe("b");
+    expect(newest(b, a)?.deviceId).toBe("b");
+    expect(newest(undefined, a)?.deviceId).toBe("a");
+    expect(newest(a, undefined)?.deviceId).toBe("a");
+  });
+});
