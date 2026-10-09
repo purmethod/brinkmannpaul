@@ -236,4 +236,14 @@ for (const [page, source] of pages) {
 const ogImage = html.match(/property="og:image" content="https:\/\/brinkmannpaul\.com\/([^"]+)"/)[1];
 assert.ok(fs.existsSync(path.join(root, 'dist', ogImage)), 'og:image exists');
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn pre-order page, local assets, og image.');
+// Search engines: robots.txt points to a sitemap the i18n build writes,
+// with every indexable page in every language and none of the thank-you pages.
+const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
+assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
+const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
+const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+assert.equal(locs.length, 18, 'sitemap lists home, weekends and skyn in six languages');
+assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
+for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
+
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn pre-order page, local assets, og image, robots and sitemap.');

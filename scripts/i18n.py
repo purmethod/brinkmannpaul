@@ -8,7 +8,8 @@ maps every English text unit
 title, meta texts and labels) to its translation.
 
   python3 scripts/i18n.py extract   # writes i18n/units.json, the units to translate
-  python3 scripts/i18n.py build     # writes dist/<lang>/index.html and the language's weekends and skyn pages
+  python3 scripts/i18n.py build     # writes dist/<lang>/index.html, the language's weekends and skyn pages,
+                                    # and dist/sitemap.xml with every indexable page in every language
 
 The build fails on any unit without a translation and on any translation that
 changes the markup inside a unit (tags, links, classes), so a text change on
@@ -120,6 +121,24 @@ def localise(html, lang, conf, page=''):
     return html
 
 
+def sitemap(sources):
+    """Every indexable page in every language, each listing its translations."""
+    langs = ['en', *LANGS]
+    urls = []
+    for page, html in sources.items():
+        if 'noindex' in html:
+            continue
+        links = ''.join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{SITE}{"" if lang == "en" else lang + "/"}{page}" />'
+                        for lang in langs)
+        links += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{page}" />'
+        urls += [f'  <url>\n    <loc>{SITE}{"" if lang == "en" else lang + "/"}{page}</loc>{links}\n  </url>' for lang in langs]
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+           + '\n'.join(urls) + '\n</urlset>\n')
+    (ROOT / 'dist' / 'sitemap.xml').write_text(xml)
+    print(f'sitemap: {len(urls)} pages')
+
+
 def main():
     command = sys.argv[1] if len(sys.argv) > 1 else 'build'
     sources = {page: (ROOT / 'dist' / page / 'index.html').read_text() for page in PAGES}
@@ -138,6 +157,7 @@ def main():
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(localise(translate(html, table, lang), lang, conf, page))
             print(f'{lang}: {out.relative_to(ROOT)}')
+    sitemap(sources)
 
 
 if __name__ == '__main__':

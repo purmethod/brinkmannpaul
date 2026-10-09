@@ -706,6 +706,8 @@
       sheet.state = 'loading';
       const image = new Image();
       image.decoding = 'async';
+      // After the intro and the page itself: the drawings are needed a few turns later.
+      image.fetchPriority = 'low';
       image.src = sheet.src;
       const decoded = typeof image.decode === 'function' ? image.decode()
         : new Promise((resolve, reject) => { image.onload = resolve; image.onerror = reject; });
