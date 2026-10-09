@@ -46,7 +46,7 @@ function Understand({ state }: { state: AppState }) {
                 <Dot phase={s.phase} />
                 <span className="flex flex-1 items-baseline justify-between gap-3">
                   <span className="text-[17px] font-medium">{PHASES[s.phase].word}</span>
-                  <span className="text-right text-[14px] text-muted">{i === 0 ? `jetzt · bis ${rangeLabel(s.end, s.end)}` : rangeLabel(s.start, s.end)}</span>
+                  <span className="text-right text-[14px] text-muted">{i > 0 ? rangeLabel(s.start, s.end) : cycle?.late ? "jetzt" : `jetzt · bis ${rangeLabel(s.end, s.end)}`}</span>
                 </span>
               </a>
             ))}

@@ -31,7 +31,7 @@ const QUICK = {
   relationship: [
     "Sie ist gereizt. Was mache ich jetzt?",
     "Wir haben gestritten. Wie fange ich wieder an?",
-    "Wie sag ich ihr ruhig, dass mich etwas stört?",
+    "Wie führe ich, ohne zu kontrollieren?",
     "Wie lebe ich wieder nach meinem eigenen Standard?",
   ],
   single: [

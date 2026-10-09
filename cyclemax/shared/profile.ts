@@ -20,9 +20,7 @@ export function fallbackProfile(mode: Mode, text: string, previous: ProfileAnaly
   return {
     summary:
       previous?.summary ??
-      (mode === "single"
-        ? "Gespeichert. Sobald der Mentor erreichbar ist, wird daraus dein Profil."
-        : "Gespeichert. Sobald der Mentor erreichbar ist, wird daraus ihr Profil."),
+      "Gespeichert. Sobald der Mentor erreichbar ist, wird daraus dein Profil.",
     traits: previous?.traits ?? [],
     topics: merged,
     balance: previous?.balance ?? 50,
