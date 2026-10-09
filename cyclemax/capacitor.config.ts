@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
-// Same static export (out/) as the web app. Native projects: npx cap add ios / android (see README).
+// Same static export (out/) as the web app. ios/ is committed (Xcode project); android: npx cap add android (see README).
 const config: CapacitorConfig = {
-  appId: "com.cyclemax.app",
+  appId: "com.purmethod.cyclemax",
   appName: "Cyclemax",
   webDir: "out",
   backgroundColor: "#FFFFFF",

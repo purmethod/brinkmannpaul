@@ -15,7 +15,9 @@
     "test:e2e": "playwright test",
     "screenshots": "node scripts/screenshots.mjs",
     "cap:sync": "npm run build && cap sync",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run build:server"
+    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run build:server",
+    "ios": "npm run build && cap sync ios",
+    "ios:open": "cap open ios"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
@@ -39,6 +41,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@capacitor/cli": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22.20.5",

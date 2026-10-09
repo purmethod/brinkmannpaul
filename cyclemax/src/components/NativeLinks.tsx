@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Capacitor } from "@capacitor/core";
 
-/** Native app: tapping a local notification opens the right screen (e.g. check-in → profile). */
+/** Native app: tapping a local notification opens the screen it points to (Heute). */
 export function NativeLinks() {
   const router = useRouter();
   useEffect(() => {

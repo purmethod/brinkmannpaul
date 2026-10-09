@@ -44,6 +44,5 @@ next-env.d.ts
 /.data/
 /test-results/
 /playwright-report/
-/ios/
 /android/
 !.env.example
