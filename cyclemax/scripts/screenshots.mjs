@@ -5,12 +5,13 @@ import { mkdirSync, rmSync } from "node:fs";
 import { chromium } from "@playwright/test";
 
 const procs = [
-  spawn("node", ["tests/e2e/mock-anthropic.mjs", "8788"], { stdio: "ignore" }),
+  spawn("node", ["tests/e2e/mock-anthropic.mjs", "8788"], { stdio: "ignore", detached: true }),
   spawn("npx", ["tsx", "server/dev.ts"], {
     stdio: "ignore",
+    detached: true,
     env: { ...process.env, PORT: "8787", SQLITE_URL: "file:.data/shots.db", ANTHROPIC_API_KEY: "x", ANTHROPIC_BASE_URL: "http://127.0.0.1:8788", CLAUDE_FALLBACKS: "off" },
   }),
-  spawn("node", ["scripts/serve-static.mjs", "3100"], { stdio: "ignore" }),
+  spawn("node", ["scripts/serve-static.mjs", "3100"], { stdio: "ignore", detached: true }),
 ];
 const stop = () => procs.forEach((p) => p.kill());
 process.on("exit", stop);

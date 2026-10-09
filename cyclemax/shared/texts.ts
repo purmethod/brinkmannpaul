@@ -59,7 +59,7 @@ export const NEUTRAL_TITLE = APP_NAME;
 export const NEUTRAL_BODY = "";
 
 export function isPhasePushKey(key: string): key is PhasePushKey {
-  return key in PHASE_PUSH_TEXT;
+  return Object.hasOwn(PHASE_PUSH_TEXT, key);
 }
 
 /** Heads-up on the home screen, 1–2 days before a phase starts. `{when}` = "Morgen" / "Übermorgen". */
@@ -71,5 +71,8 @@ export const HEADS_UP: Record<Phase, string> = {
 };
 
 export function headsUp(phase: Phase, inDays: number): string {
-  return HEADS_UP[phase].replace("{when}", inDays === 1 ? "Morgen" : "Übermorgen");
+  const t = HEADS_UP[phase];
+  const when = inDays === 1 ? "morgen" : "übermorgen";
+  // capitalised only at the start of the sentence
+  return t.startsWith("{when}") ? t.replace("{when}", when[0].toUpperCase() + when.slice(1)) : t.replace("{when}", when);
 }

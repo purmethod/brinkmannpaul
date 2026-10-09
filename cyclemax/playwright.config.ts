@@ -24,12 +24,12 @@ export default defineConfig({
   webServer: [
     { command: "node tests/e2e/mock-anthropic.mjs 8788", port: 8788, reuseExistingServer: false },
     {
-      command: "rm -f .data/e2e.db && tsx server/dev.ts",
+      command: "node --import tsx server/dev.ts",
       port: 8787,
       reuseExistingServer: false,
       env: {
         PORT: "8787",
-        SQLITE_URL: "file:.data/e2e.db",
+        SQLITE_URL: ":memory:",
         ANTHROPIC_API_KEY: "test-key",
         ANTHROPIC_BASE_URL: "http://127.0.0.1:8788",
         CLAUDE_FALLBACKS: "off",

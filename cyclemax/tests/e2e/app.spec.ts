@@ -163,7 +163,7 @@ test("Startseite: nur der Ring und CYCLEMAX", async ({ page }) => {
 test("Vorschau: einen Tag vor Standfest kommt der Hinweis", async ({ page }) => {
   await onboard(page, "relationship", 20);
   await finishWithoutNotifications(page);
-  await expect(page.getByTestId("heads-up")).toHaveText("Hey Man, Morgen beginnt Standfest. Mehr beobachten, mehr zuhören, Ruhe trainieren.");
+  await expect(page.getByTestId("heads-up")).toHaveText("Hey Man, morgen beginnt Standfest. Mehr beobachten, mehr zuhören, Ruhe trainieren.");
   // back on the start screen the ring shows the phase colour
   await page.getByRole("link", { name: "Start" }).click();
   await expect(page.getByTestId("start-ring")).toBeVisible();
