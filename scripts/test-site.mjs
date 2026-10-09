@@ -136,7 +136,8 @@ for (const [, local] of wheel.matchAll(/'\/?(assets\/[^']+)'/g)) {
   assert.ok(fs.existsSync(file), `Missing ${local}`);
   assert.ok(fs.statSync(file).size < limit * 1024, `${local} exceeds ${limit} KB`);
 }
-assert.ok(/depth > level\.handover - [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand');
+assert.ok(/depth > level\.handover - [\d.]+ && depth < level\.until \+ [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand, turning either way');
+assert.ok(/function stay\(passed, handover, depth, next\)/.test(wheel), 'a drawing whose successor has not arrived gives way to paper instead of growing into grey or black');
 assert.ok(wheel.includes("make('button', 'bs-head-close'"), 'an open project can be closed where the + was');
 assert.ok(wheel.includes('bs-language-switch'), 'a language switch keeps the wheel and skips the intro');
 

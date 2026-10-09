@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: neue Projektnamen, kein Grauschleier beim Zurückdrehen (2026-10-09)
+
+- **Projektnamen im Rad** (groß / klein):
+  - art → **all art.** / art begins with love. (de: alles kunst. / kunst beginnt mit liebe.)
+  - qefyr → **kefir** / qefyr by brinkmann
+  - rye → **sourdough** / rye by brinkmann · german organic rye (de: sauerteig / rye by brinkmann · deutscher bioroggen)
+  - skyn → **skincare** / skyn by brinkmann (de: hautpflege)
+  - âlf → **sourdough** / âlf · the strongest sourdough on earth (de: sauerteig / âlf · der stärkste sauerteig der welt)
+  - pure / system for man bleibt.
+- **Marken stehen jetzt klein:** qefyr, rye, skyn und âlf stehen in der Unterzeile. Sie bleiben in allen Sprachen in lateinischer Schrift. Die Klasse `by-brinkmann` wird nicht mehr gebraucht und ist entfernt.
+- **art:** Die erste Zeile „art begins with love.“ steht jetzt als Unterzeile. Damit sie nicht doppelt erscheint, beginnt der Text mit „whatever we do with love becomes art.“
+- **Grauschleier beim Zurückdrehen behoben:**
+  - Ursache: Wer gleich nach dem Laden das Rad zurückdreht, landet am Ende der Reise im Weltraum. Diese Zeichnungen waren noch nicht geladen. Bis dahin blieb die zuletzt geladene Zeichnung stehen und wurde bis zu e¹² ≈ 160.000-fach vergrößert. Daraus wurde ein grauer Schleier über der ganzen Seite, je nach Mittelpunkt fast schwarz.
+  - Fix: Eine Zeichnung, deren Nachfolgerin noch fehlt, bleibt nur kurz über ihre Größe hinaus stehen und weicht dann dem Papier. Im Browser gemessen: Die Helligkeit fiel vorher drei Sekunden lang auf 197 von 255, jetzt bleibt sie beim Laden papierweiß bei 253.
+  - Geladen wird in beide Drehrichtungen nur, was als Nächstes kommt, statt alle acht Zeichnungen (4,8 MB) auf einmal. Die tiefste Weltraum-Zeichnung lädt 2,5 s nach dem Start vor.
+  - Jede Zeichnung blendet nach dem Laden in 0,6 s ein, statt plötzlich zu erscheinen.
+
 ## Aktualisierung: skyn-Creme rein weiß, ohne Flimmern, Sidi ruhig, Bilder ohne Unterschrift (2026-10-08)
 
 - **Bildunterschriften:** alle entfernt, außer „at wim's house · poland“. Die Bilder sprechen für sich; die alt-Texte für Bildschirmleser bleiben. Die neun Übersetzungen der alten Unterschriften sind aus `i18n/*.json` gelöscht.
