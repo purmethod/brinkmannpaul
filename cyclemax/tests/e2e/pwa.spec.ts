@@ -4,6 +4,11 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { API } from "./helpers";
 
+test.beforeEach(({ page }) => {
+  page.on("console", (m) => m.type() === "error" && console.log(`[browser:${test.info().title}]`, m.text()));
+  page.on("pageerror", (e) => console.log(`[pageerror:${test.info().title}]`, e.message));
+});
+
 test("PWA ist installierbar (Chrome-Kriterien)", async () => {
   // Installability is never reported in incognito contexts → real (persistent) profile.
   const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), "cm-")), {
