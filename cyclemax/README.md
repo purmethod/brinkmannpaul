@@ -6,6 +6,16 @@ Fundament: PURE Method von Paul Brinkmann. Claim: *Be the Cycleman.*
 Ein Code für Web (PWA) und später iOS/Android (Capacitor): Next.js 16 (statischer Export) + Tailwind 4,
 Backend als Vercel Function in `/server`, Neon Postgres (Fallback SQLite), Web Push (VAPID), Claude nur serverseitig.
 
+## So fühlt sich die App an
+
+1. **Start:** nur der Ring und CYCLEMAX. Der Ring trägt die Farbe der aktuellen Phase. Ein Tipp öffnet die App.
+2. **Heute:** Phasenwort (Wärme · Führen · Nähe · Standfest), ein Satz Haltung, Vorwarnung 1–2 Tage vor jedem Wechsel,
+   dein Schritt aus dem Profil, die Zeile des Tages. Darunter: „Cyclemax fragen“ (Text oder Sprache), „Erzähl mir von ihr“,
+   „Blutung hat heute begonnen“ (groß, wenn fällig).
+3. **Erzähl mir von ihr / von dir:** frei sprechen → Claude macht daraus ein Profil (Fokus, Nähe ↔ Abstand, 3 Schritte).
+4. **Chat:** Ein-Tap-Fragen, Spracheingabe, fertige Sätze zum Kopieren.
+5. **Benachrichtigungen:** max. eine pro Tag – Zeile, Phasen-Hinweis, Check-in alle zwei Wochen.
+
 ## Struktur
 
 ```
@@ -124,6 +134,6 @@ Bei jedem Web-Update: `npm run build && npx cap sync` → neuer Build in Xcode/A
 
 ## Datenschutz in Kürze
 
-Kein Konto. Zyklusdaten und Chat bleiben auf dem Gerät. Web: Server bekommt nur Push-Subscription und
-Zeitpunkt/Typ der nächsten Pushes. Native: Benachrichtigungen komplett lokal. Chat wird nur weitergeleitet,
+Kein Konto. Zyklusdaten, Profil („Erzähl mir von ihr“) und Chat bleiben auf dem Gerät. Web: Server bekommt nur Push-Subscription und
+Zeitpunkt/Typ der nächsten Pushes. Native: Benachrichtigungen komplett lokal. Chat und Profil-Auswertung werden nur weitergeleitet,
 gespeichert wird höchstens ein anonymes Themen-Stichwort. Details: `/datenschutz` und `DECISIONS.md`.
