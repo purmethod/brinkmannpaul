@@ -1,19 +1,25 @@
 // Store screenshots from the real app: 6.7" (1290×2796) and 5.5" (1242×2208) iPhone.
 // Build first (NEXT_PUBLIC_API_BASE=http://localhost:8787 npm run build), then: npm run screenshots
 import { spawn } from "node:child_process";
-import { mkdirSync, rmSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { chromium } from "@playwright/test";
 
 const procs = [
   spawn("node", ["tests/e2e/mock-anthropic.mjs", "8788"], { stdio: "ignore", detached: true }),
-  spawn("npx", ["tsx", "server/dev.ts"], {
+  spawn(process.execPath, ["--import", "tsx", "server/dev.ts"], {
     stdio: "ignore",
     detached: true,
-    env: { ...process.env, PORT: "8787", SQLITE_URL: "file:.data/shots.db", ANTHROPIC_API_KEY: "x", ANTHROPIC_BASE_URL: "http://127.0.0.1:8788", CLAUDE_FALLBACKS: "off" },
+    env: { ...process.env, PORT: "8787", SQLITE_URL: ":memory:", ANTHROPIC_API_KEY: "x", ANTHROPIC_BASE_URL: "http://127.0.0.1:8788", CLAUDE_FALLBACKS: "off" },
   }),
   spawn("node", ["scripts/serve-static.mjs", "3100"], { stdio: "ignore", detached: true }),
 ];
-const stop = () => procs.forEach((p) => p.kill());
+// detached → own process group; kill the whole group
+const stop = () =>
+  procs.forEach((p) => {
+    try {
+      process.kill(-p.pid, "SIGTERM");
+    } catch {}
+  });
 process.on("exit", stop);
 
 async function waitFor(url) {
@@ -25,7 +31,6 @@ async function waitFor(url) {
   }
   throw new Error(`timeout ${url}`);
 }
-rmSync(".data/shots.db", { force: true });
 await Promise.all([waitFor("http://localhost:8787/api/health"), waitFor("http://localhost:3100/")]);
 
 const SIZES = { "6.7": { width: 430, height: 932 }, "5.5": { width: 414, height: 736 } };
