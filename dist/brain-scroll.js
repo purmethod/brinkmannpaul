@@ -359,7 +359,7 @@
       layoutWheel(pos);
       lastPosition = pos;
     }
-    if (eased !== travel || floating) schedule();
+    if (eased !== travel || floating || dive.arriving) schedule();
     else clock = 0;
   }
 
@@ -680,8 +680,9 @@
     const FLIGHT = ['cosmos', 'web', 'deep'];
     const STEP = 0.85; // depth between two spheres of the flight
     const ENTER = 0.3; // a sphere takes over this far before its natural size
+    const ARRIVE = 600; // ms a drawing takes to fade in once it has loaded
 
-    const api = { pace: 0.14, cycle: 12, open: 12, veil: 0.5, resize, draw };
+    const api = { pace: 0.14, cycle: 12, open: 12, veil: 0.5, arriving: false, resize, draw };
     const sheets = Object.fromEntries(Object.entries(SHEETS).map(([name, sheet]) => [name, { ...sheet, state: 'idle', image: null }]));
     const chain = [
       ...WAY,
@@ -692,6 +693,7 @@
     let ratio = 1;
     let camera = null;
     let lastDepth = NaN;
+    let prefetched = false;
 
     function soften(image) {
       // Fade each drawing's border to paper, so a smaller drawing blooms
@@ -722,6 +724,7 @@
       image.onload = () => {
         sheet.image = soften(image);
         sheet.state = 'ready';
+        sheet.since = performance.now();
         lastDepth = NaN;
         schedule();
       };
@@ -779,10 +782,18 @@
         out: [0.4, opening],
         back: [cycle - 3.2, cycle - 1.6],
       };
+      // Each drawing is seen from where it takes over until the next one has.
+      chain.forEach((level, index) => { level.until = index < chain.length - 1 ? chain[index + 1].handover + 0.1 : cycle - 0.2; });
       api.open = opening;
       api.cycle = cycle;
       lastDepth = NaN;
       load(first);
+      // Turned backwards, the wheel first reaches the deep universe, so it is
+      // fetched once the page has settled, not only when it is needed.
+      if (!prefetched) {
+        prefetched = true;
+        setTimeout(() => load(chain[chain.length - 1]), 2500);
+      }
     }
 
     // Draws a drawing with its focus on the camera point.
@@ -795,11 +806,16 @@
     function draw(travelled) {
       if (!camera) return;
       const depth = mod(travelled, api.cycle);
+      // A drawing that has just arrived fades in instead of appearing at once.
+      const now = performance.now();
+      const shown = chain.map(level => (level.sheet.state === 'ready' ? smooth(0, ARRIVE, now - level.sheet.since) : 0));
+      api.arriving = shown.some(value => value > 0 && value < 1);
       // Every change is drawn, so floating and scrolling run like a film.
-      if (Math.abs(depth - lastDepth) < 1e-4) return;
+      if (!api.arriving && Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
-      // Fetch each drawing a little before the dive reaches it.
-      chain.forEach(level => { if (depth > level.handover - 1.4) load(level); });
+      // Fetch each drawing a little before the dive reaches it, turning
+      // forwards or backwards; never all of them at once.
+      chain.forEach(level => { if (depth > level.handover - 1.4 && depth < level.until + 1) load(level); });
       // The view drifts from the brain to beside the wheel and, on the way to
       // the next brain, back again.
       const away = smooth(camera.out[0], camera.out[1], depth) * (1 - smooth(camera.back[0], camera.back[1], depth));
@@ -809,8 +825,6 @@
       // veil; deeper in, the veil grows so the names stay clear of the web.
       const deep = smooth(chain[0].handover - 0.5, chain[0].handover + 0.3, depth) * (1 - smooth(api.cycle - 1.5, api.cycle - 0.2, depth));
       api.veil = 0.5 + 0.35 * deep;
-      // A drawing that has not arrived yet leaves the previous one in place.
-      const ready = chain.map(level => level.sheet.state === 'ready');
 
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
@@ -821,14 +835,14 @@
       context.imageSmoothingQuality = 'high';
       context.globalCompositeOperation = 'multiply';
 
-      brain(depth, ready[0], cx, cy);
+      brain(depth, shown[0], cx, cy);
       chain.forEach((level, index) => {
-        if (!ready[index]) return;
+        if (!shown[index]) return;
         const next = chain[index + 1];
         // Each drawing hands over while it is still sharp.
         const kept = !next ? 1 - smooth(api.cycle - 1, api.cycle - 0.2, depth)
-          : ready[index + 1] ? 1 - smooth(next.handover - 0.3, next.handover + 0.1, depth) : 1;
-        let alpha = smooth(level.handover - 0.5, level.handover, depth) * kept;
+          : stay(1 - smooth(next.handover - 0.3, next.handover + 0.1, depth), next.handover, depth, shown[index + 1]);
+        let alpha = smooth(level.handover - 0.5, level.handover, depth) * kept * shown[index];
         if (alpha < 0.002) return;
         if (index === 0) alpha *= camera.inkMicro;
         if (level.ink) alpha *= level.ink;
@@ -836,15 +850,25 @@
         place(level.sheet.image, level.sheet.focus, level.k * Math.exp(depth), cx, cy);
       });
       // The next brain, already growing out of the last neuron.
-      if (depth > api.cycle - 1.6) brain(depth - api.cycle, ready[0], cx, cy);
+      if (depth > api.cycle - 1.6) brain(depth - api.cycle, shown[0], cx, cy);
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;
     }
 
-    function brain(depth, firstReady, cx, cy) {
+    // How much of a drawing stays while the next one takes over at
+    // `handover`: `passed` once the next is shown. While the next has not
+    // arrived, it stays a little longer and then gives way to paper: grown far
+    // past its size it would turn into grey fog, and where its centre is a
+    // dark line, into black.
+    function stay(passed, handover, depth, next) {
+      const waiting = 1 - smooth(handover + 0.3, handover + 0.9, depth);
+      return waiting + (passed - waiting) * next;
+    }
+
+    function brain(depth, firstShown, cx, cy) {
       const first = chain[0];
-      const fade = firstReady ? 1 - smooth(first.handover - 0.02, first.handover + 0.35, depth) : 1;
+      const fade = stay(1 - smooth(first.handover - 0.02, first.handover + 0.35, depth), first.handover + 0.25, depth, firstShown);
       const alpha = camera.ink * smooth(-1.5, -0.7, depth) * fade;
       if (alpha < 0.002 || !macro.complete || !macro.naturalWidth) return;
       context.globalAlpha = alpha;

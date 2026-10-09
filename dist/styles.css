@@ -231,15 +231,6 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.by-brinkmann {
-  display: inline-block;
-  font-size: 0.55em;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  vertical-align: baseline;
-}
-
 .item-type,
 .item-status {
   font-size: 0.75rem;
