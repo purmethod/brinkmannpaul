@@ -926,7 +926,8 @@
           if (stars && point.spark) alpha *= 0.7 + 0.3 * Math.sin(seconds * point.rate * Math.PI + point.phase);
           const bucket = buckets[Math.min(5, Math.floor(alpha * 6))];
           if (streaking) {
-            const from = Math.min(zz + trail, 1 + NEAR);
+            // Where the point was a moment ago; turning back it was nearer, never behind the eye.
+            const from = clamp(zz + trail, NEAR * 0.6, 1 + NEAR);
             bucket.lines.moveTo(cx + point.x * fx / from, cy + point.y * fy / from);
             bucket.lines.lineTo(sx, sy);
           } else if (!stars && point.ring) {
