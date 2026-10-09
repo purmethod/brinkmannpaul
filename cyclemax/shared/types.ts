@@ -19,7 +19,7 @@ export interface KnowledgeDoc {
 }
 
 /** Phase pushes in relationship mode. */
-export type PhasePushKey = "red7" | "red2" | "pink" | "green" | "late" | "checkin" | "checkin_single";
+export type PhasePushKey = "red7" | "red2" | "pink" | "green";
 
 /** One planned notification. `key` is a PhasePushKey (kind "phase") or a line id (kind "daily"). */
 export interface ScheduledItem {
@@ -40,7 +40,7 @@ export interface ChatRequest {
   phase: Phase | null;
   cycleDay: number | null;
   notes: string[];
-  /** Compact profile from the device ("Erzähl mir von ihr"), optional. */
+  /** Compact profile from the device ("Erzähl mir von euch"), optional. */
   profile?: string;
   messages: ChatMessage[];
 }
@@ -52,7 +52,7 @@ export interface ChatResponse {
   topic: string;
 }
 
-/** Result of "Erzähl mir von ihr / von dir" – lives only on the device. */
+/** Result of "Erzähl mir von euch / von dir" – lives only on the device. */
 export interface ProfileAnalysis {
   /** 2–3 sentences. */
   summary: string;

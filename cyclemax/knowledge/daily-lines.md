@@ -71,6 +71,17 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [any] Beobachte mehr, rede weniger. Dann weißt du, was sie braucht.
 - [any] Ruhe kann man trainieren. Fang beim nächsten Atemzug an.
 
+## Führen & Verstehen (Paul)
+- [any] Du führst nicht mit Lautstärke. Du führst mit Richtung.
+- [any] Ein Kapitän kennt das Wetter, bevor er ausläuft.
+- [any] Sie tickt in Wochen, du in Stunden. Das ist kein Problem. Das ist Wissen.
+- [any] Verstehen heißt nicht nachgeben. Verstehen heißt vorbereitet sein.
+- [any] Sei der Kopf, der ruhig bleibt, wenn alles laut wird.
+- [any] Halt gibt nur, wer selbst steht.
+- [any] Eine Frau folgt keinem Befehl. Sie folgt einem Mann, der weiß, wohin er geht.
+- [any] Entscheide. Wer nie entscheidet, lässt andere sein Leben führen.
+- [any] Sei wie der Fels, an dem sich die Wellen brechen. – Marc Aurel
+
 ## Gelb · Wärme
 - [yellow] Wärme ist Ausstrahlung, kein Dienst. Bleib klar und bei dir.
 - [yellow] Fürsorge ist Stärke. Kein Witz, kein Kommentar – einfach da sein.
@@ -80,6 +91,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [yellow] Der Sturm ist vorbei. Du warst ruhig. Jetzt weiter mit deinem Leben.
 - [yellow] Führen heißt vorleben. Nicht fragen, ob es ihr recht ist, dass du gut lebst.
 - [yellow] Sanft sein ist keine Schwäche. Es ist Größe mit ruhiger Hand.
+- [yellow] Ihr Körper arbeitet. Du hältst die Ruhe – und deinen Standard.
 
 ## Pink · Führen
 - [pink] Führ heute. Plan das Date, nicht nur die Idee.
@@ -87,7 +99,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [pink] Rückenwind. Nutze ihn für ein Abenteuer zu zweit.
 - [pink] Initiative ist anziehend. Entscheide, wohin es geht.
 - [pink] Leichtigkeit und ein Plan. Du gibst den Takt vor.
-- [pink] Überrasch sie mit etwas, das du dir gemerkt hast.
+- [pink] Ihre Energie steigt. Gib ihr eine Richtung.
 - [pink] Flirte mit ihr, als wäre es euer erstes Date.
 - [pink] Lach mit ihr. Ein Mann, der spielen kann, ist ein freier Mann.
 
@@ -100,6 +112,7 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [green] Präsent, nicht bedürftig. Gib Nähe, ohne sie einzufordern.
 - [green] Ein Abend nur für euch zwei. Du planst ihn.
 - [green] Frag sie, wovon sie träumt. Und hör wirklich hin.
+- [green] Die ruhigsten Tage. Sprich jetzt an, was ansteht.
 
 ## Rot · Standfest
 - [red] Hör mehr zu, als du redest. Heute ganz besonders.
@@ -114,6 +127,9 @@ Format: `- [kategorie] Text`. Kategorien: any, yellow, pink, green, red, single.
 - [red] Training, Schlaf, Routine. Gerade jetzt.
 - [red] Ihr Sturm ist kein Urteil über dich.
 - [red] Sag wenig. Bleib. Dein Tag gehört trotzdem dir.
+- [red] Sie ist gerade dünnhäutiger. Du nicht.
+- [red] Was heute laut ist, ist morgen klein. Antworte für morgen.
+- [red] Ihr Wetter ist nicht dein Wetter. Du bleibst stehen.
 
 ## Dating · Single
 - [single] Wähl nach Charakter, nicht nach Optik.

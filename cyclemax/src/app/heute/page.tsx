@@ -79,7 +79,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const bleeding = due ? (
     <div className="flex flex-col">
       <Button onClick={() => logBleeding(today)} data-testid="bleeding">
-        Blutung hat heute begonnen
+        Ihre Tage haben heute begonnen
       </Button>
       <button type="button" className="mx-auto h-10 px-3 text-[14px] text-muted" onClick={openDateSheet}>
         anderes Datum
@@ -88,7 +88,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   ) : (
     <div className="flex items-center justify-between border-t border-line pt-1 text-[15px]">
       <button type="button" className="h-11 pr-3 text-left text-ink" onClick={() => logBleeding(today)} data-testid="bleeding">
-        Blutung hat heute begonnen
+        Ihre Tage haben heute begonnen
       </button>
       <button type="button" className="h-11 pl-3 text-muted" onClick={openDateSheet}>
         anderes Datum
@@ -110,17 +110,24 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
       <section className="flex flex-1 flex-col items-center justify-center gap-6 py-3 text-center">
         {!single && cycle && (
           <div className="fade-up flex flex-col items-center gap-5">
-            <Ring phase={cycle.phase} />
+            <Link href="/verstehen/" aria-label={`${PHASES[cycle.phase].word} – Phase verstehen`} className="rounded-full">
+              <Ring phase={cycle.phase} />
+            </Link>
             <p className="max-w-[20rem] text-[19px] leading-snug font-medium" data-testid="attitude">
               {PHASES[cycle.phase].attitude}
             </p>
+            {!cycle.late && (
+              <Link href={`/verstehen/#${cycle.phase}`} className="max-w-[21rem] text-[15px] leading-snug text-muted" data-testid="forecast">
+                <span className="text-ink">Was kommen kann:</span> {PHASES[cycle.phase].forecast} <span aria-hidden="true">›</span>
+              </Link>
+            )}
           </div>
         )}
-        {!single && !cycle && <p className="max-w-[18rem] text-[19px] leading-snug">Tipp unten, wenn ihre Blutung beginnt. Mehr musst du nicht tun.</p>}
+        {!single && !cycle && <p className="max-w-[18rem] text-[19px] leading-snug">Wenn sie ihre Tage bekommt: ein Tap unten. Mehr musst du nicht tun.</p>}
 
         {cycle?.late && cycle.cycleDay - cycle.cycleLength >= 3 && (
           <p className="max-w-[21rem] rounded-2xl bg-surface px-5 py-3 text-[15px] leading-snug" data-testid="late-hint">
-            Hat ihre Blutung schon begonnen? Ein Tap unten genügt – auch nachträglich über „anderes Datum“.
+            Hat sie ihre Tage schon? Ein Tap unten genügt – auch nachträglich über „anderes Datum“. Bis dahin bleibt Standfest.
           </p>
         )}
         {upcoming && (
@@ -213,13 +220,13 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
           </Link>
         </div>
         <Link href="/profil/" className="flex min-h-12 items-center justify-between rounded-2xl bg-surface px-5 text-[16px]" data-testid="profile-link">
-          <span>{hasProfile ? (single ? "Dein Profil" : "Ihr Profil") : single ? "Erzähl mir von dir" : "Erzähl mir von ihr"}</span>
+          <span>{hasProfile ? "Dein Profil" : single ? "Erzähl mir von dir" : "Erzähl mir von euch"}</span>
           <span className="text-[13px] text-muted">{hasProfile ? "ansehen" : "2 Minuten, frei sprechen"}</span>
         </Link>
         {!single && !due && bleeding}
       </nav>
 
-      <Sheet open={sheet} onClose={() => setSheet(false)} title="Erster Tag der Blutung">
+      <Sheet open={sheet} onClose={() => setSheet(false)} title="Wann haben ihre Tage begonnen?">
         <Wheel items={pastDays(today, 45)} value={pick} onChange={setPick} label="Datum" testId="date-wheel" />
         <div className="mt-6 flex flex-col gap-3">
           <Button

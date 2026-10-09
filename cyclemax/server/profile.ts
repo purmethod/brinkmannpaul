@@ -1,4 +1,4 @@
-// "Erzähl mir von ihr / von dir": Claude turns free speech into a structured profile.
+// "Erzähl mir von euch / von dir": Claude turns free speech into a structured profile.
 // Nothing is stored on the server – the profile lives on the device.
 import * as z from "zod/v4";
 import { fallbackProfile } from "../shared/profile";

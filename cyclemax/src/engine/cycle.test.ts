@@ -160,7 +160,7 @@ describe("month, year and leap-year boundaries", () => {
   });
 });
 
-import { upcomingPhase } from "./cycle";
+import { phaseOutlook, upcomingPhase } from "./cycle";
 
 describe("upcomingPhase (heads-up)", () => {
   const at = (day: number, L = 28) => cycleStateOn(["2026-03-01"], addDays("2026-03-01", day - 1), L);
@@ -176,5 +176,34 @@ describe("upcomingPhase (heads-up)", () => {
     expect(upcomingPhase(at(7, 21))).toEqual({ phase: "green", inDays: 1 });
     expect(upcomingPhase(at(40))).toBeNull();
     expect(upcomingPhase(null)).toBeNull();
+  });
+});
+
+describe("phaseOutlook", () => {
+  it("starts with the current phase and looks one round ahead (28 days)", () => {
+    const s = cycleStateOn(["2026-03-01"], "2026-03-10", 28)!;
+    expect(s.phase).toBe("pink");
+    expect(phaseOutlook(s)).toEqual([
+      { phase: "pink", start: "2026-03-08", end: "2026-03-14" },
+      { phase: "green", start: "2026-03-15", end: "2026-03-21" },
+      { phase: "red", start: "2026-03-22", end: "2026-03-28" },
+      { phase: "yellow", start: "2026-03-29", end: "2026-04-04" },
+    ]);
+  });
+  it("wraps into the next cycle from red", () => {
+    const s = cycleStateOn(["2026-03-01"], "2026-03-25", 28)!;
+    expect(phaseOutlook(s).map((x) => [x.phase, x.start])).toEqual([
+      ["red", "2026-03-22"],
+      ["yellow", "2026-03-29"],
+      ["pink", "2026-04-05"],
+      ["green", "2026-04-12"],
+    ]);
+  });
+  it("21-day cycle has three spans, late has only red", () => {
+    const s = cycleStateOn(["2026-03-01"], "2026-03-02", 21)!;
+    expect(phaseOutlook(s).map((x) => x.phase)).toEqual(["yellow", "green", "red"]);
+    const late = cycleStateOn(["2026-03-01"], "2026-04-02", 28)!;
+    expect(late.late).toBe(true);
+    expect(phaseOutlook(late)).toEqual([{ phase: "red", start: "2026-03-22", end: "2026-03-29" }]);
   });
 });

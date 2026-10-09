@@ -41,13 +41,10 @@ describe("phase pushes", () => {
     expect([...keys].sort()).toEqual(["green", "red2", "red7"]);
   });
 
-  it("while late: only the gentle nudge 3 and 10 days after the expected start", () => {
-    const keys: Record<number, string> = {};
+  it("while late: no pushes at all – Cyclemax never asks him to do anything", () => {
     for (let d = 28; d < 80; d++) {
-      const k = phasePushOn(["2026-03-01"], addDays("2026-03-01", d), 28);
-      if (k) keys[d + 1] = k;
+      expect(phasePushOn(["2026-03-01"], addDays("2026-03-01", d), 28)).toBeNull();
     }
-    expect(keys).toEqual({ 32: "late", 39: "late" }); // expected on cycle day 29 → 3 and 10 days later
   });
 
   it("red7 is exactly 7 and red2 exactly 2 days before the expected bleeding for all lengths", () => {
@@ -75,7 +72,7 @@ describe("planNotifications", () => {
     expect(byDate["2026-03-15"]).toMatchObject({ kind: "phase", key: "green" });
     expect(byDate["2026-03-22"]).toMatchObject({ kind: "phase", key: "red7" });
     expect(byDate["2026-03-27"]).toMatchObject({ kind: "phase", key: "red2" });
-    expect(plan.notifications.filter((n) => n.kind === "phase" && !n.key.startsWith("checkin"))).toHaveLength(4);
+    expect(plan.notifications.filter((n) => n.kind === "phase")).toHaveLength(4);
     expect(byDate["2026-03-09"].kind).toBe("daily");
   });
 
@@ -91,12 +88,10 @@ describe("planNotifications", () => {
     }
   });
 
-  it("single mode: daily lines from single/any (+ check-in every second Sunday)", () => {
+  it("single mode: only daily lines from single/any", () => {
     const plan = planNotifications(base({ mode: "single", entries: [] }));
-    const checkins = plan.notifications.filter((n) => n.kind === "phase");
-    expect(checkins.length).toBeGreaterThanOrEqual(2);
-    expect(checkins.every((n) => n.key === "checkin_single")).toBe(true);
-    expect(plan.notifications.filter((n) => n.kind === "daily")).toHaveLength(30 - checkins.length);
+    expect(plan.notifications.filter((n) => n.kind === "phase")).toHaveLength(0);
+    expect(plan.notifications.filter((n) => n.kind === "daily")).toHaveLength(30);
     const cats = new Set(plan.notifications.filter((n) => n.kind === "daily").map((n) => SEED_LINES.find((l) => l.id === n.key)!.category));
     for (const c of cats) expect(["single", "any"]).toContain(c);
   });
@@ -188,16 +183,10 @@ describe("pickLine", () => {
   });
 });
 
-describe("check-in", () => {
-  it("every second Sunday, never on a phase-push day", async () => {
-    const { isCheckinDay } = await import("./notifications");
-    const days = Array.from({ length: 56 }, (_, i) => addDays("2026-03-01", i)).filter(isCheckinDay);
-    expect(days).toHaveLength(4);
-    for (const d of days) expect(new Date(`${d}T12:00:00Z`).getUTCDay()).toBe(0);
-    expect(diffDays(days[0], days[1])).toBe(14);
+describe("no tasks", () => {
+  it("only the four phase pushes, everything else is the daily line", () => {
     const plan = planNotifications(base({ days: 60 }));
-    const byDate = Object.fromEntries(plan.notifications.map((n) => [n.date, n]));
-    for (const d of days) if (byDate[d]) expect(byDate[d].kind).toBe("phase");
-    expect(plan.notifications.some((n) => n.key === "checkin")).toBe(true);
+    const keys = new Set(plan.notifications.filter((n) => n.kind === "phase").map((n) => n.key));
+    for (const k of keys) expect(["red7", "red2", "pink", "green"]).toContain(k);
   });
 });

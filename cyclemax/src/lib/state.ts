@@ -15,7 +15,7 @@ export interface ChatEntry {
   reported?: boolean;
 }
 
-/** "Erzähl mir von ihr / von dir" – stays on the device. */
+/** "Erzähl mir von euch / von dir" – stays on the device. */
 export interface Profile {
   /** Everything he told, newest last (kept to re-analyse later). */
   text: string;

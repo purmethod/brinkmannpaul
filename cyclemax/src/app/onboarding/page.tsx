@@ -72,8 +72,11 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
               <Wordmark />
             </div>
             <h1 className="max-w-[16rem] text-[34px] leading-[1.1] font-semibold tracking-tight">Sei der Fels in der Brandung.</h1>
+            <p className="max-w-[19rem] text-[17px] leading-relaxed text-muted" data-testid="welcome-promise">
+              Sie tickt in einem Rhythmus von rund 28 Tagen. Cyclemax kennt ihn und sagt dir vorher, was kommt. Du bleibst ruhig – und führst.
+            </p>
             <a href={PURE_URL} target="_blank" rel="noreferrer" className="text-[15px] text-muted underline underline-offset-4">
-              Fundament: PURE Method
+              Fundament: PURE Method &amp; Stoa
             </a>
           </div>
           <Button onClick={() => setStep("mode")}>Weiter</Button>
@@ -112,9 +115,10 @@ function Onboarding({ state, adapters }: { state: AppState; adapters: Adapters }
       {step === "cycle" && (
         <section className="fade-up flex flex-1 flex-col">
           <div className="flex flex-1 flex-col justify-center gap-6">
-            <h1 className="text-[28px] leading-tight font-semibold tracking-tight">Wann hat ihre letzte Blutung begonnen?</h1>
-            <Wheel items={pastDays(today, 60)} value={date} onChange={setDate} label="Erster Tag der Blutung" testId="date-wheel" />
-            <p className="text-center text-[14px] text-muted">Den Rest lernt Cyclemax mit jedem Eintrag.</p>
+            <h1 className="text-[28px] leading-tight font-semibold tracking-tight">Wann hatte sie zuletzt ihre Tage?</h1>
+            <p className="-mt-2 text-[16px] leading-snug text-muted">Der erste Tag zählt. Frag sie ruhig – das zeigt Interesse.</p>
+            <Wheel items={pastDays(today, 60)} value={date} onChange={setDate} label="Erster Tag ihrer Tage" testId="date-wheel" />
+            <p className="text-center text-[14px] text-muted">Den Rest übernimmt Cyclemax im Hintergrund.</p>
           </div>
           <Button onClick={() => setStep("notify")}>Weiter</Button>
         </section>

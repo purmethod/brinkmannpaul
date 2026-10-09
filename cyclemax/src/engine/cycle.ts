@@ -137,3 +137,37 @@ export function upcomingPhase(state: CycleState | null, horizon = 2): UpcomingPh
   }
   return null;
 }
+
+export interface PhaseSpan {
+  phase: Phase;
+  /** First and last calendar day (inclusive). */
+  start: DateStr;
+  end: DateStr;
+}
+
+/**
+ * The current phase and the ones that follow, one full round (3 or 4 spans – pink is empty for 21-day cycles).
+ * Cyclemax looks ahead so he doesn't have to. While late, only the current (red) span is known.
+ */
+export function phaseOutlook(state: CycleState): PhaseSpan[] {
+  if (state.late) return [{ phase: "red", start: addDays(state.lastBleeding, phaseRanges(state.cycleLength).red[0] - 1), end: state.expectedBleeding }];
+  const L = state.cycleLength;
+  const r = phaseRanges(L);
+  const order: Phase[] = ["yellow", "pink", "green", "red"];
+  const spans: PhaseSpan[] = [];
+  for (const cycle of [0, 1]) {
+    for (const phase of order) {
+      const range = r[phase];
+      if (!range) continue;
+      const offset = cycle * L;
+      spans.push({
+        phase,
+        start: addDays(state.lastBleeding, offset + range[0] - 1),
+        end: addDays(state.lastBleeding, offset + range[1] - 1),
+      });
+    }
+  }
+  const i = spans.findIndex((s) => s.phase === state.phase);
+  const count = r.pink ? 4 : 3;
+  return spans.slice(i, i + count);
+}

@@ -14,6 +14,7 @@ test("Onboarding Beziehung → Home mit Ring, Haltung und Tageszeile", async ({ 
   await finishWithoutNotifications(page);
   await expect(page.getByTestId("phase-word")).toHaveText("Wärme");
   await expect(page.getByTestId("attitude")).toBeVisible();
+  await expect(page.getByTestId("forecast")).toContainText("Was kommen kann: Krämpfe, Kopfweh, wenig Energie");
   await expect(page.getByTestId("daily-line")).not.toBeEmpty();
   await expect(page.getByTestId("bleeding")).toBeVisible();
   await expect(page.getByRole("link", { name: "Cyclemax fragen" })).toBeVisible();
@@ -37,12 +38,12 @@ test("Onboarding Single → nur Tageszeile und Chat", async ({ page }) => {
   await expect(page.getByTestId("answer")).toHaveCount(1);
 });
 
-test("Blutung eintragen → Gelb, Nachricht, Rückgängig", async ({ page }) => {
+test("Ihre Tage eintragen → Gelb, Nachricht, Rückgängig", async ({ page }) => {
   await onboard(page, "relationship", 24);
   await finishWithoutNotifications(page);
   await expect(page.getByTestId("phase-word")).toHaveText("Standfest");
   await page.getByTestId("bleeding").click();
-  await expect(page.getByTestId("after-entry")).toHaveText("Eingetragen. Sturm vorbei. Bleib warm, bleib bei dir.");
+  await expect(page.getByTestId("after-entry")).toHaveText("Eingetragen. Sturm vorbei – den Rest übernimmt Cyclemax.");
   await expect(page.getByTestId("phase-word")).toHaveText("Wärme");
   await page.getByRole("button", { name: "Rückgängig" }).click();
   await expect(page.getByTestId("phase-word")).toHaveText("Standfest");
@@ -173,18 +174,18 @@ test("Startseite: nur der Ring und CYCLEMAX", async ({ page }) => {
 test("Vorschau: einen Tag vor Standfest kommt der Hinweis", async ({ page }) => {
   await onboard(page, "relationship", 20);
   await finishWithoutNotifications(page);
-  await expect(page.getByTestId("heads-up")).toHaveText("Hey Man, morgen beginnt Standfest. Mehr beobachten, mehr zuhören, Ruhe trainieren.");
+  await expect(page.getByTestId("heads-up")).toHaveText("Hey Man, morgen beginnt Standfest. Sie kann dünnhäutiger werden – du bleibst ruhig.");
   // back on the start screen the ring shows the phase colour
   await page.getByRole("link", { name: "Start" }).click();
   await expect(page.getByTestId("start-ring")).toBeVisible();
 });
 
-test("Profil per Sprache: Erzähl mir von ihr → Profil → Kontext im Chat", async ({ page }) => {
+test("Profil per Sprache: Erzähl mir von euch → Profil → Kontext im Chat", async ({ page }) => {
   await fakeSpeech(page, "Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");
   await onboard(page, "relationship", 5);
   await finishWithoutNotifications(page);
   await page.getByTestId("profile-link").click();
-  await expect(page.getByRole("heading", { name: "Erzähl mir von ihr." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Erzähl mir von euch." })).toBeVisible();
   await page.getByRole("button", { name: "Frei sprechen" }).click();
   await expect(page.getByTestId("profile-input")).toHaveValue("Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");
   await page.getByRole("button", { name: "Aufnahme beenden" }).click();
@@ -194,7 +195,7 @@ test("Profil per Sprache: Erzähl mir von ihr → Profil → Kontext im Chat", a
   await expect(page.getByTestId("profile")).toContainText("Jeden Morgen trainieren, egal wie die Stimmung ist.");
   // persists, and the home menu now links to the profile
   await page.goto("/heute/");
-  await expect(page.getByTestId("profile-link")).toContainText("Ihr Profil");
+  await expect(page.getByTestId("profile-link")).toContainText("Dein Profil");
   // the profile turns into one small step per day on the home screen
   await expect(page.getByTestId("next-step")).toContainText("Jeden Morgen trainieren, egal wie die Stimmung ist.");
   await page.getByRole("button", { name: "Erledigt" }).click();
@@ -204,4 +205,27 @@ test("Profil per Sprache: Erzähl mir von ihr → Profil → Kontext im Chat", a
   await expect(page.getByLabel("Nachricht")).toHaveValue("Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");
   await page.getByRole("button", { name: "Senden" }).click();
   await expect(page.getByTestId("answer")).toHaveCount(1);
+});
+
+test("Verstehen: sie tickt anders – Vorschau der Phasen mit Datum, Du führst", async ({ page }) => {
+  await onboard(page, "relationship", 23);
+  await finishWithoutNotifications(page);
+  await expect(page.getByTestId("phase-word")).toHaveText("Standfest");
+  await expect(page.getByTestId("forecast")).toContainText("Dünnhäutiger, schneller gereizt");
+  await page.getByTestId("forecast").click();
+  await expect(page).toHaveURL(/\/verstehen\/#red$/);
+  await expect(page.getByRole("heading", { name: "Sie tickt anders." })).toBeVisible();
+  await expect(page.getByText(/Testosteron ist morgens am höchsten/)).toBeVisible();
+  const outlook = page.getByTestId("outlook");
+  await expect(outlook.getByRole("link")).toHaveCount(4);
+  await expect(outlook.getByRole("link").first()).toContainText("Standfest");
+  await expect(outlook.getByRole("link").first()).toContainText("jetzt");
+  await expect(outlook.getByRole("link").nth(1)).toContainText("Wärme");
+  await expect(page.getByTestId("phase-red")).toContainText("jetzt");
+  await expect(page.getByTestId("phase-red")).toContainText("Du führst: mit Ruhe");
+  await expect(page.getByText("Marc Aurel, Selbstbetrachtungen 4,49")).toBeVisible();
+  // the ring on home leads here too
+  await page.goto("/heute/");
+  await page.getByRole("link", { name: "Standfest – Phase verstehen" }).click();
+  await expect(page).toHaveURL(/\/verstehen\/$/);
 });

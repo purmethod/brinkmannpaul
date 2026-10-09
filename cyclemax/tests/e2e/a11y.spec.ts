@@ -18,7 +18,7 @@ test("Barrierefreiheit (axe, WCAG AA) auf allen Screens", async ({ page }) => {
   await onboard(page, "relationship", 3);
   await finishWithoutNotifications(page);
   await audit(page, "heute");
-  for (const path of ["/chat/", "/profil/", "/settings/", "/datenschutz/", "/impressum/", "/admin/"]) {
+  for (const path of ["/verstehen/", "/chat/", "/profil/", "/settings/", "/datenschutz/", "/impressum/", "/admin/"]) {
     await page.goto(path);
     await page.waitForTimeout(300);
     await audit(page, path);

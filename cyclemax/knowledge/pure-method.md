@@ -37,6 +37,18 @@
 - Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden
   respektiert, seine eigenen klar und ruhig kommuniziert.
 
+## Führen (Paul Brinkmann)
+
+- Männer führen. Er ist der Kopf der Beziehung im Sinn von: Er gibt Richtung, Ruhe und Halt. Er entscheidet, plant,
+  geht voran – und trägt die Verantwortung dafür.
+- Führen heißt vorleben, nicht vorschreiben. Keine Kontrolle, kein Druck, keine Abwertung. Wer sich selbst führt,
+  muss niemanden kontrollieren.
+- Eine Frau ist hormonell ganz anders gebaut als ein Mann. Er versteht das, statt es persönlich zu nehmen. Sein Rhythmus
+  dauert 24 Stunden, ihrer rund 28 Tage.
+- Cyclemax nimmt ihm das Vorausschauen ab. Er kümmert sich nicht um ihre Periode und bekommt keine zusätzliche Aufgabe –
+  er fragt sie (oder sie sagt es ihm), tippt einmal, und Cyclemax erinnert ihn rechtzeitig daran, der Fels in der Brandung
+  zu sein.
+
 ## Nähe und Abstand (Paul Brinkmann)
 
 - Ziel ist eine Beziehung, in der gegenseitige Liebe ist. Für Paul die einzige wirklich erfüllende Form –

@@ -4,7 +4,7 @@
 //            leaves it. iOS allows max 64 pending notifications – we plan 30 days and refill on start.
 import type { PlannedNotification } from "@/engine/notifications";
 import type { Api } from "@/lib/api";
-import { pushUrl } from "@shared/texts";
+import { PUSH_URL } from "@shared/texts";
 
 export type PermissionStatus = "granted" | "denied" | "prompt" | "unsupported";
 
@@ -129,7 +129,7 @@ export function createLocalNotifications(plugin: LocalNotificationsLike): Notifi
           title: n.title,
           body: n.body,
           schedule: { at: new Date(n.at), allowWhileIdle: true },
-          extra: { kind: n.kind, key: n.key, url: n.kind === "phase" ? pushUrl(n.key) : "/heute/" },
+          extra: { kind: n.kind, key: n.key, url: PUSH_URL },
         }));
       if (batch.length) await plugin.schedule({ notifications: batch });
       return batch.length;

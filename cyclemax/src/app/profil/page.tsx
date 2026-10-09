@@ -17,16 +17,16 @@ export default function ProfilePage() {
 
 const COPY = {
   relationship: {
-    title: "Erzähl mir von ihr.",
-    intro: "Sprich einfach frei – über sie, über euch und über dich. Je mehr ich weiß, desto genauer helfe ich dir. Alles bleibt auf deinem Gerät.",
+    title: "Erzähl mir von euch.",
+    intro: "Sprich einfach frei – über dich, über sie, über euch. Je mehr ich weiß, desto genauer coache ich dich. Alles bleibt auf deinem Gerät.",
     prompts: [
+      "Du zuerst: Wie lebst du gerade? Training, Ordnung, eigene Projekte?",
+      "Wo führst du – und wo lässt du dich treiben?",
       "Wie ist sie – und was liebst du an ihr?",
       "Wie reagiert sie, wenn sie gestresst ist oder es knallt?",
-      "Was hakt im Alltag? Haushalt, Zeit, Nähe, Bett?",
-      "Kinderwunsch, Zukunft, Familie – wo steht ihr?",
-      "Und du: Wie lebst du gerade? Training, Ordnung, eigene Projekte?",
+      "Was hakt? Zeit, Nähe, Bett, Kinderwunsch, Zukunft?",
     ],
-    heading: "Ihr Profil",
+    heading: "Dein Profil",
   },
   single: {
     title: "Erzähl mir von dir.",

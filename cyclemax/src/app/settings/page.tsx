@@ -131,8 +131,11 @@ function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) 
           <a href={PURE_URL} target="_blank" rel="noreferrer" className="flex min-h-14 items-center justify-between border-b border-line text-[17px]">
             PURE Method <IconExternal />
           </a>
+          <Link href="/verstehen/" className="flex min-h-14 items-center border-b border-line text-[17px]">
+            Verstehen: die vier Phasen
+          </Link>
           <Link href="/profil/" className="flex min-h-14 items-center border-b border-line text-[17px]">
-            {state.mode === "single" ? "Dein Profil" : "Ihr Profil"}
+            Dein Profil
           </Link>
           <Link href="/datenschutz/" className="flex min-h-14 items-center border-b border-line text-[17px]">
             Datenschutz
@@ -149,7 +152,7 @@ function Settings({ state, adapters }: { state: AppState; adapters: Adapters }) 
 
       <p className="mt-auto pt-10 text-center text-[13px] text-muted">{CLAIM}</p>
 
-      <Sheet open={dateSheet} onClose={() => setDateSheet(false)} title="Erster Tag ihrer letzten Blutung">
+      <Sheet open={dateSheet} onClose={() => setDateSheet(false)} title="Wann hatte sie zuletzt ihre Tage?">
         <Wheel items={pastDays(today, 60)} value={pick} onChange={setPick} label="Datum" testId="date-wheel" />
         <div className="mt-6">
           <Button

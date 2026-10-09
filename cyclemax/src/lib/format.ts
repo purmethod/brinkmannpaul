@@ -16,3 +16,11 @@ export function pastDays(today: DateStr, days = 60): { value: DateStr; label: st
     return { value, label: dayLabel(value, today) };
   });
 }
+
+const day = (d: DateStr) => fmt.format(new Date(`${d}T00:00:00Z`)).replace(/\.,/, ",");
+
+/** "Sa, 10. Okt." or "Sa, 10. Okt. – Fr, 16. Okt." */
+export function rangeLabel(start: DateStr, end: DateStr): string {
+  if (start === end) return day(start);
+  return `${day(start)} – ${day(end)}`;
+}

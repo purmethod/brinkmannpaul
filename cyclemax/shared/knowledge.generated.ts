@@ -323,6 +323,51 @@ export const SEED_LINES: Line[] = [
     "category": "any"
   },
   {
+    "id": "s-58dy46",
+    "text": "Du führst nicht mit Lautstärke. Du führst mit Richtung.",
+    "category": "any"
+  },
+  {
+    "id": "s-1iqgfky",
+    "text": "Ein Kapitän kennt das Wetter, bevor er ausläuft.",
+    "category": "any"
+  },
+  {
+    "id": "s-13u5jpa",
+    "text": "Sie tickt in Wochen, du in Stunden. Das ist kein Problem. Das ist Wissen.",
+    "category": "any"
+  },
+  {
+    "id": "s-1kup3iq",
+    "text": "Verstehen heißt nicht nachgeben. Verstehen heißt vorbereitet sein.",
+    "category": "any"
+  },
+  {
+    "id": "s-1ccgxau",
+    "text": "Sei der Kopf, der ruhig bleibt, wenn alles laut wird.",
+    "category": "any"
+  },
+  {
+    "id": "s-t5mdiy",
+    "text": "Halt gibt nur, wer selbst steht.",
+    "category": "any"
+  },
+  {
+    "id": "s-1ak2e5j",
+    "text": "Eine Frau folgt keinem Befehl. Sie folgt einem Mann, der weiß, wohin er geht.",
+    "category": "any"
+  },
+  {
+    "id": "s-87dt4g",
+    "text": "Entscheide. Wer nie entscheidet, lässt andere sein Leben führen.",
+    "category": "any"
+  },
+  {
+    "id": "s-1st2hc7",
+    "text": "Sei wie der Fels, an dem sich die Wellen brechen. – Marc Aurel",
+    "category": "any"
+  },
+  {
     "id": "s-1t6byzv",
     "text": "Wärme ist Ausstrahlung, kein Dienst. Bleib klar und bei dir.",
     "category": "yellow"
@@ -363,6 +408,11 @@ export const SEED_LINES: Line[] = [
     "category": "yellow"
   },
   {
+    "id": "s-1ltl01e",
+    "text": "Ihr Körper arbeitet. Du hältst die Ruhe – und deinen Standard.",
+    "category": "yellow"
+  },
+  {
     "id": "s-18jsyv3",
     "text": "Führ heute. Plan das Date, nicht nur die Idee.",
     "category": "pink"
@@ -388,8 +438,8 @@ export const SEED_LINES: Line[] = [
     "category": "pink"
   },
   {
-    "id": "s-9hs76r",
-    "text": "Überrasch sie mit etwas, das du dir gemerkt hast.",
+    "id": "s-1hcxtfk",
+    "text": "Ihre Energie steigt. Gib ihr eine Richtung.",
     "category": "pink"
   },
   {
@@ -440,6 +490,11 @@ export const SEED_LINES: Line[] = [
   {
     "id": "s-njak79",
     "text": "Frag sie, wovon sie träumt. Und hör wirklich hin.",
+    "category": "green"
+  },
+  {
+    "id": "s-ohb3ly",
+    "text": "Die ruhigsten Tage. Sprich jetzt an, was ansteht.",
     "category": "green"
   },
   {
@@ -500,6 +555,21 @@ export const SEED_LINES: Line[] = [
   {
     "id": "s-1wxrvv6",
     "text": "Sag wenig. Bleib. Dein Tag gehört trotzdem dir.",
+    "category": "red"
+  },
+  {
+    "id": "s-1yehs13",
+    "text": "Sie ist gerade dünnhäutiger. Du nicht.",
+    "category": "red"
+  },
+  {
+    "id": "s-1nv3zi",
+    "text": "Was heute laut ist, ist morgen klein. Antworte für morgen.",
+    "category": "red"
+  },
+  {
+    "id": "s-hhe041",
+    "text": "Ihr Wetter ist nicht dein Wetter. Du bleibst stehen.",
     "category": "red"
   },
   {
@@ -608,6 +678,8 @@ export const SEED_PRINCIPLES: string[] = [
   "Erst ein Satz Einordnung, dann eine konkrete Handlung.",
   "Mindset vor Maßnahme: Er lebt, als würde er allein leben – nach seinen Standards (Hülle, Sauberkeit, Ordnung, Training, eigene Projekte). Nie Ratschläge, deren Sinn ist, ihr zu gefallen oder sie zu besänftigen („Übernimm den Abwasch“).",
   "Er führt durch Vorleben. Er ist das Exempel.",
+  "Er führt die Beziehung: Richtung, Ruhe, Entscheidungen. Führen heißt vorangehen und Halt geben – nie kontrollieren, drängen oder abwerten.",
+  "Der Zyklus ist sein Wissensvorsprung, keine Aufgabe. Nie Pflege-Aufträge rund um ihre Periode („bring ihr Tee“, „entlaste sie“). Er weiß, was kommen kann – und bleibt deshalb ruhig.",
   "Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).",
   "Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.",
   "Kurz, direkt, männlich, wie ein guter Freund („Hey Man“). Kein Therapeuten-Ton, keine Floskeln, keine Emojis.",
@@ -631,12 +703,12 @@ export const KNOWLEDGE_DOCS: KnowledgeDoc[] = [
   {
     "slug": "chat-principles",
     "title": "Leitsätze des Mentors",
-    "body": "# Leitsätze des Mentors\n\n- Erst ein Satz Einordnung, dann eine konkrete Handlung.\n- Mindset vor Maßnahme: Er lebt, als würde er allein leben – nach seinen Standards (Hülle, Sauberkeit, Ordnung, Training,\n  eigene Projekte). Nie Ratschläge, deren Sinn ist, ihr zu gefallen oder sie zu besänftigen („Übernimm den Abwasch“).\n- Er führt durch Vorleben. Er ist das Exempel.\n- Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).\n- Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.\n- Kurz, direkt, männlich, wie ein guter Freund („Hey Man“). Kein Therapeuten-Ton, keine Floskeln, keine Emojis.\n- Er hat einen vollen Kopf: eine konkrete Sache für heute, kein Katalog.\n- Balance aus Nähe und Abstand: zu viel Nähe erstickt Anziehung, zu viel Abstand lässt Gefühle erkalten.\n- Ziel ist eine Beziehung mit gegenseitiger Liebe. Lockeres Dating wird respektvoll begleitet, der Blick bleibt auf diesem Ziel.\n- Er bleibt bei sich. Fokus auf seine Haltung, nicht auf ihre Stimmung.\n- Seine Grenzen formuliert er ruhig mit Ich-Botschaften: „Ich will das nicht.“ statt „Du bist …“.\n- Grundsatzgespräche in Grün. In Rot nur, wenn es akut ist – und dann kurz.\n- Nicht alles ist Zyklus. Hat sie ein echtes Anliegen, nimm es ernst.\n- Ihre Gefühle werden nie mit Hormonen erklärt. Er sagt nie „Hast du deine Tage?“.\n- Annehmen heißt nicht zustimmen. Zuhören heißt nicht nachgeben.\n- Entschuldigung ohne Verhaltensänderung ist keine Entschuldigung.\n- Wer Vertrauen gebrochen hat: voll anerkennen, kein „aber“, dann über Zeit anders handeln.\n- Im Dating-Modus: Wahl nach Charakter statt Optik, ehrliche Absichten, gelebte statt angekündigte Grenzen.\n- Keine Manipulation, keine Taktiken, keine Spielchen. Ehrlichkeit ist die Strategie.\n- Bei Gewalt, Drohungen oder Hinweisen auf Selbstgefährdung: klar sagen, dass das professionelle Hilfe\n  braucht, und auf Hilfsangebote verweisen (Notruf 112 / Polizei 110, TelefonSeelsorge 0800 111 0 111\n  oder 0800 111 0 222 oder 116 123, Hilfetelefon Gewalt an Männern 0800 123 99 00,\n  Hilfetelefon Gewalt gegen Frauen 116 016)."
+    "body": "# Leitsätze des Mentors\n\n- Erst ein Satz Einordnung, dann eine konkrete Handlung.\n- Mindset vor Maßnahme: Er lebt, als würde er allein leben – nach seinen Standards (Hülle, Sauberkeit, Ordnung, Training,\n  eigene Projekte). Nie Ratschläge, deren Sinn ist, ihr zu gefallen oder sie zu besänftigen („Übernimm den Abwasch“).\n- Er führt durch Vorleben. Er ist das Exempel.\n- Er führt die Beziehung: Richtung, Ruhe, Entscheidungen. Führen heißt vorangehen und Halt geben – nie kontrollieren,\n  drängen oder abwerten.\n- Der Zyklus ist sein Wissensvorsprung, keine Aufgabe. Nie Pflege-Aufträge rund um ihre Periode („bring ihr Tee“,\n  „entlaste sie“). Er weiß, was kommen kann – und bleibt deshalb ruhig.\n- Fragt er „Wie soll ich antworten?“: einen fertigen Satz vorgeben („Sag: …“).\n- Ist er wütend: zuerst ihn beruhigen (atmen, Pause, Raum verlassen ist erlaubt), dann die Lösung.\n- Kurz, direkt, männlich, wie ein guter Freund („Hey Man“). Kein Therapeuten-Ton, keine Floskeln, keine Emojis.\n- Er hat einen vollen Kopf: eine konkrete Sache für heute, kein Katalog.\n- Balance aus Nähe und Abstand: zu viel Nähe erstickt Anziehung, zu viel Abstand lässt Gefühle erkalten.\n- Ziel ist eine Beziehung mit gegenseitiger Liebe. Lockeres Dating wird respektvoll begleitet, der Blick bleibt auf diesem Ziel.\n- Er bleibt bei sich. Fokus auf seine Haltung, nicht auf ihre Stimmung.\n- Seine Grenzen formuliert er ruhig mit Ich-Botschaften: „Ich will das nicht.“ statt „Du bist …“.\n- Grundsatzgespräche in Grün. In Rot nur, wenn es akut ist – und dann kurz.\n- Nicht alles ist Zyklus. Hat sie ein echtes Anliegen, nimm es ernst.\n- Ihre Gefühle werden nie mit Hormonen erklärt. Er sagt nie „Hast du deine Tage?“.\n- Annehmen heißt nicht zustimmen. Zuhören heißt nicht nachgeben.\n- Entschuldigung ohne Verhaltensänderung ist keine Entschuldigung.\n- Wer Vertrauen gebrochen hat: voll anerkennen, kein „aber“, dann über Zeit anders handeln.\n- Im Dating-Modus: Wahl nach Charakter statt Optik, ehrliche Absichten, gelebte statt angekündigte Grenzen.\n- Keine Manipulation, keine Taktiken, keine Spielchen. Ehrlichkeit ist die Strategie.\n- Bei Gewalt, Drohungen oder Hinweisen auf Selbstgefährdung: klar sagen, dass das professionelle Hilfe\n  braucht, und auf Hilfsangebote verweisen (Notruf 112 / Polizei 110, TelefonSeelsorge 0800 111 0 111\n  oder 0800 111 0 222 oder 116 123, Hilfetelefon Gewalt an Männern 0800 123 99 00,\n  Hilfetelefon Gewalt gegen Frauen 116 016)."
   },
   {
     "slug": "phases",
     "title": "Die 4 Phasen – Hintergrund",
-    "body": "# Die 4 Phasen – Hintergrund\n\nNur Hintergrund für Mentor und Generator. NICHT als Erklärtext in der App ausbreiten.\nVerboten: Aussagen über Fruchtbarkeit oder Verhütung, über ihre Denkfähigkeit oder Rationalität.\nNicht alles ist Zyklus: Hat sie ein echtes Anliegen, wird es ernst genommen. Ihre Gefühle werden ihr\ngegenüber nie mit Hormonen erklärt.\n\n## Gelb · Wärme (Tag 1–7 ab Blutungsbeginn)\nSie blutet, beide Hormone sind unten. Körperlich anstrengend, der Sturm davor ist meist vorbei.\nEr: Wärme und Ruhe ausstrahlen, nie Witze über ihre Tage.\nFür ihn selbst: Sein eigenes Programm durchziehen – Training, Ordnung, Projekte. Er lebt seinen Standard weiter.\n\n## Pink · Führen (ab Tag 8 bis Beginn Grün)\nÖstrogen steigt. Sie ist oft optimistischer, geselliger und fühlt sich um den Eisprung herum besonders\nattraktiv. Er: Komplimente, Flirt, Date, Abenteuer.\nFür ihn selbst: Führe, plane, übernimm Initiative.\n\n## Grün · Nähe (die 7 Tage vor Rot)\nProgesteron steigt. Sie wird oft ruhiger und sucht Nähe. Er: Aufmerksamkeit, Blumen, gemeinsame Zeit,\nwichtige Gespräche jetzt führen.\nFür ihn selbst: Präsent sein, nicht bedürftig.\n\n## Rot · Standfest (die 7 Tage vor der erwarteten Blutung)\nBeide Hormone fallen. Sie ist oft dünnhäutig, gereizt, schnell überfordert. Er: ruhiger werden, nichts\npersönlich nehmen, nicht argumentieren.\nFür ihn selbst: Ruhiger heißt nicht kleiner. Routinen durchziehen, atmen, bei sich bleiben.\nRot bleibt, bis eine neue Blutung eingetragen ist."
+    "body": "# Die 4 Phasen – Hintergrund\n\nWissen für ihn, nicht gegen sie. Der Mann soll verstehen, dass sie hormonell anders gebaut ist: Sein Hormonspiegel\nläuft im 24-Stunden-Takt (Testosteron morgens am höchsten, abends deutlich tiefer), ihrer in rund 28 Tagen.\nCyclemax übernimmt das Vorausschauen im Hintergrund. Er bekommt dadurch keine Aufgabe, sondern einen Wissensvorsprung –\ndamit er in jeder Phase der Fels in der Brandung ist.\n\nRegeln: Jede Frau ist anders – „kann“, „oft“, „viele“, nie „sie wird“. Keine Aussagen über Fruchtbarkeit, Eisprung als\nZeitfenster, Verhütung oder Schwangerschaft, keine Diagnosen. Nicht alles ist Zyklus: Hat sie ein echtes Anliegen, wird es\nernst genommen. Ihre Gefühle werden ihr gegenüber nie mit Hormonen erklärt, er sagt nie „Hast du deine Tage?“.\nKeine Pflege-Aufgaben rund um ihre Periode (kein „bring ihr Tee“, keine „Entlastung“) – er führt durch Haltung.\n\n## Gelb · Wärme (Tag 1–7 ab dem ersten Tag ihrer Tage)\nHormone: Östrogen und Progesteron sind unten, ihr Körper arbeitet.\nWas kommen kann: Krämpfe sind häufig (rund 7 von 10 jungen Frauen), am stärksten zu Beginn; dazu Kopfweh, Übelkeit,\nwenig Energie. Die prämenstruelle Spannung löst sich meist innerhalb der ersten Tage.\nEr führt mit Wärme: ruhig da sein, nichts kommentieren, nie Witze über ihre Tage. Sein Programm läuft weiter –\nTraining, Ordnung, Projekte. Er lebt seinen Standard.\n\n## Pink · Führen (ab Tag 8 bis Beginn Grün)\nHormone: Östrogen steigt bis zur Mitte des Zyklus.\nWas kommen kann: Bei vielen steigen Energie und gute Laune, negative Stimmung nimmt ab; mehr Lust auf Unternehmungen\nund Neues.\nEr führt mit Initiative: entscheiden, planen, einladen, Abenteuer. Komplimente und Flirt sind willkommen.\n\n## Grün · Nähe (die 7 Tage vor Rot)\nHormone: In der zweiten Zyklushälfte steigt Progesteron.\nWas kommen kann: oft ruhiger, häuslicher, schneller müde. Für viele die stabilsten Tage.\nEr führt mit Präsenz: zuhören, Zeit zu zweit, Grundsatzgespräche jetzt führen. Präsent, nicht bedürftig.\n\n## Rot · Standfest (die 7 Tage vor ihren erwarteten Tagen)\nHormone: Östrogen und Progesteron fallen ab.\nWas kommen kann: Bis zu 9 von 10 Frauen spüren davor mindestens ein Symptom, 2–3 von 10 deutlich (PMS), wenige stark\n(PMDS). Typisch: dünnhäutiger, gereizt, Stimmungsschwankungen, schneller überfordert, schlechter Schlaf, Lust auf Süßes,\nSpannungsgefühl. Es endet meist wenige Tage nach Beginn ihrer Tage.\nEr führt mit Ruhe: ruhiger werden, nichts persönlich nehmen, nicht argumentieren. Ruhiger heißt nicht kleiner.\nRoutinen durchziehen, atmen, bei sich bleiben. Grundsätzliches wartet auf Grün – außer es ist akut, dann kurz.\nRot bleibt, bis ein neuer erster Tag eingetragen ist.\n\n## Quellen\n- ACOG Clinical Practice Guideline No. 7: Management of Premenstrual Disorders (2023)\n- Armour et al.: The Prevalence and Academic Impact of Dysmenorrhea in 21,573 Young Women, J Womens Health (2019)\n- A Mid-Cycle Rise in Positive and Drop in Negative Moods among Healthy Young Women: A Pilot Study, Brain Sciences (2023)\n- Baker & Driver: Circadian rhythms, sleep, and the menstrual cycle, Sleep Medicine (2007)\n- Diver et al.: Diurnal rhythms of serum total, free and bioavailable testosterone, Clinical Endocrinology (2003)"
   },
   {
     "slug": "pure-chapters",
@@ -646,7 +718,7 @@ export const KNOWLEDGE_DOCS: KnowledgeDoc[] = [
   {
     "slug": "pure-method",
     "title": "PURE Method – Paul Brinkmann",
-    "body": "# PURE Method – Paul Brinkmann\n\n- Marke: PURE (früher PUR). Website: purmethod.com. Claim in Cyclemax: „Be the Cycleman.“\n- Kernversprechen: ultimative Freiheit und ultimative Selbstbeherrschung.\n- Signatur: „I became the brother I never had.“\n- Stimme: direkt, nicht akademisch, wissenschaftlich fundiert, persönlich authentisch.\n\n## Säulen\n\n- **P – Physical Control:** P0 Sexual Control, P1 Sleep, P2 Movement, P3 Food, P4 Breath, P5 Temperature.\n- **U – Understanding the Mind:** U0 Awareness, U1 Impulse, U2 Dopamine, U3 Attention, U4 Identity,\n  U5 Emotional Regulation.\n- **R – Responsibility:** R0 Self-Accountability, R1 Self Responsibility, R2 Principles,\n  R3 Relationship Leadership, R4 Trust Economy, R5 Legacy Thinking.\n- **E – Ego:** E3 Annehmen ≠ Zustimmen (eine fremde Meinung hören, ohne sich bedroht zu fühlen, und\n  ruhig die eigene Grenze benennen). E4 Für etwas Größeres leben, ohne sich selbst zu vergessen – an sich\n  zuerst zu denken ist kein Egoismus, sondern Voraussetzung für Liebe („Koch für dich selbst und lass die\n  anderen teilhaben“ – keine Bestätigung nötig). E5 Anerkennen, dass etwas Höheres über einem steht.\n\n## Kernsätze\n\n- Emotionale Kontrolle heißt, einen Zustand zu halten, ohne ihn nach außen zu entladen (Ofen-Metapher:\n  der Ofen hält die Hitze, statt sie in den Raum zu blasen).\n- Das Grundmuster der meisten Konflikte: inneren Druck nach außen abladen.\n- Gelebte Grenzen statt angekündigter Grenzen: Grenzen zeigt man durch Handeln, nicht durch Worte.\n- Gleichmut: „Es ist nichts Großes passiert.“\n- Dopamin ist ein Antizipationssystem, kein Belohnungssystem.\n- Vertrauen ist die Währung („Trust is my currency“).\n- Partnerwahl (Dating-Modus): nach Charakter wählen statt nach Optik; paralleles Dating mit ehrlicher\n  Bindungsabsicht.\n\n## Cyclemax-Kern\n\n- Sei der Fels in der Brandung.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.\n- Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.\n- Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden\n  respektiert, seine eigenen klar und ruhig kommuniziert.\n\n## Nähe und Abstand (Paul Brinkmann)\n\n- Ziel ist eine Beziehung, in der gegenseitige Liebe ist. Für Paul die einzige wirklich erfüllende Form –\n  alles andere bleibt auf Dauer oberflächlich, auch wenn man es ausprobieren darf.\n- Ein Mann braucht Abstand UND Nähe. Die Kunst ist die Balance.\n- Abstand heißt: eigenes Leben, eigene Projekte, Training, Freunde, Zeit mit sich. Nie Rückzug als Strafe,\n  nie Schweigen als Druckmittel.\n- Nähe heißt: volle Präsenz, Zuwendung, Zeit zu zweit, zuhören, berühren, da sein.\n- Zu viel Nähe (klammern, Bestätigung suchen, sich verlieren) erstickt Anziehung.\n  Zu viel Abstand (nur Arbeit, nur Kopf, nie da) lässt Gefühle erkalten.\n- Gefühle wieder wecken: erst Abstand zu sich selbst finden (Ruhe, Training, Klarheit), dann bewusst Nähe geben.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner – es heißt standfest.\n\n## Lebe, als würdest du allein leben (Paul Brinkmann – Kern von Cyclemax)\n\n- Cyclemax zeigt dem Mann nicht, was er tun soll, um ihr zu gefallen. Cyclemax verändert sein Mindset.\n- Er lebt so, als würde er allein leben – im positiven Sinn: nach seinen eigenen Standards, nicht nach ihrem Applaus.\n- Er pflegt seine Hülle: Körper, Kleidung, Haltung, Schlaf, Training. Weil er es sich selbst wert ist.\n- Sauberkeit und Ordnung sind SEIN Standard. Er hält seinen Raum so, wie er ihn für sich will – nicht, damit sie zufrieden ist.\n  Es liegt nie am Abwasch. Es liegt an der Einstellung.\n- Er führt, indem er vorlebt. Er ist das Exempel – für sich, für sie, für die Familie, die er bauen will.\n- Er hat ein eigenes Leben: Projekte, Ziele, Freunde, Zeit mit sich. Er wartet nicht auf Erlaubnis und nicht auf Anerkennung.\n- Ein Mann, der so lebt, ist anziehend, weil er bei sich ist – nicht, weil er sich bemüht.\n- Die Beziehung wird besser als Folge seiner Haltung, nicht als Ziel jeder einzelnen Handlung."
+    "body": "# PURE Method – Paul Brinkmann\n\n- Marke: PURE (früher PUR). Website: purmethod.com. Claim in Cyclemax: „Be the Cycleman.“\n- Kernversprechen: ultimative Freiheit und ultimative Selbstbeherrschung.\n- Signatur: „I became the brother I never had.“\n- Stimme: direkt, nicht akademisch, wissenschaftlich fundiert, persönlich authentisch.\n\n## Säulen\n\n- **P – Physical Control:** P0 Sexual Control, P1 Sleep, P2 Movement, P3 Food, P4 Breath, P5 Temperature.\n- **U – Understanding the Mind:** U0 Awareness, U1 Impulse, U2 Dopamine, U3 Attention, U4 Identity,\n  U5 Emotional Regulation.\n- **R – Responsibility:** R0 Self-Accountability, R1 Self Responsibility, R2 Principles,\n  R3 Relationship Leadership, R4 Trust Economy, R5 Legacy Thinking.\n- **E – Ego:** E3 Annehmen ≠ Zustimmen (eine fremde Meinung hören, ohne sich bedroht zu fühlen, und\n  ruhig die eigene Grenze benennen). E4 Für etwas Größeres leben, ohne sich selbst zu vergessen – an sich\n  zuerst zu denken ist kein Egoismus, sondern Voraussetzung für Liebe („Koch für dich selbst und lass die\n  anderen teilhaben“ – keine Bestätigung nötig). E5 Anerkennen, dass etwas Höheres über einem steht.\n\n## Kernsätze\n\n- Emotionale Kontrolle heißt, einen Zustand zu halten, ohne ihn nach außen zu entladen (Ofen-Metapher:\n  der Ofen hält die Hitze, statt sie in den Raum zu blasen).\n- Das Grundmuster der meisten Konflikte: inneren Druck nach außen abladen.\n- Gelebte Grenzen statt angekündigter Grenzen: Grenzen zeigt man durch Handeln, nicht durch Worte.\n- Gleichmut: „Es ist nichts Großes passiert.“\n- Dopamin ist ein Antizipationssystem, kein Belohnungssystem.\n- Vertrauen ist die Währung („Trust is my currency“).\n- Partnerwahl (Dating-Modus): nach Charakter wählen statt nach Optik; paralleles Dating mit ehrlicher\n  Bindungsabsicht.\n\n## Cyclemax-Kern\n\n- Sei der Fels in der Brandung.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner.\n- Er bleibt bei sich – Fokus auf seine Haltung, nicht auf ihre Stimmung – und hilft ihr genau dadurch.\n- Ziel: eine glückliche, langfristige Beziehung und Familie. Die Frau ist wertvoll. Ihre Grenzen werden\n  respektiert, seine eigenen klar und ruhig kommuniziert.\n\n## Führen (Paul Brinkmann)\n\n- Männer führen. Er ist der Kopf der Beziehung im Sinn von: Er gibt Richtung, Ruhe und Halt. Er entscheidet, plant,\n  geht voran – und trägt die Verantwortung dafür.\n- Führen heißt vorleben, nicht vorschreiben. Keine Kontrolle, kein Druck, keine Abwertung. Wer sich selbst führt,\n  muss niemanden kontrollieren.\n- Eine Frau ist hormonell ganz anders gebaut als ein Mann. Er versteht das, statt es persönlich zu nehmen. Sein Rhythmus\n  dauert 24 Stunden, ihrer rund 28 Tage.\n- Cyclemax nimmt ihm das Vorausschauen ab. Er kümmert sich nicht um ihre Periode und bekommt keine zusätzliche Aufgabe –\n  er fragt sie (oder sie sagt es ihm), tippt einmal, und Cyclemax erinnert ihn rechtzeitig daran, der Fels in der Brandung\n  zu sein.\n\n## Nähe und Abstand (Paul Brinkmann)\n\n- Ziel ist eine Beziehung, in der gegenseitige Liebe ist. Für Paul die einzige wirklich erfüllende Form –\n  alles andere bleibt auf Dauer oberflächlich, auch wenn man es ausprobieren darf.\n- Ein Mann braucht Abstand UND Nähe. Die Kunst ist die Balance.\n- Abstand heißt: eigenes Leben, eigene Projekte, Training, Freunde, Zeit mit sich. Nie Rückzug als Strafe,\n  nie Schweigen als Druckmittel.\n- Nähe heißt: volle Präsenz, Zuwendung, Zeit zu zweit, zuhören, berühren, da sein.\n- Zu viel Nähe (klammern, Bestätigung suchen, sich verlieren) erstickt Anziehung.\n  Zu viel Abstand (nur Arbeit, nur Kopf, nie da) lässt Gefühle erkalten.\n- Gefühle wieder wecken: erst Abstand zu sich selbst finden (Ruhe, Training, Klarheit), dann bewusst Nähe geben.\n- Wenn sie lauter wird, wirst du ruhiger. Ruhiger heißt nicht kleiner – es heißt standfest.\n\n## Lebe, als würdest du allein leben (Paul Brinkmann – Kern von Cyclemax)\n\n- Cyclemax zeigt dem Mann nicht, was er tun soll, um ihr zu gefallen. Cyclemax verändert sein Mindset.\n- Er lebt so, als würde er allein leben – im positiven Sinn: nach seinen eigenen Standards, nicht nach ihrem Applaus.\n- Er pflegt seine Hülle: Körper, Kleidung, Haltung, Schlaf, Training. Weil er es sich selbst wert ist.\n- Sauberkeit und Ordnung sind SEIN Standard. Er hält seinen Raum so, wie er ihn für sich will – nicht, damit sie zufrieden ist.\n  Es liegt nie am Abwasch. Es liegt an der Einstellung.\n- Er führt, indem er vorlebt. Er ist das Exempel – für sich, für sie, für die Familie, die er bauen will.\n- Er hat ein eigenes Leben: Projekte, Ziele, Freunde, Zeit mit sich. Er wartet nicht auf Erlaubnis und nicht auf Anerkennung.\n- Ein Mann, der so lebt, ist anziehend, weil er bei sich ist – nicht, weil er sich bemüht.\n- Die Beziehung wird besser als Folge seiner Haltung, nicht als Ziel jeder einzelnen Handlung."
   },
   {
     "slug": "pure-modules",
