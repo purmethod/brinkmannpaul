@@ -1,10 +1,11 @@
 // Repository: every database access of the backend lives here.
-import { and, asc, desc, eq, gte, inArray, isNull, lte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNull, lte, ne, sql } from "drizzle-orm";
 import { SEED_LINES, SEED_PRINCIPLES } from "../shared/knowledge.generated";
 import type { Line, LineCategory, ScheduledItem } from "../shared/types";
 import type { Database } from "./db";
 
-export type LineStatus = "live" | "review" | "disabled";
+/** "deleted" is a tombstone: keeps seed content from coming back on the next cold start. */
+export type LineStatus = "live" | "review" | "disabled" | "deleted";
 export type ContentSource = "seed" | "generated" | "admin";
 
 export interface LineRow {
@@ -43,6 +44,11 @@ export interface DueItem {
 /** After this many negative votes a line is deactivated. */
 export const DISABLE_AFTER_DOWNVOTES = 5;
 export const CHAT_DAILY_LIMIT = 40;
+/** Max automatic deactivations per day (protects the catalog against fake downvotes). */
+export const AUTO_DISABLE_DAILY_LIMIT = 5;
+/** Internal counter keys in chat_usage (not device ids). */
+const AUTO_DISABLE_KEY = "__auto-disable__";
+export const GLOBAL_CLAUDE_KEY = "__claude-global__";
 
 export function lineWeight(up: number, down: number): number {
   return Math.min(3, Math.max(0.3, 1 + (up - down) * 0.2));
@@ -162,8 +168,18 @@ export function createStore(database: Database) {
         .map((r) => ({ id: r.id, text: r.text, category: r.category, weight: lineWeight(r.up, r.down) }));
     },
 
+    /** Admin view and push texts: everything except tombstones. */
     async allLines(): Promise<LineRow[]> {
-      return db.select().from(t.lines).orderBy(desc(t.lines.createdAt), asc(t.lines.id));
+      return db.select().from(t.lines).where(ne(t.lines.status, "deleted")).orderBy(desc(t.lines.createdAt), asc(t.lines.id));
+    },
+
+    /** Every text ever stored, incl. deleted – for the duplicate check of generated content. */
+    async allTexts(): Promise<string[]> {
+      const [l, p] = await Promise.all([
+        db.select({ text: t.lines.text }).from(t.lines),
+        db.select({ text: t.principles.text }).from(t.principles),
+      ]);
+      return [...l, ...p].map((r: { text: string }) => r.text);
     },
 
     async lineById(id: string): Promise<LineRow | undefined> {
@@ -181,7 +197,7 @@ export function createStore(database: Database) {
     },
 
     async deleteLine(id: string) {
-      await db.delete(t.lines).where(eq(t.lines.id, id));
+      await db.update(t.lines).set({ status: "deleted" }).where(eq(t.lines.id, id));
       await db.delete(t.votes).where(and(eq(t.votes.kind, "line"), eq(t.votes.targetId, id)));
     },
 
@@ -204,7 +220,11 @@ export function createStore(database: Database) {
     },
 
     async allPrinciples(): Promise<PrincipleRow[]> {
-      return db.select().from(t.principles).orderBy(desc(t.principles.createdAt), asc(t.principles.id));
+      return db
+        .select()
+        .from(t.principles)
+        .where(ne(t.principles.status, "deleted"))
+        .orderBy(desc(t.principles.createdAt), asc(t.principles.id));
     },
 
     async insertPrinciple(row: Omit<PrincipleRow, "createdAt" | "id">, now = Date.now()) {
@@ -218,7 +238,7 @@ export function createStore(database: Database) {
     },
 
     async deletePrinciple(id: string) {
-      await db.delete(t.principles).where(eq(t.principles.id, id));
+      await db.update(t.principles).set({ status: "deleted" }).where(eq(t.principles.id, id));
     },
 
     // ------------------------------------------------------------ feedback
@@ -244,7 +264,10 @@ export function createStore(database: Database) {
       const down = Number(row?.down ?? 0);
       const line = await this.lineById(id);
       if (!line) return;
-      const status = down >= DISABLE_AFTER_DOWNVOTES && line.status === "live" ? "disabled" : line.status;
+      let status = line.status;
+      if (down >= DISABLE_AFTER_DOWNVOTES && line.status === "live" && (await this.takeQuota(AUTO_DISABLE_KEY, AUTO_DISABLE_DAILY_LIMIT))) {
+        status = "disabled";
+      }
       await db.update(t.lines).set({ up, down, status }).where(eq(t.lines.id, id));
     },
 
@@ -290,19 +313,19 @@ export function createStore(database: Database) {
       return rows.map((r: { topic: string; count: number }) => ({ topic: r.topic, count: Number(r.count) }));
     },
 
-    /** Increments today's chat counter; false when the daily limit is reached. */
-    async takeChatQuota(deviceId: string, now = Date.now(), limit = CHAT_DAILY_LIMIT): Promise<boolean> {
-      const day = dayOf(now);
+    /** Atomic daily counter (one upsert + RETURNING); false when `limit` is exceeded. */
+    async takeQuota(key: string, limit: number, now = Date.now()): Promise<boolean> {
       const [row] = await db
-        .select()
-        .from(t.chatUsage)
-        .where(and(eq(t.chatUsage.deviceId, deviceId), eq(t.chatUsage.day, day)));
-      if (row && row.count >= limit) return false;
-      await db
         .insert(t.chatUsage)
-        .values({ deviceId, day, count: 1 })
-        .onConflictDoUpdate({ target: [t.chatUsage.deviceId, t.chatUsage.day], set: { count: sql`${t.chatUsage.count} + 1` } });
-      return true;
+        .values({ deviceId: key, day: dayOf(now), count: 1 })
+        .onConflictDoUpdate({ target: [t.chatUsage.deviceId, t.chatUsage.day], set: { count: sql`${t.chatUsage.count} + 1` } })
+        .returning({ count: t.chatUsage.count });
+      return Number(row?.count ?? 1) <= limit;
+    },
+
+    /** Per-device daily limit for Claude calls (chat + profile). */
+    async takeChatQuota(deviceId: string, now = Date.now(), limit = CHAT_DAILY_LIMIT): Promise<boolean> {
+      return this.takeQuota(deviceId, limit, now);
     },
 
     // ------------------------------------------------------------ jobs

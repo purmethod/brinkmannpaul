@@ -57,7 +57,7 @@ export function createClaude(config: Config): Llm | null {
         max_tokens: maxTokens,
         system,
         messages: [{ role: "user", content: prompt }],
-        output_config: { format: zodOutputFormat(schema), ...(config.claudeEffort ? { effort: "medium" as const } : {}) },
+        output_config: { format: zodOutputFormat(schema), ...(config.claudeJsonEffort ? { effort: config.claudeJsonEffort } : {}) },
       });
       if (res.stop_reason === "refusal") return null;
       return res.parsed_output ?? null;

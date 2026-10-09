@@ -120,7 +120,7 @@ export async function runKnowledgeJob(store: Store, llm: Llm | null, now = Date.
     if (!critic) throw new Error("Kritiker lieferte kein Ergebnis");
     const verdicts = new Map(critic.verdicts.map((v) => [v.index, v]));
 
-    const existing = [...allLines.map((l) => l.text), ...allPrinciples.map((p) => p.text)];
+    const existing = [...(await store.allTexts()), ...allLines.map((l) => l.text), ...allPrinciples.map((p) => p.text)];
     for (const [i, c] of formatted.entries()) {
       const v = verdicts.get(i);
       if (!v || !v.pass) {

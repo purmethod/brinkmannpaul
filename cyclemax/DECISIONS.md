@@ -72,3 +72,12 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 - Chat: Ein-Tap-Fragen für den leeren Chat; „Sag: …“-Sätze als kopierbarer Block (direkt in WhatsApp).
 - Spracheingabe: Web Speech API (Chrome/Safari) bzw. `@capacitor-community/speech-recognition`; ohne Unterstützung
   Hinweis auf das Diktier-Mikrofon der Tastatur. Es wird kein Audio gespeichert oder gesendet.
+
+## Härtung nach Code-Review (09.10.)
+- Löschen im Admin = Tombstone (`status: deleted`), damit Seed-Inhalte nicht beim nächsten Kaltstart zurückkommen und
+  der Wissens-Job gelöschte Texte nicht neu erzeugt.
+- Bewertungen sind anonym und damit fälschbar: max. 5 automatische Deaktivierungen pro Tag (Rest bleibt live, /admin entscheidet).
+- Kostenschutz: atomarer Tageszähler pro Gerät (40) + globales Tageslimit für Claude-Aufrufe (`CLAUDE_DAILY_LIMIT`, 3000).
+- Production ohne VAPID-Keys: kein Fallback auf Zufallsschlüssel (würde pro Serverless-Instanz anders sein) → 503 +
+  Warnung in `/api/health`. Ebenso Warnungen für fehlende DATABASE_URL, Claude-Key, Admin-Passwort, Cron-Secret.
+- Push-Cron: pro Gerät nur die neueste fällige Nachricht; bei vorübergehendem Fehler bleibt alles für den nächsten Lauf.

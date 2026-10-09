@@ -78,18 +78,28 @@ self.addEventListener("push", (event) => {
       icon: "/icons/icon-192.png",
       badge: "/icons/maskable-192.png",
       tag: data.tag || "cyclemax-daily",
-      data: { url: data.url || "/" },
+      data: { url: data.url || "/heute/" },
     }),
   );
 });
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const target = (event.notification.data && event.notification.data.url) || "/";
+  const target = (event.notification.data && event.notification.data.url) || "/heute/";
   event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
-      for (const c of list) if ("focus" in c) return c.navigate(target).then((w) => (w || c).focus());
-      return clients.openWindow(target);
-    }),
+    (async () => {
+      const list = await clients.matchAll({ type: "window", includeUncontrolled: true });
+      const client = list.find((c) => c.url.startsWith(self.location.origin));
+      if (client) {
+        try {
+          await client.focus();
+          if ("navigate" in client) await client.navigate(target);
+          return;
+        } catch {
+          // not controlled by this worker – fall through to a new window
+        }
+      }
+      await clients.openWindow(target);
+    })(),
   );
 });

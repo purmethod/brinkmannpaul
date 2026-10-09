@@ -87,3 +87,29 @@ describe("store", () => {
     expect(top.map((t) => t.topic)).not.toContain("Alt");
   });
 });
+
+describe("store hardening", () => {
+  it("deleted seed lines stay deleted after the next cold-start seed", async () => {
+    const { store } = await testContext();
+    const id = SEED_LINES[5].id;
+    await store.deleteLine(id);
+    await store.seed();
+    expect((await store.catalog()).find((l) => l.id === id)).toBeUndefined();
+    expect((await store.allLines()).find((l) => l.id === id)).toBeUndefined();
+    expect(await store.allTexts()).toContain(SEED_LINES[5].text);
+  });
+
+  it("fake downvotes can disable at most 5 lines per day", async () => {
+    const { store } = await testContext();
+    for (const line of SEED_LINES.slice(0, 8))
+      for (let d = 0; d < DISABLE_AFTER_DOWNVOTES; d++) await store.vote(`fake-device-${d}-xxxx`, "line", line.id, -1, null);
+    const disabled = (await store.allLines()).filter((l) => l.status === "disabled");
+    expect(disabled).toHaveLength(5);
+  });
+
+  it("quota is counted atomically under concurrency", async () => {
+    const { store } = await testContext();
+    const results = await Promise.all(Array.from({ length: 10 }, () => store.takeQuota("dev-concurrent", 4)));
+    expect(results.filter(Boolean)).toHaveLength(4);
+  });
+});

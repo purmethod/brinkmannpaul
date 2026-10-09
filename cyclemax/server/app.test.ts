@@ -239,3 +239,51 @@ describe("profile", () => {
     expect(llm.chat.mock.calls[0][0].context).toContain("Sie ist gestresst");
   });
 });
+
+describe("hardening", () => {
+  it("transient push failure keeps the item for the next run; success marks all due items", async () => {
+    const { call, push, store } = await testContext();
+    const sub = { endpoint: "https://push.example/t", keys: { p256dh: "p", auth: "a" } };
+    const soon = (m: number) => new Date(Date.now() + m * 60_000).toISOString();
+    await call("POST", "/api/push/schedule", { deviceId: DEVICE, neutral: false, subscription: sub, items: [{ at: soon(-20), kind: "daily", key: SEED_LINES[0].id }, { at: soon(10), kind: "phase", key: "red7" }] });
+    push.failFor.set(sub.endpoint, 500);
+    expect((await call("GET", "/api/cron/push", undefined, "cron")).data).toMatchObject({ delivered: 0, failed: 1 });
+    push.failFor.clear();
+    const run = await call("GET", "/api/cron/push", undefined, "cron");
+    expect(run.data).toMatchObject({ delivered: 1 });
+    expect(push.sent[0].payload.body).toBe(PHASE_PUSH_TEXT.red7); // the newest due item
+    expect((await store.scheduleFor(DEVICE)).every((r: { sentAt: number | null }) => r.sentAt !== null)).toBe(true);
+  });
+
+  it("admin test push respects neutral notifications", async () => {
+    const { call, push } = await testContext();
+    await call("POST", "/api/push/schedule", { deviceId: DEVICE, neutral: true, subscription: { endpoint: "https://push.example/n", keys: { p256dh: "p", auth: "a" } }, items: [] });
+    await call("POST", "/api/admin/test-push", undefined, "secret");
+    expect(push.sent[0].payload).toMatchObject({ title: "Cyclemax", body: "" });
+  });
+
+  it("production without VAPID keys: no ephemeral keys, clear 503 and health warning", async () => {
+    const { call } = await testContext({ env: { VAPID_PUBLIC_KEY: "", VAPID_PRIVATE_KEY: "", VERCEL_ENV: "production" } });
+    expect((await call("GET", "/api/push/key")).status).toBe(503);
+    const health = (await call("GET", "/api/health")).data;
+    expect(health.push).toBe(false);
+    expect(health.warnings.join(" ")).toMatch(/VAPID/);
+    expect(health.warnings.join(" ")).toMatch(/DATABASE_URL/);
+    expect((await call("GET", "/api/cron/push", undefined, "cron")).data.skipped).toMatch(/VAPID/);
+  });
+
+  it("long assistant answers in the history do not break the next chat request", async () => {
+    const llm = { chat: vi.fn(async () => ({ text: "Ok.", refused: false })), json: vi.fn() } as never;
+    const { call } = await testContext({ llm });
+    const res = await call("POST", "/api/chat", chatBody("x", { messages: [{ role: "user", content: "a" }, { role: "assistant", content: "b".repeat(3500) }, { role: "user", content: "weiter?" }] }));
+    expect(res.status).toBe(200);
+    expect(res.data.source).toBe("claude");
+  });
+
+  it("global daily Claude limit protects the API key", async () => {
+    const llm = { chat: vi.fn(async () => ({ text: "Ok.", refused: false })), json: vi.fn() };
+    const { call } = await testContext({ llm: llm as never, env: { CLAUDE_DAILY_LIMIT: "2" } });
+    for (let i = 0; i < 3; i++) await call("POST", "/api/chat", chatBody("Hallo", { deviceId: `device-${i}-rotating` }));
+    expect(llm.chat).toHaveBeenCalledTimes(2);
+  });
+});

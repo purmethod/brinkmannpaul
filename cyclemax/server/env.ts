@@ -5,6 +5,14 @@ export interface Config {
   claudeModel: string;
   claudeEffort: "low" | "medium" | "high" | null;
   claudeFallbacks: boolean;
+  /** Effort for structured jobs (profile analysis, knowledge job). */
+  claudeJsonEffort: "low" | "medium" | "high" | null;
+  /** Max Claude calls per day for the whole app (cost protection). */
+  claudeDailyLimit: number;
+  /** True on a production deployment (Vercel production or NODE_ENV=production). */
+  production: boolean;
+  /** DATABASE_URL points to Postgres (persistent). */
+  persistentDb: boolean;
   vapidPublicKey: string | null;
   vapidPrivateKey: string | null;
   vapidSubject: string;
@@ -21,10 +29,16 @@ const FALLBACK_MODELS = new Set(["claude-sonnet-5-5", "claude-opus-5-5", "claude
 export function readConfig(env: Record<string, string | undefined> = process.env): Config {
   const model = env.CLAUDE_MODEL || "claude-sonnet-5-5";
   const effort = env.CLAUDE_EFFORT ?? "low";
+  const jsonEffort = env.CLAUDE_JSON_EFFORT ?? "medium";
+  const isEffort = (e: string): e is "low" | "medium" | "high" => e === "low" || e === "medium" || e === "high";
   return {
     anthropicApiKey: env.ANTHROPIC_API_KEY || null,
     claudeModel: model,
-    claudeEffort: effort === "low" || effort === "medium" || effort === "high" ? effort : null,
+    claudeEffort: isEffort(effort) ? effort : null,
+    claudeJsonEffort: isEffort(jsonEffort) ? jsonEffort : null,
+    claudeDailyLimit: Number(env.CLAUDE_DAILY_LIMIT ?? 3000),
+    production: env.VERCEL_ENV === "production" || env.NODE_ENV === "production",
+    persistentDb: /^postgres(ql)?:\/\//.test(env.DATABASE_URL ?? ""),
     claudeFallbacks: env.CLAUDE_FALLBACKS ? env.CLAUDE_FALLBACKS !== "off" : FALLBACK_MODELS.has(model),
     vapidPublicKey: env.VAPID_PUBLIC_KEY || null,
     vapidPrivateKey: env.VAPID_PRIVATE_KEY || null,

@@ -2,6 +2,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import * as z from "zod/v4";
 import { KNOWLEDGE_DOCS } from "../shared/knowledge.generated";
+import { NEUTRAL_BODY, NEUTRAL_TITLE } from "../shared/texts";
 import { topicOf } from "../shared/topics";
 import { answerChat } from "./chat";
 import { analyzeProfile, ProfileSchema } from "./profile";
@@ -10,7 +11,7 @@ import { readConfig, type Config } from "./env";
 import { runKnowledgeJob } from "./knowledge-job";
 import { createClaude, type Llm } from "./llm";
 import { createWebPushSender, sendDuePushes, vapidKeys, type PushSender } from "./push";
-import { createStore, type Store } from "./store";
+import { createStore, GLOBAL_CLAUDE_KEY, type Store } from "./store";
 
 export interface AppContext {
   config: Config;
@@ -51,9 +52,10 @@ const ChatBody = z.object({
   notes: z.array(z.string().max(300)).max(5).default([]),
   profile: z.string().max(2000).optional(),
   messages: z
-    .array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().min(1).max(2000) }))
+    .array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().min(1).max(6000) }))
     .min(1)
     .max(16)
+    .refine((m) => m.every((x) => x.role === "assistant" || x.content.length <= 2000), "user message too long")
     .refine((m) => m.length > 0 && m[m.length - 1].role === "user", "last message must be from the user"),
 });
 const ProfileBody = z.object({
@@ -152,14 +154,21 @@ export function createHandler(getContext: () => Promise<AppContext>) {
       const { store, config } = ctx;
 
       if (m === "GET" && path === "/api/health") {
-        return json({ ok: true, db: store.kind, claude: !!ctx.llm, model: config.claudeModel });
+        const warnings = [
+          ...(config.persistentDb ? [] : ["DATABASE_URL fehlt – SQLite ist auf Vercel nicht dauerhaft"]),
+          ...(vapidKeys(config) ? [] : ["VAPID-Keys fehlen – kein Web Push"]),
+          ...(ctx.llm ? [] : ["ANTHROPIC_API_KEY fehlt – Antworten aus der Wissensbasis"]),
+          ...(config.adminPassword ? [] : ["ADMIN_PASSWORD fehlt – /admin gesperrt"]),
+          ...(config.cronSecret ? [] : ["CRON_SECRET fehlt"]),
+        ];
+        return json({ ok: true, db: store.kind, claude: !!ctx.llm, model: config.claudeModel, push: !!vapidKeys(config), warnings });
       }
       if (m === "GET" && path === "/api/lines") return json({ lines: await store.catalog() });
 
       if (m === "POST" && path === "/api/chat") {
         const req2 = await body(req, ChatBody);
         await store.touchDevice(req2.deviceId);
-        const allowed = await store.takeChatQuota(req2.deviceId);
+        const allowed = (await store.takeChatQuota(req2.deviceId)) && (await store.takeQuota(GLOBAL_CLAUDE_KEY, config.claudeDailyLimit));
         const lastUser = req2.messages.filter((x) => x.role === "user").at(-1)!.content;
         await store.addTopic(topicOf(lastUser));
         const [lines, principles] = await Promise.all([store.catalog(), store.livePrinciples()]);
@@ -170,7 +179,7 @@ export function createHandler(getContext: () => Promise<AppContext>) {
       if (m === "POST" && path === "/api/profile") {
         const b = await body(req, ProfileBody);
         await store.touchDevice(b.deviceId);
-        const allowed = await store.takeChatQuota(b.deviceId);
+        const allowed = (await store.takeChatQuota(b.deviceId)) && (await store.takeQuota(GLOBAL_CLAUDE_KEY, config.claudeDailyLimit));
         return json(await analyzeProfile(b, allowed ? ctx.llm : null));
       }
 
@@ -187,7 +196,11 @@ export function createHandler(getContext: () => Promise<AppContext>) {
         return json({ ok: true });
       }
 
-      if (m === "GET" && path === "/api/push/key") return json({ publicKey: vapidKeys(config).publicKey });
+      if (m === "GET" && path === "/api/push/key") {
+        const keys = vapidKeys(config);
+        if (!keys) throw new HttpError(503, "VAPID-Keys fehlen");
+        return json({ publicKey: keys.publicKey });
+      }
 
       if (m === "POST" && path === "/api/push/schedule") {
         const b = await body(req, ScheduleBody);
@@ -265,7 +278,8 @@ export function createHandler(getContext: () => Promise<AppContext>) {
           const errors: string[] = [];
           for (const s of subs) {
             try {
-              await ctx.push.send(s, JSON.stringify({ title: "Cyclemax", body: "Test-Push. Du bist der Fels.", tag: "cyclemax-test", url: "/" }));
+              const body = s.neutral ? NEUTRAL_BODY : "Test-Push. Du bist der Fels.";
+              await ctx.push.send(s, JSON.stringify({ title: NEUTRAL_TITLE, body, tag: "cyclemax-test", url: "/heute/" }));
               delivered++;
             } catch (e) {
               errors.push(e instanceof Error ? e.message : String(e));

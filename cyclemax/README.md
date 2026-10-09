@@ -56,7 +56,7 @@ Mentor mit Zeilen aus der Wissensbasis. Ohne VAPID-Keys erzeugt der Dev-Server t
 | `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Server | Web Push. `VAPID_SUBJECT` optional (Default `mailto:orders@brinkmannpaul.com`). |
 | `ADMIN_PASSWORD` | Server, geheim | Passwort für `/admin`. Leer = Admin gesperrt. |
 | `CRON_SECRET` | Server, geheim | Vercel Cron schickt `Authorization: Bearer $CRON_SECRET`. In Production Pflicht. |
-| optional | | `CLAUDE_EFFORT` (low), `CLAUDE_FALLBACKS` (`off`), `PUSH_LEAD_MINUTES` (30), `PUSH_STALE_MINUTES` (180) |
+| optional | | `CLAUDE_EFFORT` (low), `CLAUDE_JSON_EFFORT` (medium), `CLAUDE_DAILY_LIMIT` (3000), `CLAUDE_FALLBACKS` (`off`), `PUSH_LEAD_MINUTES` (30), `PUSH_STALE_MINUTES` (180) |
 
 ## Prüfen
 
@@ -76,7 +76,8 @@ Ein Vercel-Projekt liefert die PWA (`out/`) und das Backend (`api/index.ts`) aus
    Framework Preset **Other** (Build/Output kommen aus `vercel.json`).
 3. Environment-Variablen aus der Tabelle setzen. `NEXT_PUBLIC_API_BASE` = die Projekt-Domain
    (z. B. `https://cyclemax.vercel.app`).
-4. Deploy. Danach `https://<domain>/api/health` → `{"ok":true,"db":"postgres","claude":true}`.
+4. Deploy. Danach `https://<domain>/api/health` → `{"ok":true,"db":"postgres","claude":true,"push":true,"warnings":[]}`.
+   Jede Warnung dort nennt eine fehlende Variable.
 5. `/admin` mit `ADMIN_PASSWORD` öffnen → System → „Test-Push an alle“.
 
 **Hinweis Vercel-Plan:** Auf Hobby laufen Cron-Jobs nur einmal täglich – für den stündlichen Push-Cron ist
