@@ -2,9 +2,11 @@ import { HttpError, requireCtx, route } from '@/lib/auth';
 import { autopilotOf, pendingReviews, poolSize, reviewStats, slotTimes } from '@/lib/autopilot';
 import { resolveBrand } from '@/lib/brand';
 import { one, q } from '@/lib/db';
+import { TEXT_STYLES } from '@/lib/carousel';
 import { connectionStatus } from '@/lib/platforms';
+import { LOOKS } from '@/lib/reel';
 import { qstashReady } from '@/lib/schedule';
-import type { BrandRow, ChannelSettings } from '@/lib/types';
+import type { BrandRow, ChannelSettings, ChannelStyle } from '@/lib/types';
 
 type P = { params: Promise<{ id: string }> };
 
@@ -28,6 +30,9 @@ export const GET = route(async (_req: Request, { params }: P) => {
     brief: k.brief ?? '',
     tone: k.tone ?? '',
     channel: row.settings?.channel ?? null,
+    style: row.settings?.style ?? {},
+    looks: Object.entries(LOOKS).map(([id, l]) => ({ id, label: l.label })),
+    textStyles: TEXT_STYLES,
     autopilot: { ...ap, recent: (ap.recent ?? []).slice(0, 8), history: undefined, slots: slotTimes(ap) },
     stats: reviewStats(ap),
     waiting: await pendingReviews(row.id),
@@ -37,11 +42,22 @@ export const GET = route(async (_req: Request, { params }: P) => {
   });
 });
 
-/** { channel?: ChannelSettings } — the autopilot is changed through /api/settings on the active channel. */
+/** { channel?: ChannelSettings, style?: ChannelStyle } — the autopilot is changed through /api/settings on the active channel. */
 export const PATCH = route(async (req: Request, { params }: P) => {
   const { user } = await requireCtx(req);
   const row = await mine(user.id, (await params).id);
-  const b = (await req.json()) as { channel?: ChannelSettings };
+  const b = (await req.json()) as { channel?: ChannelSettings; style?: ChannelStyle };
+  if (b.style && typeof b.style === 'object') {
+    // set once: how videos look, how words sit on them, what photos become
+    const st = b.style;
+    const next: ChannelStyle = {
+      ...(row.settings?.style ?? {}),
+      ...(st.look && st.look in LOOKS ? { look: st.look } : {}),
+      ...(st.text && TEXT_STYLES.includes(st.text) ? { text: st.text } : {}),
+      ...(st.photos === 'reel' || st.photos === 'carousel' ? { photos: st.photos } : {}),
+    };
+    await q("update brands set settings = settings || jsonb_build_object('style', $2::jsonb) where id = $1", [row.id, JSON.stringify(next)]);
+  }
   if (b.channel) {
     const cur = row.settings?.channel ?? {};
     const c = b.channel;

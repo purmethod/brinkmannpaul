@@ -355,3 +355,15 @@ h1.brand { display: flex; align-items: center; gap: 10px; }
 
 .list > form.pw-form { display: flex; flex-direction: column; gap: 8px; padding: 12px 16px 16px; }
 .list > form.pw-form button { min-height: 44px; }
+
+/* ---------- create: the one screen after speaking ---------- */
+.said { display: flex; gap: 12px; align-items: flex-start; margin: 0 0 8px; }
+.said form { flex: 1; }
+.said-text { flex: 1; min-height: 60px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; text-align: left; justify-content: flex-start; font-size: 20px; font-weight: 550; letter-spacing: -0.01em; line-height: 1.35; color: var(--ink); }
+.said-text:active { background: none; }
+.flow-body .kicker { margin: 20px 0 10px; }
+.flow-body .chips button { font-variant-numeric: tabular-nums; }
+.chips .ts-bold { font-weight: 800; }
+.chips .ts-serif { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 15px; }
+.post-bar { position: sticky; bottom: 0; margin-top: auto; padding-top: 26px; background: linear-gradient(transparent, var(--bg) 26px); }
+.post-btn { min-height: 58px; font-size: 18px; }

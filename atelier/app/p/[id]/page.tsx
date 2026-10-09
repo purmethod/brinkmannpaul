@@ -13,8 +13,8 @@ interface Post {
   caption: string;
   error: string | null;
   permalink: string | null;
-  output: { video?: string; cover?: string; duration?: number; slides?: { png: string; jpg: string }[]; mode?: string };
-  options: { notes?: string | null; mode?: string };
+  output: { video?: string; cover?: string; duration?: number; slides?: { png: string; jpg: string }[]; mode?: string; plan?: unknown };
+  options: { notes?: string | null; mode?: string; look?: string; textStyle?: string };
 }
 interface View {
   post: Post;
@@ -23,6 +23,9 @@ interface View {
 interface Setup {
   timezone: string;
   templates: { id: string; label: string; layout: string; saved: boolean }[];
+  style: { look?: string; text?: string };
+  looks: { id: string; label: string }[];
+  textStyles: string[];
 }
 
 const STATUS: Record<string, string> = {
@@ -263,7 +266,48 @@ export default function PostPage() {
             <p className="muted small">cutcake remembers this for next time.</p>
           </section>
 
-          {setup && (
+          {setup && post.kind === 'reel' && (
+            <section className="block">
+              <p className="kicker">look</p>
+              <div className="chips">
+                {setup.looks.map((l) => (
+                  <button
+                    key={l.id}
+                    aria-pressed={(post.options.look ?? setup.style.look ?? 'natural') === l.id}
+                    disabled={Boolean(busy) || post.status === 'processing'}
+                    onClick={() => {
+                      optimistic({ options: { ...post.options, look: l.id } });
+                      patch({ look: l.id }, '');
+                    }}
+                  >
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+              <p className="kicker" style={{ marginTop: 16 }}>words</p>
+              <div className="chips">
+                {setup.textStyles.map((t) => (
+                  <button
+                    key={t}
+                    className={`ts-${t}`}
+                    aria-pressed={(post.options.textStyle ?? setup.style.text ?? 'clean') === t}
+                    disabled={Boolean(busy) || post.status === 'processing'}
+                    onClick={() => {
+                      optimistic({ options: { ...post.options, textStyle: t } });
+                      patch({ textStyle: t }, '');
+                    }}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+              <p className="muted small" style={{ marginTop: 10 }}>
+                the words stay — only the picture changes.
+              </p>
+            </section>
+          )}
+
+          {setup && post.kind !== 'reel' && (
             <section className="block">
               <p className="kicker">look</p>
               <div className="chips">
@@ -288,7 +332,7 @@ export default function PostPage() {
             </section>
           )}
 
-          {post.kind !== 'reel' && (
+          {(post.kind !== 'reel' || !post.output.plan) && (
             <section className="block">
               <p className="kicker">tone</p>
               <div className="chips">

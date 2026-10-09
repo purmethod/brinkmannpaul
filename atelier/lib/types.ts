@@ -21,6 +21,14 @@ export interface BrandSettings {
   autopilot?: AutopilotSettings;
   autopilotLock?: string;
   channel?: ChannelSettings;
+  style?: ChannelStyle;
+}
+
+/** Set once per channel: how videos look, how words sit on them, what photos become. */
+export interface ChannelStyle {
+  look?: 'natural' | 'cinematic' | 'warm' | 'mono' | 'vivid';
+  text?: 'clean' | 'bold' | 'serif' | 'box';
+  photos?: 'carousel' | 'reel';
 }
 
 /** Daily posting on its own: a post every few hours in a time window, from the creator's insights + real knowledge. */
@@ -79,6 +87,7 @@ export interface PostOutput {
   slides?: Slide[];
   plan?: unknown; // cut list from the worker, reused for voiceover re-renders
   lines?: string[]; // the slide words — kept when only the look changes
+  positions?: string[]; // photo reels: where the words sit on each photo
   mode?: ContentMode; // what the post is: decided from the photo and the creator's words
 }
 
@@ -93,6 +102,8 @@ export interface PostOptions {
   retriedAt?: string; // self-healing: last automatic re-render of a stuck post
   autopilot?: boolean; // made by the autopilot
   mode?: ContentMode; // set by the owner: write in this mode instead of detecting it
+  look?: ChannelStyle['look']; // this post's video look (else the channel's)
+  textStyle?: ChannelStyle['text']; // this post's on-screen text style (else the channel's)
   review?: 'pending' | 'approved'; // learning phase: waits for the owner's ok
   edits?: number; // corrections before the ok
 }

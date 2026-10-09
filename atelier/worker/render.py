@@ -372,15 +372,47 @@ def ass_time(t):
     return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 
 
-def write_ass(chunks, path, brand, tpl, scale=1.0):
-    sub = brand["video"]["subtitles"]
-    v = tpl["video"]
-    W, H = brand["video"]["width"], brand["video"]["height"]
-    family = brand["fonts"]["family"]
-    style = (
-        f"Style: Default,{family},{round(sub['fontSize'] * scale)},{ass_color(v['subtitleColor'])},&H000000FF,&H00000000,&H00000000,"
-        f"0,0,0,0,100,100,0,0,1,0,0,1,{sub['marginSide']},{sub['marginSide']},{v['subtitleMarginV']},1"
+YELLOW = "&H004DD8FF"  # #FFD84D, the emphasis colour of the "bold" style
+
+
+def ass_style(brand, tpl, scale, text_style):
+    """The channel's subtitle style: brand (template colour, the default) or clean / bold / serif / box."""
+    sub, v, f = brand["video"]["subtitles"], tpl["video"], brand["fonts"]
+    size = sub["fontSize"] * scale
+    sans = f.get("sans", f["family"])
+    white, black, shade = "&H00FFFFFF", "&H00000000", "&H96000000"
+    # name, bold, italic, size, border style, outline, shadow, text, outline colour, back colour, alignment
+    spec = {
+        "clean": (sans, 0, 0, size, 1, 0, 2, white, black, shade, 2),
+        "bold": (sans, 1, 0, size * 1.08, 1, 4, 0, white, black, black, 2),
+        "serif": (f["family"], 0, 1, size * 1.08, 1, 0, 2, white, black, shade, 2),
+        # opaque white box, dark words: libass takes the box colour from the outline (back colour set too, to be safe)
+        "box": (sans, 0, 0, size * 0.92, 3, 16, 0, "&H00101010", white, white, 2),
+    }.get(text_style or "", (f["family"], 0, 0, size, 1, 0, 0, ass_color(v["subtitleColor"]), black, black, 1))
+    name, bold, italic, fs, bs, ol, sh, pc, oc, bc, align = spec
+    line = (
+        f"Style: Default,{name},{round(fs)},{pc},&H000000FF,{oc},{bc},"
+        f"{-1 if bold else 0},{-1 if italic else 0},0,0,100,100,0,0,{bs},{ol},{sh},{align},"
+        f"{sub['marginSide']},{sub['marginSide']},{v['subtitleMarginV']},1"
     )
+    return line, align
+
+
+def emphasize(text, text_style):
+    """**word** → yellow (bold style) or heavier; without marks the bold style lifts the longest word."""
+    if text_style == "bold" and "**" not in text:
+        words = [w for w in re.findall(r"[^\W\d_]{6,}|\d+", text)]
+        if words:
+            key = max(words, key=len)
+            text = re.sub(rf"\b{re.escape(key)}\b", f"**{key}**", text, count=1)
+    # closing tags undo only the emphasis (a reset would also drop the hook's size)
+    on, off = ("{\\c" + YELLOW + "&}", "{\\c&H00FFFFFF&}") if text_style == "bold" else ("{\\b1}", "{\\b0}")
+    return re.sub(r"\*\*(.+?)\*\*", lambda m: f"{on}{m.group(1)}{off}", text).replace("**", "")
+
+
+def write_ass(chunks, path, brand, tpl, scale=1.0, text_style=None, places=None):
+    W, H = brand["video"]["width"], brand["video"]["height"]
+    style, align = ass_style(brand, tpl, scale, text_style)
     lines = [
         "[Script Info]", "ScriptType: v4.00+", f"PlayResX: {W}", f"PlayResY: {H}", "WrapStyle: 2",
         "ScaledBorderAndShadow: yes", "",
@@ -392,10 +424,54 @@ def write_ass(chunks, path, brand, tpl, scale=1.0):
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
-    for c in chunks:
-        text = "\\N".join(re.sub(r"[{}\\]", "", l) for l in c["lines"])
-        lines.append(f"Dialogue: 0,{ass_time(c['start'])},{ass_time(c['end'])},Default,,0,0,0,,{{\\fad(150,150)}}{text}")
+    for i, c in enumerate(chunks):
+        text = "\\N".join(emphasize(re.sub(r"[{}\\]", "", l), text_style) for l in c["lines"])
+        tags = "\\fad(150,150)"
+        # away from faces: top or middle when a face sits where the words would be
+        place = places[i] if places and i < len(places) else None
+        if place == "top":
+            tags += f"\\an{align + 6}"
+        elif place == "middle":
+            tags += f"\\an{align + 3}"
+        # the hook is bigger, the rest settles: the type changes in the course of the video
+        if i == 0 and text_style and len(chunks) > 1 and max(len(l) for l in c["lines"]) <= 22:
+            tags += "\\fscx118\\fscy118"
+        lines.append(f"Dialogue: 0,{ass_time(c['start'])},{ass_time(c['end'])},Default,,0,0,0,,{{{tags}}}{text}")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def face_places(video, times):
+    """Per subtitle: the band (bottom, top, middle) with the least face in it — None where no face is seen."""
+    try:
+        import cv2  # opencv-python-headless 4.x; without it the words keep their place
+
+        cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    except Exception:  # noqa: BLE001
+        return None
+    bands = {"bottom": (0.62, 0.88), "top": (0.08, 0.34), "middle": (0.38, 0.62)}
+    cap = cv2.VideoCapture(str(video))
+    out = []
+    for t in times:
+        cap.set(cv2.CAP_PROP_POS_MSEC, max(0.0, t) * 1000)
+        ok, frame = cap.read()
+        if not ok:
+            out.append(None)
+            continue
+        small = cv2.resize(frame, (360, max(1, int(360 * frame.shape[0] / frame.shape[1]))))
+        gray = cv2.equalizeHist(cv2.cvtColor(small, cv2.COLOR_BGR2GRAY))
+        faces = cascade.detectMultiScale(gray, 1.1, 6, minSize=(28, 28))
+        if not len(faces):
+            out.append(None)
+            continue
+        h = small.shape[0]
+        busy = {k: 0.0 for k in bands}
+        for (x, y, w, fh) in faces:
+            for k, (a, b) in bands.items():
+                busy[k] += max(0.0, min(y + fh, b * h) - max(y, a * h)) * w
+        out.append(min(bands, key=lambda k: busy[k]))  # ties keep the bottom
+    cap.release()
+    log("face places", out)
+    return out
 
 
 # ---------------------------------------------------------------- brand overlays
@@ -441,7 +517,7 @@ def logo_png(brand_dir, tpl, out):
     from PIL import Image
 
     cfg = tpl.get("logo")
-    if not cfg or not (brand_dir / cfg["file"]).exists():
+    if not cfg or not cfg.get("file") or not (brand_dir / cfg["file"]).exists():
         return None
     img = Image.open(brand_dir / cfg["file"]).convert("RGBA")
     img = img.resize((cfg["width"], max(1, round(img.height * cfg["width"] / img.width))), Image.LANCZOS)
@@ -449,14 +525,15 @@ def logo_png(brand_dir, tpl, out):
     return out
 
 
-def render_final(joined, dur, ass, brand, tpl, brand_dir, out, assets=None, voiceover=None):
+def render_final(joined, dur, ass, brand, tpl, brand_dir, out, assets=None, voiceover=None, look=None):
     W, H, fps = brand["video"]["width"], brand["video"]["height"], brand["video"]["fps"]
     v = tpl["video"]
     sig_cfg = brand["video"]["signature"]
     fonts = WORK / "fonts"
     fonts.mkdir(exist_ok=True)
-    for key in ("regular", "bold"):
-        shutil.copy(brand_dir / brand["fonts"][key], fonts)
+    for key in ("regular", "bold", "italic", "sansRegular", "sansMedium", "sansBold"):
+        if brand["fonts"].get(key):
+            shutil.copy(brand_dir / brand["fonts"][key], fonts)
 
     inputs = ["-i", joined]
     fc = []
@@ -466,6 +543,9 @@ def render_final(joined, dur, ass, brand, tpl, brand_dir, out, assets=None, voic
     else:
         fc.append(f"[0:v]scale={W}:{H},setsar=1[base]")
     cur, n = "base", 1
+    if look:  # the channel's grade (cinematic, warm …) on the footage — never on the words
+        fc.append(f"[{cur}]{look}[look]")
+        cur = "look"
 
     def still(path):
         nonlocal n
@@ -550,10 +630,11 @@ def render_montage(clips, plan, opts, brand, tpl, brand_dir, fps, box_w, box_h, 
         lines.append({"text": text, "lines": textwrap.wrap(text, sub_cfg["maxCharsPerLine"])[: sub_cfg["maxLines"]], "start": start, "end": end})
     if lines:
         ass = WORK / "subs.ass"
-        write_ass(lines, ass, brand, tpl, scale=1.3)
+        places = face_places(joined, [(l["start"] + l["end"]) / 2 for l in lines])
+        write_ass(lines, ass, brand, tpl, scale=1.3, text_style=opts.get("textStyle"), places=places)
 
     final = WORK / "final.mp4"
-    render_final(joined, dur, ass, brand, tpl, brand_dir, final, {"signature": opts.get("signature")})
+    render_final(joined, dur, ass, brand, tpl, brand_dir, final, {"signature": opts.get("signature")}, look=opts.get("look"))
     dur = duration_of(final)
     cover = WORK / "cover.jpg"
     run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-ss", f"{min(0.5, dur / 2):.2f}", "-i", final, "-frames:v", "1", "-q:v", "2", cover])
@@ -645,10 +726,11 @@ def main(payload):
     fitted = fit_chunks(chunks, sub_cfg["maxCharsPerLine"], sub_cfg["maxLines"])
     if fitted:
         ass = WORK / "subs.ass"
-        write_ass(fitted, ass, brand, tpl)
+        places = face_places(joined, [(c["start"] + c["end"]) / 2 for c in fitted])
+        write_ass(fitted, ass, brand, tpl, text_style=opts.get("textStyle"), places=places)
 
     final = WORK / "final.mp4"
-    render_final(joined, dur, ass, brand, tpl, brand_dir, final, {"signature": opts.get("signature")}, voiceover)
+    render_final(joined, dur, ass, brand, tpl, brand_dir, final, {"signature": opts.get("signature")}, voiceover, look=opts.get("look"))
     dur = duration_of(final)
     cover = WORK / "cover.jpg"
     run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-ss", f"{min(1.0, dur / 2):.2f}", "-i", final, "-frames:v", "1", "-q:v", "2", cover])

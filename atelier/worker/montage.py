@@ -37,6 +37,7 @@ if the creator asks for another length, follow it (4–15 s).
 
 text on screen:
 - 1–3 overlays, english, lowercase, at most 6 words each, built from what the creator said (their words, sharpened) — never invented facts.
+- **bold** the one word in each overlay that carries it.
 - the first overlay is the hook and starts at 0.0; the last may name the result. leave the middle quiet if the images speak.
 - no emojis, no hashtags, no brand or account names.
 

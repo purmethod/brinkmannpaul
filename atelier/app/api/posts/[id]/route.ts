@@ -2,7 +2,9 @@ import { after } from 'next/server';
 import { HttpError, requireCtx, route } from '@/lib/auth';
 import { one } from '@/lib/db';
 import { mediaByIds } from '@/lib/media';
+import { TEXT_STYLES } from '@/lib/carousel';
 import { deletePost, getPost, render, updatePost } from '@/lib/posts';
+import { LOOKS } from '@/lib/reel';
 import { addFeedback } from '@/lib/rules';
 import { openSlots, recordReview } from '@/lib/autopilot';
 import { cancelSchedule, publishPost, schedulePost } from '@/lib/schedule';
@@ -38,7 +40,7 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   const { user, brand, post: current } = await load(req, params);
   const b = (await req.json().catch(() => ({}))) as {
     caption?: string; template?: string; at?: string | null; collaborators?: string[]; subtitleLanguage?: string;
-    voiceoverUrl?: string | null; feedback?: string; action?: string; reason?: string; mode?: string;
+    voiceoverUrl?: string | null; feedback?: string; action?: string; reason?: string; mode?: string; look?: string; textStyle?: string;
   };
   if (current.status === 'posted') throw new HttpError(409, 'already posted');
   let post = current;
@@ -54,8 +56,13 @@ export const PATCH = route(async (req: Request, { params }: P) => {
   const MODES = ['funny', 'educational', 'inspirational', 'personal', 'promotional'];
   const modeChanged = typeof b.mode === 'string' && MODES.includes(b.mode) && b.mode !== (post.options.mode ?? post.output.mode);
   if (modeChanged) options.mode = b.mode as Post['options']['mode'];
-  const templateChanged = typeof b.template === 'string' && b.template !== post.template;
-  if (templateChanged) patch.template = b.template!;
+  // a reel's look or word style: same words, new picture
+  const lookChanged = typeof b.look === 'string' && b.look in LOOKS && b.look !== post.options.look;
+  if (lookChanged) options.look = b.look as Post['options']['look'];
+  const wordsChanged = TEXT_STYLES.includes(b.textStyle as never) && b.textStyle !== post.options.textStyle;
+  if (wordsChanged) options.textStyle = b.textStyle as Post['options']['textStyle'];
+  const templateChanged = (typeof b.template === 'string' && b.template !== post.template) || lookChanged || wordsChanged;
+  if (typeof b.template === 'string' && b.template !== post.template) patch.template = b.template;
   post = await updatePost(post.id, patch);
 
   if (b.feedback?.trim()) await addFeedback(brand, post.id, b.feedback.trim());
@@ -89,7 +96,7 @@ export const PATCH = route(async (req: Request, { params }: P) => {
     post = await updatePost(post.id, { status: 'ready' });
   } else if (b.action === 'mark_posted') {
     post = await updatePost(post.id, { status: 'posted', error: null });
-  } else if (modeChanged && post.kind !== 'reel') {
+  } else if (modeChanged && (post.kind !== 'reel' || !post.output.plan)) {
     const current = post;
     after(() => render(current, brand, { recaption: true }).then(() => undefined));
     post = await updatePost(post.id, { status: 'processing', error: null });

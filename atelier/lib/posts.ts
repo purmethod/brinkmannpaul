@@ -1,7 +1,8 @@
 import { del, put } from '@vercel/blob';
 import { channelTemplate, getTemplate, loadTemplates, resolveBrand } from './brand';
-import { plainText, renderSlide, splitSlides } from './carousel';
+import { loadPhoto, plainText, renderOverlay, renderSlide, splitSlides, type TextPosition, type TextStyleId } from './carousel';
 import { composePost } from './claude';
+import { calmBand, renderPhotoReel, type LookId } from './reel';
 import { id, one, q } from './db';
 import { mediaByIds } from './media';
 import type { BrandRow, BrandTemplate, Media, Post, PostKind, PostOptions, PostOutput, Slide } from './types';
@@ -24,16 +25,22 @@ export async function updatePost(postId: string, patch: Partial<Post>): Promise<
 }
 
 /** Created in the create flow = meant to go out; a pause ('ready') or a pending review holds it back. */
-function readyStatus(_row: BrandRow, post: Post): 'ready' | 'approved' | 'review' {
+function readyStatus(_row: BrandRow, post: Post): 'ready' | 'approved' | 'review' | 'due' {
   if (post.options.review === 'pending') return 'review';
+  if (post.status === 'due') return 'due'; // a new look on a post that waits to be shared by hand
   return post.status === 'ready' ? 'ready' : 'approved';
 }
 
-/** Format follows the material: any video → reel, several photos or text → carousel, one photo → photo. */
-export function inferKind(media: Media[], text?: string | null): PostKind {
+export type PhotoFormat = 'auto' | 'reel' | 'carousel';
+
+/**
+ * Format follows the material: any video → reel; photos → a reel when asked for (or the channel makes reels),
+ * else several photos or text → carousel, one photo → photo.
+ */
+export function inferKind(media: Media[], text?: string | null, format: PhotoFormat = 'auto'): PostKind {
   if (media.some((m) => m.kind === 'video')) return 'reel';
-  if (text || media.length > 1) return 'carousel';
-  return 'photo';
+  if (format === 'reel' && media.length) return 'reel';
+  return text || media.length > 1 ? 'carousel' : 'photo';
 }
 
 /** Template id may be a built-in (POLAROID) or a saved style (saved:<id>) = base + notes. */
@@ -123,7 +130,67 @@ async function renderStill(
   return { slides, caption, lines, mode };
 }
 
-/** Renders (stills) or dispatches the cut (reels). Never throws: errors land on the post. */
+/** The channel's look and text style, unless this post has its own. */
+export function styleOf(row: BrandRow, post: Post) {
+  const st = row.settings?.style ?? {};
+  return { look: (post.options.look ?? st.look ?? 'natural') as LookId, text: (post.options.textStyle ?? st.text ?? 'clean') as TextStyleId };
+}
+
+/** Photos → a short reel, rendered right here: words per photo, placed where the picture is calm. */
+async function renderPhotoReelPost(post: Post, row: BrandRow, photos: string[], restyle: boolean) {
+  const brand = resolveBrand(row);
+  const count = Math.min(photos.length, 10);
+  if (!count) throw new Error('needs photos');
+  const given = splitSlides(post.text);
+  const kept = restyle && post.output.lines?.length === count ? post.output.lines : null;
+  let lines = kept ?? given;
+  let caption = post.caption;
+  let mode = post.output.mode as string | undefined;
+  let positions = (post.output.positions ?? []) as string[];
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < 2 && (!caption || !lines.some(Boolean)); attempt++) {
+    try {
+      const out = await composePost(brand, {
+        kind: 'reel made from photos',
+        textStyle: 'video',
+        photos: photos.slice(0, count),
+        slides: count,
+        description: post.description,
+        notes: post.options.notes,
+        learned: await learned(row.id),
+        mode: post.options.mode ?? null,
+        positions: true,
+      });
+      if (!lines.some(Boolean) && out.lines.some(Boolean)) lines = out.lines;
+      if (!caption && out.caption) caption = out.caption;
+      if (out.mode) mode = out.mode;
+      if (out.positions.length) positions = out.positions;
+    } catch (e) {
+      lastError = e;
+      console.error('compose failed', e);
+    }
+  }
+  if (!caption) throw new Error(`the caption could not be written${lastError ? ` (${(lastError as Error).message})` : ''} — tap try again`);
+  lines = Array.from({ length: count }, (_, i) => lines[i] ?? '');
+  const { look, text } = styleOf(row, post);
+  const buffers = await Promise.all(photos.slice(0, count).map((u) => loadPhoto(u)));
+  const overlays = await Promise.all(
+    buffers.map(async (b, i) => {
+      if (!lines[i]?.trim()) return null;
+      const pos = (['top', 'middle', 'bottom'].includes(positions[i]) ? positions[i] : await calmBand(b)) as TextPosition;
+      return renderOverlay({ row, brand, text: lines[i], style: text, position: pos, hook: i === 0 });
+    }),
+  );
+  const r = await renderPhotoReel({ photos: buffers, overlays, look });
+  const v = Date.now().toString(36);
+  const [video, cover] = await Promise.all([
+    put(`posts/${post.id}/${v}/reel.mp4`, r.video, { access: 'public', contentType: 'video/mp4', addRandomSuffix: true }),
+    put(`posts/${post.id}/${v}/cover.jpg`, r.cover, { access: 'public', contentType: 'image/jpeg', addRandomSuffix: true }),
+  ]);
+  return { video: video.url, cover: cover.url, duration: r.duration, caption, lines, mode, positions };
+}
+
+/** Renders (stills, photo reels) or dispatches the cut (video reels). Never throws: errors land on the post. */
 export async function render(post: Post, row: BrandRow, extra: { feedback?: string; reusePlan?: boolean; recaption?: boolean } = {}): Promise<Post> {
   try {
     if (extra.feedback) {
@@ -131,11 +198,24 @@ export async function render(post: Post, row: BrandRow, extra: { feedback?: stri
       const notes = [post.options.notes, `- ${extra.feedback}`].filter(Boolean).join('\n');
       post = await updatePost(post.id, { caption: '', options: { ...post.options, notes } });
     } else if (extra.recaption) post = await updatePost(post.id, { caption: '' });
+    const media = await mediaByIds(post.media_ids);
+    if (post.kind === 'reel' && !media.some((m) => m.kind === 'video')) {
+      // photos only: the reel is made here, in seconds — no worker needed
+      const restyle = Boolean(extra.reusePlan) && !extra.feedback && !extra.recaption;
+      const old = [post.output.video, post.output.cover].filter(Boolean) as string[];
+      const r = await renderPhotoReelPost(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url), restyle);
+      if (old.length) await del(old).catch(() => undefined);
+      return updatePost(post.id, {
+        output: { ...post.output, video: r.video, cover: r.cover, duration: r.duration, lines: r.lines, positions: r.positions, ...(r.mode ? { mode: r.mode as PostOutput['mode'] } : {}) },
+        caption: r.caption,
+        status: readyStatus(row, post),
+        error: null,
+      });
+    }
     if (post.kind === 'reel') {
       await dispatchRender(post, row, extra);
       return updatePost(post.id, { status: 'processing', error: null });
     }
-    const media = await mediaByIds(post.media_ids);
     const old = (post.output.slides ?? []).flatMap((s) => [s.png, s.jpg]);
     const restyle = Boolean(extra.reusePlan) && !extra.feedback && !extra.recaption;
     const { slides, caption, lines, mode } = await renderStill(post, row, media.filter((m) => m.kind === 'photo').map((m) => m.url), restyle);
@@ -190,13 +270,25 @@ export async function recoverStuck(brandId?: string) {
 
 export async function createPost(
   row: BrandRow,
-  input: { media?: Media[]; text?: string | null; description?: string | null; template?: string | null; kind?: PostKind; caption?: string; options?: PostOptions },
+  input: {
+    media?: Media[];
+    text?: string | null;
+    description?: string | null;
+    template?: string | null;
+    kind?: PostKind;
+    format?: PhotoFormat;
+    caption?: string;
+    options?: PostOptions;
+  },
 ): Promise<Post> {
   const media = input.media ?? [];
-  const kind = input.kind ?? inferKind(media, input.text);
+  const format = input.format && input.format !== 'auto' ? input.format : (row.settings?.style?.photos ?? 'auto');
+  const kind = input.kind ?? inferKind(media, input.text, format);
   const { notes } = resolveTemplate(row, input.template);
   const template = input.template || resolveBrand(row).defaultTemplate;
-  const used = kind === 'reel' ? media.filter((m) => m.kind === 'video') : media.filter((m) => m.kind === 'photo');
+  // a reel takes the videos; with none it is made from the photos
+  const videos = media.filter((m) => m.kind === 'video');
+  const used = kind === 'reel' && videos.length ? videos : media.filter((m) => m.kind === 'photo');
   const post = (await one<Post>(
     `insert into posts (id, brand_id, kind, status, template, media_ids, text, description, caption, options)
      values ($1, $2, $3, 'processing', $4, $5, $6, $7, $8, $9) returning *`,

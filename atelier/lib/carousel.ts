@@ -401,3 +401,72 @@ export async function renderSlide(opts: {
   const jpg = await sharp(png).flatten({ background: '#ffffff' }).jpeg({ quality: 94, chromaSubsampling: '4:4:4' }).toBuffer();
   return { png, jpg };
 }
+
+/* ---------- text over moving pictures (photo reels): transparent 1080×1920 overlays ---------- */
+
+export type TextStyleId = 'clean' | 'bold' | 'serif' | 'box';
+export const TEXT_STYLES: TextStyleId[] = ['clean', 'bold', 'serif', 'box'];
+export type TextPosition = 'top' | 'middle' | 'bottom';
+
+/**
+ * One line of on-screen text, styled once per channel and placed where the picture is calm
+ * (away from faces and the subject). Instagram's own buttons cover the very top, the bottom
+ * and the right edge, so text stays inside the safe area.
+ */
+export async function renderOverlay(opts: {
+  row: BrandRow;
+  brand: BrandKit;
+  text: string;
+  style?: TextStyleId;
+  position?: TextPosition;
+  hook?: boolean; // the first words carry a little more weight
+}): Promise<Buffer> {
+  const W = 1080;
+  const H = 1920;
+  const style = opts.style ?? 'clean';
+  const f = opts.brand.fonts;
+  const lines = parseSlide(opts.text.split('::')[0], opts.brand.carousel.lowercase);
+  const width = 840;
+  const k = opts.hook ? 1.15 : 1;
+  const shadow = '0 2px 22px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.35)';
+  const s = {
+    clean: { family: f.sans, weight: 600, bold: 700, max: 96, min: 60, lh: 1.14, charW: 0.55, color: '#ffffff', italic: false },
+    bold: { family: f.sans, weight: 600, bold: 700, max: 108, min: 64, lh: 1.02, charW: 0.6, color: '#ffffff', italic: false },
+    serif: { family: f.family, weight: 400, bold: 700, max: 108, min: 64, lh: 1.12, charW: 0.5, color: '#ffffff', italic: true },
+    box: { family: f.sans, weight: 600, bold: 700, max: 72, min: 48, lh: 1.24, charW: 0.55, color: '#111111', italic: false },
+  }[style];
+  const size = Math.round(fit(lines, { w: width, h: 520 }, Math.round(s.max * k), s.min, s.lh, s.charW));
+  // bold words get the accent in the "bold" style — the eye jumps to them
+  const accentLines: Line[] = style === 'bold' ? lines.map((l) => l.map((w) => w.map((r) => ({ ...r, bold: r.bold })))) : lines;
+  const block = textBlock(accentLines, { size, lh: s.lh, color: s.color, family: s.family, italic: s.italic, weight: s.weight, boldWeight: s.bold, width, align: 'center' });
+  const inner =
+    style === 'box'
+      ? box({ flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.96)', borderRadius: 18, padding: '18px 26px' }, block)
+      : box({ flexDirection: 'column', alignItems: 'center', textShadow: shadow }, style === 'bold' ? block.map((b) => recolorBold(b)) : block);
+  const pos = opts.position ?? 'bottom';
+  const area =
+    pos === 'top'
+      ? { top: 250, justifyContent: 'flex-start' }
+      : pos === 'middle'
+        ? { top: 0, bottom: 0, justifyContent: 'center' }
+        : { bottom: 430, justifyContent: 'flex-end' };
+  const root = box({ width: W, height: H, position: 'relative' }, [
+    box({ position: 'absolute', left: 90, right: 150, flexDirection: 'column', alignItems: 'center', ...area }, [inner]),
+  ]);
+  const svg = await satori(root as unknown as Parameters<typeof satori>[0], { width: W, height: H, fonts: fonts(opts.row.kit, opts.brand) });
+  return Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng());
+}
+
+// "bold" style: **marked** words in a warm yellow, the rest white
+function recolorBold(el: El): El {
+  const kids = el.props.children;
+  const walk = (c: unknown): unknown => {
+    if (!c || typeof c !== 'object') return c;
+    const e = c as El;
+    const st = (e.props?.style ?? {}) as Record<string, unknown>;
+    const next = st.fontWeight === 700 && e.props && typeof e.props.children === 'string' ? { ...e, props: { ...e.props, style: { ...st, color: '#FFD84D' } } } : e;
+    const ch = next.props?.children;
+    return Array.isArray(ch) ? { ...next, props: { ...next.props, children: ch.map(walk) } } : next;
+  };
+  return { ...el, props: { ...el.props, children: Array.isArray(kids) ? kids.map(walk) : walk(kids) } };
+}

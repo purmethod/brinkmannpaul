@@ -13,6 +13,9 @@ interface Detail {
   brief: string;
   tone: string;
   channel: { logo?: string[]; tagline?: string; cta?: string } | null;
+  style: { look?: string; text?: string; photos?: 'reel' | 'carousel' };
+  looks: { id: string; label: string }[];
+  textStyles: string[];
   autopilot: {
     enabled: boolean;
     everyHours: number;
@@ -69,6 +72,18 @@ export default function ChannelPage() {
       setNote('saved');
     } catch (e) {
       setError((e as Error).message);
+    }
+  }
+
+  async function style(patch: Record<string, string>) {
+    setError('');
+    // instant: the chip moves before the server answers
+    setD((cur) => (cur ? { ...cur, style: { ...cur.style, ...patch } } : cur));
+    try {
+      await api(`/api/channels/${id}`, { method: 'PATCH', json: { style: patch } });
+    } catch (e) {
+      setError((e as Error).message);
+      await load();
     }
   }
 
@@ -223,6 +238,35 @@ export default function ChannelPage() {
             <Icon name="mic" size={18} /> {mic.listening ? mic.interim || 'listening… tap when done' : 'add an insight by voice'}
           </button>
         )}
+      </section>
+
+      <section className="card">
+        <p className="kicker">style</p>
+        <p className="muted small">set once — every post of this channel follows it. you can still change it per post.</p>
+        <label>photos become</label>
+        <div className="chips">
+          {(['reel', 'carousel'] as const).map((f) => (
+            <button key={f} aria-pressed={(d.style.photos ?? 'reel') === f} onClick={() => style({ photos: f })}>
+              {f === 'reel' ? 'a reel' : 'a carousel'}
+            </button>
+          ))}
+        </div>
+        <label>video look</label>
+        <div className="chips">
+          {d.looks.map((l) => (
+            <button key={l.id} aria-pressed={(d.style.look ?? 'natural') === l.id} onClick={() => style({ look: l.id })}>
+              {l.label}
+            </button>
+          ))}
+        </div>
+        <label>words on videos</label>
+        <div className="chips">
+          {d.textStyles.map((t) => (
+            <button key={t} className={`ts-${t}`} aria-pressed={(d.style.text ?? 'clean') === t} onClick={() => style({ text: t })}>
+              {t}
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="card">

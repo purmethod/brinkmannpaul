@@ -3,6 +3,7 @@ import { resolveBrand } from './brand';
 import { sign } from './crypto';
 import { mediaByIds } from './media';
 import { appOrigin } from './origin';
+import { LOOKS, type LookId } from './reel';
 import type { BrandRow, Post } from './types';
 
 export const callbackToken = (postId: string) => sign(`render:${postId}`);
@@ -16,6 +17,10 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
   if (!token) throw new Error('GITHUB_TOKEN missing (needed to cut videos)');
   const repo = process.env.GITHUB_REPO || 'purmethod/brinkmannpaul';
   const brand = resolveBrand(row);
+  // the channel's look and word style (or this post's own); without a chosen style the brand's subtitles stay
+  const style = row.settings?.style ?? {};
+  const look = LOOKS[(post.options.look ?? style.look ?? 'natural') as LookId] ?? LOOKS.natural;
+  const textStyle = post.options.textStyle ?? style.text ?? null;
   const clips = (await mediaByIds(post.media_ids)).filter((m) => m.kind === 'video').map((m) => m.url);
   if (!clips.length) throw new Error('no video to cut');
   // the worker uploads straight into blob with these (no storage credentials in github)
@@ -49,6 +54,8 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
           description: post.description ?? null,
           notes: post.options.notes ?? null,
           targetSeconds: 7,
+          look: look.filter,
+          textStyle,
         },
       },
     }),

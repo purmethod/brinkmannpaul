@@ -105,6 +105,7 @@ const STYLE: Record<string, string> = {
   poetic:
     'one short line per slide, 6–16 words, like a line written under a photo. no quotation marks, never a quote or an attribution.',
   hook: 'one short, strong line per slide, 4–12 words. use **bold** for the 2–4 key words.',
+  video: 'words on a short video, one line per photo, 3–9 words, read in two seconds. line 1 is the hook. **bold** the one or two words that carry it.',
   statement: 'one bold, minimal line per slide, 2–8 words. use "|" for a deliberate line break and **bold** for the key phrase.',
   longevity:
     'each line is "headline :: body". headline: max 8 words, ends with a period. body: one plain sentence, max 16 words. ' +
@@ -154,8 +155,9 @@ export async function composePost(
     notes?: string | null;
     learned?: string[];
     mode?: string | null; // forced by the owner
+    positions?: boolean; // video: also say where the words sit on each photo
   },
-): Promise<{ lines: string[]; caption: string; mode: string }> {
+): Promise<{ lines: string[]; caption: string; mode: string; positions: string[] }> {
   const slides = o.slides ?? 0;
   const system = [
     'you write instagram posts that people save, send and follow for. taste: precise, premium — the opposite of loud ai content.',
@@ -184,8 +186,12 @@ export async function composePost(
     o.notes ? `\nthe creator's notes for this post and style (follow them):\n${o.notes}` : '',
     o.learned?.length ? `\nwhat the creator corrected before (apply it):\n${o.learned.map((l) => `- ${l}`).join('\n')}` : '',
     '',
+    o.positions
+      ? '\nthe slides become a short video: each line is shown over its photo. for each photo say where the words sit best without covering faces, ' +
+        'hands, the food or the subject: "top", "middle" or "bottom" → "positions": [..], one per photo.'
+      : '',
     'answer only json: {"mode": "funny|educational|inspirational|personal|promotional", "seen": "what the photos show, incl. any text in them", ' +
-      '"hooks": ["..", "..", ".."], "lines": [..], "caption": "..."} — the caption starts with the strongest hook.',
+      '"hooks": ["..", "..", ".."], "lines": [..], "positions": [..], "caption": "..."} — the caption starts with the strongest hook.',
   ]
     .filter((l) => l !== null)
     .join('\n');
@@ -202,7 +208,7 @@ export async function composePost(
       .filter(Boolean)
       .join('\n'),
   });
-  const out = parseJson<{ lines?: unknown; caption?: unknown; mode?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2500, search: 3 }));
+  const out = parseJson<{ lines?: unknown; caption?: unknown; mode?: unknown; positions?: unknown }>(await claude({ system, prompt: parts, maxTokens: 2500, search: 3 }));
   const lines = Array.isArray(out.lines) ? out.lines.map((l) => String(l).toLowerCase().replace(/^["“”']+|["“”']+$/g, '').trim()) : [];
   while (slides && lines.length < slides) lines.push(lines[lines.length - 1] ?? '');
   const mode = String(o.mode || out.mode || '').toLowerCase();
@@ -210,5 +216,6 @@ export async function composePost(
     lines: lines.slice(0, slides || undefined),
     caption: normalizeCaption(String(out.caption ?? ''), brand.caption.maxHashtags, [brand.handle, brand.name]),
     mode: MODES[mode] ? mode : '',
+    positions: Array.isArray(out.positions) ? out.positions.map((p) => String(p).toLowerCase()) : [],
   };
 }
