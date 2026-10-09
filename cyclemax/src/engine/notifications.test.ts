@@ -75,7 +75,7 @@ describe("planNotifications", () => {
     expect(byDate["2026-03-15"]).toMatchObject({ kind: "phase", key: "green" });
     expect(byDate["2026-03-22"]).toMatchObject({ kind: "phase", key: "red7" });
     expect(byDate["2026-03-27"]).toMatchObject({ kind: "phase", key: "red2" });
-    expect(plan.notifications.filter((n) => n.kind === "phase")).toHaveLength(4);
+    expect(plan.notifications.filter((n) => n.kind === "phase" && !n.key.startsWith("checkin"))).toHaveLength(4);
     expect(byDate["2026-03-09"].kind).toBe("daily");
   });
 
@@ -91,10 +91,13 @@ describe("planNotifications", () => {
     }
   });
 
-  it("single mode: only daily lines from single/any", () => {
+  it("single mode: daily lines from single/any (+ check-in every second Sunday)", () => {
     const plan = planNotifications(base({ mode: "single", entries: [] }));
-    expect(plan.notifications.every((n) => n.kind === "daily")).toBe(true);
-    const cats = new Set(plan.notifications.map((n) => SEED_LINES.find((l) => l.id === n.key)!.category));
+    const checkins = plan.notifications.filter((n) => n.kind === "phase");
+    expect(checkins.length).toBeGreaterThanOrEqual(2);
+    expect(checkins.every((n) => n.key === "checkin_single")).toBe(true);
+    expect(plan.notifications.filter((n) => n.kind === "daily")).toHaveLength(30 - checkins.length);
+    const cats = new Set(plan.notifications.filter((n) => n.kind === "daily").map((n) => SEED_LINES.find((l) => l.id === n.key)!.category));
     for (const c of cats) expect(["single", "any"]).toContain(c);
   });
 
@@ -182,5 +185,19 @@ describe("pickLine", () => {
     const red = SEED_LINES.filter((l) => l.category === "red" || l.category === "any");
     expect(single.length).toBeGreaterThan(NO_REPEAT_DAYS);
     expect(red.length).toBeGreaterThan(NO_REPEAT_DAYS);
+  });
+});
+
+describe("check-in", () => {
+  it("every second Sunday, never on a phase-push day", async () => {
+    const { isCheckinDay } = await import("./notifications");
+    const days = Array.from({ length: 56 }, (_, i) => addDays("2026-03-01", i)).filter(isCheckinDay);
+    expect(days).toHaveLength(4);
+    for (const d of days) expect(new Date(`${d}T12:00:00Z`).getUTCDay()).toBe(0);
+    expect(diffDays(days[0], days[1])).toBe(14);
+    const plan = planNotifications(base({ days: 60 }));
+    const byDate = Object.fromEntries(plan.notifications.map((n) => [n.date, n]));
+    for (const d of days) if (byDate[d]) expect(byDate[d].kind).toBe("phase");
+    expect(plan.notifications.some((n) => n.key === "checkin")).toBe(true);
   });
 });

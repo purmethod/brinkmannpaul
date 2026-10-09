@@ -185,6 +185,10 @@ test("Profil per Sprache: Erzähl mir von ihr → Profil → Kontext im Chat", a
   // persists, and the home menu now links to the profile
   await page.goto("/heute/");
   await expect(page.getByTestId("profile-link")).toContainText("Ihr Profil");
+  // the profile turns into one small step per day on the home screen
+  await expect(page.getByTestId("next-step")).toContainText("Übernimm diese Woche den Abwasch.");
+  await page.getByRole("button", { name: "Erledigt" }).click();
+  await expect(page.getByTestId("next-step")).toContainText("Zehn Minuten am Abend, Handy weg.");
   // chat: mic dictation into the input
   await page.goto("/chat/?voice=1");
   await expect(page.getByLabel("Nachricht")).toHaveValue("Sie ist oft gestresst, wir streiten über den Haushalt und Nähe kommt zu kurz.");

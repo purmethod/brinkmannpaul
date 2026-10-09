@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/inter";
 import "./globals.css";
 import { AppProvider } from "@/lib/app-context";
+import { NativeLinks } from "@/components/NativeLinks";
 import { ServiceWorker } from "@/components/ServiceWorker";
 
 const SPLASH: [number, number, number][] = [
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AppProvider>{children}</AppProvider>
         <ServiceWorker />
+        <NativeLinks />
       </body>
     </html>
   );

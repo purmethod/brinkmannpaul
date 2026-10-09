@@ -42,7 +42,14 @@ export const PHASE_PUSH_TEXT: Record<PhasePushKey, string> = {
   pink: "Hey Man, Rückenwind. Plan was mit ihr.",
   green: "Gute Woche für Nähe – und für Gespräche, die anstehen.",
   late: "Hey Man, hat ihre Blutung schon begonnen? Ein Tap in Cyclemax hält alles aktuell.",
+  checkin: "Hey Man, wie läuft's mit ihr? Erzähl's mir in einer Minute.",
+  checkin_single: "Hey Man, wie läuft's beim Dating? Erzähl's mir in einer Minute.",
 };
+
+/** Where a notification leads when tapped. */
+export function pushUrl(key: string): string {
+  return key === "checkin" || key === "checkin_single" ? "/profil/" : "/heute/";
+}
 
 /** Shown in the app right after "Blutung hat begonnen" (yellow). */
 export const AFTER_ENTRY_TEXT = "Eingetragen. Sturm vorbei – jetzt Wärme: entlasten, da sein.";
@@ -52,7 +59,7 @@ export const NEUTRAL_TITLE = APP_NAME;
 export const NEUTRAL_BODY = "";
 
 export function isPhasePushKey(key: string): key is PhasePushKey {
-  return key === "red7" || key === "red2" || key === "pink" || key === "green" || key === "late";
+  return key in PHASE_PUSH_TEXT;
 }
 
 /** Heads-up on the home screen, 1–2 days before a phase starts. `{when}` = "Morgen" / "Übermorgen". */

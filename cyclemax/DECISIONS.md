@@ -56,8 +56,19 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 ## Phase 2 – Pauls Feedback (09.10.)
 - Pauls neue Vorgaben überschreiben den ursprünglichen Auftrag, wo sie sich widersprechen: Fels-Logo raus,
   ein schwarzer Kreis ist App-Icon und Logo. „Leiser“ heißt jetzt „ruhiger“: „Wenn sie lauter wird, wirst du
-  ruhiger. Ruhiger heißt nicht kleiner.“ Phasenwörter: Gelb „Wärme“, Pink „Initiative“, Grün „Nähe“, Rot „Standfest“.
+  ruhiger. Ruhiger heißt nicht kleiner.“ Phasenwörter: Gelb „Wärme“, Pink „Führen“, Grün „Nähe“, Rot „Standfest“.
 - Neue Screens erlaubt (Profil). Intimität ist als Beziehungsthema im Profil/Coaching erlaubt (Paul: „ob im Bett
   Probleme sind“) – sachlich, ohne explizite Inhalte, ohne Sex-Taktiken, ohne Tracking.
 - Ziel jeder Beratung: eine Beziehung, in der gegenseitige Liebe ist. Single-Modus begleitet auch lockeres Dating
   respektvoll, richtet aber auf dieses Ziel aus. Kernkompetenz Paul: Balance aus Nähe und Abstand.
+- Startseite = nur der Ring + CYCLEMAX (Paul). Tipp → Menü `/heute/` (bzw. Onboarding). Für eingerichtete Nutzer im
+  Beziehungsmodus trägt der Ring die Farbe der aktuellen Phase – Information ohne ein Wort; sonst schwarz.
+- Null Mehraufwand: Zykluslänge wird nicht abgefragt (lernt sich). Blutungs-Eintrag ist ein Tap; groß nur, wenn fällig
+  (Rot/unbekannt), sonst eine schlanke Zeile. Vergessen? 3 und 10 Tage nach dem erwarteten Tag ein sanfter Hinweis
+  (App + 1 Push), sonst bleibt Rot.
+- Vorschau 1–2 Tage vor jedem Phasenwechsel auf dem Heute-Screen („Hey Man, morgen beginnt Standfest …“).
+- Profil wird zu EINEM Schritt pro Tag auf dem Heute-Screen (abhakbar). Alle zwei Wochen sonntags ersetzt ein
+  Check-in-Push („Wie läuft's mit ihr? Erzähl's mir in einer Minute.“) die Tageszeile → führt ins Profil.
+- Chat: Ein-Tap-Fragen für den leeren Chat; „Sag: …“-Sätze als kopierbarer Block (direkt in WhatsApp).
+- Spracheingabe: Web Speech API (Chrome/Safari) bzw. `@capacitor-community/speech-recognition`; ohne Unterstützung
+  Hinweis auf das Diktier-Mikrofon der Tastatur. Es wird kein Audio gespeichert oder gesendet.

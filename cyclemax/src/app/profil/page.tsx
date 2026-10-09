@@ -85,6 +85,7 @@ function Profile({ state, adapters }: { state: AppState; adapters: Adapters }) {
         analysis: result.profile,
         source: result.source,
         updatedAt: Date.now(),
+        done: [],
       },
     });
     void adapters.platform.haptic("success");
@@ -150,12 +151,15 @@ function Profile({ state, adapters }: { state: AppState; adapters: Adapters }) {
           <section className="flex flex-col gap-3">
             <h2 className="text-[13px] tracking-[0.2em] text-muted uppercase">Diese Woche</h2>
             <ol className="flex flex-col gap-3">
-              {analysis.steps.map((s, i) => (
-                <li key={s} className="flex gap-3 text-[16px] leading-snug">
-                  <span className="text-muted">{i + 1}</span>
-                  {s}
-                </li>
-              ))}
+              {analysis.steps.map((s, i) => {
+                const done = (state.profile.done ?? []).includes(s);
+                return (
+                  <li key={s} className={`flex gap-3 text-[16px] leading-snug ${done ? "text-muted line-through" : ""}`}>
+                    <span className="text-muted">{done ? "✓" : i + 1}</span>
+                    {s}
+                  </li>
+                );
+              })}
             </ol>
           </section>
         )}

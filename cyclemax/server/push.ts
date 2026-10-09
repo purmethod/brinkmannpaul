@@ -1,6 +1,6 @@
 // Web push delivery (VAPID). The client planned the instants; the server only sends.
 import webpush from "web-push";
-import { NEUTRAL_BODY, NEUTRAL_TITLE, APP_NAME, PHASE_PUSH_TEXT, isPhasePushKey } from "../shared/texts";
+import { NEUTRAL_BODY, NEUTRAL_TITLE, APP_NAME, PHASE_PUSH_TEXT, isPhasePushKey, pushUrl } from "../shared/texts";
 import type { Config } from "./env";
 import type { DueItem, Store } from "./store";
 
@@ -38,10 +38,10 @@ export function createWebPushSender(config: Config, extra: webpush.RequestOption
 }
 
 export function payloadFor(item: Pick<DueItem, "kind" | "key" | "neutral">, lineText: (id: string) => string | undefined) {
-  if (item.neutral) return { title: NEUTRAL_TITLE, body: NEUTRAL_BODY, tag: "cyclemax", url: "/" };
+  if (item.neutral) return { title: NEUTRAL_TITLE, body: NEUTRAL_BODY, tag: "cyclemax", url: pushUrl(item.key) };
   const body = item.kind === "phase" && isPhasePushKey(item.key) ? PHASE_PUSH_TEXT[item.key] : lineText(item.key);
   if (!body) return null;
-  return { title: APP_NAME, body, tag: "cyclemax", url: "/" };
+  return { title: APP_NAME, body, tag: "cyclemax", url: pushUrl(item.key) };
 }
 
 /** Hourly cron: send everything due (±lead minutes), drop stale items, clean dead subscriptions. */

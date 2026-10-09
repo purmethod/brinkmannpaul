@@ -40,6 +40,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   // The one-tap entry is the main action whenever bleeding is due (or nothing is known yet).
   const due = !single && (!cycle || cycle.phase === "red");
   const hasProfile = !!state.profile.analysis;
+  const nextStep = state.profile.analysis?.steps.find((s) => !(state.profile.done ?? []).includes(s));
 
   const logBleeding = (date: DateStr) => {
     const prev = state.entries;
@@ -116,6 +117,25 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
           </p>
         )}
 
+        {nextStep && !toast && (
+          <div className="flex w-full max-w-[22rem] items-center justify-between gap-4 rounded-2xl border border-line px-5 py-3 text-left" data-testid="next-step">
+            <p className="text-[15px] leading-snug">
+              <span className="block text-[11px] tracking-[0.2em] text-muted uppercase">Dein Schritt</span>
+              {nextStep}
+            </p>
+            <button
+              type="button"
+              aria-label="Erledigt"
+              onClick={() => {
+                void adapters.platform.haptic("success");
+                update((s) => ({ profile: { ...s.profile, done: [...(s.profile.done ?? []), nextStep] } }));
+              }}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink text-[18px] active:bg-surface"
+            >
+              ✓
+            </button>
+          </div>
+        )}
         {line && !toast && (
           <figure className={`fade-up flex w-full flex-col items-center gap-1 ${single ? "" : "border-t border-line pt-6"}`}>
             <blockquote

@@ -127,7 +127,20 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
   return (
     <main className="mx-auto flex h-[100dvh] w-full max-w-md flex-col">
       <div className="px-6 pt-safe">
-        <TopBar title="Cyclemax" />
+        <TopBar
+          title="Cyclemax"
+          right={
+            state.chat.length > 0 ? (
+              <button
+                type="button"
+                className="h-11 text-[14px] text-muted"
+                onClick={() => window.confirm("Neues Gespräch beginnen? Der bisherige Verlauf wird gelöscht.") && update({ chat: [] })}
+              >
+                Neu
+              </button>
+            ) : null
+          }
+        />
       </div>
 
       <div className="flex-1 overflow-y-auto px-6 py-4" aria-live="polite">

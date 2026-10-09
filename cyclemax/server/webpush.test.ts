@@ -97,6 +97,6 @@ describe("web push (local push service)", () => {
     expect(Number(headers.ttl)).toBeGreaterThan(0);
     verifyVapid(String(headers.authorization), vapid.publicKey, new URL(endpoint).origin);
     const payload = JSON.parse(decryptAes128gcm(body, ua, authSecret));
-    expect(payload).toEqual({ title: "Cyclemax", body: PHASE_PUSH_TEXT.red2, tag: "cyclemax", url: "/" });
+    expect(payload).toEqual({ title: "Cyclemax", body: PHASE_PUSH_TEXT.red2, tag: "cyclemax", url: "/heute/" });
   });
 });

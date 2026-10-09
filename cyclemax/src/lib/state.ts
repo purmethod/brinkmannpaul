@@ -22,6 +22,8 @@ export interface Profile {
   analysis: ProfileAnalysis | null;
   source: "claude" | "fallback" | null;
   updatedAt: number;
+  /** Steps of the current analysis he ticked off. */
+  done?: string[];
 }
 
 export interface AppState {
