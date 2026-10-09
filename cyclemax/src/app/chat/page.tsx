@@ -51,7 +51,9 @@ function Chat({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const end = useRef<HTMLDivElement>(null);
   const dictation = useDictation(adapters.speech, text, setText);
 
-  useEffect(() => end.current?.scrollIntoView({ block: "end" }), [state.chat.length, busy]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "end" });
+  }, [state.chat.length, busy]);
 
   // "/chat/?voice=1" (mic on the home screen) starts listening right away.
   const autoVoice = useRef(false);

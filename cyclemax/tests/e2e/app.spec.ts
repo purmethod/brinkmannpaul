@@ -3,8 +3,7 @@ import { expect, test } from "@playwright/test";
 // Surface browser errors in the CI log.
 test.beforeEach(({ page }) => {
   page.on("console", (m) => m.type() === "error" && console.log(`[browser:${test.info().title}]`, m.text()));
-  page.on("pageerror", (e) => console.log(`[pageerror:${test.info().title}]`, e.message));
-  page.on("requestfailed", (r) => console.log(`[requestfailed:${test.info().title}]`, r.url(), r.failure()?.errorText));
+  page.on("pageerror", (e) => console.log(`[pageerror:${test.info().title}]`, e.message, e.stack));
 });
 import { API, fakeSpeech, finishWithoutNotifications, onboard } from "./helpers";
 
