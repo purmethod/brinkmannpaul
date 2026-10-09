@@ -18,7 +18,7 @@ export default function Datenschutz() {
         <li>Dein Profil („Erzähl mir von ihr / von dir“): deine Erzählung und die Auswertung.</li>
         <li>Deine Einstellungen und welche Tageszeilen du gesehen hast.</li>
       </ul>
-      <p>Gespeichert wird im Web in IndexedDB deines Browsers, in der App im lokalen App-Speicher.</p>
+      <p>Gespeichert wird im Web in IndexedDB deines Browsers (plus eine Sicherungskopie im lokalen Browserspeicher), in der App im lokalen App-Speicher.</p>
 
       <h2>Was an unseren Server geht</h2>
       <ul>

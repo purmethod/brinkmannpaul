@@ -30,18 +30,20 @@
 - [x] P7 Mentor: Balance Nähe ↔ Abstand, Ziel liebevolle Beziehung, „Hey Man“-Ton; Profil im Kontext
 - [x] P8 Usability-Pass aus Sicht eines Mannes mit vollem Kopf: null Mehraufwand, ein Tap, nur Nutzen
 - [x] P9 Tests (Unit + E2E) angepasst/erweitert, Screenshots, Datenschutz/Store/README aktualisiert
-- [ ] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen
+- [x] P10 Selbst-Review, finaler Check, Push; Vercel erneut versuchen
 
 ## Stand (Verifikation, 09.10. früh)
 
-- `npm run check`: tsc, ESLint, 102 Vitest-Tests, statischer Export (10 Routen), Backend-Bundle – grün.
-- Playwright (iPhone 14 Pro, Chromium): 13/13 grün – Start (nur Ring), Onboarding Beziehung + Single, Blutung
+- `npm run check`: tsc, ESLint, 103 Vitest-Tests, statischer Export (10 Routen), Backend-Bundle – grün.
+- Playwright (iPhone 14 Pro, Chromium 141 lokal + Chrome 153 in CI): 14/14 grün – inkl. axe-Barrierefreiheit (WCAG AA) aller Screens – Start (nur Ring), Onboarding Beziehung + Single, Blutung
   eintragen (+ Rückgängig, Drehrad), Vorschau „Hey Man, morgen beginnt Standfest“, Profil per Sprache → Profil →
   Tages-Schritt → Chat per Sprache, Chat mit Mock-Claude + kopierbarer Satz + Bewerten + Melden, Schnellfragen,
   Settings, Alle Daten löschen (lokal + Server), Offline-Start + Offline-Chat, PWA installierbar, Push → Service Worker.
 - Web Push lokal nachgewiesen: `server/webpush.test.ts` (echtes VAPID + aes128gcm, entschlüsselt wie ein Browser).
 - Code-Review (medium) über die ganze App: 10 Funde, alle behoben und mit Tests abgesichert (siehe DECISIONS).
-- GitHub Actions `.github/workflows/cyclemax.yml`: check + E2E bei jedem Push nach `cyclemax/**`.
+- GitHub Actions `.github/workflows/cyclemax.yml`: check + E2E bei jedem Push nach `cyclemax/**` – grün.
+- CI fand zwei echte Bugs, beide behoben: Chat-Absturz in Chrome 153 (Effekt gab `scrollIntoView()`-Promise zurück) und
+  Datenverlust bei sofortigem Neuladen nach einem Tap (IndexedDB-Schreibvorgang abgebrochen → synchrones Journal).
 
 ## Blocker / Fallbacks
 
@@ -64,3 +66,4 @@
    Datenschutztext `src/app/datenschutz/page.tsx` (rechtlich prüfen lassen).
 7. App Store / Play: Mac mit Xcode bzw. Android Studio → README › „Vom Web in den App Store“.
 8. App-Oberfläche ist nur Deutsch; englischer Store-Eintrag erst nach Übersetzung.
+9. Zwei Cyclemax-Versionen existieren (ältere Session, Branch `claude/laughing-rubin-gh83dv`). Empfehlung: diese hier.
