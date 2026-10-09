@@ -3,7 +3,8 @@
 Kategorie: **Lifestyle** (App Store und Google Play), keine Zweitkategorie „Gesundheit“ (Cyclemax ist keine Gesundheits-App).
 Altersfreigabe: **16+** empfohlen (Beziehungs- und Intimitätsthemen ohne explizite Inhalte, KI-Chat). Preis: kostenlos.
 Geräte: nur iPhone (keine iPad-Screenshots nötig). Sprache: Deutsch. Länder zum Start: Deutschland, Österreich, Schweiz.
-Support-URL: https://purmethod.com · Datenschutz-URL: `https://<backend-domain>/datenschutz/` (öffentlich erreichbar, Pflicht)
+Support-URL: https://purmethod.com · Datenschutz-URL: https://cyclemax.app/datenschutz/ (erreichbar, sobald `cyclemax-web` gelaufen ist)
+Marketing-URL: https://cyclemax.app
 Copyright: `2026 Paul Brinkmann`
 
 ## Deutsch

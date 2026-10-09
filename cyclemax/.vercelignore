@@ -1,0 +1,14 @@
+# Only what the Vercel build needs (npm ci → knowledge → next build → sw) and the api/ function.
+node_modules
+.next
+out
+.data
+ios
+android
+store
+tests
+test-results
+playwright-report
+resources
+.env*
+!.env.example

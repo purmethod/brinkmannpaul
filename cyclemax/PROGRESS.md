@@ -76,10 +76,11 @@
 1. Apple Developer Program (99 €/Jahr) – als Person oder Firma. Ohne geht nichts.
 2. Bundle ID `com.purmethod.cyclemax` registrieren und App in App Store Connect anlegen (Name „Cyclemax – Sei der Fels“).
 3. App Store Connect API-Key (Rolle Admin) → GitHub Secrets `APPLE_TEAM_ID`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`.
-4. Backend deployen (README › Deploy, Root Directory `cyclemax`): Neon `DATABASE_URL`, `ANTHROPIC_API_KEY`, VAPID-Keys,
-   `ADMIN_PASSWORD`, `CRON_SECRET`, `NEXT_PUBLIC_API_BASE`. Dann GitHub-Variable `CYCLEMAX_API_BASE` = diese Domain.
-   Die Vercel-Verbindung dieser Session sieht kein Team (Liste leer) – Deploy also durch dich oder nach Neu-Autorisierung.
-   Ohne Backend läuft die App trotzdem (Mentor antwortet aus der Wissensbasis), aber die Datenschutz-URL braucht eine Domain.
+4. **cyclemax.app live schalten:** Vercel-Token (Scope Team `pur1`) als GitHub-Secret `VERCEL_TOKEN` → Actions →
+   `cyclemax-web` → Run workflow (README › Deploy). Die Domain gehört dir schon (seit 03.10., DNS bei Vercel), es hängt nur
+   noch kein Deployment dran. Die Vercel-Verbindung dieser Session darf im Team `pur1` weder lesen noch schreiben (403).
+   Danach in Vercel ergänzen: `ANTHROPIC_API_KEY`, Neon `DATABASE_URL`, VAPID-Keys, `ADMIN_PASSWORD`, `CRON_SECRET`.
+   Die iOS-App spricht automatisch mit `https://cyclemax.app` (änderbar über die GitHub-Variable `CYCLEMAX_API_BASE`).
 5. Impressum: Anschrift in `src/app/impressum/page.tsx` eintragen (Pflicht in DE).
 6. Actions → cyclemax-ios → Run workflow → Build in TestFlight auf deinem iPhone testen.
 7. App Store Connect: Texte `store/metadata.md`, Datenschutz `store/privacy-labels.md`, Review-Notes `store/review-notes.md`,

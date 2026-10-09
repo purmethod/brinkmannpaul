@@ -7,7 +7,7 @@ name: cyclemax-ios
 #   ASC_KEY_ID      – App Store Connect → Users and Access → Integrations → Keys (role Admin)
 #   ASC_ISSUER_ID   – same page, above the key list
 #   ASC_KEY_P8      – full content of the downloaded AuthKey_XXXX.p8
-# Variable: CYCLEMAX_API_BASE – deployed backend, e.g. https://cyclemax.vercel.app (without it the mentor answers offline)
+# Variable (optional): CYCLEMAX_API_BASE – backend URL, default https://cyclemax.app (deployed by cyclemax-web)
 
 on:
   push:
@@ -44,11 +44,9 @@ jobs:
       - run: npm ci
       - name: Web build for the app
         env:
-          NEXT_PUBLIC_API_BASE: ${{ vars.CYCLEMAX_API_BASE }}
+          NEXT_PUBLIC_API_BASE: ${{ vars.CYCLEMAX_API_BASE || 'https://cyclemax.app' }}
         run: |
-          if [ -z "$NEXT_PUBLIC_API_BASE" ]; then
-            echo "::warning::CYCLEMAX_API_BASE is not set – the app's mentor will answer from the offline knowledge base."
-          fi
+          echo "Backend for the app: $NEXT_PUBLIC_API_BASE"
           npm run build
       - run: npx cap sync ios
       - run: xcodebuild -version

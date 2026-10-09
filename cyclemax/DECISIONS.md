@@ -128,5 +128,8 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
 ## Vercel Hobby (09.10.)
 - Pauls Vercel-Konto ist Hobby → Crons nur täglich, sonst bricht das Deployment ab. `vercel.json`: Push-Cron `0 6 * * *`
   (UTC) mit `PUSH_LEAD_MINUTES=60`, Wissens-Job `0 3 * * *`. Für mehrere Pushes am Tag: Pro (stündlich) oder externer Cron.
-- Test-Deployment als eigenes Vercel-Projekt `cyclemax` (Root Directory `cyclemax`), ohne Git-Verknüpfung: sonst würde
-  jeder Push auf irgendeinen Branch von `brinkmannpaul` einen Cyclemax-Build mit rotem Check auslösen (Branches ohne Ordner).
+- Deploy auf `cyclemax.app` (Pauls Domain, Team `pur1`) per GitHub Actions + Vercel CLI (`cyclemax-web`) statt Git-Verknüpfung
+  des Vercel-Projekts: sonst würde jeder Push auf irgendeinen Branch von `brinkmannpaul` einen Cyclemax-Build mit rotem Check
+  auslösen (Branches ohne Ordner). Ein Secret (`VERCEL_TOKEN`) genügt; der erste Lauf legt das Projekt an und verbindet die Domain.
+  Produktion deployt vom Arbeitsbranch und von `main`, solange Cyclemax nicht gemergt ist.
+- Die App (iOS-Build und Web) spricht standardmäßig mit `https://cyclemax.app`.

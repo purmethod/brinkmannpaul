@@ -55,7 +55,7 @@ Mentor mit Zeilen aus der Wissensbasis. Ohne VAPID-Keys erzeugt der Dev-Server t
 
 | Variable | Wo | Zweck |
 |---|---|---|
-| `NEXT_PUBLIC_API_BASE` | Build (öffentlich) | Absolute Backend-URL, z. B. `https://cyclemax.vercel.app`. Auch für die nativen Apps. |
+| `NEXT_PUBLIC_API_BASE` | Build (öffentlich) | Absolute Backend-URL: `https://cyclemax.app`. Auch für die nativen Apps. |
 | `ANTHROPIC_API_KEY` | Server, geheim | Claude für Chat und Wissens-Job. Nie im Client. |
 | `CLAUDE_MODEL` | Server | Default `claude-sonnet-5-5` |
 | `DATABASE_URL` | Server, geheim | Neon Postgres (`postgres://…`). Leer = SQLite (auf Vercel nur `/tmp`, **nicht dauerhaft**). |
@@ -72,19 +72,30 @@ NEXT_PUBLIC_API_BASE=http://localhost:8787 npm run build && npm run test:e2e   #
 npm run screenshots                                     # Store-Screenshots 6,7" + 5,5" nach store/screenshots
 ```
 
-## Deploy (Vercel)
+## Deploy (Vercel) → https://cyclemax.app
 
-Ein Vercel-Projekt liefert die PWA (`out/`) und das Backend (`api/index.ts`) aus. Konfiguration: `vercel.json`
-(Rewrites, Header, Cron: stündlich `/api/cron/push`, täglich 03:00 `/api/cron/knowledge`).
+Die Domain **cyclemax.app** liegt im Vercel-Team `pur1` (DNS bei Vercel). Ein Vercel-Projekt `cyclemax` liefert die PWA (`out/`)
+und das Backend (`api/index.ts`) aus. Konfiguration: `vercel.json` (Rewrites, Header, Crons), hochgeladen wird nur, was der
+Build braucht (`.vercelignore`).
 
-1. Neon-Datenbank anlegen (Vercel Marketplace → Neon oder neon.tech) → `DATABASE_URL`.
-2. Vercel → *Add New Project* → GitHub `purmethod/brinkmannpaul` → **Root Directory `cyclemax`**,
-   Framework Preset **Other** (Build/Output kommen aus `vercel.json`).
-3. Environment-Variablen aus der Tabelle setzen. `NEXT_PUBLIC_API_BASE` = die Projekt-Domain
-   (z. B. `https://cyclemax.vercel.app`).
-4. Deploy. Danach `https://<domain>/api/health` → `{"ok":true,"db":"postgres","claude":true,"push":true,"warnings":[]}`.
-   Jede Warnung dort nennt eine fehlende Variable.
-5. `/admin` mit `ADMIN_PASSWORD` öffnen → System → „Test-Push an alle“.
+### Automatisch per GitHub Actions (empfohlen)
+
+Workflow `.github/workflows/cyclemax-web.yml`: legt beim ersten Lauf das Projekt an, baut, deployt auf Produktion, verbindet
+`cyclemax.app` und `www.cyclemax.app` und prüft `/api/health`. Danach deployt jeder Push nach `cyclemax/**` automatisch.
+
+1. vercel.com → Account Settings → **Tokens** → Create Token, Scope: Team **pur1**.
+2. GitHub → `purmethod/brinkmannpaul` → Settings → Secrets and variables → Actions → Secret **`VERCEL_TOKEN`**.
+3. Actions → **cyclemax-web** → Run workflow. Nach 2–4 Minuten läuft https://cyclemax.app.
+
+Danach in Vercel → cyclemax → Settings → Environment Variables (Production) ergänzen und einmal neu deployen:
+`ANTHROPIC_API_KEY` (echter Mentor), `DATABASE_URL` (Neon, sonst ist nichts dauerhaft), `VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY`
+(Web Push), `ADMIN_PASSWORD`, `CRON_SECRET`. `https://cyclemax.app/api/health` zeigt, was noch fehlt.
+
+### Von Hand
+
+Vercel → *Add New Project* → GitHub `purmethod/brinkmannpaul` → **Root Directory `cyclemax`**, Framework Preset **Other**
+→ Environment-Variablen aus der Tabelle (`NEXT_PUBLIC_API_BASE=https://cyclemax.app`) → Deploy → Settings → Domains →
+`cyclemax.app`. Achtung: Die Git-Verknüpfung baut jeden Branch von `brinkmannpaul`; Branches ohne `cyclemax/` scheitern.
 
 **Hinweis Vercel-Plan:** `vercel.json` ist auf **Hobby** eingestellt: Push-Cron täglich 06:00 UTC (08:00 Sommerzeit /
 07:00 Winterzeit) – dazu `PUSH_LEAD_MINUTES=60` setzen, damit die 07:30-Nachricht in beiden Zeiten mitgeht. Mit **Pro**

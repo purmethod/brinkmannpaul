@@ -1,0 +1,77 @@
+name: cyclemax-web
+
+# Deploys Cyclemax (PWA + backend) to the Vercel project "cyclemax" and serves it at https://cyclemax.app.
+# Needs ONE repository secret: VERCEL_TOKEN
+#   vercel.com → Account Settings → Tokens → Create → Scope: team "pur1" (the team that owns cyclemax.app)
+#   GitHub → purmethod/brinkmannpaul → Settings → Secrets and variables → Actions → New repository secret
+# Then: Actions → cyclemax-web → Run workflow. Without the secret the deploy steps are skipped.
+# The first run creates the project, later pushes to cyclemax/** redeploy automatically.
+
+on:
+  push:
+    branches: [main, claude/cool-turing-huj1fh]
+    paths: ["cyclemax/**", ".github/workflows/cyclemax-web.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: cyclemax-web
+  cancel-in-progress: false
+
+env:
+  VERCEL_SCOPE: team_h1SlykUeYVwRjiptAymRwJdu
+  VERCEL_PROJECT: cyclemax
+  DOMAIN: cyclemax.app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: cyclemax
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check secret
+        id: secret
+        run: |
+          if [ -n "$VERCEL_TOKEN" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
+          else echo "::notice::VERCEL_TOKEN is not set – deploy skipped (see the header of this workflow)."; fi
+      - uses: actions/setup-node@v5
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          node-version: 22
+      - name: Vercel CLI
+        if: steps.secret.outputs.ok == 'true'
+        run: npm i -g vercel@59.26.0
+      - name: Link project (creates it on the first run)
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          vercel project add "$VERCEL_PROJECT" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" || echo "project exists"
+          vercel link --yes --team "$VERCEL_SCOPE" --project "$VERCEL_PROJECT" --token "$VERCEL_TOKEN"
+      - name: Deploy to production
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          url=$(vercel deploy --prod --yes --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" \
+            --build-env NEXT_PUBLIC_API_BASE="https://$DOMAIN" --env PUSH_LEAD_MINUTES=60)
+          echo "Deployment: $url" >> "$GITHUB_STEP_SUMMARY"
+      - name: Connect cyclemax.app
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          for d in "$DOMAIN" "www.$DOMAIN"; do
+            vercel domains add "$d" "$VERCEL_PROJECT" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" \
+              || echo "::notice::$d is already connected (or check Vercel → cyclemax → Settings → Domains)."
+          done
+      - name: Smoke test
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://$DOMAIN/api/health" || true)
+            [ "$code" = 200 ] && break
+            sleep 15
+          done
+          curl -fsS "https://$DOMAIN/api/health"; echo
+          curl -fsS -o /dev/null -w "start %{http_code}\n" "https://$DOMAIN/"
+          curl -fsS -o /dev/null -w "heute %{http_code}\n" "https://$DOMAIN/heute/"
+          echo "Live: https://$DOMAIN" >> "$GITHUB_STEP_SUMMARY"
