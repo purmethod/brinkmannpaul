@@ -25,5 +25,5 @@ export async function GET() {
     signup: process.env.SIGNUP_OPEN !== 'false',
   };
   const ok = db.ok && checks.storage !== 'missing' && checks.claude;
-  return Response.json({ ok, version: process.env.APP_VERSION ?? null, ...checks }, { status: ok ? 200 : 503 });
+  return Response.json({ ok, version: process.env.APP_VERSION ?? process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? null, ...checks }, { status: ok ? 200 : 503 });
 }

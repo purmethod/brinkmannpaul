@@ -117,19 +117,27 @@ jobs:
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
 
-      # a rollback in the dashboard pins the domain to an old deployment and stops it from following
-      # new ones; promoting the fresh one puts cutcake.app back on the newest code every time
-      - name: cutcake.app → this deployment
+      # cutcake.app belongs to the vercel project "cutcake" (it holds the database and storage);
+      # it must always point at that project's newest production deployment
+      - name: cutcake.app → newest cutcake deployment
         if: steps.gate.outputs.ok == 'true'
-        working-directory: atelier
         continue-on-error: true
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          url="${{ steps.deploy.outputs.url }}"
-          vercel promote "$url" --yes --timeout 3m --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -3 || true
-          for d in cutcake.app www.cutcake.app; do
-            vercel alias set "$url" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -2 || true
-          done
+          cd "$(mktemp -d)"
+          echo "--- project cutcake ---"
+          vercel project inspect cutcake --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -30 || true
+          echo "--- newest deployments of cutcake ---"
+          list=$(vercel ls cutcake --token "$VERCEL_TOKEN" $SCOPE 2>&1 || true)
+          echo "$list" | head -14
+          url=$(echo "$list" | grep -i "production" | grep -i "ready" | grep -o 'https://[a-z0-9.-]*\.vercel\.app' | head -1)
+          echo "newest ready production: ${url:-none}"
+          if [ -n "$url" ]; then
+            vercel promote "$url" --yes --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -2 || true
+            for d in cutcake.app www.cutcake.app; do
+              vercel alias set "$url" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
+            done
+          fi
 
       - name: health check
         if: steps.gate.outputs.ok == 'true'
