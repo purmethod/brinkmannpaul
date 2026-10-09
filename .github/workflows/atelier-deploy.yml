@@ -108,11 +108,7 @@ jobs:
         continue-on-error: true
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          for d in cutcake.app www.cutcake.app; do
-            vercel domains add "$d" atelier --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -3 || true
-          done
-          echo "--- dns status ---"
-          vercel domains inspect cutcake.app --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -25 || true
+          vercel domains inspect cutcake.app --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -6 || true
 
       - name: deploy
         id: deploy
@@ -126,36 +122,18 @@ jobs:
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
 
-      # cutcake.app only ever moves to a deployment whose database answers;
-      # otherwise it goes back to the last one that worked
-      - name: cutcake.app → this deployment (if it works)
+      # a production deploy of the project takes cutcake.app over by itself; it only stays there
+      # when its database answers — otherwise the domain goes back to the last working deployment
+      - name: health check (cutcake.app)
         if: steps.gate.outputs.ok == 'true'
         working-directory: atelier
-        continue-on-error: true
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
           url="${{ steps.deploy.outputs.url }}"
-          h=$(vercel curl /api/health --deployment "$url" --token "$VERCEL_TOKEN" $SCOPE 2>/dev/null | grep -o '{.*}' | tail -1 || true)
-          echo "new deployment: $h"
-          if echo "$h" | grep -q '"database":{"ok":true'; then
-            target="$url"
-          else
-            echo "::warning::the new deployment has no working database — cutcake.app stays on the last working deployment"
-            target=$(vercel inspect dpl_ZkpK1pw5mzYPwMVyfne2cJNrYkvk --token "$VERCEL_TOKEN" $SCOPE 2>&1 | grep -o 'https://[a-z0-9.-]*\.vercel\.app' | head -1)
-          fi
-          echo "cutcake.app → ${target:-unchanged}"
-          if [ -n "$target" ]; then
-            for d in cutcake.app www.cutcake.app; do
-              vercel alias set "$target" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
-            done
-          fi
-
-      - name: health check
-        if: steps.gate.outputs.ok == 'true'
-        working-directory: atelier
-        continue-on-error: true
-        run: |
           want=${GITHUB_SHA::7}
+          for d in cutcake.app www.cutcake.app; do
+            vercel alias set "$url" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
+          done
           for i in $(seq 12); do
             body=$(curl -s --max-time 30 "https://cutcake.app/api/health" || true)
             echo "$body" | grep -q "\"version\":\"$want\"" && break
@@ -163,8 +141,13 @@ jobs:
           done
           echo "--- https://cutcake.app/api/health ---"
           echo "$body"
-          if echo "$body" | grep -q "\"version\":\"$want\""; then
+          if echo "$body" | grep -q "\"version\":\"$want\"" && echo "$body" | grep -q '"database":{"ok":true'; then
             echo "### cutcake.app serves $want" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "::warning::cutcake.app does not serve $want yet"
+            exit 0
           fi
+          echo "::error::cutcake.app does not work with $want — going back to the last working deployment"
+          back=$(vercel inspect dpl_ZkpK1pw5mzYPwMVyfne2cJNrYkvk --token "$VERCEL_TOKEN" $SCOPE 2>&1 | grep -o 'https://[a-z0-9.-]*\.vercel\.app' | head -1)
+          for d in cutcake.app www.cutcake.app; do
+            [ -n "$back" ] && vercel alias set "$back" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
+          done
+          exit 1
