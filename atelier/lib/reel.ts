@@ -39,6 +39,16 @@ function run(cmd: string, args: string[]) {
   );
 }
 
+/** Can this server cut photo reels? (the binary shipped and runs) — for the health check. */
+export async function reelsReady(): Promise<boolean> {
+  try {
+    await run(await ffmpegPath(), ['-hide_banner', '-version']);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** Seconds per photo so the whole reel lands at ~7–12 s. */
 export function photoTiming(n: number) {
   const per = Math.min(3.2, Math.max(1.8, 9 / Math.max(1, n)));

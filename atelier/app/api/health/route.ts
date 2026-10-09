@@ -1,5 +1,6 @@
 import { blobMode } from '@/lib/blob';
 import { one } from '@/lib/db';
+import { reelsReady } from '@/lib/reel';
 import { qstashReady } from '@/lib/schedule';
 
 export const dynamic = 'force-dynamic';
@@ -19,6 +20,7 @@ export async function GET() {
     claude: Boolean(process.env.ANTHROPIC_API_KEY),
     qstash: qstashReady(),
     instagramApp: Boolean((process.env.INSTAGRAM_APP_ID || process.env.META_APP_ID) && (process.env.INSTAGRAM_APP_SECRET || process.env.META_APP_SECRET)),
+    photoReels: await reelsReady(),
     videoWorker: Boolean(process.env.GITHUB_TOKEN),
     signup: process.env.SIGNUP_OPEN !== 'false',
   };
