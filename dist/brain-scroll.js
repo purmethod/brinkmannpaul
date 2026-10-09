@@ -695,41 +695,31 @@
     let lastDepth = NaN;
     let prefetched = false;
 
-    function soften(image) {
-      // Fade each drawing's border to paper, so a smaller drawing blooms
-      // inside the larger one instead of showing an edge.
-      const sheet = document.createElement('canvas');
-      sheet.width = image.naturalWidth;
-      sheet.height = image.naturalHeight;
-      const pen = sheet.getContext('2d');
-      pen.drawImage(image, 0, 0);
-      const edge = Math.round(Math.min(sheet.width, sheet.height) * 0.07);
-      [[0, 0, edge, 0], [sheet.width, 0, sheet.width - edge, 0], [0, 0, 0, edge], [0, sheet.height, 0, sheet.height - edge]]
-        .forEach(([x0, y0, x1, y1]) => {
-          const gradient = pen.createLinearGradient(x0, y0, x1, y1);
-          gradient.addColorStop(0, 'rgba(255,255,255,1)');
-          gradient.addColorStop(1, 'rgba(255,255,255,0)');
-          pen.fillStyle = gradient;
-          pen.fillRect(0, 0, sheet.width, sheet.height);
-        });
-      return sheet;
-    }
-
+    // Each drawing's border already fades to paper in its file
+    // (scripts/bake_dive_edges.py), so a smaller drawing blooms inside the
+    // larger one instead of showing an edge. It is decoded off the main
+    // thread and handed to the canvas once, a pixel in a corner the next
+    // frame paints over, so the frame that first shows it does not stall.
     function load(level) {
       const sheet = level.sheet;
       if (sheet.state !== 'idle') return;
       sheet.state = 'loading';
       const image = new Image();
       image.decoding = 'async';
-      image.onload = () => {
-        sheet.image = soften(image);
+      image.src = sheet.src;
+      const decoded = typeof image.decode === 'function' ? image.decode()
+        : new Promise((resolve, reject) => { image.onload = resolve; image.onerror = reject; });
+      decoded.then(() => {
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.globalCompositeOperation = 'source-over';
+        context.globalAlpha = 1;
+        context.drawImage(image, 0, 0, 1, 1);
+        sheet.image = image;
         sheet.state = 'ready';
         sheet.since = performance.now();
         lastDepth = NaN;
         schedule();
-      };
-      image.onerror = () => { sheet.state = 'failed'; };
-      image.src = sheet.src;
+      }, () => { sheet.state = 'failed'; });
     }
 
     function resize() {
@@ -796,6 +786,196 @@
       }
     }
 
+    /* ---------- depth ---------- */
+
+    // A field of fine points the view flies through, so the zoom is felt as
+    // a journey and not only seen as a picture growing. Inside the brain
+    // they are vesicles drifting in the tissue. Past the threshold, where the
+    // smallest becomes the largest, they are stars, a few of them sparkling,
+    // and spiral galaxies gliding past. Every point is a function of depth
+    // alone, so turning back flies back through the same field; turned fast,
+    // the points draw short trails. All of it graphite on paper.
+    const NEAR = 0.06; // closest a point comes before it fades away
+    const SPAN = 1.5; // depth a point takes from the far end to the eye
+    const GRAPHITE = 'rgb(74,74,68)';
+    const field = (() => {
+      let seed = 20261009;
+      const random = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+      // x and y in half screens, so the field fills phones and wide screens alike.
+      const points = Array.from({ length: 300 }, (_, index) => {
+        let x;
+        let y;
+        do {
+          x = random() * 2.5 - 1.25;
+          y = random() * 2.5 - 1.25;
+        } while (Math.hypot(x, y) < 0.12);
+        return { x, y, z: random(), size: 0.45 + 1.5 * random() * random(), ring: index % 5 === 0, spark: index % 11 === 0, phase: random() * Math.PI * 2, rate: 0.4 + random() };
+      });
+      // Galaxies start near the middle of the view and glide outwards past it.
+      const galaxies = Array.from({ length: 5 }, (_, index) => {
+        const angle = index * 2.4 + random() * 0.8;
+        const reach = 0.16 + random() * 0.32;
+        return { x: Math.cos(angle) * reach, y: Math.sin(angle) * reach, z: (index + random() * 0.5) / 5, turn: random() * Math.PI, tilt: 0.38 + random() * 0.5, size: 0.3 + random() * 0.14, sprite: index % 3 };
+      });
+      return { points, galaxies, random, sprites: null };
+    })();
+    let fieldTravel = NaN;
+    let fieldTime = 0;
+    let speed = 0; // depth per second, smoothed
+
+    // Three spiral galaxies drawn once in graphite dots: a soft core and
+    // logarithmic arms, like the drawings around them.
+    function galaxies() {
+      if (field.sprites) return field.sprites;
+      const random = field.random;
+      field.sprites = [2, 2, 3].map((arms, variant) => {
+        const size = 256;
+        const sprite = document.createElement('canvas');
+        sprite.width = size;
+        sprite.height = size;
+        const pen = sprite.getContext('2d');
+        pen.translate(size / 2, size / 2);
+        const core = pen.createRadialGradient(0, 0, 0, 0, 0, size * 0.15);
+        core.addColorStop(0, 'rgba(74,74,68,0.5)');
+        core.addColorStop(1, 'rgba(74,74,68,0)');
+        pen.fillStyle = core;
+        pen.fillRect(-size / 2, -size / 2, size, size);
+        pen.fillStyle = GRAPHITE;
+        const pitch = 0.22 + variant * 0.06;
+        const dot = (x, y, r, alpha) => {
+          pen.globalAlpha = alpha;
+          pen.beginPath();
+          pen.arc(x, y, r, 0, Math.PI * 2);
+          pen.fill();
+        };
+        for (let arm = 0; arm < arms; arm += 1) {
+          for (let i = 0; i < 480; i += 1) {
+            const u = i / 480;
+            const r = size * (0.035 + 0.42 * u);
+            const theta = arm * Math.PI * 2 / arms + Math.log(r / (size * 0.035)) / pitch;
+            const spread = r * 0.14 * (0.4 + u);
+            dot(r * Math.cos(theta) + (random() - 0.5) * spread, r * Math.sin(theta) + (random() - 0.5) * spread,
+              0.6 + 1.5 * (1 - u) * random(), 0.25 + 0.65 * (1 - u) * random());
+          }
+        }
+        for (let i = 0; i < 240; i += 1) {
+          const angle = random() * Math.PI * 2;
+          const r = size * 0.47 * Math.sqrt(random());
+          dot(r * Math.cos(angle), r * Math.sin(angle), 0.7, 0.15 + 0.3 * random());
+        }
+        return sprite;
+      });
+      return field.sprites;
+    }
+
+    function depthField(travelled, depth, threshold, cx, cy, now) {
+      if (Number.isFinite(fieldTravel)) {
+        const elapsed = Math.max(now - fieldTime, 1);
+        speed += ((travelled - fieldTravel) / elapsed * 1000 - speed) * Math.min(1, elapsed / 120);
+      }
+      fieldTravel = travelled;
+      fieldTime = now;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      // The light at the threshold: the view passes through a membrane of
+      // light, one fine ring opening outwards, and comes out among the stars.
+      const gate = Math.exp(-(((depth - threshold) / 0.22) ** 2));
+      if (reduced.matches) {
+        if (gate > 0.01) light(gate, depth, threshold, cx, cy);
+        return;
+      }
+      const inside = smooth(chain[0].handover - 0.2, chain[0].handover + 0.5, depth) * (1 - smooth(threshold - 0.45, threshold, depth));
+      const space = smooth(threshold - 0.15, threshold + 0.45, depth) * (1 - smooth(api.cycle - 1.3, api.cycle - 0.45, depth));
+      if (inside > 0.01 || space > 0.01) {
+        const fx = width * 0.55;
+        const fy = height * 0.55;
+        // Trails only on a fast turn; at reading pace the points stay points.
+        const trail = Math.sign(speed) * clamp((Math.abs(speed) - 0.8) * 0.06, 0, 0.3);
+        const streaking = Math.abs(trail) > 0.004;
+        const buckets = Array.from({ length: 6 }, () => ({ dots: new Path2D(), rings: new Path2D(), lines: new Path2D() }));
+        const seconds = now / 1000;
+        context.globalCompositeOperation = 'multiply';
+        if (space > 0.01) {
+          const sprites = galaxies();
+          field.galaxies.forEach(galaxy => {
+            const zz = NEAR + mod(galaxy.z - depth / (SPAN * 2.2), 1);
+            const alpha = space * 0.85 * smooth(1 + NEAR, 0.6, zz) * smooth(0.12, 0.42, zz);
+            if (alpha < 0.01) return;
+            const size = galaxy.size * Math.min(width, height) / zz;
+            const sx = cx + galaxy.x * fx / zz;
+            const sy = cy + galaxy.y * fy / zz;
+            if (sx + size < 0 || sy + size < 0 || sx - size > width || sy - size > height) return;
+            context.globalAlpha = alpha;
+            context.setTransform(ratio, 0, 0, ratio, ratio * sx, ratio * sy);
+            context.rotate(galaxy.turn);
+            context.scale(1, galaxy.tilt);
+            context.drawImage(sprites[galaxy.sprite], -size / 2, -size / 2, size, size);
+          });
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        }
+        const stars = space >= inside;
+        field.points.forEach(point => {
+          const zz = NEAR + mod(point.z - depth / SPAN, 1);
+          let alpha = smooth(1 + NEAR, 0.72, zz) * smooth(NEAR, 0.24, zz) * (inside * 0.42 + space * 0.78);
+          if (alpha < 0.02) return;
+          const sx = cx + point.x * fx / zz;
+          const sy = cy + point.y * fy / zz;
+          if (sx < -24 || sy < -24 || sx > width + 24 || sy > height + 24) return;
+          const r = Math.min(point.size * (stars ? 0.34 : 0.28) / zz, 3.4);
+          if (stars && point.spark) alpha *= 0.7 + 0.3 * Math.sin(seconds * point.rate * Math.PI + point.phase);
+          const bucket = buckets[Math.min(5, Math.floor(alpha * 6))];
+          if (streaking) {
+            const from = Math.min(zz + trail, 1 + NEAR);
+            bucket.lines.moveTo(cx + point.x * fx / from, cy + point.y * fy / from);
+            bucket.lines.lineTo(sx, sy);
+          } else if (!stars && point.ring) {
+            bucket.rings.moveTo(sx + r * 1.4, sy);
+            bucket.rings.arc(sx, sy, r * 1.4, 0, Math.PI * 2);
+          } else {
+            bucket.dots.moveTo(sx + r, sy);
+            bucket.dots.arc(sx, sy, r, 0, Math.PI * 2);
+          }
+          if (stars && point.spark) {
+            const reach = r * 4;
+            bucket.rings.moveTo(sx - reach, sy);
+            bucket.rings.lineTo(sx + reach, sy);
+            bucket.rings.moveTo(sx, sy - reach);
+            bucket.rings.lineTo(sx, sy + reach);
+          }
+        });
+        context.fillStyle = GRAPHITE;
+        context.strokeStyle = GRAPHITE;
+        context.lineCap = 'round';
+        buckets.forEach((bucket, index) => {
+          context.globalAlpha = (index + 0.5) / 6;
+          context.fill(bucket.dots);
+          context.lineWidth = 0.6;
+          context.stroke(bucket.rings);
+          context.lineWidth = 1.1;
+          context.stroke(bucket.lines);
+        });
+      }
+      if (gate > 0.01) light(gate, depth, threshold, cx, cy);
+    }
+
+    function light(gate, depth, threshold, cx, cy) {
+      const radius = Math.hypot(width, height) * 0.62;
+      const glow = context.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      glow.addColorStop(0, `rgba(255,255,255,${(0.92 * gate).toFixed(3)})`);
+      glow.addColorStop(0.4, `rgba(255,255,255,${(0.5 * gate).toFixed(3)})`);
+      glow.addColorStop(1, 'rgba(255,255,255,0)');
+      context.globalCompositeOperation = 'source-over';
+      context.globalAlpha = 1;
+      context.fillStyle = glow;
+      context.fillRect(0, 0, width, height);
+      context.globalCompositeOperation = 'multiply';
+      context.globalAlpha = 0.32 * gate;
+      context.strokeStyle = GRAPHITE;
+      context.lineWidth = 1;
+      context.beginPath();
+      context.arc(cx, cy, 6 + smooth(threshold - 0.3, threshold + 0.35, depth) * radius * 1.15, 0, Math.PI * 2);
+      context.stroke();
+    }
+
     // Draws a drawing with its focus on the camera point.
     function place(image, focus, scale, cx, cy) {
       const s = scale * ratio;
@@ -851,6 +1031,7 @@
       });
       // The next brain, already growing out of the last neuron.
       if (depth > api.cycle - 1.6) brain(depth - api.cycle, shown[0], cx, cy);
+      depthField(travelled, depth, chain[WAY.length].handover - 0.1, cx, cy, now);
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;

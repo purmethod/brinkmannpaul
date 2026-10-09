@@ -138,6 +138,11 @@ for (const [, local] of wheel.matchAll(/'\/?(assets\/[^']+)'/g)) {
 }
 assert.ok(/depth > level\.handover - [\d.]+ && depth < level\.until \+ [\d.]+\) load\(level\)/.test(wheel), 'deep-zoom drawings load on demand, turning either way');
 assert.ok(/function stay\(passed, handover, depth, next\)/.test(wheel), 'a drawing whose successor has not arrived gives way to paper instead of growing into grey or black');
+for (const [, local] of wheel.matchAll(/'\/(assets\/neuro-[a-z]+\.webp)'/g)) {
+  assert.ok(fs.readFileSync(path.join(root, 'dist', local)).includes('brinkmannpaul: edges baked'), `${local} has its edges baked (scripts/bake_dive_edges.py)`);
+}
+assert.ok(!wheel.includes('function soften'), 'drawings are not softened in the browser, which stalled the dive');
+assert.ok(/if \(reduced\.matches\) \{\s*if \(gate > 0\.01\) light/.test(wheel), 'with reduced motion the depth field stays still: only the threshold light remains');
 assert.ok(wheel.includes("make('button', 'bs-head-close'"), 'an open project can be closed where the + was');
 assert.ok(wheel.includes('bs-language-switch'), 'a language switch keeps the wheel and skips the intro');
 
