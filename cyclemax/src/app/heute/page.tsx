@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AFTER_ENTRY_TEXT, headsUp, PHASES } from "@shared/texts";
 import { Gate } from "@/components/Gate";
@@ -26,6 +27,7 @@ export default function TodayPage() {
 
 function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const { update } = useApp();
+  const router = useRouter();
   const today = useToday();
   const cycle = useCycle(state, today);
   const line = useTodayLine(state, today);
@@ -40,6 +42,16 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   // The one-tap entry is the main action whenever bleeding is due (or nothing is known yet).
   const due = !single && (!cycle || cycle.phase === "red");
   const hasProfile = !!state.profile.analysis;
+  const showNotifHint = state.onboarded && !state.notifications && !state.notifHintDismissed;
+  const enableNotifications = async () => {
+    if (adapters.platform.isIosWeb() && !adapters.platform.isInstalled()) {
+      router.push("/settings/");
+      return;
+    }
+    const p = await adapters.notifications.requestPermission();
+    if (p === "granted") update({ notifications: true });
+    else update({ notifHintDismissed: true });
+  };
   const nextStep = state.profile.analysis?.steps.find((s) => !(state.profile.done ?? []).includes(s));
 
   const logBleeding = (date: DateStr) => {
@@ -152,6 +164,19 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
         )}
       </section>
 
+      {showNotifHint && !toast && (
+        <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl border border-line px-4 py-2 text-[14px]" data-testid="notif-hint">
+          <span className="text-muted">{single ? "Tägliche Zeile ist aus." : "Vorwarnungen sind aus."}</span>
+          <span className="flex items-center">
+            <button type="button" className="h-10 px-2 font-medium text-ink" onClick={() => void enableNotifications()}>
+              Aktivieren
+            </button>
+            <button type="button" aria-label="Hinweis schließen" className="h-10 w-9 text-muted" onClick={() => update({ notifHintDismissed: true })}>
+              ✕
+            </button>
+          </span>
+        </div>
+      )}
       {toast && (
         <div role="status" className="fade-up mb-3 flex items-center justify-between gap-4 rounded-2xl bg-surface px-5 py-4">
           <p className="text-[15px] leading-snug" data-testid="after-entry">

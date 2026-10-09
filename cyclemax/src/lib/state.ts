@@ -44,6 +44,8 @@ export interface AppState {
   profile: Profile;
   /** Device ids whose server-side deletion still has to be confirmed (offline at delete time). */
   pendingDeletes: string[];
+  /** He closed the "notifications are off" hint on the home screen. */
+  notifHintDismissed?: boolean;
   /** Write time (ms) – the newer of IndexedDB and the sync journal wins on load. */
   savedAt?: number;
 }

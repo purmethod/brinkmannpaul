@@ -17,6 +17,10 @@ test("Onboarding Beziehung → Home mit Ring, Haltung und Tageszeile", async ({ 
   await expect(page.getByTestId("daily-line")).not.toBeEmpty();
   await expect(page.getByTestId("bleeding")).toBeVisible();
   await expect(page.getByRole("link", { name: "Cyclemax fragen" })).toBeVisible();
+  // skipped notifications → one quiet, dismissible hint
+  await expect(page.getByTestId("notif-hint")).toContainText("Vorwarnungen sind aus.");
+  await page.getByRole("button", { name: "Hinweis schließen" }).click();
+  await expect(page.getByTestId("notif-hint")).toHaveCount(0);
   // no dates, no countdown on home
   await expect(page.locator("main")).not.toContainText(/Tag \d|Periode|\d+\.\s?(Okt|Nov|Jan)/);
 });
