@@ -50,7 +50,16 @@ jobs:
         run: |
           npm i -g vercel@latest >/dev/null
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          vercel link --yes --project atelier --token "$VERCEL_TOKEN" $SCOPE
+          # deploy into the project that holds the database (names only are printed, never values)
+          target=atelier
+          for p in cutcake atelier; do
+            vercel link --yes --project "$p" --token "$VERCEL_TOKEN" $SCOPE >/dev/null 2>&1 || continue
+            names=$(vercel env ls production --token "$VERCEL_TOKEN" $SCOPE 2>/dev/null | awk 'NR>2 {print $1}' | sed '/^\s*$/d')
+            echo "$p · production variables: $(echo $names)"
+            if echo "$names" | grep -Eq 'DATABASE_URL|POSTGRES_URL'; then target=$p; break; fi
+          done
+          vercel link --yes --project "$target" --token "$VERCEL_TOKEN" $SCOPE
+          echo "deploying into project: $target"
 
       - name: environment variables
         if: steps.gate.outputs.ok == 'true'
@@ -117,25 +126,27 @@ jobs:
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "### atelier is live: $url" >> "$GITHUB_STEP_SUMMARY"
 
-      # cutcake.app belongs to the vercel project "cutcake" (it holds the database and storage);
-      # it must always point at that project's newest production deployment
-      - name: cutcake.app → newest cutcake deployment
+      # cutcake.app only ever moves to a deployment whose database answers;
+      # otherwise it goes back to the last one that worked
+      - name: cutcake.app → this deployment (if it works)
         if: steps.gate.outputs.ok == 'true'
+        working-directory: atelier
         continue-on-error: true
         run: |
           SCOPE=${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}
-          cd "$(mktemp -d)"
-          echo "--- project cutcake ---"
-          vercel project inspect cutcake --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -30 || true
-          echo "--- newest deployments of cutcake ---"
-          list=$(vercel ls cutcake --token "$VERCEL_TOKEN" $SCOPE 2>&1 || true)
-          echo "$list" | head -14
-          url=$(echo "$list" | grep -i "production" | grep -i "ready" | grep -o 'https://[a-z0-9.-]*\.vercel\.app' | head -1)
-          echo "newest ready production: ${url:-none}"
-          if [ -n "$url" ]; then
-            vercel promote "$url" --yes --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -2 || true
+          url="${{ steps.deploy.outputs.url }}"
+          h=$(vercel curl /api/health --deployment "$url" --token "$VERCEL_TOKEN" $SCOPE 2>/dev/null | grep -o '{.*}' | tail -1 || true)
+          echo "new deployment: $h"
+          if echo "$h" | grep -q '"database":{"ok":true'; then
+            target="$url"
+          else
+            echo "::warning::the new deployment has no working database — cutcake.app stays on the last working deployment"
+            target=$(vercel inspect dpl_ZkpK1pw5mzYPwMVyfne2cJNrYkvk --token "$VERCEL_TOKEN" $SCOPE 2>&1 | grep -o 'https://[a-z0-9.-]*\.vercel\.app' | head -1)
+          fi
+          echo "cutcake.app → ${target:-unchanged}"
+          if [ -n "$target" ]; then
             for d in cutcake.app www.cutcake.app; do
-              vercel alias set "$url" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
+              vercel alias set "$target" "$d" --token "$VERCEL_TOKEN" $SCOPE 2>&1 | tail -1 || true
             done
           fi
 
