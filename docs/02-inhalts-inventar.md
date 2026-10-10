@@ -4,9 +4,9 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
-## Aktualisierung: Preise skyn 99 €, rye 19 € (2026-10-10)
+## Aktualisierung: Preise skyn 100 €, rye 20 € (2026-10-10)
 
-- `dist/shop.json`: skyn 9900 Cent pro Tiegel, rye 1900 Cent pro Anstellgut (Angabe Paul). Versand unverändert: Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €.
+- `dist/shop.json`: skyn 10000 Cent pro Tiegel, rye 2000 Cent pro Anstellgut. Paul: runde Preise wirken selbstbewusster, 99 und 19 „sieht wie ramsch aus“. Versand unverändert: Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €.
 - Der Checkout öffnet sich, sobald `STRIPE_SECRET_KEY` im Vercel-Projekt gesetzt ist. `/api/shop` meldet dann `ready: true`.
 
 ## Aktualisierung: live mit Freigabe, ohne gezeichnete Galaxien; rye-Bestellseite, skyn mit Bestellschritten (2026-10-10)
