@@ -7,17 +7,17 @@
     "dev:server": "tsx --env-file-if-exists=.env.local server/dev.ts",
     "knowledge": "node scripts/build-knowledge.mjs",
     "icons": "node scripts/icons.mjs",
-    "build": "npm run knowledge && next build && node scripts/build-sw.mjs",
-    "build:server": "esbuild api/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=.data/server-bundle.mjs --log-level=warning && echo backend bundle ok",
+    "build": "npm run knowledge && next build && node scripts/build-sw.mjs && npm run build:api",
     "typecheck": "tsc --noEmit -p .",
     "lint": "eslint .",
     "test": "npm run knowledge && vitest run",
     "test:e2e": "playwright test",
     "screenshots": "node scripts/screenshots.mjs",
     "cap:sync": "npm run build && cap sync",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run build:server",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "ios": "npm run build && cap sync ios",
-    "ios:open": "cap open ios"
+    "ios:open": "cap open ios",
+    "build:api": "esbuild server/node.ts --bundle --platform=node --format=cjs --target=node22 --packages=external --outfile=.data/api.cjs --log-level=warning"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",

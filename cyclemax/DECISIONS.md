@@ -133,3 +133,7 @@ Kurzprotokoll aller Entscheidungen, die ohne Rückfrage getroffen wurden.
   auslösen (Branches ohne Ordner). Ein Secret (`VERCEL_TOKEN`) genügt; der erste Lauf legt das Projekt an und verbindet die Domain.
   Produktion deployt vom Arbeitsbranch und von `main`, solange Cyclemax nicht gemergt ist.
 - Die App (iOS-Build und Web) spricht standardmäßig mit `https://cyclemax.app`.
+- Vercel-Function: Vercel übersetzte `api/index.ts` (tsconfig `module: esnext`) in ESM-Syntax, lud sie aber als CommonJS →
+  „Cannot use import statement outside a module“. Jetzt bündelt `npm run build` das Backend mit esbuild nach `.data/api.cjs`
+  (CommonJS, Pakete extern), `api/index.js` exportiert daraus einen klassischen Node-Handler (`server/node.ts`, auch vom
+  lokalen Dev-Server genutzt). `trailingSlash` ist aus `vercel.json` entfernt (leitete `/api/*` um, bricht CORS-Preflights).

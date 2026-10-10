@@ -30,7 +30,7 @@ src/engine/       Zyklus-Engine + Benachrichtigungs-Planung (reine Funktionen, V
 src/adapters/     StorageAdapter, NotificationAdapter, PlatformAdapter, SpeechAdapter (Web + Native)
 src/lib/          App-State, Sync, API-Client
 server/           Backend: Router, DB (Drizzle), Chat, Push, Wissens-Job, Admin
-api/index.ts      Vercel-Function-Einstieg (re-export von server/app.ts)
+api/index.js      Vercel-Function-Einstieg (lädt das beim Build gebündelte Backend .data/api.cjs)
 shared/           Typen, Texte, Wissensbasis (generiert) – von Client und Server genutzt
 knowledge/        Wissensbasis als Markdown (Quelle für shared/knowledge.generated.ts)
 store/            Store-Texte, Datenschutz-Labels, Review-Notes, Screenshots
@@ -75,7 +75,7 @@ npm run screenshots                                     # Store-Screenshots 6,7"
 ## Deploy (Vercel) → https://cyclemax.app
 
 Die Domain **cyclemax.app** liegt im Vercel-Team `pur1` (DNS bei Vercel). Ein Vercel-Projekt `cyclemax` liefert die PWA (`out/`)
-und das Backend (`api/index.ts`) aus. Konfiguration: `vercel.json` (Rewrites, Header, Crons), hochgeladen wird nur, was der
+und das Backend (`api/index.js` → beim Build gebündeltes `server/node.ts`) aus. Konfiguration: `vercel.json` (Rewrites, Header, Crons), hochgeladen wird nur, was der
 Build braucht (`.vercelignore`).
 
 ### Automatisch per GitHub Actions (empfohlen)

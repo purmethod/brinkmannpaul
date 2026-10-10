@@ -86,6 +86,6 @@ jobs:
           vercel inspect "$url" --logs --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" 2>&1 | tail -n 80 || true
           (timeout 40 vercel logs "$url" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" > "$RUNNER_TEMP/runtime.log" 2>&1 || true) &
           sleep 8
-          for p in /api/health /api/catalog; do curl -sS -m 20 -o /dev/null -w "$p %{http_code}\n" "https://$DOMAIN$p" || true; done
+          for p in /api/health /api/lines; do curl -sS -m 20 -o /dev/null -w "$p %{http_code}\n" "https://$DOMAIN$p" || true; done
           wait
           tail -n 80 "$RUNNER_TEMP/runtime.log" || true
