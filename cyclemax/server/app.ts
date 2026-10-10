@@ -139,7 +139,7 @@ function requireCron(req: Request, config: Config) {
 /** Path of the request. Supports the Vercel rewrite `/api/index?route=...`. */
 export function routeOf(url: URL): string {
   const route = url.searchParams.get("route");
-  if (route !== null && /^\/api\/index\/?$/.test(url.pathname)) return `/api/${route.replace(/^\/+/, "")}`;
+  if (route !== null && /^\/api\/index\/?$/.test(url.pathname)) return `/api/${route.replace(/^\/+|\/+$/g, "")}`;
   return url.pathname.replace(/\/+$/, "") || "/";
 }
 

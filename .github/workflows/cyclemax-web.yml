@@ -55,6 +55,7 @@ jobs:
         run: |
           url=$(vercel deploy --prod --yes --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" \
             --build-env NEXT_PUBLIC_API_BASE="https://$DOMAIN" --env PUSH_LEAD_MINUTES=60)
+          echo "$url" > "$RUNNER_TEMP/deploy-url"
           echo "Deployment: $url" >> "$GITHUB_STEP_SUMMARY"
       - name: Connect cyclemax.app
         if: steps.secret.outputs.ok == 'true'
@@ -64,14 +65,27 @@ jobs:
               || echo "::notice::$d is already connected (or check Vercel → cyclemax → Settings → Domains)."
           done
       - name: Smoke test
+        id: smoke
         if: steps.secret.outputs.ok == 'true'
         run: |
-          for i in $(seq 1 20); do
-            code=$(curl -s -o /dev/null -w "%{http_code}" "https://$DOMAIN/api/health" || true)
-            [ "$code" = 200 ] && break
-            sleep 15
+          ok=""
+          for i in $(seq 1 12); do
+            if curl -fsS -m 20 "https://$DOMAIN/api/health" | grep -q '"ok":true'; then ok=1; break; fi
+            sleep 10
           done
-          curl -fsS "https://$DOMAIN/api/health"; echo
-          curl -fsS -o /dev/null -w "start %{http_code}\n" "https://$DOMAIN/"
-          curl -fsS -o /dev/null -w "heute %{http_code}\n" "https://$DOMAIN/heute/"
+          curl -sS -m 20 -w "\nhealth %{http_code}\n" "https://$DOMAIN/api/health" || true
+          for p in / /heute/ /verstehen/ /datenschutz/; do curl -fsS -m 20 -o /dev/null -w "$p %{http_code}\n" "https://$DOMAIN$p"; done
+          [ -n "$ok" ] || { echo "::error::https://$DOMAIN/api/health is not healthy"; exit 1; }
           echo "Live: https://$DOMAIN" >> "$GITHUB_STEP_SUMMARY"
+      - name: Diagnose (project settings, build and runtime logs)
+        if: failure() && steps.secret.outputs.ok == 'true'
+        run: |
+          url=$(cat "$RUNNER_TEMP/deploy-url" 2>/dev/null || true)
+          vercel project inspect "$VERCEL_PROJECT" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" || true
+          [ -n "$url" ] || exit 0
+          vercel inspect "$url" --logs --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" 2>&1 | tail -n 80 || true
+          (timeout 40 vercel logs "$url" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" > "$RUNNER_TEMP/runtime.log" 2>&1 || true) &
+          sleep 8
+          for p in /api/health /api/catalog; do curl -sS -m 20 -o /dev/null -w "$p %{http_code}\n" "https://$DOMAIN$p" || true; done
+          wait
+          tail -n 80 "$RUNNER_TEMP/runtime.log" || true
