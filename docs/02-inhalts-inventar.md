@@ -4,6 +4,29 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: live mit Freigabe, ohne gezeichnete Galaxien; rye-Bestellseite, skyn mit Bestellschritten (2026-10-10)
+
+- **Freigabe Paul:** Der große Durchgang vom 9.10. geht live (Texte, Übersetzungen, Schwarz-Fixes, Ladeverbesserungen, Sitemap), **ohne** das Punktfeld und die gezeichneten Spiralgalaxien. O-Ton: „sieht nicht realistisch aus“. Das All bleibt bei den Zeichnungen nach der H01-Rekonstruktion (Harvard und Google). Das weiche Licht an der Schwelle bleibt.
+- **Checkout für mehrere Produkte:**
+  - `dist/shop.json` hat jetzt `products` (skyn, rye), jeweils mit Name, Beschreibung, Preis in Cent (`null`, bis Paul ihn nennt), Währung, Bild und Hinweis im Checkout. Die Versandzonen sind gemeinsam.
+  - `/api/shop?product=…` und `/api/checkout {product, …}` bedienen beide Produkte. Der Rücksprung geht auf `/<sprache>/<produkt>/thanks/`.
+  - Gemeinsames Bestellskript `dist/order.js`, das Produkt steht in `data-product`.
+- **skyn:** neuer Abschnitt „how ordering works“ im Aufbau der Weekends-Seite:
+  1. choose your shipping and how many jars.
+  2. pay securely with stripe, right here on the page.
+  3. your skyn ships with dhl, tracked, as soon as the batch is ready.
+- **rye (neu, `/rye/` in sechs Sprachen, mit Danke-Seite):**
+  - Kopf „rye by brinkmann · sourdough starter · german organic rye · shipped worldwide“
+  - „flour. water. time.“ und die zwei Absätze aus der Projektliste
+  - **what you get:** an active rye starter · feeding instructions · a first-loaf guide
+  - **how ordering works:** die drei Schritte, Preis „per starter“, Stripe-Checkout auf der Seite
+  - **Startseite:** „pre-order rye ↗“ führt jetzt dorthin statt zur E-Mail. „get in touch for current availability.“ ist gestrichen.
+- **Damit Kunden bezahlen können, fehlt noch:**
+  - `STRIPE_SECRET_KEY` im Vercel-Projekt brinkmannpaul (gleicher Wert wie bei souralf). Der Zugriff auf das Team pur1 ist von hier aus gesperrt (403).
+  - Die Preise für skyn (pro Tiegel) und rye (pro Anstellgut) in `dist/shop.json`.
+
+  Bis dahin zeigen beide Seiten „the pre-order opens here shortly.“
+
 ## Aktualisierung: großer Durchgang, Texte, Zoom mit Tiefe, Sitemap (2026-10-09, zur Freigabe, noch nicht live)
 
 - **all art. (Pauls Kürzung):** Die Absätze „ai is one more tool …“ und „learn the tools …“ sind gestrichen. „ai cannot feel love …“, „all art means …“ und „you.“ bleiben.

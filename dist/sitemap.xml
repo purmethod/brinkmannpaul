@@ -180,4 +180,64 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/skyn/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/skyn/" />
   </url>
+  <url>
+    <loc>https://brinkmannpaul.com/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/de/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/fr/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/es/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/ar/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/ru/rye/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/rye/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/rye/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/rye/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/rye/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/rye/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/rye/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/rye/" />
+  </url>
 </urlset>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html and the sub pages in PAGES (weekends, skyn and its thank-you page)
+dist/index.html and the sub pages in PAGES (weekends, the skyn and rye pre-order pages and their thank-you pages)
 are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/']
+PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
@@ -114,7 +114,7 @@ def localise(html, lang, conf, page=''):
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
     # Links to pages stay in the language: the start page, its anchors and the sub pages.
     html = re.sub(r'<a\s[^>]*>', lambda m: m.group(0) if 'hreflang=' in m.group(0) else
-                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
+                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn|rye)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
     html = re.sub(rf'(<a href="/{lang}/{page}" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)

@@ -118,7 +118,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 9, 'project ids are uniqu
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/|rye\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -144,7 +144,7 @@ for (const [, local] of wheel.matchAll(/'\/(assets\/neuro-[a-z]+\.webp)'/g)) {
 assert.ok(!wheel.includes('function soften'), 'drawings are not softened in the browser, which stalled the dive');
 assert.ok(wheel.includes('context.fillRect(0, 0, backingWidth, backingHeight);'), 'a resized canvas is painted paper at once, never left black');
 assert.ok(wheel.includes('dive.draw(depthAt(eased) + drift);'), 'a resize redraws the dive in the same frame');
-assert.ok(/if \(reduced\.matches\) \{\s*if \(gate > 0\.01\) light/.test(wheel), 'with reduced motion the depth field stays still: only the threshold light remains');
+assert.ok(!/function galaxies|depthField/.test(wheel), 'the universe is the drawings alone: no drawn galaxies or point field (Paul, 10 october)');
 assert.ok(wheel.includes("make('button', 'bs-head-close'"), 'an open project can be closed where the + was');
 assert.ok(wheel.includes('bs-language-switch'), 'a language switch keeps the wheel and skips the intro');
 
@@ -202,26 +202,37 @@ for (const lang of LANGS) {
   pages.push(['dist', page]);
 }
 
-// The skyn pre-order page: in every language, linked from the skyn row, with
-// pre-orders by e-mail and whatsapp and links that stay in the language.
-const skyn = fs.readFileSync(path.join(root, 'dist/skyn/index.html'), 'utf8');
-assert.ok(html.includes('<a href="skyn/">'), 'the skyn row links to the pre-order page');
-assert.ok(skyn.includes('id="order"') && skyn.includes("fetch('/api/checkout'") && skyn.includes("fetch('/api/shop')"), 'skyn: pre-order through the embedded stripe checkout');
-assert.ok(!/subject=skyn%20pre-order|pre-order on whatsapp/.test(skyn), 'skyn: no pre-orders by e-mail or whatsapp');
+// The pre-order pages (skyn, rye): in every language, linked from their row,
+// paid on the page through stripe's embedded checkout (one shared order.js),
+// never by e-mail or whatsapp, with links that stay in the language.
+const orderJs = fs.readFileSync(path.join(root, 'dist/order.js'), 'utf8');
+new vm.Script(orderJs, { filename: 'order.js' });
+assert.ok(orderJs.includes("fetch('/api/checkout'") && orderJs.includes("fetch('/api/shop?product='") && orderJs.includes('product: product'), 'order.js: checkout for the page\'s product');
 for (const api of ['_stripe', 'checkout', 'shop', 'session-status']) new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', api + '.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: api + '.js' });
 const shopJson = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json'), 'utf8'));
-assert.ok(shopJson.shipping.length && shopJson.product.currency, 'skyn: shop.json has shipping zones and a currency');
-assert.ok(fs.existsSync(path.join(root, 'dist/skyn/thanks/index.html')), 'skyn: thank-you page');
-pages.push(['dist', skyn]);
-for (const lang of LANGS) {
-  const file = path.join(root, 'dist', lang, 'skyn', 'index.html');
-  assert.ok(fs.existsSync(file), `dist/${lang}/skyn/index.html exists (run python3 scripts/i18n.py build)`);
-  const page = fs.readFileSync(file, 'utf8');
-  assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/skyn/" />`), `${lang} skyn canonical`);
-  assert.ok(new RegExp(`href="/${lang}/skyn/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} skyn marked in the selector`);
-  assert.ok(page.includes(`href="/${lang}/#skyn"`), `${lang} skyn closes back to its own language`);
-  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/skyn/">`), `${lang} row links to its skyn page`);
-  pages.push(['dist', page]);
+assert.ok(shopJson.shipping.length, 'shop.json has shipping zones');
+for (const product of ['skyn', 'rye']) {
+  const source = fs.readFileSync(path.join(root, 'dist', product, 'index.html'), 'utf8');
+  const p = shopJson.products[product];
+  assert.ok(p && p.currency && p.name && p.note, `shop.json: ${product} has a name, a currency and a checkout note`);
+  assert.ok(p.amount === null || (Number.isInteger(p.amount) && p.amount > 0), `shop.json: ${product} price is in cents, or null until set`);
+  assert.ok(html.includes(`<a href="${product}/">`), `the ${product} row links to its pre-order page`);
+  assert.ok(source.includes(`data-product="${product}"`) && source.includes('src="/order.js'), `${product}: pre-order through the embedded stripe checkout`);
+  assert.ok(source.includes('<ol class="steps">'), `${product}: how ordering works, step by step like the weekends page`);
+  assert.ok(!/subject=[a-z]+%20(pre-)?order|order on whatsapp/.test(source), `${product}: no orders by e-mail or whatsapp`);
+  assert.ok(fs.existsSync(path.join(root, 'dist', product, 'thanks', 'index.html')), `${product}: thank-you page`);
+  pages.push(['dist', source]);
+  for (const lang of LANGS) {
+    const file = path.join(root, 'dist', lang, product, 'index.html');
+    assert.ok(fs.existsSync(file), `dist/${lang}/${product}/index.html exists (run python3 scripts/i18n.py build)`);
+    const page = fs.readFileSync(file, 'utf8');
+    assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/${product}/" />`), `${lang} ${product} canonical`);
+    assert.ok(new RegExp(`href="/${lang}/${product}/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} ${product} marked in the selector`);
+    assert.ok(page.includes(`href="/${lang}/#${product}"`), `${lang} ${product} closes back to its own language`);
+    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/${product}/">`), `${lang} row links to its ${product} page`);
+    assert.ok(fs.existsSync(path.join(root, 'dist', lang, product, 'thanks', 'index.html')), `${lang} ${product} thank-you page`);
+    pages.push(['dist', page]);
+  }
 }
 
 // Every local asset referenced by the pages exists and stays small.
@@ -244,8 +255,8 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 18, 'sitemap lists home, weekends and skyn in six languages');
+assert.equal(locs.length, 24, 'sitemap lists home, weekends, skyn and rye in six languages');
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn pre-order page, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn and rye pre-order pages, local assets, og image, robots and sitemap.');
