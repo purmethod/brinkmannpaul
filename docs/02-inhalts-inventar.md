@@ -4,6 +4,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Preise skyn 100 €, rye 20 € (2026-10-10)
+
+- `dist/shop.json`: skyn 10000 Cent pro Tiegel, rye 2000 Cent pro Anstellgut. Paul: runde Preise wirken selbstbewusster, 99 und 19 „sieht wie ramsch aus“. Versand unverändert: Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €.
+- Der Checkout öffnet sich, sobald `STRIPE_SECRET_KEY` im Vercel-Projekt gesetzt ist. `/api/shop` meldet dann `ready: true`.
+
 ## Aktualisierung: live mit Freigabe, ohne gezeichnete Galaxien; rye-Bestellseite, skyn mit Bestellschritten (2026-10-10)
 
 - **Freigabe Paul:** Der große Durchgang vom 9.10. geht live (Texte, Übersetzungen, Schwarz-Fixes, Ladeverbesserungen, Sitemap), **ohne** das Punktfeld und die gezeichneten Spiralgalaxien. O-Ton: „sieht nicht realistisch aus“. Das All bleibt bei den Zeichnungen nach der H01-Rekonstruktion (Harvard und Google). Das weiche Licht an der Schwelle bleibt.
