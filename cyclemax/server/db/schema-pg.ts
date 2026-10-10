@@ -1,15 +1,19 @@
 // Postgres (Neon) schema. Must mirror schema-sqlite.ts column for column.
-import { bigint, integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
+// All tables live in their own Postgres schema "cyclemax", so the app can share a Neon database with other apps.
+import { bigint, integer, pgSchema, primaryKey, text } from "drizzle-orm/pg-core";
+
+export const PG_SCHEMA = "cyclemax";
+const cm = pgSchema(PG_SCHEMA);
 
 const ms = (name: string) => bigint(name, { mode: "number" });
 
-export const devices = pgTable("devices", {
+export const devices = cm.table("devices", {
   id: text("id").primaryKey(),
   createdAt: ms("created_at").notNull(),
   lastSeen: ms("last_seen").notNull(),
 });
 
-export const pushSubscriptions = pgTable("push_subscriptions", {
+export const pushSubscriptions = cm.table("push_subscriptions", {
   deviceId: text("device_id").primaryKey(),
   endpoint: text("endpoint").notNull(),
   p256dh: text("p256dh").notNull(),
@@ -18,7 +22,7 @@ export const pushSubscriptions = pgTable("push_subscriptions", {
   updatedAt: ms("updated_at").notNull(),
 });
 
-export const pushSchedule = pgTable("push_schedule", {
+export const pushSchedule = cm.table("push_schedule", {
   id: text("id").primaryKey(),
   deviceId: text("device_id").notNull(),
   at: ms("at").notNull(),
@@ -27,7 +31,7 @@ export const pushSchedule = pgTable("push_schedule", {
   sentAt: ms("sent_at"),
 });
 
-export const lines = pgTable("lines", {
+export const lines = cm.table("lines", {
   id: text("id").primaryKey(),
   text: text("text").notNull(),
   category: text("category").notNull(),
@@ -39,7 +43,7 @@ export const lines = pgTable("lines", {
   createdAt: ms("created_at").notNull(),
 });
 
-export const principles = pgTable("principles", {
+export const principles = cm.table("principles", {
   id: text("id").primaryKey(),
   text: text("text").notNull(),
   status: text("status").notNull(),
@@ -48,7 +52,7 @@ export const principles = pgTable("principles", {
   createdAt: ms("created_at").notNull(),
 });
 
-export const votes = pgTable(
+export const votes = cm.table(
   "votes",
   {
     deviceId: text("device_id").notNull(),
@@ -61,7 +65,7 @@ export const votes = pgTable(
   (t) => [primaryKey({ columns: [t.deviceId, t.kind, t.targetId] })],
 );
 
-export const reports = pgTable("reports", {
+export const reports = cm.table("reports", {
   id: text("id").primaryKey(),
   answerId: text("answer_id").notNull(),
   text: text("text").notNull(),
@@ -70,13 +74,13 @@ export const reports = pgTable("reports", {
   createdAt: ms("created_at").notNull(),
 });
 
-export const topics = pgTable("topics", {
+export const topics = cm.table("topics", {
   id: text("id").primaryKey(),
   topic: text("topic").notNull(),
   day: text("day").notNull(),
 });
 
-export const chatUsage = pgTable(
+export const chatUsage = cm.table(
   "chat_usage",
   {
     deviceId: text("device_id").notNull(),
@@ -86,7 +90,7 @@ export const chatUsage = pgTable(
   (t) => [primaryKey({ columns: [t.deviceId, t.day] })],
 );
 
-export const jobRuns = pgTable("job_runs", {
+export const jobRuns = cm.table("job_runs", {
   id: text("id").primaryKey(),
   startedAt: ms("started_at").notNull(),
   summary: text("summary").notNull(),
