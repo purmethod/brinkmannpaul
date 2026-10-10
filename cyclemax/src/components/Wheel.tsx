@@ -25,7 +25,9 @@ export function Wheel<T extends string | number>({
   testId?: string;
 }) {
   const ref = useRef<HTMLUListElement>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const frame = useRef<number | null>(null);
+  /** Index a programmatic (tap/keyboard) scroll is heading to – scroll events on the way there are ignored. */
+  const target = useRef<number | null>(null);
   const id = useId();
   const index = Math.max(
     0,
@@ -38,19 +40,29 @@ export function Wheel<T extends string | number>({
     if (el && Math.round(el.scrollTop / ITEM) !== index) el.scrollTop = index * ITEM;
   }, [index]);
 
+  // The value always follows the centered item, frame by frame – so "Eintragen" right after a flick
+  // (iOS momentum scrolling) saves exactly the date the user sees, never a stale one.
   const onScroll = () => {
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
+    if (frame.current !== null) return;
+    frame.current = requestAnimationFrame(() => {
+      frame.current = null;
       const el = ref.current;
       if (!el) return;
       const i = Math.min(items.length - 1, Math.max(0, Math.round(el.scrollTop / ITEM)));
+      if (target.current !== null) {
+        if (i === target.current) target.current = null;
+        return;
+      }
       if (items[i] && items[i].value !== value) onChange(items[i].value);
-    }, 90);
+    });
   };
+  useEffect(() => () => void (frame.current !== null && cancelAnimationFrame(frame.current)), []);
 
   const select = (i: number) => {
     const clamped = Math.min(items.length - 1, Math.max(0, i));
-    ref.current?.scrollTo({ top: clamped * ITEM, behavior: "smooth" });
+    const el = ref.current;
+    if (el && Math.round(el.scrollTop / ITEM) !== clamped) target.current = clamped;
+    el?.scrollTo({ top: clamped * ITEM, behavior: "smooth" });
     onChange(items[clamped].value);
   };
 
@@ -75,6 +87,8 @@ export function Wheel<T extends string | number>({
         aria-activedescendant={`${id}-${index}`}
         tabIndex={0}
         onScroll={onScroll}
+        onPointerDown={() => (target.current = null)}
+        onWheel={() => (target.current = null)}
         onKeyDown={onKey}
         data-testid={testId}
         className="wheel relative h-full overflow-y-scroll outline-none"

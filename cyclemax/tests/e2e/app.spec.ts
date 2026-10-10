@@ -22,8 +22,8 @@ test("Onboarding Beziehung → Home mit Ring, Haltung und Tageszeile", async ({ 
   await expect(page.getByTestId("notif-hint")).toContainText("Vorwarnungen sind aus.");
   await page.getByRole("button", { name: "Hinweis schließen" }).click();
   await expect(page.getByTestId("notif-hint")).toHaveCount(0);
-  // no dates, no countdown on home
-  await expect(page.locator("main")).not.toContainText(/Tag \d|Periode|\d+\.\s?(Okt|Nov|Jan)/);
+  // the entered date stays visible
+  await expect(page.getByTestId("last-entry")).toContainText("Zuletzt eingetragen:");
 });
 
 test("Onboarding Single → nur Tageszeile und Chat", async ({ page }) => {
@@ -53,9 +53,20 @@ test("Ihre Tage eintragen → Gelb, Nachricht, Rückgängig", async ({ page }) =
   await page.waitForTimeout(300);
   await page.getByRole("button", { name: "Eintragen" }).click();
   await expect(page.getByTestId("phase-word")).toHaveText("Wärme");
+  // the saved date is shown – in the confirmation and below the entry row
+  await expect(page.getByTestId("after-entry")).toHaveText("Eingetragen: gestern. Jetzt Wärme – den Rest übernimmt Cyclemax.");
+  await expect(page.getByTestId("last-entry")).toHaveText("Zuletzt eingetragen: Gestern");
+  // flick the wheel and tap "Eintragen" at once (iOS momentum): the visible date is saved, not a stale one
+  await page.getByRole("button", { name: "anderes Datum" }).click();
+  await page.getByTestId("date-wheel").evaluate((el) => el.scrollTo({ top: 44 * 9 }));
+  await page.waitForTimeout(50);
+  await page.getByRole("button", { name: "Eintragen" }).click();
+  await expect(page.getByTestId("phase-word")).toHaveText("Führen");
+  await expect(page.getByTestId("after-entry")).toContainText("Jetzt Führen");
   // persists across reload
   await page.reload();
-  await expect(page.getByTestId("phase-word")).toHaveText("Wärme");
+  await expect(page.getByTestId("phase-word")).toHaveText("Führen");
+  await expect(page.getByTestId("last-entry")).not.toContainText("Gestern");
 });
 
 test("Chat mit Mock-Claude, Bewertung und Melden", async ({ page, request }) => {

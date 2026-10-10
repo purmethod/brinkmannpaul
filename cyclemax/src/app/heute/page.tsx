@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { AFTER_ENTRY_TEXT, headsUp, PHASES } from "@shared/texts";
+import { AFTER_ENTRY_TEXT, afterEntryText, headsUp, PHASES } from "@shared/texts";
 import { Gate } from "@/components/Gate";
 import { IconSettings } from "@/components/icons";
 import { Logo } from "@/components/Logo";
@@ -12,11 +12,11 @@ import { Ring } from "@/components/Ring";
 import { Thumbs } from "@/components/Thumbs";
 import { Button, Screen, Sheet } from "@/components/ui";
 import { Wheel } from "@/components/Wheel";
-import { addBleeding, upcomingPhase } from "@/engine/cycle";
+import { addBleeding, cycleStateOn, sortEntries, upcomingPhase } from "@/engine/cycle";
 import type { DateStr } from "@/engine/dates";
 import { api } from "@/lib/api";
 import { useApp } from "@/lib/app-context";
-import { pastDays } from "@/lib/format";
+import { dayLabel, pastDays } from "@/lib/format";
 import { useCycle, useToday, useTodayLine } from "@/lib/hooks";
 import type { AppState } from "@/lib/state";
 import type { Adapters } from "@/adapters";
@@ -33,7 +33,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
   const line = useTodayLine(state, today);
   const [sheet, setSheet] = useState(false);
   const [pick, setPick] = useState<DateStr>(today);
-  const [toast, setToast] = useState<{ prev: DateStr[] } | null>(null);
+  const [toast, setToast] = useState<{ prev: DateStr[]; text: string } | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => void (toastTimer.current && clearTimeout(toastTimer.current)), []);
 
@@ -56,9 +56,12 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
 
   const logBleeding = (date: DateStr) => {
     const prev = state.entries;
-    update({ entries: addBleeding(prev, date) });
+    const next = addBleeding(prev, date);
+    update({ entries: next });
     void adapters.platform.haptic("success");
-    setToast({ prev });
+    const phase = cycleStateOn(next, today, state.usualLength)?.phase;
+    const text = date === today || !phase ? AFTER_ENTRY_TEXT : afterEntryText(dayLabel(date, today), PHASES[phase].word);
+    setToast({ prev, text });
     if (toastTimer.current) clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToast(null), 8000);
   };
@@ -75,6 +78,13 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
     setSheet(true);
   };
 
+  const last = sortEntries(state.entries).at(-1);
+  const lastLine = last && (
+    <p className="text-center text-[13px] text-muted" data-testid="last-entry">
+      Zuletzt eingetragen: {dayLabel(last, today)}
+    </p>
+  );
+
   // Due: big primary button. Otherwise one slim line – no visual noise.
   const bleeding = due ? (
     <div className="flex flex-col">
@@ -84,15 +94,24 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
       <button type="button" className="mx-auto h-10 px-3 text-[14px] text-muted" onClick={openDateSheet}>
         anderes Datum
       </button>
+      {lastLine}
     </div>
   ) : (
     <div className="flex items-center justify-between border-t border-line pt-1 text-[15px]">
       <button type="button" className="h-11 pr-3 text-left text-ink" onClick={() => logBleeding(today)} data-testid="bleeding">
         Ihre Tage haben heute begonnen
       </button>
-      <button type="button" className="h-11 pl-3 text-muted" onClick={openDateSheet}>
+      <button type="button" className="h-11 shrink-0 pl-3 text-muted" onClick={openDateSheet}>
         anderes Datum
       </button>
+    </div>
+  );
+  const bleedingBlock = due ? (
+    bleeding
+  ) : (
+    <div className="flex flex-col gap-1">
+      {bleeding}
+      {lastLine}
     </div>
   );
 
@@ -187,7 +206,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
       {toast && (
         <div role="status" className="fade-up mb-3 flex items-center justify-between gap-4 rounded-2xl bg-surface px-5 py-4">
           <p className="text-[15px] leading-snug" data-testid="after-entry">
-            {AFTER_ENTRY_TEXT}
+            {toast.text}
           </p>
           <button
             type="button"
@@ -203,7 +222,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
       )}
 
       <nav className="flex flex-col gap-3">
-        {due && bleeding}
+        {due && bleedingBlock}
         <div className="flex gap-3">
           <Link
             href="/chat/"
@@ -223,7 +242,7 @@ function Today({ state, adapters }: { state: AppState; adapters: Adapters }) {
           <span>{hasProfile ? "Dein Profil" : single ? "Erzähl mir von dir" : "Erzähl mir von euch"}</span>
           <span className="text-[13px] text-muted">{hasProfile ? "ansehen" : "2 Minuten, frei sprechen"}</span>
         </Link>
-        {!single && !due && bleeding}
+        {!single && !due && bleedingBlock}
       </nav>
 
       <Sheet open={sheet} onClose={() => setSheet(false)} title="Wann haben ihre Tage begonnen?">

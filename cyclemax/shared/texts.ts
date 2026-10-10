@@ -78,6 +78,12 @@ export const PUSH_URL = "/heute/";
 /** Shown in the app right after "Ihre Tage haben begonnen" (yellow). */
 export const AFTER_ENTRY_TEXT = "Eingetragen. Sturm vorbei – den Rest übernimmt Cyclemax.";
 
+/** After an entry with another date: which day was saved and what that means today. `day` e.g. "Gestern", "Mi, 8. Okt.". */
+export function afterEntryText(day: string, phaseWord: string): string {
+  const d = day === "Heute" || day === "Gestern" ? day.toLowerCase() : day;
+  return `Eingetragen: ${d}. Jetzt ${phaseWord} – den Rest übernimmt Cyclemax.`;
+}
+
 /** Lock screen text when "neutrale Benachrichtigungen" is on. */
 export const NEUTRAL_TITLE = APP_NAME;
 export const NEUTRAL_BODY = "";
