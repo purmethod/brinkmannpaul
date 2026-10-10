@@ -3,7 +3,7 @@
     "skyn": {
       "name": "skyn by brinkmann",
       "description": "beef tallow skin care \u00b7 pre-order, ships when the batch is ready",
-      "amount": null,
+      "amount": 9900,
       "currency": "eur",
       "image": "/assets/video-skyn-poster.webp",
       "note": "Pre-order: your skyn ships as soon as the batch is ready."
@@ -11,7 +11,7 @@
     "rye": {
       "name": "rye by brinkmann",
       "description": "active sourdough starter \u00b7 german organic rye \u00b7 pre-order, ships with the next batch",
-      "amount": null,
+      "amount": 1900,
       "currency": "eur",
       "image": null,
       "note": "Pre-order: your starter ships with the next batch."
