@@ -4,6 +4,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Unterschrift schreibt sich erst, wenn das Porträt da ist (2026-10-10)
+
+- **Fehler (Paul: „die unterschrift funktioniert nicht“):** Das Handschrift-Video hatte `autoplay`. Der Browser startete es, sobald die 137 KB da waren, also oft vor dem Porträt (183 KB). Gemessen auf langsamem Mobilnetz: Die Schrift begann nach 0,6 s auf leerem Weiß, das Porträt kam erst nach 3,1 s. Bis dahin war „Brinkmann Paul“ schon geschrieben.
+- **Fix in `dist/app.js`:** kein `autoplay` mehr. Die Unterschrift startet per `play()` erst, wenn das Porträt geladen ist, und dann immer von vorn. `play()` lädt das Video selbst: iOS lädt ein nicht angefordertes Video nicht vor, und stumme Inline-Videos dürfen ohne Antippen starten. Die 10-s-Sicherung (sonst Standbild der fertigen Unterschrift) gilt jetzt, bis das Video wirklich läuft. Hat der Besucher das Intro schon verlassen, startet nichts mehr hinter dem Tor.
+- **Gemessen:** auf langsamem Netz Porträt nach 3,0 s, Unterschrift ab 0 s im selben Moment. Auf schnellem Netz Start nach 0,08 s. Die Tests in `scripts/test-site.mjs` decken Warten aufs Porträt, fehlendes Porträt, Stromsparmodus, Quellfehler, fehlendes H.264, Zeitüberschreitung und verlassenes Tor ab.
+
 ## Aktualisierung: Preise skyn 100 €, rye 20 € (2026-10-10)
 
 - `dist/shop.json`: skyn 10000 Cent pro Tiegel, rye 2000 Cent pro Anstellgut. Paul: runde Preise wirken selbstbewusster, 99 und 19 „sieht wie ramsch aus“. Versand unverändert: Deutschland 6,19 €, EU 14,49 €, weltweit 27,49 €.

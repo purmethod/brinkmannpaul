@@ -40,7 +40,8 @@ function video(options) {
 
 function boot(options = {}) {
   const gate = element(), animation = video(options), page = element(), main = element(), skip = element(), body = element();
-  const elems = { '#intro-gate': gate, '#intro-animation': animation, '#site-page': page, '#main-content': main, '.skip-link': skip };
+  const portrait = element({ complete: !!options.portrait, naturalWidth: options.portrait ? 709 : 0 });
+  const elems = { '#intro-gate': gate, '#intro-animation': animation, '#site-page': page, '#main-content': main, '.skip-link': skip, '.intro-portrait': portrait };
   const events = new Map(), timers = new Map();
   let nextTimer = 0;
   const motion = { matches: !!options.reduced, [options.legacy ? 'addListener' : 'addEventListener']: (...args) => { motion.listener = args.at(-1); } };
@@ -54,7 +55,7 @@ function boot(options = {}) {
   };
   vm.runInNewContext(code, { window, document });
   const runTimers = ms => [...timers.entries()].filter(([, t]) => t.ms === ms).forEach(([id, t]) => { timers.delete(id); t.cb(); });
-  return { gate, animation, page, main, skip, body, motion, events, timers, runTimers };
+  return { gate, animation, portrait, page, main, skip, body, motion, events, timers, runTimers };
 }
 
 const flush = () => new Promise(resolve => setImmediate(resolve));
@@ -87,19 +88,24 @@ s = boot(); s.events.get('touchstart')({ touches: [{ clientY: 100 }] });
 s.events.get('touchmove')({ touches: [{ clientY: 105 }] }); assert.equal(s.page.inert, true);
 s.events.get('touchmove')({ touches: [{ clientY: 130 }], cancelable: true, preventDefault() {} }); released(s);
 
-// Playback paths.
-s = boot(); assert.equal(s.animation.plays, 0);
-s.animation.events.get('loadeddata')(); assert.equal(s.animation.plays, 1); assert.equal(s.animation.playbackRate, 1.25);
+// Playback paths: the signature is written once the portrait is there.
+s = boot(); assert.equal(s.animation.plays, 0, 'the signature waits for the portrait');
+s.portrait.events.get('load')(); assert.equal(s.animation.plays, 1); assert.equal(s.animation.playbackRate, 1.25);
+assert.equal([...s.timers.values()].filter(t => t.ms === 10000).length, 1, 'load fallback stays until the clip really plays');
+s.animation.events.get('playing')();
 assert.equal([...s.timers.values()].filter(t => t.ms === 10000).length, 0, 'load fallback cleared once playing');
-s = boot({ ready: true }); assert.equal(s.animation.plays, 1, 'already-loaded video still gets play() and rate');
+s = boot({ portrait: true }); assert.equal(s.animation.plays, 1, 'a portrait already shown starts the signature at once');
 assert.equal(s.animation.playbackRate, 1.25);
-s = boot({ rejectPlay: true }); s.animation.events.get('loadeddata')(); await flush(); assert.ok(still(s));
+assert.ok(!html.includes('id="intro-animation" autoplay'), 'the browser never starts the signature before the portrait');
+s = boot(); s.portrait.events.get('error')(); assert.equal(s.animation.plays, 1, 'a missing portrait does not hold the signature back');
+s = boot({ rejectPlay: true, portrait: true }); await flush(); assert.ok(still(s), 'blocked playback (low power mode) shows the still');
 s = boot(); s.animation.source.events.get('error')(); assert.ok(still(s), '<source> failure shows the still');
 s = boot(); s.animation.events.get('error')(); assert.ok(still(s));
 s = boot(); s.animation.events.get('ended')(); assert.ok(still(s));
 s = boot({ noH264: true }); assert.ok(still(s), 'no H.264 support shows the still at once');
-s = boot(); s.runTimers(10000); assert.ok(still(s)); s.animation.events.get('loadeddata')(); assert.equal(s.animation.plays, 0, 'no late playback behind the still');
+s = boot(); s.runTimers(10000); assert.ok(still(s)); s.portrait.events.get('load')(); assert.equal(s.animation.plays, 0, 'no late playback behind the still');
 s.gate.events.get('click')(); released(s);
+s = boot(); s.gate.events.get('click')(); s.portrait.events.get('load')(); assert.equal(s.animation.plays, 0, 'no playback behind a gate already left');
 
 // Reduced motion, legacy API, direct anchors, missing markup.
 s = boot({ reduced: true }); assert.ok(still(s)); assert.equal(s.animation.plays, 0); s.gate.events.get('click')(); released(s);
