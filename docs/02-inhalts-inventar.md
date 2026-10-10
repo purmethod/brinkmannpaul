@@ -4,6 +4,13 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Foto mit Wim gesund statt fahl (2026-10-10)
+
+- **Paul:** Der Filter beim Foto mit Wim hatte einen grünen, blassen Stich, es muss gesund aussehen.
+- **Ursache:** Der Honig-Filter hob in der Haut das Grün an. Rot zu Grün fiel von 1,47 im Original auf 1,25, dazu kamen aufgehellte, matte Schatten.
+- **Neu:** Look „healthy“ in `scripts/grade_photo.py`. Er hält die Wärme, nimmt aber das Matte und den Gelbstich heraus: volle Farbe, mehr Tiefe, Haut pfirsich statt gelbgrün (Hauttönung als eigener Parameter `skin_tint`, für den Honig-Look unverändert). Gemessen in der Haut: Rot zu Grün 1,40, Grün zu Blau 1,19.
+- **Befehl:** `python3 scripts/grade_photo.py e453f816-image.jpg wim-hof 936 1376 560 0 0 healthy`. URL jetzt `photo-wim-hof.webp?v=6`. Die anderen Fotos behalten den Honig-Look.
+
 ## Aktualisierung: Unterschrift schreibt sich erst, wenn das Porträt da ist (2026-10-10)
 
 - **Fehler (Paul: „die unterschrift funktioniert nicht“):** Das Handschrift-Video hatte `autoplay`. Der Browser startete es, sobald die 137 KB da waren, also oft vor dem Porträt (183 KB). Gemessen auf langsamem Mobilnetz: Die Schrift begann nach 0,6 s auf leerem Weiß, das Porträt kam erst nach 3,1 s. Bis dahin war „Brinkmann Paul“ schon geschrieben.

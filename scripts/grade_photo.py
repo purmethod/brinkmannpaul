@@ -5,14 +5,17 @@ light read as one series: subtle but warm, colour held back (loud oranges
 more so), warm skin, amber highlights, warm brown shadows, a gentle curve,
 fine grain and no hard black.
 
-  python3 scripts/grade_photo.py SOURCE NAME CX CY R [EV] [BLUE]
+  python3 scripts/grade_photo.py SOURCE NAME CX CY R [EV] [BLUE] [LOOK]
 
 writes dist/assets/photo-NAME.webp, the circle at 720 px. CX, CY and R place
 the circle in source pixels: faces and gestures in its upper third.
 EV corrects exposure in stops before the grade, e.g. -0.4 for bright snow so
 it keeps its texture. BLUE (0 to 1) keeps strong blues clear and out of the
 warm cast, for places whose blue is the point, such as sidi bou saïd; above 1
-it also holds softer blues, such as a night sky.
+it also holds softer blues, such as a night sky. LOOK is honey (the default)
+or healthy: the honey warmth without its fade and yellow, fuller colour and
+peach skin, for faces in grey light that the honey look turns pale and
+green-tinged (paul and wim in poland).
 """
 import sys
 from pathlib import Path
@@ -24,9 +27,14 @@ ASSETS = Path(__file__).resolve().parent.parent / 'dist' / 'assets'
 LOOK = dict(sat=0.72, orange=0.5, fade=0.12, white=0.972, curve=0.12, gamma=0.86, vignette=0.0,
             shadow=(0.026, 0.008, -0.018), high=(0.055, 0.026, -0.042), warm=(1.03, 0.995, 0.915), grain=0.012,
             skin_sat=0.3, skin_warm=0.07)
+HEALTHY = dict(sat=1.0, orange=0.2, fade=0.035, white=0.985, curve=0.24, gamma=0.94, vignette=0.0,
+               shadow=(0.01, 0.0, -0.004), high=(0.035, 0.01, -0.025), warm=(1.045, 0.995, 0.95), grain=0.008,
+               skin_sat=0.45, skin_warm=0.06, skin_tint=(1.0, 0.15, -0.7))
+LOOKS = {'honey': LOOK, 'healthy': HEALTHY}
 
 
-def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain, skin_sat=0.0, skin_warm=0.0, ev=0.0, blue=0.0):
+def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, warm, grain, skin_sat=0.0, skin_warm=0.0, ev=0.0, blue=0.0,
+          skin_tint=(1.0, 0.35, -1.5)):
     a = np.clip(np.asarray(img).astype(np.float32) / 255 * 2 ** ev, 0, 1) ** gamma
     luma = np.array([0.2126, 0.7152, 0.0722])
     L = (a * luma).sum(2, keepdims=True)
@@ -46,7 +54,7 @@ def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, w
     keep = np.clip(blue * np.exp(-((((hue - 215 + 180) % 360) - 180) / 30) ** 2) * np.clip((s - 0.15) / 0.2, 0, 1), 0, 1)
     k = sat * (1 - orange * loud) * (1 + skin_sat * skin)
     a = L + (k * (1 - keep) + 1.08 * keep)[..., None] * (a - L)
-    a = a * (1 + skin_warm * skin[..., None] * np.array([1.0, 0.35, -1.5]))
+    a = a * (1 + skin_warm * skin[..., None] * np.array(skin_tint))
     a = np.clip(a, 0, 1)
     a = a + curve * (a - a ** 2) * (a - 0.5) * 2
     neutral = a
@@ -63,11 +71,11 @@ def grade(img, sat, orange, fade, white, curve, gamma, vignette, shadow, high, w
     return Image.fromarray((np.clip(a, 0, 1) * 255 + 0.5).astype(np.uint8))
 
 
-def main(source, name, cx, cy, r, ev=0.0, blue=0.0):
+def main(source, name, cx, cy, r, ev=0.0, blue=0.0, look='honey'):
     photo = ImageOps.exif_transpose(Image.open(source)).convert('RGB')
     circle = photo.crop((cx - r, cy - r, cx + r, cy + r)).resize((720, 720), Image.LANCZOS)
-    grade(circle, **LOOK, ev=ev, blue=blue).save(ASSETS / f'photo-{name}.webp', quality=78, method=6)
+    grade(circle, **LOOKS[look], ev=ev, blue=blue).save(ASSETS / f'photo-{name}.webp', quality=78, method=6)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], *map(int, sys.argv[3:6]), *map(float, sys.argv[6:8]))
+    main(sys.argv[1], sys.argv[2], *map(int, sys.argv[3:6]), *map(float, sys.argv[6:8]), *sys.argv[8:9])
