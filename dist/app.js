@@ -7,8 +7,10 @@
   if (!gate || !animation || !page || !main) return;
 
   const source = animation.querySelector("source");
+  const portrait = document.querySelector(".intro-portrait");
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let open = false;
+  let left = false;
   let still = false;
   let loadTimer;
   let touchStart = null;
@@ -21,16 +23,28 @@
   }
 
   function play() {
-    if (still) return;
-    window.clearTimeout(loadTimer);
+    if (still || left) return;
     animation.playbackRate = 1.25;
     const playing = animation.play();
     if (playing) playing.catch(showStill);
   }
 
+  // The signature is written over the portrait, so it starts once the
+  // portrait is there. Started by the browser on its own, a phone on a slow
+  // line showed the name half written before the photo had arrived.
+  function whenPortrait(then) {
+    if (!portrait || (portrait.complete && portrait.naturalWidth)) {
+      then();
+      return;
+    }
+    portrait.addEventListener("load", then, { once: true });
+    portrait.addEventListener("error", then, { once: true });
+  }
+
   function enter(moveFocus = false) {
     if (!open) return;
     open = false;
+    left = true;
     window.clearTimeout(loadTimer);
     page.inert = false;
     page.removeAttribute("aria-hidden");
@@ -105,13 +119,15 @@
     showStill();
     return;
   }
+  // Without a first frame within 10 s, the finished signature shows instead.
   loadTimer = window.setTimeout(showStill, 10000);
+  animation.addEventListener("playing", () => window.clearTimeout(loadTimer), { once: true });
   animation.addEventListener("ended", showStill, { once: true });
   // A failed <source> reports its error on the <source> element, not on <video>.
   animation.addEventListener("error", showStill, { once: true });
   source?.addEventListener("error", showStill, { once: true });
-  const HAVE_CURRENT_DATA = 2;
+  // play() itself loads the clip: iOS does not preload a video it was not
+  // asked to play, and muted inline video may play without a tap.
   if (!animation.canPlayType('video/mp4; codecs="avc1.42E01E"')) showStill();
-  else if (animation.readyState >= HAVE_CURRENT_DATA) play();
-  else animation.addEventListener("loadeddata", play, { once: true });
+  else whenPortrait(play);
 })();
