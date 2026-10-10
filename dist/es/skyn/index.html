@@ -80,6 +80,11 @@
       .checkout{margin:12px 0 18px}
       .order .note{margin-top:14px}
       .error{color:#7a3b2e}
+      .steps{margin:0;padding:0;list-style:none;counter-reset:step}
+      .steps li{counter-increment:step;position:relative;padding-left:28px;margin-bottom:.7em;font-size:15.5px;line-height:1.6}
+      .steps li:before{content:counter(step);position:absolute;left:0;top:2px;font-size:13px;color:var(--light)}
+      [dir="rtl"] .steps li{padding-left:0;padding-right:28px}
+      [dir="rtl"] .steps li:before{left:auto;right:0}
     </style>
   </head>
   <body>
@@ -101,9 +106,16 @@
       <p>la comparto porque estoy convencido de ella y porque me encanta. desarrollar productos, construir, crear: esa es mi pasión. a través de las cosas que creo, quiero transmitir lo que he aprendido y mi energía a quien las usa.</p>
       <p>como los hago para mí mismo, cada lote es pequeño y siempre muy limitado.</p>
 
+      <h2>cómo pedir</h2>
+      <ol class="steps">
+        <li>elige el envío y cuántos tarros quieres.</li>
+        <li>paga de forma segura con stripe, aquí mismo en la página.</li>
+        <li>tu skyn sale con dhl, con seguimiento, en cuanto el lote esté listo.</li>
+      </ol>
+
       <h2>reservar</h2>
       <p class="soon" id="soon">la reserva abre aquí muy pronto.</p>
-      <div class="order" id="order" hidden data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
+      <div class="order" id="order" hidden data-product="skyn" data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
         <p class="price"><span data-price></span> por tarro</p>
         <p class="legend">envío</p>
         <div class="zones">
@@ -144,109 +156,6 @@
         <a href="/ru/skyn/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script>
-      // The pre-order opens once a price and the stripe key are set (/api/shop).
-      // Payment stays on the page with stripe's embedded checkout, as on souralf.com.
-      (function () {
-        var order = document.getElementById('order');
-        var soon = document.getElementById('soon');
-        if (!order || !window.fetch) return;
-        var lang = document.documentElement.lang || 'en';
-        var KEY = 'pk_live_51UJWsTC8fTaq0EZMhykhQH1BLysHNIzNWPPSUk5UiTwT14y9mzQqRCkjf2bu6uuWpT3FSSnIUcJ8ROXtAvjudzdB00D8OVtfX2';
-        var state = { qty: 1, zone: 'de', shop: null, active: null };
-        var money = function (cents, currency) {
-          return new Intl.NumberFormat(lang, { style: 'currency', currency: currency.toUpperCase() }).format(cents / 100);
-        };
-        var pay = order.querySelector('.pay');
-        var back = order.querySelector('.back');
-        var box = document.getElementById('checkout');
-        var error = order.querySelector('.error');
-        var chooser = [].slice.call(order.querySelectorAll('.price, .legend, .zones, .buy-row, .pay'));
-        var payLabel = pay.textContent;
-
-        function update() {
-          var shop = state.shop;
-          var zone = shop.shipping.filter(function (z) { return z.id === state.zone; })[0] || shop.shipping[0];
-          order.querySelector('output').textContent = String(state.qty);
-          order.querySelector('[data-total]').textContent = money(shop.amount * state.qty + zone.amount, shop.currency);
-        }
-        function loadStripe() {
-          if (window.Stripe) return Promise.resolve(window.Stripe);
-          return new Promise(function (resolve, reject) {
-            var s = document.createElement('script');
-            s.src = 'https://js.stripe.com/v3/';
-            s.onload = function () { window.Stripe ? resolve(window.Stripe) : reject(new Error('stripe unavailable')); };
-            s.onerror = function () { reject(new Error('stripe unavailable')); };
-            document.head.appendChild(s);
-          });
-        }
-
-        fetch('/api/shop').then(function (r) { return r.json(); }).then(function (shop) {
-          if (!shop.ready) return;
-          state.shop = shop;
-          order.querySelector('[data-price]').textContent = money(shop.amount, shop.currency);
-          shop.shipping.forEach(function (z) {
-            var cost = order.querySelector('[data-zone="' + z.id + '"]');
-            if (cost) cost.textContent = money(z.amount, shop.currency);
-          });
-          [].forEach.call(order.querySelectorAll('input[name="shipping"]'), function (r) {
-            r.addEventListener('change', function () { state.zone = r.value; update(); });
-          });
-          [].forEach.call(order.querySelectorAll('.qty button'), function (b) {
-            b.addEventListener('click', function () {
-              state.qty = Math.min(shop.max_quantity, Math.max(1, state.qty + Number(b.dataset.step)));
-              update();
-            });
-          });
-          update();
-          soon.hidden = true;
-          order.hidden = false;
-        }).catch(function () {});
-
-        pay.addEventListener('click', function (event) {
-          event.preventDefault();
-          if (pay.getAttribute('aria-busy') === 'true') return;
-          pay.setAttribute('aria-busy', 'true');
-          pay.textContent = order.dataset.labelWait;
-          error.hidden = true;
-          fetch('/api/checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ quantity: state.qty, shipping: state.zone, lang: lang === 'en' ? '' : lang })
-          }).then(function (r) { return r.json().then(function (d) { if (!r.ok || !d.clientSecret) throw new Error(d.error || 'checkout'); return d; }); })
-            .then(function (data) {
-              return loadStripe().then(function (Stripe) {
-                var stripe = Stripe(KEY);
-                if (state.active) state.active.destroy();
-                return stripe.initEmbeddedCheckout({ fetchClientSecret: function () { return Promise.resolve(data.clientSecret); } });
-              });
-            })
-            .then(function (checkout) {
-              state.active = checkout;
-              chooser.forEach(function (el) { el.hidden = true; });
-              back.hidden = false;
-              box.hidden = false;
-              checkout.mount(box);
-              box.scrollIntoView({ block: 'start' });
-            })
-            .catch(function () {
-              error.textContent = order.dataset.labelError;
-              error.hidden = false;
-            })
-            .then(function () {
-              pay.removeAttribute('aria-busy');
-              pay.textContent = payLabel;
-            });
-        });
-        back.addEventListener('click', function (event) {
-          event.preventDefault();
-          if (state.active) state.active.destroy();
-          state.active = null;
-          box.hidden = true;
-          back.hidden = true;
-          chooser.forEach(function (el) { el.hidden = false; });
-        });
-      })();
-    </script>
+    <script src="/order.js?v=1" defer></script>
   </body>
 </html>

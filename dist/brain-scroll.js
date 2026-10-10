@@ -243,6 +243,8 @@
     started = true;
     lastPosition = NaN;
     dive.resize();
+    // Redrawn in the same frame, so a resize never shows an empty canvas.
+    dive.draw(depthAt(eased) + drift);
     schedule();
   }
 
@@ -695,41 +697,41 @@
     let lastDepth = NaN;
     let prefetched = false;
 
-    function soften(image) {
-      // Fade each drawing's border to paper, so a smaller drawing blooms
-      // inside the larger one instead of showing an edge.
-      const sheet = document.createElement('canvas');
-      sheet.width = image.naturalWidth;
-      sheet.height = image.naturalHeight;
-      const pen = sheet.getContext('2d');
-      pen.drawImage(image, 0, 0);
-      const edge = Math.round(Math.min(sheet.width, sheet.height) * 0.07);
-      [[0, 0, edge, 0], [sheet.width, 0, sheet.width - edge, 0], [0, 0, 0, edge], [0, sheet.height, 0, sheet.height - edge]]
-        .forEach(([x0, y0, x1, y1]) => {
-          const gradient = pen.createLinearGradient(x0, y0, x1, y1);
-          gradient.addColorStop(0, 'rgba(255,255,255,1)');
-          gradient.addColorStop(1, 'rgba(255,255,255,0)');
-          pen.fillStyle = gradient;
-          pen.fillRect(0, 0, sheet.width, sheet.height);
-        });
-      return sheet;
-    }
-
+    // Each drawing's border already fades to paper in its file
+    // (scripts/bake_dive_edges.py), so a smaller drawing blooms inside the
+    // larger one instead of showing an edge. It is decoded off the main
+    // thread and handed to the canvas once, a pixel in a corner the next
+    // frame paints over, so the frame that first shows it does not stall.
     function load(level) {
       const sheet = level.sheet;
       if (sheet.state !== 'idle') return;
       sheet.state = 'loading';
       const image = new Image();
       image.decoding = 'async';
-      image.onload = () => {
-        sheet.image = soften(image);
+      // After the intro and the page itself: the drawings are needed a few turns later.
+      image.fetchPriority = 'low';
+      image.src = sheet.src;
+      const loaded = () => new Promise((resolve, reject) => {
+        if (image.complete && image.naturalWidth) resolve();
+        else {
+          image.onload = resolve;
+          image.onerror = reject;
+        }
+      });
+      // decode() can refuse under memory pressure although the file is fine;
+      // the drawing then still arrives, decoded when first drawn.
+      const decoded = typeof image.decode === 'function' ? image.decode().catch(loaded) : loaded();
+      decoded.then(() => {
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.globalCompositeOperation = 'source-over';
+        context.globalAlpha = 1;
+        context.drawImage(image, 0, 0, 1, 1);
+        sheet.image = image;
         sheet.state = 'ready';
         sheet.since = performance.now();
         lastDepth = NaN;
         schedule();
-      };
-      image.onerror = () => { sheet.state = 'failed'; };
-      image.src = sheet.src;
+      }, () => { sheet.state = 'failed'; });
     }
 
     function resize() {
@@ -740,8 +742,12 @@
       const backingWidth = Math.round(width * ratio);
       const backingHeight = Math.round(height * ratio);
       if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
+        // A resized canvas without alpha is black until painted, and phones
+        // resize it whenever the address bar slides in or out: paper at once.
         canvas.width = backingWidth;
         canvas.height = backingHeight;
+        context.fillStyle = '#fff';
+        context.fillRect(0, 0, backingWidth, backingHeight);
       }
       const imageWidth = macro.naturalWidth || 1536;
       const imageHeight = macro.naturalHeight || 1024;
@@ -796,6 +802,31 @@
       }
     }
 
+    /* ---------- threshold ---------- */
+
+    // Where the smallest becomes the largest, the view passes through a soft
+    // light and one fine ring opening outwards, and comes out in the cosmic web.
+    const GRAPHITE = 'rgb(74,74,68)';
+
+    function light(gate, depth, threshold, cx, cy) {
+      const radius = Math.hypot(width, height) * 0.62;
+      const glow = context.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      glow.addColorStop(0, `rgba(255,255,255,${(0.92 * gate).toFixed(3)})`);
+      glow.addColorStop(0.4, `rgba(255,255,255,${(0.5 * gate).toFixed(3)})`);
+      glow.addColorStop(1, 'rgba(255,255,255,0)');
+      context.globalCompositeOperation = 'source-over';
+      context.globalAlpha = 1;
+      context.fillStyle = glow;
+      context.fillRect(0, 0, width, height);
+      context.globalCompositeOperation = 'multiply';
+      context.globalAlpha = 0.32 * gate;
+      context.strokeStyle = GRAPHITE;
+      context.lineWidth = 1;
+      context.beginPath();
+      context.arc(cx, cy, 6 + smooth(threshold - 0.3, threshold + 0.35, depth) * radius * 1.15, 0, Math.PI * 2);
+      context.stroke();
+    }
+
     // Draws a drawing with its focus on the camera point.
     function place(image, focus, scale, cx, cy) {
       const s = scale * ratio;
@@ -809,7 +840,7 @@
       // A drawing that has just arrived fades in instead of appearing at once.
       const now = performance.now();
       const shown = chain.map(level => (level.sheet.state === 'ready' ? smooth(0, ARRIVE, now - level.sheet.since) : 0));
-      api.arriving = shown.some(value => value > 0 && value < 1);
+      api.arriving = chain.some((level, index) => level.sheet.state === 'ready' && shown[index] < 1);
       // Every change is drawn, so floating and scrolling run like a film.
       if (!api.arriving && Math.abs(depth - lastDepth) < 1e-4) return;
       lastDepth = depth;
@@ -851,6 +882,12 @@
       });
       // The next brain, already growing out of the last neuron.
       if (depth > api.cycle - 1.6) brain(depth - api.cycle, shown[0], cx, cy);
+      const threshold = chain[WAY.length].handover - 0.1;
+      const gate = Math.exp(-(((depth - threshold) / 0.22) ** 2));
+      if (gate > 0.01) {
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        light(gate, depth, threshold, cx, cy);
+      }
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.globalCompositeOperation = 'source-over';
       context.globalAlpha = 1;

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html and the sub pages in PAGES (weekends, skyn and its thank-you page)
+dist/index.html and the sub pages in PAGES (weekends, the skyn and rye pre-order pages and their thank-you pages)
 are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
 title, meta texts and labels) to its translation.
 
   python3 scripts/i18n.py extract   # writes i18n/units.json, the units to translate
-  python3 scripts/i18n.py build     # writes dist/<lang>/index.html and the language's weekends and skyn pages
+  python3 scripts/i18n.py build     # writes dist/<lang>/index.html, the language's weekends and skyn pages,
+                                    # and dist/sitemap.xml with every indexable page in every language
 
 The build fails on any unit without a translation and on any translation that
 changes the markup inside a unit (tags, links, classes), so a text change on
@@ -21,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/']
+PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
@@ -113,11 +114,29 @@ def localise(html, lang, conf, page=''):
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
     # Links to pages stay in the language: the start page, its anchors and the sub pages.
     html = re.sub(r'<a\s[^>]*>', lambda m: m.group(0) if 'hreflang=' in m.group(0) else
-                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
+                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn|rye)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
     html = re.sub(rf'(<a href="/{lang}/{page}" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)
     return html
+
+
+def sitemap(sources):
+    """Every indexable page in every language, each listing its translations."""
+    langs = ['en', *LANGS]
+    urls = []
+    for page, html in sources.items():
+        if 'noindex' in html:
+            continue
+        links = ''.join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{SITE}{"" if lang == "en" else lang + "/"}{page}" />'
+                        for lang in langs)
+        links += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{page}" />'
+        urls += [f'  <url>\n    <loc>{SITE}{"" if lang == "en" else lang + "/"}{page}</loc>{links}\n  </url>' for lang in langs]
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+           + '\n'.join(urls) + '\n</urlset>\n')
+    (ROOT / 'dist' / 'sitemap.xml').write_text(xml)
+    print(f'sitemap: {len(urls)} pages')
 
 
 def main():
@@ -138,6 +157,7 @@ def main():
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(localise(translate(html, table, lang), lang, conf, page))
             print(f'{lang}: {out.relative_to(ROOT)}')
+    sitemap(sources)
 
 
 if __name__ == '__main__':

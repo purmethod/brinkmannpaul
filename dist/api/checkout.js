@@ -1,6 +1,7 @@
-// POST /api/checkout { quantity, shipping, lang } → embedded Stripe Checkout Session
-// for a skyn pre-order. Product, price and shipping rates come from /shop.json; the
-// browser only chooses quantity, shipping zone and the language to come back to.
+// POST /api/checkout { product, quantity, shipping, lang } → embedded Stripe Checkout
+// Session for a pre-order (skyn, rye). Product, price and shipping rates come from
+// /shop.json; the browser only chooses the product, quantity, shipping zone and the
+// language to come back to.
 const { stripe } = require("./_stripe");
 const shop = require("../shop.json");
 
@@ -11,12 +12,13 @@ module.exports = async (req, res) => {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
-  const p = shop.product;
-  if (!Number.isInteger(p.amount) || p.amount <= 0) return res.status(503).json({ error: "No price set yet" });
   let body = req.body || {};
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { body = {}; }
   }
+  const id = Object.prototype.hasOwnProperty.call(shop.products, body.product) ? body.product : "skyn";
+  const p = shop.products[id];
+  if (!Number.isInteger(p.amount) || p.amount <= 0) return res.status(503).json({ error: "No price set yet" });
   const qty = Math.min(shop.max_quantity, Math.max(1, parseInt(body.quantity, 10) || 1));
   const zone = shop.shipping.find((z) => z.id === body.shipping) || shop.shipping[0];
   const lang = LANGS.includes(body.lang) ? `${body.lang}/` : "";
@@ -27,7 +29,7 @@ module.exports = async (req, res) => {
       ui_mode: "embedded",
       mode: "payment",
       locale: "auto",
-      return_url: `${origin}/${lang}skyn/thanks/?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}/${lang}${id}/thanks/?session_id={CHECKOUT_SESSION_ID}`,
       line_items: {
         0: {
           quantity: qty,
@@ -38,7 +40,7 @@ module.exports = async (req, res) => {
             product_data: {
               name: p.name,
               description: p.description,
-              images: { 0: `${origin}/assets/video-skyn-poster.webp` },
+              images: p.image ? { 0: `${origin}${p.image}` } : undefined,
             },
           },
         },
@@ -53,9 +55,9 @@ module.exports = async (req, res) => {
           },
         },
       },
-      custom_text: { submit: { message: "Pre-order: your skyn ships as soon as the batch is ready." } },
+      custom_text: { submit: { message: p.note } },
       phone_number_collection: { enabled: true },
-      metadata: { product: p.id, shipping_zone: zone.id, pre_order: "yes" },
+      metadata: { product: id, shipping_zone: zone.id, pre_order: "yes" },
     });
     res.status(200).json({ clientSecret: session.client_secret });
   } catch (err) {

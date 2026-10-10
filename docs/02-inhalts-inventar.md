@@ -4,6 +4,77 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: live mit Freigabe, ohne gezeichnete Galaxien; rye-Bestellseite, skyn mit Bestellschritten (2026-10-10)
+
+- **Freigabe Paul:** Der große Durchgang vom 9.10. geht live (Texte, Übersetzungen, Schwarz-Fixes, Ladeverbesserungen, Sitemap), **ohne** das Punktfeld und die gezeichneten Spiralgalaxien. O-Ton: „sieht nicht realistisch aus“. Das All bleibt bei den Zeichnungen nach der H01-Rekonstruktion (Harvard und Google). Das weiche Licht an der Schwelle bleibt.
+- **Checkout für mehrere Produkte:**
+  - `dist/shop.json` hat jetzt `products` (skyn, rye), jeweils mit Name, Beschreibung, Preis in Cent (`null`, bis Paul ihn nennt), Währung, Bild und Hinweis im Checkout. Die Versandzonen sind gemeinsam.
+  - `/api/shop?product=…` und `/api/checkout {product, …}` bedienen beide Produkte. Der Rücksprung geht auf `/<sprache>/<produkt>/thanks/`.
+  - Gemeinsames Bestellskript `dist/order.js`, das Produkt steht in `data-product`.
+- **skyn:** neuer Abschnitt „how ordering works“ im Aufbau der Weekends-Seite:
+  1. choose your shipping and how many jars.
+  2. pay securely with stripe, right here on the page.
+  3. your skyn ships with dhl, tracked, as soon as the batch is ready.
+- **rye (neu, `/rye/` in sechs Sprachen, mit Danke-Seite):**
+  - Kopf „rye by brinkmann · sourdough starter · german organic rye · shipped worldwide“
+  - „flour. water. time.“ und die zwei Absätze aus der Projektliste
+  - **what you get:** an active rye starter · feeding instructions · a first-loaf guide
+  - **how ordering works:** die drei Schritte, Preis „per starter“, Stripe-Checkout auf der Seite
+  - **Startseite:** „pre-order rye ↗“ führt jetzt dorthin statt zur E-Mail. „get in touch for current availability.“ ist gestrichen.
+- **Damit Kunden bezahlen können, fehlt noch:**
+  - `STRIPE_SECRET_KEY` im Vercel-Projekt brinkmannpaul (gleicher Wert wie bei souralf). Der Zugriff auf das Team pur1 ist von hier aus gesperrt (403).
+  - Die Preise für skyn (pro Tiegel) und rye (pro Anstellgut) in `dist/shop.json`.
+
+  Bis dahin zeigen beide Seiten „the pre-order opens here shortly.“
+
+## Aktualisierung: großer Durchgang, Texte, Zoom mit Tiefe, Sitemap (2026-10-09, zur Freigabe, noch nicht live)
+
+- **all art. (Pauls Kürzung):** Die Absätze „ai is one more tool …“ und „learn the tools …“ sind gestrichen. „ai cannot feel love …“, „all art means …“ und „you.“ bleiben.
+- **Textdurchgang (Englisch), Pauls Worte bleiben, nur klarer:**
+  - **pure:**
+    - „what it needs, how it responds …“
+    - „gives you the foundation to lead your life“
+    - „your mind is not your brain … your mind is your thoughts, your feelings, your awareness, your inner experience.“
+    - „picture it as hardware and software. your brain is the hardware, your mind is the software. they are connected, but they are not the same.“
+    - „understand this: …“
+    - „self-control“
+  - **kefir:** „in one milk kefir study, vitamin b3 rose by about 202%, b5 by about 42% and b7 by about 58% compared with the milk it was made from.“ Quelle der Zahlen ist Pauls Commit 9dd9fde: B3 von 116,64 auf 352,67 µg/l.
+  - **sourdough (rye):** „a starter is a living culture: you feed it flour and water, it raises your dough, and a small part is always kept for the next bake.“
+  - **sourdough (âlf):** „âlf brings you news and tips about everything sourdough. adopt âlf, wherever you are in the world.“
+  - **skincare:** „… my energy to whoever uses them.“
+  - **neuroarchitecture:**
+    - britische Schreibweise wie der Rest der Seite: behaviour, colours, organisation, standardisation
+    - kein Serienkomma
+    - „what shapes us every day without our being aware of it?“
+    - „we already know that architecture affects us consciously. the more compelling question is:“
+  - **weekends/skyn:** „write to me on whatsapp or by e-mail. i answer personally.“ Sicherheitshinweis als Anweisung: „never practise the breathing in or near water, while driving or standing.“
+  - **Teilen-Beschreibung (og/twitter):** „pure, all art, mysidibou, qefyr, rye, skyn, âlf, wim hof method instructor and neuroarchitecture.“
+- **Übersetzungen:**
+  - Alle inhaltlichen Änderungen sind in de, fr, es, ar und ru nachgezogen.
+  - **Deutsch zusätzlich geglättet:** „das fundament“, „es ständig weiter reizt“, „wir wissen bereits …“, „unseres eigenen hautfetts“, „weil ich sie liebe“, „an jeden weitergeben“.
+  - **Russisch:** drei Gedankenstriche entfernt, gemäß der Regel „keine Gedankenstriche“: „всё есть искусство.“, „основа: говяжий жир.“, „… творить: вот моя страсть.“
+- **Zoom (Tiefe und Weltall):**
+  - **Tiefenfeld:** Graphitpunkte, durch die die Fahrt hindurchfliegt. Im Gehirn sind es Vesikel, nach der Schwelle Sterne, einige davon funkelnd. Jeder Punkt hängt nur von der Tiefe ab, beim Zurückdrehen fliegt man also durch dasselbe Feld zurück.
+  - **Galaxien:** Fünf Spiralgalaxien aus Graphitpunkten (drei Varianten, einmal gezeichnet) gleiten nach außen vorbei. Sie drehen sich nicht.
+  - **Schwelle:** Wo das Kleinste zum Größten wird (Molekül → Kosmos), ein weicher Lichtschein aus der Mitte und ein feiner Ring, der sich öffnet.
+  - **Schnelles Drehen:** kurze Spuren in Bewegungsrichtung. Im Lesetempo bleiben die Punkte Punkte.
+  - **Reduzierte Bewegung:** Das Feld bleibt aus, nur das Licht an der Schwelle bleibt.
+  - **Kein Hänger mehr beim ersten Erscheinen einer Zeichnung:**
+    - Die Randverblendung steckt jetzt fest in den Dateien (`scripts/bake_dive_edges.py`, markiert, nicht größer als vorher).
+    - Bilder werden im Hintergrund dekodiert und beim Laden einmal an die Grafik übergeben.
+    - Gemessen im Software-Renderer: erster sichtbarer Frame vorher 61–95 ms, jetzt 31–38 ms. Normale Frames sind schneller als vorher.
+  - **Ladepriorität:** Die Zeichnungen laden mit niedriger Priorität. Beim ersten Besuch kommt das Intro (Porträt, Handschrift) zuerst.
+  - **Kein schwarzer Frame mehr nach einer Größenänderung** (alter Fehler, gefunden bei einer unabhängigen Prüfung): Die Leinwand hat keine Transparenz. Beim Drehen des Handys oder wenn ein In-App-Browser seine Höhe ändert, war sie bis zum nächsten Frame komplett schwarz (gemessen: Helligkeit 0). Jetzt wird sofort Papier gemalt und im selben Frame neu gezeichnet.
+  - **Ausfallsicher:** Verweigert der Browser unter Speicherdruck das Dekodieren, kommt die Zeichnung trotzdem. Die Galaxien werden 2,5 s nach dem Start in Ruhe vorgezeichnet.
+- **Suchmaschinen:**
+  - `dist/robots.txt` (Sitemap, `/api/` ausgeschlossen).
+  - `dist/sitemap.xml` erzeugt `scripts/i18n.py build`: 18 Seiten mit hreflang, Danke-Seiten ausgeschlossen.
+  - Strukturierte Daten: knowsAbout um Wim Hof Method, Breathwork und Fermentation ergänzt.
+- **Geprüft:** alle 25 Seiten in sechs Sprachen auf Handy und Desktop. Ohne Konsolenfehler, kaputte Links, doppelte IDs, fehlende Alt-Texte und horizontales Scrollen. Sprache und Leserichtung, Canonical und hreflang stimmen.
+- **Offen (braucht Paul):**
+  - Impressum (§ 5 DDG) und Datenschutzerklärung, vor dem ersten Verkauf zusätzlich Widerrufsbelehrung.
+  - Die Wochenend-Termine.
+
 ## Aktualisierung: neue Projektnamen, kein Grauschleier beim Zurückdrehen (2026-10-09)
 
 - **Projektnamen im Rad** (groß / klein):
