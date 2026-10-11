@@ -4,6 +4,19 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: cyclemax als Release-Seite, Warteliste speichert automatisch (2026-10-11)
+
+- **Paul:** Die Warteliste darf keine E-Mail öffnen, die der Leser selbst abschicken muss. Die Anmeldung soll automatisch gespeichert werden. Die Seite soll wie ein professioneller Release wirken, mit einem Button oben: „trag dich für den release ein“.
+- **Speichern:** `/api/waitlist` gibt die Anmeldung an `souralf.com/api/waitlist` weiter (souralf#3). Das souralf-Projekt hat den Stripe-Schlüssel von Pauls Konto. Jede Adresse wird dort ein Stripe-Kunde mit `metadata.waitlist = cyclemax`, nie doppelt. Live getestet mit brinkmannbuild@gmail.com.
+  - Bekommt brinkmannpaul einen eigenen `STRIPE_SECRET_KEY`, schreibt die Seite selbst nach Stripe.
+  - Kein `mailto` mehr. Bei einem Fehler steht dort: bitte gleich noch einmal versuchen.
+- **Release-Seite:**
+  - Oben ein Ring: ihre 28 Tage in fünf ruhigen Phasenfarben, innen deine 24 Stunden, und ein Punkt läuft langsam um (still bei reduzierter Bewegung).
+  - Darunter „sei der fels in der brandung.“, ein Satz, was die App tut, und der dunkle Button „trag dich für den release ein“.
+  - Dann „was die app macht“ in drei Schritten, „warum ich sie gebaut habe“ mit Pauls Text, und eine Release-Karte mit dem Formular.
+  - Beim Lesen schwebt der Button unten. Er verschwindet, sobald das Formular zu sehen ist.
+- **Startseite:** Die cyclemax-Zeile hat den Link „sign up for the release ↗“ direkt unter dem Leitsatz und noch einmal am Ende.
+
 ## Aktualisierung: neue Rubrik cyclemax.app mit Warteliste (2026-10-11)
 
 - **Paul:** Neue Rubrik cyclemax.app mit seinen Worten. Der Mann als Fels in der Brandung, emotional führen, gleichwertig aber nicht gleich, 28 Tage gegen 24 Stunden, die App zeigt mit Farben und warnt vor, Revolution im Dating und in Beziehungen. Dazu eine Warteliste, live.

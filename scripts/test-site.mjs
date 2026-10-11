@@ -241,15 +241,18 @@ for (const product of ['skyn', 'rye']) {
   }
 }
 
-// The cyclemax waitlist: one e-mail field, kept by /api/waitlist, in every
-// language, linked from its row; without the stripe key the page falls back
-// to an e-mail to paul, so no sign-up is lost.
+// The cyclemax release list: one e-mail field, kept by /api/waitlist in paul's
+// stripe (relayed through souralf.com until this project has its own key), in
+// every language, linked from its row.
 new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: 'waitlist.js' });
 {
   const source = fs.readFileSync(path.join(root, 'dist', 'cyclemax', 'index.html'), 'utf8');
   assert.ok(html.includes('<a href="cyclemax/">'), 'the cyclemax row links to its waitlist page');
   assert.ok(/<form class="join" id="join"/.test(source) && source.includes('type="email"') && source.includes("fetch('/api/waitlist'"), 'cyclemax: waitlist form posts to /api/waitlist');
-  assert.ok(source.includes('name="company"') && source.includes('mailto:'), 'cyclemax: honeypot and e-mail fallback');
+  assert.ok(source.includes('name="company"'), 'cyclemax: honeypot against bots');
+  assert.ok(!source.includes('mailto:brinkmannbuild@gmail.com?subject'), 'cyclemax: sign-ups are kept automatically, never by an e-mail the visitor has to send');
+  assert.ok(/<section class="hero">[\s\S]*?<a class="cta" href="#join">/.test(source) && source.includes('class="cta float"'), 'cyclemax: release button at the top and floating while reading');
+  assert.ok(/<svg class="cycle"[^>]*role="img"[^>]*aria-label="/.test(source), 'cyclemax: the cycle ring has a label');
   for (const script of source.match(/<script>[\s\S]*?<\/script>/g) || []) new vm.Script(script.slice(8, -9), { filename: 'cyclemax inline' });
   pages.push(['dist', source]);
   for (const lang of LANGS) {

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="cyclemax.app von paul brinkmann: eine app für männer. einfache farben zeigen, wo sie in ihrem zyklus steht, und warnen dich vor, damit du der fels in der brandung bleibst. trag dich in die warteliste ein." />
+    <meta name="description" content="cyclemax.app von paul brinkmann: eine app für männer. einfache farben zeigen, wo sie in ihrem zyklus steht, und warnen dich vor, damit du der fels in der brandung bleibst. trag dich für den release ein." />
     <title>cyclemax.app · paul brinkmann</title>
     <link rel="canonical" href="https://brinkmannpaul.com/de/cyclemax/" />
     <link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/cyclemax/" />
@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="paul brinkmann" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content="cyclemax.app · paul brinkmann" />
-    <meta property="og:description" content="cyclemax.app von paul brinkmann: eine app für männer. einfache farben zeigen, wo sie in ihrem zyklus steht, und warnen dich vor, damit du der fels in der brandung bleibst. trag dich in die warteliste ein." />
+    <meta property="og:description" content="cyclemax.app von paul brinkmann: eine app für männer. einfache farben zeigen, wo sie in ihrem zyklus steht, und warnen dich vor, damit du der fels in der brandung bleibst. trag dich für den release ein." />
     <meta property="og:url" content="https://brinkmannpaul.com/de/cyclemax/" />
     <meta property="og:image" content="https://brinkmannpaul.com/assets/og-image.jpg" />
     <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
@@ -87,6 +87,29 @@
       .join button[aria-busy="true"]{opacity:.5;pointer-events:none}
       .join .trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0}
       .done{margin:14px 0 0;font-size:15.5px}
+      .hero{display:grid;justify-items:center;text-align:center;padding:34px 0 30px;border-bottom:1px solid var(--line)}
+      .hero .lead{margin:22px 0 10px}
+      .pitch{max-width:26rem;margin:0 0 24px}
+      .hero .note{margin:14px 0 0}
+      .cycle{width:min(15.5rem,68vw);height:auto;overflow:visible}
+      .cycle path{fill:none;stroke-linecap:butt}
+      .cycle .days path{stroke-width:15}
+      .cycle .m{stroke:#c3928a}.cycle .f{stroke:#a9bba9}.cycle .o{stroke:#d3bd8e}.cycle .l{stroke:#a7aac0}.cycle .s{stroke:#7e7a98}
+      .cycle .hours path{stroke:var(--line);stroke-width:5}
+      .cycle .hand{transform-origin:120px 120px;animation:turn 28s linear infinite}
+      .cycle .hand circle{fill:#fff;stroke:var(--dark);stroke-width:1.4}
+      .cycle text{fill:var(--dark);text-anchor:middle;font-family:Arial,Helvetica,sans-serif}
+      .cycle .big{font-size:30px;letter-spacing:-.04em}.cycle .small{font-size:12px;letter-spacing:.06em;fill:var(--light)}
+      @keyframes turn{to{transform:rotate(360deg)}}
+      @media(prefers-reduced-motion:reduce){.cycle .hand{animation:none;transform:rotate(321deg)}}
+      .cta{display:flex;align-items:center;justify-content:center;width:100%;max-width:22rem;min-height:54px;padding:0 22px;background:var(--dark);color:#fff;font-size:14px;letter-spacing:.06em;text-decoration:none;transition:opacity .2s}
+      .cta:hover{opacity:.88}
+      .float{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));width:calc(100% - 40px);transform:translate(-50%,0);box-shadow:0 6px 24px rgba(60,60,56,.18);z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
+      .float.on{opacity:1;pointer-events:auto}
+      .goal{margin-top:24px}
+      .release{margin-top:46px;padding:2px 22px 22px;box-shadow:inset 0 0 0 1px var(--line)}
+      .release h2{margin-top:24px}
+      .join button{background:var(--dark);color:#fff}
       .steps{margin:0;padding:0;list-style:none;counter-reset:step}
       .steps li{counter-increment:step;position:relative;padding-left:28px;margin-bottom:.7em;font-size:15.5px;line-height:1.6}
       .steps li:before{content:counter(step);position:absolute;left:0;top:2px;font-size:13px;color:var(--light)}
@@ -105,7 +128,22 @@
         <p>eine app für männer · kommt bald</p>
         <a class="shut" href="/de/#cyclemax" aria-label="schließen"></a>
       </div>
-      <p class="lead">sei der fels in der brandung.</p>
+      <section class="hero">
+        <svg class="cycle" viewBox="0 0 240 240" role="img" aria-label="ihr zyklus von 28 tagen um deinen rhythmus von 24 stunden"><g class="days"><path class="m" d="M122.16 22.02A98 98 0 0 1 139.70 24.00"/><path class="m" d="M143.90 24.96A98 98 0 0 1 160.57 30.79"/><path class="m" d="M164.45 32.66A98 98 0 0 1 179.40 42.05"/><path class="m" d="M182.77 44.74A98 98 0 0 1 195.26 57.23"/><path class="m" d="M197.95 60.60A98 98 0 0 1 207.34 75.55"/><path class="f" d="M209.21 79.43A98 98 0 0 1 215.04 96.10"/><path class="f" d="M216.00 100.30A98 98 0 0 1 217.98 117.84"/><path class="f" d="M217.98 122.16A98 98 0 0 1 216.00 139.70"/><path class="f" d="M215.04 143.90A98 98 0 0 1 209.21 160.57"/><path class="f" d="M207.34 164.45A98 98 0 0 1 197.95 179.40"/><path class="f" d="M195.26 182.77A98 98 0 0 1 182.77 195.26"/><path class="f" d="M179.40 197.95A98 98 0 0 1 164.45 207.34"/><path class="f" d="M160.57 209.21A98 98 0 0 1 143.90 215.04"/><path class="o" d="M139.70 216.00A98 98 0 0 1 122.16 217.98"/><path class="o" d="M117.84 217.98A98 98 0 0 1 100.30 216.00"/><path class="o" d="M96.10 215.04A98 98 0 0 1 79.43 209.21"/><path class="l" d="M75.55 207.34A98 98 0 0 1 60.60 197.95"/><path class="l" d="M57.23 195.26A98 98 0 0 1 44.74 182.77"/><path class="l" d="M42.05 179.40A98 98 0 0 1 32.66 164.45"/><path class="l" d="M30.79 160.57A98 98 0 0 1 24.96 143.90"/><path class="l" d="M24.00 139.70A98 98 0 0 1 22.02 122.16"/><path class="l" d="M22.02 117.84A98 98 0 0 1 24.00 100.30"/><path class="l" d="M24.96 96.10A98 98 0 0 1 30.79 79.43"/><path class="l" d="M32.66 75.55A98 98 0 0 1 42.05 60.60"/><path class="s" d="M44.74 57.23A98 98 0 0 1 57.23 44.74"/><path class="s" d="M60.60 42.05A98 98 0 0 1 75.55 32.66"/><path class="s" d="M79.43 30.79A98 98 0 0 1 96.10 24.96"/><path class="s" d="M100.30 24.00A98 98 0 0 1 117.84 22.02"/></g><g class="hours"><path d="M122.10 50.03A70 70 0 0 1 136.08 51.87"/><path d="M140.14 52.96A70 70 0 0 1 153.17 58.36"/><path d="M156.80 60.46A70 70 0 0 1 167.99 69.04"/><path d="M170.96 72.01A70 70 0 0 1 179.54 83.20"/><path d="M181.64 86.83A70 70 0 0 1 187.04 99.86"/><path d="M188.13 103.92A70 70 0 0 1 189.97 117.90"/><path d="M189.97 122.10A70 70 0 0 1 188.13 136.08"/><path d="M187.04 140.14A70 70 0 0 1 181.64 153.17"/><path d="M179.54 156.80A70 70 0 0 1 170.96 167.99"/><path d="M167.99 170.96A70 70 0 0 1 156.80 179.54"/><path d="M153.17 181.64A70 70 0 0 1 140.14 187.04"/><path d="M136.08 188.13A70 70 0 0 1 122.10 189.97"/><path d="M117.90 189.97A70 70 0 0 1 103.92 188.13"/><path d="M99.86 187.04A70 70 0 0 1 86.83 181.64"/><path d="M83.20 179.54A70 70 0 0 1 72.01 170.96"/><path d="M69.04 167.99A70 70 0 0 1 60.46 156.80"/><path d="M58.36 153.17A70 70 0 0 1 52.96 140.14"/><path d="M51.87 136.08A70 70 0 0 1 50.03 122.10"/><path d="M50.03 117.90A70 70 0 0 1 51.87 103.92"/><path d="M52.96 99.86A70 70 0 0 1 58.36 86.83"/><path d="M60.46 83.20A70 70 0 0 1 69.04 72.01"/><path d="M72.01 69.04A70 70 0 0 1 83.20 60.46"/><path d="M86.83 58.36A70 70 0 0 1 99.86 52.96"/><path d="M103.92 51.87A70 70 0 0 1 117.90 50.03"/></g><g class="hand"><circle cx="120" cy="10" r="4.5"/></g><text x="120" y="118" class="big">28</text><text x="120" y="141" class="small">24h</text></svg>
+        <p class="lead">sei der fels in der brandung.</p>
+        <p class="pitch">die app, die dir mit einfachen farben zeigt, wo sie in ihrem zyklus steht, und dich vorwarnt, wenn es zeit ist, ein mann zu sein.</p>
+        <a class="cta" href="#join">trag dich für den release ein</a>
+        <p class="note">kommt bald. erfahre es als erster.</p>
+      </section>
+
+      <h2>was die app macht</h2>
+      <ol class="steps">
+        <li>einfache farben zeigen dir, wo sie in ihrem zyklus steht, tag für tag.</li>
+        <li>bevor der sturm kommt, warnt sie dich: jetzt ist es zeit, ein mann zu sein.</li>
+        <li>du bleibst ruhig und präsent. sie kann sich entspannen und fallen lassen.</li>
+      </ol>
+
+      <h2>warum ich sie gebaut habe</h2>
       <p>ein mann muss den zyklus einer frau nicht studieren. er muss ihn nicht analysieren und sich nicht mit ihm auseinandersetzen. er muss nur eines verstehen: er ist der fels in der brandung. ihre stürme kommen, und ihre stürme gehen vorbei. manchmal regnet es, manchmal stürmt es. er antwortet mit gelassenheit und entspanntheit.</p>
       <p>wenn du das nicht verstehst, bist du verdammt, mit jeder frau eine auseinandersetzung zu führen. beide reagieren emotional, und der streit endet im emotionalen chaos, zu oft in einer scheidung. als mann musst du emotional führen.</p>
       <p>in unserer heutigen gesellschaft vergessen männer, wer sie sind. sie vergessen zu führen. die gesellschaft versucht, aus frauen männer zu machen und aus männern frauen. wir haben die gleichen rechte, und wir müssen gleichwertig behandelt werden. aber wir sind nicht gleich.</p>
@@ -114,22 +152,25 @@
       <p>du stehst in deiner maskulinen energie. ruhig, entspannt, präsent. und sie kann sich um dich herum entspannen und fallen lassen.</p>
       <p>ich will eine revolution starten. eine revolution im dating und in beziehungen: männer und frauen, die in harmonie zusammenleben, langfristig eine große liebe finden und ihre kinder in frieden großziehen.</p>
       <p>kinder, die nicht traumatisiert werden, weil sich nach neun monaten oder drei jahren einer entscheidet, den partner zu verlassen. weil er sie nicht mehr liebt. weil der mann plötzlich emotional wurde und seine männlichkeit verloren hat.</p>
-      <p>das ist mein ziel.</p>
+      <p class="lead goal">das ist mein ziel.</p>
 
-      <h2>warteliste</h2>
-      <p>kommt bald. erfahre es als erster.</p>
-      <form class="join" id="join" novalidate data-label-done="du stehst auf der liste. danke." data-label-wait="einen moment" data-label-invalid="bitte gib eine gültige e-mail ein." data-label-error="das hat nicht geklappt. bitte versuch es gleich noch einmal." data-label-subject="cyclemax warteliste" data-label-body="bitte trag mich in die cyclemax warteliste ein.">
-        <label for="email">deine e-mail</label>
-        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
-        <span class="trap" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
-        <button type="submit">auf die warteliste</button>
-      </form>
-      <p class="done" id="done" role="status" hidden></p>
-      <p class="note error" id="join-error" role="alert" hidden></p>
-      <p class="note">eine e-mail, wenn cyclemax startet. sonst nichts. schreib mir, und ich trage dich sofort aus.</p>
+      <section class="release" id="join-section">
+        <h2>der release</h2>
+        <p>cyclemax.app kommt. hinterlass deine e-mail, und du gehörst zu den ersten, die sie haben.</p>
+        <form class="join" id="join" novalidate data-label-done="du stehst auf der liste. du gehörst zu den ersten." data-label-wait="einen moment" data-label-invalid="bitte gib eine gültige e-mail ein." data-label-error="das hat nicht geklappt. bitte versuch es gleich noch einmal.">
+          <label for="email">deine e-mail</label>
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
+          <span class="trap" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
+          <button type="submit">trag dich für den release ein</button>
+        </form>
+        <p class="done" id="done" role="status" hidden></p>
+        <p class="note error" id="join-error" role="alert" hidden></p>
+        <p class="note">eine e-mail, wenn cyclemax startet. sonst nichts. schreib mir, und ich trage dich sofort aus.</p>
+      </section>
 
       <h2>fragen</h2>
       <p>schreib mir per whatsapp oder e-mail. ich antworte persönlich.</p>
+      <a class="cta float" href="#join" aria-hidden="true" tabindex="-1">trag dich für den release ein</a>
     </main>
     <footer>
       <nav class="contact-links" aria-label="kontakt">
@@ -147,11 +188,23 @@
       </nav>
     </footer>
     <script>
-      // The waitlist: the address goes to /api/waitlist. Until that is ready,
-      // the visitor's own mail app opens with the sign-up written for them,
-      // so no one who wants in is lost.
+      // The release list: the address goes to /api/waitlist and is kept there.
       (function () {
         var form = document.getElementById('join');
+        var float = document.querySelector('.float');
+        var top = document.querySelector('.hero .cta');
+        var section = document.getElementById('join-section');
+        if (float && top && section && 'IntersectionObserver' in window) {
+          var seen = { top: true, form: false };
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { seen[e.target === top ? 'top' : 'form'] = e.isIntersecting; });
+            var on = !seen.top && !seen.form && !form.hidden;
+            float.classList.toggle('on', on);
+            float.setAttribute('aria-hidden', on ? 'false' : 'true');
+            float.tabIndex = on ? 0 : -1;
+          });
+          io.observe(top); io.observe(section);
+        }
         if (!form || !window.fetch) return;
         var done = document.getElementById('done');
         var error = document.getElementById('join-error');
@@ -180,12 +233,10 @@
               form.hidden = true;
               done.textContent = d.labelDone;
               done.hidden = false;
-            } else if (r.status === 400) {
-              error.textContent = d.labelInvalid;
-              error.hidden = false;
+              if (float) float.classList.remove('on');
             } else {
-              // Not ready yet, or stripe is down: the sign-up goes by e-mail instead.
-              location.href = 'mailto:brinkmannbuild@gmail.com?subject=' + encodeURIComponent(d.labelSubject) + '&body=' + encodeURIComponent(d.labelBody + '\n\n' + email);
+              error.textContent = r.status === 400 ? d.labelInvalid : d.labelError;
+              error.hidden = false;
             }
           }).catch(function () {
             error.textContent = d.labelError;

@@ -1,15 +1,17 @@
 // POST /api/waitlist { email, lang, list } → keeps the address on a waitlist.
-// The list lives in Stripe as customers tagged metadata.waitlist (one place Paul
-// already owns; Customers → filter by metadata exports it). An address that is
-// already there is not added twice. Without the Stripe key it answers 503 and
-// the page falls back to an e-mail to Paul, so no sign-up is lost.
+// The list lives in Paul's Stripe account as customers tagged metadata.waitlist
+// (Customers → filter by metadata exports it), never twice. With its own Stripe
+// key this project writes there itself; until then it hands the sign-up to
+// souralf.com, which holds the same account's key and keeps it the same way.
 const { stripe } = require("./_stripe");
 
 const LISTS = ["cyclemax"];
 const LANGS = ["en", "de", "fr", "es", "ar", "ru"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const RELAY = "https://souralf.com/api/waitlist";
 
 module.exports = async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
@@ -26,16 +28,25 @@ module.exports = async (req, res) => {
   const lang = LANGS.includes(body.lang) ? body.lang : "en";
 
   try {
-    const found = await stripe("GET", "customers", { email, limit: 10 });
-    if ((found.data || []).some((c) => c.metadata && c.metadata.waitlist === list)) {
-      return res.status(200).json({ ok: true });
+    if (!process.env.STRIPE_SECRET_KEY) {
+      const relayed = await fetch(RELAY, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, lang, list }),
+      });
+      const data = await relayed.json().catch(() => ({}));
+      return res.status(relayed.ok ? 200 : 502).json(relayed.ok ? { ok: true } : { error: data.error || "Waitlist unavailable" });
     }
-    await stripe("POST", "customers", {
-      email,
-      metadata: { waitlist: list, lang, source: "brinkmannpaul.com", joined: new Date().toISOString().slice(0, 10) },
-    });
+    const found = await stripe("GET", "customers", { email, limit: 10 });
+    if (!(found.data || []).some((c) => c.metadata && c.metadata.waitlist === list)) {
+      await stripe("POST", "customers", {
+        email,
+        description: `${list} waitlist`,
+        metadata: { waitlist: list, lang, source: "brinkmannpaul.com", joined: new Date().toISOString().slice(0, 10) },
+      });
+    }
     res.status(200).json({ ok: true });
   } catch (err) {
-    res.status(err.status || 500).json({ error: err.message });
+    res.status(502).json({ error: "Waitlist unavailable" });
   }
 };
