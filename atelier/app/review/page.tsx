@@ -141,10 +141,10 @@ export default function Review() {
           </div>
           {posts.length > 1 && (
             <div className="row between" style={{ marginTop: 10 }}>
-              <button className="link" disabled={i === 0} onClick={() => setI(i - 1)}>
+              <button className="pill" disabled={i === 0} onClick={() => setI(i - 1)}>
                 previous
               </button>
-              <button className="link" disabled={i >= posts.length - 1} onClick={() => setI(i + 1)}>
+              <button className="pill" disabled={i >= posts.length - 1} onClick={() => setI(i + 1)}>
                 skip
               </button>
             </div>

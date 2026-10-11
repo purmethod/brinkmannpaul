@@ -3,7 +3,7 @@ import { resolveBrand } from './brand';
 import { sign } from './crypto';
 import { mediaByIds } from './media';
 import { appOrigin } from './origin';
-import { LOOKS, type LookId } from './reel';
+import { LOOKS, lookOf } from './reel';
 import type { BrandRow, Post } from './types';
 
 export const callbackToken = (postId: string) => sign(`render:${postId}`);
@@ -19,7 +19,7 @@ export async function dispatchRender(post: Post, row: BrandRow, extra: { feedbac
   const brand = resolveBrand(row);
   // the channel's look and word style (or this post's own); without a chosen style the brand's subtitles stay
   const style = row.settings?.style ?? {};
-  const look = LOOKS[(post.options.look ?? style.look ?? 'natural') as LookId] ?? LOOKS.natural;
+  const look = LOOKS[lookOf(post.options.look ?? style.look)];
   const textStyle = post.options.textStyle ?? style.text ?? null;
   const clips = (await mediaByIds(post.media_ids)).filter((m) => m.kind === 'video').map((m) => m.url);
   if (!clips.length) throw new Error('no video to cut');

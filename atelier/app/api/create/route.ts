@@ -4,7 +4,7 @@ import { loadTemplates, resolveBrand } from '@/lib/brand';
 import { mediaByIds } from '@/lib/media';
 import { TEXT_STYLES } from '@/lib/carousel';
 import { createPost, deletePost, render, type PhotoFormat } from '@/lib/posts';
-import { LOOKS } from '@/lib/reel';
+import { LOOKS, lookOf } from '@/lib/reel';
 import { runDueFor, schedulePost } from '@/lib/schedule';
 import { nextFreeSlot } from '@/lib/slots';
 import { localToUtc } from '@/lib/time';
@@ -28,7 +28,7 @@ export const GET = route(async () => {
     slot: await nextFreeSlot(brand.id, user.timezone, kit.slots),
     slots: kit.slots,
     templates,
-    style: brand.settings?.style ?? {},
+    style: { ...(brand.settings?.style ?? {}), look: lookOf(brand.settings?.style?.look) },
     looks: Object.entries(LOOKS).map(([id, l]) => ({ id, label: l.label })),
     textStyles: TEXT_STYLES,
   });

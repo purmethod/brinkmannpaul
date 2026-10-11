@@ -261,6 +261,10 @@ h1.brand { display: flex; align-items: center; gap: 10px; }
 .chips button { min-height: 38px; font-size: 14px; border-radius: 999px; padding: 0 16px; background: var(--surface); box-shadow: var(--shadow); }
 .sheet .chips button { background: var(--fill); box-shadow: none; }
 .chips button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
+/* type instead · skip · previous: real buttons, same rounded shape as the choices, just bigger */
+.chips.choice { justify-content: center; gap: 10px; margin-top: 6px; }
+.chips.choice button, button.pill { min-height: 46px; font-size: 16px; font-weight: 500; padding: 0 24px; border-radius: 999px; background: var(--surface); box-shadow: var(--shadow); color: var(--ink); }
+button.pill:disabled { opacity: 0.4; }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .actions button { background: var(--surface); box-shadow: var(--shadow); }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom) + 78px); z-index: 30; background: var(--ink); color: var(--on-ink); padding: 11px 18px; border-radius: 14px; font-size: 14px; font-weight: 550; max-width: calc(100% - 36px); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); animation: toast 0.3s var(--ease); }

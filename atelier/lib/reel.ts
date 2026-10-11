@@ -10,18 +10,31 @@ import sharp from 'sharp';
  * ffmpeg comes as a static binary (ffmpeg-static), so it runs on vercel as it runs locally.
  */
 
-export type LookId = 'natural' | 'cinematic' | 'warm' | 'mono' | 'vivid';
+export type LookId = 'pure' | 'concrete' | 'stone' | 'noir';
+/** Four looks from architecture — far apart on purpose, so the choice is obvious at a glance. */
 export const LOOKS: Record<LookId, { label: string; filter: string }> = {
-  natural: { label: 'natural', filter: 'eq=contrast=1.03:saturation=1.03' },
-  // teal shadows, warm highlights, softer saturation, a vignette and fine grain — film, not instagram filter
-  cinematic: {
-    label: 'cinematic',
-    filter: 'eq=contrast=1.08:saturation=0.86:gamma=0.98,colorbalance=rs=-0.05:gs=-0.01:bs=0.06:rh=0.06:gh=0.01:bh=-0.05,vignette=angle=PI/5,noise=alls=4:allf=t',
+  // bright, true colour, crisp edges — white gallery walls, daylight
+  pure: { label: 'pure', filter: 'eq=brightness=0.035:contrast=1.02:saturation=0.96,unsharp=5:5:0.45' },
+  // cool, matte, colour almost gone, lifted blacks, fine grain — raw concrete
+  concrete: {
+    label: 'concrete',
+    filter: "eq=contrast=0.92:saturation=0.42:brightness=0.015,colorbalance=rs=-0.03:bs=0.05:rh=-0.01:bh=0.02,curves=all='0/0.07 0.5/0.52 1/0.94',noise=alls=3:allf=t",
   },
-  warm: { label: 'warm', filter: 'eq=contrast=1.04:saturation=1.06,colorbalance=rm=0.05:gm=0.01:bm=-0.05:rh=0.04:bh=-0.04,vignette=angle=PI/6' },
-  mono: { label: 'mono', filter: 'hue=s=0,eq=contrast=1.14:brightness=-0.01,vignette=angle=PI/5,noise=alls=5:allf=t' },
-  vivid: { label: 'vivid', filter: 'eq=contrast=1.06:saturation=1.22' },
+  // warm sand and travertine, creamy highlights, muted greens — natural stone in late sun
+  stone: {
+    label: 'stone',
+    filter: "eq=contrast=1.03:saturation=0.78:gamma=1.03,colorbalance=rs=0.03:bs=-0.04:rm=0.04:gm=0.015:bm=-0.04:rh=0.03:bh=-0.03,curves=all='0/0.04 0.5/0.53 1/0.97',vignette=angle=PI/7",
+  },
+  // graphic black and white, deep shadows, bright planes — light and shadow on facades
+  noir: { label: 'noir', filter: "hue=s=0,curves=all='0/0 0.22/0.12 0.5/0.5 0.78/0.9 1/1',eq=contrast=1.12,vignette=angle=PI/5,noise=alls=4:allf=t" },
 };
+/** Looks saved before the four existed map onto their nearest one. */
+const OLD_LOOKS: Record<string, LookId> = { natural: 'pure', vivid: 'pure', cinematic: 'concrete', warm: 'stone', mono: 'noir' };
+export const DEFAULT_LOOK: LookId = 'pure';
+export function lookOf(id?: string | null): LookId {
+  if (id && id in LOOKS) return id as LookId;
+  return (id && OLD_LOOKS[id]) || DEFAULT_LOOK;
+}
 
 let bin: string | null = null;
 async function ffmpegPath(): Promise<string> {
@@ -110,7 +123,7 @@ export async function renderPhotoReel(o: {
       cur = `x${i}`;
       offset += per - fade;
     }
-    const look = LOOKS[o.look ?? 'natural'] ?? LOOKS.natural;
+    const look = LOOKS[lookOf(o.look)];
     fc.push(`[${cur}]${look.filter},format=yuv420p[v]`);
     const out = path.join(dir, 'reel.mp4');
     args.push('-filter_complex', fc.join(';'), '-map', '[v]', '-map', `${silence}:a`);

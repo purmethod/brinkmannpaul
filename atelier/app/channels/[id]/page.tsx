@@ -246,15 +246,15 @@ export default function ChannelPage() {
         <label>photos become</label>
         <div className="chips">
           {(['reel', 'carousel'] as const).map((f) => (
-            <button key={f} aria-pressed={(d.style.photos ?? 'reel') === f} onClick={() => style({ photos: f })}>
-              {f === 'reel' ? 'a reel' : 'a carousel'}
+            <button key={f} aria-pressed={(d.style.photos ?? 'carousel') === f} onClick={() => style({ photos: f })}>
+              {f === 'reel' ? 'a reel' : 'a post · carousel'}
             </button>
           ))}
         </div>
         <label>video look</label>
         <div className="chips">
           {d.looks.map((l) => (
-            <button key={l.id} aria-pressed={(d.style.look ?? 'natural') === l.id} onClick={() => style({ look: l.id })}>
+            <button key={l.id} aria-pressed={(d.style.look ?? 'pure') === l.id} onClick={() => style({ look: l.id })}>
               {l.label}
             </button>
           ))}

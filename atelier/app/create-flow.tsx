@@ -7,7 +7,8 @@ import { api, uploadFiles, useMic, type MediaItem } from './client';
 import { Icon, Wheel, type WheelItem } from './ui';
 
 type Step = 'media' | 'speak' | 'ready' | 'sending' | 'done';
-type Format = 'reel' | 'carousel' | 'photo';
+/** photos become a reel or a post (one photo, or a carousel of several) — videos are always a reel */
+type Format = 'reel' | 'post';
 interface Tpl {
   id: string;
   label: string;
@@ -57,20 +58,20 @@ const nowIn = (tz: string) => {
   return `${z.date}T${z.time}`;
 };
 
-/** "cinematic", "schwarz-weiß", "als karussell" — the look and the format can be said too. */
+/** "beton", "schwarz-weiß", "als karussell" — the look and the format can be said too. */
 // letter-aware edges: \b knows no umlauts ("schwarz-weiß")
 const L = (src: string) => new RegExp(`(?<![a-zäöüß])(?:${src})(?![a-zäöüß])`, 'i');
 const SAID_LOOKS: [RegExp, string][] = [
-  [L('cinematic|kinematisch|wie im kino|film ?look'), 'cinematic'],
-  [L('schwarz[- ]?wei(?:ß|ss)|black and white|b/w|mono'), 'mono'],
-  [L('warm(?:er)? look|warme farben|golden'), 'warm'],
-  [L('knallig|vivid|kräftige farben|bunt'), 'vivid'],
+  [L('beton|concrete|sichtbeton|kühl(?:er)? look|cool look'), 'concrete'],
+  [L('schwarz[- ]?wei(?:ß|ss)|black and white|b/w|mono|noir'), 'noir'],
+  [L('stein|stone|travertin|travertine|sand|warm(?:er)? look|warme farben'), 'stone'],
+  [L('hell(?:er)? look|natürlich|natural|pure|pur'), 'pure'],
 ];
-const SAID_FORMAT = /\b(?:(?:als|as)\s+(?:an?\s+|ein\s+)?)?(karussell|carousel|slides|reel)\b/i;
+const SAID_FORMAT = /\b(?:(?:als|as)\s+(?:an?\s+|ein(?:en)?\s+)?)?(karussell|carousel|slides|beitrag|reel)\b/i;
 function saidStyle(text: string) {
   const hit = SAID_LOOKS.find(([re]) => re.test(text));
   const f = SAID_FORMAT.exec(text)?.[1]?.toLowerCase();
-  const format: Format | undefined = f ? (f === 'reel' ? 'reel' : 'carousel') : undefined;
+  const format: Format | undefined = f ? (f === 'reel' ? 'reel' : 'post') : undefined;
   // the style words steer the picture, they are not part of the story
   let rest = text;
   if (hit) rest = rest.replace(new RegExp(`(?:\\b(?:in|im|als|mit|as|with)\\s+(?:an?\\s+|einem\\s+|einen\\s+|ein\\s+)?)?${hit[0].source}(?:\\s+(?:look|filter|style|stil))?`, 'i'), ' ');
@@ -97,7 +98,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
   const [suggested, setSuggested] = useState(''); // the heard time, else the next free slot
   const [wheels, setWheels] = useState(false);
   const [format, setFormat] = useState<Format>('reel');
-  const [look, setLook] = useState('natural');
+  const [look, setLook] = useState('pure');
   const [words, setWords] = useState('clean');
   const [template, setTemplate] = useState('');
   const [progress, setProgress] = useState('');
@@ -110,7 +111,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     setSetup(s);
     setAt(s.slot);
     setSuggested(s.slot);
-    setLook(s.style.look ?? 'natural');
+    setLook(s.style.look ?? 'pure');
     setWords(s.style.text ?? 'clean');
     setTemplate(s.templates[0]?.id ?? '');
   }, []);
@@ -137,10 +138,10 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     const files = Array.from(list ?? []);
     if (!files.length) return;
     const video = files.some((f) => f.type.startsWith('video/'));
-    // a reel takes its videos; photos become a reel or a carousel
+    // a reel takes its videos; photos become a post (carousel) unless the channel makes reels from them
     const use = video ? files.filter((f) => f.type.startsWith('video/')) : files.slice(0, 10);
     setPicked(use.map((file) => ({ file, preview: URL.createObjectURL(file), video: file.type.startsWith('video/') })));
-    setFormat(video ? 'reel' : (setup?.style.photos ?? 'reel'));
+    setFormat(video || setup?.style.photos === 'reel' ? 'reel' : 'post');
     setError('');
     uploads.current = uploadFiles(use, setProgress);
     uploads.current.catch((e) => setError((e as Error).message));
@@ -161,7 +162,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
         setWheels(false);
       }
       if (s.look) setLook(s.look);
-      if (s.format && !picked.some((p) => p.video)) setFormat(s.format === 'carousel' && picked.length === 1 ? 'photo' : s.format);
+      if (s.format && !picked.some((p) => p.video)) setFormat(s.format);
       setStep('ready');
     },
     [setup, picked],
@@ -173,13 +174,14 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
     setError('');
     try {
       const media = await uploads.current!;
-      const reel = format === 'reel';
+      const reel = hasVideo || format === 'reel';
       await api('/api/create', {
         method: 'POST',
         json: {
           media: media.map((m) => m.id),
           description: about,
           at: now ? 'now' : at,
+          // a post stays a post: never a reel when post was chosen
           format: hasVideo ? 'auto' : format === 'reel' ? 'reel' : 'carousel',
           ...(reel ? { look, textStyle: words } : { template }),
         },
@@ -241,7 +243,8 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
         {step === 'speak' && (
           <>
             <Strip picked={picked} />
-            <h1 className="q">what is it — and when?</h1>
+            <h1 className="q">{hasVideo || format === 'reel' ? 'describe your reel' : 'describe your post'}</h1>
+            <p className="hint">how it should look, what it is about, when it goes out — you can, you don’t have to.</p>
             {!typing ? (
               <>
                 {mic.supported ? (
@@ -250,17 +253,12 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                   </button>
                 ) : null}
                 <p className="live">
-                  {mic.listening ? mic.interim || 'listening…' : mic.supported ? '“bread fresh from the oven — post it tomorrow at 6 pm”' : ''}
+                  {mic.listening ? mic.interim || 'listening…' : mic.supported ? '“bread fresh from the oven, calm and in stone — tomorrow at 6 pm”' : ''}
                 </p>
                 {mic.listening && <p className="muted small center-text">take your time — tap the mic when you are done</p>}
-                <div className="row center">
-                  <button className="link" onClick={() => setTyping(true)}>
-                    type instead
-                  </button>
-                  <span className="sep" />
-                  <button className="link" onClick={() => setStep('ready')}>
-                    skip
-                  </button>
+                <div className="chips choice">
+                  <button onClick={() => setTyping(true)}>type instead</button>
+                  <button onClick={() => setStep('ready')}>skip</button>
                 </div>
               </>
             ) : (
@@ -270,7 +268,7 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                   understand(String(new FormData(e.currentTarget).get('t') || ''));
                 }}
               >
-                <input className="big-input" name="t" autoFocus defaultValue={about} placeholder="what is it, and when…" enterKeyHint="done" />
+                <input className="big-input" name="t" autoFocus defaultValue={about} placeholder="how should it look — and when…" enterKeyHint="done" />
               </form>
             )}
           </>
@@ -331,14 +329,14 @@ export default function CreateFlow({ onClose, onCreated }: { onClose: () => void
                   <button aria-pressed={format === 'reel'} onClick={() => setFormat('reel')}>
                     reel
                   </button>
-                  <button aria-pressed={format !== 'reel'} onClick={() => setFormat(picked.length > 1 ? 'carousel' : 'photo')}>
-                    {picked.length > 1 ? 'carousel' : 'photo'}
+                  <button aria-pressed={format === 'post'} onClick={() => setFormat('post')}>
+                    {picked.length > 1 ? 'post · carousel' : 'post'}
                   </button>
                 </div>
               </>
             )}
 
-            {format === 'reel' ? (
+            {hasVideo || format === 'reel' ? (
               <>
                 <p className="kicker">look</p>
                 <div className="chips">

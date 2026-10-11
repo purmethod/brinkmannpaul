@@ -26,7 +26,7 @@ export interface BrandSettings {
 
 /** Set once per channel: how videos look, how words sit on them, what photos become. */
 export interface ChannelStyle {
-  look?: 'natural' | 'cinematic' | 'warm' | 'mono' | 'vivid';
+  look?: string; // a LookId (pure, concrete, stone, noir) — older channels may still hold an old one
   text?: 'clean' | 'bold' | 'serif' | 'box';
   photos?: 'carousel' | 'reel';
 }

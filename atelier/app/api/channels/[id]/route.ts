@@ -4,7 +4,7 @@ import { resolveBrand } from '@/lib/brand';
 import { one, q } from '@/lib/db';
 import { TEXT_STYLES } from '@/lib/carousel';
 import { connectionStatus } from '@/lib/platforms';
-import { LOOKS } from '@/lib/reel';
+import { LOOKS, lookOf } from '@/lib/reel';
 import { qstashReady } from '@/lib/schedule';
 import type { BrandRow, ChannelSettings, ChannelStyle } from '@/lib/types';
 
@@ -30,7 +30,7 @@ export const GET = route(async (_req: Request, { params }: P) => {
     brief: k.brief ?? '',
     tone: k.tone ?? '',
     channel: row.settings?.channel ?? null,
-    style: row.settings?.style ?? {},
+    style: { ...(row.settings?.style ?? {}), look: lookOf(row.settings?.style?.look) },
     looks: Object.entries(LOOKS).map(([id, l]) => ({ id, label: l.label })),
     textStyles: TEXT_STYLES,
     autopilot: { ...ap, recent: (ap.recent ?? []).slice(0, 8), history: undefined, slots: slotTimes(ap) },

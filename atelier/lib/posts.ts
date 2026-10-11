@@ -2,7 +2,7 @@ import { del, put } from '@vercel/blob';
 import { channelTemplate, getTemplate, loadTemplates, resolveBrand } from './brand';
 import { loadPhoto, plainText, renderOverlay, renderSlide, splitSlides, type TextPosition, type TextStyleId } from './carousel';
 import { composePost } from './claude';
-import { calmBand, renderPhotoReel, type LookId } from './reel';
+import { calmBand, lookOf, renderPhotoReel } from './reel';
 import { id, one, q } from './db';
 import { mediaByIds } from './media';
 import type { BrandRow, BrandTemplate, Media, Post, PostKind, PostOptions, PostOutput, Slide } from './types';
@@ -133,7 +133,7 @@ async function renderStill(
 /** The channel's look and text style, unless this post has its own. */
 export function styleOf(row: BrandRow, post: Post) {
   const st = row.settings?.style ?? {};
-  return { look: (post.options.look ?? st.look ?? 'natural') as LookId, text: (post.options.textStyle ?? st.text ?? 'clean') as TextStyleId };
+  return { look: lookOf(post.options.look ?? st.look), text: (post.options.textStyle ?? st.text ?? 'clean') as TextStyleId };
 }
 
 /** Photos → a short reel, rendered right here: words per photo, placed where the picture is calm. */
