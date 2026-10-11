@@ -41,4 +41,9 @@ describe("claude client", () => {
     expect(calls.plain).not.toHaveBeenCalled();
     expect(await llm().check!()).toEqual({ ok: false, error: "401 invalid x-api-key sk-ant-…" });
   });
+
+  it("ignores spaces and line breaks around a pasted key", () => {
+    expect(readConfig({ ANTHROPIC_API_KEY: " sk-ant-abc\n" }).anthropicApiKey).toBe("sk-ant-abc");
+    expect(readConfig({ ANTHROPIC_API_KEY: "  " }).anthropicApiKey).toBeNull();
+  });
 });

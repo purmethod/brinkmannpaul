@@ -32,7 +32,8 @@ export function readConfig(env: Record<string, string | undefined> = process.env
   const jsonEffort = env.CLAUDE_JSON_EFFORT ?? "medium";
   const isEffort = (e: string): e is "low" | "medium" | "high" => e === "low" || e === "medium" || e === "high";
   return {
-    anthropicApiKey: env.ANTHROPIC_API_KEY || null,
+    // pasted on a phone it often carries a space or line break – anthropic then answers 401
+    anthropicApiKey: env.ANTHROPIC_API_KEY?.replace(/\s+/g, "") || null,
     claudeModel: model,
     claudeEffort: isEffort(effort) ? effort : null,
     claudeJsonEffort: isEffort(jsonEffort) ? jsonEffort : null,
