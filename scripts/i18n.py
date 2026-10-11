@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html and the sub pages in PAGES (weekends, the skyn and rye pre-order pages and their thank-you pages)
+dist/index.html and the sub pages in PAGES (weekends, the skyn and rye pre-order pages and their thank-you pages, the cyclemax waitlist)
 are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/']
+PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/', 'cyclemax/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
@@ -34,7 +34,7 @@ LANGS = {
 }
 
 # Inner HTML of these elements is one unit; links inside a paragraph travel with it.
-BLOCK = re.compile(r'<(p|h1|h2|a|li|title|figcaption|label)(\s[^>]*)?>(.*?)</\1>', re.S)
+BLOCK = re.compile(r'<(p|h1|h2|a|li|title|figcaption|label|button)(\s[^>]*)?>(.*?)</\1>', re.S)
 ITEM_TYPE = re.compile(r'(<span class="item-type[^"]*">)(.*?)(</span>)', re.S)
 HEADER_SPAN = re.compile(r'((?:</h1>|</a>)\s*<span>)(.*?)(</span>\s*</header>)', re.S)
 META = re.compile(r'(<meta (?:name|property)="(?:description|og:title|og:description|og:image:alt|twitter:title|twitter:description)" content=")([^"]*)(")')
@@ -114,7 +114,7 @@ def localise(html, lang, conf, page=''):
     html = re.sub(r'(\s(?:src|href|srcset)=")(?![a-z]+:|/|#)([^"]+")', r'\1/\2', html)
     # Links to pages stay in the language: the start page, its anchors and the sub pages.
     html = re.sub(r'<a\s[^>]*>', lambda m: m.group(0) if 'hreflang=' in m.group(0) else
-                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn|rye)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
+                  re.sub(r'href="/(#[^"]*|(?:weekends|skyn|rye|cyclemax)/[^"]*)?"', lambda h: f'href="/{lang}/{h.group(1) or ""}"', m.group(0)), html)
     # The current language is the one marked in the selector.
     html = html.replace(' aria-current="page">en</a>', '>en</a>', 1)
     html = re.sub(rf'(<a href="/{lang}/{page}" hreflang="{lang}" lang="{lang}"[^>]*)>', r'\1 aria-current="page">', html, count=1)

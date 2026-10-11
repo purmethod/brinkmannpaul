@@ -119,12 +119,12 @@ s = boot({ missing: '#intro-animation' }); released(s);
 const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('</section>'));
 const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
-assert.equal(items.length, 9, 'nine projects, each with an id');
-assert.equal(new Set(items.map(item => item[1])).size, 9, 'project ids are unique');
+assert.equal(items.length, 10, 'ten projects, each with an id');
+assert.equal(new Set(items.map(item => item[1])).size, 10, 'project ids are unique');
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/|rye\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -241,6 +241,30 @@ for (const product of ['skyn', 'rye']) {
   }
 }
 
+// The cyclemax waitlist: one e-mail field, kept by /api/waitlist, in every
+// language, linked from its row; without the stripe key the page falls back
+// to an e-mail to paul, so no sign-up is lost.
+new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: 'waitlist.js' });
+{
+  const source = fs.readFileSync(path.join(root, 'dist', 'cyclemax', 'index.html'), 'utf8');
+  assert.ok(html.includes('<a href="cyclemax/">'), 'the cyclemax row links to its waitlist page');
+  assert.ok(/<form class="join" id="join"/.test(source) && source.includes('type="email"') && source.includes("fetch('/api/waitlist'"), 'cyclemax: waitlist form posts to /api/waitlist');
+  assert.ok(source.includes('name="company"') && source.includes('mailto:'), 'cyclemax: honeypot and e-mail fallback');
+  for (const script of source.match(/<script>[\s\S]*?<\/script>/g) || []) new vm.Script(script.slice(8, -9), { filename: 'cyclemax inline' });
+  pages.push(['dist', source]);
+  for (const lang of LANGS) {
+    const file = path.join(root, 'dist', lang, 'cyclemax', 'index.html');
+    assert.ok(fs.existsSync(file), `dist/${lang}/cyclemax/index.html exists (run python3 scripts/i18n.py build)`);
+    const page = fs.readFileSync(file, 'utf8');
+    assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/cyclemax/" />`), `${lang} cyclemax canonical`);
+    assert.ok(new RegExp(`href="/${lang}/cyclemax/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} cyclemax marked in the selector`);
+    assert.ok(page.includes(`href="/${lang}/#cyclemax"`), `${lang} cyclemax closes back to its own language`);
+    assert.ok(page.includes(`<html lang="${lang}"`) && page.includes('documentElement.lang'), `${lang} cyclemax sends its language`);
+    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/cyclemax/">`), `${lang} row links to its cyclemax page`);
+    pages.push(['dist', page]);
+  }
+}
+
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href|poster)="([^"#]+)"/g)) {
@@ -261,8 +285,8 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 24, 'sitemap lists home, weekends, skyn and rye in six languages');
+assert.equal(locs.length, 30, 'sitemap lists home, weekends, skyn, rye and cyclemax in six languages');
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 9 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn and rye pre-order pages, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 10 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn and rye pre-order pages, cyclemax waitlist, local assets, og image, robots and sitemap.');
