@@ -77,6 +77,21 @@ jobs:
           for p in / /heute/ /verstehen/ /datenschutz/; do curl -fsS -m 20 -o /dev/null -w "$p %{http_code}\n" "https://$DOMAIN$p"; done
           [ -n "$ok" ] || { echo "::error::https://$DOMAIN/api/health is not healthy"; exit 1; }
           echo "Live: https://$DOMAIN" >> "$GITHUB_STEP_SUMMARY"
+      - name: Claude check (a real answer, not the knowledge-base fallback)
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          curl -fsS -m 20 "https://$DOMAIN/api/health" | grep -q '"claude":true' || { echo "::notice::ANTHROPIC_API_KEY not set – skipped"; exit 0; }
+          url=$(cat "$RUNNER_TEMP/deploy-url")
+          (timeout 75 vercel logs "$url" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" > "$RUNNER_TEMP/chat.log" 2>&1 || true) &
+          sleep 8
+          res=$(curl -sS -m 60 -X POST "https://$DOMAIN/api/chat" -H 'content-type: application/json' \
+            -d '{"deviceId":"ci-claude-check","cycleDay":24,"mode":"relationship","phase":"red","messages":[{"role":"user","content":"Kurzer Test: Sie ist heute gereizt. Ein Satz?"}]}' || true)
+          echo "source: $(echo "$res" | grep -o '"source":"[a-z]*"')"
+          if echo "$res" | grep -q '"source":"claude"'; then echo "Claude answers ✓" >> "$GITHUB_STEP_SUMMARY"; kill %1 2>/dev/null || true; exit 0; fi
+          sleep 10; wait || true
+          echo "--- runtime log (claude errors) ---"
+          grep -iE "claude|anthropic|error|chat" "$RUNNER_TEMP/chat.log" | tail -n 30 || tail -n 40 "$RUNNER_TEMP/chat.log"
+          echo "::warning::the chat answered from the knowledge base, not from Claude – see the runtime log above"
       - name: Diagnose (project settings, build and runtime logs)
         if: failure() && steps.secret.outputs.ok == 'true'
         run: |
