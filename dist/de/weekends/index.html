@@ -85,6 +85,15 @@
       .error{color:#7a3b2e}
       .pay[aria-disabled="true"]{opacity:.3;pointer-events:none}
       .order .agree{margin:4px 0 18px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .zone input:disabled,.zone input:disabled~span{opacity:.35;cursor:default}
     </style>
   </head>
   <body>
@@ -116,7 +125,13 @@
 
       <h2>termine</h2>
       <p>anreise am donnerstag, abreise am sonntag. kleine gruppe, maximal 20 menschen.</p>
-      <p class="note">die genauen termine im november und dezember folgen hier in kürze. buch jetzt: ich schreibe dir persönlich, und du wählst dein wochenende. passt dir keiner der termine, bekommst du dein geld vollständig zurück.</p>
+      <ul class="rows">
+        <li>12. bis 15. november</li>
+        <li>19. bis 22. november</li>
+        <li>26. bis 29. november</li>
+        <li>3. bis 6. dezember</li>
+        <li>10. bis 13. dezember</li>
+      </ul>
 
       <h2>preis</h2>
       <p class="price">490 € pro person</p>
@@ -124,9 +139,9 @@
 
       <h2>so funktioniert die buchung</h2>
       <ol class="steps">
-        <li>lies die sicherheitshinweise und buch deinen platz direkt hier auf der seite.</li>
+        <li>wähl dein wochenende, lies die sicherheitshinweise und buch deinen platz direkt hier auf der seite.</li>
         <li>bezahl sicher in der kasse unten. dein platz gehört sofort dir.</li>
-        <li>ich schreibe dir persönlich, und du wählst dein wochenende. wir sehen uns am donnerstag in polen.</li>
+        <li>ich schreibe dir persönlich alles, was du brauchst. wir sehen uns am donnerstag in polen.</li>
       </ol>
 
       <h2>sicherheit</h2>
@@ -136,8 +151,16 @@
 
       <h2>platz buchen</h2>
       <p class="soon" id="soon">die buchung öffnet hier in kürze.</p>
-      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-wait="einen moment" data-label-error="die kasse konnte nicht öffnen. bitte versuch es gleich noch einmal.">
+      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="noch {n} plätze" data-label-one="noch 1 platz" data-label-full="ausgebucht" data-label-wait="einen moment" data-label-error="die kasse konnte nicht öffnen. bitte versuch es gleich noch einmal.">
         <p class="price"><span data-price></span> pro person</p>
+        <p class="legend">dein wochenende</p>
+        <div class="zones">
+          <label class="zone"><input type="radio" name="date" value="2026-11-12" /><span class="where">12. bis 15. november</span><span class="how">donnerstag bis sonntag</span><span class="cost" data-left="2026-11-12"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-19" /><span class="where">19. bis 22. november</span><span class="how">donnerstag bis sonntag</span><span class="cost" data-left="2026-11-19"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-26" /><span class="where">26. bis 29. november</span><span class="how">donnerstag bis sonntag</span><span class="cost" data-left="2026-11-26"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-03" /><span class="where">3. bis 6. dezember</span><span class="how">donnerstag bis sonntag</span><span class="cost" data-left="2026-12-03"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-10" /><span class="where">10. bis 13. dezember</span><span class="how">donnerstag bis sonntag</span><span class="cost" data-left="2026-12-10"></span></label>
+        </div>
         <div class="buy-row">
           <div class="qty" role="group" aria-label="personen">
             <button type="button" data-step="-1" aria-label="einen weniger">−</button>
@@ -149,9 +172,9 @@
         <div class="agree"><input type="checkbox" id="agree" /><label for="agree">ich habe die sicherheitshinweise gelesen.</label></div>
         <a class="pay" href="#checkout" role="button">platz buchen</a>
         <p class="note error" role="alert" hidden></p>
-        <a class="back" href="#order" role="button" hidden>anzahl der personen ändern</a>
+        <a class="back" href="#order" role="button" hidden>wochenende oder anzahl der personen ändern</a>
         <div class="checkout" id="checkout" hidden></div>
-        <p class="note">dein platz an einem wim hof wochenende in polen. passt dir keiner der termine, bekommst du dein geld vollständig zurück.</p>
+        <p class="note">dein platz an einem wim hof wochenende in polen. max. 20 personen pro wochenende.</p>
       </div>
 
       <h2>fragen</h2>
@@ -172,6 +195,6 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=2" defer></script>
+    <script src="/order.js?v=3" defer></script>
   </body>
 </html>

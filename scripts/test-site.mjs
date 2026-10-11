@@ -197,6 +197,7 @@ assert.ok(weekends.includes('490 € per person'), 'weekends: price shown');
 assert.ok(weekends.includes('data-product="weekend"') && weekends.includes('src="/order.js'), 'weekends: booked and paid on the page through the embedded stripe checkout');
 assert.ok(weekends.includes('data-agree="agree"') && weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('class="pay"'), 'weekends: paying waits for the safety notes, which come first');
 assert.ok(!weekends.includes('class="request"'), 'weekends: no booking by request any more');
+for (const d of ['2026-11-12', '2026-11-19', '2026-11-26', '2026-12-03', '2026-12-10']) assert.ok(weekends.includes(`name="date" value="${d}"`) && weekends.includes(`data-left="${d}"`), `weekends: ${d} can be chosen, with its places left`);
 assert.ok(fs.existsSync(path.join(root, 'dist', 'weekends', 'thanks', 'index.html')), 'weekends: thank-you page');
 pages.push(['dist', weekends]);
 for (const lang of LANGS) {
@@ -222,6 +223,12 @@ const shopJson = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json')
 assert.ok(shopJson.shipping.length, 'shop.json has shipping zones');
 const weekend = shopJson.products.weekend;
 assert.ok(weekend && weekend.amount === 49000 && weekend.shipping === false && weekend.path === 'weekends', 'shop.json: the weekend, 490 € per person, not shipped, thanks under weekends/');
+assert.deepEqual(weekend.dates.map(d => d.id), ['2026-11-12', '2026-11-19', '2026-11-26', '2026-12-03', '2026-12-10'], 'shop.json: the five weekends, thursday to sunday');
+for (const d of weekend.dates) {
+  assert.equal(new Date(d.id + 'T12:00:00Z').getUTCDay(), 4, `${d.id} is a thursday`);
+  assert.equal(d.places, 20, `${d.id}: 20 places`);
+}
+for (const api of ['_places']) new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', api + '.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: api + '.js' });
 for (const product of ['skyn', 'rye']) {
   const source = fs.readFileSync(path.join(root, 'dist', product, 'index.html'), 'utf8');
   const p = shopJson.products[product];

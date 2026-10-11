@@ -4,6 +4,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Wim Hof Weekends mit festen Terminen und Restplätzen (2026-10-11)
+
+- **Paul:** Die Termine stehen fest, jeweils Donnerstag bis Sonntag: 12. bis 15. November, 19. bis 22. November, 26. bis 29. November, 3. bis 6. Dezember und 10. bis 13. Dezember 2026.
+- **Seite `/weekends/`:**
+  - Unter „dates“ stehen die fünf Termine.
+  - In „book your place“ wählt man sein Wochenende. Jeder Termin zeigt, wie viele Plätze noch frei sind („20 places left“, „1 place left“, „fully booked“). Ausgebuchte Termine lassen sich nicht wählen.
+  - Man kann nie mehr Personen wählen, als Plätze frei sind.
+  - Das Rückzahlungsversprechen für den Fall, dass kein Termin passt, ist entfallen.
+- **Zählung:** `api/_places.js` zählt die bezahlten Plätze pro Termin direkt in Stripe (abgeschlossene Checkout-Sitzungen, `metadata.date` und `metadata.places`). 20 Plätze pro Termin; ein Termin, der begonnen hat, ist geschlossen. `/api/checkout` prüft die freien Plätze vor jeder Buchung. Die Personenzahl ist in der Stripe-Kasse fest, damit die Zählung stimmt. Der Termin steht im Produktnamen der Zahlung, zum Beispiel „wim hof weekend · poland · 12 to 15 november 2026“.
+- **`order.js` v=3.**
+
 ## Aktualisierung: Wim Hof Weekends direkt bezahlen (2026-10-11)
 
 - **Paul:** Die Wim Hof Weekends sollen sich direkt auf der Seite bezahlen lassen, mit der Stripe-Kasse wie bei skyn und rye. Der Stripe-Schlüssel für brinkmannpaul.com ist eingetragen.
