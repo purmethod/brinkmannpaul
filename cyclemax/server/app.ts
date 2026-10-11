@@ -13,6 +13,9 @@ import { createClaude, type Llm } from "./llm";
 import { createWebPushSender, sendDuePushes, vapidKeys, type PushSender } from "./push";
 import { createStore, GLOBAL_CLAUDE_KEY, type Store } from "./store";
 
+const HEALTH_CHECK_KEY = "health-claude-check";
+const HEALTH_CHECK_DAILY_LIMIT = 30;
+
 export interface AppContext {
   config: Config;
   store: Store;
@@ -161,7 +164,14 @@ export function createHandler(getContext: () => Promise<AppContext>) {
           ...(config.adminPassword ? [] : ["ADMIN_PASSWORD fehlt – /admin gesperrt"]),
           ...(config.cronSecret ? [] : ["CRON_SECRET fehlt"]),
         ];
-        return json({ ok: true, db: store.kind, claude: !!ctx.llm, model: config.claudeModel, push: !!vapidKeys(config), warnings });
+        // ?check=claude makes one tiny real call (capped per day) and says why Claude does not answer
+        const claudeCheck =
+          url.searchParams.get("check") === "claude" && ctx.llm?.check
+            ? (await store.takeQuota(HEALTH_CHECK_KEY, HEALTH_CHECK_DAILY_LIMIT))
+              ? await ctx.llm.check()
+              : { ok: false, error: "check limit reached for today" }
+            : undefined;
+        return json({ ok: true, db: store.kind, claude: !!ctx.llm, model: config.claudeModel, push: !!vapidKeys(config), warnings, ...(claudeCheck ? { claudeCheck } : {}) });
       }
       if (m === "GET" && path === "/api/lines") return json({ lines: await store.catalog() });
 

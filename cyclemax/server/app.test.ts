@@ -3,7 +3,7 @@ import { SEED_LINES } from "../shared/knowledge.generated";
 import { PHASE_PUSH_TEXT } from "../shared/texts";
 import { buildContext, buildSystemPrompt } from "./chat";
 import { routeOf } from "./app";
-import type { Llm } from "./llm";
+import { errorText, type Llm } from "./llm";
 import { DEVICE, testContext } from "./test-utils";
 
 const chatBody = (content: string, extra: Record<string, unknown> = {}) => ({
@@ -30,6 +30,20 @@ describe("api", () => {
     const lines = (await call("GET", "/api/lines")).data.lines;
     expect(lines).toHaveLength(SEED_LINES.length);
     expect(lines[0]).toHaveProperty("weight");
+  });
+
+  it("health ?check=claude reports why Claude does not answer, never the key, and is capped", async () => {
+    const llm = { ...fakeLlm(), check: vi.fn(async () => ({ ok: false, error: "401 invalid x-api-key" })) } as Llm;
+    const { call } = await testContext({ llm });
+    expect((await call("GET", "/api/health")).data.claudeCheck).toBeUndefined();
+    const health = (await call("GET", "/api/health?check=claude")).data;
+    expect(health.claudeCheck).toEqual({ ok: false, error: "401 invalid x-api-key" });
+    for (let i = 0; i < 30; i++) await call("GET", "/api/health?check=claude");
+    expect((await call("GET", "/api/health?check=claude")).data.claudeCheck.error).toMatch(/limit/);
+  });
+
+  it("errorText masks keys", () => {
+    expect(errorText(new Error("401 bad key sk-ant-api03-abcDEF_123-xyz"))).toBe("401 bad key sk-ant-…");
   });
 
   it("routes the Vercel rewrite form", () => {

@@ -16,7 +16,18 @@ export interface LlmChatParams {
 export interface Llm {
   chat(params: LlmChatParams): Promise<{ text: string; refused: boolean }>;
   json<T>(schema: z.ZodType<T>, system: string, prompt: string, maxTokens?: number): Promise<T | null>;
+  /** One tiny real call: does Claude answer with this key and model? The error text never contains the key. */
+  check?(): Promise<{ ok: boolean; error?: string }>;
 }
+
+/** Error text for logs and the health check – status and API message, the key masked. */
+export function errorText(e: unknown): string {
+  const msg = e instanceof Error ? e.message : String(e);
+  return msg.replace(/sk-ant-[A-Za-z0-9_-]+/g, "sk-ant-…").slice(0, 300);
+}
+
+/** 400 = the request shape (beta, fallbacks, effort) was rejected – worth one plain retry. */
+const isBadRequest = (e: unknown) => (e as { status?: number })?.status === 400;
 
 export function createClaude(config: Config): Llm | null {
   if (!config.anthropicApiKey) return null;
@@ -36,13 +47,22 @@ export function createClaude(config: Config): Llm | null {
         messages: messages.map((m) => ({ role: m.role, content: m.content })),
         ...outputConfig,
       };
-      const res = config.claudeFallbacks
-        ? await client.beta.messages.create({
-            ...params,
-            betas: ["server-side-fallback-2026-07-01"],
-            fallbacks: "default",
-          })
-        : await client.messages.create(params);
+      const plain = () => client.messages.create({ model: params.model, max_tokens: params.max_tokens, system: params.system, messages: params.messages });
+      let res;
+      try {
+        res = config.claudeFallbacks
+          ? await client.beta.messages.create({
+              ...params,
+              betas: ["server-side-fallback-2026-07-01"],
+              fallbacks: "default",
+            })
+          : await client.messages.create(params);
+      } catch (e) {
+        if (!isBadRequest(e)) throw e;
+        // the extras were rejected: answer anyway with the plain request
+        console.error("claude: request rejected, retrying plain", errorText(e));
+        res = await plain();
+      }
       if (res.stop_reason === "refusal") return { text: "", refused: true };
       const text = res.content
         .map((b) => (b.type === "text" ? b.text : ""))
@@ -61,6 +81,15 @@ export function createClaude(config: Config): Llm | null {
       });
       if (res.stop_reason === "refusal") return null;
       return res.parsed_output ?? null;
+    },
+
+    async check() {
+      try {
+        const { text } = await this.chat({ system: "Antworte mit einem Wort.", context: "Healthcheck.", messages: [{ role: "user", content: "Bereit?" }], maxTokens: 16 });
+        return text ? { ok: true } : { ok: false, error: "empty answer" };
+      } catch (e) {
+        return { ok: false, error: errorText(e) };
+      }
     },
   };
 }
