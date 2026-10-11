@@ -18,15 +18,42 @@
     },
     "weekend": {
       "name": "wim hof weekend \u00b7 poland",
-      "description": "thursday to sunday at the wim hof house in poland with paul brinkmann \u00b7 all inclusive \u00b7 november & december",
+      "description": "thursday to sunday at the wim hof house in poland with paul brinkmann \u00b7 all inclusive",
       "amount": 49000,
       "currency": "eur",
       "image": null,
-      "note": "Your place in a Wim Hof weekend in Poland. I will write to you personally to choose your weekend. If none of the dates suits you, you get your money back in full.",
+      "note": "Your place in a Wim Hof weekend in Poland. I will write to you personally with everything you need.",
       "path": "weekends",
       "shipping": false,
       "max_quantity": 4,
-      "label": "people"
+      "label": "people",
+      "dates": [
+        {
+          "id": "2026-11-12",
+          "label": "12 to 15 november 2026",
+          "places": 20
+        },
+        {
+          "id": "2026-11-19",
+          "label": "19 to 22 november 2026",
+          "places": 20
+        },
+        {
+          "id": "2026-11-26",
+          "label": "26 to 29 november 2026",
+          "places": 20
+        },
+        {
+          "id": "2026-12-03",
+          "label": "3 to 6 december 2026",
+          "places": 20
+        },
+        {
+          "id": "2026-12-10",
+          "label": "10 to 13 december 2026",
+          "places": 20
+        }
+      ]
     }
   },
   "max_quantity": 9,

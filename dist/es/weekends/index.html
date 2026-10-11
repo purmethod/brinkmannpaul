@@ -85,6 +85,15 @@
       .error{color:#7a3b2e}
       .pay[aria-disabled="true"]{opacity:.3;pointer-events:none}
       .order .agree{margin:4px 0 18px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .zone input:disabled,.zone input:disabled~span{opacity:.35;cursor:default}
     </style>
   </head>
   <body>
@@ -116,7 +125,13 @@
 
       <h2>fechas</h2>
       <p>llegada el jueves, salida el domingo. grupo reducido, 20 personas como máximo.</p>
-      <p class="note">las fechas exactas de noviembre y diciembre llegarán aquí muy pronto. reserva ahora: te escribo personalmente y eliges tu fin de semana. si ninguna fecha te va bien, te devuelvo el dinero íntegro.</p>
+      <ul class="rows">
+        <li>12 al 15 de noviembre</li>
+        <li>19 al 22 de noviembre</li>
+        <li>26 al 29 de noviembre</li>
+        <li>3 al 6 de diciembre</li>
+        <li>10 al 13 de diciembre</li>
+      </ul>
 
       <h2>precio</h2>
       <p class="price">490 € por persona</p>
@@ -124,9 +139,9 @@
 
       <h2>cómo reservar</h2>
       <ol class="steps">
-        <li>lee las indicaciones de seguridad y reserva tu plaza aquí mismo.</li>
+        <li>elige tu fin de semana, lee las indicaciones de seguridad y reserva tu plaza aquí mismo.</li>
         <li>paga de forma segura en el pago de abajo. tu plaza es tuya al instante.</li>
-        <li>te escribo personalmente y eliges tu fin de semana. nos vemos el jueves en polonia.</li>
+        <li>te escribo personalmente todo lo que necesitas. nos vemos el jueves en polonia.</li>
       </ol>
 
       <h2>seguridad</h2>
@@ -136,8 +151,16 @@
 
       <h2>reservar tu plaza</h2>
       <p class="soon" id="soon">la reserva se abre aquí muy pronto.</p>
-      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
+      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="quedan {n} plazas" data-label-one="queda 1 plaza" data-label-full="completo" data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
         <p class="price"><span data-price></span> por persona</p>
+        <p class="legend">tu fin de semana</p>
+        <div class="zones">
+          <label class="zone"><input type="radio" name="date" value="2026-11-12" /><span class="where">12 al 15 de noviembre</span><span class="how">de jueves a domingo</span><span class="cost" data-left="2026-11-12"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-19" /><span class="where">19 al 22 de noviembre</span><span class="how">de jueves a domingo</span><span class="cost" data-left="2026-11-19"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-26" /><span class="where">26 al 29 de noviembre</span><span class="how">de jueves a domingo</span><span class="cost" data-left="2026-11-26"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-03" /><span class="where">3 al 6 de diciembre</span><span class="how">de jueves a domingo</span><span class="cost" data-left="2026-12-03"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-10" /><span class="where">10 al 13 de diciembre</span><span class="how">de jueves a domingo</span><span class="cost" data-left="2026-12-10"></span></label>
+        </div>
         <div class="buy-row">
           <div class="qty" role="group" aria-label="personas">
             <button type="button" data-step="-1" aria-label="uno menos">−</button>
@@ -149,9 +172,9 @@
         <div class="agree"><input type="checkbox" id="agree" /><label for="agree">he leído las indicaciones de seguridad.</label></div>
         <a class="pay" href="#checkout" role="button">reservar tu plaza</a>
         <p class="note error" role="alert" hidden></p>
-        <a class="back" href="#order" role="button" hidden>cambiar el número de personas</a>
+        <a class="back" href="#order" role="button" hidden>cambiar el fin de semana o el número de personas</a>
         <div class="checkout" id="checkout" hidden></div>
-        <p class="note">tu plaza en un fin de semana wim hof en polonia. si ninguna fecha te va bien, te devuelvo el dinero íntegro.</p>
+        <p class="note">tu plaza en un fin de semana wim hof en polonia. máx. 20 personas por fin de semana.</p>
       </div>
 
       <h2>preguntas</h2>
@@ -172,6 +195,6 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=2" defer></script>
+    <script src="/order.js?v=3" defer></script>
   </body>
 </html>

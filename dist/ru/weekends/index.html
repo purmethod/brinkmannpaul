@@ -85,6 +85,15 @@
       .error{color:#7a3b2e}
       .pay[aria-disabled="true"]{opacity:.3;pointer-events:none}
       .order .agree{margin:4px 0 18px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .zone input:disabled,.zone input:disabled~span{opacity:.35;cursor:default}
     </style>
   </head>
   <body>
@@ -116,7 +125,13 @@
 
       <h2>даты</h2>
       <p>заезд в четверг, отъезд в воскресенье. маленькая группа, не больше 20 человек.</p>
-      <p class="note">точные даты в ноябре и декабре скоро появятся здесь. бронируй сейчас: я напишу тебе лично, и ты выберешь свои выходные. если ни одна дата не подойдёт, ты получишь деньги обратно полностью.</p>
+      <ul class="rows">
+        <li>с 12 по 15 ноября</li>
+        <li>с 19 по 22 ноября</li>
+        <li>с 26 по 29 ноября</li>
+        <li>с 3 по 6 декабря</li>
+        <li>с 10 по 13 декабря</li>
+      </ul>
 
       <h2>цена</h2>
       <p class="price">490 € с человека</p>
@@ -124,9 +139,9 @@
 
       <h2>как забронировать</h2>
       <ol class="steps">
-        <li>прочитай правила безопасности и забронируй место прямо здесь, на странице.</li>
+        <li>выбери свои выходные, прочитай правила безопасности и забронируй место прямо здесь, на странице.</li>
         <li>оплати безопасно в форме оплаты ниже. место сразу твоё.</li>
-        <li>я напишу тебе лично, и ты выберешь свои выходные. увидимся в четверг в польше.</li>
+        <li>я лично напишу тебе всё, что нужно. увидимся в четверг в польше.</li>
       </ol>
 
       <h2>безопасность</h2>
@@ -136,8 +151,16 @@
 
       <h2>забронировать место</h2>
       <p class="soon" id="soon">бронирование скоро откроется здесь.</p>
-      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-wait="минутку" data-label-error="не удалось открыть оплату. попробуй ещё раз через минуту.">
+      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="осталось мест: {n}" data-label-one="осталось 1 место" data-label-full="мест нет" data-label-wait="минутку" data-label-error="не удалось открыть оплату. попробуй ещё раз через минуту.">
         <p class="price"><span data-price></span> с человека</p>
+        <p class="legend">твои выходные</p>
+        <div class="zones">
+          <label class="zone"><input type="radio" name="date" value="2026-11-12" /><span class="where">с 12 по 15 ноября</span><span class="how">с четверга по воскресенье</span><span class="cost" data-left="2026-11-12"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-19" /><span class="where">с 19 по 22 ноября</span><span class="how">с четверга по воскресенье</span><span class="cost" data-left="2026-11-19"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-11-26" /><span class="where">с 26 по 29 ноября</span><span class="how">с четверга по воскресенье</span><span class="cost" data-left="2026-11-26"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-03" /><span class="where">с 3 по 6 декабря</span><span class="how">с четверга по воскресенье</span><span class="cost" data-left="2026-12-03"></span></label>
+          <label class="zone"><input type="radio" name="date" value="2026-12-10" /><span class="where">с 10 по 13 декабря</span><span class="how">с четверга по воскресенье</span><span class="cost" data-left="2026-12-10"></span></label>
+        </div>
         <div class="buy-row">
           <div class="qty" role="group" aria-label="люди">
             <button type="button" data-step="-1" aria-label="на одну меньше">−</button>
@@ -149,9 +172,9 @@
         <div class="agree"><input type="checkbox" id="agree" /><label for="agree">я прочитал(а) правила безопасности.</label></div>
         <a class="pay" href="#checkout" role="button">забронировать место</a>
         <p class="note error" role="alert" hidden></p>
-        <a class="back" href="#order" role="button" hidden>изменить число людей</a>
+        <a class="back" href="#order" role="button" hidden>изменить выходные или число людей</a>
         <div class="checkout" id="checkout" hidden></div>
-        <p class="note">твоё место на выходных wim hof в польше. если ни одна дата не подойдёт, ты получишь деньги обратно полностью.</p>
+        <p class="note">твоё место на выходных wim hof в польше. не больше 20 человек на выходные.</p>
       </div>
 
       <h2>вопросы</h2>
@@ -172,6 +195,6 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский" aria-current="page">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=2" defer></script>
+    <script src="/order.js?v=3" defer></script>
   </body>
 </html>
