@@ -15,6 +15,7 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
   - Darunter „sei der fels in der brandung.“, ein Satz, was die App tut, und der dunkle Button „trag dich für den release ein“.
   - Dann „was die app macht“ in drei Schritten, „warum ich sie gebaut habe“ mit Pauls Text, und eine Release-Karte mit dem Formular.
   - Beim Lesen schwebt der Button unten. Er verschwindet, sobald das Formular zu sehen ist.
+- **Nach dem Eintragen:** In der Release-Karte steht nur noch die Bestätigung, groß. „leave your e-mail“ und das Kleingedruckte verschwinden (Paul: Er hat die E-Mail ja schon hinterlassen).
 - **Startseite:** Die cyclemax-Zeile hat den Link „sign up for the release ↗“ direkt unter dem Leitsatz und noch einmal am Ende.
 
 ## Aktualisierung: neue Rubrik cyclemax.app mit Warteliste (2026-10-11)
