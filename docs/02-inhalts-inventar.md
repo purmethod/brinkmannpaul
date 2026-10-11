@@ -4,6 +4,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: cyclemax als Versicherung für die Beziehung (2026-10-11)
+
+- **Paul:** cyclemax ist kein nettes Extra, sondern eine Versicherung für die Beziehung. Die Alternative ist Streit, Trennung, Scheidung, und eine Scheidung kostet mehr als ein Abo.
+- **Neu:** „cyclemax is the insurance for your relationship. the alternative is arguments, separation, divorce. and a divorce costs more than a lifetime of cyclemax.“ (de: „cyclemax ist die versicherung für deine beziehung …“). Der Satz steht auf der Startseite unter dem Leitsatz der cyclemax-Zeile, vor dem Release-Link, und auf der cyclemax-Seite vor dem Release-Button. Alle sechs Sprachen.
+
 ## Aktualisierung: cyclemax als Release-Seite, Warteliste speichert automatisch (2026-10-11)
 
 - **Paul:** Die Warteliste darf keine E-Mail öffnen, die der Leser selbst abschicken muss. Die Anmeldung soll automatisch gespeichert werden. Die Seite soll wie ein professioneller Release wirken, mit einem Button oben: „trag dich für den release ein“.
