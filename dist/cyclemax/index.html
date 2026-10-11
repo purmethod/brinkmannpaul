@@ -86,7 +86,7 @@
       .join button{display:flex;align-items:center;justify-content:center;min-height:52px;border:0;background:none;box-shadow:inset 0 0 0 1px var(--dark);color:var(--dark);font:14px Arial,Helvetica,sans-serif;letter-spacing:.04em;cursor:pointer}
       .join button[aria-busy="true"]{opacity:.5;pointer-events:none}
       .join .trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0}
-      .done{margin:14px 0 0;font-size:15.5px}
+      .done{margin:14px 0 6px;font-size:19px;line-height:1.45}
       .hero{display:grid;justify-items:center;text-align:center;padding:34px 0 30px;border-bottom:1px solid var(--line)}
       .hero .lead{margin:22px 0 10px}
       .pitch{max-width:26rem;margin:0 0 24px}
@@ -230,6 +230,8 @@
             body: JSON.stringify({ email: email, lang: lang, list: 'cyclemax', company: form.company.value })
           }).then(function (r) {
             if (r.ok) {
+              // Only the confirmation stays: the invitation and the fine print have done their work.
+              [].forEach.call(section.querySelectorAll('p'), function (p) { if (p !== done) p.hidden = true; });
               form.hidden = true;
               done.textContent = d.labelDone;
               done.hidden = false;
