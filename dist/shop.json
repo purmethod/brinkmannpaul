@@ -15,6 +15,18 @@
       "currency": "eur",
       "image": null,
       "note": "Pre-order: your starter ships with the next batch."
+    },
+    "weekend": {
+      "name": "wim hof weekend \u00b7 poland",
+      "description": "thursday to sunday at the wim hof house in poland with paul brinkmann \u00b7 all inclusive \u00b7 november & december",
+      "amount": 49000,
+      "currency": "eur",
+      "image": null,
+      "note": "Your place in a Wim Hof weekend in Poland. I will write to you personally to choose your weekend. If none of the dates suits you, you get your money back in full.",
+      "path": "weekends",
+      "shipping": false,
+      "max_quantity": 4,
+      "label": "people"
     }
   },
   "max_quantity": 9,

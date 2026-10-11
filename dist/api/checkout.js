@@ -1,7 +1,8 @@
 // POST /api/checkout { product, quantity, shipping, lang } → embedded Stripe Checkout
-// Session for a pre-order (skyn, rye). Product, price and shipping rates come from
-// /shop.json; the browser only chooses the product, quantity, shipping zone and the
-// language to come back to.
+// Session for a pre-order (skyn, rye) or a place in a wim hof weekend. Product,
+// price and shipping rates come from /shop.json; the browser only chooses the
+// product, quantity, shipping zone and the language to come back to. A product
+// with "shipping": false (the weekend) is not shipped, so no address is asked.
 const { stripe } = require("./_stripe");
 const shop = require("../shop.json");
 
@@ -19,7 +20,9 @@ module.exports = async (req, res) => {
   const id = Object.prototype.hasOwnProperty.call(shop.products, body.product) ? body.product : "skyn";
   const p = shop.products[id];
   if (!Number.isInteger(p.amount) || p.amount <= 0) return res.status(503).json({ error: "No price set yet" });
-  const qty = Math.min(shop.max_quantity, Math.max(1, parseInt(body.quantity, 10) || 1));
+  const max = p.max_quantity || shop.max_quantity;
+  const qty = Math.min(max, Math.max(1, parseInt(body.quantity, 10) || 1));
+  const ships = p.shipping !== false;
   const zone = shop.shipping.find((z) => z.id === body.shipping) || shop.shipping[0];
   const lang = LANGS.includes(body.lang) ? `${body.lang}/` : "";
   const origin = `https://${req.headers["x-forwarded-host"] || req.headers.host}`;
@@ -29,11 +32,11 @@ module.exports = async (req, res) => {
       ui_mode: "embedded",
       mode: "payment",
       locale: "auto",
-      return_url: `${origin}/${lang}${id}/thanks/?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}/${lang}${p.path || id}/thanks/?session_id={CHECKOUT_SESSION_ID}`,
       line_items: {
         0: {
           quantity: qty,
-          adjustable_quantity: { enabled: true, minimum: 1, maximum: shop.max_quantity },
+          adjustable_quantity: { enabled: true, minimum: 1, maximum: max },
           price_data: {
             currency: p.currency,
             unit_amount: p.amount,
@@ -45,8 +48,8 @@ module.exports = async (req, res) => {
           },
         },
       },
-      shipping_address_collection: { allowed_countries: Object.fromEntries(zone.countries.map((c, i) => [i, c])) },
-      shipping_options: {
+      shipping_address_collection: ships ? { allowed_countries: Object.fromEntries(zone.countries.map((c, i) => [i, c])) } : undefined,
+      shipping_options: ships ? {
         0: {
           shipping_rate_data: {
             type: "fixed_amount",
@@ -54,10 +57,10 @@ module.exports = async (req, res) => {
             fixed_amount: { amount: zone.amount, currency: p.currency },
           },
         },
-      },
+      } : undefined,
       custom_text: { submit: { message: p.note } },
       phone_number_collection: { enabled: true },
-      metadata: { product: id, shipping_zone: zone.id, pre_order: "yes" },
+      metadata: ships ? { product: id, shipping_zone: zone.id, pre_order: "yes" } : { product: id, places: String(qty) },
     });
     res.status(200).json({ clientSecret: session.client_secret });
   } catch (err) {

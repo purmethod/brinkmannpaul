@@ -194,8 +194,10 @@ for (const lang of LANGS) {
 const weekends = fs.readFileSync(path.join(root, 'dist/weekends/index.html'), 'utf8');
 assert.ok(html.includes('<a href="weekends/">'), 'the wim hof row links to the booking page');
 assert.ok(weekends.includes('490 € per person'), 'weekends: price shown');
-assert.ok(weekends.indexOf('id="agree"') < weekends.indexOf('class="request"'), 'weekends: safety notes come before the requests');
-assert.ok(weekends.includes('href="https://wa.me/491756257788"') && weekends.includes('mailto:brinkmannbuild@gmail.com'), 'weekends: requests by whatsapp and e-mail');
+assert.ok(weekends.includes('data-product="weekend"') && weekends.includes('src="/order.js'), 'weekends: booked and paid on the page through the embedded stripe checkout');
+assert.ok(weekends.includes('data-agree="agree"') && weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('class="pay"'), 'weekends: paying waits for the safety notes, which come first');
+assert.ok(!weekends.includes('class="request"'), 'weekends: no booking by request any more');
+assert.ok(fs.existsSync(path.join(root, 'dist', 'weekends', 'thanks', 'index.html')), 'weekends: thank-you page');
 pages.push(['dist', weekends]);
 for (const lang of LANGS) {
   const file = path.join(root, 'dist', lang, 'weekends', 'index.html');
@@ -205,6 +207,7 @@ for (const lang of LANGS) {
   assert.ok(new RegExp(`href="/${lang}/weekends/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} weekends marked in the selector`);
   assert.ok(page.includes(`href="/${lang}/#wim-hof-weekends"`), `${lang} weekends closes back to its own language`);
   assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/weekends/">`), `${lang} row links to its weekends page`);
+  assert.ok(fs.existsSync(path.join(root, 'dist', lang, 'weekends', 'thanks', 'index.html')), `${lang} weekends thank-you page`);
   pages.push(['dist', page]);
 }
 
@@ -217,6 +220,8 @@ assert.ok(orderJs.includes("fetch('/api/checkout'") && orderJs.includes("fetch('
 for (const api of ['_stripe', 'checkout', 'shop', 'session-status']) new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', api + '.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: api + '.js' });
 const shopJson = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json'), 'utf8'));
 assert.ok(shopJson.shipping.length, 'shop.json has shipping zones');
+const weekend = shopJson.products.weekend;
+assert.ok(weekend && weekend.amount === 49000 && weekend.shipping === false && weekend.path === 'weekends', 'shop.json: the weekend, 490 € per person, not shipped, thanks under weekends/');
 for (const product of ['skyn', 'rye']) {
   const source = fs.readFileSync(path.join(root, 'dist', product, 'index.html'), 'utf8');
   const p = shopJson.products[product];
@@ -292,4 +297,4 @@ assert.equal(locs.length, 30, 'sitemap lists home, weekends, skyn, rye and cycle
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 10 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking page, skyn and rye pre-order pages, cyclemax waitlist, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 10 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax waitlist, local assets, og image, robots and sitemap.');
