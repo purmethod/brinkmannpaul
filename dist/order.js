@@ -1,7 +1,8 @@
-// Pre-order pages (skyn, rye): the order opens once the product has a price and
-// the stripe key is set (/api/shop). Payment stays on the page with stripe's
-// embedded checkout, as on souralf.com. The product is the order block's
-// data-product.
+// Order pages (skyn, rye, the wim hof weekends): the order opens once the product
+// has a price and the stripe key is set (/api/shop). Payment stays on the page
+// with stripe's embedded checkout, as on souralf.com. The product is the order
+// block's data-product; a product without shipping (the weekend) has no zones.
+// With data-agree, paying waits until that checkbox (the safety notes) is ticked.
 (function () {
   var order = document.getElementById('order');
   var soon = document.getElementById('soon');
@@ -24,8 +25,14 @@
     var shop = state.shop;
     var zone = shop.shipping.filter(function (z) { return z.id === state.zone; })[0] || shop.shipping[0];
     order.querySelector('output').textContent = String(state.qty);
-    order.querySelector('[data-total]').textContent = money(shop.amount * state.qty + zone.amount, shop.currency);
+    order.querySelector('[data-total]').textContent = money(shop.amount * state.qty + (zone ? zone.amount : 0), shop.currency);
   }
+  var agree = order.dataset.agree && document.getElementById(order.dataset.agree);
+  function agreed() {
+    if (agree) pay.setAttribute('aria-disabled', String(!agree.checked));
+    return !agree || agree.checked;
+  }
+  if (agree) { agree.addEventListener('change', agreed); agreed(); }
   function loadStripe() {
     if (window.Stripe) return Promise.resolve(window.Stripe);
     return new Promise(function (resolve, reject) {
@@ -61,7 +68,7 @@
 
   pay.addEventListener('click', function (event) {
     event.preventDefault();
-    if (pay.getAttribute('aria-busy') === 'true') return;
+    if (pay.getAttribute('aria-busy') === 'true' || !agreed()) return;
     pay.setAttribute('aria-busy', 'true');
     pay.textContent = order.dataset.labelWait;
     error.hidden = true;

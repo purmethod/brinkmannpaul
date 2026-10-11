@@ -4,6 +4,20 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Wim Hof Weekends direkt bezahlen (2026-10-11)
+
+- **Paul:** Die Wim Hof Weekends sollen sich direkt auf der Seite bezahlen lassen, mit der Stripe-Kasse wie bei skyn und rye. Der Stripe-Schlüssel für brinkmannpaul.com ist eingetragen.
+- **Seite `/weekends/`:** Statt Anfrage per E-Mail oder WhatsApp gibt es den Abschnitt „book your place“.
+  - Preis 490 € pro Person, 1 bis 4 Personen, mit Gesamtsumme.
+  - Haken bei „i have read the safety notes.“, erst dann geht der Button „book your place“.
+  - Die Stripe-Kasse öffnet sich eingebettet auf der Seite. Apple Pay und andere Zahlarten erscheinen, sobald sie in Stripe eingeschaltet sind.
+- **Termine:** Die genauen Termine stehen noch nicht fest. Der Text sagt deshalb: Ich schreibe dir persönlich, du wählst dein Wochenende, und passt keiner der Termine, bekommst du dein Geld vollständig zurück. Das ist ein Versprechen von Paul. Sobald die Termine feststehen, kommt eine Terminauswahl dazu.
+- **Danke-Seite `/weekends/thanks/`** in allen Sprachen (noindex). Zeigt die Bestätigung oder, wenn nicht bezahlt wurde, den Hinweis, es noch einmal zu versuchen.
+- **Technik:**
+  - `shop.json` hat jetzt das Produkt `weekend` (49000 Cent, `shipping: false`, `max_quantity: 4`, `path: weekends`).
+  - `/api/checkout` fragt bei Produkten ohne Versand keine Adresse ab. Die Metadaten enthalten Produkt und Anzahl der Plätze.
+  - `order.js` (v=2) kann jetzt Produkte ohne Versand und wartet bei `data-agree` auf den Haken.
+
 ## Aktualisierung: cyclemax als Versicherung für die Beziehung (2026-10-11)
 
 - **Paul:** cyclemax ist kein nettes Extra, sondern eine Versicherung für die Beziehung. Die Alternative ist Streit, Trennung, Scheidung, und eine Scheidung kostet mehr als ein Abo.

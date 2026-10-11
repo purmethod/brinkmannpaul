@@ -58,9 +58,6 @@
       .agree input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border-radius:0;box-shadow:inset 0 0 0 1px var(--dark);cursor:pointer}
       .agree input:checked{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 11.5l3.5 3.5L16.5 7.5' fill='none' stroke='%235c5c56' stroke-width='1.3'/%3E%3C/svg%3E") center/100% no-repeat}
       .agree label{font-size:14px;line-height:1.55;cursor:pointer}
-      .request{display:grid;gap:10px}
-      .request a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 16px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none;transition:opacity 200ms ease}
-      .request a[aria-disabled="true"]{opacity:.3;pointer-events:none}
       footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 32px 24px;font-size:14px;letter-spacing:.04em}
       footer nav{display:flex;gap:8px}
       .contact-links a{display:inline-flex;width:34px;height:34px;box-shadow:inset 0 0 0 1px var(--line)}
@@ -72,6 +69,22 @@
       [dir="rtl"] .head{padding:18px 0 18px 44px}
       [dir="rtl"] .steps li{padding-left:0;padding-right:28px}
       [dir="rtl"] .steps li:before{left:auto;right:0}
+      [hidden]{display:none!important}
+      .soon{color:var(--light)}
+      .order .price{margin:0 0 22px}
+      .buy-row{display:flex;justify-content:space-between;align-items:center;margin:22px 0 16px}
+      .qty{display:flex;align-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+      .qty button{width:44px;height:44px;border:0;background:none;color:var(--dark);font-size:18px;cursor:pointer}
+      .qty output{min-width:28px;text-align:center;font-size:15px}
+      .total{margin:0;font-size:15.5px}
+      .pay{display:flex;align-items:center;justify-content:center;min-height:52px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none}
+      .pay[aria-busy="true"]{opacity:.5;pointer-events:none}
+      .back{display:inline-block;margin:12px 0;font-size:13px;letter-spacing:.035em}
+      .checkout{margin:12px 0 18px}
+      .order .note{margin-top:14px}
+      .error{color:#7a3b2e}
+      .pay[aria-disabled="true"]{opacity:.3;pointer-events:none}
+      .order .agree{margin:4px 0 18px}
     </style>
   </head>
   <body>
@@ -103,7 +116,7 @@
 
       <h2>dates</h2>
       <p>arrive on thursday, leave on sunday. small group, max 20 people.</p>
-      <p class="note">the exact dates in november and december follow here shortly. send your request now and you will be the first to hear.</p>
+      <p class="note">the exact dates in november and december follow here shortly. book now: i write to you personally and you choose your weekend. if none of the dates suits you, you get your money back in full.</p>
 
       <h2>price</h2>
       <p class="price">490 € per person</p>
@@ -111,19 +124,34 @@
 
       <h2>how booking works</h2>
       <ol class="steps">
-        <li>send me your request by e-mail or whatsapp.</li>
-        <li>i confirm your place and send you the payment link.</li>
-        <li>once paid, your place is yours. see you on thursday in poland.</li>
+        <li>read the safety notes and book your place right here on the page.</li>
+        <li>pay securely in the checkout below. your place is yours at once.</li>
+        <li>i write to you personally and you choose your weekend. see you on thursday in poland.</li>
       </ol>
 
       <h2>safety</h2>
       <div class="safety">
         <p>never practise the breathing in or near water, while driving or standing. if you are pregnant, or live with epilepsy, a heart condition or high blood pressure, speak to your doctor first.</p>
       </div>
-      <div class="agree"><input type="checkbox" id="agree" /><label for="agree">i have read the safety notes.</label></div>
-      <div class="request">
-        <a href="mailto:brinkmannbuild@gmail.com?subject=wim%20hof%20weekend">request by e-mail</a>
-        <a href="https://wa.me/491756257788" target="_blank" rel="noreferrer">request on whatsapp</a>
+
+      <h2>book your place</h2>
+      <p class="soon" id="soon">booking opens here shortly.</p>
+      <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-wait="one moment" data-label-error="the checkout could not open. please try again in a moment.">
+        <p class="price"><span data-price></span> per person</p>
+        <div class="buy-row">
+          <div class="qty" role="group" aria-label="people">
+            <button type="button" data-step="-1" aria-label="one less">−</button>
+            <output aria-live="polite">1</output>
+            <button type="button" data-step="1" aria-label="one more">+</button>
+          </div>
+          <p class="total">total <span data-total></span></p>
+        </div>
+        <div class="agree"><input type="checkbox" id="agree" /><label for="agree">i have read the safety notes.</label></div>
+        <a class="pay" href="#checkout" role="button">book your place</a>
+        <p class="note error" role="alert" hidden></p>
+        <a class="back" href="#order" role="button" hidden>change the number of people</a>
+        <div class="checkout" id="checkout" hidden></div>
+        <p class="note">your place in a wim hof weekend in poland. if none of the dates suits you, you get your money back in full.</p>
       </div>
 
       <h2>questions</h2>
@@ -144,17 +172,6 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script>
-      // The requests open once the safety notes are confirmed.
-      (function () {
-        var agree = document.getElementById('agree');
-        var links = document.querySelectorAll('.request a');
-        var update = function () {
-          links.forEach(function (link) { link.setAttribute('aria-disabled', String(!agree.checked)); });
-        };
-        agree.addEventListener('change', update);
-        update();
-      })();
-    </script>
+    <script src="/order.js?v=2" defer></script>
   </body>
 </html>

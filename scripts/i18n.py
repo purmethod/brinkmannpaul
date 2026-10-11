@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the language versions of brinkmannpaul.com from the English page.
 
-dist/index.html and the sub pages in PAGES (weekends, the skyn and rye pre-order pages and their thank-you pages, the cyclemax waitlist)
+dist/index.html and the sub pages in PAGES (the weekends booking page, the skyn and rye pre-order pages, their thank-you pages, the cyclemax waitlist)
 are the sources. i18n/<lang>.json
 maps every English text unit
 (the inner HTML of a paragraph, heading, link or item subtitle, plus the page
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Pages, relative to dist/; each language gets the same pages one folder down.
-PAGES = ['', 'weekends/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/', 'cyclemax/']
+PAGES = ['', 'weekends/', 'weekends/thanks/', 'skyn/', 'skyn/thanks/', 'rye/', 'rye/thanks/', 'cyclemax/']
 I18N = ROOT / 'i18n'
 SITE = 'https://brinkmannpaul.com/'
 LANGS = {
