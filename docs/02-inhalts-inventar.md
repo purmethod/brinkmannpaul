@@ -4,6 +4,18 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: neue Rubrik cyclemax.app mit Warteliste (2026-10-11)
+
+- **Paul:** Neue Rubrik cyclemax.app mit seinen Worten. Der Mann als Fels in der Brandung, emotional führen, gleichwertig aber nicht gleich, 28 Tage gegen 24 Stunden, die App zeigt mit Farben und warnt vor, Revolution im Dating und in Beziehungen. Dazu eine Warteliste, live.
+- **Startseite:** Neue Zeile „cyclemax.app · an app for men · coming soon“ nach pure, mit dem ganzen Text und dem Link „join the waitlist ↗“. Damit sind es zehn Rubriken.
+- **Seite `/cyclemax/`:** Gleiche Bauart wie die rye- und skyn-Seiten: der Text, dann die Warteliste (ein E-Mail-Feld, ein Knopf), dann Fragen per WhatsApp oder E-Mail. Die Seite gibt es in allen sechs Sprachen, und sie steht in der Sitemap (jetzt 30 Seiten).
+- **Warteliste (`/api/waitlist`):** Jede Adresse wird in Stripe als Kunde mit `metadata.waitlist = cyclemax` angelegt, dazu Sprache, Quelle und Datum. Eine Adresse, die schon eingetragen ist, kommt nicht doppelt hinein.
+  - Export: Stripe → Kunden → Filter nach Metadaten.
+  - Bots fängt ein unsichtbares Feld ab.
+- **Ohne `STRIPE_SECRET_KEY`, oder wenn Stripe ausfällt:** Der Knopf öffnet eine fertige E-Mail an brinkmannbuild@gmail.com mit der Adresse. So geht keine Anmeldung verloren.
+- **i18n:** `button` zählt jetzt als Texteinheit, damit auch der Knopf übersetzt wird.
+- **Offen:** Datenschutzerklärung. Wer E-Mails sammelt, muss Zweck, Speicherort (Stripe, USA) und Löschung nennen.
+
 ## Aktualisierung: Foto mit Wim gesund statt fahl (2026-10-10)
 
 - **Paul:** Der Filter beim Foto mit Wim hatte einen grünen, blassen Stich, es muss gesund aussehen.

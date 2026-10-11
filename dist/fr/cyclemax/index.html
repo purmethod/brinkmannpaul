@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="cyclemax.app par paul brinkmann : une application pour les hommes. de simples couleurs montrent où elle en est dans son cycle et te préviennent à l'avance, pour que tu restes le roc dans la tempête. rejoins la liste d'attente." />
+    <title>cyclemax.app · paul brinkmann</title>
+    <link rel="canonical" href="https://brinkmannpaul.com/fr/cyclemax/" />
+    <link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/cyclemax/" />
+    <link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/cyclemax/" />
+    <link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/cyclemax/" />
+    <link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/cyclemax/" />
+    <link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/cyclemax/" />
+    <link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/cyclemax/" />
+    <link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/cyclemax/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="paul brinkmann" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="cyclemax.app · paul brinkmann" />
+    <meta property="og:description" content="cyclemax.app par paul brinkmann : une application pour les hommes. de simples couleurs montrent où elle en est dans son cycle et te préviennent à l'avance, pour que tu restes le roc dans la tempête. rejoins la liste d'attente." />
+    <meta property="og:url" content="https://brinkmannpaul.com/fr/cyclemax/" />
+    <meta property="og:image" content="https://brinkmannpaul.com/assets/og-image.jpg" />
+    <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
+    <style>
+      :root{--dark:#5c5c56;--light:#5f5f59;--line:#cfcfca;--band:min(31rem,calc(100% - 40px))}
+      *{box-sizing:border-box}
+      [hidden]{display:none!important}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;background:#fff;color:var(--dark);font-family:Arial,Helvetica,sans-serif}
+      a{color:inherit}
+      a:focus-visible,input:focus-visible{outline:2px solid var(--dark);outline-offset:3px}
+      .top{display:flex;justify-content:space-between;gap:20px;padding:21px 32px;border-top:2px solid var(--dark);font-size:clamp(11px,3.6vw,14px);letter-spacing:.025em}
+      .top a{text-decoration:none;font-size:clamp(12px,3.9vw,15px);direction:ltr;unicode-bidi:isolate}
+      main{width:var(--band);margin:0 auto;padding:28px 0 40px}
+      .head{position:relative;display:grid;gap:7px;padding:18px 44px 18px 0;border-top:1px solid var(--dark);border-bottom:1px solid var(--dark)}
+      .head h1{margin:0;font-size:clamp(1.3rem,.95rem + 1.1vw,1.85rem);font-weight:400;letter-spacing:-.035em;line-height:1.05}
+      .head .by{font-size:.58em;letter-spacing:.015em}
+      .head p{margin:0;font-size:12px;letter-spacing:.035em;line-height:1.3;color:var(--light)}
+      .shut{position:absolute;right:-14px;top:50%;width:44px;height:44px;margin-top:-22px}
+      .shut:before,.shut:after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;margin:-.5px 0 0 -6px;background:currentColor;transform:rotate(45deg)}
+      .shut:after{transform:rotate(-45deg)}
+      p{font-size:15.5px;line-height:1.72;margin:0 0 1.05em}
+      .lead{margin:30px 0 18px;font-size:19px;line-height:1.45}
+      h2{margin:46px 0 12px;font-size:12px;font-weight:400;letter-spacing:.08em;color:var(--light)}
+      .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+      .rows li{display:flex;align-items:center;min-height:52px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.4}
+      .price{margin:0 0 6px;font-size:19px}
+      .note{font-size:12px;letter-spacing:.035em;line-height:1.7;color:var(--light)}
+      .safety{padding:16px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+      .safety p{font-size:14px;line-height:1.65}
+      footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 32px 24px;font-size:14px;letter-spacing:.04em}
+      footer nav{display:flex;gap:8px}
+      .contact-links a{display:inline-flex;width:34px;height:34px;box-shadow:inset 0 0 0 1px var(--line)}
+      .contact-links svg{width:34px;height:34px;fill:none;stroke:var(--dark);stroke-width:1.1}
+      .footer-langs a{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;box-shadow:inset 0 0 0 1px var(--line);font-size:12px;text-decoration:none}
+      .footer-langs a[aria-current="page"]{box-shadow:inset 0 0 0 1px var(--dark)}
+      @media(max-width:580px){.top{padding-inline:20px}footer{padding-inline:20px}.footer-langs{gap:5px}}
+      [dir="rtl"] .shut{right:auto;left:-14px}
+      [dir="rtl"] .head{padding:18px 0 18px 44px}
+      .soon{color:var(--light)}
+      .order .price{margin:0 0 22px}
+      .legend{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .zones{display:grid;border-top:1px solid var(--line)}
+      .zone{display:grid;grid-template-columns:22px 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+      .zone input{grid-row:1/3;appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--dark)}
+      .zone input:checked{box-shadow:inset 0 0 0 1px var(--dark),inset 0 0 0 4px #fff;background:var(--dark)}
+      .zone .where{font-size:15.5px}
+      .zone .how{grid-column:2;font-size:12px;letter-spacing:.035em;color:var(--light)}
+      .zone .cost{grid-column:3;grid-row:1/3;font-size:14px}
+      .buy-row{display:flex;justify-content:space-between;align-items:center;margin:22px 0 16px}
+      .qty{display:flex;align-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+      .qty button{width:44px;height:44px;border:0;background:none;color:var(--dark);font-size:18px;cursor:pointer}
+      .qty output{min-width:28px;text-align:center;font-size:15px}
+      .total{margin:0;font-size:15.5px}
+      .pay{display:flex;align-items:center;justify-content:center;min-height:52px;box-shadow:inset 0 0 0 1px var(--dark);font-size:14px;letter-spacing:.04em;text-decoration:none}
+      .pay[aria-busy="true"]{opacity:.5;pointer-events:none}
+      .back{display:inline-block;margin:12px 0;font-size:13px;letter-spacing:.035em}
+      .checkout{margin:12px 0 18px}
+      .order .note{margin-top:14px}
+      .error{color:#7a3b2e}
+      .join{display:grid;gap:10px;margin:0 0 6px}
+      .join label{font-size:12px;letter-spacing:.08em;color:var(--light)}
+      .join input[type=email]{width:100%;min-height:52px;padding:0 14px;border:0;border-radius:0;box-shadow:inset 0 0 0 1px var(--line);background:#fff;color:var(--dark);font:15.5px Arial,Helvetica,sans-serif;-webkit-appearance:none;appearance:none}
+      .join input[type=email]:focus{outline:none;box-shadow:inset 0 0 0 1px var(--dark)}
+      .join button{display:flex;align-items:center;justify-content:center;min-height:52px;border:0;background:none;box-shadow:inset 0 0 0 1px var(--dark);color:var(--dark);font:14px Arial,Helvetica,sans-serif;letter-spacing:.04em;cursor:pointer}
+      .join button[aria-busy="true"]{opacity:.5;pointer-events:none}
+      .join .trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0}
+      .done{margin:14px 0 0;font-size:15.5px}
+      .steps{margin:0;padding:0;list-style:none;counter-reset:step}
+      .steps li{counter-increment:step;position:relative;padding-left:28px;margin-bottom:.7em;font-size:15.5px;line-height:1.6}
+      .steps li:before{content:counter(step);position:absolute;left:0;top:2px;font-size:13px;color:var(--light)}
+      [dir="rtl"] .steps li{padding-left:0;padding-right:28px}
+      [dir="rtl"] .steps li:before{left:auto;right:0}
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <a href="/fr/">paul brinkmann, <span>m.sc.</span></a>
+      <span>artiste &amp; architecte</span>
+    </header>
+    <main>
+      <div class="head">
+        <h1>cyclemax.app</h1>
+        <p>une application pour les hommes · bientôt</p>
+        <a class="shut" href="/fr/#cyclemax" aria-label="fermer"></a>
+      </div>
+      <p class="lead">sois le roc dans la tempête.</p>
+      <p>un homme n'a pas besoin d'étudier le cycle d'une femme. il n'a pas besoin de l'analyser ni de le combattre. il doit comprendre une seule chose : il est le roc face aux vagues. ses tempêtes arrivent, et ses tempêtes passent. parfois il pleut, parfois c'est la tempête. il répond avec calme et sérénité.</p>
+      <p>si tu ne comprends pas cela, tu es condamné à te disputer avec chaque femme. vous réagissez tous les deux avec vos émotions, et la dispute finit dans le chaos émotionnel, trop souvent par un divorce. en tant qu'homme, tu dois mener émotionnellement.</p>
+      <p>dans notre société d'aujourd'hui, les hommes oublient qui ils sont. ils oublient de mener. la société essaie de faire des femmes des hommes, et des hommes des femmes. nous avons les mêmes droits, et nous devons être traités comme des égaux. mais nous ne sommes pas pareils.</p>
+      <p>une femme vit dans un cycle d'environ 28 jours. les hormones d'un homme suivent un cycle de 24 heures. une femme est bien plus sensible. nous sommes différents, et c'est bien ainsi.</p>
+      <p>pour que tu apprennes cela, j'ai développé une application. avec de simples couleurs, elle te montre où elle en est dans son cycle et te prévient à l'avance : c'est le moment d'être un homme.</p>
+      <p>tu te tiens dans ton énergie masculine. calme, détendu, présent. et elle peut se détendre auprès de toi et se laisser aller.</p>
+      <p>je veux lancer une révolution. une révolution dans les rencontres et dans les relations : des hommes et des femmes qui vivent ensemble en harmonie, trouvent un grand amour pour la vie et élèvent leurs enfants en paix.</p>
+      <p>des enfants qui ne sont pas traumatisés parce qu'après neuf mois ou trois ans, l'un des deux décide de partir. parce qu'il ne l'aime plus. parce que l'homme est soudain devenu émotif et a perdu sa masculinité.</p>
+      <p>c'est mon but.</p>
+
+      <h2>liste d'attente</h2>
+      <p>bientôt disponible. sois le premier à le savoir.</p>
+      <form class="join" id="join" novalidate data-label-done="tu es sur la liste. merci." data-label-wait="un instant" data-label-invalid="merci de saisir un e-mail valide." data-label-error="ça n'a pas fonctionné. réessaie dans un instant." data-label-subject="liste d'attente cyclemax" data-label-body="ajoute-moi à la liste d'attente cyclemax, s'il te plaît.">
+        <label for="email">ton e-mail</label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
+        <span class="trap" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
+        <button type="submit">rejoindre la liste d'attente</button>
+      </form>
+      <p class="done" id="done" role="status" hidden></p>
+      <p class="note error" id="join-error" role="alert" hidden></p>
+      <p class="note">un e-mail quand cyclemax sera lancé. rien d'autre. écris-moi et je te retire aussitôt.</p>
+
+      <h2>questions</h2>
+      <p>écris-moi sur whatsapp ou par e-mail, je réponds personnellement.</p>
+    </main>
+    <footer>
+      <nav class="contact-links" aria-label="contact">
+        <a href="mailto:brinkmannbuild@gmail.com" aria-label="e-mail"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="10" y="12.5" width="20" height="15" rx="1.5"/><path d="M11 13.5l9 6.7 9-6.7"/></svg></a>
+        <a href="https://wa.me/491756257788" target="_blank" rel="noreferrer" aria-label="whatsapp"><svg viewBox="0 0 40 40" aria-hidden="true"><g transform="translate(20 20) scale(1.033) translate(-12 -12)"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9"/><path d="M9 10a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></g></svg></a>
+        <a href="https://www.instagram.com/buildpaul/" target="_blank" rel="noreferrer" aria-label="instagram"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="10.7" y="10.7" width="18.6" height="18.6" rx="5.2"/><circle cx="20" cy="20" r="4.2"/><circle cx="25.6" cy="14.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      </nav>
+      <nav class="footer-langs" aria-label="langue">
+        <a href="/cyclemax/" hreflang="en" lang="en" aria-label="english">en</a>
+        <a href="/de/cyclemax/" hreflang="de" lang="de" aria-label="deutsch">de</a>
+        <a href="/fr/cyclemax/" hreflang="fr" lang="fr" aria-label="français" aria-current="page">fr</a>
+        <a href="/es/cyclemax/" hreflang="es" lang="es" aria-label="español">es</a>
+        <a href="/ar/cyclemax/" hreflang="ar" lang="ar" aria-label="العربية">ع</a>
+        <a href="/ru/cyclemax/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
+      </nav>
+    </footer>
+    <script>
+      // The waitlist: the address goes to /api/waitlist. Until that is ready,
+      // the visitor's own mail app opens with the sign-up written for them,
+      // so no one who wants in is lost.
+      (function () {
+        var form = document.getElementById('join');
+        if (!form || !window.fetch) return;
+        var done = document.getElementById('done');
+        var error = document.getElementById('join-error');
+        var button = form.querySelector('button');
+        var label = button.textContent;
+        var lang = document.documentElement.lang || 'en';
+        var d = form.dataset;
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var email = form.email.value.trim();
+          error.hidden = true;
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            error.textContent = d.labelInvalid;
+            error.hidden = false;
+            form.email.focus();
+            return;
+          }
+          button.setAttribute('aria-busy', 'true');
+          button.textContent = d.labelWait;
+          fetch('/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, lang: lang, list: 'cyclemax', company: form.company.value })
+          }).then(function (r) {
+            if (r.ok) {
+              form.hidden = true;
+              done.textContent = d.labelDone;
+              done.hidden = false;
+            } else if (r.status === 400) {
+              error.textContent = d.labelInvalid;
+              error.hidden = false;
+            } else {
+              // Not ready yet, or stripe is down: the sign-up goes by e-mail instead.
+              location.href = 'mailto:brinkmannbuild@gmail.com?subject=' + encodeURIComponent(d.labelSubject) + '&body=' + encodeURIComponent(d.labelBody + '\n\n' + email);
+            }
+          }).catch(function () {
+            error.textContent = d.labelError;
+            error.hidden = false;
+          }).then(function () {
+            button.removeAttribute('aria-busy');
+            button.textContent = label;
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
