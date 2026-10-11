@@ -50,6 +50,26 @@ jobs:
         run: |
           vercel project add "$VERCEL_PROJECT" --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" || echo "project exists"
           vercel link --yes --team "$VERCEL_SCOPE" --project "$VERCEL_PROJECT" --token "$VERCEL_TOKEN"
+      - name: Server secrets (generated once when missing, values never printed)
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          names=$(vercel env ls production --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" 2>/dev/null | awk 'NR>2 {print $1}' || true)
+          has() { echo "$names" | grep -qx "$1"; }
+          add() { printf '%s' "$2" | vercel env add "$1" production --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" >/dev/null && echo "generated $1" || echo "::warning::could not add $1 (already there?)"; }
+          drop() { has "$1" && vercel env rm "$1" production --yes --scope "$VERCEL_SCOPE" --token "$VERCEL_TOKEN" >/dev/null || true; }
+          # CRON_SECRET: vercel sends it with every cron call, the server refuses crons without it
+          if has CRON_SECRET; then echo "keep CRON_SECRET"; else
+            cron=$(openssl rand -hex 32); echo "::add-mask::$cron"; add CRON_SECRET "$cron"
+          fi
+          # VAPID keys for web push – kept once they exist, so subscriptions stay valid
+          if has VAPID_PUBLIC_KEY && has VAPID_PRIVATE_KEY; then echo "keep VAPID keys"; else
+            keys=$(npx -y web-push@3.6.7 generate-vapid-keys --json)
+            priv=$(printf '%s' "$keys" | node -e 'process.stdout.write(JSON.parse(require("fs").readFileSync(0,"utf8")).privateKey)')
+            echo "::add-mask::$priv"
+            pub=$(printf '%s' "$keys" | node -e 'process.stdout.write(JSON.parse(require("fs").readFileSync(0,"utf8")).publicKey)')
+            drop VAPID_PUBLIC_KEY; drop VAPID_PRIVATE_KEY
+            add VAPID_PUBLIC_KEY "$pub"; add VAPID_PRIVATE_KEY "$priv"
+          fi
       - name: Deploy to production
         if: steps.secret.outputs.ok == 'true'
         run: |
