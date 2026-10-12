@@ -881,3 +881,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Nur „because he no longer loves her.“ und die entsprechenden Sätze in den fünf Übersetzungen entfernt. Restlicher Text und Gestaltung unverändert.
 - Source-Review; keine Tests, Builds oder Vorschauen.
 
+## Issue #148 — Restplätze nicht mehr anzeigen (2026-10-12)
+
+- Bei den Weekend-Terminen keine öffentliche Anzeige „20 places left“ oder anderer Restplatz-Zahlen mehr. Nur ausgebuchte Termine behalten ihren Hinweis.
+- Interne Zählung, Mengenbegrenzung, Sperre ausgebuchter Termine und serverseitige Checkout-Prüfung unverändert. Alle sechs Weekend-Sprachseiten auf die neue Skriptversion gesetzt.
+- Source-Review; keine Tests, Builds, Screenshots oder Vorschauen.
+
