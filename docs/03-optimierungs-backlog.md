@@ -872,5 +872,5 @@ Status: umgesetzt; unabhängiger Agenten-Code-Review im zugehörigen PR, Veröff
 
 - „coming soon“ unter der vorhandenen Wortmarke; Position, Größe, Farbe und Animation des Logos erhalten.
 - Start-Button durch ein nicht interaktives div ersetzt; Router und Klicknavigation entfernt. Kein Fokusziel und keine Aktivierung per Tastatur.
-- Änderungen ausschließlich an der Cyclemax-Startseite und diesem Backlog.
+- App-Änderung ausschließlich an der Cyclemax-Startseite; bestehende E2E-Erwartung und Onboarding-Testhelfer an die absichtlich entfernte Startnavigation angepasst.
 - Credit-Saving: keine lokalen Builds, Tests, Screenshots oder Browser-Previews ausgeführt. Bestehende CI bleibt unverändert.

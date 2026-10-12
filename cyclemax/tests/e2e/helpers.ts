@@ -2,10 +2,9 @@ import { expect, type Page } from "@playwright/test";
 
 export const API = "http://localhost:8787";
 
-/** Start screen → onboarding. `daysAgo` = first day of her last bleeding (relationship only). */
+/** Enter onboarding directly while the start screen is coming soon. `daysAgo` = first day of her last bleeding (relationship only). */
 export async function onboard(page: Page, mode: "relationship" | "single", daysAgo = 2) {
-  await page.goto("/");
-  await page.getByTestId("start-ring").click();
+  await page.goto("/onboarding/");
   await expect(page).toHaveURL(/\/onboarding\/$/);
   await expect(page.getByRole("heading", { name: "Sei der Fels in der Brandung." })).toBeVisible();
   await page.getByRole("button", { name: "Weiter" }).click();

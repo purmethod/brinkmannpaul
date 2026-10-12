@@ -175,12 +175,14 @@ test("Offline-Start und Offline-Chat aus der Wissensbasis", async ({ page, conte
   await context.setOffline(false);
 });
 
-test("Startseite: nur der Ring und CYCLEMAX", async ({ page }) => {
+test("Startseite: Ring, CYCLEMAX und coming soon ohne Navigation", async ({ page }) => {
   await page.goto("/");
   const start = page.getByTestId("start-ring");
   await expect(start).toBeVisible();
-  await expect(page.locator("main")).toHaveText(/^\s*Cyclemax\s*$/i);
-  await expect(page.locator("main button")).toHaveCount(1);
+  await expect(page.locator("main")).toHaveText(/^\s*Cyclemax\s*coming soon\s*$/i);
+  await expect(page.locator("main button, main a, main [role=button], main [tabindex]")).toHaveCount(0);
+  await start.click();
+  await expect(page).toHaveURL(/\/$/);
 });
 
 test("Vorschau: einen Tag vor Standfest kommt der Hinweis", async ({ page }) => {
