@@ -870,3 +870,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Bestehende Texte und Release-Anmeldung unverändert. Alle sechs Startseiten über den bestehenden Übersetzungs-Generator aktualisiert.
 - Keine Tests, Screenshots, Vorschauen oder lokalen Builds gemäß Credit-Sparmodus. Unabhängiger Source-Review im PR.
 
+## Issue #144 — Vollständiges Cyclemax-Logo rechts (2026-10-12)
+
+- Schwarzer Ring und CYCLEMAX-Wortmarke gemeinsam in einem 104-px-App-Symbol rechts neben der bestehenden Release-Anmeldung. Wortmarke näher an den Ring gerückt; separaten Domaintext entfernt.
+- Originalschrift anhand des Cyclemax-Quellcodes: Inter Variable, Gewicht 500, Laufweite .42em. SVG-Glyphen aus dem Originalfont als Pfade übernommen; keine zusätzliche Website-Schrift und keine Änderungen an cyclemax.app.
+- Logo führt weiterhin zu cyclemax.app, Release-Anmeldung unverändert zur eigenen Anmeldeseite. Alle Sprachversionen generiert. Source-Review ohne Tests, Builds oder Vorschauen.
+

@@ -144,7 +144,9 @@
 /* Project names read in their own script: latin names stay in order, Arabic names stay right to left. */
 [dir="rtl"] #site-page .bs-name,[dir="rtl"] #site-page .bs-reader-title,[dir="rtl"] #site-page .item-name{unicode-bidi:plaintext;text-align:right}
 [lang="ar"] body *{letter-spacing:0!important}
-#site-page .item-content .cyclemax-app-link{display:inline-flex;align-items:center;gap:12px;min-height:52px;margin:0 0 24px;font-size:14px;letter-spacing:.025em;text-decoration:none}
-#site-page .cyclemax-app-link::before{content:"";display:block;flex:0 0 48px;width:48px;height:48px;border:1px solid var(--tone-line,#cfcfca);border-radius:11px;background:radial-gradient(circle at center,transparent 0 10px,#101010 10px 13px,transparent 13px),#fff}
-#site-page .cyclemax-app-link::after{content:"↗";font-size:14px}
+#site-page .cyclemax-release-row{display:grid;grid-template-columns:minmax(0,1fr) 104px;align-items:center;gap:20px;margin:20px 0 28px;direction:ltr}
+#site-page .item-content .cyclemax-release-row p{margin:0}
+#site-page .item-content .cyclemax-app-link{display:block;justify-self:end;width:104px;min-height:104px;margin:0;border:1px solid var(--tone-line,#cfcfca);border-radius:22px;background:#fff;overflow:hidden;text-decoration:none}
+#site-page .cyclemax-app-link img{display:block;width:100%;height:auto;max-width:none}
+[dir="rtl"] #site-page .cyclemax-release-row p{direction:rtl}
 #site-page .cyclemax-app-link:focus-visible{outline:2px solid currentColor;outline-offset:5px}
