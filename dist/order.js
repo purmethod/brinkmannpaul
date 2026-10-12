@@ -2,8 +2,8 @@
 // has a price and the stripe key is set (/api/shop). Payment stays on the page
 // with stripe's embedded checkout, as on souralf.com. The product is the order
 // block's data-product; a product without shipping (the weekend) has no zones.
-// A product with dates (the weekend) shows the places left on each date and
-// sells no more than that. With data-agree, paying waits until that checkbox
+// A product with dates (the weekend) keeps remaining places for quantity limits,
+// but only displays sold-out status. With data-agree, paying waits until that checkbox
 // (the safety notes) is ticked.
 (function () {
   var order = document.getElementById('order');
@@ -69,7 +69,7 @@
       var left = order.querySelector('[data-left="' + d.id + '"]');
       if (!radio) return;
       radio.disabled = d.left === 0;
-      if (left && d.left !== null) left.textContent = d.left === 0 ? order.dataset.labelFull : d.left === 1 ? order.dataset.labelOne : order.dataset.labelLeft.replace('{n}', d.left);
+      if (left) left.textContent = d.left === 0 ? order.dataset.labelFull : '';
       if (!state.date && d.left !== 0) { radio.checked = true; state.date = d.id; }
       radio.addEventListener('change', function () { state.date = d.id; update(); agreed(); });
     });
