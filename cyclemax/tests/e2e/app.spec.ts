@@ -182,7 +182,7 @@ test("Startseite: Ring, CYCLEMAX und coming soon ohne Navigation", async ({ page
   await expect(page.locator("main")).toHaveText(/^\s*Cyclemax\s*coming soon\s*$/i);
   await expect(page.locator("main button, main a, main [role=button], main [tabindex]")).toHaveCount(0);
   await start.click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL((url) => url.pathname === "/");
 });
 
 test("Vorschau: einen Tag vor Standfest kommt der Hinweis", async ({ page }) => {
