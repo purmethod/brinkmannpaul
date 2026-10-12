@@ -864,3 +864,13 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
   - **Helligkeit:** Keine harten Sprünge, alle Übergänge sind Rampen über etwa 0,3 Tiefe. Die Naht zum nächsten Gehirn misst 0,02 Helligkeitsstufen.
   - **Interaktion:** 49 von 49 bestanden.
   - **Seiten-Test:** `test-site` bestanden.
+
+
+## Issue #138 — Cyclemax coming soon (2026-10-12)
+
+Status: umgesetzt; unabhängiger Agenten-Code-Review im zugehörigen PR, Veröffentlichung über den bestehenden cyclemax-web-Workflow.
+
+- „coming soon“ unter der vorhandenen Wortmarke; Position, Größe, Farbe und Animation des Logos erhalten.
+- Start-Button durch ein nicht interaktives div ersetzt; Router und Klicknavigation entfernt. Kein Fokusziel und keine Aktivierung per Tastatur.
+- Änderungen ausschließlich an der Cyclemax-Startseite und diesem Backlog.
+- Credit-Saving: keine lokalen Builds, Tests, Screenshots oder Browser-Previews ausgeführt. Bestehende CI bleibt unverändert.
