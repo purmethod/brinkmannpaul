@@ -874,3 +874,14 @@ Status: umgesetzt; unabhängiger Agenten-Code-Review im zugehörigen PR, Veröff
 - Start-Button durch ein nicht interaktives div ersetzt; Router und Klicknavigation entfernt. Kein Fokusziel und keine Aktivierung per Tastatur.
 - App-Änderung ausschließlich an der Cyclemax-Startseite; bestehende E2E-Erwartung und Onboarding-Testhelfer an die absichtlich entfernte Startnavigation angepasst.
 - Credit-Saving: keine lokalen Builds, Tests, Screenshots oder Browser-Previews ausgeführt. Bestehende CI bleibt unverändert.
+
+
+## Issue #140 — Cyclemax fließender Vierfarben-Ring (2026-10-12)
+
+Status: umgesetzt; unabhängiger Agenten-Code-Review vor Veröffentlichung über den bestehenden cyclemax-web-Workflow.
+
+- Nur der Startseiten-Ring erhält einen nahtlos umlaufenden Verlauf: Rot → Gelb → Grün → Pink → Rot, mit den vorhandenen Markenfarben.
+- Eine ruhige Umdrehung dauert 12 Sekunden. Die CSS-Maske übernimmt die Kreisgeometrie aus `Logo.tsx` exakt (140er ViewBox, Mittelpunkt 70/70, Radius 40, Strichstärke 9) bei unverändertem 168px-Layout.
+- Wortmarke, „coming soon“, Position, Hintergrund und fehlende Klicknavigation bleiben erhalten. Andere App-Logos und der Ladebildschirm bleiben unverändert.
+- Bei `prefers-reduced-motion: reduce` bleibt der Vierfarben-Verlauf statisch. Keine neuen Abhängigkeiten.
+- Credit-Saving: Quellcode-Diff und unabhängiger Agentenreview; keine lokalen Builds, Tests, Screenshots oder Browser-Previews. Paketlokale Next.js-Dokumentation ist hier nicht vorhanden; die offizielle aktuelle CSS-Anleitung wurde herangezogen.
