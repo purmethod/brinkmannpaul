@@ -864,3 +864,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
   - **Helligkeit:** Keine harten Sprünge, alle Übergänge sind Rampen über etwa 0,3 Tiefe. Die Naht zum nächsten Gehirn misst 0,02 Helligkeitsstufen.
   - **Interaktion:** 49 von 49 bestanden.
   - **Seiten-Test:** `test-site` bestanden.
+# Issue #142 — Cyclemax-App verlinkt (2026-10-12)
+
+- Direkter Link zu https://cyclemax.app/ innerhalb der Cyclemax-Rubrik, mit kleinem App-Symbol und schwarzem Ring auf weißem Grund.
+- Bestehende Texte und Release-Anmeldung unverändert. Alle sechs Startseiten über den bestehenden Übersetzungs-Generator aktualisiert.
+- Keine Tests, Screenshots, Vorschauen oder lokalen Builds gemäß Credit-Sparmodus. Unabhängiger Source-Review im PR.
+
