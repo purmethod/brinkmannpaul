@@ -14,26 +14,40 @@
   let still = false;
   let loadTimer;
   let touchStart = null;
+  let portraitReady = false;
+  let playAttempt = 0;
+  let suspended = false;
 
   function showStill() {
     window.clearTimeout(loadTimer);
     still = true;
+    playAttempt += 1;
     gate.classList.add("is-complete");
     animation.pause();
   }
 
   function play() {
-    if (still || left) return;
+    if (still || left || !portraitReady || document.hidden || suspended) return;
+    armFallback();
     animation.playbackRate = 1.25;
+    const attempt = ++playAttempt;
     const playing = animation.play();
-    if (playing) playing.catch(showStill);
+    if (playing) playing.catch(error => {
+      if (attempt !== playAttempt || error?.name === 'AbortError') return;
+      if (open && !document.hidden && !suspended) showStill();
+    });
+  }
+
+  function armFallback() {
+    window.clearTimeout(loadTimer);
+    if (open && !still && !document.hidden && !suspended) loadTimer = window.setTimeout(showStill, 10000);
   }
 
   // The signature is written over the portrait, so it starts once the
   // portrait is there. Started by the browser on its own, a phone on a slow
   // line showed the name half written before the photo had arrived.
   function whenPortrait(then) {
-    if (!portrait || (portrait.complete && portrait.naturalWidth)) {
+    if (!portrait || portrait.complete) {
       then();
       return;
     }
@@ -119,15 +133,24 @@
     showStill();
     return;
   }
-  // Without a first frame within 10 s, the finished signature shows instead.
-  loadTimer = window.setTimeout(showStill, 10000);
-  animation.addEventListener("playing", () => window.clearTimeout(loadTimer), { once: true });
+  // Recover from a stalled connection both before and after the first frame.
+  armFallback();
+  animation.addEventListener("playing", () => window.clearTimeout(loadTimer));
+  animation.addEventListener("waiting", armFallback);
+  animation.addEventListener("stalled", () => { if (animation.readyState < 3) armFallback(); });
   animation.addEventListener("ended", showStill, { once: true });
   // A failed <source> reports its error on the <source> element, not on <video>.
   animation.addEventListener("error", showStill, { once: true });
   source?.addEventListener("error", showStill, { once: true });
+  const pause = () => { playAttempt += 1; window.clearTimeout(loadTimer); animation.pause(); };
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) pause();
+    else if (open && !still) { armFallback(); play(); }
+  });
+  window.addEventListener("pagehide", () => { suspended = true; pause(); });
+  window.addEventListener("pageshow", () => { suspended = false; if (open && !still) { armFallback(); play(); } });
   // play() itself loads the clip: iOS does not preload a video it was not
   // asked to play, and muted inline video may play without a tap.
   if (!animation.canPlayType('video/mp4; codecs="avc1.42E01E"')) showStill();
-  else whenPortrait(play);
+  else whenPortrait(() => { portraitReady = true; play(); });
 })();

@@ -50,10 +50,15 @@
   const art = root && root.querySelector('.bs-art');
   const macroImage = art && art.querySelector('.bs-macro img');
   const main = document.getElementById('main-content');
+  const clips = list ? [...list.querySelectorAll('video[data-src]')] : [];
   const supported = list && section && art && macroImage && !root.dataset.ready &&
     window.ResizeObserver && window.Path2D && window.requestAnimationFrame &&
     typeof HTMLDialogElement === 'function' && typeof HTMLDialogElement.prototype.showModal === 'function';
-  if (!supported) return;
+  if (!supported) { manageClips(clips); return; }
+  // Keep the ordinary project list if canvas allocation is unavailable.
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d', { alpha: false });
+  if (!context) { manageClips(clips); return; }
   const details = Array.from(list.querySelectorAll(':scope > details.project-item'));
   if (!details.length) return;
   root.dataset.ready = 'true';
@@ -192,7 +197,7 @@
 
   /* ---------- background dive ---------- */
 
-  const dive = createDive(art, macroImage);
+  const dive = createDive(art, macroImage, canvas, context);
 
   /* ---------- wheel ---------- */
 
@@ -220,12 +225,15 @@
   let pushed = false;
   let closeTimer = 0;
   let aim = null; // row a glide is heading to; repeated keys add up
+  const nativeScrollEnd = 'onscrollend' in scroller;
+  const media = manageClips(clips, readerScroll, () => reading >= 0);
 
   const position = () => (scroller.scrollTop - offset) / rowHeight;
 
   function measure() {
     const height = scroller.clientHeight;
     if (!height) return;
+    readScroll();
     const keep = started ? position() : MIDDLE * count;
     rowHeight = Math.round(clamp(height * 0.086, 60, 84));
     root.style.setProperty('--row', `${rowHeight}px`);
@@ -238,7 +246,9 @@
     runway.style.paddingTop = `${pad}px`;
     runway.style.paddingBottom = `${height - rowHeight - pad}px`;
     offset = pad + rowHeight / 2 - height / 2;
-    quiet(keep * rowHeight + offset);
+    // The size change can trigger browser scroll anchoring/snapping. Its
+    // adjustment is layout, not another turn of the wheel.
+    quiet(keep * rowHeight + offset, false);
     detent = Math.round(position());
     started = true;
     lastPosition = NaN;
@@ -249,8 +259,8 @@
   }
 
   // Programmatic jumps (resize, recentering) never count as turning.
-  function quiet(top) {
-    readScroll();
+  function quiet(top, capture = true) {
+    if (capture) readScroll();
     const before = scroller.scrollTop;
     scroller.scrollTop = top;
     previous = scroller.scrollTop;
@@ -330,12 +340,12 @@
   }
 
   function schedule() {
-    if (!frame) frame = requestAnimationFrame(tick);
+    if (!frame && !document.hidden) frame = requestAnimationFrame(tick);
   }
 
   function tick(now) {
     frame = 0;
-    if (!root.isConnected) return;
+    if (!root.isConnected || document.hidden) { clock = 0; return; }
     const elapsed = clock ? clamp(now - clock, 1, 64) : 16.7;
     clock = now;
     if (!rowHeight) return;
@@ -348,7 +358,7 @@
     }
     // Reduced motion removes the easing, not the zoom: it follows the
     // wheel the visitor turns by hand.
-    eased = reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 420));
+    eased = reading >= 0 ? eased : reduced.matches ? travel : eased + (travel - eased) * (1 - Math.exp(-elapsed / 280));
     if (Math.abs(travel - eased) < 0.0005) eased = travel;
     // Deep in the universe nothing stands quite still: it floats on by
     // itself, except while a text is read or motion is reduced. The brain the
@@ -357,17 +367,13 @@
     if (floating) drift += elapsed * DRIFT;
     dive.draw(depthAt(eased) + drift);
     paint(dive.veil);
-    if (pos !== lastPosition) {
-      layoutWheel(pos);
-      lastPosition = pos;
-    }
-    if (eased !== travel || floating || dive.arriving) schedule();
+    if ((reading < 0 && eased !== travel) || floating || dive.arriving) schedule();
     else clock = 0;
   }
 
   function settle() {
-    aim = null;
     if (touching || reading >= 0 || !rowHeight) return;
+    aim = null;
     const pos = position();
     const shift = MIDDLE - Math.floor(Math.round(pos) / count);
     if (shift) quiet(scroller.scrollTop + shift * count * rowHeight);
@@ -411,8 +417,11 @@
 
   scroller.addEventListener('scroll', () => {
     schedule();
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(settle, 150);
+    // Do not interrupt native inertia/snapping with a competing timer.
+    if (!nativeScrollEnd) {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(settle, 300);
+    }
   }, { passive: true });
   scroller.addEventListener('scrollend', () => {
     clearTimeout(idleTimer);
@@ -425,9 +434,9 @@
   scroller.addEventListener('wheel', () => { aim = null; }, { passive: true });
   const release = event => {
     touching = event.touches.length;
-    if (!touching) {
+    if (!touching && !nativeScrollEnd) {
       clearTimeout(idleTimer);
-      idleTimer = setTimeout(settle, 150);
+      idleTimer = setTimeout(settle, 300);
     }
   };
   scroller.addEventListener('touchend', release, { passive: true });
@@ -496,17 +505,25 @@
   function open(index, fromHistory = false) {
     if (index < 0 || index >= count || reading >= 0) return;
     clearTimeout(closeTimer);
+    clearTimeout(idleTimer);
+    aim = null;
     const item = items[index];
     article.replaceChildren(sections[index].block);
     // Park the wheel on the opened project, so closing returns to it. The
     // zoom stays where the wheel left it while the text is read.
     const row = nearestRow(index);
-    if (Math.round(position()) !== row) quiet(row * rowHeight + offset);
+    quiet(row * rowHeight + offset);
+    // Reading starts at the currently painted depth, with no zoom tail.
+    travel = eased;
     mark(index);
     readerScroll.scrollTop = 0;
     root.classList.add('is-reading');
     if (!reader.open) reader.showModal();
-    requestAnimationFrame(() => reader.classList.add('is-shown'));
+    requestAnimationFrame(() => {
+      if (reading !== index || !reader.open) return;
+      reader.classList.add('is-shown');
+      media.refresh();
+    });
     sections[index].title.focus({ preventScroll: true });
     if (!fromHistory) {
       try {
@@ -524,6 +541,7 @@
     if (reading < 0) return;
     const last = reading;
     reading = -1;
+    media.pause();
     picks.forEach(button => button.setAttribute('aria-expanded', 'false'));
     root.classList.remove('is-reading');
     reader.classList.remove('is-shown');
@@ -534,7 +552,7 @@
       // instead of letting the restored focus turn the wheel elsewhere.
       focusing = true;
       reader.close();
-      if (picker.contains(document.activeElement)) picks[last].focus({ preventScroll: true });
+      picks[last].focus({ preventScroll: true });
       focusing = false;
     }, reduced.matches ? 0 : 340);
     if (!fromHistory) {
@@ -547,24 +565,6 @@
     }
     lastPosition = NaN;
     schedule();
-  }
-
-  // Clips in the text load only when they come near and play while in view,
-  // so the page stays light and the loop runs smoothly.
-  const clips = sections.flatMap(({ block }) => [...block.querySelectorAll('video[data-src]')]);
-  if (clips.length && 'IntersectionObserver' in window) {
-    const watch = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
-      if (!isIntersecting) return target.pause();
-      if (!target.getAttribute('src')) {
-        target.preload = 'auto';
-        target.src = target.dataset.src;
-      }
-      if (!reduced.matches) target.play().catch(() => {});
-    }), { rootMargin: '300px 0px' });
-    clips.forEach(clip => {
-      clip.muted = true;
-      watch.observe(clip);
-    });
   }
 
   reader.addEventListener('cancel', event => {
@@ -617,7 +617,7 @@
     schedule();
   });
 
-  wheelState = () => ({ id: items[mod(Math.round(position()), count)].id, travel, drift });
+  wheelState = () => ({ id: items[mod(Math.round(position()), count)].id, travel: eased, drift });
 
   function restoreAfterSwitch() {
     let state = null;
@@ -625,7 +625,7 @@
       state = JSON.parse(window.sessionStorage.getItem(SWITCH));
       window.sessionStorage.removeItem(SWITCH);
     } catch { return; }
-    if (!state || window.location.hash) return;
+    if (!state) return;
     const index = indexOf(state.id);
     if (index < 0) return;
     quiet((MIDDLE * count + index) * rowHeight + offset);
@@ -639,12 +639,122 @@
   openFromHash();
   schedule();
 
+  document.addEventListener('visibilitychange', () => {
+    clock = 0;
+    if (document.hidden) {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    } else schedule();
+  });
+
   /* =================================================================== */
 
-  function createDive(host, macro) {
-    const canvas = make('canvas', 'bs-canvas');
+  // Prefetch near a clip, but decode/play only in the visible reading area.
+  // Also serves the ordinary list when the enhanced wheel is unavailable.
+  function manageClips(videos, scrollRoot = null, isOpen = () => true) {
+    if (!videos.length) return { refresh() {}, pause() {} };
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const requestFrame = window.requestAnimationFrame || (callback => window.setTimeout(callback, 16));
+    const states = new Map(videos.map(clip => [clip, { visible: false, pending: null, manual: false, failed: false }]));
+    let refreshFrame = 0;
+    let suspended = false;
+    const active = clip => !suspended && !document.hidden && isOpen() && clip.isConnected && states.get(clip).visible;
+    const pauseClip = clip => {
+      states.get(clip).pending = null;
+      clip.pause();
+    };
+    const pause = () => videos.forEach(pauseClip);
+    function controls(clip) {
+      states.get(clip).manual = true;
+      clip.controls = true;
+      clip.removeAttribute('aria-hidden');
+      const caption = clip.closest('figure')?.querySelector('figcaption');
+      if (caption) clip.setAttribute('aria-label', caption.textContent.trim());
+    }
+    function loadClip(clip) {
+      if (states.get(clip).failed || clip.getAttribute('src')) return;
+      clip.preload = 'auto';
+      clip.src = clip.dataset.src;
+    }
+    function sync(clip) {
+      const state = states.get(clip);
+      if (!active(clip)) { pauseClip(clip); return; }
+      if (state.failed) return;
+      loadClip(clip);
+      if (motion.matches) { controls(clip); return; }
+      if (state.manual || state.pending || !clip.paused) return;
+      const attempt = {};
+      state.pending = attempt;
+      const failed = error => {
+        if (state.pending !== attempt) return;
+        state.pending = null;
+        if (active(clip) && error?.name !== 'AbortError') controls(clip);
+      };
+      try {
+        Promise.resolve(clip.play()).then(() => {
+          if (state.pending === attempt) state.pending = null;
+          if (!active(clip)) pauseClip(clip);
+        }, failed);
+      } catch (error) { failed(error); }
+    }
+    // Used on reopen/resume and as the scroll fallback without observers.
+    // All geometry is read first, then media state is updated.
+    function refresh() {
+      if (refreshFrame) return;
+      refreshFrame = requestFrame(() => {
+        refreshFrame = 0;
+        if (suspended || document.hidden || !isOpen()) { pause(); return; }
+        const bounds = scrollRoot ? scrollRoot.getBoundingClientRect() : { top: 0, left: 0, bottom: innerHeight, right: innerWidth };
+        const visible = videos.map(clip => {
+          const rect = clip.getBoundingClientRect();
+          return clip.isConnected && rect.width > 0 && rect.height > 0 && rect.bottom > bounds.top && rect.top < bounds.bottom && rect.right > bounds.left && rect.left < bounds.right;
+        });
+        videos.forEach((clip, index) => { states.get(clip).visible = visible[index]; sync(clip); });
+      });
+    }
+    videos.forEach(clip => {
+      clip.muted = true;
+      clip.playsInline = true;
+      clip.addEventListener('canplay', () => sync(clip));
+      clip.addEventListener('playing', () => { if (!active(clip)) pauseClip(clip); });
+      clip.addEventListener('error', () => {
+        const state = states.get(clip);
+        if (state.failed) return;
+        state.failed = true;
+        pauseClip(clip);
+        // Keep the approved poster when the network or decoder fails.
+        clip.removeAttribute('src');
+        clip.load();
+      });
+    });
+    if ('IntersectionObserver' in window) {
+      const preload = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting && !suspended && !document.hidden && isOpen()) loadClip(target);
+      }), { root: scrollRoot, rootMargin: '300px 0px' });
+      const playback = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
+        states.get(target).visible = isIntersecting;
+        sync(target);
+      }), { root: scrollRoot });
+      videos.forEach(clip => { preload.observe(clip); playback.observe(clip); });
+    } else {
+      (scrollRoot || window).addEventListener('scroll', refresh, { passive: true });
+    }
+    window.addEventListener('resize', refresh, { passive: true });
+    document.addEventListener('toggle', refresh, true);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); else refresh(); });
+    window.addEventListener('pagehide', () => { suspended = true; pause(); });
+    window.addEventListener('pageshow', () => { suspended = false; refresh(); });
+    window.addEventListener('online', () => { videos.forEach(clip => { states.get(clip).failed = false; }); refresh(); });
+    const onMotion = () => { if (motion.matches) pause(); refresh(); };
+    if (motion.addEventListener) motion.addEventListener('change', onMotion);
+    else if (motion.addListener) motion.addListener(onMotion);
+    refresh();
+    return { refresh, pause };
+  }
+
+  function createDive(host, macro, canvas, context) {
+    canvas.className = 'bs-canvas';
     host.append(canvas);
-    const context = canvas.getContext('2d', { alpha: false });
 
     // One journey from large to ever finer, every drawing exactly once:
     // the brain, its folds (gyri) with their neurons, one cubic millimetre
@@ -700,8 +810,7 @@
     // Each drawing's border already fades to paper in its file
     // (scripts/bake_dive_edges.py), so a smaller drawing blooms inside the
     // larger one instead of showing an edge. It is decoded off the main
-    // thread and handed to the canvas once, a pixel in a corner the next
-    // frame paints over, so the frame that first shows it does not stall.
+    // thread before use. Only the animation frame paints the visible canvas.
     function load(level) {
       const sheet = level.sheet;
       if (sheet.state !== 'idle') return;
@@ -712,7 +821,10 @@
       image.fetchPriority = 'low';
       image.src = sheet.src;
       const loaded = () => new Promise((resolve, reject) => {
-        if (image.complete && image.naturalWidth) resolve();
+        if (image.complete) {
+          if (image.naturalWidth) resolve();
+          else reject();
+        }
         else {
           image.onload = resolve;
           image.onerror = reject;
@@ -722,10 +834,6 @@
       // the drawing then still arrives, decoded when first drawn.
       const decoded = typeof image.decode === 'function' ? image.decode().catch(loaded) : loaded();
       decoded.then(() => {
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.globalCompositeOperation = 'source-over';
-        context.globalAlpha = 1;
-        context.drawImage(image, 0, 0, 1, 1);
         sheet.image = image;
         sheet.state = 'ready';
         sheet.since = performance.now();
@@ -738,7 +846,9 @@
       width = host.clientWidth;
       height = host.clientHeight;
       if (!width || !height) return;
-      ratio = Math.min(window.devicePixelRatio || 1, 2);
+      // Bound full-screen compositing cost on large/high-density screens;
+      // text remains native DOM text at the display's full resolution.
+      ratio = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(3000000 / (width * height)));
       const backingWidth = Math.round(width * ratio);
       const backingHeight = Math.round(height * ratio);
       if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
@@ -829,9 +939,17 @@
 
     // Draws a drawing with its focus on the camera point.
     function place(image, focus, scale, cx, cy) {
-      const s = scale * ratio;
-      context.setTransform(s, 0, 0, s, ratio * cx, ratio * cy);
-      context.drawImage(image, -focus[0], -focus[1]);
+      // Crop in source space instead of submitting an enormous scaled sheet.
+      const x = cx - focus[0] * scale;
+      const y = cy - focus[1] * scale;
+      const sx = Math.max(0, -x / scale);
+      const sy = Math.max(0, -y / scale);
+      const ex = Math.min(image.naturalWidth, (width - x) / scale);
+      const ey = Math.min(image.naturalHeight, (height - y) / scale);
+      if (ex <= sx || ey <= sy) return;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.drawImage(image, sx, sy, ex - sx, ey - sy,
+        x + sx * scale, y + sy * scale, (ex - sx) * scale, (ey - sy) * scale);
     }
 
     function draw(travelled) {
