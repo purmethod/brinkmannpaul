@@ -4,6 +4,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: animiertes Cyclemax-Logo (2026-10-13, #154)
+
+- Paul möchte das aktuelle Logo von cyclemax.app einschließlich Farbwechsel übernehmen. Ringgeometrie, Rot/Gelb/Grün/Pink und gleichmäßige 12-Sekunden-Drehung entsprechen dem Original. Die originale Wortmarke bleibt als Vektor erhalten. Auf Start- und Release-Seite in allen Sprachen.
+- Bei reduzierter Bewegung bleibt der farbige Ring statisch. Das Logo bleibt zu cyclemax.app verlinkt.
+
 ## Aktualisierung: cyclemax für Frauen, Männer und Paare (2026-10-13, #152)
 
 - **Paul:** Cyclemaxing für Frauen, Männer und Paare; Single oder Partnerschaft als wählbarer Modus. Frauen tragen ihre Periode ein und erhalten vorausschauende Orientierung zu Ernährung und Nährstoffen. Männer erhalten Erinnerungen, ruhig und präsent zu bleiben: der Fels in der Brandung.

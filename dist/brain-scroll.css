@@ -147,7 +147,7 @@
 #site-page .cyclemax-intro{display:grid;grid-template-columns:minmax(0,1fr) 104px;align-items:center;gap:24px;margin:0 0 26px;direction:ltr}
 #site-page .item-content .cyclemax-intro .item-lead{margin:0 0 10px}
 #site-page .item-content .cyclemax-intro .item-note{margin:0;font-size:12px;line-height:1.6;letter-spacing:.025em}
-#site-page .item-content .cyclemax-app-link{display:block;justify-self:end;width:104px;min-height:104px;margin:0;border:1px solid var(--tone-line,#cfcfca);border-radius:22px;background:#fff;overflow:hidden;text-decoration:none}
+#site-page .item-content .cyclemax-app-link{display:block;grid-column:2;grid-row:1;justify-self:end;width:104px;min-height:104px;margin:0;border:1px solid var(--tone-line,#cfcfca);border-radius:22px;background:#fff;overflow:hidden;text-decoration:none}
 #site-page .cyclemax-app-link img{display:block;width:100%;height:auto;max-width:none}
 [dir="rtl"] #site-page .cyclemax-intro-copy{direction:rtl}
 #site-page .cyclemax-app-link:focus-visible{outline:2px solid currentColor;outline-offset:5px}

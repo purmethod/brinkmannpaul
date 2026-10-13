@@ -1,0 +1,6 @@
+/* Original Cyclemax ring geometry, colors and 12-second motion from cyclemax.app. */
+.cyclemax-logo{position:relative;display:block;width:100%;aspect-ratio:1}
+.cyclemax-logo-ring{position:absolute;left:9.6153846%;top:-3.8461538%;width:80.7692308%;height:80.7692308%;background:conic-gradient(#c8102e 0deg,#f2b705 90deg,#2e9e4f 180deg,#e83e8c 270deg,#c8102e 360deg);-webkit-mask:url("cyclemax-ring-mask.svg") center/contain no-repeat;mask:url("cyclemax-ring-mask.svg") center/contain no-repeat;animation:cyclemax-ring-flow 12s linear infinite;pointer-events:none}
+.cyclemax-logo img{position:relative;display:block;width:100%;height:auto}
+@keyframes cyclemax-ring-flow{to{transform:rotate(1turn)}}
+@media(prefers-reduced-motion:reduce){.cyclemax-logo-ring{animation:none}}
