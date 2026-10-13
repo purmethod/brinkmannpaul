@@ -462,6 +462,20 @@
   }, { passive: true });
   scroller.addEventListener('pointerleave', () => root.classList.remove('is-pointing'));
 
+  // Programmatic dialog focus can look keyboard-driven in Safari. Only real
+  // keyboard input should outline the wheel when focus returns after closing.
+  let keyboardFocus = false;
+  const syncPickerFocus = () => root.classList.toggle('picker-focus', keyboardFocus && picker.contains(document.activeElement));
+  document.addEventListener('keydown', event => {
+    if (['Alt', 'Control', 'Meta', 'Shift'].includes(event.key)) return;
+    keyboardFocus = true;
+    syncPickerFocus();
+  }, true);
+  document.addEventListener('pointerdown', () => {
+    keyboardFocus = false;
+    syncPickerFocus();
+  }, { capture: true, passive: true });
+
   document.addEventListener('keydown', event => {
     if (reading >= 0 || document.body.classList.contains('intro-locked')) return;
     if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -488,7 +502,7 @@
   picker.addEventListener('focusin', event => {
     const index = picks.indexOf(event.target);
     if (index < 0) return;
-    root.classList.toggle('picker-focus', event.target.matches(':focus-visible'));
+    syncPickerFocus();
     if (!focusing && reading < 0) glide(nearestRow(index));
   });
   picker.addEventListener('focusout', () => root.classList.remove('picker-focus'));

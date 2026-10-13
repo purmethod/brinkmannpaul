@@ -913,3 +913,11 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Logo direkt mit dem live gerenderten Original auf cyclemax.app abgeglichen: Ring (r=40, stroke=9 im 140er ViewBox), Farben #c8102e / #f2b705 / #2e9e4f / #e83e8c, 12 Sekunden pro Drehung. Originale Wortmarke als SVG-Pfade erhalten; keine externe Schrift, Bibliothek oder Laufzeitanfrage an cyclemax.app. Reduzierte Bewegung ergibt einen statischen farbigen Ring.
 - Beim 393-px-Livetest von #152 gefunden: ältere mobile Link-Regel setzt das Logo in Spalte 1. Explizite Spalte 2 / Zeile 1 behebt das.
 - Temporäre responsive Prüfseite entfernt. Bereits geladener Prüfrahmen dient nur noch zur Abschlusskontrolle der aktualisierten öffentlichen Seite. Ergebnisse der Browserprüfung werden im zugehörigen PR festgehalten.
+
+
+## Issue #155 — Kein Fokusrahmen nach dem Zurückkehren (2026-10-13)
+
+- Zusätzliche rechteckige Umrandung am Projektrad nach Tippen/Klicken und Zurückkehren entfernt: Die Fokusmarkierung folgt jetzt tatsächlicher Tastatureingabe statt Safaris Fokus-Heuristik bei programmatisch gesetztem Dialogfokus.
+- Fokus kehrt weiterhin zum gelesenen Projekt zurück. Tastaturbedienung behält ihre sichtbare Markierung; Pointer-Eingabe entfernt sie sofort. Bestehende Trennlinien, Inhalte, Layout, Scrollen und Medien unverändert.
+- Gemeinsames `brain-scroll.js?v=155` in allen sechs Startseiten; Sprachseiten mit dem bestehenden Übersetzungs-Generator erzeugt, Änderungen auf die Skriptversion begrenzt.
+- Prüfung: JavaScript-Syntax und Diff-Whitespace; unabhängiger Source-Review. Gemäß bestehendem Sparmodus keine Browser-/Laufzeittests, Builds, Screenshots oder Vorschauen. Reales iPhone-Verhalten nicht auf einem Gerät geprüft.
