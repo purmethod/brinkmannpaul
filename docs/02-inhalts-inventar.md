@@ -4,6 +4,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: ausführlicher Cyclemax-Text ergänzt (2026-10-13, #158)
+
+- Paul stellt klar: Das neue Intro einschließlich der Ansprache für Frauen, Männer und Paare bleibt vollständig stehen. Beim Weiterlesen soll zusätzlich der frühere ausführliche Text erscheinen.
+- In der Cyclemax-Rubrik folgt deshalb nach dem neuen Einstieg „why i built it“ mit den zehn ursprünglichen Absätzen aus dem Stand vor #152: Motivation, Fels-in-der-Brandung-Gedanke, Unterschiede, Farbhilfe und langfristiges Beziehungs-/Familienziel. Wortlaut und vorhandene Übersetzungen wiederverwendet.
+- Frühere doppelte Release-Links und der bereits ausdrücklich gestrichene Satz „because he no longer loves her.“ kommen nicht zurück. Aktuelles Farblogo und ein gemeinsamer Release-Button bleiben bestehen. Keine Änderungen an der separaten Release-Seite, anderen Rubriken, CSS oder JavaScript.
+
 ## Aktualisierung: animiertes Cyclemax-Logo (2026-10-13, #154)
 
 - Paul möchte das aktuelle Logo von cyclemax.app einschließlich Farbwechsel übernehmen. Ringgeometrie, Rot/Gelb/Grün/Pink und gleichmäßige 12-Sekunden-Drehung entsprechen dem Original. Die originale Wortmarke bleibt als Vektor erhalten. Auf Start- und Release-Seite in allen Sprachen.
