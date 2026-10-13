@@ -887,3 +887,15 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Interne Zählung, Mengenbegrenzung, Sperre ausgebuchter Termine und serverseitige Checkout-Prüfung unverändert. Alle sechs Weekend-Sprachseiten auf die neue Skriptversion gesetzt.
 - Source-Review; keine Tests, Builds, Screenshots oder Vorschauen.
 
+## Issue #150 — Flüssigeres Scrollen und robuste Videowiedergabe (2026-10-13)
+
+- Status: Änderungen auf `codex/150-smooth-scroll` zur Durchsicht vorbereitet. Kein Merge und kein Produktionsdeployment; Paul erhält zuerst den Bericht.
+- Live-HTML, `app.js?v=27` und `brain-scroll.js?v=90` sind bytegleich mit GitHub-main `53ade8e688345b2d838e9e4b70f442ff005271e3`. Alle drei referenzierten MP4-Dateien liefern HTTP 200 und `video/mp4`, ebenfalls bytegleich zum Repository. Das bestätigt die Auslieferung, nicht die Wiedergabe auf einem Gerät.
+- Scrollrad: nativen `scrollend` abwarten; nur ohne diese API einen 300-ms-Fallback verwenden. Layoutänderungen beim Resize zählen nicht als zusätzliche Drehung. Beim Öffnen eines Projekts Restbewegung stoppen, Hintergrundtiefe halten und beim Schließen den Fokus zum richtigen Projekt zurückgeben.
+- Hintergrund: nur sichtbare Bildausschnitte zeichnen, Canvas auf ca. 3 Millionen Pixel begrenzen, kürzeres Zoom-Easing (280 statt 420 ms), Animation bei verborgenem Tab aussetzen. Canvas-Ausfall belässt die normale Projektliste. Ausgefallene Bild-Decodes bleiben nicht unbegrenzt im Ladezustand.
+- Projektvideos: getrennte Beobachter für Vorladen und Wiedergabe im sichtbaren Lesebereich. Schließen, Tabwechsel und Seitennavigation pausieren sofort; Wiederöffnen und Rückkehr aktualisieren die Sichtbarkeit. Ohne IntersectionObserver bleibt eine passive Scroll-Fallback-Lösung verfügbar.
+- Bei blockiertem Autoplay oder reduzierter Bewegung werden vorhandene native Videosteuerungen bedienbar. Bei Ladefehlern bleibt das vorhandene Poster; beim nächsten Online-Ereignis wird erneut geladen. Der dekorative Kreis blockiert keine Videosteuerungen mehr.
+- Intro: 10-s-Standbildfallback auch bei späterem Ladehänger; Tabwechsel pausiert und setzt die Unterschrift fort. Veraltete oder absichtlich abgebrochene Play-Versuche lösen keinen Fehlerfallback aus. Handschriftdatei, Dauer und Tempo unverändert.
+- Keine Änderungen an Texten, Projektfolge, Bildern, Videos, Seitenstruktur oder Layoutmaßen; keine Abhängigkeiten. Alle sechs Startseiten erhalten nur neue Asset-Versionen, Sprachseiten über den bestehenden Übersetzungs-Generator.
+- Prüfung: statischer Quellcode-Review durch einen zweiten Agenten, JavaScript-Syntax und Diff-Whitespace. Gemäß Sparmodus keine Laufzeit-/Browser-Tests, Builds, Screenshots oder Vorschauen. Framerate, reales iPhone-/Safari-Verhalten und Videobedienung auf Geräten bleiben unbestätigt.
+

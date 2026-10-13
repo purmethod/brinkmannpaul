@@ -150,3 +150,7 @@
 #site-page .cyclemax-app-link img{display:block;width:100%;height:auto;max-width:none}
 [dir="rtl"] #site-page .cyclemax-release-row p{direction:rtl}
 #site-page .cyclemax-app-link:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+#site-page .bs-face{will-change:transform,opacity}
+#site-page .bs-reader-scroll{overflow-anchor:none}
+/* The decorative ring must not cover native video controls on touch screens. */
+#site-page .photo-circle:after{pointer-events:none}
