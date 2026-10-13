@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Claude-Fassung Neuroarchitektur wiederhergestellt (2026-10-13, #162)
+
+- Paul wählt ausdrücklich die zuletzt von Claude bearbeitete Fassung aus PR #127 (56b0058). Nur der Neuroarchitektur-Langtext wird wortgleich wiederhergestellt, einschließlich der damaligen fünf Übersetzungen. Die reine Unterschrift aus #160 bleibt erhalten.
+
 ## Aktualisierung: Neuroarchitektur und Unterschrift (2026-10-13, #160)
 
 - Von Paul zuletzt freigegebener Neuroarchitektur-Text vollständig übernommen: persönliche Überzeugung zum „first brain“, Forschungsfragen zu gebauter Umwelt, Gewohnheiten und Mikrobiom, Genesung und Krankenhausgestaltung sowie das Ziel, unbemerkte Einflüsse sichtbar zu machen. Englischer Wortlaut unverändert; fünf Übersetzungen ergänzt und Startseiten generiert.

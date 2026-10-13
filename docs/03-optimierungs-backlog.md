@@ -933,3 +933,8 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Veröffentlichung von Paul ausdrücklich beauftragt. Letzte abgestimmte Fassung mit 15 Absätzen übernommen, einschließlich „i am convinced it is our first“ und dem abschließenden Forschungsziel. Alle sechs Sprachfassungen über den bestehenden Generator.
 - Renderer erhält einen reproduzierbaren `--signature-only`-Modus. Originale Signaturpfade und Schreibzeiten bleiben erhalten; Motto entfällt. Neue H.264-Animation und passendes PNG werden vom Intro referenziert. Gate, reduzierte Bewegung, Fehlerfallback, Layout und andere Rubriken unverändert.
 - Prüfung: Übersetzungs-Build, JavaScript-Syntax, Diff-Whitespace, vollständiges fehlerfreies Video-Decoding und visuelle Kontrolle des Signatur-Standbilds. Unabhängiger Agentenreview im PR; Produktionsdateien werden nach Deployment abgeglichen. Vollständiger Desktop-/Mobile-Browserlauf bleibt nach dem dokumentierten Ausfall des Browserdiensts unbestätigt.
+
+## Issue #162 — Claude-Fassung Neuroarchitektur (2026-10-13)
+
+- Von Paul zur Veröffentlichung freigegeben: Neuroarchitektur-Text exakt aus PR #127 samt vorhandenen Übersetzungen wiederherstellen. Nur Text dieser Rubrik; aktuelle Unterschrift und alle übrigen Inhalte unverändert.
+- Sprachseiten durch bestehenden Generator erzeugt. Gezielter Quelltextabgleich mit historischer Fassung, unabhängiger Agentenreview im PR und HTTP-Abgleich nach Veröffentlichung. Keine zusätzlichen Browser-/Laufzeittests im bestehenden Sparmodus.
