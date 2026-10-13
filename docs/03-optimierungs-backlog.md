@@ -907,3 +907,11 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Original-Logo fest neben dem Einstieg, ein durchgehender Release-Button am Ende. Release-Seite inhaltlich angeglichen; Formular und Backend unverändert. Alle sechs Sprachfassungen generiert.
 - Unabhängiger Source-Review durch zweiten Agenten: keine Inhalts-/Linkblocker; gefundene CSS-Spezifität bei Abschnittslabels korrigiert. JavaScript-Syntax und Diff-Whitespace geprüft.
 - Temporäre, nicht verlinkte und mit noindex markierte Prüfseite für echte 320-, 393- und 1440-px-Iframe-Viewports; wird nach der Browserprüfung entfernt. Keine neuen Abhängigkeiten.
+
+
+## Issue #155 — Kein Fokusrahmen nach dem Zurückkehren (2026-10-13)
+
+- Zusätzliche rechteckige Umrandung am Projektrad nach Tippen/Klicken und Zurückkehren entfernt: Die Fokusmarkierung folgt jetzt tatsächlicher Tastatureingabe statt Safaris Fokus-Heuristik bei programmatisch gesetztem Dialogfokus.
+- Fokus kehrt weiterhin zum gelesenen Projekt zurück. Tastaturbedienung behält ihre sichtbare Markierung; Pointer-Eingabe entfernt sie sofort. Bestehende Trennlinien, Inhalte, Layout, Scrollen und Medien unverändert.
+- Gemeinsames `brain-scroll.js?v=155` in allen sechs Startseiten; Sprachseiten mit dem bestehenden Übersetzungs-Generator erzeugt, Änderungen auf die Skriptversion begrenzt.
+- Prüfung: JavaScript-Syntax und Diff-Whitespace; unabhängiger Source-Review. Gemäß bestehendem Sparmodus keine Browser-/Laufzeittests, Builds, Screenshots oder Vorschauen. Reales iPhone-Verhalten nicht auf einem Gerät geprüft.
