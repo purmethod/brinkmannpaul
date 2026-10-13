@@ -907,3 +907,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Original-Logo fest neben dem Einstieg, ein durchgehender Release-Button am Ende. Release-Seite inhaltlich angeglichen; Formular und Backend unverändert. Alle sechs Sprachfassungen generiert.
 - Unabhängiger Source-Review durch zweiten Agenten: keine Inhalts-/Linkblocker; gefundene CSS-Spezifität bei Abschnittslabels korrigiert. JavaScript-Syntax und Diff-Whitespace geprüft.
 - Temporäre, nicht verlinkte und mit noindex markierte Prüfseite für echte 320-, 393- und 1440-px-Iframe-Viewports; wird nach der Browserprüfung entfernt. Keine neuen Abhängigkeiten.
+
+## Issue #154 — Originaler Farbverlauf und Abschluss der Cyclemax-Prüfung (2026-10-13)
+
+- Logo direkt mit dem live gerenderten Original auf cyclemax.app abgeglichen: Ring (r=40, stroke=9 im 140er ViewBox), Farben #c8102e / #f2b705 / #2e9e4f / #e83e8c, 12 Sekunden pro Drehung. Originale Wortmarke als SVG-Pfade erhalten; keine externe Schrift, Bibliothek oder Laufzeitanfrage an cyclemax.app. Reduzierte Bewegung ergibt einen statischen farbigen Ring.
+- Beim 393-px-Livetest von #152 gefunden: ältere mobile Link-Regel setzt das Logo in Spalte 1. Explizite Spalte 2 / Zeile 1 behebt das.
+- Temporäre responsive Prüfseite entfernt. Bereits geladener Prüfrahmen dient nur noch zur Abschlusskontrolle der aktualisierten öffentlichen Seite. Ergebnisse der Browserprüfung werden im zugehörigen PR festgehalten.
