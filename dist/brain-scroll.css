@@ -144,12 +144,22 @@
 /* Project names read in their own script: latin names stay in order, Arabic names stay right to left. */
 [dir="rtl"] #site-page .bs-name,[dir="rtl"] #site-page .bs-reader-title,[dir="rtl"] #site-page .item-name{unicode-bidi:plaintext;text-align:right}
 [lang="ar"] body *{letter-spacing:0!important}
-#site-page .cyclemax-release-row{display:grid;grid-template-columns:minmax(0,1fr) 104px;align-items:center;gap:20px;margin:20px 0 28px;direction:ltr}
-#site-page .item-content .cyclemax-release-row p{margin:0}
+#site-page .cyclemax-intro{display:grid;grid-template-columns:minmax(0,1fr) 104px;align-items:center;gap:24px;margin:0 0 26px;direction:ltr}
+#site-page .item-content .cyclemax-intro .item-lead{margin:0 0 10px}
+#site-page .item-content .cyclemax-intro .item-note{margin:0;font-size:12px;line-height:1.6;letter-spacing:.025em}
 #site-page .item-content .cyclemax-app-link{display:block;justify-self:end;width:104px;min-height:104px;margin:0;border:1px solid var(--tone-line,#cfcfca);border-radius:22px;background:#fff;overflow:hidden;text-decoration:none}
 #site-page .cyclemax-app-link img{display:block;width:100%;height:auto;max-width:none}
-[dir="rtl"] #site-page .cyclemax-release-row p{direction:rtl}
+[dir="rtl"] #site-page .cyclemax-intro-copy{direction:rtl}
 #site-page .cyclemax-app-link:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+#site-page .cyclemax-benefit{margin:26px 0}
+#site-page .item-content .cyclemax-label,#site-page .bs-reader .item-content .cyclemax-label{margin:0 0 8px;font-size:12px;letter-spacing:.06em;color:var(--tone-light)}
+#site-page .cyclemax-benefit p:last-child{margin-bottom:0}
+#site-page .cyclemax-release{display:grid;gap:14px;margin:28px 0 0;padding:22px 0 0;border-top:1px solid var(--tone-line)}
+#site-page .item-content .cyclemax-release .item-note{margin:0;font-size:12px;line-height:1.6}
+#site-page .item-content .cyclemax-release-cta{display:flex;justify-content:center;align-items:center;width:100%;min-height:52px;padding:12px 18px;margin:0;border:1px solid var(--tone-dark);font-size:13px;line-height:1.5;letter-spacing:.025em;text-align:center;text-decoration:none}
+#site-page .cyclemax-release-cta:focus-visible{outline:2px solid var(--tone-dark);outline-offset:4px}
+@media(hover:hover){#site-page .cyclemax-release-cta:hover{background:rgba(92,92,86,.06)}}
+@media(max-width:380px){#site-page .cyclemax-intro{gap:16px;grid-template-columns:minmax(0,1fr) 88px}#site-page .item-content .cyclemax-app-link{width:88px;min-height:88px;border-radius:19px}}
 #site-page .bs-face{will-change:transform,opacity}
 #site-page .bs-reader-scroll{overflow-anchor:none}
 /* The decorative ring must not cover native video controls on touch screens. */

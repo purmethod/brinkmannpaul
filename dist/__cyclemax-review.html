@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Cyclemax responsive review</title>
+<style>body{margin:16px;background:#ececea;color:#30302c;font:14px Arial}nav{display:flex;gap:16px;align-items:center;margin-bottom:16px}label{display:flex;gap:8px;align-items:center}select{padding:8px}#stage{position:relative;background:white;overflow:hidden}iframe{border:0;transform-origin:0 0;background:white}</style>
+<nav>
+<label>Viewport <select id="size"><option value="393,852">393 × 852</option><option value="320,740">320 × 740</option><option value="1440,900">1440 × 900</option></select></label>
+<label>Language <select id="lang"><option>en</option><option>de</option><option>fr</option><option>es</option><option>ar</option><option>ru</option></select></label>
+<label>Page <select id="route"><option value="#cyclemax">Project</option><option value="cyclemax/">Release</option></select></label>
+</nav><div id="stage"><iframe title="site under review" id="site" src="/#cyclemax"></iframe></div>
+<script>
+const size=document.querySelector('#size'),lang=document.querySelector('#lang'),route=document.querySelector('#route'),site=document.querySelector('#site'),stage=document.querySelector('#stage');
+function resize(){const [w,h]=size.value.split(',').map(Number);const scale=Math.min(1,(innerWidth-32)/w);site.style.width=w+'px';site.style.height=h+'px';site.style.transform=`scale(${scale})`;stage.style.width=w*scale+'px';stage.style.height=h*scale+'px';}
+function navigate(){site.src=(lang.value==='en'?'/':'/'+lang.value+'/')+route.value;}
+size.addEventListener('change',resize);lang.addEventListener('change',navigate);route.addEventListener('change',navigate);window.addEventListener('resize',resize);resize();
+</script></html>
