@@ -921,3 +921,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Fokus kehrt weiterhin zum gelesenen Projekt zurück. Tastaturbedienung behält ihre sichtbare Markierung; Pointer-Eingabe entfernt sie sofort. Bestehende Trennlinien, Inhalte, Layout, Scrollen und Medien unverändert.
 - Gemeinsames `brain-scroll.js?v=155` in allen sechs Startseiten; Sprachseiten mit dem bestehenden Übersetzungs-Generator erzeugt, Änderungen auf die Skriptversion begrenzt.
 - Prüfung: JavaScript-Syntax und Diff-Whitespace; unabhängiger Source-Review. Gemäß bestehendem Sparmodus keine Browser-/Laufzeittests, Builds, Screenshots oder Vorschauen. Reales iPhone-Verhalten nicht auf einem Gerät geprüft.
+
+## Issue #158 — Cyclemax-Langtext nach dem neuen Intro wiederhergestellt (2026-10-13)
+
+- Das neue Intro bleibt vollständig unverändert. Darunter „why i built it“ und die zehn früheren ausführlichen Absätze, exakt aus dem Stand vor #152 übernommen. Vorhandene Übersetzungen genutzt, alle sechs Startseiten generiert.
+- Farblogo, Ausrichtung und ein Release-Button unverändert. Der früher ausdrücklich gelöschte Satz bleibt entfernt; keine Wiederherstellung der doppelten CTA-Links. Keine Änderung an CSS, JavaScript, Videos, anderen Rubriken oder der separaten Release-Seite.
+- Prüfung: exakter Abgleich des ergänzten Langtexts und des unveränderten Intros/Seitenrests; Übersetzungs-Generator, JavaScript-Syntax, Diff-Whitespace und unabhängiger Source-Review. Kein erneuter vollständiger Browserlauf nach dem zuvor dokumentierten Ausfall des Browserdiensts. Veröffentlichung im bestehenden Branch-/PR-Ablauf; Live-Text wird nach Deployment abgeglichen.
