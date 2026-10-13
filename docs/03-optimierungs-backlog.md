@@ -889,7 +889,7 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 
 ## Issue #150 — Flüssigeres Scrollen und robuste Videowiedergabe (2026-10-13)
 
-- Status: Änderungen auf `codex/150-smooth-scroll` zur Durchsicht vorbereitet. Kein Merge und kein Produktionsdeployment; Paul erhält zuerst den Bericht.
+- Status: Nach Pauls ausdrücklichem „mach live“ über PR #151 veröffentlicht; Produktionsdateien anschließend mit dem freigegebenen Quellcode abgeglichen.
 - Live-HTML, `app.js?v=27` und `brain-scroll.js?v=90` sind bytegleich mit GitHub-main `53ade8e688345b2d838e9e4b70f442ff005271e3`. Alle drei referenzierten MP4-Dateien liefern HTTP 200 und `video/mp4`, ebenfalls bytegleich zum Repository. Das bestätigt die Auslieferung, nicht die Wiedergabe auf einem Gerät.
 - Scrollrad: nativen `scrollend` abwarten; nur ohne diese API einen 300-ms-Fallback verwenden. Layoutänderungen beim Resize zählen nicht als zusätzliche Drehung. Beim Öffnen eines Projekts Restbewegung stoppen, Hintergrundtiefe halten und beim Schließen den Fokus zum richtigen Projekt zurückgeben.
 - Hintergrund: nur sichtbare Bildausschnitte zeichnen, Canvas auf ca. 3 Millionen Pixel begrenzen, kürzeres Zoom-Easing (280 statt 420 ms), Animation bei verborgenem Tab aussetzen. Canvas-Ausfall belässt die normale Projektliste. Ausgefallene Bild-Decodes bleiben nicht unbegrenzt im Ladezustand.
@@ -899,3 +899,11 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Keine Änderungen an Texten, Projektfolge, Bildern, Videos, Seitenstruktur oder Layoutmaßen; keine Abhängigkeiten. Alle sechs Startseiten erhalten nur neue Asset-Versionen, Sprachseiten über den bestehenden Übersetzungs-Generator.
 - Prüfung: statischer Quellcode-Review durch einen zweiten Agenten, JavaScript-Syntax und Diff-Whitespace. Gemäß Sparmodus keine Laufzeit-/Browser-Tests, Builds, Screenshots oder Vorschauen. Framerate, reales iPhone-/Safari-Verhalten und Videobedienung auf Geräten bleiben unbestätigt.
 
+
+## Issue #152 — Cyclemax-Intro und Release-Anmeldung aufgeräumt (2026-10-13)
+
+- Status: PR #153; Veröffentlichung von Paul beauftragt. Anschließende Browserprüfung direkt auf der Live-Seite, da der verbundene Vercel-Zugang die geschützte Vorschau mit HTTP 403 verweigert.
+- Am Rad nur „coming soon“. Intro „the rock in the storm.“; gemeinsame Ansprache für Frauen, Männer und Paare sowie Single-/Partnerschaftsmodus. Eigene kurze Abschnitte für Periodentracking und vorausschauende Ernährungsorientierung sowie Erinnerungen für den Mann. Keine pauschalen Nährstoffvorgaben.
+- Original-Logo fest neben dem Einstieg, ein durchgehender Release-Button am Ende. Release-Seite inhaltlich angeglichen; Formular und Backend unverändert. Alle sechs Sprachfassungen generiert.
+- Unabhängiger Source-Review durch zweiten Agenten: keine Inhalts-/Linkblocker; gefundene CSS-Spezifität bei Abschnittslabels korrigiert. JavaScript-Syntax und Diff-Whitespace geprüft.
+- Temporäre, nicht verlinkte und mit noindex markierte Prüfseite für echte 320-, 393- und 1440-px-Iframe-Viewports; wird nach der Browserprüfung entfernt. Keine neuen Abhängigkeiten.

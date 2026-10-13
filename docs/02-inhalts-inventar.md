@@ -4,6 +4,13 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: cyclemax für Frauen, Männer und Paare (2026-10-13, #152)
+
+- **Paul:** Cyclemaxing für Frauen, Männer und Paare; Single oder Partnerschaft als wählbarer Modus. Frauen tragen ihre Periode ein und erhalten vorausschauende Orientierung zu Ernährung und Nährstoffen. Männer erhalten Erinnerungen, ruhig und präsent zu bleiben: der Fels in der Brandung.
+- **Startseite:** „cyclemax.app · coming soon“ am Rad. Geöffnet beginnt die Rubrik mit „the rock in the storm.“ und „cyclemaxing for women, men and couples.“ Danach Moduswahl, „for her.“, „for him.“ und das gemeinsame Ziel. Die Wettervorhersage-Metapher bleibt; keine pauschalen Nährstoffvorgaben oder garantierten Wirkungen.
+- **Gestaltung:** Original-App-Logo rechts neben dem Intro, am Ende ein klarer Release-Button. Die separate Release-Seite verwendet dasselbe Logo und dieselbe Ansprache. Die frühere rein männliche Ansprache und Scheidungsargumentation entfallen.
+- **Umfang:** Ankündigung der von Paul beschriebenen App-Funktionen, keine Implementierung dieser Funktionen. Bestehendes Anmeldeformular und Backend unverändert. Alle sechs Sprachen über den Übersetzungs-Generator aktualisiert.
+
 ## Aktualisierung: Wim Hof Weekends mit festen Terminen und Restplätzen (2026-10-11)
 
 - **Paul:** Die Termine stehen fest, jeweils Donnerstag bis Sonntag: 12. bis 15. November, 19. bis 22. November, 26. bis 29. November, 3. bis 6. Dezember und 10. bis 13. Dezember 2026.
