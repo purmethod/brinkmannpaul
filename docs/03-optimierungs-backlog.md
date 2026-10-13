@@ -938,3 +938,8 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 
 - Von Paul zur Veröffentlichung freigegeben: Neuroarchitektur-Text exakt aus PR #127 samt vorhandenen Übersetzungen wiederherstellen. Nur Text dieser Rubrik; aktuelle Unterschrift und alle übrigen Inhalte unverändert.
 - Sprachseiten durch bestehenden Generator erzeugt. Gezielter Quelltextabgleich mit historischer Fassung, unabhängiger Agentenreview im PR und HTTP-Abgleich nach Veröffentlichung. Keine zusätzlichen Browser-/Laufzeittests im bestehenden Sparmodus.
+
+## Issue #164 — Cyclemax-Einstieg ersetzt (2026-10-13)
+
+- „cyclemaxing for women, men and couples.“ wird zur einzigen Einleitungsüberschrift der Cyclemax-Rubrik. Vorherige Überschrift entfällt; vorhandene Übersetzungen verwendet.
+- Nur sechs generierte Startseiten und Dokumentation geändert. Unabhängiger Quelltextreview und HTTP-Abgleich nach Veröffentlichung; keine zusätzlichen Browser-/Laufzeittests im Sparmodus.

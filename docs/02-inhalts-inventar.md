@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Cyclemax-Einstieg (2026-10-13, #164)
+
+- Auf Pauls Wunsch ersetzt „cyclemaxing for women, men and couples.“ die Überschrift „the rock in the storm.“. Bisherige Unterzeile entfällt, damit der Satz nur einmal erscheint. Bestehende Übersetzungen in allen sechs Startseiten; Langtext und übrige Inhalte unverändert.
+
 ## Aktualisierung: Claude-Fassung Neuroarchitektur wiederhergestellt (2026-10-13, #162)
 
 - Paul wählt ausdrücklich die zuletzt von Claude bearbeitete Fassung aus PR #127 (56b0058). Nur der Neuroarchitektur-Langtext wird wortgleich wiederhergestellt, einschließlich der damaligen fünf Übersetzungen. Die reine Unterschrift aus #160 bleibt erhalten.
