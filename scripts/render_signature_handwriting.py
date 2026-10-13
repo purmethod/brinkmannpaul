@@ -12,7 +12,9 @@ slows in curves and runs on straight strokes, smoothed so it never jerks.
 Between strokes it travels on through the air instead of pausing, so the
 writing flows. The signature and the motto each take 3.5 s on the site.
 
-Run: python3 scripts/render_signature_handwriting.py [--sheet contact.png]
+Run: python3 scripts/render_signature_handwriting.py [--signature-only] [--sheet contact.png]
+The signature-only option preserves the original signature and omits the motto,
+writing a separate video and still without changing the approved source image.
 """
 from __future__ import annotations
 
@@ -291,19 +293,26 @@ def frame(gray, reveal, timestamp):
     return np.repeat(np.uint8(np.rint(value))[..., None], 3, axis=2)
 
 
-def build():
+def build(signature_only=False):
     gray, binary = load_ink()
+    if signature_only:
+        x0, y0, x1, y1 = REGIONS["signature"]
+        signature_gray = np.full_like(gray, 255)
+        signature_gray[y0:y1, x0:x1] = gray[y0:y1, x0:x1]
+        gray, binary = signature_gray, signature_gray < 160
     coords, index, tree = skeleton_graph(binary)
 
     def traced(letters):
         return [(name, [trace(stroke, coords, index, tree) for stroke in strokes]) for name, strokes in letters]
 
     signature = [("signature", traced(SIGNATURE))]
-    motto = [("trust", traced(TRUST)), ("is my", traced(IS_MY)), ("currency", currency_letters())]
     # Each part takes its time on the site; the video plays 1.25x faster.
     first, cursor = lay_out(signature, START, SIGNATURE_SECONDS * PLAYBACK, 0.0)
-    second, _ = lay_out(motto, cursor + BREATH, MOTTO_SECONDS * PLAYBACK, LINE_GAP)
-    lines = first + second
+    lines = first
+    if not signature_only:
+        motto = [("trust", traced(TRUST)), ("is my", traced(IS_MY)), ("currency", currency_letters())]
+        second, _ = lay_out(motto, cursor + BREATH, MOTTO_SECONDS * PLAYBACK, LINE_GAP)
+        lines += second
     reveal = np.full(gray.shape, np.inf, dtype=np.float32)
     for name, scheduled in lines:
         reveal_map(gray, scheduled, REGIONS[name], reveal)
@@ -313,15 +322,16 @@ def build():
     return gray, reveal, lines
 
 
-def render(sheet: Path | None):
-    gray, reveal, lines = build()
+def render(sheet: Path | None, signature_only=False):
+    gray, reveal, lines = build(signature_only)
+    output = OUTPUT.with_name("intro-signature-only.mp4") if signature_only else OUTPUT
     end = float(np.nanmax(np.where(np.isfinite(reveal), reveal, np.nan))) + FADE
     duration = end + HOLD
     encoder = subprocess.Popen([
         "ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
         "-s", f"{SIZE[0]}x{SIZE[1]}", "-r", str(FPS), "-i", "-", "-an", "-c:v", "libx264",
         "-preset", "medium", "-tune", "animation", "-crf", "17", "-pix_fmt", "yuv420p",
-        "-movflags", "+faststart", str(OUTPUT)], stdin=subprocess.PIPE)
+        "-movflags", "+faststart", str(output)], stdin=subprocess.PIPE)
     try:
         for number in range(math.ceil(duration * FPS)):
             encoder.stdin.write(frame(gray, reveal, number / FPS).tobytes())
@@ -331,7 +341,9 @@ def render(sheet: Path | None):
         raise RuntimeError("ffmpeg failed")
     for name, letters in lines:
         print(f"{name}: " + "  ".join(f"{item['name']} {item['start']:.2f}-{item['end']:.2f}" for item in letters))
-    print(f"{OUTPUT.name}: {OUTPUT.stat().st_size:,} bytes, {FPS} fps, {duration:.2f}s video, "
+    if signature_only:
+        Image.fromarray(frame(gray, reveal, duration)).save(output.with_suffix(".png"), optimize=True)
+    print(f"{output.name}: {output.stat().st_size:,} bytes, {FPS} fps, {duration:.2f}s video, "
           f"{duration / 1.25:.2f}s on the site")
     if sheet:
         contact_sheet(gray, reveal, lines, sheet)
@@ -365,4 +377,6 @@ def contact_sheet(gray, reveal, lines, path: Path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--sheet", type=Path, help="also save a contact sheet for checking the pen order")
-    render(parser.parse_args().sheet)
+    parser.add_argument("--signature-only", action="store_true", help="omit the motto and write a separate video and still")
+    args = parser.parse_args()
+    render(args.sheet, args.signature_only)

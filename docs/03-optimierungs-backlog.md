@@ -927,3 +927,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 - Das neue Intro bleibt vollständig unverändert. Darunter „why i built it“ und die zehn früheren ausführlichen Absätze, exakt aus dem Stand vor #152 übernommen. Vorhandene Übersetzungen genutzt, alle sechs Startseiten generiert.
 - Farblogo, Ausrichtung und ein Release-Button unverändert. Der früher ausdrücklich gelöschte Satz bleibt entfernt; keine Wiederherstellung der doppelten CTA-Links. Keine Änderung an CSS, JavaScript, Videos, anderen Rubriken oder der separaten Release-Seite.
 - Prüfung: exakter Abgleich des ergänzten Langtexts und des unveränderten Intros/Seitenrests; Übersetzungs-Generator, JavaScript-Syntax, Diff-Whitespace und unabhängiger Source-Review. Kein erneuter vollständiger Browserlauf nach dem zuvor dokumentierten Ausfall des Browserdiensts. Veröffentlichung im bestehenden Branch-/PR-Ablauf; Live-Text wird nach Deployment abgeglichen.
+
+## Issue #160 — Freigegebener Neuroarchitektur-Text und reine Unterschrift (2026-10-13)
+
+- Veröffentlichung von Paul ausdrücklich beauftragt. Letzte abgestimmte Fassung mit 15 Absätzen übernommen, einschließlich „i am convinced it is our first“ und dem abschließenden Forschungsziel. Alle sechs Sprachfassungen über den bestehenden Generator.
+- Renderer erhält einen reproduzierbaren `--signature-only`-Modus. Originale Signaturpfade und Schreibzeiten bleiben erhalten; Motto entfällt. Neue H.264-Animation und passendes PNG werden vom Intro referenziert. Gate, reduzierte Bewegung, Fehlerfallback, Layout und andere Rubriken unverändert.
+- Prüfung: Übersetzungs-Build, JavaScript-Syntax, Diff-Whitespace, vollständiges fehlerfreies Video-Decoding und visuelle Kontrolle des Signatur-Standbilds. Unabhängiger Agentenreview im PR; Produktionsdateien werden nach Deployment abgeglichen. Vollständiger Desktop-/Mobile-Browserlauf bleibt nach dem dokumentierten Ausfall des Browserdiensts unbestätigt.
