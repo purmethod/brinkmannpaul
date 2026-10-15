@@ -1,5 +1,10 @@
 # 03 — Optimierungs-Backlog
 
+## Issue #166 — Wim Hof Weekend Preis (2026-10-15)
+
+- Preisänderung auf 1490 € pro Person: sechs Sprachfassungen, Metabeschreibungen und serverseitiger Produktkatalog für neue Stripe-Checkouts. Bestehende Buchungen und bereits erstellte Checkout-Sessions nicht verändert.
+- Bestehender Übersetzungs-Generator, unabhängiger Quelltextreview und anschließender Live-Abgleich von Seiten und öffentlicher Produkt-API. Keine Checkout-Erstellung, Zahlung oder Browser-/Laufzeittests im Sparmodus.
+
 Priorisiert P0 → P2. Jede Aufgabe wird als GitHub Issue angelegt (Vorlage in `.github/ISSUE_TEMPLATE.md`),
 auf einem eigenen Branch umgesetzt und per PR mit Review durch einen anderen Agenten gemerged.
 
