@@ -1,5 +1,11 @@
 # 03 — Optimierungs-Backlog
 
+## Issue #168 — Weekend-Buchungsbuttons (2026-10-15)
+
+- Einheitliche schwarze, abgerundete Links mit weißer Schrift. Im Projekt-Dialog außerhalb des Scrollbereichs, nur bei geöffneter Wim-Hof-Rubrik sichtbar, oberhalb des weiterhin zugänglichen Schließen-Knopfs. Zusätzlicher unterer Lesefreiraum.
+- Weekend-Seite: Buttons oben/unten und am unteren Bildschirmrand führen zu `#booking`; das Ziel bleibt auch ohne verfügbare Buchung sichtbar. Zahlungsfreigabe und Sicherheitsbestätigung bleiben unverändert; bei geöffnetem Checkout wird der schwebende Link ausgeblendet. Safe-Area, RTL, Tastaturfokus und reduzierte Bewegung berücksichtigt.
+- Sechs Sprachen über bestehenden Generator. Unabhängiger Quelltextreview, anschließend Live-Dateiabgleich. Im Sparmodus keine Browser-/Laufzeittests; reales mobiles Layout bleibt unbestätigt.
+
 ## Issue #166 — Wim Hof Weekend Preis (2026-10-15)
 
 - Preisänderung auf 1490 € pro Person: sechs Sprachfassungen, Metabeschreibungen und serverseitiger Produktkatalog für neue Stripe-Checkouts. Bestehende Buchungen und bereits erstellte Checkout-Sessions nicht verändert.

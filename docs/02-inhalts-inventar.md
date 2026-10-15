@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Weekend-Buchungsbuttons (2026-10-15, #168)
+
+- Paul wünscht in der geöffneten Wim-Hof-Rubrik einen mitlaufenden „book a weekend“-Button. Er führt auf die sprachgleiche Weekend-Seite direkt zur Buchung. Dort stehen zusätzlich Buttons oben und unten sowie derselbe mitlaufende Button zur Verfügung. Alle sechs Sprachen; Preis und Texte unverändert.
+
 ## Aktualisierung: Wim Hof Weekend Preis (2026-10-15, #166)
 
 - Paul legt den Preis auf 1490 € statt 490 € pro Person fest. Sichtbare Preise und Metabeschreibungen in sechs Sprachen sowie der serverseitige Buchungspreis (149000 Cent) werden angepasst. Termine, Kontingente und andere Produkte bleiben unverändert.
