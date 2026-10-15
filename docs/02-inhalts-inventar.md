@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Wim Hof Weekend Preis (2026-10-15, #166)
+
+- Paul legt den Preis auf 1490 € statt 490 € pro Person fest. Sichtbare Preise und Metabeschreibungen in sechs Sprachen sowie der serverseitige Buchungspreis (149000 Cent) werden angepasst. Termine, Kontingente und andere Produkte bleiben unverändert.
+
 ## Aktualisierung: Cyclemax-Einstieg (2026-10-13, #164)
 
 - Auf Pauls Wunsch ersetzt „cyclemaxing for women, men and couples.“ die Überschrift „the rock in the storm.“. Bisherige Unterzeile entfällt, damit der Satz nur einmal erscheint. Bestehende Übersetzungen in allen sechs Startseiten; Langtext und übrige Inhalte unverändert.
