@@ -20,6 +20,7 @@ a.booking-floating {
 [dir="rtl"] a.booking-floating {transform:translateX(50%)}
 #site-page .bs-reader a.booking-floating {
   position:absolute;bottom:calc(78px + env(safe-area-inset-bottom,0px));
+  max-width:calc(100% - 40px);
 }
 #site-page .bs-reader.has-booking .bs-reader-body {padding-bottom:240px}
 body:has(> a.booking-floating) {padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
