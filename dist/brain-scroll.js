@@ -159,6 +159,14 @@
   readerScroll.append(article);
   const closer = make('button', 'bs-close', { type: 'button', 'aria-label': root.dataset.labelClose || 'close' });
   reader.append(readerScroll, closer);
+  const weekendSource = sections.find((entry, index) => items[index].id === 'wim-hof-weekends')?.block.querySelector('[data-weekend-link]');
+  const weekendBooking = weekendSource ? weekendSource.cloneNode(true) : null;
+  if (weekendBooking) {
+    weekendBooking.classList.add('booking-floating');
+    weekendBooking.removeAttribute('data-weekend-link');
+    weekendBooking.hidden = true;
+    reader.append(weekendBooking);
+  }
 
   list.hidden = true;
   section.append(scroller, veil, wheel, band, picker, reader);
@@ -523,6 +531,8 @@
     aim = null;
     const item = items[index];
     article.replaceChildren(sections[index].block);
+    if (weekendBooking) weekendBooking.hidden = item.id !== 'wim-hof-weekends';
+    reader.classList.toggle('has-booking', item.id === 'wim-hof-weekends');
     // Park the wheel on the opened project, so closing returns to it. The
     // zoom stays where the wheel left it while the text is read.
     const row = nearestRow(index);
@@ -555,6 +565,7 @@
     if (reading < 0) return;
     const last = reading;
     reading = -1;
+    if (weekendBooking) weekendBooking.hidden = true;
     media.pause();
     picks.forEach(button => button.setAttribute('aria-expanded', 'false'));
     root.classList.remove('is-reading');

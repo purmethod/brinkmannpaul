@@ -1,0 +1,30 @@
+/* Shared booking actions: navigation only, never bypasses checkout consent. */
+a.booking-cta,
+#site-page .item-content a.booking-cta,
+#site-page .bs-reader a.booking-cta {
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:50px;max-width:100%;padding:14px 26px;box-sizing:border-box;
+  border:1px solid #101010;border-radius:999px;
+  background:#101010;color:#fff;font:400 15px/1.3 Arial,Helvetica,sans-serif;
+  letter-spacing:.025em;text-align:center;text-decoration:none;
+  transition:background-color 160ms ease,color 160ms ease;
+}
+a.booking-cta:focus-visible {outline:2px solid #101010;outline-offset:4px}
+a.booking-cta[hidden] {display:none!important}
+a.booking-floating {
+  position:fixed;z-index:20;inset-inline-start:50%;
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%);width:max-content;max-width:calc(100% - 40px);
+  box-shadow:0 4px 22px #0002;
+}
+[dir="rtl"] a.booking-floating {transform:translateX(50%)}
+#site-page .bs-reader a.booking-floating {
+  position:absolute;bottom:calc(78px + env(safe-area-inset-bottom,0px));
+}
+#site-page .bs-reader.has-booking .bs-reader-body {padding-bottom:240px}
+body:has(> a.booking-floating) {padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+#booking {scroll-margin-top:24px}
+/* Keep the payment iframe unobstructed once the user opens checkout. */
+body:has(#checkout:not([hidden])) > a.booking-floating {display:none}
+@media(hover:hover){a.booking-cta:hover,#site-page .item-content a.booking-cta:hover,#site-page .bs-reader a.booking-cta:hover{background:#fff;color:#101010}}
+@media(prefers-reduced-motion:reduce){a.booking-cta{transition:none}}
