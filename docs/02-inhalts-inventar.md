@@ -4,6 +4,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: cyclemax, Ehe und Verantwortung (2026-10-17)
+
+- **Paul:** Nach dem Absatz über die Kinder kommt ein neuer Absatz in seinen Worten: Partnerschaft und Ehe sind heilig. Wer eine Familie gründet, übernimmt Verantwortung, die sich nicht einfach emotional auflösen lässt. Wenn Kinder im Spiel sind, beginnt die Verantwortung.
+- **Neu (Startseite, cyclemax, „why i built it“, vor „that is my goal.“):** „a partnership, a marriage, is sacred. when you decide to start a family, you take on a responsibility. and this responsibility cannot simply be dissolved by emotion. when children are involved, responsibility begins.“ Deutsch wörtlich: „eine partnerschaft, eine ehe ist heilig. …“. Alle sechs Sprachen.
+
 ## Aktualisierung: all art zuerst im Rad (2026-10-17)
 
 - **Paul:** all art soll im Rad als Erstes erscheinen.
