@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: neuroarchitecture zuerst im Rad (2026-10-17)
+
+- **Paul:** Wer die Seite öffnet, sieht zuerst neuroarchitecture. Darüber steht wim hof method instructor, darunter all art, dann die Apps (cutcake zuerst).
+- **Neue Reihenfolge:**
+  1. neuroarchitecture
+  2. all art
+  3. cutcake.app
+  4. cyclemax.app
+  5. pure
+  6. mysidibou
+  7. kefir (qefyr)
+  8. sourdough (rye)
+  9. skincare (skyn)
+  10. sourdough (âlf)
+  11. wim hof method instructor
+- **Warum das reicht:** Das Rad ist endlos und startet beim ersten Eintrag. Der letzte Eintrag, wim hof, steht deshalb direkt darüber. In allen sechs Sprachen geprüft.
+
 ## Aktualisierung: neue Rubrik cutcake.app (2026-10-17)
 
 - **Paul:** Neue Rubrik für die App cutcake.app, Layout und Logo-Anordnung wie bei cyclemax. Text: „love creating videos, but social media drains your energy? i designed an app for creators who want more from life. coming soon.“
