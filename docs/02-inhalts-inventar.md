@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: neue Rubrik cutcake.app (2026-10-17)
+
+- **Paul:** Neue Rubrik für die App cutcake.app, Layout und Logo-Anordnung wie bei cyclemax. Text: „love creating videos, but social media drains your energy? i designed an app for creators who want more from life. coming soon.“
+- **Startseite:** Die Zeile „cutcake.app · coming soon“ steht direkt nach cyclemax.
+  - Links der Leitsatz, rechts das Logo als App-Kachel (104 px, `assets/cutcake-logo.webp`, aus Pauls Logo zugeschnitten, weißes Papier).
+  - Darunter der Satz und der Release-Block mit „sign up for the release ↗“.
+  - Logo und Button führen zu `/cutcake/`, nicht zu cutcake.app: die App verlangt dort noch einen Login.
+- **Seite `/cutcake/`:** Gebaut wie `/cyclemax/`: Logo-Kachel oben, Leitsatz, Satz, Release-Button, dann die Release-Karte mit dem Formular und ein schwebender Button beim Lesen. Alle sechs Sprachen, in der Sitemap (jetzt 36 Seiten).
+- **Warteliste:** `/api/waitlist` kennt die Liste `cutcake`. Einträge landen in Stripe als Kunden mit `metadata.waitlist = cutcake`.
+- **Tests:** Die Suite lief auf `main` nicht mehr durch, weil frühere Änderungen sie nicht mitgenommen hatten:
+  - `document.addEventListener` in `app.js`
+  - pagehide/pageshow-Listener, die die ganze Zeit bestehen
+  - Links mit `class` vor `href`
+  - Wochenendpreis 1490 €
+
+  Die Prüfungen sind daran angepasst. Die Wartelisten-Prüfung gilt jetzt für cyclemax und cutcake.
+
 ## Aktualisierung: Wim Hof Weekend Preis (2026-10-15, #166)
 
 - Paul legt den Preis auf 1490 € statt 490 € pro Person fest. Sichtbare Preise und Metabeschreibungen in sechs Sprachen sowie der serverseitige Buchungspreis (149000 Cent) werden angepasst. Termine, Kontingente und andere Produkte bleiben unverändert.
