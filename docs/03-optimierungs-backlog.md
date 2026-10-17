@@ -948,3 +948,11 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 
 - „cyclemaxing for women, men and couples.“ wird zur einzigen Einleitungsüberschrift der Cyclemax-Rubrik. Vorherige Überschrift entfällt; vorhandene Übersetzungen verwendet.
 - Nur sechs generierte Startseiten und Dokumentation geändert. Unabhängiger Quelltextreview und HTTP-Abgleich nach Veröffentlichung; keine zusätzlichen Browser-/Laufzeittests im Sparmodus.
+
+
+## Issue #170 — Cutcake (2026-10-17)
+
+- Paul approved adding and publishing cutcake.app directly after Cyclemax, reusing its accordion, intro grid and release CTA.
+- Exact approved English copy, supplied approved raspberry/wordmark logo, link to https://cutcake.app/.
+- Translations generated with the existing i18n script. Other project content, CSS and JavaScript unchanged.
+- Independent agent source/asset review: no blocking findings. JavaScript syntax and diff checks passed. Local browser unavailable; Chromium download failed, so browser validation will use the deployed preview.
