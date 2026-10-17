@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: all art zuerst im Rad (2026-10-17)
+
+- **Paul:** all art soll im Rad als Erstes erscheinen.
+- **Neue Reihenfolge:**
+  1. all art
+  2. neuroarchitecture
+  3. cutcake.app
+  4. cyclemax.app
+  5. pure
+  6. mysidibou
+  7. kefir
+  8. sourdough (rye)
+  9. skincare
+  10. sourdough (âlf)
+  11. wim hof method instructor
+- **Beim Öffnen:** all art steht in der Mitte. Darüber steht wim hof, darunter neuroarchitecture.
+
 ## Aktualisierung: neuroarchitecture zuerst im Rad (2026-10-17)
 
 - **Paul:** Wer die Seite öffnet, sieht zuerst neuroarchitecture. Darüber steht wim hof method instructor, darunter all art, dann die Apps (cutcake zuerst).
