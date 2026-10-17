@@ -5,7 +5,7 @@
 // souralf.com, which holds the same account's key and keeps it the same way.
 const { stripe } = require("./_stripe");
 
-const LISTS = ["cyclemax"];
+const LISTS = ["cyclemax", "cutcake"];
 const LANGS = ["en", "de", "fr", "es", "ar", "ru"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RELAY = "https://souralf.com/api/waitlist";

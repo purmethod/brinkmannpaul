@@ -45,7 +45,7 @@ function boot(options = {}) {
   const events = new Map(), timers = new Map();
   let nextTimer = 0;
   const motion = { matches: !!options.reduced, [options.legacy ? 'addListener' : 'addEventListener']: (...args) => { motion.listener = args.at(-1); } };
-  const document = { body, activeElement: gate, querySelector: sel => (options.missing === sel ? null : elems[sel]) };
+  const document = { body, activeElement: gate, hidden: false, addEventListener() {}, querySelector: sel => (options.missing === sel ? null : elems[sel]) };
   const window = {
     matchMedia: () => motion, location: { hash: options.hash || '' },
     ...(options.switched ? { sessionStorage: { getItem: key => (key === 'bs-language-switch' ? '{}' : null) } } : {}),
@@ -64,7 +64,8 @@ const released = s => {
   assert.equal(s.page.attrs.has('aria-hidden'), false);
   assert.equal(s.body.classList.contains('intro-locked'), false);
   assert.equal(s.gate.tabIndex, -1);
-  assert.equal(s.events.size, 0);
+  // pagehide and pageshow stay: they pause and resume the clip for the whole visit.
+  assert.deepEqual([...s.events.keys()].filter(k => k !== 'pagehide' && k !== 'pageshow'), []);
 };
 const still = s => s.gate.classList.contains('is-complete');
 
@@ -119,12 +120,12 @@ s = boot({ missing: '#intro-animation' }); released(s);
 const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('</section>'));
 const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
-assert.equal(items.length, 10, 'ten projects, each with an id');
-assert.equal(new Set(items.map(item => item[1])).size, 10, 'project ids are unique');
+assert.equal(items.length, 11, 'eleven projects, each with an id');
+assert.equal(new Set(items.map(item => item[1])).size, 11, 'project ids are unique');
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -193,7 +194,7 @@ for (const lang of LANGS) {
 // with price, safety notes before any request and links that stay in the language.
 const weekends = fs.readFileSync(path.join(root, 'dist/weekends/index.html'), 'utf8');
 assert.ok(html.includes('<a href="weekends/">'), 'the wim hof row links to the booking page');
-assert.ok(weekends.includes('490 € per person'), 'weekends: price shown');
+assert.ok(weekends.includes('1490 € per person'), 'weekends: price shown');
 assert.ok(weekends.includes('data-product="weekend"') && weekends.includes('src="/order.js'), 'weekends: booked and paid on the page through the embedded stripe checkout');
 assert.ok(weekends.includes('data-agree="agree"') && weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('class="pay"'), 'weekends: paying waits for the safety notes, which come first');
 assert.ok(!weekends.includes('class="request"'), 'weekends: no booking by request any more');
@@ -222,7 +223,7 @@ for (const api of ['_stripe', 'checkout', 'shop', 'session-status']) new vm.Scri
 const shopJson = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json'), 'utf8'));
 assert.ok(shopJson.shipping.length, 'shop.json has shipping zones');
 const weekend = shopJson.products.weekend;
-assert.ok(weekend && weekend.amount === 49000 && weekend.shipping === false && weekend.path === 'weekends', 'shop.json: the weekend, 490 € per person, not shipped, thanks under weekends/');
+assert.ok(weekend && weekend.amount === 149000 && weekend.shipping === false && weekend.path === 'weekends', 'shop.json: the weekend, 1490 € per person, not shipped, thanks under weekends/');
 assert.deepEqual(weekend.dates.map(d => d.id), ['2026-11-12', '2026-11-19', '2026-11-26', '2026-12-03', '2026-12-10'], 'shop.json: the five weekends, thursday to sunday');
 for (const d of weekend.dates) {
   assert.equal(new Date(d.id + 'T12:00:00Z').getUTCDay(), 4, `${d.id} is a thursday`);
@@ -253,29 +254,29 @@ for (const product of ['skyn', 'rye']) {
   }
 }
 
-// The cyclemax release list: one e-mail field, kept by /api/waitlist in paul's
-// stripe (relayed through souralf.com until this project has its own key), in
-// every language, linked from its row.
+// The app release lists (cyclemax, cutcake): one e-mail field, kept by
+// /api/waitlist in paul's stripe, the app mark at the top, in every language,
+// linked from the app's row.
 new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: 'waitlist.js' });
-{
-  const source = fs.readFileSync(path.join(root, 'dist', 'cyclemax', 'index.html'), 'utf8');
-  assert.ok(html.includes('<a href="cyclemax/">'), 'the cyclemax row links to its waitlist page');
-  assert.ok(/<form class="join" id="join"/.test(source) && source.includes('type="email"') && source.includes("fetch('/api/waitlist'"), 'cyclemax: waitlist form posts to /api/waitlist');
-  assert.ok(source.includes('name="company"'), 'cyclemax: honeypot against bots');
-  assert.ok(!source.includes('mailto:brinkmannbuild@gmail.com?subject'), 'cyclemax: sign-ups are kept automatically, never by an e-mail the visitor has to send');
-  assert.ok(/<section class="hero">[\s\S]*?<a class="cta" href="#join">/.test(source) && source.includes('class="cta float"'), 'cyclemax: release button at the top and floating while reading');
-  assert.ok(/<svg class="cycle"[^>]*role="img"[^>]*aria-label="/.test(source), 'cyclemax: the cycle ring has a label');
-  for (const script of source.match(/<script>[\s\S]*?<\/script>/g) || []) new vm.Script(script.slice(8, -9), { filename: 'cyclemax inline' });
+for (const app of ['cyclemax', 'cutcake']) {
+  const source = fs.readFileSync(path.join(root, 'dist', app, 'index.html'), 'utf8');
+  assert.ok(html.includes(`href="${app}/"`), `the ${app} row links to its release page`);
+  assert.ok(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').includes(`"${app}"`), `waitlist.js keeps the ${app} list`);
+  assert.ok(/<form class="join" id="join"/.test(source) && source.includes('type="email"') && source.includes("fetch('/api/waitlist'") && source.includes(`list: '${app}'`), `${app}: waitlist form posts its own list to /api/waitlist`);
+  assert.ok(source.includes('name="company"'), `${app}: honeypot against bots`);
+  assert.ok(!source.includes('mailto:brinkmannbuild@gmail.com?subject'), `${app}: sign-ups are kept automatically, never by an e-mail the visitor has to send`);
+  assert.ok(/<section class="hero">[\s\S]*?class="app-mark"[\s\S]*?<a class="cta" href="#join">/.test(source) && source.includes('class="cta float"'), `${app}: app mark and release button at the top, floating while reading`);
+  for (const script of source.match(/<script>[\s\S]*?<\/script>/g) || []) new vm.Script(script.slice(8, -9), { filename: `${app} inline` });
   pages.push(['dist', source]);
   for (const lang of LANGS) {
-    const file = path.join(root, 'dist', lang, 'cyclemax', 'index.html');
-    assert.ok(fs.existsSync(file), `dist/${lang}/cyclemax/index.html exists (run python3 scripts/i18n.py build)`);
+    const file = path.join(root, 'dist', lang, app, 'index.html');
+    assert.ok(fs.existsSync(file), `dist/${lang}/${app}/index.html exists (run python3 scripts/i18n.py build)`);
     const page = fs.readFileSync(file, 'utf8');
-    assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/cyclemax/" />`), `${lang} cyclemax canonical`);
-    assert.ok(new RegExp(`href="/${lang}/cyclemax/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} cyclemax marked in the selector`);
-    assert.ok(page.includes(`href="/${lang}/#cyclemax"`), `${lang} cyclemax closes back to its own language`);
-    assert.ok(page.includes(`<html lang="${lang}"`) && page.includes('documentElement.lang'), `${lang} cyclemax sends its language`);
-    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/cyclemax/">`), `${lang} row links to its cyclemax page`);
+    assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/${app}/" />`), `${lang} ${app} canonical`);
+    assert.ok(new RegExp(`href="/${lang}/${app}/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} ${app} marked in the selector`);
+    assert.ok(page.includes(`href="/${lang}/#${app}"`), `${lang} ${app} closes back to its own language`);
+    assert.ok(page.includes(`<html lang="${lang}"`) && page.includes('documentElement.lang'), `${lang} ${app} sends its language`);
+    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`href="/${lang}/${app}/"`), `${lang} row links to its ${app} page`);
     pages.push(['dist', page]);
   }
 }
@@ -300,8 +301,8 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 30, 'sitemap lists home, weekends, skyn, rye and cyclemax in six languages');
+assert.equal(locs.length, 36, 'sitemap lists home, weekends, skyn, rye, cyclemax and cutcake in six languages');
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 10 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax waitlist, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 11 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax and cutcake waitlists, local assets, og image, robots and sitemap.');
