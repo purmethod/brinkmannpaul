@@ -103,10 +103,49 @@
     </header>
     <main>
       <div class="head">
-        <h1>wim hof wochenenden</h1>
-        <p>polen · november & dezember · donnerstag bis sonntag</p>
+        <h1>wim hof methode</h1>
+        <p>atemsessions · wochenenden in polen</p>
         <a class="shut" href="/de/#wim-hof-weekends" aria-label="schließen"></a>
       </div>
+      <section class="choose" id="book">
+        <h2>was möchtest du buchen?</h2>
+        <div class="zones offers">
+          <label class="zone"><input type="radio" name="offer" value="session" /><span class="where">atemsession</span><span class="how">persönlich, mit mir</span><span class="cost">100 €</span></label>
+          <label class="zone"><input type="radio" name="offer" value="weekend" /><span class="where">wochenende in polen</span><span class="how">donnerstag bis sonntag · alles inklusive</span><span class="cost">1490 €</span></label>
+        </div>
+      </section>
+
+      <h2>sicherheit</h2>
+      <div class="safety">
+        <p>mach die atemübungen nie im oder am wasser, beim autofahren oder im stehen. wenn du schwanger bist oder epilepsie, eine herzerkrankung oder bluthochdruck hast, sprich vorher mit deinem arzt.</p>
+      </div>
+
+      <section class="offer" id="session" data-offer="session">
+        <h2>atemsession</h2>
+        <p class="lead">atme mit mir. persönlich.</p>
+        <p>eine atemsession mit mir, paul brinkmann, zertifizierter wim hof methode instructor mit 15 jahren atemarbeit.</p>
+        <p class="price">100 €</p>
+
+        <h2>so funktioniert die buchung</h2>
+        <ol class="steps">
+          <li>lies die sicherheitshinweise und buch deine session direkt hier auf der seite.</li>
+          <li>bezahl sicher in der kasse unten.</li>
+          <li>ich schreibe dir persönlich, und wir legen zeit und ort fest.</li>
+        </ol>
+
+        <h2>session buchen</h2>
+        <p class="soon" id="soon-session">die buchung öffnet hier in kürze.</p>
+        <div class="order" id="order-session" hidden data-product="session" data-soon="soon-session" data-agree="agree-session" data-label-wait="einen moment" data-label-error="die kasse konnte nicht öffnen. bitte versuch es gleich noch einmal.">
+          <p class="price"><span data-price></span> pro session</p>
+          <div class="agree"><input type="checkbox" id="agree-session" /><label for="agree-session">ich habe die sicherheitshinweise gelesen.</label></div>
+          <a class="pay" href="#checkout-session" role="button">session buchen</a>
+          <p class="note error" role="alert" hidden></p>
+          <a class="back" href="#order-session" role="button" hidden>zurück</a>
+          <div class="checkout" id="checkout-session" hidden></div>
+        </div>
+      </section>
+
+      <section class="offer" id="weekend" data-offer="weekend">
       <p class="lead">ein wochenende in polen. kleine gruppe. echte praxis.</p>
       <p>im original wim hof haus in polen, mit paul brinkmann, zertifizierter wim hof methode instructor mit 15 jahren atemarbeit.</p>
       <figure class="photo">
@@ -144,11 +183,6 @@
         <li>ich schreibe dir persönlich alles, was du brauchst. wir sehen uns am donnerstag in polen.</li>
       </ol>
 
-      <h2>sicherheit</h2>
-      <div class="safety">
-        <p>mach die atemübungen nie im oder am wasser, beim autofahren oder im stehen. wenn du schwanger bist oder epilepsie, eine herzerkrankung oder bluthochdruck hast, sprich vorher mit deinem arzt.</p>
-      </div>
-
       <h2>platz buchen</h2>
       <p class="soon" id="soon">die buchung öffnet hier in kürze.</p>
       <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="noch {n} plätze" data-label-one="noch 1 platz" data-label-full="ausgebucht" data-label-wait="einen moment" data-label-error="die kasse konnte nicht öffnen. bitte versuch es gleich noch einmal.">
@@ -176,6 +210,7 @@
         <div class="checkout" id="checkout" hidden></div>
         <p class="note">dein platz an einem wim hof wochenende in polen. max. 20 personen pro wochenende.</p>
       </div>
+      </section>
 
       <h2>fragen</h2>
       <p>schreib mir per whatsapp oder e-mail. ich antworte persönlich.</p>
@@ -195,6 +230,19 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=148" defer></script>
+    <script>
+      // One offer shows at a time: the one in the link (#session, #weekend) or the one tapped.
+      (function () {
+        var radios = document.querySelectorAll('input[name="offer"]');
+        var offers = document.querySelectorAll('.offer');
+        function show(id) {
+          [].forEach.call(offers, function (o) { o.hidden = o.dataset.offer !== id; });
+          [].forEach.call(radios, function (r) { r.checked = r.value === id; });
+        }
+        [].forEach.call(radios, function (r) { r.addEventListener('change', function () { show(r.value); }); });
+        show(location.hash === '#weekend' ? 'weekend' : location.hash === '#session' ? 'session' : 'session');
+      })();
+    </script>
+    <script src="/order.js?v=149" defer></script>
   </body>
 </html>

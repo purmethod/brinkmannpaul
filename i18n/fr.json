@@ -298,5 +298,21 @@
  "cutcake.app by paul brinkmann: love creating videos, but social media drains your energy? an app for creators who want more from life. coming soon.": "cutcake.app par paul brinkmann : tu aimes créer des vidéos, mais les réseaux sociaux t'épuisent ? une app pour les créateurs qui veulent plus de la vie. bientôt disponible.",
  "love creating videos, but social media drains your energy?": "tu aimes créer des vidéos, mais les réseaux sociaux t'épuisent ?",
  "i designed an app for creators who want more from life.": "j'ai conçu une app pour les créateurs qui veulent plus de la vie.",
- "a partnership, a marriage, is sacred. when you decide to start a family, you take on a responsibility. and this responsibility cannot simply be dissolved by emotion. when children are involved, responsibility begins.": "un couple, un mariage, c'est sacré. quand on décide de fonder une famille, on prend une responsabilité. et cette responsabilité ne peut pas simplement se dissoudre dans l'émotion. quand il y a des enfants, la responsabilité commence."
+ "a partnership, a marriage, is sacred. when you decide to start a family, you take on a responsibility. and this responsibility cannot simply be dissolved by emotion. when children are involved, responsibility begins.": "un couple, un mariage, c'est sacré. quand on décide de fonder une famille, on prend une responsabilité. et cette responsabilité ne peut pas simplement se dissoudre dans l'émotion. quand il y a des enfants, la responsabilité commence.",
+ "book a breathing session ↗": "réserver une séance de respiration ↗",
+ "wim hof method": "méthode wim hof",
+ "breathing sessions · weekends in poland": "séances de respiration · week-ends en pologne",
+ "what would you like to book?": "que veux-tu réserver ?",
+ "<input type=\"radio\" name=\"offer\" value=\"session\" /><span class=\"where\">breathing session</span><span class=\"how\">personally, with me</span><span class=\"cost\">100 €</span>": "<input type=\"radio\" name=\"offer\" value=\"session\" /><span class=\"where\">séance de respiration</span><span class=\"how\">en personne, avec moi</span><span class=\"cost\">100 €</span>",
+ "<input type=\"radio\" name=\"offer\" value=\"weekend\" /><span class=\"where\">weekend in poland</span><span class=\"how\">thursday to sunday · all inclusive</span><span class=\"cost\">1490 €</span>": "<input type=\"radio\" name=\"offer\" value=\"weekend\" /><span class=\"where\">week-end en pologne</span><span class=\"how\">du jeudi au dimanche · tout compris</span><span class=\"cost\">1490 €</span>",
+ "breathing session": "séance de respiration",
+ "breathe with me. personally.": "respire avec moi. en personne.",
+ "a breathing session with me, paul brinkmann, certified wim hof method instructor with 15 years of breathwork.": "une séance de respiration avec moi, paul brinkmann, instructeur certifié de la méthode wim hof avec 15 ans de travail respiratoire.",
+ "read the safety notes and book your session right here on the page.": "lis les consignes de sécurité et réserve ta séance directement ici.",
+ "pay securely in the checkout below.": "paie en toute sécurité dans le paiement ci-dessous.",
+ "i write to you personally and we set the time and place.": "je t'écris personnellement et nous fixons l'heure et le lieu.",
+ "book your session": "réserver ta séance",
+ "<span data-price></span> per session": "<span data-price></span> par séance",
+ "back": "retour",
+ "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "ta séance de respiration est réservée. stripe t'envoie le reçu par e-mail, et je t'écris personnellement pour fixer l'heure et le lieu."
 }

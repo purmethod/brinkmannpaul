@@ -4,6 +4,23 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Breathing Sessions buchen, 100 € (2026-10-23)
+
+- **Paul:** In der Wim-Hof-Rubrik soll es einen Button „Breathing Session buchen“ geben. Danach wählt man zwischen Weekend und Breathing Session. Die Session kostet 100 € und lässt sich direkt über Stripe kaufen.
+- **Startseite:** In der Wim-Hof-Zeile führt „book a breathing session ↗“ (de: „atemsession buchen ↗“) zu `weekends/#book`. Er ersetzt „book a weekend ↗“.
+- **Seite `/weekends/`:**
+  - Neuer Kopf: „wim hof method“, „breathing sessions · weekends in poland“.
+  - Oben steht die Auswahl „what would you like to book?“ mit zwei Optionen: breathing session (100 €) und weekend in poland (1490 €). Vorausgewählt ist die Session, `#weekend` wählt das Wochenende.
+  - Die Sicherheitshinweise stehen jetzt direkt danach und gelten für beides.
+  - Abschnitt „breathing session“: Leitsatz „breathe with me. personally.“, Beschreibung, Preis 100 €, drei Buchungsschritte (nach der Zahlung schreibt Paul persönlich, Zeit und Ort werden vereinbart) und die eingebettete Stripe-Kasse nach dem Haken bei den Sicherheitshinweisen.
+  - Das Wochenende ist unverändert, nur in seinen eigenen Abschnitt gefasst.
+- **Danke-Seite:** Nach einer Session zeigt sie „your breathing session is booked …“.
+- **Technik:**
+  - `shop.json` hat das Produkt `session` (10000 Cent, ohne Versand, `max_quantity` 1, `path` weekends). Die Anzahl ist in der Kasse fest.
+  - `order.js` (v=149) kann jetzt mehrere Bestellblöcke auf einer Seite. Stripe zeigt immer nur eine Kasse auf einmal.
+  - Die Rücksprungadresse trägt `&product=`.
+- **Offen:** Dauer und Ort der Session (online oder vor Ort) hat Paul nicht genannt. Der Text sagt deshalb nur: Ich schreibe dir persönlich, und wir legen Zeit und Ort fest.
+
 ## Aktualisierung: cyclemax, Ehe und Verantwortung (2026-10-17)
 
 - **Paul:** Nach dem Absatz über die Kinder kommt ein neuer Absatz in seinen Worten: Partnerschaft und Ehe sind heilig. Wer eine Familie gründet, übernimmt Verantwortung, die sich nicht einfach emotional auflösen lässt. Wenn Kinder im Spiel sind, beginnt die Verantwortung.

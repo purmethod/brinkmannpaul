@@ -73,12 +73,12 @@
     </header>
     <main>
       <div class="head">
-        <h1>wim hof wochenenden</h1>
-        <p>polen · november & dezember · donnerstag bis sonntag</p>
+        <h1>wim hof methode</h1>
+        <p>atemsessions · wochenenden in polen</p>
         <a class="shut" href="/de/weekends/" aria-label="schließen"></a>
       </div>
       <p class="lead" id="done">danke.</p>
-      <p id="done-text">dein platz ist gebucht. stripe schickt dir die quittung per e-mail, und ich schreibe dir persönlich alles, was du für dein wochenende brauchst.</p>
+      <p id="done-text" data-label-session="deine atemsession ist gebucht. stripe schickt dir die quittung per e-mail, und ich schreibe dir persönlich, um zeit und ort festzulegen.">dein platz ist gebucht. stripe schickt dir die quittung per e-mail, und ich schreibe dir persönlich alles, was du für dein wochenende brauchst.</p>
       <p class="error" id="open" hidden>die zahlung wurde nicht abgeschlossen. du kannst es auf der weekends-seite noch einmal versuchen.</p>
       <p><a href="/de/weekends/">zurück zu den weekends</a></p>
     </main>
@@ -100,7 +100,11 @@
     <script>
       // A session that was not paid shows how to try again instead of the thanks.
       (function () {
-        var id = new URLSearchParams(location.search).get('session_id');
+        var query = new URLSearchParams(location.search);
+        var id = query.get('session_id');
+        // The same page thanks for a breathing session in its own words.
+        var text = document.getElementById('done-text');
+        if (query.get('product') === 'session' && text.dataset.labelSession) text.textContent = text.dataset.labelSession;
         if (!id || !window.fetch) return;
         fetch('/api/session-status?session_id=' + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (s) {
           if (s.status === 'open') {

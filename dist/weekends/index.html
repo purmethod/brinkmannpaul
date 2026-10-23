@@ -103,10 +103,49 @@
     </header>
     <main>
       <div class="head">
-        <h1>wim hof weekends</h1>
-        <p>poland · november & december · thursday to sunday</p>
+        <h1>wim hof method</h1>
+        <p>breathing sessions · weekends in poland</p>
         <a class="shut" href="/#wim-hof-weekends" aria-label="close"></a>
       </div>
+      <section class="choose" id="book">
+        <h2>what would you like to book?</h2>
+        <div class="zones offers">
+          <label class="zone"><input type="radio" name="offer" value="session" /><span class="where">breathing session</span><span class="how">personally, with me</span><span class="cost">100 €</span></label>
+          <label class="zone"><input type="radio" name="offer" value="weekend" /><span class="where">weekend in poland</span><span class="how">thursday to sunday · all inclusive</span><span class="cost">1490 €</span></label>
+        </div>
+      </section>
+
+      <h2>safety</h2>
+      <div class="safety">
+        <p>never practise the breathing in or near water, while driving or standing. if you are pregnant, or live with epilepsy, a heart condition or high blood pressure, speak to your doctor first.</p>
+      </div>
+
+      <section class="offer" id="session" data-offer="session">
+        <h2>breathing session</h2>
+        <p class="lead">breathe with me. personally.</p>
+        <p>a breathing session with me, paul brinkmann, certified wim hof method instructor with 15 years of breathwork.</p>
+        <p class="price">100 €</p>
+
+        <h2>how booking works</h2>
+        <ol class="steps">
+          <li>read the safety notes and book your session right here on the page.</li>
+          <li>pay securely in the checkout below.</li>
+          <li>i write to you personally and we set the time and place.</li>
+        </ol>
+
+        <h2>book your session</h2>
+        <p class="soon" id="soon-session">booking opens here shortly.</p>
+        <div class="order" id="order-session" hidden data-product="session" data-soon="soon-session" data-agree="agree-session" data-label-wait="one moment" data-label-error="the checkout could not open. please try again in a moment.">
+          <p class="price"><span data-price></span> per session</p>
+          <div class="agree"><input type="checkbox" id="agree-session" /><label for="agree-session">i have read the safety notes.</label></div>
+          <a class="pay" href="#checkout-session" role="button">book your session</a>
+          <p class="note error" role="alert" hidden></p>
+          <a class="back" href="#order-session" role="button" hidden>back</a>
+          <div class="checkout" id="checkout-session" hidden></div>
+        </div>
+      </section>
+
+      <section class="offer" id="weekend" data-offer="weekend">
       <p class="lead">a weekend in poland. small group. real practice.</p>
       <p>at the original wim hof house in poland, with paul brinkmann, certified wim hof method instructor with 15 years of breathwork.</p>
       <figure class="photo">
@@ -144,11 +183,6 @@
         <li>i write to you personally with everything you need. see you on thursday in poland.</li>
       </ol>
 
-      <h2>safety</h2>
-      <div class="safety">
-        <p>never practise the breathing in or near water, while driving or standing. if you are pregnant, or live with epilepsy, a heart condition or high blood pressure, speak to your doctor first.</p>
-      </div>
-
       <h2>book your place</h2>
       <p class="soon" id="soon">booking opens here shortly.</p>
       <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="{n} places left" data-label-one="1 place left" data-label-full="fully booked" data-label-wait="one moment" data-label-error="the checkout could not open. please try again in a moment.">
@@ -176,6 +210,7 @@
         <div class="checkout" id="checkout" hidden></div>
         <p class="note">your place in a wim hof weekend in poland. max 20 people per weekend.</p>
       </div>
+      </section>
 
       <h2>questions</h2>
       <p>write to me on whatsapp or by e-mail. i answer personally.</p>
@@ -195,6 +230,19 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=148" defer></script>
+    <script>
+      // One offer shows at a time: the one in the link (#session, #weekend) or the one tapped.
+      (function () {
+        var radios = document.querySelectorAll('input[name="offer"]');
+        var offers = document.querySelectorAll('.offer');
+        function show(id) {
+          [].forEach.call(offers, function (o) { o.hidden = o.dataset.offer !== id; });
+          [].forEach.call(radios, function (r) { r.checked = r.value === id; });
+        }
+        [].forEach.call(radios, function (r) { r.addEventListener('change', function () { show(r.value); }); });
+        show(location.hash === '#weekend' ? 'weekend' : location.hash === '#session' ? 'session' : 'session');
+      })();
+    </script>
+    <script src="/order.js?v=149" defer></script>
   </body>
 </html>

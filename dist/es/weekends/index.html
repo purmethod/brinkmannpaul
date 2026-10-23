@@ -103,10 +103,49 @@
     </header>
     <main>
       <div class="head">
-        <h1>fines de semana wim hof</h1>
-        <p>polonia · noviembre y diciembre · de jueves a domingo</p>
+        <h1>método wim hof</h1>
+        <p>sesiones de respiración · fines de semana en polonia</p>
         <a class="shut" href="/es/#wim-hof-weekends" aria-label="cerrar"></a>
       </div>
+      <section class="choose" id="book">
+        <h2>¿qué quieres reservar?</h2>
+        <div class="zones offers">
+          <label class="zone"><input type="radio" name="offer" value="session" /><span class="where">sesión de respiración</span><span class="how">en persona, conmigo</span><span class="cost">100 €</span></label>
+          <label class="zone"><input type="radio" name="offer" value="weekend" /><span class="where">fin de semana en polonia</span><span class="how">de jueves a domingo · todo incluido</span><span class="cost">1490 €</span></label>
+        </div>
+      </section>
+
+      <h2>seguridad</h2>
+      <div class="safety">
+        <p>nunca practiques la respiración en el agua o cerca de ella, conduciendo o de pie. si estás embarazada o tienes epilepsia, una enfermedad cardíaca o hipertensión, habla antes con tu médico.</p>
+      </div>
+
+      <section class="offer" id="session" data-offer="session">
+        <h2>sesión de respiración</h2>
+        <p class="lead">respira conmigo. en persona.</p>
+        <p>una sesión de respiración conmigo, paul brinkmann, instructor certificado del método wim hof con 15 años de trabajo respiratorio.</p>
+        <p class="price">100 €</p>
+
+        <h2>cómo reservar</h2>
+        <ol class="steps">
+          <li>lee las indicaciones de seguridad y reserva tu sesión aquí mismo.</li>
+          <li>paga de forma segura en el pago de abajo.</li>
+          <li>te escribo personalmente y fijamos la hora y el lugar.</li>
+        </ol>
+
+        <h2>reservar tu sesión</h2>
+        <p class="soon" id="soon-session">la reserva se abre aquí muy pronto.</p>
+        <div class="order" id="order-session" hidden data-product="session" data-soon="soon-session" data-agree="agree-session" data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
+          <p class="price"><span data-price></span> por sesión</p>
+          <div class="agree"><input type="checkbox" id="agree-session" /><label for="agree-session">he leído las indicaciones de seguridad.</label></div>
+          <a class="pay" href="#checkout-session" role="button">reservar tu sesión</a>
+          <p class="note error" role="alert" hidden></p>
+          <a class="back" href="#order-session" role="button" hidden>volver</a>
+          <div class="checkout" id="checkout-session" hidden></div>
+        </div>
+      </section>
+
+      <section class="offer" id="weekend" data-offer="weekend">
       <p class="lead">un fin de semana en polonia. grupo reducido. práctica real.</p>
       <p>en la casa original de wim hof en polonia, con paul brinkmann, instructor certificado del método wim hof con 15 años de trabajo respiratorio.</p>
       <figure class="photo">
@@ -144,11 +183,6 @@
         <li>te escribo personalmente todo lo que necesitas. nos vemos el jueves en polonia.</li>
       </ol>
 
-      <h2>seguridad</h2>
-      <div class="safety">
-        <p>nunca practiques la respiración en el agua o cerca de ella, conduciendo o de pie. si estás embarazada o tienes epilepsia, una enfermedad cardíaca o hipertensión, habla antes con tu médico.</p>
-      </div>
-
       <h2>reservar tu plaza</h2>
       <p class="soon" id="soon">la reserva se abre aquí muy pronto.</p>
       <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="quedan {n} plazas" data-label-one="queda 1 plaza" data-label-full="completo" data-label-wait="un momento" data-label-error="no se pudo abrir el pago. inténtalo de nuevo en un momento.">
@@ -176,6 +210,7 @@
         <div class="checkout" id="checkout" hidden></div>
         <p class="note">tu plaza en un fin de semana wim hof en polonia. máx. 20 personas por fin de semana.</p>
       </div>
+      </section>
 
       <h2>preguntas</h2>
       <p>escríbeme por whatsapp o por e-mail, respondo personalmente.</p>
@@ -195,6 +230,19 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=148" defer></script>
+    <script>
+      // One offer shows at a time: the one in the link (#session, #weekend) or the one tapped.
+      (function () {
+        var radios = document.querySelectorAll('input[name="offer"]');
+        var offers = document.querySelectorAll('.offer');
+        function show(id) {
+          [].forEach.call(offers, function (o) { o.hidden = o.dataset.offer !== id; });
+          [].forEach.call(radios, function (r) { r.checked = r.value === id; });
+        }
+        [].forEach.call(radios, function (r) { r.addEventListener('change', function () { show(r.value); }); });
+        show(location.hash === '#weekend' ? 'weekend' : location.hash === '#session' ? 'session' : 'session');
+      })();
+    </script>
+    <script src="/order.js?v=149" defer></script>
   </body>
 </html>
