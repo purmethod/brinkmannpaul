@@ -314,5 +314,6 @@
  "book your session": "reservar tu sesión",
  "<span data-price></span> per session": "<span data-price></span> por sesión",
  "back": "volver",
- "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "tu sesión de respiración está reservada. stripe te envía el recibo por e-mail, y te escribo personalmente para fijar la hora y el lugar."
+ "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "tu sesión de respiración está reservada. stripe te envía el recibo por e-mail, y te escribo personalmente para fijar la hora y el lugar.",
+ "book a session": "reservar una sesión"
 }

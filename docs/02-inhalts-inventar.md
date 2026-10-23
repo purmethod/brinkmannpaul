@@ -4,6 +4,14 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: „book a session“-Button oben in der Wim-Hof-Rubrik (2026-10-23)
+
+- **Paul:** Der Button war zu klein und stand ganz unten. Wer die Rubrik öffnet, soll ihn sofort sehen: oben, sauber, „book session“.
+- **Neu:** Direkt unter „fifteen years of breath.“ steht ein Button über die volle Breite: graphit (`--tone-dark`), weiße Schrift, 54 px hoch, ohne Unterstreichung. Text „book a session“ (de: „session buchen“). Er führt zu `weekends/#book`, dort ist die Session vorausgewählt.
+  - Im Browser bei 390 px geprüft: Er steht beim Öffnen sichtbar im ersten Bildschirm.
+  - Der Link „book a breathing session ↗“ am Ende der Rubrik bleibt.
+  - CSS `.row-cta` in `brain-scroll.css` (v=155).
+
 ## Aktualisierung: Breathing Sessions buchen, 100 € (2026-10-23)
 
 - **Paul:** In der Wim-Hof-Rubrik soll es einen Button „Breathing Session buchen“ geben. Danach wählt man zwischen Weekend und Breathing Session. Die Session kostet 100 € und lässt sich direkt über Stripe kaufen.
