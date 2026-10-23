@@ -103,10 +103,49 @@
     </header>
     <main>
       <div class="head">
-        <h1>عطلات ويم هوف</h1>
-        <p>بولندا · نوفمبر وديسمبر · من الخميس إلى الأحد</p>
+        <h1>طريقة ويم هوف</h1>
+        <p>جلسات التنفس · عطلات نهاية الأسبوع في بولندا</p>
         <a class="shut" href="/ar/#wim-hof-weekends" aria-label="إغلاق"></a>
       </div>
+      <section class="choose" id="book">
+        <h2>ماذا تريد أن تحجز؟</h2>
+        <div class="zones offers">
+          <label class="zone"><input type="radio" name="offer" value="session" /><span class="where">جلسة تنفس</span><span class="how">شخصيًا، معي</span><span class="cost">100 €</span></label>
+          <label class="zone"><input type="radio" name="offer" value="weekend" /><span class="where">عطلة نهاية أسبوع في بولندا</span><span class="how">من الخميس إلى الأحد · شامل كل شيء</span><span class="cost">1490 €</span></label>
+        </div>
+      </section>
+
+      <h2>السلامة</h2>
+      <div class="safety">
+        <p>لا تمارس تمارين التنفس أبدًا في الماء أو بالقرب منه، ولا أثناء القيادة أو الوقوف. في حالة الحمل أو الصرع أو أمراض القلب أو ارتفاع ضغط الدم، استشر طبيبك أولًا.</p>
+      </div>
+
+      <section class="offer" id="session" data-offer="session">
+        <h2>جلسة تنفس</h2>
+        <p class="lead">تنفّس معي. شخصيًا.</p>
+        <p>جلسة تنفس معي، paul brinkmann، مدرّب معتمد لطريقة ويم هوف مع 15 عامًا من العمل على التنفس.</p>
+        <p class="price">100 €</p>
+
+        <h2>كيف يتم الحجز</h2>
+        <ol class="steps">
+          <li>اقرأ إرشادات السلامة واحجز جلستك هنا مباشرة.</li>
+          <li>ادفع بأمان في صفحة الدفع أدناه.</li>
+          <li>أكتب لك شخصيًا ونحدّد الوقت والمكان.</li>
+        </ol>
+
+        <h2>احجز جلستك</h2>
+        <p class="soon" id="soon-session">يُفتح الحجز هنا قريبًا.</p>
+        <div class="order" id="order-session" hidden data-product="session" data-soon="soon-session" data-agree="agree-session" data-label-wait="لحظة" data-label-error="تعذّر فتح صفحة الدفع. حاول مرة أخرى بعد لحظة.">
+          <p class="price"><span data-price></span> للجلسة</p>
+          <div class="agree"><input type="checkbox" id="agree-session" /><label for="agree-session">قرأت إرشادات السلامة.</label></div>
+          <a class="pay" href="#checkout-session" role="button">احجز جلستك</a>
+          <p class="note error" role="alert" hidden></p>
+          <a class="back" href="#order-session" role="button" hidden>رجوع</a>
+          <div class="checkout" id="checkout-session" hidden></div>
+        </div>
+      </section>
+
+      <section class="offer" id="weekend" data-offer="weekend">
       <p class="lead">عطلة نهاية أسبوع في بولندا. مجموعة صغيرة. ممارسة حقيقية.</p>
       <p>في بيت ويم هوف الأصلي في بولندا، مع بول برينكمان، مدرّب معتمد لطريقة ويم هوف مع 15 عامًا من تمارين التنفس.</p>
       <figure class="photo">
@@ -144,11 +183,6 @@
         <li>أكتب لك شخصيًا كل ما تحتاجه. نلتقي يوم الخميس في بولندا.</li>
       </ol>
 
-      <h2>السلامة</h2>
-      <div class="safety">
-        <p>لا تمارس تمارين التنفس أبدًا في الماء أو بالقرب منه، ولا أثناء القيادة أو الوقوف. في حالة الحمل أو الصرع أو أمراض القلب أو ارتفاع ضغط الدم، استشر طبيبك أولًا.</p>
-      </div>
-
       <h2>احجز مكانك</h2>
       <p class="soon" id="soon">يُفتح الحجز هنا قريبًا.</p>
       <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="تبقّى {n} مكانًا" data-label-one="تبقّى مكان واحد" data-label-full="محجوز بالكامل" data-label-wait="لحظة" data-label-error="تعذّر فتح صفحة الدفع. حاول مرة أخرى بعد لحظة.">
@@ -176,6 +210,7 @@
         <div class="checkout" id="checkout" hidden></div>
         <p class="note">مكانك في عطلة wim hof في بولندا. 20 شخصًا كحد أقصى لكل عطلة.</p>
       </div>
+      </section>
 
       <h2>أسئلة</h2>
       <p>راسلني عبر واتساب أو البريد الإلكتروني، أجيب بنفسي.</p>
@@ -195,6 +230,19 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=148" defer></script>
+    <script>
+      // One offer shows at a time: the one in the link (#session, #weekend) or the one tapped.
+      (function () {
+        var radios = document.querySelectorAll('input[name="offer"]');
+        var offers = document.querySelectorAll('.offer');
+        function show(id) {
+          [].forEach.call(offers, function (o) { o.hidden = o.dataset.offer !== id; });
+          [].forEach.call(radios, function (r) { r.checked = r.value === id; });
+        }
+        [].forEach.call(radios, function (r) { r.addEventListener('change', function () { show(r.value); }); });
+        show(location.hash === '#weekend' ? 'weekend' : location.hash === '#session' ? 'session' : 'session');
+      })();
+    </script>
+    <script src="/order.js?v=149" defer></script>
   </body>
 </html>

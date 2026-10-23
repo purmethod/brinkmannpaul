@@ -73,12 +73,12 @@
     </header>
     <main>
       <div class="head">
-        <h1>عطلات ويم هوف</h1>
-        <p>بولندا · نوفمبر وديسمبر · من الخميس إلى الأحد</p>
+        <h1>طريقة ويم هوف</h1>
+        <p>جلسات التنفس · عطلات نهاية الأسبوع في بولندا</p>
         <a class="shut" href="/ar/weekends/" aria-label="إغلاق"></a>
       </div>
       <p class="lead" id="done">شكرًا.</p>
-      <p id="done-text">تم حجز مكانك. يرسل لك stripe الإيصال بالبريد الإلكتروني، وأكتب لك شخصيًا كل ما تحتاجه لعطلتك.</p>
+      <p id="done-text" data-label-session="تم حجز جلسة التنفس الخاصة بك. يرسل لك stripe الإيصال بالبريد الإلكتروني، وأكتب لك شخصيًا لتحديد الوقت والمكان.">تم حجز مكانك. يرسل لك stripe الإيصال بالبريد الإلكتروني، وأكتب لك شخصيًا كل ما تحتاجه لعطلتك.</p>
       <p class="error" id="open" hidden>لم تكتمل عملية الدفع. يمكنك المحاولة مرة أخرى في صفحة العطلات.</p>
       <p><a href="/ar/weekends/">العودة إلى العطلات</a></p>
     </main>
@@ -100,7 +100,11 @@
     <script>
       // A session that was not paid shows how to try again instead of the thanks.
       (function () {
-        var id = new URLSearchParams(location.search).get('session_id');
+        var query = new URLSearchParams(location.search);
+        var id = query.get('session_id');
+        // The same page thanks for a breathing session in its own words.
+        var text = document.getElementById('done-text');
+        if (query.get('product') === 'session' && text.dataset.labelSession) text.textContent = text.dataset.labelSession;
         if (!id || !window.fetch) return;
         fetch('/api/session-status?session_id=' + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (s) {
           if (s.status === 'open') {

@@ -54,6 +54,17 @@
           "places": 20
         }
       ]
+    },
+    "session": {
+      "name": "breathing session with paul brinkmann",
+      "description": "a personal breathing session \u00b7 wim hof method \u00b7 certified instructor, 15 years of breathwork",
+      "amount": 10000,
+      "currency": "eur",
+      "image": null,
+      "note": "Your breathing session with Paul Brinkmann. I will write to you personally to set the time and place.",
+      "path": "weekends",
+      "shipping": false,
+      "max_quantity": 1
     }
   },
   "max_quantity": 9,

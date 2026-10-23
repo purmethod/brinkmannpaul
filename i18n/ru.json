@@ -298,5 +298,21 @@
  "cutcake.app by paul brinkmann: love creating videos, but social media drains your energy? an app for creators who want more from life. coming soon.": "cutcake.app от paul brinkmann: любишь создавать видео, но соцсети забирают твою энергию? приложение для авторов, которые хотят от жизни большего. скоро.",
  "love creating videos, but social media drains your energy?": "любишь создавать видео, но соцсети забирают твою энергию?",
  "i designed an app for creators who want more from life.": "я создал приложение для авторов, которые хотят от жизни большего.",
- "a partnership, a marriage, is sacred. when you decide to start a family, you take on a responsibility. and this responsibility cannot simply be dissolved by emotion. when children are involved, responsibility begins.": "партнёрство, брак священны. когда ты решаешь создать семью, ты берёшь на себя ответственность. и эту ответственность нельзя просто так растворить в эмоциях. когда в игре дети, начинается ответственность."
+ "a partnership, a marriage, is sacred. when you decide to start a family, you take on a responsibility. and this responsibility cannot simply be dissolved by emotion. when children are involved, responsibility begins.": "партнёрство, брак священны. когда ты решаешь создать семью, ты берёшь на себя ответственность. и эту ответственность нельзя просто так растворить в эмоциях. когда в игре дети, начинается ответственность.",
+ "book a breathing session ↗": "забронировать дыхательную сессию ↗",
+ "wim hof method": "метод вима хофа",
+ "breathing sessions · weekends in poland": "дыхательные сессии · выходные в польше",
+ "what would you like to book?": "что ты хочешь забронировать?",
+ "<input type=\"radio\" name=\"offer\" value=\"session\" /><span class=\"where\">breathing session</span><span class=\"how\">personally, with me</span><span class=\"cost\">100 €</span>": "<input type=\"radio\" name=\"offer\" value=\"session\" /><span class=\"where\">дыхательная сессия</span><span class=\"how\">лично, со мной</span><span class=\"cost\">100 €</span>",
+ "<input type=\"radio\" name=\"offer\" value=\"weekend\" /><span class=\"where\">weekend in poland</span><span class=\"how\">thursday to sunday · all inclusive</span><span class=\"cost\">1490 €</span>": "<input type=\"radio\" name=\"offer\" value=\"weekend\" /><span class=\"where\">выходные в польше</span><span class=\"how\">с четверга по воскресенье · всё включено</span><span class=\"cost\">1490 €</span>",
+ "breathing session": "дыхательная сессия",
+ "breathe with me. personally.": "дыши со мной. лично.",
+ "a breathing session with me, paul brinkmann, certified wim hof method instructor with 15 years of breathwork.": "дыхательная сессия со мной, paul brinkmann, сертифицированным инструктором метода вима хофа с 15 годами дыхательной практики.",
+ "read the safety notes and book your session right here on the page.": "прочитай правила безопасности и забронируй сессию прямо здесь, на странице.",
+ "pay securely in the checkout below.": "оплати безопасно в форме оплаты ниже.",
+ "i write to you personally and we set the time and place.": "я напишу тебе лично, и мы договоримся о времени и месте.",
+ "book your session": "забронировать сессию",
+ "<span data-price></span> per session": "<span data-price></span> за сессию",
+ "back": "назад",
+ "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "твоя дыхательная сессия забронирована. stripe пришлёт тебе квитанцию по e-mail, а я напишу тебе лично, чтобы договориться о времени и месте."
 }

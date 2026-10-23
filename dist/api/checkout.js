@@ -46,12 +46,13 @@ module.exports = async (req, res) => {
       ui_mode: "embedded",
       mode: "payment",
       locale: "auto",
-      return_url: `${origin}/${lang}${p.path || id}/thanks/?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}/${lang}${p.path || id}/thanks/?session_id={CHECKOUT_SESSION_ID}&product=${id}`,
       line_items: {
         0: {
           quantity: qty,
-          // A dated place is counted from metadata.places, so its number is fixed here.
-          adjustable_quantity: date ? undefined : { enabled: true, minimum: 1, maximum: max },
+          // A dated place is counted from metadata.places, and a product sold singly
+          // (the breathing session) has nothing to adjust, so their number is fixed here.
+          adjustable_quantity: date || max <= 1 ? undefined : { enabled: true, minimum: 1, maximum: max },
           price_data: {
             currency: p.currency,
             unit_amount: p.amount,

@@ -103,10 +103,49 @@
     </header>
     <main>
       <div class="head">
-        <h1>выходные по виму хофу</h1>
-        <p>польша · ноябрь и декабрь · с четверга по воскресенье</p>
+        <h1>метод вима хофа</h1>
+        <p>дыхательные сессии · выходные в польше</p>
         <a class="shut" href="/ru/#wim-hof-weekends" aria-label="закрыть"></a>
       </div>
+      <section class="choose" id="book">
+        <h2>что ты хочешь забронировать?</h2>
+        <div class="zones offers">
+          <label class="zone"><input type="radio" name="offer" value="session" /><span class="where">дыхательная сессия</span><span class="how">лично, со мной</span><span class="cost">100 €</span></label>
+          <label class="zone"><input type="radio" name="offer" value="weekend" /><span class="where">выходные в польше</span><span class="how">с четверга по воскресенье · всё включено</span><span class="cost">1490 €</span></label>
+        </div>
+      </section>
+
+      <h2>безопасность</h2>
+      <div class="safety">
+        <p>никогда не выполняй дыхательные упражнения в воде или рядом с ней, за рулём или стоя. если ты беременна или у тебя эпилепсия, болезнь сердца или высокое давление, сначала поговори с врачом.</p>
+      </div>
+
+      <section class="offer" id="session" data-offer="session">
+        <h2>дыхательная сессия</h2>
+        <p class="lead">дыши со мной. лично.</p>
+        <p>дыхательная сессия со мной, paul brinkmann, сертифицированным инструктором метода вима хофа с 15 годами дыхательной практики.</p>
+        <p class="price">100 €</p>
+
+        <h2>как забронировать</h2>
+        <ol class="steps">
+          <li>прочитай правила безопасности и забронируй сессию прямо здесь, на странице.</li>
+          <li>оплати безопасно в форме оплаты ниже.</li>
+          <li>я напишу тебе лично, и мы договоримся о времени и месте.</li>
+        </ol>
+
+        <h2>забронировать сессию</h2>
+        <p class="soon" id="soon-session">бронирование скоро откроется здесь.</p>
+        <div class="order" id="order-session" hidden data-product="session" data-soon="soon-session" data-agree="agree-session" data-label-wait="минутку" data-label-error="не удалось открыть оплату. попробуй ещё раз через минуту.">
+          <p class="price"><span data-price></span> за сессию</p>
+          <div class="agree"><input type="checkbox" id="agree-session" /><label for="agree-session">я прочитал(а) правила безопасности.</label></div>
+          <a class="pay" href="#checkout-session" role="button">забронировать сессию</a>
+          <p class="note error" role="alert" hidden></p>
+          <a class="back" href="#order-session" role="button" hidden>назад</a>
+          <div class="checkout" id="checkout-session" hidden></div>
+        </div>
+      </section>
+
+      <section class="offer" id="weekend" data-offer="weekend">
       <p class="lead">выходные в польше. маленькая группа. настоящая практика.</p>
       <p>в том самом доме вима хофа в польше, с паулем бринкманном, сертифицированным инструктором метода вима хофа с 15-летним опытом дыхательных практик.</p>
       <figure class="photo">
@@ -144,11 +183,6 @@
         <li>я лично напишу тебе всё, что нужно. увидимся в четверг в польше.</li>
       </ol>
 
-      <h2>безопасность</h2>
-      <div class="safety">
-        <p>никогда не выполняй дыхательные упражнения в воде или рядом с ней, за рулём или стоя. если ты беременна или у тебя эпилепсия, болезнь сердца или высокое давление, сначала поговори с врачом.</p>
-      </div>
-
       <h2>забронировать место</h2>
       <p class="soon" id="soon">бронирование скоро откроется здесь.</p>
       <div class="order" id="order" hidden data-product="weekend" data-agree="agree" data-label-left="осталось мест: {n}" data-label-one="осталось 1 место" data-label-full="мест нет" data-label-wait="минутку" data-label-error="не удалось открыть оплату. попробуй ещё раз через минуту.">
@@ -176,6 +210,7 @@
         <div class="checkout" id="checkout" hidden></div>
         <p class="note">твоё место на выходных wim hof в польше. не больше 20 человек на выходные.</p>
       </div>
+      </section>
 
       <h2>вопросы</h2>
       <p>напиши мне в whatsapp или на e-mail, я отвечаю лично.</p>
@@ -195,6 +230,19 @@
         <a href="/ru/weekends/" hreflang="ru" lang="ru" aria-label="русский" aria-current="page">ру</a>
       </nav>
     </footer>
-    <script src="/order.js?v=148" defer></script>
+    <script>
+      // One offer shows at a time: the one in the link (#session, #weekend) or the one tapped.
+      (function () {
+        var radios = document.querySelectorAll('input[name="offer"]');
+        var offers = document.querySelectorAll('.offer');
+        function show(id) {
+          [].forEach.call(offers, function (o) { o.hidden = o.dataset.offer !== id; });
+          [].forEach.call(radios, function (r) { r.checked = r.value === id; });
+        }
+        [].forEach.call(radios, function (r) { r.addEventListener('change', function () { show(r.value); }); });
+        show(location.hash === '#weekend' ? 'weekend' : location.hash === '#session' ? 'session' : 'session');
+      })();
+    </script>
+    <script src="/order.js?v=149" defer></script>
   </body>
 </html>

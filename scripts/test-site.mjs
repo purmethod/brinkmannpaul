@@ -193,7 +193,14 @@ for (const lang of LANGS) {
 // The weekends booking page: in every language, linked from the wim hof row,
 // with price, safety notes before any request and links that stay in the language.
 const weekends = fs.readFileSync(path.join(root, 'dist/weekends/index.html'), 'utf8');
-assert.ok(html.includes('<a href="weekends/">'), 'the wim hof row links to the booking page');
+assert.ok(html.includes('<a href="weekends/#book">book a breathing session ↗</a>'), 'the wim hof row books a breathing session, choosing on the booking page');
+{
+  const session = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json'), 'utf8')).products.session;
+  assert.ok(session && session.amount === 10000 && session.shipping === false && session.max_quantity === 1 && session.path === 'weekends', 'shop.json: the breathing session, 100 €, one at a time, thanks under weekends/');
+}
+assert.ok(/name="offer" value="session"[\s\S]*name="offer" value="weekend"/.test(weekends), 'weekends: the booking starts with the choice, breathing session or weekend');
+assert.ok(weekends.includes('data-product="session"') && weekends.includes('data-agree="agree-session"') && weekends.includes('data-soon="soon-session"'), 'weekends: the breathing session is paid on the page, after the safety notes');
+assert.ok(weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('id="session"') && weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('id="weekend"'), 'weekends: the safety notes come before both offers');
 assert.ok(weekends.includes('1490 € per person'), 'weekends: price shown');
 assert.ok(weekends.includes('data-product="weekend"') && weekends.includes('src="/order.js'), 'weekends: booked and paid on the page through the embedded stripe checkout');
 assert.ok(weekends.includes('data-agree="agree"') && weekends.indexOf('<h2>safety</h2>') < weekends.indexOf('class="pay"'), 'weekends: paying waits for the safety notes, which come first');
@@ -208,7 +215,7 @@ for (const lang of LANGS) {
   assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/weekends/" />`), `${lang} weekends canonical`);
   assert.ok(new RegExp(`href="/${lang}/weekends/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} weekends marked in the selector`);
   assert.ok(page.includes(`href="/${lang}/#wim-hof-weekends"`), `${lang} weekends closes back to its own language`);
-  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/weekends/">`), `${lang} row links to its weekends page`);
+  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/weekends/#book">`), `${lang} row links to its booking page`);
   assert.ok(fs.existsSync(path.join(root, 'dist', lang, 'weekends', 'thanks', 'index.html')), `${lang} weekends thank-you page`);
   pages.push(['dist', page]);
 }
