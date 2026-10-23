@@ -314,5 +314,6 @@
  "book your session": "забронировать сессию",
  "<span data-price></span> per session": "<span data-price></span> за сессию",
  "back": "назад",
- "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "твоя дыхательная сессия забронирована. stripe пришлёт тебе квитанцию по e-mail, а я напишу тебе лично, чтобы договориться о времени и месте."
+ "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "твоя дыхательная сессия забронирована. stripe пришлёт тебе квитанцию по e-mail, а я напишу тебе лично, чтобы договориться о времени и месте.",
+ "book a session": "забронировать сессию"
 }

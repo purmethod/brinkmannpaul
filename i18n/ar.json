@@ -314,5 +314,6 @@
  "book your session": "احجز جلستك",
  "<span data-price></span> per session": "<span data-price></span> للجلسة",
  "back": "رجوع",
- "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "تم حجز جلسة التنفس الخاصة بك. يرسل لك stripe الإيصال بالبريد الإلكتروني، وأكتب لك شخصيًا لتحديد الوقت والمكان."
+ "your breathing session is booked. stripe sends you the receipt by e-mail, and i will write to you personally to set the time and place.": "تم حجز جلسة التنفس الخاصة بك. يرسل لك stripe الإيصال بالبريد الإلكتروني، وأكتب لك شخصيًا لتحديد الوقت والمكان.",
+ "book a session": "احجز جلسة"
 }
