@@ -1,5 +1,11 @@
 # 03 — Optimierungs-Backlog
 
+## Issue #178 — Eine Sauerteig-Rubrik, einheitliche Aktionsbuttons (2026-10-26)
+
+- ÂLF-Geschichte und Vorbestelllink zuerst, vorhandenes Rye-Angebot danach; nur ein Eintrag im Projektrad. Alte Hashlinks #alf und #rye öffnen dieselbe gemeinsame Rubrik. Sechs Sprachen über vorhandenen Generator.
+- Bestehenden Wim-Hof-Buttonstil für Projektaktionen und Release-Anmeldungen übernommen; Wim Hof hat oben/unten identische Beschriftung. Logos, Footerlinks, Checkout und Produktpreise unverändert.
+- Unabhängiger Quelltextreview und Live-Auslieferungsabgleich. Keine zusätzlichen Bilder oder Browser-Vorschauen im Sparmodus; tatsächliches Geräteverhalten nicht geprüft.
+
 ## Issue #166 — Wim Hof Weekend Preis (2026-10-15)
 
 - Preisänderung auf 1490 € pro Person: sechs Sprachfassungen, Metabeschreibungen und serverseitiger Produktkatalog für neue Stripe-Checkouts. Bestehende Buchungen und bereits erstellte Checkout-Sessions nicht verändert.

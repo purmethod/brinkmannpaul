@@ -4,6 +4,12 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: Sauerteig und einheitliche Buttons (2026-10-26, #178)
+
+- Eine gemeinsame Sauerteig-Rubrik statt der doppelten Einträge: ÂLF und Pauls persönliche Methode stehen zuerst, Rye bleibt darunter als eigenständiges Angebot mit bestehendem Bestellweg. ÂLF-Vorbestellung führt zum vorhandenen Angebot unter souralf.com/adopt; Preise und Zahlungslogik bleiben unangetastet.
+- Pauls Geschichte: eigenes Brot, weniger Betreuungsaufwand, Methode aus persönlicher Begeisterung, Teilen auf Nachfrage. Ein Monat Pause als persönliche Erfahrung, nicht universelle Lageranweisung. Keine pauschale Behauptung über schädliches Supermarktbrot oder Glutenfreiheit; ohne zugesetzte Backhefe statt ohne natürliche Hefen. Keine unbelegte Gesamtzeit von ein bis zwei Stunden inklusive Fermentation.
+- Rubrikübergreifend derselbe bestehende dunkle, rechteckige Aktionsbutton. Wim Hof oben und unten identisch „book a session“, gleiches Buchungsziel.
+
 ## Aktualisierung: „book a session“-Button oben in der Wim-Hof-Rubrik (2026-10-23)
 
 - **Paul:** Der Button war zu klein und stand ganz unten. Wer die Rubrik öffnet, soll ihn sofort sehen: oben, sauber, „book session“.
