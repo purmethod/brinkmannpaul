@@ -4,6 +4,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Textvorgabe von Paul (2026-10-26, #181)
+
+- Den ungefragt ergänzten Satz „that is my experience, not a promise for every starter in every kitchen.“ aus dem ÂLF-Verkaufstext und allen Übersetzungen entfernen. Der übrige Text bleibt unverändert. Keine ungefragten relativierenden Zusätze in Pauls Verkaufstexte einbauen; sachliche Bedenken separat besprechen, statt seine Aussagen still umzuschreiben.
+
 ## Aktualisierung: Sauerteig und einheitliche Buttons (2026-10-26, #178)
 
 - Eine gemeinsame Sauerteig-Rubrik statt der doppelten Einträge: ÂLF und Pauls persönliche Methode stehen zuerst, Rye bleibt darunter als eigenständiges Angebot mit bestehendem Bestellweg. ÂLF-Vorbestellung führt zum vorhandenen Angebot unter souralf.com/adopt; Preise und Zahlungslogik bleiben unangetastet.

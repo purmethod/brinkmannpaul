@@ -1,5 +1,9 @@
 # 03 — Optimierungs-Backlog
 
+## Issue #181 — Ungefragten ÂLF-Zusatz entfernt (2026-10-26)
+
+- Ausschließlich den von Paul beanstandeten Schlusssatz des Methodenabsatzes in allen sechs Sprachen entfernen. Andere Texte, Buttons und Funktionen unverändert. Quelltextreview und Live-Abgleich; keine Browser-Vorschau.
+
 ## Issue #178 — Eine Sauerteig-Rubrik, einheitliche Aktionsbuttons (2026-10-26)
 
 - ÂLF-Geschichte und Vorbestelllink zuerst, vorhandenes Rye-Angebot danach; nur ein Eintrag im Projektrad. Alte Hashlinks #alf und #rye öffnen dieselbe gemeinsame Rubrik. Sechs Sprachen über vorhandenen Generator.
