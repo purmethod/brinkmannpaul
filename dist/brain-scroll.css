@@ -164,6 +164,19 @@
 #site-page .item-content .row-cta,#site-page .bs-reader .item-content .row-cta{display:flex;justify-content:center;align-items:center;width:100%;min-height:54px;padding:12px 18px;margin:4px 0 26px;border:0;border-radius:0;background:var(--tone-dark);color:#fff;font-size:14px;line-height:1.4;letter-spacing:.05em;text-align:center;text-decoration:none;transition:opacity .2s}
 #site-page .row-cta:focus-visible{outline:2px solid var(--tone-dark);outline-offset:4px}
 @media(hover:hover){#site-page .row-cta:hover{opacity:.88}}
+
+/* One action-button style across project sections, including release signups. */
+#site-page .item-content a.row-cta,
+#site-page .bs-reader .item-content a.row-cta {
+  grid-column:1 / -1;
+  display:flex;justify-content:center;align-items:center;box-sizing:border-box;
+  width:100%;min-height:54px;padding:12px 18px;margin:4px 0 26px;
+  border:0;border-radius:0;background:var(--tone-dark,#5c5c56);color:#fff;
+  font-size:14px;line-height:1.4;letter-spacing:.05em;text-align:center;text-decoration:none;
+}
+#site-page .item-content a.row-cta:focus-visible {outline:2px solid var(--tone-dark,#5c5c56);outline-offset:4px}
+@media(hover:hover){#site-page .item-content a.row-cta:hover{background:var(--tone-dark,#5c5c56);color:#fff;opacity:.88}}
+@media(prefers-reduced-motion:reduce){#site-page .item-content a.row-cta{transition:none}}
 #site-page .bs-face{will-change:transform,opacity}
 #site-page .bs-reader-scroll{overflow-anchor:none}
 /* The decorative ring must not cover native video controls on touch screens. */

@@ -593,7 +593,7 @@
     if (event.target === reader || event.target === readerScroll) close();
   });
 
-  const indexOf = id => items.findIndex(item => item.id === id);
+  const indexOf = id => items.findIndex(item => item.id === (id === 'rye' || id === 'alf' ? 'sourdough' : id));
 
   window.addEventListener('popstate', () => {
     const id = history.state && history.state.bsReader;
