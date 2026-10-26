@@ -168,6 +168,7 @@
 /* One action-button style across project sections, including release signups. */
 #site-page .item-content a.row-cta,
 #site-page .bs-reader .item-content a.row-cta {
+  grid-column:1 / -1;
   display:flex;justify-content:center;align-items:center;box-sizing:border-box;
   width:100%;min-height:54px;padding:12px 18px;margin:4px 0 26px;
   border:0;border-radius:0;background:var(--tone-dark,#5c5c56);color:#fff;
