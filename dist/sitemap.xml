@@ -360,4 +360,64 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/cutcake/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/cutcake/" />
   </url>
+  <url>
+    <loc>https://brinkmannpaul.com/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/de/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/fr/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/es/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/ar/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
+  <url>
+    <loc>https://brinkmannpaul.com/ru/compaz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://brinkmannpaul.com/de/compaz/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://brinkmannpaul.com/fr/compaz/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://brinkmannpaul.com/es/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://brinkmannpaul.com/ar/compaz/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://brinkmannpaul.com/ru/compaz/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brinkmannpaul.com/compaz/" />
+  </url>
 </urlset>

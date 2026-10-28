@@ -4,6 +4,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: neue Rubrik compaz.com (2026-10-28)
+
+- **Paul:** Neue App-Rubrik compaz („Kompass mit Z“), gleiches Layout wie cyclemax und cutcake, mit seinem Logo. Der Kern: Du liebst Reisen, bist in einer neuen Stadt und weißt nicht, was abgeht. Du tippst deinen Ort ein und findest Party, Yoga Retreat, Atemsession und das beste Restaurant, handverlesen. Dazu einfaches Design ohne Schnickschnack, „explore easy“.
+- **Startseite:** Die Zeile „compaz.com · coming soon“ steht nach cutcake.
+  - Leitsatz mit Logo-Kachel rechts (`assets/compaz-logo.webp`, aus Pauls Logo zugeschnitten).
+  - Drei Absätze: Party und Yoga Retreat als Frage, „type in where you are. find your party. …“, „hand-picked: only the best places. simple and clean, nothing overwhelming. explore easy.“
+  - Darunter der Release-Block.
+- **Seite `/compaz/`:** wie `/cutcake/`, mit Warteliste `compaz`. Alle sechs Sprachen, Sitemap jetzt 42 Seiten.
+- **Links:** Logo und Button führen zu `/compaz/`. compaz.app zeigt derzeit eine fremde Seite („Tu guía de teleférico en La Paz“), und ein compaz-Repo ist für Claude nicht sichtbar. Der Codex-Zweig `codex/183-add-compaz` ist leer.
+- **Tests:** an die vereinheitlichten Projekt-Buttons aus #179 angepasst (Links mit `class="row-cta"`).
+
 ## Textvorgabe von Paul (2026-10-26, #181)
 
 - Den ungefragt ergänzten Satz „that is my experience, not a promise for every starter in every kitchen.“ aus dem ÂLF-Verkaufstext und allen Übersetzungen entfernen. Der übrige Text bleibt unverändert. Keine ungefragten relativierenden Zusätze in Pauls Verkaufstexte einbauen; sachliche Bedenken separat besprechen, statt seine Aussagen still umzuschreiben.
