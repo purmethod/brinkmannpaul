@@ -125,7 +125,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 11, 'project ids are uniq
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -193,7 +193,7 @@ for (const lang of LANGS) {
 // The weekends booking page: in every language, linked from the wim hof row,
 // with price, safety notes before any request and links that stay in the language.
 const weekends = fs.readFileSync(path.join(root, 'dist/weekends/index.html'), 'utf8');
-assert.ok(html.includes('<a href="weekends/#book">book a breathing session ↗</a>'), 'the wim hof row books a breathing session, choosing on the booking page');
+assert.ok(html.includes('<a class="row-cta" href="weekends/#book">book a session</a>'), 'the wim hof row books a session, choosing on the booking page');
 {
   const session = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'shop.json'), 'utf8')).products.session;
   assert.ok(session && session.amount === 10000 && session.shipping === false && session.max_quantity === 1 && session.path === 'weekends', 'shop.json: the breathing session, 100 €, one at a time, thanks under weekends/');
@@ -215,7 +215,7 @@ for (const lang of LANGS) {
   assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/weekends/" />`), `${lang} weekends canonical`);
   assert.ok(new RegExp(`href="/${lang}/weekends/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} weekends marked in the selector`);
   assert.ok(page.includes(`href="/${lang}/#wim-hof-weekends"`), `${lang} weekends closes back to its own language`);
-  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/weekends/#book">`), `${lang} row links to its booking page`);
+  assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`href="/${lang}/weekends/#book"`), `${lang} row links to its booking page`);
   assert.ok(fs.existsSync(path.join(root, 'dist', lang, 'weekends', 'thanks', 'index.html')), `${lang} weekends thank-you page`);
   pages.push(['dist', page]);
 }
@@ -242,7 +242,7 @@ for (const product of ['skyn', 'rye']) {
   const p = shopJson.products[product];
   assert.ok(p && p.currency && p.name && p.note, `shop.json: ${product} has a name, a currency and a checkout note`);
   assert.ok(p.amount === null || (Number.isInteger(p.amount) && p.amount > 0), `shop.json: ${product} price is in cents, or null until set`);
-  assert.ok(html.includes(`<a href="${product}/">`), `the ${product} row links to its pre-order page`);
+  assert.ok(html.includes(`href="${product}/"`), `the ${product} row links to its pre-order page`);
   assert.ok(source.includes(`data-product="${product}"`) && source.includes('src="/order.js'), `${product}: pre-order through the embedded stripe checkout`);
   assert.ok(source.includes('<ol class="steps">'), `${product}: how ordering works, step by step like the weekends page`);
   assert.ok(!/subject=[a-z]+%20(pre-)?order|order on whatsapp/.test(source), `${product}: no orders by e-mail or whatsapp`);
@@ -255,7 +255,7 @@ for (const product of ['skyn', 'rye']) {
     assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang}/${product}/" />`), `${lang} ${product} canonical`);
     assert.ok(new RegExp(`href="/${lang}/${product}/" hreflang="${lang}"[^>]*aria-current="page"`).test(page), `${lang} ${product} marked in the selector`);
     assert.ok(page.includes(`href="/${lang}/#${product}"`), `${lang} ${product} closes back to its own language`);
-    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`<a href="/${lang}/${product}/">`), `${lang} row links to its ${product} page`);
+    assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'index.html'), 'utf8').includes(`href="/${lang}/${product}/"`), `${lang} row links to its ${product} page`);
     assert.ok(fs.existsSync(path.join(root, 'dist', lang, product, 'thanks', 'index.html')), `${lang} ${product} thank-you page`);
     pages.push(['dist', page]);
   }
@@ -265,7 +265,7 @@ for (const product of ['skyn', 'rye']) {
 // /api/waitlist in paul's stripe, the app mark at the top, in every language,
 // linked from the app's row.
 new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: 'waitlist.js' });
-for (const app of ['cyclemax', 'cutcake']) {
+for (const app of ['cyclemax', 'cutcake', 'compaz']) {
   const source = fs.readFileSync(path.join(root, 'dist', app, 'index.html'), 'utf8');
   assert.ok(html.includes(`href="${app}/"`), `the ${app} row links to its release page`);
   assert.ok(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').includes(`"${app}"`), `waitlist.js keeps the ${app} list`);
@@ -308,8 +308,8 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 36, 'sitemap lists home, weekends, skyn, rye, cyclemax and cutcake in six languages');
+assert.equal(locs.length, 42, 'sitemap lists home, weekends, skyn, rye, cyclemax, cutcake and compaz in six languages');
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 11 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax and cutcake waitlists, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 11 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax, cutcake and compaz waitlists, local assets, og image, robots and sitemap.');
