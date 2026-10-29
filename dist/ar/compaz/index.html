@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="compaz من paul brinkmann: تحب السفر، لكن في مدينة جديدة لا تعرف ما الذي يحدث. اكتب أين أنت واعثر على الأفضل، مختارًا بعناية. قريبًا." />
+    <meta name="description" content="compaz من paul brinkmann: تحب السفر، لكن في مدينة جديدة لا تعرف ما الذي يحدث. اكتب أين أنت واعثر على الأفضل، مختارًا بعناية. متاح الآن على mycompaz.com." />
     <title>compaz · paul brinkmann</title>
     <link rel="canonical" href="https://brinkmannpaul.com/ar/compaz/" />
     <link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="paul brinkmann" />
     <meta property="og:locale" content="ar_AR" />
     <meta property="og:title" content="compaz · paul brinkmann" />
-    <meta property="og:description" content="compaz من paul brinkmann: تحب السفر، لكن في مدينة جديدة لا تعرف ما الذي يحدث. اكتب أين أنت واعثر على الأفضل، مختارًا بعناية. قريبًا." />
+    <meta property="og:description" content="compaz من paul brinkmann: تحب السفر، لكن في مدينة جديدة لا تعرف ما الذي يحدث. اكتب أين أنت واعثر على الأفضل، مختارًا بعناية. متاح الآن على mycompaz.com." />
     <meta property="og:url" content="https://brinkmannpaul.com/ar/compaz/" />
     <meta property="og:image" content="https://brinkmannpaul.com/assets/og-image.jpg" />
     <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
@@ -131,7 +131,7 @@
     <main>
       <div class="head">
         <h1>compaz</h1>
-        <p>قريبًا</p>
+        <p>متاح الآن · mycompaz.com</p>
         <a class="shut" href="/ar/#compaz" aria-label="إغلاق"></a>
       </div>
       <section class="hero">
@@ -139,27 +139,13 @@
         <p class="lead">تحب السفر. لكن في مدينة جديدة لا تعرف ما الذي يحدث.</p>
         <p class="pitch">اكتب أين أنت. اعثر على حفلتك. اعثر على خلوة اليوغا. اعثر على جلسة التنفس. اعثر على أفضل مطعم.</p>
         <p class="pitch">مختارة بعناية: أفضل الأماكن فقط. بسيط وواضح، بلا إرهاق. explore easy.</p>
-        <a class="cta" href="#join">سجّل للإطلاق</a>
-        <p class="note">قريبًا. كن أول من يعرف.</p>
+        <a class="cta" href="https://mycompaz.com/" target="_blank" rel="noopener noreferrer">استكشف mycompaz.com</a>
+        <p class="note">mycompaz.com متاح الآن. جرّبه واختبره، وراسلني إن كانت لديك أفكار أو اقتراحات.</p>
       </section>
 
-      <section class="release" id="join-section">
-        <h2>الإطلاق</h2>
-        <p>compaz قادم. اترك بريدك الإلكتروني، وستكون من أوائل من يحصلون عليه.</p>
-        <form class="join" id="join" novalidate data-label-done="أنت على القائمة. ستكون من الأوائل." data-label-wait="لحظة" data-label-invalid="يُرجى إدخال بريد إلكتروني صالح." data-label-error="لم ينجح ذلك. حاول مرة أخرى بعد لحظة.">
-          <label for="email">بريدك الإلكتروني</label>
-          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
-          <span class="trap" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
-          <button type="submit">سجّل للإطلاق</button>
-        </form>
-        <p class="done" id="done" role="status" hidden></p>
-        <p class="note error" id="join-error" role="alert" hidden></p>
-        <p class="note">رسالة واحدة حين يُطلق compaz. لا شيء غير ذلك. راسلني وأحذفك فورًا.</p>
-      </section>
 
-      <h2>أسئلة</h2>
-      <p>راسلني عبر واتساب أو البريد الإلكتروني، أجيب بنفسي.</p>
-      <a class="cta float" href="#join" aria-hidden="true" tabindex="-1">سجّل للإطلاق</a>
+      <h2>أفكار واقتراحات</h2>
+      <p>جرّبته وينقصك شيء، أو تعرف مكانًا يستحق أن يكون فيه؟ راسلني على واتساب أو بالبريد الإلكتروني. أجيب شخصيًا.</p>
     </main>
     <footer>
       <nav class="contact-links" aria-label="تواصل">
@@ -176,68 +162,5 @@
         <a href="/ru/compaz/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script>
-      // The release list: the address goes to /api/waitlist and is kept there.
-      (function () {
-        var form = document.getElementById('join');
-        var float = document.querySelector('.float');
-        var top = document.querySelector('.hero .cta');
-        var section = document.getElementById('join-section');
-        if (float && top && section && 'IntersectionObserver' in window) {
-          var seen = { top: true, form: false };
-          var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) { seen[e.target === top ? 'top' : 'form'] = e.isIntersecting; });
-            var on = !seen.top && !seen.form && !form.hidden;
-            float.classList.toggle('on', on);
-            float.setAttribute('aria-hidden', on ? 'false' : 'true');
-            float.tabIndex = on ? 0 : -1;
-          });
-          io.observe(top); io.observe(section);
-        }
-        if (!form || !window.fetch) return;
-        var done = document.getElementById('done');
-        var error = document.getElementById('join-error');
-        var button = form.querySelector('button');
-        var label = button.textContent;
-        var lang = document.documentElement.lang || 'en';
-        var d = form.dataset;
-        form.addEventListener('submit', function (event) {
-          event.preventDefault();
-          var email = form.email.value.trim();
-          error.hidden = true;
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            error.textContent = d.labelInvalid;
-            error.hidden = false;
-            form.email.focus();
-            return;
-          }
-          button.setAttribute('aria-busy', 'true');
-          button.textContent = d.labelWait;
-          fetch('/api/waitlist', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, lang: lang, list: 'compaz', company: form.company.value })
-          }).then(function (r) {
-            if (r.ok) {
-              // Only the confirmation stays: the invitation and the fine print have done their work.
-              [].forEach.call(section.querySelectorAll('p'), function (p) { if (p !== done) p.hidden = true; });
-              form.hidden = true;
-              done.textContent = d.labelDone;
-              done.hidden = false;
-              if (float) float.classList.remove('on');
-            } else {
-              error.textContent = r.status === 400 ? d.labelInvalid : d.labelError;
-              error.hidden = false;
-            }
-          }).catch(function () {
-            error.textContent = d.labelError;
-            error.hidden = false;
-          }).then(function () {
-            button.removeAttribute('aria-busy');
-            button.textContent = label;
-          });
-        });
-      })();
-    </script>
   </body>
 </html>
