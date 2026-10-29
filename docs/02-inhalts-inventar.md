@@ -4,6 +4,16 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: compaz als App mit Name, Link auf mycompaz.com (2026-10-29)
+
+- **Paul:** Das Projekt heißt compaz, die Website ist mycompaz.com. Das App-Logo zeigt nur den Kompass, darunter steht der Schriftzug exakt wie im Logo.
+- **Neu:**
+  - Die Rubrik heißt „compaz“ statt „compaz.com“.
+  - Die Kachel zeigt nur den Kompass (`assets/compaz-icon.webp`). Er ist aus Pauls Logo als Vektor nachgezeichnet, Tinte auf dem Creme der Seite. Darunter steht wie ein App-Name der Schriftzug COMPAZ aus dem Logo (`assets/compaz-wordmark.webp`).
+  - Beides führt zu https://mycompaz.com/ (neuer Tab), auf der Startseite und auf `/compaz/`. Release-Button und Warteliste bleiben.
+  - CSS `.app-with-name` in `brain-scroll.css` (v=179).
+- **mycompaz.com:** Das Repo `purmethod/compaz` bekommt in purmethod/compaz#2 die Icons für den Homebildschirm (apple-touch-icon, Manifest-Icons). Die Seite wird nicht aus dem Repo veröffentlicht. Paul muss die Dateien so ausrollen wie bisher.
+
 ## Aktualisierung: neue Rubrik compaz.com (2026-10-28)
 
 - **Paul:** Neue App-Rubrik compaz („Kompass mit Z“), gleiches Layout wie cyclemax und cutcake, mit seinem Logo. Der Kern: Du liebst Reisen, bist in einer neuen Stadt und weißt nicht, was abgeht. Du tippst deinen Ort ein und findest Party, Yoga Retreat, Atemsession und das beste Restaurant, handverlesen. Dazu einfaches Design ohne Schnickschnack, „explore easy“.
