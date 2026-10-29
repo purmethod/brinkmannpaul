@@ -4,6 +4,17 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: compaz ist live, nicht „coming soon“ (2026-10-29)
+
+- **Paul:** mycompaz.com ist schon live. Statt „coming soon“: Probier es aus, teste es, und schreib mir, wenn du Ideen und Anregungen hast.
+- **Startseite:**
+  - Untertitel „live · mycompaz.com“.
+  - Unten steht „mycompaz.com is live. try it, test it, and write to me if you have ideas or suggestions.“
+  - Der Button „explore mycompaz.com ↗“ öffnet die Seite in einem neuen Tab.
+  - Dazu der Link „send me your ideas ↗“ (E-Mail mit Betreff „compaz ideas“).
+- **Seite `/compaz/`:** Keine Warteliste mehr. Der Button oben öffnet mycompaz.com, darunter steht derselbe Satz, und es gibt einen Abschnitt „ideas and suggestions“ (WhatsApp oder E-Mail).
+- Alle sechs Sprachen. Die Liste `compaz` bleibt in `/api/waitlist` erlaubt, die Seite nutzt sie aber nicht mehr.
+
 ## Aktualisierung: compaz als App mit Name, Link auf mycompaz.com (2026-10-29)
 
 - **Paul:** Das Projekt heißt compaz, die Website ist mycompaz.com. Das App-Logo zeigt nur den Kompass, darunter steht der Schriftzug exakt wie im Logo.

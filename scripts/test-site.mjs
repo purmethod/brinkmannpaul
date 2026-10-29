@@ -265,7 +265,15 @@ for (const product of ['skyn', 'rye']) {
 // /api/waitlist in paul's stripe, the app mark at the top, in every language,
 // linked from the app's row.
 new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').replace(/^/, '(function (require, module) {').concat('\n})'), { filename: 'waitlist.js' });
-for (const app of ['cyclemax', 'cutcake', 'compaz']) {
+// compaz is live at mycompaz.com: its row and page send people there and ask for ideas, no waitlist.
+{
+  const source = fs.readFileSync(path.join(root, 'dist', 'compaz', 'index.html'), 'utf8');
+  const row = html.slice(html.indexOf('id="compaz"'), html.indexOf('</details>', html.indexOf('id="compaz"')));
+  assert.ok(row.includes('href="https://mycompaz.com/"') && row.includes('explore mycompaz.com ↗') && !row.includes('coming soon'), 'compaz: the row opens mycompaz.com, live, not coming soon');
+  assert.ok(source.includes('<a class="cta" href="https://mycompaz.com/"') && !source.includes('id="join"') && !source.includes('coming soon'), 'compaz: the page opens mycompaz.com and asks for ideas instead of a waitlist');
+  for (const lang of LANGS) assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'compaz', 'index.html'), 'utf8').includes('href="https://mycompaz.com/"'), `${lang} compaz opens mycompaz.com`);
+}
+for (const app of ['cyclemax', 'cutcake']) {
   const source = fs.readFileSync(path.join(root, 'dist', app, 'index.html'), 'utf8');
   assert.ok(html.includes(`href="${app}/"`), `the ${app} row links to its release page`);
   assert.ok(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'utf8').includes(`"${app}"`), `waitlist.js keeps the ${app} list`);

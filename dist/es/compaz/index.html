@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="compaz de paul brinkmann: te encanta viajar, pero en una ciudad nueva no sabes qué está pasando. escribe dónde estás y encuentra lo mejor, seleccionado a mano. muy pronto." />
+    <meta name="description" content="compaz de paul brinkmann: te encanta viajar, pero en una ciudad nueva no sabes qué está pasando. escribe dónde estás y encuentra lo mejor, seleccionado a mano. en línea en mycompaz.com." />
     <title>compaz · paul brinkmann</title>
     <link rel="canonical" href="https://brinkmannpaul.com/es/compaz/" />
     <link rel="alternate" hreflang="en" href="https://brinkmannpaul.com/compaz/" />
@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="paul brinkmann" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content="compaz · paul brinkmann" />
-    <meta property="og:description" content="compaz de paul brinkmann: te encanta viajar, pero en una ciudad nueva no sabes qué está pasando. escribe dónde estás y encuentra lo mejor, seleccionado a mano. muy pronto." />
+    <meta property="og:description" content="compaz de paul brinkmann: te encanta viajar, pero en una ciudad nueva no sabes qué está pasando. escribe dónde estás y encuentra lo mejor, seleccionado a mano. en línea en mycompaz.com." />
     <meta property="og:url" content="https://brinkmannpaul.com/es/compaz/" />
     <meta property="og:image" content="https://brinkmannpaul.com/assets/og-image.jpg" />
     <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
@@ -131,7 +131,7 @@
     <main>
       <div class="head">
         <h1>compaz</h1>
-        <p>próximamente</p>
+        <p>en línea · mycompaz.com</p>
         <a class="shut" href="/es/#compaz" aria-label="cerrar"></a>
       </div>
       <section class="hero">
@@ -139,27 +139,13 @@
         <p class="lead">te encanta viajar. pero en una ciudad nueva, no sabes qué está pasando.</p>
         <p class="pitch">escribe dónde estás. encuentra tu fiesta. encuentra tu retiro de yoga. encuentra tu sesión de respiración. encuentra el mejor restaurante.</p>
         <p class="pitch">seleccionados a mano: solo los mejores lugares. simple y limpio, nada abrumador. explore easy.</p>
-        <a class="cta" href="#join">apúntate al lanzamiento</a>
-        <p class="note">muy pronto. sé el primero en saberlo.</p>
+        <a class="cta" href="https://mycompaz.com/" target="_blank" rel="noopener noreferrer">explorar mycompaz.com</a>
+        <p class="note">mycompaz.com ya está en línea. pruébalo, ponlo a prueba y escríbeme si tienes ideas o sugerencias.</p>
       </section>
 
-      <section class="release" id="join-section">
-        <h2>el lanzamiento</h2>
-        <p>compaz está en camino. deja tu e-mail y estarás entre los primeros en tenerlo.</p>
-        <form class="join" id="join" novalidate data-label-done="estás en la lista. estarás entre los primeros." data-label-wait="un momento" data-label-invalid="introduce un e-mail válido, por favor." data-label-error="no ha funcionado. inténtalo de nuevo en un momento.">
-          <label for="email">tu e-mail</label>
-          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
-          <span class="trap" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
-          <button type="submit">apúntate al lanzamiento</button>
-        </form>
-        <p class="done" id="done" role="status" hidden></p>
-        <p class="note error" id="join-error" role="alert" hidden></p>
-        <p class="note">un e-mail cuando compaz se lance. nada más. escríbeme y te borro al instante.</p>
-      </section>
 
-      <h2>preguntas</h2>
-      <p>escríbeme por whatsapp o por e-mail, respondo personalmente.</p>
-      <a class="cta float" href="#join" aria-hidden="true" tabindex="-1">apúntate al lanzamiento</a>
+      <h2>ideas y sugerencias</h2>
+      <p>¿lo has probado y echas algo en falta, o conoces un lugar que debería estar? escríbeme por whatsapp o por e-mail. respondo personalmente.</p>
     </main>
     <footer>
       <nav class="contact-links" aria-label="contacto">
@@ -176,68 +162,5 @@
         <a href="/ru/compaz/" hreflang="ru" lang="ru" aria-label="русский">ру</a>
       </nav>
     </footer>
-    <script>
-      // The release list: the address goes to /api/waitlist and is kept there.
-      (function () {
-        var form = document.getElementById('join');
-        var float = document.querySelector('.float');
-        var top = document.querySelector('.hero .cta');
-        var section = document.getElementById('join-section');
-        if (float && top && section && 'IntersectionObserver' in window) {
-          var seen = { top: true, form: false };
-          var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) { seen[e.target === top ? 'top' : 'form'] = e.isIntersecting; });
-            var on = !seen.top && !seen.form && !form.hidden;
-            float.classList.toggle('on', on);
-            float.setAttribute('aria-hidden', on ? 'false' : 'true');
-            float.tabIndex = on ? 0 : -1;
-          });
-          io.observe(top); io.observe(section);
-        }
-        if (!form || !window.fetch) return;
-        var done = document.getElementById('done');
-        var error = document.getElementById('join-error');
-        var button = form.querySelector('button');
-        var label = button.textContent;
-        var lang = document.documentElement.lang || 'en';
-        var d = form.dataset;
-        form.addEventListener('submit', function (event) {
-          event.preventDefault();
-          var email = form.email.value.trim();
-          error.hidden = true;
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            error.textContent = d.labelInvalid;
-            error.hidden = false;
-            form.email.focus();
-            return;
-          }
-          button.setAttribute('aria-busy', 'true');
-          button.textContent = d.labelWait;
-          fetch('/api/waitlist', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, lang: lang, list: 'compaz', company: form.company.value })
-          }).then(function (r) {
-            if (r.ok) {
-              // Only the confirmation stays: the invitation and the fine print have done their work.
-              [].forEach.call(section.querySelectorAll('p'), function (p) { if (p !== done) p.hidden = true; });
-              form.hidden = true;
-              done.textContent = d.labelDone;
-              done.hidden = false;
-              if (float) float.classList.remove('on');
-            } else {
-              error.textContent = r.status === 400 ? d.labelInvalid : d.labelError;
-              error.hidden = false;
-            }
-          }).catch(function () {
-            error.textContent = d.labelError;
-            error.hidden = false;
-          }).then(function () {
-            button.removeAttribute('aria-busy');
-            button.textContent = label;
-          });
-        });
-      })();
-    </script>
   </body>
 </html>
