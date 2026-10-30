@@ -4,6 +4,11 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## Aktualisierung: „book a session“ nur noch unten in der Wim-Hof-Rubrik (2026-10-30)
+
+- **Paul:** Der Button oben wirkt zu sehr nach Verkaufen, und verkaufen will er nicht. „book a session“ gehört nur nach unten.
+- **Neu:** Der Button unter „fifteen years of breath.“ ist entfernt. Die Rubrik beginnt wieder mit der Geschichte. „book a session“ steht nur noch am Ende.
+
 ## Aktualisierung: compaz ist live, nicht „coming soon“ (2026-10-29)
 
 - **Paul:** mycompaz.com ist schon live. Statt „coming soon“: Probier es aus, teste es, und schreib mir, wenn du Ideen und Anregungen hast.
