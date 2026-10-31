@@ -178,6 +178,7 @@
 #site-page .item-content .tl-item .tl-year,#site-page .bs-reader .item-content .tl-item .tl-year{margin:0 0 4px;font-size:22px;line-height:1.2;letter-spacing:-.01em;color:var(--tone-dark)}
 #site-page .item-content .tl-item p{margin-bottom:0}
 #site-page .tl-item .photo{margin:16px 0 0}
+#site-page .item-content p.tl-credit{margin:-18px 0 30px;font-size:10.5px;line-height:1.5;letter-spacing:.02em;color:var(--tone-light);opacity:.8}
 [dir="rtl"] #site-page .timeline{padding:0 26px 0 0}
 [dir="rtl"] #site-page .timeline:before{left:auto;right:4px}
 [dir="rtl"] #site-page .tl-item:before{left:auto;right:-26px}
