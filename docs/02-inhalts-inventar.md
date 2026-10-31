@@ -2,6 +2,34 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: mysidibou-Timeline, 29 Daten ohne Lücke (2026-10-31)
+
+- **Paul:**
+  - Der Sprung von 1915 auf 2026 ist zu groß, die Recherche soll tiefer gehen: Krieg, Revolution, alles.
+  - Kein Porträt und keine blaue Tür in der Timeline. Sie soll eine historische Zeitreise sein, auch durch die Künstler.
+  - Keine Tagesdaten, nur Monate.
+  - Sein Eintrag ist die Mission: Mitglied im wissenschaftlichen UNESCO-Komitee, Schutz vor Erdrutschen und ihren Gefahren, Beantwortung und Koordination des Massentourismus, Einführung des QR-Code-Kassensystems.
+- **Neu zwischen 1915 und 2026** (Recherche 2026-10-31, Quellen siehe PR):
+  - 1920er und 1930er: Blau und Weiß wird Regel, Gide.
+  - 1932: d'Erlangers Tod.
+  - 1942 und 1943: Krieg in Tunis, die Alliierten ziehen im Mai 1943 ein.
+  - Ende der 1940er: École de Tunis.
+  - März 1956: Unabhängigkeit.
+  - 1966 bis 1968: Foucault lebt hier und schreibt die Archäologie des Wissens.
+  - 1979: Karthago wird Welterbe.
+  - 1985: Nationalpark Karthago und Sidi Bou Saïd.
+  - 1992: Musikzentrum.
+  - Januar 2011: Revolution, Ben Alis Palast auf dem Hügel.
+- **Neu davor:**
+  - 11. Jh.: Wach- und Feuertürme.
+  - 1860: Leuchtturm.
+  - 1893: Gemeinde per Dekret des Beys.
+  - 1914 ergänzt um Mackes Bild des Cafés.
+  - 1915 ergänzt: eines der ersten Denkmalschutzgesetze Tunesiens.
+- **Entfernt:** das 9. Jh. (nur „möglich“ belegt), Pauls Porträt (`photo-paul-sidi.webp` gelöscht) und die blaue Tür.
+- **Pauls Eintrag „2026“** steht mit gefülltem Punkt nach Juli 2026, dazu das Gassen-Video als Bild für den Massentourismus. Ein eigener Eintrag „next“ entfällt.
+- **Daten:** nur noch Monate und Jahre, keine Tage.
+
 ## Aktualisierung: mysidibou-Timeline ausgebaut, Text oben (2026-10-31)
 
 - **Paul:** Die Timeline hatte zu wenige Daten und machte zu große Sprünge. Sein eigener Eintrag soll wissenschaftlich klingen. Der Fließtext rückt nach oben, die Timeline steht darunter.
