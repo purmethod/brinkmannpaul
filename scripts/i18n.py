@@ -132,6 +132,12 @@ def sitemap(sources):
                         for lang in langs)
         links += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{page}" />'
         urls += [f'  <url>\n    <loc>{SITE}{"" if lang == "en" else lang + "/"}{page}</loc>{links}\n  </url>' for lang in langs]
+    # The research journal: its list and every article, written by scripts/research.py.
+    for page in ['research/'] + sorted(f'research/{d.name}/' for d in (ROOT / 'dist' / 'research').iterdir() if (d / 'index.html').exists()):
+        links = ''.join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{SITE}{"" if lang == "en" else lang + "/"}{page}" />'
+                        for lang in langs)
+        links += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{page}" />'
+        urls += [f'  <url>\n    <loc>{SITE}{"" if lang == "en" else lang + "/"}{page}</loc>{links}\n  </url>' for lang in langs]
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
            + '\n'.join(urls) + '\n</urlset>\n')
