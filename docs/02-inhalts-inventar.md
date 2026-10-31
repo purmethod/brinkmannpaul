@@ -2,6 +2,21 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: Timeline-Bilder zeigen Geschichte, Pauls Fotos stehen beim Text (2026-10-31)
+
+- **Paul:** Seine eigenen Fotos erzählen nur das heutige Dorf. In die Timeline gehören Bilder, die das jeweilige Datum zeigen, zum Beispiel für die Antike ein Bild aus der Antike.
+- **Timeline-Bilder** (alle historisch und frei):
+  - Antike: `photo-carthage-1894.webp`, Tempelruinen in Karthago, W. H. Jackson 1894.
+  - 1231: Postkarte um 1900.
+  - 18./19. Jh.: Jackson 1894.
+  - 1914: Klee.
+  - 1915: d'Erlanger.
+  - 1942/43: `photo-tunis-1943.webp`, die Alliierten ziehen in Tunis ein, Nick Parrino, OWI.
+  - Ende 1940er: `drawing-sidi-1949.webp`, eine Straße in Sidi Bou Saïd, gezeichnet vom Architekten Victor Lundy 1949.
+  - Herkunft: alle Library of Congress, „no known restrictions“, außer Klee (Centre Pompidou, gemeinfrei) und d'Erlanger (CC BY-SA, genannt).
+- **Pauls Fotos** stehen jetzt zwischen den Absätzen über der Timeline: Meer, blaue Tür, Gassen-Video, Dächer. In der Timeline stehen keine eigenen Fotos mehr.
+- Der Bildnachweis ist um Parrino und Lundy ergänzt.
+
 ## Aktualisierung: mysidibou-Timeline, 29 Daten ohne Lücke (2026-10-31)
 
 - **Paul:**
