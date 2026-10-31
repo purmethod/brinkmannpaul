@@ -2,6 +2,20 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: mysidibou-Timeline mit einem Bild pro Datum (2026-10-31)
+
+- **Paul:** Jede Station der Timeline bekommt ein rundes Bild wie die Türen, zum Beispiel Paul Klee mit einem berühmten Werk.
+- **Bilder** (rund, 240 px, wie die übrigen Fotos):
+  - 13. Jh.: `photo-sidi-1900.webp`, das Dorf auf seinem Hügel, Postkarte um 1900 (Library of Congress, „No known restrictions on publication“). Vom Heiligen selbst gibt es kein Bildnis.
+  - 1914: `photo-klee-1914.webp`, Paul Klee, „St. Germain bei Tunis (landeinwärts)“, Aquarell 1914, Centre Pompidou, gemeinfrei (Klee † 1940).
+  - 1915: `photo-erlanger.webp`, Selbstporträt des Barons d'Erlanger in Ennejma Ezzahra. Das Foto stammt von Issam Barhoumi, CC BY-SA 4.0, deshalb steht die Namensnennung unter der Timeline.
+  - Januar 2026: das Meerfoto.
+  - 25. Juli 2026: die Dächer.
+  - 2026: `photo-paul-sidi.webp`, Pauls Porträt.
+  - 1. Dezember 2027: die blaue Tür.
+  - als Nächstes: das Gassen-Video.
+- Unter der Timeline steht eine kleine Bildnachweis-Zeile („pictures: …“). Die Fotos mit dem Tor und dem Hafen stehen weiter bei den Absätzen darunter.
+
 ## Aktualisierung: mysidibou-Timeline (2026-10-31)
 
 - **Paul:** Wer die Rubrik öffnet, soll eine Timeline von oben nach unten sehen, deren Daten beim Scrollen erscheinen. Darin die Kerndaten von Sidi Bou Saïd und Paul selbst als Architekt und Künstler mit Master, Mitglied des wissenschaftlichen Komitees, mit der Tourismusfrage (QR-Kassensystem) und dem Schutz von Anwohnern und Dorf.
