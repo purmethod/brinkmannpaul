@@ -117,7 +117,7 @@ s = boot({ missing: '#intro-animation' }); released(s);
 
 // Content: every project row opens and has copy; every product has an action.
 // The wheel and reader are built from these rows, so their ids are deep links.
-const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('</section>'));
+const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('\n        </section>'));
 const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
 assert.equal(items.length, 11, 'eleven projects, each with an id');

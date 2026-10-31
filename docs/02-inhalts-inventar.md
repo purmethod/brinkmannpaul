@@ -2,6 +2,28 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: mysidibou, die Mission zuerst (2026-10-31)
+
+- **Paul:** Der Leser soll gleich am Anfang verstehen, worum es geht. Die Mission: das Dorf vor Erdrutschen schützen. Paul ist Mitglied des wissenschaftlichen Komitees für den UNESCO-Bericht zum 1. Dezember 2027 und will Teil der Antwort sein, die die UNESCO von Tunesien erwartet. Dazu kommen die Künstler, die hier gelebt und gearbeitet haben, und die Lösung des Massentourismus mit Studenten: ein Ticketsystem nach Venedigs Vorbild mit QR-Code, das Universität und Stadt finanziert.
+- **Neuer Aufbau der Rubrik** (die Fotos bleiben dazwischen):
+  1. Leitsatz „my mission: to protect sidi bou saïd from landslides.“, danach das Komitee und der Bericht zum 1. Dezember 2027.
+  2. UNESCO-Welterbe seit 25. Juli 2026. Das Dorf steht auf einer Tonklippe über dem Golf von Tunis.
+  3. Januar 2026: fast 300 mm Regen in zwei Tagen, Risse am Hang, acht Gebäude evakuiert. Die UNESCO fordert Studien zu den Erdrutschen, eine Kartierung der Risse, Notfallplanung und Tourismussteuerung.
+  4. Künstler: 1914 Klee, Macke und Moilliet. 1915 Schutzdekret für Weiß und Blau auf Betreiben von Baron Rodolphe d'Erlanger. Danach École de Tunis, Schriftsteller, Denker, Musiker. Paul recherchiert die Liste weiter.
+  5. „we only have one earth …“ und Pauls Beitrag als Architekt und Künstler.
+  6. Massentourismus: ein Ticketsystem mit Studenten nach Venedigs Vorbild (Tagesgebühr, online gebucht, per QR-Code geprüft). Die Einnahmen gehen an Dorf und Universität.
+  7. Ideen mit den Studenten für öffentlichen Raum, Müll, Erbe und den Hang.
+- **Quellen** (Recherche 2026-10-31):
+  - Tunisie Numérique / News Tunisia zur Einschreibung am 25.07.2026 (Kriterium iii, Bericht bis 01.12.2027, 50. Sitzung 2028).
+  - Kapitalis, Web Manager Center und L'Écho touristique zum Januar 2026 (ca. 300 mm in 48 h, acht evakuierte Gebäude).
+  - Zentrum Paul Klee und AramcoWorld zur Tunisreise im April 1914.
+  - Webdo zum Dekret vom August 1915.
+  - Venezia Unica zur Venedig-Gebühr (5 € bzw. 10 €).
+- **Nebenbei:**
+  - Der Forschungs-Teaser „research journal / 001“ aus #189 stand nur auf der englischen Startseite. Er ist jetzt in allen sechs Sprachen übersetzt und verlinkt auf den Artikel in der jeweiligen Sprache.
+  - `i18n.py` übersetzt dafür auch `h3` und hält `research/`-Links in der Sprache.
+  - `test-site.mjs` beendet die Projektliste an ihrer eigenen `</section>`, nicht an der des Teasers.
+
 ## Metadaten
 
 ## Aktualisierung: „book a session“ nur noch unten in der Wim-Hof-Rubrik (2026-10-30)
