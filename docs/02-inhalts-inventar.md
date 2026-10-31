@@ -2,6 +2,27 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: mysidibou-Timeline ausgebaut, Text oben (2026-10-31)
+
+- **Paul:** Die Timeline hatte zu wenige Daten und machte zu große Sprünge. Sein eigener Eintrag soll wissenschaftlich klingen. Der Fließtext rückt nach oben, die Timeline steht darunter.
+- **Aufbau:** Leitsatz zur Mission, „one earth“, Torfoto, Massentourismus (Venedig), Studenten. Danach die Timeline mit 20 Daten und der Bildnachweis.
+- **Neue Daten** (Recherche 2026-10-31):
+  - **Antike:** Wache auf dem Kap, Jebel el-Manar. Dazu das Hafenfoto bei Nacht.
+  - **9. Jh.:** Ribat.
+  - **1231:** Grab des Abu Saïd al-Baji.
+  - **18. und 19. Jh.:** Sommerresidenzen der Beys. Dazu `photo-sidi-1894.webp`, W. H. Jackson, Library of Congress, no known restrictions.
+  - **1912:** Baubeginn von Ennejma Ezzahra, Bauzeit zehn Jahre.
+  - **1932:** d'Erlanger stirbt.
+  - **1992:** Zentrum für arabische und mediterrane Musik.
+  - **12. Januar 2013:** Brandanschlag auf das Mausoleum.
+  - **25. Mai 2023:** Erlangers Archiv kommt ins UNESCO-Register Memory of the World.
+  - **15. April 2024:** Tentativliste.
+  - **Februar 2025:** Nominierung.
+  - **Oktober 2026:** Freigabe der Hangsicherung. Nur eine Quelle.
+  - **2028:** Prüfung auf der 50. Sitzung.
+- **Pauls Eintrag 2026:** „paul brinkmann, architect (m.sc.) and artist, member of the scientific committee for tunisia's report to unesco. his fields: landslide risk on the clay cliff, the carrying capacity of the village for visitors, and the protection of residents and built heritage.“
+- **Hinweis:** Beim Erwerb des Palastes sind die Quellen uneins (1987 oder 1988). Der Text sagt deshalb „since the late 1980s“.
+
 ## Aktualisierung: mysidibou-Timeline mit einem Bild pro Datum (2026-10-31)
 
 - **Paul:** Jede Station der Timeline bekommt ein rundes Bild wie die Türen, zum Beispiel Paul Klee mit einem berühmten Werk.
