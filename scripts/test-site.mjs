@@ -125,7 +125,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 11, 'project ids are uniq
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -269,7 +269,7 @@ new vm.Script(fs.readFileSync(path.join(root, 'dist', 'api', 'waitlist.js'), 'ut
 {
   const source = fs.readFileSync(path.join(root, 'dist', 'compaz', 'index.html'), 'utf8');
   const row = html.slice(html.indexOf('id="compaz"'), html.indexOf('</details>', html.indexOf('id="compaz"')));
-  assert.ok(row.includes('href="https://mycompaz.com/"') && row.includes('explore mycompaz.com ↗') && !row.includes('coming soon'), 'compaz: the row opens mycompaz.com, live, not coming soon');
+  assert.ok(row.includes('href="https://mycompaz.com/"') && row.includes('explore mycompaz.com') && !row.includes('coming soon'), 'compaz: the row opens mycompaz.com, live, not coming soon');
   assert.ok(source.includes('<a class="cta" href="https://mycompaz.com/"') && !source.includes('id="join"') && !source.includes('coming soon'), 'compaz: the page opens mycompaz.com and asks for ideas instead of a waitlist');
   for (const lang of LANGS) assert.ok(fs.readFileSync(path.join(root, 'dist', lang, 'compaz', 'index.html'), 'utf8').includes('href="https://mycompaz.com/"'), `${lang} compaz opens mycompaz.com`);
 }
@@ -316,7 +316,31 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 42, 'sitemap lists home, weekends, skyn, rye, cyclemax, cutcake and compaz in six languages');
+assert.equal(locs.length, 84, 'sitemap lists home, weekends, skyn, rye, cyclemax, cutcake, compaz and the research journal (list and six articles) in six languages');
+
+// The research journal: built by scripts/research.py from research/articles.json, every
+// article in every language with its study and DOI, listed in the neuroarchitecture row.
+{
+  const { articles } = JSON.parse(fs.readFileSync(path.join(root, 'research', 'articles.json'), 'utf8'));
+  assert.equal(articles.length, 6, 'six research articles');
+  for (const a of articles) {
+    assert.ok(/^10\.\d{4,}\//.test(a.doi), `${a.slug}: has a doi`);
+    assert.ok(html.includes(`href="research/${a.slug}/"`), `${a.slug}: teaser in the neuroarchitecture row`);
+    for (const lang of ['en', ...LANGS]) {
+      const file = path.join(root, 'dist', lang === 'en' ? '' : lang, 'research', a.slug, 'index.html');
+      const page = fs.readFileSync(file, 'utf8');
+      assert.ok(page.includes(`<html lang="${lang}"`) && page.includes(`https://doi.org/${a.doi}`), `${lang} ${a.slug}: page in its language with the doi`);
+      assert.ok(page.includes(`<link rel="canonical" href="https://brinkmannpaul.com/${lang === 'en' ? '' : lang + '/'}research/${a.slug}/">`), `${lang} ${a.slug}: canonical`);
+      assert.equal(page.match(/<h2>/g).length, 4, `${lang} ${a.slug}: study, findings, architecture, conclusion`);
+      assert.ok(!/[—–↗]/.test(page.replace(/<script[\s\S]*?<\/script>/, '')), `${lang} ${a.slug}: no dashes, no arrows`);
+    }
+  }
+  for (const lang of ['en', ...LANGS]) assert.ok(fs.existsSync(path.join(root, 'dist', lang === 'en' ? '' : lang, 'research', 'index.html')), `${lang}: research list`);
+  assert.ok(!html.includes('get in touch'), 'neuroarchitecture: no get in touch button');
+}
+for (const f of ['index.html', 'weekends/index.html', 'skyn/index.html', 'rye/index.html', 'cyclemax/index.html', 'cutcake/index.html', 'compaz/index.html']) {
+  for (const lang of ['', ...LANGS.map(l => l + '/')]) assert.ok(!fs.readFileSync(path.join(root, 'dist', lang + f), 'utf8').includes('↗'), `${lang}${f}: no arrows (ios draws them as blue emoji)`);
+}
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
