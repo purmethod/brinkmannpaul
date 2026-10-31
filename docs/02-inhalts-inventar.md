@@ -2,6 +2,33 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: Neuroarchitektur-Journal mit sechs Studien, keine Pfeile mehr (2026-11-01)
+
+- **Paul:**
+  - Kein „get in touch“ in der Neuroarchitektur-Rubrik.
+  - Keine blauen Pfeile mehr, auf der ganzen Seite: iOS zeichnet „↗“ als blaues Emoji.
+  - Den Research-Code von ChatGPT prüfen.
+  - Fünf weitere Studien im gleichen, nüchternen Format, mit Zusammenfassung auf der Website.
+- **Code-Prüfung** (die Seite von ChatGPT):
+  - Die russische Seite war ohne Kopfzeile, Sprachwahl, Quellenblock und Stil gebaut und enthielt einen Gedankenstrich.
+  - Der Link zurück zeigte auf `/de#…` statt `/de/#…`.
+  - Es fehlten og:url, og:locale, og:image, hreflang x-default, datePublished und Favicon.
+  - Die Seiten standen nicht in der Sitemap.
+  - Der Teaser auf der Startseite hatte Inline-Styles.
+- **Neu:**
+  - `research/articles.json` enthält alle Artikel in sechs Sprachen. `scripts/research.py` erzeugt daraus jede Artikelseite, eine Liste `/research/` je Sprache und den Teaser in der Neuroarchitektur-Zeile. Der Teaser zeigt Nummer, Frage, Zusammenfassung und „read more“, darunter steht „all articles“.
+  - Die Seiten behalten das Design von ChatGPT.
+  - `i18n.py` nimmt die Journal-Seiten in die Sitemap auf (jetzt 84 Seiten).
+- **Die sechs Artikel** (alle Daten an den Primärquellen geprüft):
+  1. Quinones et al. 2026: Wohnviertel und Gehirnalterung, Berlin, 334 Personen, DOI 10.1016/j.envres.2026.124671.
+  2. Ulrich 1984, Science: Blick auf Bäume und Genesung nach OP, 23 und 23 Patienten, DOI 10.1126/science.6143402.
+  3. Lederbogen et al. 2011, Nature: Stadtleben, Aufwachsen in der Stadt und soziale Stressverarbeitung, DOI 10.1038/nature10190.
+  4. Vartanian et al. 2013, PNAS: geschwungene Räume, Schönheitsurteil und anteriorer cingulärer Cortex, 18 Personen, 200 Bilder, DOI 10.1073/pnas.1301227110.
+  5. Kühn et al. 2017, Scientific Reports: Wald am Wohnort und Integrität der Amygdala, 341 Personen der Berliner Altersstudie II, DOI 10.1038/s41598-017-12046-7.
+  6. Sudimac, Sale & Kühn 2022, Molecular Psychiatry: eine Stunde im Grunewald senkt die Aktivität der Amygdala, 63 Personen, randomisiert, DOI 10.1038/s41380-022-01720-6.
+- **Formulierung:** Beobachtungsstudien sind als Zusammenhang beschrieben, nicht als Ursache. Nur Sudimac 2022 ist randomisiert.
+- **Freigabe:** Laut `docs/neuroarchitecture-editorial-i18n.md` gehen neue Studien erst nach Pauls Freigabe live.
+
 ## Aktualisierung: Timeline-Bilder zeigen Geschichte, Pauls Fotos stehen beim Text (2026-10-31)
 
 - **Paul:** Seine eigenen Fotos erzählen nur das heutige Dorf. In die Timeline gehören Bilder, die das jeweilige Datum zeigen, zum Beispiel für die Antike ein Bild aus der Antike.
