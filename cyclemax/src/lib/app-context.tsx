@@ -75,6 +75,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Load once, then refresh catalog, retry pending deletions and (re)plan notifications.
   useEffect(() => {
+    // the anonymous upload page is not the app: no device id, no storage, no server calls
+    if (isUploadPage()) return;
     let alive = true;
     (async () => {
       const a = await getAdapters();
@@ -106,6 +108,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const value = useMemo(() => ({ state, adapters, update, reset }), [state, adapters, update, reset]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
+
+export const isUploadPage = () => typeof window !== "undefined" && /^\/upload(\/|$)/.test(window.location.pathname);
 
 export function useApp(): AppContextValue {
   const v = useContext(Ctx);

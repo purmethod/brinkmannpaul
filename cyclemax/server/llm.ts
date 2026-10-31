@@ -18,10 +18,17 @@ export interface LlmImage {
   data: string;
 }
 
+export interface LlmJsonOptions {
+  images?: LlmImage[];
+  /** Per call; default is the client's (2 retries, 40 s). */
+  maxRetries?: number;
+  timeoutMs?: number;
+}
+
 export interface Llm {
   chat(params: LlmChatParams): Promise<{ text: string; refused: boolean }>;
   /** Structured answer; `images` (base64) go before the prompt – used to read screenshots. */
-  json<T>(schema: z.ZodType<T>, system: string, prompt: string, maxTokens?: number, images?: LlmImage[]): Promise<T | null>;
+  json<T>(schema: z.ZodType<T>, system: string, prompt: string, maxTokens?: number, opts?: LlmJsonOptions): Promise<T | null>;
   /** One tiny real call: does Claude answer with this key and model? The error text never contains the key. */
   check?(): Promise<{ ok: boolean; error?: string }>;
 }
@@ -77,7 +84,8 @@ export function createClaude(config: Config): Llm | null {
       return { text, refused: false };
     },
 
-    async json(schema, system, prompt, maxTokens = 4000, images = []) {
+    async json(schema, system, prompt, maxTokens = 4000, opts = {}) {
+      const images = opts.images ?? [];
       const content = images.length
         ? [
             ...images.map((i) => ({ type: "image" as const, source: { type: "base64" as const, media_type: i.mediaType, data: i.data } })),
@@ -90,6 +98,9 @@ export function createClaude(config: Config): Llm | null {
         system,
         messages: [{ role: "user", content }],
         output_config: { format: zodOutputFormat(schema), ...(config.claudeJsonEffort ? { effort: config.claudeJsonEffort } : {}) },
+      }, {
+        ...(opts.maxRetries !== undefined ? { maxRetries: opts.maxRetries } : {}),
+        ...(opts.timeoutMs !== undefined ? { timeout: opts.timeoutMs } : {}),
       });
       if (res.stop_reason === "refusal") return null;
       return res.parsed_output ?? null;

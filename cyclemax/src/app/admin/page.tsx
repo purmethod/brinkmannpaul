@@ -195,6 +195,7 @@ interface Count {
 }
 interface DatasetSummary {
   datasets: number;
+  capped: boolean;
   cycles: number;
   cycleLength: { mean: number | null; median: number | null; min: number | null; max: number | null; histogram: Count[] };
   periodLength: { mean: number | null };
@@ -221,7 +222,7 @@ function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {
     a.href = URL.createObjectURL(blob);
     a.download = "cyclemax-datasets.csv";
     a.click();
-    URL.revokeObjectURL(a.href);
+    setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
   };
   if (error) return <p className="text-accent">{error}</p>;
   if (!summary) return <p className="text-muted">Lädt …</p>;
@@ -234,6 +235,7 @@ function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {
       </p>
       <p>
         <b>{summary.datasets}</b> Datensätze · <b>{summary.cycles}</b> Zyklen
+        {summary.capped && <span className="text-muted"> (Auswertung über die neuesten {summary.datasets})</span>}
       </p>
       <p>
         Zykluslänge: Ø {c.mean ?? "–"} · Median {c.median ?? "–"} · {c.min ?? "–"}–{c.max ?? "–"} Tage · Periode Ø {summary.periodLength.mean ?? "–"} Tage

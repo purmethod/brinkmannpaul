@@ -15,7 +15,8 @@ const CONTRACEPTION = [
 
 /** Shrinks a screenshot on the device and re-encodes it as JPEG – this also drops metadata like location and time. */
 async function shrink(file: File, maxBytes: number): Promise<string> {
-  const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" }).catch(() => {
+  // orientation from EXIF is the default; the option itself is missing on iOS 15
+  const bitmap = await createImageBitmap(file).catch(() => {
     throw new Error(`„${file.name}“ lässt sich nicht lesen. Bitte nimm einen Screenshot (PNG oder JPEG).`);
   });
   const scale = Math.min(1, 1800 / Math.max(bitmap.width, bitmap.height));
@@ -111,7 +112,7 @@ export default function UploadPage() {
           <p className="text-[17px] leading-relaxed">Dein Datensatz ist entfernt. Es ist nichts mehr von deinem Upload gespeichert.</p>
         ) : (
           <>
-            <p className="text-[17px] leading-relaxed">Deine Screenshots sind schon verworfen. Gespeichert wurde nur das – ohne Datum, ohne Namen, ohne Geräte-ID:</p>
+            <p className="text-[17px] leading-relaxed">Von deinen Screenshots ist bei uns nichts gespeichert. Gespeichert wurde nur das – ohne Datum, ohne Namen, ohne Geräte-ID:</p>
             <dl className="flex flex-col divide-y divide-line rounded-2xl bg-surface px-4" data-testid="upload-saved">
               {rows.map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4 py-3 text-[15px]">
@@ -166,10 +167,13 @@ export default function UploadPage() {
       <section className="flex flex-col gap-2 rounded-2xl bg-surface p-4 text-[15px] leading-relaxed">
         <p className="font-medium">So bleibst du anonym</p>
         <ul className="flex list-disc flex-col gap-1.5 pl-5">
-          <li>Deine Screenshots werden nicht gespeichert. Sie werden einmal automatisch ausgelesen und danach verworfen.</li>
+          <li>
+            Wir speichern deine Screenshots nicht. Sie werden einmal automatisch von Claude (Anthropic) ausgelesen. Anthropic nutzt sie nicht zum
+            Training und löscht sie nach kurzer Zeit (höchstens 30 Tage).
+          </li>
           <li>Gespeichert werden nur Zahlen: Zykluslängen, Periodendauer, Symptome nach Zyklustag – ohne Datum, ohne Namen, ohne Geräte-ID, ohne IP-Adresse.</li>
           <li>Vor dem Senden werden die Bilder auf deinem Gerät verkleinert. Dabei fallen Metadaten wie Ort und Aufnahmezeit weg.</li>
-          <li>Tipp: Namen oder Benachrichtigungen vorher wegschneiden. Ausgelesen wird ohnehin nur der Zyklus.</li>
+          <li>Tipp: Namen oder Benachrichtigungen vorher wegschneiden – das ganze Bild geht zur Auswertung an Anthropic.</li>
         </ul>
       </section>
 

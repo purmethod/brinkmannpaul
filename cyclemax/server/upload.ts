@@ -8,6 +8,8 @@ export const MAX_IMAGES = 6;
 /** Per decoded image; the client shrinks screenshots to ~1600 px JPEG first (Vercel body limit 4.5 MB). */
 export const MAX_IMAGE_BYTES = 1_500_000;
 export const UPLOADS_PER_DAY_PER_SENDER = 5;
+/** All uploads together per day – own budget, so uploads can never use up the chat's Claude budget. */
+export const UPLOADS_PER_DAY_DEFAULT = 200;
 
 export const SOURCE_APPS = ["Apple Health", "Flo", "Clue", "Natural Cycles", "Stardust", "Ovy", "Kalender", "andere", "unbekannt"] as const;
 export const SYMPTOMS = [
@@ -52,16 +54,18 @@ export type UploadBody = z.infer<typeof UploadBody>;
 export type UploadImage = UploadBody["images"][number];
 
 /** What Claude reads from the screenshots. Absolute dates exist only here, in memory. */
+// Free strings on purpose: structured outputs only describe enums, so an app or symptom off the list would make
+// the whole parse fail. anonymize() maps everything onto the fixed lists instead.
 export const Extraction = z.object({
   relevant: z.boolean(),
-  sourceApp: z.enum(SOURCE_APPS),
+  sourceApp: z.string(),
   periodStarts: z.array(z.string()),
   periodLengths: z.array(z.number()),
   cycleLengths: z.array(z.number()),
   averageCycleLength: z.number().nullable(),
   averagePeriodLength: z.number().nullable(),
-  symptoms: z.array(z.object({ name: z.enum(SYMPTOMS), cycleDay: z.number().nullable() })),
-  quality: z.enum(["klar", "teilweise", "unlesbar"]),
+  symptoms: z.array(z.object({ name: z.string(), cycleDay: z.number().nullable() })),
+  quality: z.string(),
 });
 export type Extraction = z.infer<typeof Extraction>;
 
@@ -76,9 +80,23 @@ export interface Dataset {
   avgCycle: number | null;
   avgPeriod: number | null;
   symptoms: { name: (typeof SYMPTOMS)[number]; cycleDay: number | null }[];
-  quality: Extraction["quality"];
+  quality: (typeof QUALITY)[number];
   images: number;
 }
+
+export const QUALITY = ["klar", "teilweise", "unlesbar"] as const;
+
+const norm = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]/g, "");
+/** English (and a few other) labels apps use, mapped onto the German list. */
+const SYMPTOM_ALIASES: Record<string, (typeof SYMPTOMS)[number]> = {
+  cramps: "Krämpfe", krampfe: "Krämpfe", headache: "Kopfschmerzen", migraine: "Migräne", tenderbreasts: "Brustspannen", breasttenderness: "Brustspannen",
+  moodswings: "Stimmungsschwankungen", irritability: "Reizbarkeit", irritable: "Reizbarkeit", sad: "Traurigkeit", sadness: "Traurigkeit", anxiety: "Angst", anxious: "Angst",
+  fatigue: "Müdigkeit", tired: "Müdigkeit", energetic: "viel Energie", insomnia: "Schlafprobleme", sleepproblems: "Schlafprobleme", cravings: "Heißhunger",
+  bloating: "Blähungen", constipation: "Verdauung", diarrhea: "Verdauung", nausea: "Übelkeit", acne: "Akne", backache: "Rückenschmerzen", lowerbackpain: "Rückenschmerzen",
+  highsexdrive: "Lust hoch", lowsexdrive: "Lust niedrig", spotting: "Schmierblutung", discharge: "Ausfluss", hotflashes: "Hitzewallungen",
+};
+const pick = <T extends string>(list: readonly T[], value: string, fallback: T, aliases: Record<string, T> = {}): T =>
+  list.find((x) => norm(x) === norm(value)) ?? aliases[norm(value)] ?? fallback;
 
 const MAGIC: Record<UploadImage["mediaType"], (b: Buffer) => boolean> = {
   "image/jpeg": (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
@@ -96,6 +114,8 @@ export function checkImage(img: UploadImage): string | null {
 }
 
 const DAY = 86_400_000;
+/** "2026-02-30" must not silently become 2 March. */
+const validDay = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && new Date(`${s}T00:00:00Z`).toISOString().slice(0, 10) === s;
 const round1 = (n: number) => Math.round(n * 10) / 10;
 const mean = (xs: number[]) => (xs.length ? round1(xs.reduce((a, b) => a + b, 0) / xs.length) : null);
 const ints = (xs: number[], min: number, max: number) => xs.filter((n) => Number.isFinite(n)).map(Math.round).filter((n) => n >= min && n <= max);
@@ -110,22 +130,21 @@ export function anonymize(x: Extraction, meta: Pick<Dataset, "ageGroup" | "contr
   const starts = [
     ...new Set(
       x.periodStarts
-        .filter((s) => /^\d{4}-\d{2}-\d{2}$/.test(s))
+        .filter(validDay)
         .map((s) => Date.parse(`${s}T00:00:00Z`))
         .filter((t) => Number.isFinite(t) && t <= now + DAY && t >= now - 10 * 365 * DAY),
     ),
   ].sort((a, b) => a - b);
-  const fromStarts: number[] = [];
-  for (let i = 1; i < starts.length; i++) {
-    const d = Math.round((starts[i] - starts[i - 1]) / DAY);
-    // > 90 days between two entries is a gap in the logging, not one cycle
-    if (d >= 10 && d <= 90) fromStarts.push(d);
-  }
-  const cycleLengths = fromStarts.length ? fromStarts : ints(x.cycleLengths, 10, 90);
+  const diffs: number[] = [];
+  for (let i = 1; i < starts.length; i++) diffs.push(Math.round((starts[i] - starts[i - 1]) / DAY));
+  const fromStarts = withoutGaps(diffs.filter((d) => d >= 10));
+  const shown = ints(x.cycleLengths, 10, 90);
+  // what the app lists itself wins when it shows more cycles than the visible start dates give
+  const cycleLengths = shown.length > fromStarts.length ? shown : fromStarts;
   const periodLengths = ints(x.periodLengths, 1, 15);
   const seen = new Set<string>();
   const symptoms = x.symptoms
-    .map((s) => ({ name: s.name, cycleDay: s.cycleDay !== null && Number.isFinite(s.cycleDay) && s.cycleDay >= 1 && s.cycleDay <= 90 ? Math.round(s.cycleDay) : null }))
+    .map((s) => ({ name: pick(SYMPTOMS, s.name, "Sonstiges", SYMPTOM_ALIASES), cycleDay: s.cycleDay !== null && Number.isFinite(s.cycleDay) && s.cycleDay >= 1 && s.cycleDay <= 90 ? Math.round(s.cycleDay) : null }))
     .filter((s) => (seen.has(`${s.name}|${s.cycleDay}`) ? false : (seen.add(`${s.name}|${s.cycleDay}`), true)))
     .slice(0, 60);
   const avgCycle = inRange(x.averageCycleLength, 10, 90) ?? mean(cycleLengths);
@@ -133,7 +152,7 @@ export function anonymize(x: Extraction, meta: Pick<Dataset, "ageGroup" | "contr
   if (!cycleLengths.length && !periodLengths.length && avgCycle === null && avgPeriod === null && !symptoms.length) return null;
   return {
     createdMonth: new Date(now).toISOString().slice(0, 7),
-    sourceApp: x.sourceApp,
+    sourceApp: pick(SOURCE_APPS, x.sourceApp, "andere"),
     ageGroup: meta.ageGroup,
     contraception: meta.contraception,
     cycleLengths: cycleLengths.slice(-24),
@@ -141,9 +160,22 @@ export function anonymize(x: Extraction, meta: Pick<Dataset, "ageGroup" | "contr
     avgCycle,
     avgPeriod,
     symptoms,
-    quality: x.quality,
+    quality: pick(QUALITY, x.quality, "teilweise"),
     images: meta.images,
   };
+}
+
+/**
+ * Differences between consecutive start dates. A missing start in between (or a screenshot of July and September
+ * only) looks like one long cycle: with enough data, drop what is far above the typical length; with little data,
+ * anything above 60 days.
+ */
+export function withoutGaps(diffs: number[]): number[] {
+  const plausible = diffs.filter((d) => d >= 10 && d <= 90);
+  if (plausible.length < 3) return plausible.filter((d) => d <= 60);
+  const sorted = [...plausible].sort((a, b) => a - b);
+  const median = sorted[Math.floor(sorted.length / 2)];
+  return plausible.filter((d) => d <= Math.max(45, median * 1.6));
 }
 
 export const EXTRACT_SYSTEM = `Du liest Screenshots aus Zyklus- und Perioden-Apps (z. B. Apple Health, Flo, Clue, Natural Cycles) und extrahierst ausschließlich Zyklusdaten.
@@ -151,14 +183,21 @@ Regeln:
 - Übernimm NIEMALS Namen, E-Mail-Adressen, Telefonnummern, Geburtstage, Orte, Kontonamen, Freitext-Notizen oder Benachrichtigungen. Ignoriere alles außer Zyklusdaten.
 - periodStarts: Starttage der Periode, die eindeutig sichtbar sind, als YYYY-MM-DD. Fehlt das Jahr, nimm das jüngste zurückliegende passende Jahr relativ zu heute.
 - periodLengths: sichtbare Periodendauern in Tagen. cycleLengths: ausdrücklich angezeigte Zykluslängen in Tagen. averageCycleLength / averagePeriodLength: nur wenn die App einen Durchschnitt anzeigt, sonst null.
-- symptoms: erfasste Symptome, auf die vorgegebene Liste abgebildet, mit Zyklustag falls ablesbar (Tag 1 = erster Tag der Periode), sonst null.
+- sourceApp: eine aus ${SOURCE_APPS.join(", ")}.
+- symptoms: erfasste Symptome, abgebildet auf genau einen dieser Namen: ${SYMPTOMS.join(", ")}; mit Zyklustag falls ablesbar (Tag 1 = erster Tag der Periode), sonst null.
+- quality: klar, teilweise oder unlesbar.
 - Keine Schätzungen oder Erfindungen: was nicht sicher ablesbar ist, bleibt leer.
 - relevant = false, wenn die Bilder keine Zyklusdaten zeigen (z. B. andere Inhalte, Personen, Dokumente).`;
 
 /** One Claude call for all images of an upload. Throws when Claude is not reachable. */
 export async function extract(llm: Llm, images: UploadImage[], now = Date.now()): Promise<Extraction | null> {
   const today = new Date(now).toISOString().slice(0, 10);
-  return llm.json(Extraction, EXTRACT_SYSTEM, `Heute ist ${today}. Lies die ${images.length} Screenshot(s) aus und gib nur die Zyklusdaten zurück.`, 3000, images);
+  // no retries and a timeout below the function limit: the images go to the API once
+  return llm.json(Extraction, EXTRACT_SYSTEM, `Heute ist ${today}. Lies die ${images.length} Screenshot(s) aus und gib nur die Zyklusdaten zurück.`, 3000, {
+    images,
+    maxRetries: 0,
+    timeoutMs: 50_000,
+  });
 }
 
 /** Admin view: plain aggregates over all datasets. */

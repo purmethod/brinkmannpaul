@@ -23,7 +23,13 @@ async function call<T>(path: string, init: RequestInit = {}, timeoutMs = 20_000)
       headers: { "content-type": "application/json", ...(init.headers ?? {}) },
     });
     const text = await res.text();
-    const data = text ? JSON.parse(text) : {};
+    let data: { error?: string } | null = null;
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch {
+      // e.g. a plain-text 504 from the platform
+      throw new ApiError(res.status, res.status >= 500 ? "Der Server hat zu lange gebraucht. Bitte versuch es noch einmal." : res.statusText);
+    }
     if (!res.ok) throw new ApiError(res.status, data?.error ?? res.statusText);
     return data as T;
   } finally {

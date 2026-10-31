@@ -1,3 +1,5 @@
+import { UPLOADS_PER_DAY_DEFAULT } from "./upload";
+
 // Backend configuration (all from environment variables, documented in .env.example / README).
 
 export interface Config {
@@ -9,6 +11,8 @@ export interface Config {
   claudeJsonEffort: "low" | "medium" | "high" | null;
   /** Max Claude calls per day for the whole app (cost protection). */
   claudeDailyLimit: number;
+  /** Max screenshot uploads per day for the whole app (own budget, see server/upload.ts). */
+  uploadDailyLimit: number;
   /** True on a production deployment (Vercel production or NODE_ENV=production). */
   production: boolean;
   /** DATABASE_URL points to Postgres (persistent). */
@@ -38,6 +42,7 @@ export function readConfig(env: Record<string, string | undefined> = process.env
     claudeEffort: isEffort(effort) ? effort : null,
     claudeJsonEffort: isEffort(jsonEffort) ? jsonEffort : null,
     claudeDailyLimit: Number(env.CLAUDE_DAILY_LIMIT ?? 3000),
+    uploadDailyLimit: Number(env.UPLOAD_DAILY_LIMIT ?? UPLOADS_PER_DAY_DEFAULT),
     production: env.VERCEL_ENV === "production" || env.NODE_ENV === "production",
     persistentDb: /^postgres(ql)?:\/\//.test(env.DATABASE_URL ?? ""),
     claudeFallbacks: env.CLAUDE_FALLBACKS ? env.CLAUDE_FALLBACKS !== "off" : FALLBACK_MODELS.has(model),

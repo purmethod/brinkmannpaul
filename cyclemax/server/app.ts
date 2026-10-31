@@ -132,14 +132,35 @@ function requireAdmin(req: Request, config: Config) {
   if (!safeEqual(bearer(req), config.adminPassword)) throw new HttpError(401, "unauthorized");
 }
 
-/**
- * Abuse protection for /api/upload without storing who uploaded: a salted hash of the IP that changes
- * every day, so it cannot be turned back into an IP or linked across days.
- */
-function senderKey(req: Request, config: Config, now = Date.now()): string {
+const UPLOADS_GLOBAL_KEY = "__uploads-global__";
+/** Admin view and CSV read at most this many (newest) datasets. */
+const DATASET_LIMIT = 20_000;
+/** The upload page is web only: browsers on other sites must not be able to post into it. */
+const UPLOAD_ORIGINS = new Set(["https://cyclemax.app", "https://www.cyclemax.app"]);
+
+/** Sender for the per-day upload limit: the IP, for IPv6 its /64 network (one connection, many addresses). */
+function senderOf(req: Request): string {
   const ip = (req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? "unknown").split(",")[0].trim();
-  const day = new Date(now).toISOString().slice(0, 10);
-  return `up:${createHash("sha256").update(`${config.cronSecret ?? "cyclemax"}|${day}|${ip}`).digest("hex").slice(0, 32)}`;
+  return ip.includes(":") ? ip.split(":").slice(0, 4).join(":") : ip;
+}
+
+/**
+ * Per-sender upload counter kept ONLY in memory – nothing about who uploaded reaches the database, so a dataset
+ * can never be linked back to an IP. Per server instance; the database-wide daily cap is the hard limit.
+ */
+function createUploadLimiter(limit: number) {
+  let day = "";
+  const counts = new Map<string, number>();
+  return (sender: string, now = Date.now()) => {
+    const today = new Date(now).toISOString().slice(0, 10);
+    if (today !== day || counts.size > 50_000) {
+      day = today;
+      counts.clear();
+    }
+    const n = (counts.get(sender) ?? 0) + 1;
+    counts.set(sender, n);
+    return n <= limit;
+  };
 }
 
 const csv = (text: string) =>
@@ -163,6 +184,7 @@ export function routeOf(url: URL): string {
 }
 
 export function createHandler(getContext: () => Promise<AppContext>) {
+  const takeUpload = createUploadLimiter(UPLOADS_PER_DAY_PER_SENDER);
   return async function handle(req: Request): Promise<Response> {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
@@ -223,15 +245,16 @@ export function createHandler(getContext: () => Promise<AppContext>) {
       }
 
       if (m === "POST" && path === "/api/upload") {
+        const origin = req.headers.get("origin");
+        if (config.production && origin && !UPLOAD_ORIGINS.has(origin)) throw new HttpError(403, "Uploads nur über cyclemax.app/upload.");
         const b = await body(req, UploadBody);
         for (const img of b.images) {
           const problem = checkImage(img);
           if (problem) throw new HttpError(400, problem);
         }
         if (!ctx.llm) throw new HttpError(503, "Die Auswertung ist gerade nicht verfügbar. Bitte versuch es später noch einmal.");
-        if (!(await store.takeQuota(senderKey(req, config), UPLOADS_PER_DAY_PER_SENDER)))
-          throw new HttpError(429, "Für heute ist das Limit erreicht. Danke dir – versuch es morgen wieder.");
-        if (!(await store.takeQuota(GLOBAL_CLAUDE_KEY, config.claudeDailyLimit)))
+        if (!takeUpload(senderOf(req))) throw new HttpError(429, "Für heute ist das Limit erreicht. Danke dir – versuch es morgen wieder.");
+        if (!(await store.takeQuota(UPLOADS_GLOBAL_KEY, config.uploadDailyLimit)))
           throw new HttpError(503, "Heute kommen gerade sehr viele Uploads an. Bitte versuch es morgen noch einmal.");
         let extraction;
         try {
@@ -340,9 +363,9 @@ export function createHandler(getContext: () => Promise<AppContext>) {
           return json({ ok: true });
         }
         if (resource === "datasets" && m === "GET") {
-          const rows = await store.datasets();
+          const rows = await store.datasets(DATASET_LIMIT);
           if (url.searchParams.get("format") === "csv") return csv(toCsv(rows));
-          return json({ summary: summarize(rows), rows: rows.slice(0, 200) });
+          return json({ summary: { ...summarize(rows), capped: rows.length >= DATASET_LIMIT }, rows: rows.slice(0, 200) });
         }
         if (resource === "job" && m === "POST") return json({ ok: true, ...(await runKnowledgeJob(store, ctx.llm)) });
         if (resource === "test-push" && m === "POST") {

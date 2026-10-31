@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { Llm } from "./llm";
 import { testContext } from "./test-utils";
-import { anonymize, checkImage, summarize, toCsv, UPLOADS_PER_DAY_PER_SENDER, type Dataset, type Extraction } from "./upload";
+import { anonymize, checkImage, summarize, toCsv, UPLOADS_PER_DAY_PER_SENDER, withoutGaps, type Dataset, type Extraction } from "./upload";
 
 const NOW = Date.parse("2026-10-31T12:00:00Z");
 const PNG = Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), Buffer.alloc(120)]).toString("base64");
@@ -70,6 +70,49 @@ describe("anonymize", () => {
     expect(d.avgPeriod).toBe(4.7);
   });
 
+  it("maps apps, symptoms and quality off the list instead of failing", () => {
+    const d = anonymize(
+      extraction({
+        sourceApp: "Samsung Health",
+        quality: "good",
+        symptoms: [
+          { name: "Cramps", cycleDay: 2 },
+          { name: "headache", cycleDay: null },
+          { name: "Mood swings", cycleDay: 26 },
+          { name: "Weltschmerz", cycleDay: 3 },
+          { name: "krämpfe", cycleDay: 2 },
+        ],
+      }),
+      meta,
+      NOW,
+    )!;
+    expect(d.sourceApp).toBe("andere");
+    expect(d.quality).toBe("teilweise");
+    expect(d.symptoms).toEqual([
+      { name: "Krämpfe", cycleDay: 2 },
+      { name: "Kopfschmerzen", cycleDay: null },
+      { name: "Stimmungsschwankungen", cycleDay: 26 },
+      { name: "Sonstiges", cycleDay: 3 },
+    ]);
+    expect(anonymize(extraction({ sourceApp: "apple health" }), meta, NOW)!.sourceApp).toBe("Apple Health");
+  });
+
+  it("does not invent long cycles from a missing start or a non-existent date", () => {
+    // July and September only: 62 days is a gap, not a cycle
+    expect(anonymize(extraction({ periodStarts: ["2026-07-01", "2026-09-01"], periodLengths: [5] }), meta, NOW)!.cycleLengths).toEqual([]);
+    expect(withoutGaps([28, 29, 57, 27])).toEqual([28, 29, 27]);
+    // long but regular cycles stay; ~1.7x the typical length is a missed entry
+    expect(withoutGaps([40, 42, 41, 60])).toEqual([40, 42, 41, 60]);
+    expect(withoutGaps([40, 42, 41, 70])).toEqual([40, 42, 41]);
+    // 30 February does not exist (would roll over to 2 March and fake a 26-day cycle)
+    expect(anonymize(extraction({ periodStarts: ["2026-02-30", "2026-03-28"], periodLengths: [5] }), meta, NOW)!.cycleLengths).toEqual([]);
+  });
+
+  it("prefers the cycle lengths the app lists when it shows more of them", () => {
+    const d = anonymize(extraction({ periodStarts: ["2026-08-30", "2026-09-27"], cycleLengths: [27, 29, 28, 30] }), meta, NOW)!;
+    expect(d.cycleLengths).toEqual([27, 29, 28, 30]);
+  });
+
   it("returns null for pictures without cycle data", () => {
     expect(anonymize(extraction({ relevant: false }), meta, NOW)).toBeNull();
     expect(anonymize(extraction({ periodStarts: [], periodLengths: [], symptoms: [] }), meta, NOW)).toBeNull();
@@ -110,7 +153,7 @@ describe("POST /api/upload", () => {
     expect(res.data.saved.cycleLengths).toEqual([28, 30, 28]);
     expect(res.data.saved.symptoms).toEqual(["Krämpfe", "Reizbarkeit"]);
     // the images went to Claude once …
-    expect(llm.json.mock.calls[0][4]).toEqual([{ mediaType: "image/png", data: PNG }]);
+    expect(llm.json.mock.calls[0][4]).toEqual({ images: [{ mediaType: "image/png", data: PNG }], maxRetries: 0, timeoutMs: 50_000 });
     // … but nothing of them is stored
     const rows = await store.datasets();
     expect(rows).toHaveLength(1);
@@ -152,6 +195,23 @@ describe("POST /api/upload", () => {
     const { call } = await testContext({ llm: llmReturning(extraction()) });
     for (let i = 0; i < UPLOADS_PER_DAY_PER_SENDER; i++) expect((await call("POST", "/api/upload", upload())).status).toBe(200);
     expect((await call("POST", "/api/upload", upload())).status).toBe(429);
+  });
+
+  it("in production only cyclemax.app may post (no uploads from other sites' visitors)", async () => {
+    const { handle } = await testContext({ llm: llmReturning(extraction()), env: { VERCEL_ENV: "production" } });
+    const post = (origin: string) =>
+      handle(new Request("http://test/api/upload", { method: "POST", headers: { "content-type": "application/json", origin }, body: JSON.stringify(upload()) }));
+    expect((await post("https://evil.example")).status).toBe(403);
+    expect((await post("https://cyclemax.app")).status).toBe(200);
+  });
+
+  it("has its own daily budget and never uses up the chat's Claude budget", async () => {
+    const chatLlm = { ...llmReturning(extraction()), chat: vi.fn(async () => ({ text: "Ruhig bleiben.", refused: false })) } as never;
+    const { call } = await testContext({ llm: chatLlm, env: { UPLOAD_DAILY_LIMIT: "1", CLAUDE_DAILY_LIMIT: "1" } });
+    expect((await call("POST", "/api/upload", upload())).status).toBe(200);
+    expect((await call("POST", "/api/upload", upload())).status).toBe(503);
+    const chat = await call("POST", "/api/chat", { deviceId: "11111111-2222-3333-4444-555555555555", mode: "relationship", phase: "red", cycleDay: 24, messages: [{ role: "user", content: "Hi" }] });
+    expect(chat.data.source).toBe("claude");
   });
 
   it("admin: aggregates and csv, only with the password", async () => {
