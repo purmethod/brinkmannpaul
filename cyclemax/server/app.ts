@@ -9,9 +9,10 @@ import { analyzeProfile, ProfileSchema } from "./profile";
 import { getDatabase } from "./db";
 import { readConfig, type Config } from "./env";
 import { runKnowledgeJob } from "./knowledge-job";
-import { createClaude, type Llm } from "./llm";
+import { createClaude, errorText, type Llm } from "./llm";
 import { createWebPushSender, sendDuePushes, vapidKeys, type PushSender } from "./push";
 import { createStore, GLOBAL_CLAUDE_KEY, type Store } from "./store";
+import { anonymize, checkImage, extract, summarize, toCsv, UploadBody, UPLOADS_PER_DAY_PER_SENDER } from "./upload";
 
 const HEALTH_CHECK_KEY = "health-claude-check";
 const HEALTH_CHECK_DAILY_LIMIT = 30;
@@ -131,6 +132,21 @@ function requireAdmin(req: Request, config: Config) {
   if (!safeEqual(bearer(req), config.adminPassword)) throw new HttpError(401, "unauthorized");
 }
 
+/**
+ * Abuse protection for /api/upload without storing who uploaded: a salted hash of the IP that changes
+ * every day, so it cannot be turned back into an IP or linked across days.
+ */
+function senderKey(req: Request, config: Config, now = Date.now()): string {
+  const ip = (req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? "unknown").split(",")[0].trim();
+  const day = new Date(now).toISOString().slice(0, 10);
+  return `up:${createHash("sha256").update(`${config.cronSecret ?? "cyclemax"}|${day}|${ip}`).digest("hex").slice(0, 32)}`;
+}
+
+const csv = (text: string) =>
+  new Response(text, {
+    headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="cyclemax-datasets.csv"', "cache-control": "no-store", ...CORS },
+  });
+
 function requireCron(req: Request, config: Config) {
   if (!config.cronSecret) {
     if (process.env.NODE_ENV === "production") throw new HttpError(503, "CRON_SECRET ist nicht gesetzt");
@@ -204,6 +220,48 @@ export function createHandler(getContext: () => Promise<AppContext>) {
         // Anonymous: the device id is NOT stored with the report.
         await store.addReport(b.answerId, b.text, b.topic);
         return json({ ok: true });
+      }
+
+      if (m === "POST" && path === "/api/upload") {
+        const b = await body(req, UploadBody);
+        for (const img of b.images) {
+          const problem = checkImage(img);
+          if (problem) throw new HttpError(400, problem);
+        }
+        if (!ctx.llm) throw new HttpError(503, "Die Auswertung ist gerade nicht verfügbar. Bitte versuch es später noch einmal.");
+        if (!(await store.takeQuota(senderKey(req, config), UPLOADS_PER_DAY_PER_SENDER)))
+          throw new HttpError(429, "Für heute ist das Limit erreicht. Danke dir – versuch es morgen wieder.");
+        if (!(await store.takeQuota(GLOBAL_CLAUDE_KEY, config.claudeDailyLimit)))
+          throw new HttpError(503, "Heute kommen gerade sehr viele Uploads an. Bitte versuch es morgen noch einmal.");
+        let extraction;
+        try {
+          extraction = await extract(ctx.llm, b.images);
+        } catch (e) {
+          console.error("upload: extraction failed", errorText(e));
+          throw new HttpError(502, "Die Auswertung hat nicht geklappt. Bitte versuch es noch einmal.");
+        }
+        // the images end here: they are not stored anywhere
+        const dataset = extraction ? anonymize(extraction, { ageGroup: b.ageGroup, contraception: b.contraception, images: b.images.length }) : null;
+        if (!dataset)
+          return json({ error: "Auf den Bildern haben wir keine Zyklusdaten gefunden. Es wurde nichts gespeichert." }, 422);
+        const code = await store.insertDataset(dataset);
+        return json({
+          ok: true,
+          code,
+          saved: {
+            cycleLengths: dataset.cycleLengths,
+            periodLengths: dataset.periodLengths,
+            avgCycle: dataset.avgCycle,
+            avgPeriod: dataset.avgPeriod,
+            symptoms: [...new Set(dataset.symptoms.map((x) => x.name))],
+            sourceApp: dataset.sourceApp,
+          },
+        });
+      }
+      if (m === "DELETE" && path.startsWith("/api/upload/")) {
+        const code = path.slice("/api/upload/".length);
+        if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(code)) throw new HttpError(400, "Ungültiger Löschcode.");
+        return json({ ok: true, deleted: await store.deleteDataset(code.toLowerCase()) });
       }
 
       if (m === "GET" && path === "/api/push/key") {
@@ -280,6 +338,11 @@ export function createHandler(getContext: () => Promise<AppContext>) {
         if (resource === "reports" && id && m === "PATCH") {
           await store.setReportStatus(id, (await body(req, ReportPatch)).status);
           return json({ ok: true });
+        }
+        if (resource === "datasets" && m === "GET") {
+          const rows = await store.datasets();
+          if (url.searchParams.get("format") === "csv") return csv(toCsv(rows));
+          return json({ summary: summarize(rows), rows: rows.slice(0, 200) });
         }
         if (resource === "job" && m === "POST") return json({ ok: true, ...(await runKnowledgeJob(store, ctx.llm)) });
         if (resource === "test-push" && m === "POST") {

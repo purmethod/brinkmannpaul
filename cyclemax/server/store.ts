@@ -3,6 +3,7 @@ import { and, asc, desc, eq, gte, inArray, isNull, lte, ne, sql } from "drizzle-
 import { SEED_LINES, SEED_PRINCIPLES } from "../shared/knowledge.generated";
 import type { Line, LineCategory, ScheduledItem } from "../shared/types";
 import type { Database } from "./db";
+import type { Dataset } from "./upload";
 
 /** "deleted" is a tombstone: keeps seed content from coming back on the next cold start. */
 export type LineStatus = "live" | "review" | "disabled" | "deleted";
@@ -336,6 +337,50 @@ export function createStore(database: Database) {
     async jobRuns(limit = 10) {
       const rows = await db.select().from(t.jobRuns).orderBy(desc(t.jobRuns.startedAt)).limit(limit);
       return rows.map((r: { id: string; startedAt: number; summary: string }) => ({ ...r, summary: JSON.parse(r.summary) }));
+    },
+
+    // ------------------------------------------------------------ anonymous datasets (/upload)
+    /** The id is random and only known to the uploader – it doubles as her deletion code. */
+    async insertDataset(d: Dataset): Promise<string> {
+      const id = uuid();
+      await db.insert(t.datasets).values({
+        id,
+        createdMonth: d.createdMonth,
+        sourceApp: d.sourceApp,
+        ageGroup: d.ageGroup,
+        contraception: d.contraception,
+        cycleLengths: JSON.stringify(d.cycleLengths),
+        periodLengths: JSON.stringify(d.periodLengths),
+        avgCycle: d.avgCycle,
+        avgPeriod: d.avgPeriod,
+        symptoms: JSON.stringify(d.symptoms),
+        quality: d.quality,
+        images: d.images,
+      });
+      return id;
+    },
+
+    async deleteDataset(id: string): Promise<boolean> {
+      const rows = await db.delete(t.datasets).where(eq(t.datasets.id, id)).returning({ id: t.datasets.id });
+      return rows.length > 0;
+    },
+
+    async datasets(limit = 5000): Promise<(Dataset & { id: string })[]> {
+      const rows = await db.select().from(t.datasets).orderBy(desc(t.datasets.createdMonth)).limit(limit);
+      return rows.map((r: Record<string, unknown>) => ({
+        id: r.id as string,
+        createdMonth: r.createdMonth as string,
+        sourceApp: r.sourceApp as Dataset["sourceApp"],
+        ageGroup: (r.ageGroup ?? null) as Dataset["ageGroup"],
+        contraception: (r.contraception ?? null) as Dataset["contraception"],
+        cycleLengths: JSON.parse(r.cycleLengths as string),
+        periodLengths: JSON.parse(r.periodLengths as string),
+        avgCycle: r.avgCycle === null ? null : Number(r.avgCycle),
+        avgPeriod: r.avgPeriod === null ? null : Number(r.avgPeriod),
+        symptoms: JSON.parse(r.symptoms as string),
+        quality: r.quality as Dataset["quality"],
+        images: Number(r.images),
+      }));
     },
 
     // ------------------------------------------------------------ privacy

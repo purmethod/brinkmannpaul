@@ -1,5 +1,5 @@
 // SQLite (local fallback) schema. Must mirror schema-pg.ts column for column.
-import { integer, sqliteTable, primaryKey, text } from "drizzle-orm/sqlite-core";
+import { integer, real, sqliteTable, primaryKey, text } from "drizzle-orm/sqlite-core";
 
 const ms = (name: string) => integer(name);
 
@@ -90,4 +90,20 @@ export const jobRuns = sqliteTable("job_runs", {
   id: text("id").primaryKey(),
   startedAt: ms("started_at").notNull(),
   summary: text("summary").notNull(),
+});
+
+/** Anonymous datasets from /upload: no device id, no IP, no calendar dates (see server/upload.ts). */
+export const datasets = sqliteTable("datasets", {
+  id: text("id").primaryKey(),
+  createdMonth: text("created_month").notNull(),
+  sourceApp: text("source_app").notNull(),
+  ageGroup: text("age_group"),
+  contraception: text("contraception"),
+  cycleLengths: text("cycle_lengths").notNull(),
+  periodLengths: text("period_lengths").notNull(),
+  avgCycle: real("avg_cycle"),
+  avgPeriod: real("avg_period"),
+  symptoms: text("symptoms").notNull(),
+  quality: text("quality").notNull(),
+  images: integer("images").notNull(),
 });

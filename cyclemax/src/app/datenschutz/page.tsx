@@ -55,6 +55,33 @@ export default function Datenschutz() {
         </li>
       </ul>
 
+      <h2 id="upload">Anonymer Upload (cyclemax.app/upload)</h2>
+      <p>
+        Auf cyclemax.app/upload kannst du freiwillig Screenshots deiner Zyklus-App teilen. Rechtsgrundlage ist deine ausdrückliche Einwilligung
+        (Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO), die du vor dem Hochladen erteilst. So läuft es ab:
+      </p>
+      <ul>
+        <li>Dein Gerät verkleinert die Bilder und speichert sie neu als JPEG; dabei fallen Metadaten wie Ort und Aufnahmezeit weg.</li>
+        <li>
+          Der Server schickt die Bilder einmalig an Claude (Anthropic PBC, USA), das ausschließlich Zyklusdaten ausliest. Die Bilder werden
+          weder auf unserem Server noch in der Datenbank gespeichert und sind nach der Auswertung verworfen.
+        </li>
+        <li>
+          Gespeichert wird nur ein Datensatz aus Zahlen: Zykluslängen, Periodendauer, Durchschnittswerte, Symptome mit Zyklustag, welche App,
+          Monat des Uploads und – falls du sie angibst – Altersgruppe und Art der Verhütung. Kalenderdaten werden in Zykluslängen umgerechnet
+          und verworfen. Kein Name, keine Geräte-ID, keine IP-Adresse.
+        </li>
+        <li>
+          Gegen Missbrauch zählen wir Uploads pro Tag mit einem Prüfwert aus deiner IP-Adresse, der jeden Tag wechselt und sich nicht in die
+          IP-Adresse zurückrechnen lässt.
+        </li>
+        <li>
+          Nach dem Upload bekommst du einen Löschcode. Damit kannst du deinen Datensatz jederzeit selbst löschen. Ohne Code können wir ihn
+          niemandem zuordnen. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.
+        </li>
+        <li>Die anonymen Datensätze nutzen wir, um Zyklusvorhersagen und Inhalte von Cyclemax zu verbessern. Sie werden nicht verkauft.</li>
+      </ul>
+
       <h2>KI-Dienst</h2>
       <p>
         Chat-Antworten erzeugt Claude von Anthropic PBC (USA). Anthropic erhält den Chat-Inhalt der jeweiligen Anfrage, keine Geräte-ID.

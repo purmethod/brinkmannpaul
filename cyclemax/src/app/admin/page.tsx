@@ -34,7 +34,7 @@ interface Overview {
   claude: boolean;
 }
 
-const TABS = ["Freigabe", "Zeilen", "Leitsätze", "Meldungen", "Wissen", "System"] as const;
+const TABS = ["Freigabe", "Zeilen", "Leitsätze", "Meldungen", "Daten", "Wissen", "System"] as const;
 const KEY = "cyclemax-admin";
 
 export default function AdminPage() {
@@ -152,6 +152,7 @@ export default function AdminPage() {
               </div>
             ))
           ))}
+        {tab === "Daten" && <Datasets api={api} />}
         {tab === "Wissen" &&
           data.docs.map((d) => (
             <details key={d.slug} className="rounded-2xl bg-surface p-4">
@@ -185,6 +186,67 @@ export default function AdminPage() {
         )}
       </section>
     </main>
+  );
+}
+
+interface Count {
+  key: string;
+  n: number;
+}
+interface DatasetSummary {
+  datasets: number;
+  cycles: number;
+  cycleLength: { mean: number | null; median: number | null; min: number | null; max: number | null; histogram: Count[] };
+  periodLength: { mean: number | null };
+  symptoms: Count[];
+  sourceApps: Count[];
+  ageGroups: Count[];
+  contraception: Count[];
+}
+
+/** Anonymous datasets from cyclemax.app/upload: aggregates + CSV export. */
+function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {
+  const [summary, setSummary] = useState<DatasetSummary | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    api
+      .datasets()
+      .then((r: { summary: DatasetSummary }) => setSummary(r.summary))
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "Fehler"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const download = async () => {
+    const blob = await api.datasetsCsv();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "cyclemax-datasets.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  if (error) return <p className="text-accent">{error}</p>;
+  if (!summary) return <p className="text-muted">Lädt …</p>;
+  const list = (rows: Count[]) => rows.map((r) => `${r.key} (${r.n})`).join(", ") || "–";
+  const c = summary.cycleLength;
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-muted">
+        Anonyme Datensätze aus <a className="underline" href="/upload/">cyclemax.app/upload</a> – ohne Bilder, Datum, Namen, Geräte-ID oder IP.
+      </p>
+      <p>
+        <b>{summary.datasets}</b> Datensätze · <b>{summary.cycles}</b> Zyklen
+      </p>
+      <p>
+        Zykluslänge: Ø {c.mean ?? "–"} · Median {c.median ?? "–"} · {c.min ?? "–"}–{c.max ?? "–"} Tage · Periode Ø {summary.periodLength.mean ?? "–"} Tage
+      </p>
+      <p className="text-muted">Verteilung: {list(c.histogram)}</p>
+      <p className="text-muted">Symptome: {list(summary.symptoms)}</p>
+      <p className="text-muted">Apps: {list(summary.sourceApps)}</p>
+      <p className="text-muted">Alter: {list(summary.ageGroups)}</p>
+      <p className="text-muted">Verhütung: {list(summary.contraception)}</p>
+      <div>
+        <Small onClick={() => void download()}>CSV herunterladen</Small>
+      </div>
+    </div>
   );
 }
 

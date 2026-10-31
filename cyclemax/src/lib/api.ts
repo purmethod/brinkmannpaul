@@ -58,6 +58,24 @@ export const api = {
 
 export type Api = typeof api;
 
+export interface UploadPayload {
+  consent: true;
+  ageGroup: string | null;
+  contraception: string | null;
+  images: { mediaType: "image/jpeg"; data: string }[];
+}
+export interface UploadResult {
+  ok: true;
+  code: string;
+  saved: { cycleLengths: number[]; periodLengths: number[]; avgCycle: number | null; avgPeriod: number | null; symptoms: string[]; sourceApp: string };
+}
+
+/** /upload: anonymous – no device id is sent. */
+export const uploadApi = {
+  send: (payload: UploadPayload) => call<UploadResult>("/api/upload", { method: "POST", body: json(payload) }, 90_000),
+  remove: (code: string) => call<{ ok: true; deleted: boolean }>(`/api/upload/${encodeURIComponent(code)}`, { method: "DELETE" }),
+};
+
 /** /admin (web only). The password is sent as Bearer token and kept in sessionStorage. */
 export function adminApi(password: string) {
   const auth = { authorization: `Bearer ${password}` };
@@ -74,5 +92,12 @@ export function adminApi(password: string) {
     setReport: (id: string, status: "open" | "ok" | "removed") => req("PATCH", `/api/admin/reports/${id}`, { status }),
     runJob: () => req<Record<string, unknown>>("POST", "/api/admin/job"),
     testPush: () => req<{ subscriptions: number; delivered: number; errors: string[] }>("POST", "/api/admin/test-push"),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    datasets: () => req<any>("GET", "/api/admin/datasets"),
+    datasetsCsv: async () => {
+      const res = await fetch(`${API_BASE}/api/admin/datasets?format=csv`, { headers: auth });
+      if (!res.ok) throw new ApiError(res.status, res.statusText);
+      return res.blob();
+    },
   };
 }

@@ -1,6 +1,6 @@
 // Postgres (Neon) schema. Must mirror schema-sqlite.ts column for column.
 // All tables live in their own Postgres schema "cyclemax", so the app can share a Neon database with other apps.
-import { bigint, integer, pgSchema, primaryKey, text } from "drizzle-orm/pg-core";
+import { bigint, integer, pgSchema, primaryKey, real, text } from "drizzle-orm/pg-core";
 
 export const PG_SCHEMA = "cyclemax";
 const cm = pgSchema(PG_SCHEMA);
@@ -94,4 +94,20 @@ export const jobRuns = cm.table("job_runs", {
   id: text("id").primaryKey(),
   startedAt: ms("started_at").notNull(),
   summary: text("summary").notNull(),
+});
+
+/** Anonymous datasets from /upload: no device id, no IP, no calendar dates (see server/upload.ts). */
+export const datasets = cm.table("datasets", {
+  id: text("id").primaryKey(),
+  createdMonth: text("created_month").notNull(),
+  sourceApp: text("source_app").notNull(),
+  ageGroup: text("age_group"),
+  contraception: text("contraception"),
+  cycleLengths: text("cycle_lengths").notNull(),
+  periodLengths: text("period_lengths").notNull(),
+  avgCycle: real("avg_cycle"),
+  avgPeriod: real("avg_period"),
+  symptoms: text("symptoms").notNull(),
+  quality: text("quality").notNull(),
+  images: integer("images").notNull(),
 });
