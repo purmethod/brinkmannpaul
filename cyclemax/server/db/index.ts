@@ -3,7 +3,7 @@
 import { sql } from "drizzle-orm";
 import * as pg from "./schema-pg";
 import * as lite from "./schema-sqlite";
-import { PG_DDL, SQLITE_DDL } from "./ddl";
+import { PG_DDL, SQLITE_DDL, SQLITE_MIGRATIONS } from "./ddl";
 
 export type Tables = typeof pg;
 
@@ -39,6 +39,8 @@ export async function createDatabase(url = process.env.DATABASE_URL): Promise<Da
   const client = createClient({ url: fileUrl });
   const db = drizzle({ client });
   for (const stmt of SQLITE_DDL) await client.execute(stmt);
+  // older local databases: add new columns (fails harmlessly when they already exist)
+  for (const stmt of SQLITE_MIGRATIONS) await client.execute(stmt).catch(() => undefined);
   return { kind: "sqlite", db, t: lite as unknown as Tables, close: async () => client.close() };
 }
 

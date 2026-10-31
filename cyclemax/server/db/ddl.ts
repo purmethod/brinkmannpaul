@@ -14,9 +14,16 @@ const TABLES = (ms: string, q = "") => [
   `CREATE INDEX IF NOT EXISTS topics_day ON ${q}topics (day)`,
   `CREATE TABLE IF NOT EXISTS ${q}chat_usage (device_id TEXT NOT NULL, day TEXT NOT NULL, count INTEGER NOT NULL, PRIMARY KEY (device_id, day))`,
   `CREATE TABLE IF NOT EXISTS ${q}job_runs (id TEXT PRIMARY KEY, started_at ${ms} NOT NULL, summary TEXT NOT NULL)`,
-  `CREATE TABLE IF NOT EXISTS ${q}datasets (id TEXT PRIMARY KEY, created_month TEXT NOT NULL, source_app TEXT NOT NULL, age_group TEXT, contraception TEXT, cycle_lengths TEXT NOT NULL, period_lengths TEXT NOT NULL, avg_cycle REAL, avg_period REAL, symptoms TEXT NOT NULL, quality TEXT NOT NULL, images INTEGER NOT NULL)`,
+  `CREATE TABLE IF NOT EXISTS ${q}datasets (id TEXT PRIMARY KEY, created_month TEXT NOT NULL, source_app TEXT NOT NULL, age_group TEXT, contraception TEXT, cycle_lengths TEXT NOT NULL, period_lengths TEXT NOT NULL, avg_cycle REAL, avg_period REAL, symptoms TEXT NOT NULL, observations TEXT NOT NULL DEFAULT '[]', metrics TEXT NOT NULL DEFAULT '[]', quality TEXT NOT NULL, images INTEGER NOT NULL)`,
+];
+
+/** Columns added after a table first went live. Postgres skips existing ones itself; SQLite errors are ignored. */
+const COLUMNS = (q = "") => [
+  `ALTER TABLE ${q}datasets ADD COLUMN IF NOT EXISTS observations TEXT NOT NULL DEFAULT '[]'`,
+  `ALTER TABLE ${q}datasets ADD COLUMN IF NOT EXISTS metrics TEXT NOT NULL DEFAULT '[]'`,
 ];
 
 // Postgres: own schema "cyclemax" (see schema-pg.ts) – safe next to other apps in the same Neon database.
-export const PG_DDL = [`CREATE SCHEMA IF NOT EXISTS cyclemax`, ...TABLES("BIGINT", "cyclemax.")];
+export const PG_DDL = [`CREATE SCHEMA IF NOT EXISTS cyclemax`, ...TABLES("BIGINT", "cyclemax."), ...COLUMNS("cyclemax.")];
+export const SQLITE_MIGRATIONS = COLUMNS().map((s) => s.replace(" IF NOT EXISTS", ""));
 export const SQLITE_DDL = TABLES("INTEGER");

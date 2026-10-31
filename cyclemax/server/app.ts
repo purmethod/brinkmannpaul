@@ -277,6 +277,10 @@ export function createHandler(getContext: () => Promise<AppContext>) {
             avgCycle: dataset.avgCycle,
             avgPeriod: dataset.avgPeriod,
             symptoms: [...new Set(dataset.symptoms.map((x) => x.name))],
+            observations: Object.entries(
+              dataset.observations.reduce<Record<string, number>>((acc, o) => ((acc[o.category] = (acc[o.category] ?? 0) + 1), acc), {}),
+            ).map(([category, n]) => ({ category, n })),
+            metrics: dataset.metrics.map((x) => `${x.name} ${x.value}${x.unit ? ` ${x.unit}` : ""}`),
             sourceApp: dataset.sourceApp,
           },
         });

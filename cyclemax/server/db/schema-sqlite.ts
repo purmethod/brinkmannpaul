@@ -104,6 +104,8 @@ export const datasets = sqliteTable("datasets", {
   avgCycle: real("avg_cycle"),
   avgPeriod: real("avg_period"),
   symptoms: text("symptoms").notNull(),
+  observations: text("observations").notNull().default("[]"),
+  metrics: text("metrics").notNull().default("[]"),
   quality: text("quality").notNull(),
   images: integer("images").notNull(),
 });

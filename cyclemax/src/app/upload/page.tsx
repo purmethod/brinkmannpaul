@@ -102,6 +102,8 @@ export default function UploadPage() {
       ["Ø Zyklus", s.avgCycle ? `${s.avgCycle} Tage` : "–"],
       ["Ø Periode", s.avgPeriod ? `${s.avgPeriod} Tage` : "–"],
       ["Symptome", s.symptoms.length ? s.symptoms.join(", ") : "–"],
+      ["Befinden", s.observations.length ? s.observations.map((o) => `${o.category} (${o.n})`).join(", ") : "–"],
+      ["Kennzahlen der App", s.metrics.length ? s.metrics.join(", ") : "–"],
       ["Quelle", s.sourceApp],
     ];
     return (
@@ -159,8 +161,9 @@ export default function UploadPage() {
       <section className="flex flex-col gap-3">
         <h1 className="text-[30px] leading-tight font-semibold tracking-tight">Teile deinen Zyklus – anonym.</h1>
         <p className="text-[17px] leading-relaxed">
-          Lade Screenshots aus deiner Zyklus-App hoch – zum Beispiel Apple Health, Flo, Clue oder Natural Cycles. Kalender, Verlauf oder Statistik.
-          Damit lernt Cyclemax, wie Zyklen wirklich verlaufen.
+          Lade Screenshots aus deiner Zyklus-App hoch – zum Beispiel Apple Health, Flo, Clue oder Natural Cycles. Kalender, Verlauf, Statistik
+          oder deine Einträge zu Stimmung, Energie, Schlaf und Lust. Damit lernt Cyclemax, wie Zyklen wirklich verlaufen – und wie es sich in
+          jeder Phase anfühlt.
         </p>
       </section>
 
@@ -171,7 +174,10 @@ export default function UploadPage() {
             Wir speichern deine Screenshots nicht. Sie werden einmal automatisch von Claude (Anthropic) ausgelesen. Anthropic nutzt sie nicht zum
             Training und löscht sie nach kurzer Zeit (höchstens 30 Tage).
           </li>
-          <li>Gespeichert werden nur Zahlen: Zykluslängen, Periodendauer, Symptome nach Zyklustag – ohne Datum, ohne Namen, ohne Geräte-ID, ohne IP-Adresse.</li>
+          <li>
+            Gespeichert werden Zykluslängen, Periodendauer, Symptome und Einträge wie Stimmung, Energie, Schlaf oder Lust – immer nach Zyklustag,
+            ohne Datum, ohne Namen, ohne Notizen, ohne Geräte-ID, ohne IP-Adresse.
+          </li>
           <li>Vor dem Senden werden die Bilder auf deinem Gerät verkleinert. Dabei fallen Metadaten wie Ort und Aufnahmezeit weg.</li>
           <li>Tipp: Namen oder Benachrichtigungen vorher wegschneiden – das ganze Bild geht zur Auswertung an Anthropic.</li>
         </ul>
@@ -212,7 +218,8 @@ export default function UploadPage() {
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#111]" data-testid="upload-consent" />
         <span>
           Ich bin mindestens 16 Jahre alt, lade nur meine eigenen Daten hoch und willige ein, dass meine Screenshots einmalig automatisch
-          ausgewertet (durch Claude von Anthropic, USA) und als anonymer Datensatz gespeichert werden. Details in der{" "}
+          ausgewertet (durch Claude von Anthropic, USA) und Zyklus- und Befindensdaten daraus als anonymer Datensatz gespeichert werden.
+          Details in der{" "}
           <a href="/datenschutz/#upload" className="underline underline-offset-2">
             Datenschutzerklärung
           </a>

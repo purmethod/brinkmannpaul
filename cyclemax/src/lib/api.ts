@@ -73,7 +73,16 @@ export interface UploadPayload {
 export interface UploadResult {
   ok: true;
   code: string;
-  saved: { cycleLengths: number[]; periodLengths: number[]; avgCycle: number | null; avgPeriod: number | null; symptoms: string[]; sourceApp: string };
+  saved: {
+    cycleLengths: number[];
+    periodLengths: number[];
+    avgCycle: number | null;
+    avgPeriod: number | null;
+    symptoms: string[];
+    observations: { category: string; n: number }[];
+    metrics: string[];
+    sourceApp: string;
+  };
 }
 
 /** /upload: anonymous – no device id is sent. */

@@ -20,6 +20,20 @@ const extraction = (over: Partial<Extraction> = {}): Extraction => ({
     { name: "Krämpfe", cycleDay: 1 },
     { name: "Reizbarkeit", cycleDay: 25 },
   ],
+  observations: [
+    { category: "Stimmung", value: "Gereizt", cycleDay: 25 },
+    { category: "Mood", value: "gereizt", cycleDay: 25 },
+    { category: "Libido", value: "hoch", cycleDay: 13 },
+    { category: "Temperatur", value: "36,7 °C", cycleDay: 15 },
+    { category: "Gefühl", value: "anna@mail.de", cycleDay: 3 },
+    { category: "Stimmung", value: "gut am 12.10.", cycleDay: 4 },
+    { category: "Weltall", value: "ruhig", cycleDay: null },
+  ],
+  metrics: [
+    { name: "Lutealphase", value: 13, unit: "Tage" },
+    { name: "lutealphase", value: 14, unit: "Tage" },
+    { name: "Zyklusschwankung", value: 3, unit: "Tage" },
+  ],
   quality: "klar",
   ...over,
 });
@@ -113,9 +127,25 @@ describe("anonymize", () => {
     expect(d.cycleLengths).toEqual([27, 29, 28, 30]);
   });
 
+  it("keeps mood, desire, temperature and the app's statistics – never contacts or dates", () => {
+    const d = anonymize(extraction(), meta, NOW)!;
+    expect(d.observations).toEqual([
+      { category: "Stimmung", value: "gereizt", cycleDay: 25 },
+      { category: "Lust", value: "hoch", cycleDay: 13 },
+      { category: "Temperatur", value: "36,7 °c", cycleDay: 15 },
+      { category: "Sonstiges", value: "ruhig", cycleDay: null },
+    ]);
+    expect(d.metrics).toEqual([
+      { name: "Lutealphase", value: 13, unit: "Tage" },
+      { name: "Zyklusschwankung", value: 3, unit: "Tage" },
+    ]);
+    // a screenshot with only mood entries is still worth a dataset
+    expect(anonymize(extraction({ periodStarts: [], periodLengths: [], symptoms: [], metrics: [] }), meta, NOW)?.observations).toHaveLength(4);
+  });
+
   it("returns null for pictures without cycle data", () => {
     expect(anonymize(extraction({ relevant: false }), meta, NOW)).toBeNull();
-    expect(anonymize(extraction({ periodStarts: [], periodLengths: [], symptoms: [] }), meta, NOW)).toBeNull();
+    expect(anonymize(extraction({ periodStarts: [], periodLengths: [], symptoms: [], observations: [], metrics: [] }), meta, NOW)).toBeNull();
   });
 });
 
@@ -139,8 +169,22 @@ describe("summarize and csv", () => {
     expect(s.cycleLength.histogram.find((h) => h.key === "26-30")?.n).toBe(3);
     expect(s.symptoms[0]).toEqual({ key: "Krämpfe", n: 2 });
     expect(s.ageGroups).toContainEqual({ key: "keine Angabe", n: 1 });
+    // where things show up in Cyclemax's phases (28.7-day cycle: day 25 is red; with the 35-day cycle of b it is green)
+    expect(s.byPhase.find((p) => p.phase === "red")?.top).toEqual([
+      { key: "Reizbarkeit", n: 1 },
+      { key: "Stimmung: gereizt", n: 1 },
+    ]);
+    expect(s.byPhase.find((p) => p.phase === "pink")?.top).toContainEqual({ key: "Lust: hoch", n: 2 });
+    expect(s.observations.find((o) => o.category === "Stimmung")).toEqual({ category: "Stimmung", n: 2, top: [{ key: "gereizt", n: 2 }] });
+    expect(s.metrics[0]).toEqual({ name: "Lutealphase", unit: "Tage", n: 2, mean: 13 });
     const csv = toCsv([{ ...a, id: "abcdef12-0000-0000-0000-000000000000" } as Dataset & { id: string }]);
-    expect(csv.split("\n")[1]).toBe("abcdef12,2026-10,Flo,30-39,keine,28 30 28,5 4 5,28.7,4.7,Krämpfe@1 Reizbarkeit@25,klar,2");
+    expect(csv.split("\n")[1]).toBe(
+      "abcdef12,2026-10,Flo,30-39,keine,28 30 28,5 4 5,28.7,4.7,Krämpfe@1 Reizbarkeit@25,Stimmung:gereizt@25 | Lust:hoch@13 | Temperatur:36,7 °c@15 | Sonstiges:ruhig,Lutealphase=13 Tage | Zyklusschwankung=3 Tage,klar,2"
+        .replace("Stimmung:gereizt@25 | Lust:hoch@13 | Temperatur:36,7 °c@15 | Sonstiges:ruhig", '"Stimmung:gereizt@25 | Lust:hoch@13 | Temperatur:36,7 °c@15 | Sonstiges:ruhig"'),
+    );
+    // text from screenshots never becomes a spreadsheet formula
+    const evil = toCsv([{ ...a, id: "abcdef12-0000-0000-0000-000000000000", metrics: [{ name: "=hyperlink(x)", value: 1, unit: "" }] } as Dataset & { id: string }]);
+    expect(evil).toContain(",'=hyperlink(x)=1,");
   });
 });
 

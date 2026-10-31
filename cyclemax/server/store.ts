@@ -354,6 +354,8 @@ export function createStore(database: Database) {
         avgCycle: d.avgCycle,
         avgPeriod: d.avgPeriod,
         symptoms: JSON.stringify(d.symptoms),
+        observations: JSON.stringify(d.observations),
+        metrics: JSON.stringify(d.metrics),
         quality: d.quality,
         images: d.images,
       });
@@ -378,6 +380,8 @@ export function createStore(database: Database) {
         avgCycle: r.avgCycle === null ? null : Number(r.avgCycle),
         avgPeriod: r.avgPeriod === null ? null : Number(r.avgPeriod),
         symptoms: JSON.parse(r.symptoms as string),
+        observations: JSON.parse((r.observations as string) || "[]"),
+        metrics: JSON.parse((r.metrics as string) || "[]"),
         quality: r.quality as Dataset["quality"],
         images: Number(r.images),
       }));

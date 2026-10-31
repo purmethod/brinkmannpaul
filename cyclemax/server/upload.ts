@@ -1,6 +1,7 @@
 // Anonymous screenshot upload (cyclemax.app/upload): women share screenshots of their cycle app.
-// Pipeline: the images arrive once, Claude reads ONLY cycle data out of them, the server turns that into an
-// anonymous dataset (no dates, no names, no device id, no IP) and the images are dropped – they are never stored.
+// Pipeline: the images arrive once, Claude reads cycle data plus everything else the app shows that helps build
+// Cyclemax (mood, energy, sleep, desire, temperature, the app's own statistics …), the server turns that into an
+// anonymous dataset (no dates, no names, no notes, no device id, no IP) – the images are never stored.
 import * as z from "zod/v4";
 import type { Llm } from "./llm";
 
@@ -37,6 +38,30 @@ export const SYMPTOMS = [
   "Hitzewallungen",
   "Sonstiges",
 ] as const;
+/** Everything else a cycle app logs per day besides the fixed symptoms – each with a short value. */
+export const OBSERVATIONS = [
+  "Stimmung",
+  "Gefühl",
+  "Energie",
+  "Schlaf",
+  "Lust",
+  "Sex",
+  "Schmerz",
+  "Blutung",
+  "Verdauung",
+  "Haut",
+  "Ausfluss",
+  "Temperatur",
+  "Gewicht",
+  "Bewegung",
+  "Stress",
+  "Appetit",
+  "Konzentration",
+  "Sozial",
+  "Medikament",
+  "Test",
+  "Sonstiges",
+] as const;
 export const AGE_GROUPS = ["unter 20", "20-29", "30-39", "40-49", "50+"] as const;
 export const CONTRACEPTION = ["hormonell", "nicht hormonell", "keine"] as const;
 
@@ -65,6 +90,8 @@ export const Extraction = z.object({
   averageCycleLength: z.number().nullable(),
   averagePeriodLength: z.number().nullable(),
   symptoms: z.array(z.object({ name: z.string(), cycleDay: z.number().nullable() })),
+  observations: z.array(z.object({ category: z.string(), value: z.string(), cycleDay: z.number().nullable() })),
+  metrics: z.array(z.object({ name: z.string(), value: z.number(), unit: z.string() })),
   quality: z.string(),
 });
 export type Extraction = z.infer<typeof Extraction>;
@@ -80,6 +107,10 @@ export interface Dataset {
   avgCycle: number | null;
   avgPeriod: number | null;
   symptoms: { name: (typeof SYMPTOMS)[number]; cycleDay: number | null }[];
+  /** Mood, energy, sleep … as short labels per cycle day. */
+  observations: { category: (typeof OBSERVATIONS)[number]; value: string; cycleDay: number | null }[];
+  /** Statistics the app shows itself (e.g. luteal phase 13 days, variation 3 days, ovulation day 15). */
+  metrics: { name: string; value: number; unit: string }[];
   quality: (typeof QUALITY)[number];
   images: number;
 }
@@ -95,6 +126,31 @@ const SYMPTOM_ALIASES: Record<string, (typeof SYMPTOMS)[number]> = {
   bloating: "Blähungen", constipation: "Verdauung", diarrhea: "Verdauung", nausea: "Übelkeit", acne: "Akne", backache: "Rückenschmerzen", lowerbackpain: "Rückenschmerzen",
   highsexdrive: "Lust hoch", lowsexdrive: "Lust niedrig", spotting: "Schmierblutung", discharge: "Ausfluss", hotflashes: "Hitzewallungen",
 };
+const OBSERVATION_ALIASES: Record<string, (typeof OBSERVATIONS)[number]> = {
+  mood: "Stimmung", moods: "Stimmung", laune: "Stimmung", feeling: "Gefühl", feelings: "Gefühl", emotion: "Gefühl", emotions: "Gefühl", gefuhle: "Gefühl",
+  energy: "Energie", sleep: "Schlaf", libido: "Lust", sexdrive: "Lust", desire: "Lust", sexualactivity: "Sex", intimacy: "Sex",
+  pain: "Schmerz", flow: "Blutung", bleeding: "Blutung", digestion: "Verdauung", stool: "Verdauung", skin: "Haut", discharge: "Ausfluss", cervicalmucus: "Ausfluss",
+  temperature: "Temperatur", bbt: "Temperatur", basaltemperatur: "Temperatur", basalbodytemperature: "Temperatur", weight: "Gewicht",
+  exercise: "Bewegung", activity: "Bewegung", sport: "Bewegung", workout: "Bewegung", stress: "Stress", appetite: "Appetit", cravings: "Appetit",
+  focus: "Konzentration", concentration: "Konzentration", mental: "Konzentration", social: "Sozial", medication: "Medikament", medikamente: "Medikament",
+  pills: "Medikament", test: "Test", tests: "Test", ovulationtest: "Test", pregnancytest: "Test",
+};
+/** Short labels only: anything that looks like a contact, link or long number is not a cycle observation. */
+const cleanValue = (v: string) => {
+  const s = v.replace(/\s+/g, " ").trim().slice(0, 40);
+  // no contacts, links, long numbers or calendar dates (12.10. / 2026-10-12)
+  return !s || /@|https?:|www\.|\d{5,}|\+\d{2}|\d{1,2}[./]\d{1,2}[./]|\d{4}-\d{2}-\d{2}/i.test(s) ? null : s.toLowerCase();
+};
+const cleanName = (v: string) => {
+  const s = v.replace(/\s+/g, " ").trim().slice(0, 40);
+  return !s || /@|https?:|www\.|\d{5,}/i.test(s) ? null : s;
+};
+const cycleDayOf = (d: number | null) => (d !== null && Number.isFinite(d) && d >= 1 && d <= 90 ? Math.round(d) : null);
+const unique = <T>(xs: T[], key: (x: T) => string) => {
+  const seen = new Set<string>();
+  return xs.filter((x) => (seen.has(key(x)) ? false : (seen.add(key(x)), true)));
+};
+
 const pick = <T extends string>(list: readonly T[], value: string, fallback: T, aliases: Record<string, T> = {}): T =>
   list.find((x) => norm(x) === norm(value)) ?? aliases[norm(value)] ?? fallback;
 
@@ -142,14 +198,28 @@ export function anonymize(x: Extraction, meta: Pick<Dataset, "ageGroup" | "contr
   // what the app lists itself wins when it shows more cycles than the visible start dates give
   const cycleLengths = shown.length > fromStarts.length ? shown : fromStarts;
   const periodLengths = ints(x.periodLengths, 1, 15);
-  const seen = new Set<string>();
-  const symptoms = x.symptoms
-    .map((s) => ({ name: pick(SYMPTOMS, s.name, "Sonstiges", SYMPTOM_ALIASES), cycleDay: s.cycleDay !== null && Number.isFinite(s.cycleDay) && s.cycleDay >= 1 && s.cycleDay <= 90 ? Math.round(s.cycleDay) : null }))
-    .filter((s) => (seen.has(`${s.name}|${s.cycleDay}`) ? false : (seen.add(`${s.name}|${s.cycleDay}`), true)))
-    .slice(0, 60);
+  const symptoms = unique(
+    x.symptoms.map((s) => ({ name: pick(SYMPTOMS, s.name, "Sonstiges", SYMPTOM_ALIASES), cycleDay: cycleDayOf(s.cycleDay) })),
+    (s) => `${s.name}|${s.cycleDay}`,
+  ).slice(0, 60);
+  const observations = unique(
+    x.observations.flatMap((o) => {
+      const value = cleanValue(o.value);
+      return value ? [{ category: pick(OBSERVATIONS, o.category, "Sonstiges", OBSERVATION_ALIASES), value, cycleDay: cycleDayOf(o.cycleDay) }] : [];
+    }),
+    (o) => `${o.category}|${o.value}|${o.cycleDay}`,
+  ).slice(0, 120);
+  const metrics = unique(
+    x.metrics.flatMap((m) => {
+      const name = cleanName(m.name);
+      return name && Number.isFinite(m.value) && Math.abs(m.value) < 1e6 ? [{ name, value: round1(m.value), unit: (cleanName(m.unit) ?? "").slice(0, 12) }] : [];
+    }),
+    (m) => m.name.toLowerCase(),
+  ).slice(0, 30);
   const avgCycle = inRange(x.averageCycleLength, 10, 90) ?? mean(cycleLengths);
   const avgPeriod = inRange(x.averagePeriodLength, 1, 15) ?? mean(periodLengths);
-  if (!cycleLengths.length && !periodLengths.length && avgCycle === null && avgPeriod === null && !symptoms.length) return null;
+  if (!cycleLengths.length && !periodLengths.length && avgCycle === null && avgPeriod === null && !symptoms.length && !observations.length && !metrics.length)
+    return null;
   return {
     createdMonth: new Date(now).toISOString().slice(0, 7),
     sourceApp: pick(SOURCE_APPS, x.sourceApp, "andere"),
@@ -160,6 +230,8 @@ export function anonymize(x: Extraction, meta: Pick<Dataset, "ageGroup" | "contr
     avgCycle,
     avgPeriod,
     symptoms,
+    observations,
+    metrics,
     quality: pick(QUALITY, x.quality, "teilweise"),
     images: meta.images,
   };
@@ -178,13 +250,19 @@ export function withoutGaps(diffs: number[]): number[] {
   return plausible.filter((d) => d <= Math.max(45, median * 1.6));
 }
 
-export const EXTRACT_SYSTEM = `Du liest Screenshots aus Zyklus- und Perioden-Apps (z. B. Apple Health, Flo, Clue, Natural Cycles) und extrahierst ausschließlich Zyklusdaten.
+export const EXTRACT_SYSTEM = `Du liest Screenshots aus Zyklus- und Perioden-Apps (z. B. Apple Health, Flo, Clue, Natural Cycles) für die Entwicklung einer Zyklus-App.
+Lies alles aus, was über den Zyklus und das Befinden erfasst ist – aber nichts, was eine Person erkennbar macht.
 Regeln:
-- Übernimm NIEMALS Namen, E-Mail-Adressen, Telefonnummern, Geburtstage, Orte, Kontonamen, Freitext-Notizen oder Benachrichtigungen. Ignoriere alles außer Zyklusdaten.
+- Übernimm NIEMALS Namen, E-Mail-Adressen, Telefonnummern, Geburtstage, Orte, Kontonamen, Fotos von Personen, Freitext-Notizen, Chat- oder Benachrichtigungstexte.
 - periodStarts: Starttage der Periode, die eindeutig sichtbar sind, als YYYY-MM-DD. Fehlt das Jahr, nimm das jüngste zurückliegende passende Jahr relativ zu heute.
 - periodLengths: sichtbare Periodendauern in Tagen. cycleLengths: ausdrücklich angezeigte Zykluslängen in Tagen. averageCycleLength / averagePeriodLength: nur wenn die App einen Durchschnitt anzeigt, sonst null.
 - sourceApp: eine aus ${SOURCE_APPS.join(", ")}.
 - symptoms: erfasste Symptome, abgebildet auf genau einen dieser Namen: ${SYMPTOMS.join(", ")}; mit Zyklustag falls ablesbar (Tag 1 = erster Tag der Periode), sonst null.
+- observations: alle weiteren erfassten Einträge zu Befinden und Körper, je Eintrag eine Kategorie aus ${OBSERVATIONS.join(", ")}
+  und ein kurzer Wert in wenigen Wörtern, wie die App ihn zeigt (z. B. Stimmung "gereizt", Gefühl "verliebt", Energie "niedrig", Schlaf "7 Stunden",
+  Lust "hoch", Sex "geschützt", Blutung "stark", Ausfluss "cremig", Temperatur "36,7 °C", Bewegung "Yoga", Test "Eisprungtest positiv").
+  Mit Zyklustag (Tag 1 = erster Tag der Periode; rechne vom letzten sichtbaren Periodenstart davor), sonst null. Niemals Datumsangaben in den Wert schreiben.
+- metrics: Kennzahlen, die die App selbst anzeigt, mit Name, Zahl und Einheit (z. B. "Lutealphase" 13 "Tage", "Zyklusschwankung" 3 "Tage", "Eisprung" 15 "Zyklustag", "Schritte im Schnitt" 8000 "").
 - quality: klar, teilweise oder unlesbar.
 - Keine Schätzungen oder Erfindungen: was nicht sicher ablesbar ist, bleibt leer.
 - relevant = false, wenn die Bilder keine Zyklusdaten zeigen (z. B. andere Inhalte, Personen, Dokumente).`;
@@ -193,11 +271,25 @@ Regeln:
 export async function extract(llm: Llm, images: UploadImage[], now = Date.now()): Promise<Extraction | null> {
   const today = new Date(now).toISOString().slice(0, 10);
   // no retries and a timeout below the function limit: the images go to the API once
-  return llm.json(Extraction, EXTRACT_SYSTEM, `Heute ist ${today}. Lies die ${images.length} Screenshot(s) aus und gib nur die Zyklusdaten zurück.`, 3000, {
+  return llm.json(Extraction, EXTRACT_SYSTEM, `Heute ist ${today}. Lies die ${images.length} Screenshot(s) aus: Zyklusdaten, Symptome, alle weiteren Einträge zum Befinden und die Kennzahlen der App.`, 3000, {
     images,
     maxRetries: 0,
     timeoutMs: 50_000,
   });
+}
+
+export type PhaseName = "yellow" | "pink" | "green" | "red";
+
+/**
+ * Cyclemax's own phase model for a cycle day: yellow days 1-7, red the 7 days before the next period,
+ * green the 7 days before red, pink in between. Cycle length clamped like the app (21-45).
+ */
+export function phaseOfDay(cycleDay: number, cycleLength: number | null): PhaseName {
+  const len = Math.min(45, Math.max(21, Math.round(cycleLength ?? 28)));
+  if (cycleDay <= 7) return "yellow";
+  if (cycleDay > len - 7) return "red";
+  if (cycleDay > len - 14) return "green";
+  return "pink";
 }
 
 /** Admin view: plain aggregates over all datasets. */
@@ -222,17 +314,47 @@ export function summarize(rows: Dataset[]) {
     sourceApps: count(rows.map((r) => r.sourceApp)),
     ageGroups: count(rows.map((r) => r.ageGroup)),
     contraception: count(rows.map((r) => r.contraception)),
+    observations: OBSERVATIONS.map((category) => {
+      const values = rows.flatMap((r) => r.observations.filter((o) => o.category === category).map((o) => o.value));
+      return { category, n: values.length, top: count(values).slice(0, 6) };
+    })
+      .filter((o) => o.n > 0)
+      .sort((a, b) => b.n - a.n),
+    // what shows up in which Cyclemax phase – the core question for the app's texts
+    byPhase: (["yellow", "pink", "green", "red"] as const).map((phase) => ({
+      phase,
+      top: count(
+        rows.flatMap((r) => [
+          ...r.symptoms.filter((s) => s.cycleDay !== null && phaseOfDay(s.cycleDay, r.avgCycle) === phase).map((s) => s.name),
+          ...r.observations.filter((o) => o.cycleDay !== null && phaseOfDay(o.cycleDay, r.avgCycle) === phase).map((o) => `${o.category}: ${o.value}`),
+        ]),
+      ).slice(0, 10),
+    })),
+    metrics: Object.values(
+      rows
+        .flatMap((r) => r.metrics)
+        .reduce<Record<string, { name: string; unit: string; values: number[] }>>((acc, m) => {
+          const k = `${m.name.toLowerCase()}|${m.unit}`;
+          (acc[k] ??= { name: m.name, unit: m.unit, values: [] }).values.push(m.value);
+          return acc;
+        }, {}),
+    )
+      .map((m) => ({ name: m.name, unit: m.unit, n: m.values.length, mean: mean(m.values) }))
+      .sort((a, b) => b.n - a.n)
+      .slice(0, 20),
   };
 }
 
 const csvCell = (v: unknown) => {
-  const s = v === null || v === undefined ? "" : Array.isArray(v) ? v.join(" ") : String(v);
+  let s = v === null || v === undefined ? "" : Array.isArray(v) ? v.join(" ") : String(v);
+  // text read from screenshots must never run as a formula in Excel/Numbers
+  if (typeof v !== "number" && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
-/** One row per dataset; lists are space separated, symptoms as name@cycleDay. */
+/** One row per dataset; number lists space separated, symptoms as name@cycleDay, observations category:value@cycleDay. */
 export function toCsv(rows: (Dataset & { id: string })[]): string {
-  const head = ["id", "month", "source_app", "age_group", "contraception", "cycle_lengths", "period_lengths", "avg_cycle", "avg_period", "symptoms", "quality", "images"];
+  const head = ["id", "month", "source_app", "age_group", "contraception", "cycle_lengths", "period_lengths", "avg_cycle", "avg_period", "symptoms", "observations", "metrics", "quality", "images"];
   const lines = rows.map((r) =>
     [
       r.id.slice(0, 8),
@@ -245,6 +367,8 @@ export function toCsv(rows: (Dataset & { id: string })[]): string {
       r.avgCycle,
       r.avgPeriod,
       r.symptoms.map((s) => (s.cycleDay ? `${s.name}@${s.cycleDay}` : s.name)),
+      r.observations.map((o) => `${o.category}:${o.value}${o.cycleDay ? `@${o.cycleDay}` : ""}`).join(" | "),
+      r.metrics.map((m) => `${m.name}=${m.value}${m.unit ? ` ${m.unit}` : ""}`).join(" | "),
       r.quality,
       r.images,
     ]

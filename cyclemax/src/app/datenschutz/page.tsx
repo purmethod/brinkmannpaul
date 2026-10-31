@@ -63,15 +63,17 @@ export default function Datenschutz() {
       <ul>
         <li>Dein Gerät verkleinert die Bilder und speichert sie neu als JPEG; dabei fallen Metadaten wie Ort und Aufnahmezeit weg.</li>
         <li>
-          Der Server schickt die Bilder einmal an Claude (Anthropic PBC, USA), das ausschließlich Zyklusdaten ausliest. Auf unserem Server und
+          Der Server schickt die Bilder einmal an Claude (Anthropic PBC, USA), das Zyklus- und Befindensdaten ausliest – keine Namen,
+          Kontaktdaten, Notizen oder Benachrichtigungen. Auf unserem Server und
           in unserer Datenbank werden die Bilder nicht gespeichert. Anthropic nutzt Daten aus der Schnittstelle nicht zum Training und löscht
           sie nach eigenen Angaben nach kurzer Zeit automatisch (höchstens 30 Tage, länger nur bei Verdacht auf Missbrauch). Das ganze Bild
           geht zur Auswertung – schneide Namen oder Benachrichtigungen deshalb vorher weg.
         </li>
         <li>
-          Gespeichert wird nur ein Datensatz aus Zahlen: Zykluslängen, Periodendauer, Durchschnittswerte, Symptome mit Zyklustag, welche App,
-          Monat des Uploads und – falls du sie angibst – Altersgruppe und Art der Verhütung. Kalenderdaten werden in Zykluslängen umgerechnet
-          und verworfen. Kein Name, keine Geräte-ID, keine IP-Adresse.
+          Gespeichert wird nur ein anonymer Datensatz: Zykluslängen, Periodendauer, Durchschnittswerte, Symptome und Einträge zum Befinden
+          (z. B. Stimmung, Energie, Schlaf, Lust, Basaltemperatur) jeweils mit Zyklustag, Kennzahlen der App (z. B. Länge der Lutealphase),
+          welche App, Monat des Uploads und – falls du sie angibst – Altersgruppe und Art der Verhütung. Kalenderdaten werden in
+          Zykluslängen und Zyklustage umgerechnet und verworfen. Kein Name, keine Notizen, keine Geräte-ID, keine IP-Adresse.
         </li>
         <li>
           Gegen Missbrauch zählt der Server die Uploads pro Absender (IP-Adresse) und Tag nur im Arbeitsspeicher. Davon wird nichts

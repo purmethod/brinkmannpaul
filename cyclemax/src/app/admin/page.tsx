@@ -203,7 +203,11 @@ interface DatasetSummary {
   sourceApps: Count[];
   ageGroups: Count[];
   contraception: Count[];
+  observations: { category: string; n: number; top: Count[] }[];
+  byPhase: { phase: string; top: Count[] }[];
+  metrics: { name: string; unit: string; n: number; mean: number | null }[];
 }
+const PHASE_LABEL: Record<string, string> = { yellow: "Gelb · Wärme", pink: "Pink · Führen", green: "Grün · Nähe", red: "Rot · Standfest" };
 
 /** Anonymous datasets from cyclemax.app/upload: aggregates + CSV export. */
 function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {
@@ -245,6 +249,33 @@ function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {
       <p className="text-muted">Apps: {list(summary.sourceApps)}</p>
       <p className="text-muted">Alter: {list(summary.ageGroups)}</p>
       <p className="text-muted">Verhütung: {list(summary.contraception)}</p>
+      <div>
+        <p className="font-medium">Was in welcher Phase auftaucht</p>
+        {summary.byPhase.map((p) => (
+          <p key={p.phase} className="text-[14px] text-muted">
+            <span className="text-ink">{PHASE_LABEL[p.phase] ?? p.phase}:</span> {list(p.top)}
+          </p>
+        ))}
+      </div>
+      <div>
+        <p className="font-medium">Befinden</p>
+        {summary.observations.length === 0 ? (
+          <p className="text-muted">–</p>
+        ) : (
+          summary.observations.map((o) => (
+            <p key={o.category} className="text-[14px] text-muted">
+              <span className="text-ink">
+                {o.category} ({o.n}):
+              </span>{" "}
+              {list(o.top)}
+            </p>
+          ))
+        )}
+      </div>
+      <div>
+        <p className="font-medium">Kennzahlen der Apps</p>
+        <p className="text-[14px] text-muted">{summary.metrics.map((m) => `${m.name}: Ø ${m.mean ?? "–"}${m.unit ? ` ${m.unit}` : ""} (${m.n})`).join(", ") || "–"}</p>
+      </div>
       <div>
         <Small onClick={() => void download()}>CSV herunterladen</Small>
       </div>
