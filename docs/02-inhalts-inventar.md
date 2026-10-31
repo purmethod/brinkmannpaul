@@ -2,6 +2,22 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: mysidibou-Timeline (2026-10-31)
+
+- **Paul:** Wer die Rubrik öffnet, soll eine Timeline von oben nach unten sehen, deren Daten beim Scrollen erscheinen. Darin die Kerndaten von Sidi Bou Saïd und Paul selbst als Architekt und Künstler mit Master, Mitglied des wissenschaftlichen Komitees, mit der Tourismusfrage (QR-Kassensystem) und dem Schutz von Anwohnern und Dorf.
+- **Aufbau:** Unter „my mission: to protect sidi bou saïd from landslides.“ stehen acht Daten an einer dünnen Linie mit einem Punkt pro Datum. Pauls Eintrag hat einen gefüllten Punkt.
+  1. 13. Jh.: Abu Saïd al-Baji
+  2. 1914: Klee, Macke, Moilliet (mit Türfoto)
+  3. 1915: Dekret von d'Erlanger (mit Dächerfoto)
+  4. Januar 2026: fast 300 mm Regen, Risse, acht Gebäude evakuiert (mit Meerfoto)
+  5. 25. Juli 2026: Welterbe
+  6. 2026: Paul Brinkmann, Architekt und Künstler, M.Sc., im wissenschaftlichen Komitee
+  7. 1. Dezember 2027: Bericht fällig
+  8. als Nächstes: QR-Ticketsystem mit Studenten, Schutz für Anwohner und Dorf, Finanzierung von Universität und Stadt
+- **Darunter** stehen die Absätze zu „one earth“, zum Massentourismus (Venedig) und zu den Studenten, mit Video und den übrigen Fotos. Die Absätze, die jetzt in der Timeline stehen, sind entfallen.
+- **Animation:** Jedes Datum steigt beim Scrollen ein (CSS `animation-timeline: view()`). Ohne diese Browser-Unterstützung oder bei reduzierter Bewegung ist alles sofort sichtbar. Arabisch ist gespiegelt.
+- **Offen:** Paul sagte „2016“ für seinen Eintrag. Gesetzt ist 2026, weil Komitee und Welterbe 2026 sind. Ist 2016 sein Masterjahr, bekommt es einen eigenen Eintrag.
+
 ## Aktualisierung: mysidibou, die Mission zuerst (2026-10-31)
 
 - **Paul:** Der Leser soll gleich am Anfang verstehen, worum es geht. Die Mission: das Dorf vor Erdrutschen schützen. Paul ist Mitglied des wissenschaftlichen Komitees für den UNESCO-Bericht zum 1. Dezember 2027 und will Teil der Antwort sein, die die UNESCO von Tunesien erwartet. Dazu kommen die Künstler, die hier gelebt und gearbeitet haben, und die Lösung des Massentourismus mit Studenten: ein Ticketsystem nach Venedigs Vorbild mit QR-Code, das Universität und Stadt finanziert.
