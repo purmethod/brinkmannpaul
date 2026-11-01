@@ -273,29 +273,27 @@
               </summary>
               <div class="item-content">
                 <div class="item-story">
-                  <figure class="pure-house" aria-label="pure: one roof, four pillars, one foundation">
-                    <svg class="ph-roof" viewBox="0 0 400 74" preserveAspectRatio="none" aria-hidden="true"><polygon points="200,3 397,71 3,71" /></svg>
-                    <p class="ph-roof-label">something greater than you</p>
+                  <div class="pure-house">
+                    <svg class="ph-roof" viewBox="0 0 480 96" role="img" aria-label="a pediment reading pure, carried by four pillars"><polygon points="240,4 476,88 4,88" /><text x="240" y="78">pure</text></svg>
+                    <div class="ph-architrave"></div>
                     <div class="ph-cols">
-                      <div class="ph-col"><span class="ph-letter">p</span><p class="ph-name">physis</p></div>
-                      <div class="ph-col"><span class="ph-letter">u</span><p class="ph-name">understanding</p></div>
-                      <div class="ph-col"><span class="ph-letter">r</span><p class="ph-name">responsibility</p></div>
-                      <div class="ph-col"><span class="ph-letter">e</span><p class="ph-name">ego</p></div>
+                      <button class="ph-pillar" type="button" id="ph-btn-physis" aria-expanded="true" aria-controls="ph-panel-physis" data-chapter="physis"><span class="ph-shaft"><span class="ph-letter">p</span></span><span class="ph-name">physis</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-understanding" aria-expanded="false" aria-controls="ph-panel-understanding" data-chapter="understanding"><span class="ph-shaft"><span class="ph-letter">u</span></span><span class="ph-name">understanding</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-responsibility" aria-expanded="false" aria-controls="ph-panel-responsibility" data-chapter="responsibility"><span class="ph-shaft"><span class="ph-letter">r</span></span><span class="ph-name">responsibility</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-ego" aria-expanded="false" aria-controls="ph-panel-ego" data-chapter="ego"><span class="ph-shaft"><span class="ph-letter">e</span></span><span class="ph-name">ego</span></button>
                     </div>
-                    <p class="ph-base">foundation</p>
-                  </figure>
-                  <div class="pure-tree">
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">p</span>hysis</summary>
+                    <button class="ph-base" type="button" id="ph-btn-trust" aria-expanded="false" aria-controls="ph-panel-trust" data-chapter="trust">trust</button>
+                  </div>
+                  <div class="pure-chapters">
+                    <div class="ph-panel" id="ph-panel-physis" role="region" aria-labelledby="ph-btn-physis">
                       <p class="pure-branch-text">a man who does not understand his body and cannot guide it will never truly lead his life.</p>
-                      <p class="pure-branch-text">physis is the foundation: understanding your body. what it needs, how it responds and why it asks for comfort. learn the difference between needing rest and avoiding effort, between hunger and a craving, between a physical limit and the discomfort of doing something unfamiliar.</p>
+                      <p class="pure-branch-text">physis is the first pillar: understanding your body. what it needs, how it responds and why it asks for comfort. learn the difference between needing rest and avoiding effort, between hunger and a craving, between a physical limit and the discomfort of doing something unfamiliar.</p>
                       <p class="pure-branch-text">your body sends signals all day long. hunger, cold, tiredness, the pull back into the warm bed. most men treat these signals as orders. they are not orders. they are information. cold water teaches this faster than any gym. the body screams, nothing happens to you, and you learn the difference between a signal and a command.</p>
                       <p class="pure-branch-text">this is not about punishing your body or ignoring its signals. it is about learning to work with it instead of letting every impulse decide for you.</p>
                       <p class="pure-branch-text">physical effort, cold, meditation and discipline are part of the system i built. they are ways to observe your reactions, understand your limits and practise making conscious decisions when comfort pulls you in another direction.</p>
                       <p class="pure-branch-text">you learn when to push, when to recover and when to say no. understanding your body gives you the foundation to lead your life.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">u</span>nderstanding</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-understanding" role="region" aria-labelledby="ph-btn-understanding" hidden>
                       <p class="pure-branch-text">your mind is not your brain. the brain is a physical organ. your mind is your thoughts, your feelings, your awareness, your inner experience.</p>
                       <p class="pure-branch-text">picture it as hardware and software. your brain is the hardware, your mind is the software. they are connected, but they are not the same.</p>
                       <p class="pure-branch-text">most men never notice the difference. they spend their lives following orders they never gave.</p>
@@ -305,9 +303,8 @@
                       <p class="pure-branch-text">understand this: something can feel rewarding in the moment and still take you further away from the life you want.</p>
                       <p class="pure-branch-text">start noticing what you reach for, when you reach for it and what you are feeling beforehand. are you making a conscious choice, or trying to escape boredom, discomfort or loneliness?</p>
                       <p class="pure-branch-text">the purpose is not to remove pleasure from your life. it is to understand your behaviour well enough to choose what deserves your attention.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">r</span>esponsibility</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-responsibility" role="region" aria-labelledby="ph-btn-responsibility" hidden>
                       <p class="pure-branch-text">responsibility is not just a weight you carry. it is power you choose to take.</p>
                       <p class="pure-branch-text">start with yourself. take responsibility for your actions, your decisions and the way you treat people. that does not mean everything that happens is your fault. it means recognising where you can act and being honest about your part.</p>
                       <p class="pure-branch-text">the only question that matters is one almost nobody asks himself. where was i fully responsible? not partly. not given the circumstances. fully. answer that honestly and something changes.</p>
@@ -316,9 +313,8 @@
                       <p class="pure-branch-text">you do not need to own everything to be free. you need to stop avoiding the decisions and commitments that are yours to make.</p>
                       <p class="pure-branch-text">most men would rather be right about the world than free inside it.</p>
                       <p class="pure-branch-text">taking responsibility is the path to true freedom. you cannot control every circumstance, but you can decide how you respond and what kind of man you become through your actions.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">e</span>go</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-ego" role="region" aria-labelledby="ph-btn-ego" hidden>
                       <p class="pure-branch-text">most people do not understand what ego is. they think it means arrogance, being loud or believing you are better than someone else.</p>
                       <p class="pure-branch-text">what i mean by ego goes deeper. it is your attachment to the image you have of yourself. you can notice it when being right becomes more important than understanding, when disagreement feels like disrespect, or when you need someone else's approval to feel secure.</p>
                       <p class="pure-branch-text">ego can be intelligent enough to hide behind your own explanations. you believe you are acting freely while the need to defend yourself is making the decision. even saying “i have mastered my ego” can become another way to feel superior.</p>
@@ -335,9 +331,19 @@
                       <p class="pure-branch-text">at the heart of this system is my belief that freedom begins when you understand, deep in your heart and soul, that something greater and more intelligent than you exists. your understanding is not the limit of what is real.</p>
                       <p class="pure-branch-text">whatever name you give it, the label is not the point. the point is to recognise that you are not above everything and do not need to be.</p>
                       <p class="pure-branch-text">for me, accepting that is the beginning of true freedom. it is the foundation for becoming a man who knows his boundaries, takes responsibility and can love without his ego standing in the way.</p>
-                    </details>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-trust" role="region" aria-labelledby="ph-btn-trust" hidden>
+                      <p class="pure-branch-text">without trust, none of this works.</p>
+                      <p class="pure-branch-text">before anything else you have to be clear about one thing. trust is the ground everything else stands on. not trust from other people first. trust in yourself.</p>
+                      <p class="pure-branch-text">self-trust is not something you are born with. it is built. you build it by doing the thing you said you would do. you said six in the morning, so you get up at six. you said you would make the bed, so you make the bed, especially on the days you do not want to.</p>
+                      <p class="pure-branch-text">that is where self-trust comes from. not from the size of the task. from keeping your word to yourself.</p>
+                      <p class="pure-branch-text">it works like the gym. nobody gets muscles overnight. you train and it compounds. say three push-ups a day and do three. a week later it is six. the number is not the point. the point is that you did what you said. even one push-up counts, because you kept your word.</p>
+                      <p class="pure-branch-text">once you trust yourself, other people can trust you. it shows in how you stand, how you speak and what you promise. it does not work the other way round. a man who breaks his word to himself every morning will never hold anyone else's.</p>
+                      <p class="pure-branch-text">that is what a life is built on. people who trust you deeply enough that they want to be around you, because they know they can count on you.</p>
+                      <p class="pure-branch-text">trust is my currency.</p>
+                    </div>
                   </div>
-                  <p class="item-note">the method, the blueprint and everything behind it.</p>
+                                    <p class="item-note">the method, the blueprint and everything behind it.</p>
                 </div>
                 <a class="row-cta" href="/pure/">explore pure</a>
                 <p class="item-note pact-note">pure pact: before a relationship, both of you say what matters, where your boundaries are and what you wish for. send the link, see where you fit.</p>

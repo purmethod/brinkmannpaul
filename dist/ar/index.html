@@ -273,29 +273,27 @@
               </summary>
               <div class="item-content">
                 <div class="item-story">
-                  <figure class="pure-house" aria-label="pure: سقف واحد، أربعة أعمدة، أساس واحد">
-                    <svg class="ph-roof" viewBox="0 0 400 74" preserveAspectRatio="none" aria-hidden="true"><polygon points="200,3 397,71 3,71" /></svg>
-                    <p class="ph-roof-label">شيء أكبر منك</p>
+                  <div class="pure-house">
+                    <svg class="ph-roof" viewBox="0 0 480 96" role="img" aria-label="جملون يحمل كلمة pure، تسنده أربعة أعمدة"><polygon points="240,4 476,88 4,88" /><text x="240" y="78">pure</text></svg>
+                    <div class="ph-architrave"></div>
                     <div class="ph-cols">
-                      <div class="ph-col"><span class="ph-letter">p</span><p class="ph-name">physis</p></div>
-                      <div class="ph-col"><span class="ph-letter">u</span><p class="ph-name">understanding</p></div>
-                      <div class="ph-col"><span class="ph-letter">r</span><p class="ph-name">responsibility</p></div>
-                      <div class="ph-col"><span class="ph-letter">e</span><p class="ph-name">ego</p></div>
+                      <button class="ph-pillar" type="button" id="ph-btn-physis" aria-expanded="true" aria-controls="ph-panel-physis" data-chapter="physis"><span class="ph-shaft"><span class="ph-letter">p</span></span><span class="ph-name">physis</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-understanding" aria-expanded="false" aria-controls="ph-panel-understanding" data-chapter="understanding"><span class="ph-shaft"><span class="ph-letter">u</span></span><span class="ph-name">understanding</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-responsibility" aria-expanded="false" aria-controls="ph-panel-responsibility" data-chapter="responsibility"><span class="ph-shaft"><span class="ph-letter">r</span></span><span class="ph-name">responsibility</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-ego" aria-expanded="false" aria-controls="ph-panel-ego" data-chapter="ego"><span class="ph-shaft"><span class="ph-letter">e</span></span><span class="ph-name">ego</span></button>
                     </div>
-                    <p class="ph-base">الأساس</p>
-                  </figure>
-                  <div class="pure-tree">
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">p</span>hysis</summary>
+                    <button class="ph-base" type="button" id="ph-btn-trust" aria-expanded="false" aria-controls="ph-panel-trust" data-chapter="trust">trust</button>
+                  </div>
+                  <div class="pure-chapters">
+                    <div class="ph-panel" id="ph-panel-physis" role="region" aria-labelledby="ph-btn-physis">
                       <p class="pure-branch-text">الرجل الذي لا يفهم جسده ولا يستطيع توجيهه لن يقود حياته حقًا أبدًا.</p>
-                      <p class="pure-branch-text">فيزيس (physis) هي الأساس: أن تفهم جسدك. ما يحتاج إليه، وكيف يستجيب، ولماذا يطلب الراحة. تعلّم الفرق بين الحاجة إلى الاستراحة والتهرّب من الجهد، وبين الجوع والاشتهاء، وبين حدٍّ جسدي والانزعاج الذي يرافق فعل شيء غير مألوف.</p>
+                      <p class="pure-branch-text">فيزيس هو العمود الأول: أن تفهم جسدك. ما يحتاجه، وكيف يستجيب، ولماذا يطلب الراحة. تعلّم الفرق بين الحاجة إلى الراحة وتجنّب الجهد، بين الجوع والاشتهاء، بين حدّ جسديّ وبين انزعاج القيام بشيء غير مألوف.</p>
                       <p class="pure-branch-text">جسدك يرسل إشارات طوال اليوم. الجوع، البرد، التعب، الانجذاب إلى السرير الدافئ. معظم الرجال يتعاملون مع هذه الإشارات كأوامر. إنها ليست أوامر. إنها معلومات. الماء البارد يعلّمك هذا أسرع من أي صالة رياضية. يصرخ الجسد، ولا يحدث لك شيء، فتتعلم الفرق بين الإشارة والأمر.</p>
                       <p class="pure-branch-text">الأمر لا يتعلق بمعاقبة جسدك أو تجاهل إشاراته. بل بأن تتعلم العمل معه، بدلًا من أن تترك كل اندفاع يقرر عنك.</p>
                       <p class="pure-branch-text">الجهد البدني والبرد والتأمل والانضباط جزء من النظام الذي بنيته. إنها طرق لتراقب ردود أفعالك، وتفهم حدودك، وتتدرب على اتخاذ قرارات واعية حين تشدّك الراحة في اتجاه آخر.</p>
                       <p class="pure-branch-text">تتعلم متى تدفع نفسك أكثر، ومتى تستعيد قواك، ومتى تقول لا. فهم جسدك يمنحك أساسًا لقيادة حياتك.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">u</span>nderstanding</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-understanding" role="region" aria-labelledby="ph-btn-understanding" hidden>
                       <p class="pure-branch-text">ذهنك ليس دماغك. الدماغ عضو مادي. أما ذهنك فهو أفكارك ومشاعرك ووعيك وتجربتك الداخلية.</p>
                       <p class="pure-branch-text">تصوّر الأمر كالعتاد والبرمجيات. دماغك هو العتاد، وذهنك هو البرمجيات. هما مترابطان، لكنهما ليسا الشيء نفسه.</p>
                       <p class="pure-branch-text">معظم الرجال لا يلاحظون الفرق أبدًا. يقضون حياتهم في تنفيذ أوامر لم يصدروها قط.</p>
@@ -305,9 +303,8 @@
                       <p class="pure-branch-text">افهم هذا: قد يبدو شيء ما مُجزيًا في لحظته، ومع ذلك يبعدك أكثر عن الحياة التي تريدها.</p>
                       <p class="pure-branch-text">ابدأ بملاحظة ما تمدّ يدك إليه، ومتى تمدّها، وبماذا تشعر قبل ذلك. هل تتخذ خيارًا واعيًا، أم تحاول الهروب من الملل أو الانزعاج أو الوحدة؟</p>
                       <p class="pure-branch-text">الغاية ليست أن تنزع المتعة من حياتك. بل أن تفهم سلوكك جيدًا بما يكفي لتختار ما يستحق انتباهك.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">r</span>esponsibility</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-responsibility" role="region" aria-labelledby="ph-btn-responsibility" hidden>
                       <p class="pure-branch-text">المسؤولية ليست مجرد عبء تحمله. إنها قوة تختار أن تأخذها.</p>
                       <p class="pure-branch-text">ابدأ بنفسك. تحمّل مسؤولية أفعالك وقراراتك وطريقة معاملتك للناس. هذا لا يعني أن كل ما يحدث هو خطؤك. بل يعني أن تدرك أين تستطيع أن تتصرف، وأن تكون صادقًا بشأن دورك.</p>
                       <p class="pure-branch-text">السؤال الوحيد المهم هو سؤال لا يطرحه أحد على نفسه تقريبًا. أين كنت مسؤولًا بالكامل؟ ليس جزئيًا. ليس بحسب الظروف. بالكامل. أجب بصدق، وسيتغيّر شيء ما.</p>
@@ -316,9 +313,8 @@
                       <p class="pure-branch-text">لا تحتاج إلى امتلاك كل شيء لتكون حرًّا. تحتاج إلى أن تكفّ عن التهرّب من القرارات والالتزامات التي يعود إليك أمر اتخاذها.</p>
                       <p class="pure-branch-text">معظم الرجال يفضّلون أن يكونوا على حق بشأن العالم على أن يكونوا أحرارًا فيه.</p>
                       <p class="pure-branch-text">تحمّل المسؤولية هو الطريق إلى الحرية الحقيقية. لا يمكنك التحكم في كل الظروف، لكن يمكنك أن تقرر كيف تستجيب، وأي رجل تصبح من خلال أفعالك.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">e</span>go</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-ego" role="region" aria-labelledby="ph-btn-ego" hidden>
                       <p class="pure-branch-text">معظم الناس لا يفهمون ما الأنا. يظنون أنها تعني الغرور، أو رفع الصوت، أو الاعتقاد بأنك أفضل من غيرك.</p>
                       <p class="pure-branch-text">ما أعنيه بالأنا أعمق من ذلك. إنها تعلّقك بالصورة التي تحملها عن نفسك. يمكنك أن تلاحظها حين يصبح أن تكون على حق أهم من أن تفهم، وحين يبدو لك الخلاف قلةَ احترام، أو حين تحتاج إلى موافقة غيرك لتشعر بالأمان.</p>
                       <p class="pure-branch-text">قد تكون الأنا ذكية بما يكفي لتختبئ خلف تفسيراتك أنت. تظن أنك تتصرف بحرية، بينما الحاجة إلى الدفاع عن نفسك هي التي تتخذ القرار. حتى قولك «لقد سيطرت على أناي» قد يصبح طريقة أخرى للشعور بالتفوق.</p>
@@ -335,9 +331,19 @@
                       <p class="pure-branch-text">في قلب هذا النظام يكمن إيماني بأن الحرية تبدأ حين تدرك، في أعماق قلبك وروحك، أن هناك ما هو أعظم منك وأكثر ذكاءً. فهمك ليس الحدّ الذي ينتهي عنده الواقع.</p>
                       <p class="pure-branch-text">أيًّا كان الاسم الذي تمنحه إياه، فالتسمية ليست هي المقصود. المقصود أن تدرك أنك لست فوق كل شيء، ولا تحتاج إلى أن تكون كذلك.</p>
                       <p class="pure-branch-text">بالنسبة لي، قبول ذلك هو بداية الحرية الحقيقية. إنه الأساس لتصبح رجلًا يعرف حدوده، ويتحمل المسؤولية، ويستطيع أن يحب دون أن تقف أناه في الطريق.</p>
-                    </details>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-trust" role="region" aria-labelledby="ph-btn-trust" hidden>
+                      <p class="pure-branch-text">من دون ثقة، لا شيء من هذا ينجح.</p>
+                      <p class="pure-branch-text">قبل كل شيء عليك أن تكون واضحًا في أمر واحد. الثقة هي الأرض التي يقف عليها كل ما سواها. وليست ثقة الآخرين أولًا، بل ثقتك بنفسك.</p>
+                      <p class="pure-branch-text">الثقة بالنفس ليست شيئًا تولد به. إنها تُبنى. تبنيها بأن تفعل ما قلت إنك ستفعله. قلت السادسة صباحًا، فتنهض في السادسة. قلت إنك سترتّب سريرك، فترتّبه، خاصة في الأيام التي لا ترغب فيها بذلك.</p>
+                      <p class="pure-branch-text">من هنا تأتي الثقة بالنفس. لا من حجم المهمة، بل من وفائك بكلمتك لنفسك.</p>
+                      <p class="pure-branch-text">الأمر يشبه الصالة الرياضية. لا أحد يبني عضلات بين ليلة وضحاها. تتدرّب، فيتراكم الأثر. قل ثلاث ضغطات في اليوم وافعل ثلاثًا. بعد أسبوع تصبح ستًّا. العدد ليس المقصد. المقصد أنك فعلت ما قلته. حتى ضغطة واحدة تُحتسب، لأنك أوفيت بكلمتك.</p>
+                      <p class="pure-branch-text">حين تثق بنفسك، يستطيع الآخرون أن يثقوا بك. يظهر ذلك في وقفتك، وفي طريقة كلامك، وفيما تعد به. ولا يعمل الأمر بالاتجاه المعاكس. رجل ينقض كلمته لنفسه كل صباح لن يحفظ كلمة أحد.</p>
+                      <p class="pure-branch-text">على هذا تُبنى الحياة. أناس يثقون بك إلى حدّ أنهم يريدون أن يكونوا قربك، لأنهم يعرفون أن بإمكانهم الاعتماد عليك.</p>
+                      <p class="pure-branch-text">الثقة هي عملتي.</p>
+                    </div>
                   </div>
-                  <p class="item-note">المنهج والـblueprint وكل ما وراءهما.</p>
+                                    <p class="item-note">المنهج والـblueprint وكل ما وراءهما.</p>
                 </div>
                 <a class="row-cta" href="/pure/">استكشف pure</a>
                 <p class="item-note pact-note">pure pact: قبل العلاقة، يقول كل منكما ما يهمه وأين حدوده وما يتمناه. أرسل الرابط وانظرا أين تتوافقان.</p>

@@ -273,29 +273,27 @@
               </summary>
               <div class="item-content">
                 <div class="item-story">
-                  <figure class="pure-house" aria-label="pure: ein dach, vier säulen, ein fundament">
-                    <svg class="ph-roof" viewBox="0 0 400 74" preserveAspectRatio="none" aria-hidden="true"><polygon points="200,3 397,71 3,71" /></svg>
-                    <p class="ph-roof-label">etwas, das größer ist als du</p>
+                  <div class="pure-house">
+                    <svg class="ph-roof" viewBox="0 0 480 96" role="img" aria-label="ein giebel mit dem wort pure, getragen von vier säulen"><polygon points="240,4 476,88 4,88" /><text x="240" y="78">pure</text></svg>
+                    <div class="ph-architrave"></div>
                     <div class="ph-cols">
-                      <div class="ph-col"><span class="ph-letter">p</span><p class="ph-name">physis</p></div>
-                      <div class="ph-col"><span class="ph-letter">u</span><p class="ph-name">understanding</p></div>
-                      <div class="ph-col"><span class="ph-letter">r</span><p class="ph-name">responsibility</p></div>
-                      <div class="ph-col"><span class="ph-letter">e</span><p class="ph-name">ego</p></div>
+                      <button class="ph-pillar" type="button" id="ph-btn-physis" aria-expanded="true" aria-controls="ph-panel-physis" data-chapter="physis"><span class="ph-shaft"><span class="ph-letter">p</span></span><span class="ph-name">physis</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-understanding" aria-expanded="false" aria-controls="ph-panel-understanding" data-chapter="understanding"><span class="ph-shaft"><span class="ph-letter">u</span></span><span class="ph-name">understanding</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-responsibility" aria-expanded="false" aria-controls="ph-panel-responsibility" data-chapter="responsibility"><span class="ph-shaft"><span class="ph-letter">r</span></span><span class="ph-name">responsibility</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-ego" aria-expanded="false" aria-controls="ph-panel-ego" data-chapter="ego"><span class="ph-shaft"><span class="ph-letter">e</span></span><span class="ph-name">ego</span></button>
                     </div>
-                    <p class="ph-base">fundament</p>
-                  </figure>
-                  <div class="pure-tree">
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">p</span>hysis</summary>
+                    <button class="ph-base" type="button" id="ph-btn-trust" aria-expanded="false" aria-controls="ph-panel-trust" data-chapter="trust">trust</button>
+                  </div>
+                  <div class="pure-chapters">
+                    <div class="ph-panel" id="ph-panel-physis" role="region" aria-labelledby="ph-btn-physis">
                       <p class="pure-branch-text">ein mann, der seinen körper nicht versteht und ihn nicht führen kann, wird nie wirklich sein leben führen.</p>
-                      <p class="pure-branch-text">physis ist das fundament: deinen körper verstehen. was er braucht, wie er reagiert und warum er nach bequemlichkeit verlangt. lerne den unterschied zwischen dem bedürfnis nach ruhe und dem ausweichen vor anstrengung, zwischen hunger und heißhunger, zwischen einer körperlichen grenze und dem unbehagen, etwas ungewohntes zu tun.</p>
+                      <p class="pure-branch-text">physis ist die erste säule: deinen körper verstehen. was er braucht, wie er reagiert und warum er nach bequemlichkeit verlangt. lerne den unterschied zwischen dem bedürfnis nach ruhe und dem ausweichen vor anstrengung, zwischen hunger und heißhunger, zwischen einer körperlichen grenze und dem unbehagen, etwas ungewohntes zu tun.</p>
                       <p class="pure-branch-text">dein körper sendet den ganzen tag signale. hunger, kälte, müdigkeit, der sog zurück ins warme bett. die meisten männer behandeln diese signale wie befehle. sie sind keine befehle. sie sind information. kaltes wasser lehrt das schneller als jedes fitnessstudio. der körper schreit, dir passiert nichts, und du lernst den unterschied zwischen einem signal und einem befehl.</p>
                       <p class="pure-branch-text">es geht nicht darum, deinen körper zu bestrafen oder seine signale zu ignorieren. es geht darum, zu lernen, mit ihm zu arbeiten, statt jeden impuls für dich entscheiden zu lassen.</p>
                       <p class="pure-branch-text">körperliche anstrengung, kälte, meditation und disziplin sind teil des systems, das ich aufgebaut habe. sie sind wege, deine reaktionen zu beobachten, deine grenzen zu verstehen und bewusste entscheidungen zu üben, wenn die bequemlichkeit dich in eine andere richtung zieht.</p>
                       <p class="pure-branch-text">du lernst, wann du dich forderst, wann du dich erholst und wann du nein sagst. deinen körper zu verstehen gibt dir das fundament, um dein leben zu führen.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">u</span>nderstanding</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-understanding" role="region" aria-labelledby="ph-btn-understanding" hidden>
                       <p class="pure-branch-text">dein geist ist nicht dein gehirn. das gehirn ist ein körperliches organ. dein geist, das sind deine gedanken, deine gefühle, dein bewusstsein, dein inneres erleben.</p>
                       <p class="pure-branch-text">stell es dir vor wie hardware und software. dein gehirn ist die hardware, dein geist die software. beide sind verbunden, aber sie sind nicht dasselbe.</p>
                       <p class="pure-branch-text">die meisten männer bemerken den unterschied nie. sie verbringen ihr leben damit, befehlen zu folgen, die sie nie gegeben haben.</p>
@@ -305,9 +303,8 @@
                       <p class="pure-branch-text">versteh das: etwas kann sich im moment belohnend anfühlen und dich trotzdem weiter von dem leben entfernen, das du willst.</p>
                       <p class="pure-branch-text">fang an wahrzunehmen, wonach du greifst, wann du danach greifst und was du vorher fühlst. triffst du eine bewusste entscheidung, oder versuchst du, vor langeweile, unbehagen oder einsamkeit zu fliehen?</p>
                       <p class="pure-branch-text">das ziel ist nicht, den genuss aus deinem leben zu streichen. das ziel ist, dein verhalten so gut zu verstehen, dass du wählen kannst, was deine aufmerksamkeit verdient.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">r</span>esponsibility</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-responsibility" role="region" aria-labelledby="ph-btn-responsibility" hidden>
                       <p class="pure-branch-text">verantwortung ist nicht nur eine last, die du trägst. sie ist kraft, die du dir bewusst nimmst.</p>
                       <p class="pure-branch-text">fang bei dir selbst an. übernimm verantwortung für dein handeln, deine entscheidungen und die art, wie du mit menschen umgehst. das heißt nicht, dass alles, was passiert, deine schuld ist. es heißt, zu erkennen, wo du handeln kannst, und ehrlich zu deinem anteil zu stehen.</p>
                       <p class="pure-branch-text">die einzige frage, die zählt, stellt sich fast niemand selbst. wo war ich voll verantwortlich? nicht teilweise. nicht den umständen entsprechend. voll. beantworte das ehrlich, und etwas verändert sich.</p>
@@ -316,9 +313,8 @@
                       <p class="pure-branch-text">du musst nicht alles besitzen, um frei zu sein. du musst aufhören, den entscheidungen und verpflichtungen auszuweichen, die bei dir liegen.</p>
                       <p class="pure-branch-text">die meisten männer haben lieber recht über die welt, als in ihr frei zu sein.</p>
                       <p class="pure-branch-text">verantwortung zu übernehmen ist der weg zu wahrer freiheit. du kannst nicht jeden umstand kontrollieren, aber du kannst entscheiden, wie du reagierst und was für ein mann du durch dein handeln wirst.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">e</span>go</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-ego" role="region" aria-labelledby="ph-btn-ego" hidden>
                       <p class="pure-branch-text">die meisten menschen verstehen nicht, was ego ist. sie denken, es bedeute arroganz, laut zu sein oder zu glauben, man sei besser als jemand anderes.</p>
                       <p class="pure-branch-text">was ich mit ego meine, geht tiefer. es ist deine anhaftung an das bild, das du von dir selbst hast. du kannst es bemerken, wenn recht haben wichtiger wird als verstehen, wenn widerspruch sich wie respektlosigkeit anfühlt oder wenn du die zustimmung eines anderen brauchst, um dich sicher zu fühlen.</p>
                       <p class="pure-branch-text">das ego kann klug genug sein, sich hinter deinen eigenen erklärungen zu verstecken. du glaubst, frei zu handeln, während das bedürfnis, dich zu verteidigen, die entscheidung trifft. selbst der satz „ich habe mein ego gemeistert“ kann zu einem weiteren weg werden, sich überlegen zu fühlen.</p>
@@ -335,9 +331,19 @@
                       <p class="pure-branch-text">im kern dieses systems steht meine überzeugung, dass freiheit beginnt, wenn du tief in deinem herzen und deiner seele verstehst, dass es etwas größeres und intelligenteres gibt als dich. dein verstehen ist nicht die grenze dessen, was wirklich ist.</p>
                       <p class="pure-branch-text">welchen namen du ihm auch gibst, um den namen geht es nicht. es geht darum, zu erkennen, dass du nicht über allem stehst und es auch nicht musst.</p>
                       <p class="pure-branch-text">das anzunehmen ist für mich der beginn wahrer freiheit. es ist das fundament, um ein mann zu werden, der seine grenzen kennt, verantwortung übernimmt und lieben kann, ohne dass sein ego im weg steht.</p>
-                    </details>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-trust" role="region" aria-labelledby="ph-btn-trust" hidden>
+                      <p class="pure-branch-text">ohne vertrauen funktioniert nichts davon.</p>
+                      <p class="pure-branch-text">vor allem anderen musst du dir über eines im klaren sein. vertrauen ist der boden, auf dem alles andere steht. nicht zuerst das vertrauen anderer. das vertrauen in dich selbst.</p>
+                      <p class="pure-branch-text">selbstvertrauen ist nichts, womit du geboren wirst. es wird gebaut. du baust es, indem du tust, was du dir vorgenommen hast. du hast sechs uhr gesagt, also stehst du um sechs auf. du hast gesagt, du machst das bett, also machst du das bett, gerade an den tagen, an denen du nicht willst.</p>
+                      <p class="pure-branch-text">daher kommt selbstvertrauen. nicht aus der größe der aufgabe. daraus, dass du dein wort dir selbst gegenüber hältst.</p>
+                      <p class="pure-branch-text">es funktioniert wie das fitnessstudio. niemand bekommt muskeln über nacht. du trainierst, und es summiert sich. sag drei liegestütze am tag und mach drei. eine woche später sind es sechs. die zahl ist nicht der punkt. der punkt ist, dass du getan hast, was du gesagt hast. selbst ein einziger liegestütz zählt, weil du dein wort gehalten hast.</p>
+                      <p class="pure-branch-text">wenn du dir selbst vertraust, können andere dir vertrauen. man sieht es daran, wie du stehst, wie du sprichst und was du versprichst. andersherum funktioniert es nicht. ein mann, der jeden morgen sein wort sich selbst gegenüber bricht, wird das wort eines anderen nie halten.</p>
+                      <p class="pure-branch-text">darauf wird ein leben gebaut. menschen, die dir so tief vertrauen, dass sie in deiner nähe sein wollen, weil sie wissen, sie können auf dich zählen.</p>
+                      <p class="pure-branch-text">vertrauen ist meine währung.</p>
+                    </div>
                   </div>
-                  <p class="item-note">die methode, der blueprint und alles dahinter.</p>
+                                    <p class="item-note">die methode, der blueprint und alles dahinter.</p>
                 </div>
                 <a class="row-cta" href="/pure/">pure entdecken</a>
                 <p class="item-note pact-note">pure pact: bevor ihr eine beziehung anfangt, sagt jeder von euch, was ihm wichtig ist, wo seine grenzen liegen und was er sich wünscht. link schicken, sehen, wo ihr passt.</p>

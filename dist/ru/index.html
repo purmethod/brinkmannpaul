@@ -273,29 +273,27 @@
               </summary>
               <div class="item-content">
                 <div class="item-story">
-                  <figure class="pure-house" aria-label="pure: одна крыша, четыре столпа, один фундамент">
-                    <svg class="ph-roof" viewBox="0 0 400 74" preserveAspectRatio="none" aria-hidden="true"><polygon points="200,3 397,71 3,71" /></svg>
-                    <p class="ph-roof-label">что-то большее, чем ты</p>
+                  <div class="pure-house">
+                    <svg class="ph-roof" viewBox="0 0 480 96" role="img" aria-label="фронтон со словом pure, опирающийся на четыре колонны"><polygon points="240,4 476,88 4,88" /><text x="240" y="78">pure</text></svg>
+                    <div class="ph-architrave"></div>
                     <div class="ph-cols">
-                      <div class="ph-col"><span class="ph-letter">p</span><p class="ph-name">physis</p></div>
-                      <div class="ph-col"><span class="ph-letter">u</span><p class="ph-name">understanding</p></div>
-                      <div class="ph-col"><span class="ph-letter">r</span><p class="ph-name">responsibility</p></div>
-                      <div class="ph-col"><span class="ph-letter">e</span><p class="ph-name">ego</p></div>
+                      <button class="ph-pillar" type="button" id="ph-btn-physis" aria-expanded="true" aria-controls="ph-panel-physis" data-chapter="physis"><span class="ph-shaft"><span class="ph-letter">p</span></span><span class="ph-name">physis</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-understanding" aria-expanded="false" aria-controls="ph-panel-understanding" data-chapter="understanding"><span class="ph-shaft"><span class="ph-letter">u</span></span><span class="ph-name">understanding</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-responsibility" aria-expanded="false" aria-controls="ph-panel-responsibility" data-chapter="responsibility"><span class="ph-shaft"><span class="ph-letter">r</span></span><span class="ph-name">responsibility</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-ego" aria-expanded="false" aria-controls="ph-panel-ego" data-chapter="ego"><span class="ph-shaft"><span class="ph-letter">e</span></span><span class="ph-name">ego</span></button>
                     </div>
-                    <p class="ph-base">фундамент</p>
-                  </figure>
-                  <div class="pure-tree">
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">p</span>hysis</summary>
+                    <button class="ph-base" type="button" id="ph-btn-trust" aria-expanded="false" aria-controls="ph-panel-trust" data-chapter="trust">trust</button>
+                  </div>
+                  <div class="pure-chapters">
+                    <div class="ph-panel" id="ph-panel-physis" role="region" aria-labelledby="ph-btn-physis">
                       <p class="pure-branch-text">мужчина, который не понимает своё тело и не умеет им управлять, никогда по-настоящему не станет хозяином своей жизни.</p>
-                      <p class="pure-branch-text">в основе лежит physis: понимание своего тела. что ему нужно, как оно реагирует и почему просит комфорта. научись отличать потребность в отдыхе от нежелания прилагать усилия, голод от внезапной тяги к еде, физический предел от дискомфорта, который возникает, когда делаешь что-то непривычное.</p>
+                      <p class="pure-branch-text">physis — это первая колонна: понимать своё тело. что ему нужно, как оно отвечает и почему оно просит комфорта. научись различать потребность в отдыхе и уклонение от усилия, голод и тягу, физический предел и неудобство от непривычного.</p>
                       <p class="pure-branch-text">твоё тело весь день посылает сигналы. голод, холод, усталость, тяга обратно в тёплую постель. большинство мужчин принимают эти сигналы за приказы. это не приказы. это информация. холодная вода учит этому быстрее любого спортзала. тело кричит, с тобой ничего не происходит, и ты понимаешь разницу между сигналом и приказом.</p>
                       <p class="pure-branch-text">речь не о том, чтобы наказывать своё тело или игнорировать его сигналы. речь о том, чтобы научиться работать с ним, а не позволять каждому импульсу решать за тебя.</p>
                       <p class="pure-branch-text">физическая нагрузка, холод, медитация и дисциплина входят в систему, которую я создал. это способы наблюдать за своими реакциями, понимать свои пределы и тренироваться принимать осознанные решения, когда комфорт тянет тебя в другую сторону.</p>
                       <p class="pure-branch-text">ты учишься понимать, когда нужно поднажать, когда восстановиться, а когда сказать «нет». понимание своего тела даёт тебе фундамент, чтобы управлять своей жизнью.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">u</span>nderstanding</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-understanding" role="region" aria-labelledby="ph-btn-understanding" hidden>
                       <p class="pure-branch-text">твоя психика и твой мозг не одно и то же. мозг является физическим органом. психикой называют твои мысли, твои чувства, твоё осознание, твой внутренний опыт.</p>
                       <p class="pure-branch-text">представь себе компьютер. мозг является аппаратной частью, психика программой. они связаны, но это не одно и то же.</p>
                       <p class="pure-branch-text">большинство мужчин никогда не замечают разницы. они проживают жизнь, выполняя приказы, которых сами не отдавали.</p>
@@ -305,9 +303,8 @@
                       <p class="pure-branch-text">пойми главное: то, что приятно здесь и сейчас, может при этом уводить тебя всё дальше от жизни, к которой ты стремишься.</p>
                       <p class="pure-branch-text">начни замечать, к чему ты тянешься, когда ты к этому тянешься и что чувствуешь перед этим. ты делаешь осознанный выбор или пытаешься сбежать от скуки, дискомфорта или одиночества?</p>
                       <p class="pure-branch-text">цель не в том, чтобы убрать удовольствия из своей жизни. цель в том, чтобы достаточно хорошо понимать своё поведение и самому выбирать, что заслуживает твоего внимания.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">r</span>esponsibility</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-responsibility" role="region" aria-labelledby="ph-btn-responsibility" hidden>
                       <p class="pure-branch-text">ответственность не просто груз, который ты несёшь. это сила, которую ты сам решаешь взять.</p>
                       <p class="pure-branch-text">начни с себя. возьми на себя ответственность за свои поступки, свои решения и за то, как ты обращаешься с людьми. это не значит, что во всём, что происходит, виноват ты. это значит видеть, где ты можешь действовать, и честно признавать свою роль.</p>
                       <p class="pure-branch-text">единственный вопрос, который имеет значение, почти никто себе не задаёт. где я был полностью ответственен? не отчасти. не с учётом обстоятельств. полностью. ответь честно, и что-то изменится.</p>
@@ -316,9 +313,8 @@
                       <p class="pure-branch-text">чтобы быть свободным, не нужно владеть всем. нужно перестать избегать решений и обязательств, которые должен принять именно ты.</p>
                       <p class="pure-branch-text">большинство мужчин предпочитают быть правыми насчёт мира, чем быть свободными в нём.</p>
                       <p class="pure-branch-text">путь к настоящей свободе лежит через ответственность. ты не можешь контролировать все обстоятельства, но можешь решать, как на них отвечать и каким мужчиной тебя сделают твои поступки.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">e</span>go</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-ego" role="region" aria-labelledby="ph-btn-ego" hidden>
                       <p class="pure-branch-text">большинство людей не понимают, что такое эго. они думают, что это высокомерие, крикливость или убеждённость, что ты лучше кого-то другого.</p>
                       <p class="pure-branch-text">то, что я называю эго, лежит глубже. это твоя привязанность к образу самого себя, который у тебя сложился. ты замечаешь его, когда быть правым становится важнее, чем понимать, когда несогласие ощущается как неуважение или когда тебе нужно чужое одобрение, чтобы чувствовать себя уверенно.</p>
                       <p class="pure-branch-text">эго бывает достаточно умным, чтобы прятаться за твоими же объяснениями. ты думаешь, что действуешь свободно, а на самом деле решение принимает потребность защищаться. даже слова «я обуздал своё эго» могут стать ещё одним способом почувствовать своё превосходство.</p>
@@ -335,9 +331,19 @@
                       <p class="pure-branch-text">в центре этой системы стоит моё убеждение: свобода начинается тогда, когда ты всем сердцем и всей душой понимаешь, что существует нечто большее и более разумное, чем ты. твоё понимание не предел того, что реально.</p>
                       <p class="pure-branch-text">как бы ты это ни называл, дело не в названии. дело в том, чтобы признать: ты не стоишь выше всего, и тебе это не нужно.</p>
                       <p class="pure-branch-text">для меня принять это и есть начало настоящей свободы. это фундамент, чтобы стать мужчиной, который знает свои границы, берёт на себя ответственность и умеет любить так, чтобы эго не стояло на пути.</p>
-                    </details>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-trust" role="region" aria-labelledby="ph-btn-trust" hidden>
+                      <p class="pure-branch-text">без доверия ничего из этого не работает.</p>
+                      <p class="pure-branch-text">прежде всего нужно понять одно. доверие — это почва, на которой стоит всё остальное. и в первую очередь не доверие других. доверие к самому себе.</p>
+                      <p class="pure-branch-text">уверенность в себе не даётся от рождения. она строится. ты строишь её тем, что делаешь то, что сам себе сказал. сказал в шесть утра — встаёшь в шесть. сказал, что застелешь постель — застилаешь, особенно в те дни, когда не хочется.</p>
+                      <p class="pure-branch-text">вот откуда берётся уверенность в себе. не от размера задачи. от того, что ты держишь слово перед самим собой.</p>
+                      <p class="pure-branch-text">это работает как спортзал. мышцы не появляются за ночь. ты тренируешься, и это накапливается. скажи три отжимания в день и сделай три. через неделю будет шесть. дело не в числе. дело в том, что ты сделал то, что сказал. даже одно отжимание считается, потому что ты сдержал слово.</p>
+                      <p class="pure-branch-text">когда ты доверяешь себе, тебе могут доверять другие. это видно по тому, как ты держишься, как говоришь и что обещаешь. в обратную сторону это не работает. мужчина, который каждое утро нарушает слово перед собой, никогда не сдержит чужое.</p>
+                      <p class="pure-branch-text">на этом строится жизнь. люди, которые доверяют тебе настолько, что хотят быть рядом, потому что знают: на тебя можно положиться.</p>
+                      <p class="pure-branch-text">доверие — моя валюта.</p>
+                    </div>
                   </div>
-                  <p class="item-note">метод, blueprint и всё, что за ними стоит.</p>
+                                    <p class="item-note">метод, blueprint и всё, что за ними стоит.</p>
                 </div>
                 <a class="row-cta" href="/pure/">открыть pure</a>
                 <p class="item-note pact-note">pure pact: перед отношениями каждый говорит, что ему важно, где его границы и чего он хочет. отправь ссылку и посмотрите, где вы совпадаете.</p>

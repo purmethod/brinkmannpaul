@@ -707,14 +707,32 @@ a:focus-visible {
 }
 
 /* pure as a building: the roof is something greater than you, four pillars, one foundation */
-.pure-house { margin: 0.4rem 0 1.4rem; max-width: 26rem; position: relative; color: var(--tone-dark, var(--ink)); }
-.ph-roof { display: block; width: 100%; height: 74px; }
-.ph-roof polygon { fill: none; stroke: currentColor; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.pure-house .ph-roof-label { position: absolute; top: 34px; left: 0; right: 0; margin: 0; text-align: center; font-size: 12px; line-height: 1.2; letter-spacing: 0.02em; color: inherit; }
-.ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 10%; padding: 0 6%; }
-.ph-col { border-left: 1.5px solid currentColor; border-right: 1.5px solid currentColor; min-height: 150px; display: flex; flex-direction: column; align-items: center; padding: 10px 0 12px; }
-.ph-letter { font-size: 22px; line-height: 1; font-weight: 500; }
-.pure-house .ph-name { margin: 12px 0 0; writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; letter-spacing: 0.04em; line-height: 1; color: var(--muted); white-space: nowrap; }
-.pure-house .ph-base { margin: 0; border: 1.5px solid currentColor; padding: 9px 0; text-align: center; font-size: 12px; letter-spacing: 0.06em; color: inherit; }
+.pure-house { margin: 0.4rem 0 1.6rem; max-width: 30rem; color: var(--tone-dark, var(--ink)); }
+.ph-roof { display: block; width: 100%; height: auto; }
+.ph-roof polygon { fill: none; stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ph-roof text { fill: currentColor; font-family: inherit; font-size: 15px; letter-spacing: 0.38em; text-anchor: middle; }
+.ph-architrave { border-top: 1px solid currentColor; margin-top: -1px; }
+.ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.55rem; }
+.ph-pillar { display: flex; flex-direction: column; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--muted); font: inherit; text-transform: lowercase; text-align: center; cursor: pointer; }
+.ph-shaft { display: grid; place-items: center; min-height: clamp(6rem, 22vw, 8.5rem); border: 1px solid var(--soft-line); border-top: 0; transition: background-color 200ms ease, border-color 200ms ease; }
+.ph-letter { font-size: clamp(1.5rem, 7vw, 2.25rem); line-height: 1; font-weight: 400; color: var(--tone-dark, var(--ink)); transition: color 200ms ease; }
+.pure-house .ph-name { display: block; margin: 0; padding: 0.5rem 0.1rem 0.55rem; font-size: clamp(0.5625rem, 2.5vw, 0.6875rem); letter-spacing: 0.08em; line-height: 1.25; color: var(--muted); transition: color 200ms ease; }
+.ph-pillar[aria-expanded="true"] .ph-shaft { background: var(--tone-dark, var(--ink)); border-color: var(--tone-dark, var(--ink)); }
+.ph-pillar[aria-expanded="true"] .ph-letter { color: var(--paper); }
+.ph-pillar[aria-expanded="true"] .ph-name { color: var(--tone-dark, var(--ink)); }
+.pure-house .ph-base { display: block; width: 100%; margin: 0; padding: 0.7rem 0; border: 1px solid currentColor; border-radius: 0; background: transparent; color: inherit; font: inherit; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: lowercase; text-align: center; cursor: pointer; transition: background-color 200ms ease, color 200ms ease; }
+.pure-house .ph-base[aria-expanded="true"] { background: var(--tone-dark, var(--ink)); color: var(--paper); }
+@media (hover: hover) {
+  .ph-pillar:hover .ph-shaft { border-color: var(--tone-dark, var(--ink)); }
+  .ph-pillar:hover .ph-name { color: var(--tone-dark, var(--ink)); }
+}
+.pure-chapters { margin-bottom: 1rem; }
+.ph-panel[hidden] { display: none; }
+.ph-panel { animation: ph-rise 300ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes ph-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel { animation: none; }
+  .ph-shaft, .ph-letter, .pure-house .ph-name, .pure-house .ph-base { transition: none; }
+}
 .pact-note { margin-top: 0.4rem; }
 #site-page .item-content a.row-cta.pact-cta { background: transparent; color: var(--tone-dark, var(--ink)); border: 1px solid var(--tone-dark, var(--ink)); }

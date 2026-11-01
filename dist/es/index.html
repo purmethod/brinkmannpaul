@@ -273,29 +273,27 @@
               </summary>
               <div class="item-content">
                 <div class="item-story">
-                  <figure class="pure-house" aria-label="pure: un techo, cuatro pilares, un cimiento">
-                    <svg class="ph-roof" viewBox="0 0 400 74" preserveAspectRatio="none" aria-hidden="true"><polygon points="200,3 397,71 3,71" /></svg>
-                    <p class="ph-roof-label">algo más grande que tú</p>
+                  <div class="pure-house">
+                    <svg class="ph-roof" viewBox="0 0 480 96" role="img" aria-label="un frontón con la palabra pure, sostenido por cuatro pilares"><polygon points="240,4 476,88 4,88" /><text x="240" y="78">pure</text></svg>
+                    <div class="ph-architrave"></div>
                     <div class="ph-cols">
-                      <div class="ph-col"><span class="ph-letter">p</span><p class="ph-name">physis</p></div>
-                      <div class="ph-col"><span class="ph-letter">u</span><p class="ph-name">understanding</p></div>
-                      <div class="ph-col"><span class="ph-letter">r</span><p class="ph-name">responsibility</p></div>
-                      <div class="ph-col"><span class="ph-letter">e</span><p class="ph-name">ego</p></div>
+                      <button class="ph-pillar" type="button" id="ph-btn-physis" aria-expanded="true" aria-controls="ph-panel-physis" data-chapter="physis"><span class="ph-shaft"><span class="ph-letter">p</span></span><span class="ph-name">physis</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-understanding" aria-expanded="false" aria-controls="ph-panel-understanding" data-chapter="understanding"><span class="ph-shaft"><span class="ph-letter">u</span></span><span class="ph-name">understanding</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-responsibility" aria-expanded="false" aria-controls="ph-panel-responsibility" data-chapter="responsibility"><span class="ph-shaft"><span class="ph-letter">r</span></span><span class="ph-name">responsibility</span></button>
+                      <button class="ph-pillar" type="button" id="ph-btn-ego" aria-expanded="false" aria-controls="ph-panel-ego" data-chapter="ego"><span class="ph-shaft"><span class="ph-letter">e</span></span><span class="ph-name">ego</span></button>
                     </div>
-                    <p class="ph-base">cimiento</p>
-                  </figure>
-                  <div class="pure-tree">
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">p</span>hysis</summary>
+                    <button class="ph-base" type="button" id="ph-btn-trust" aria-expanded="false" aria-controls="ph-panel-trust" data-chapter="trust">trust</button>
+                  </div>
+                  <div class="pure-chapters">
+                    <div class="ph-panel" id="ph-panel-physis" role="region" aria-labelledby="ph-btn-physis">
                       <p class="pure-branch-text">un hombre que no entiende su cuerpo y no sabe guiarlo nunca dirigirá de verdad su vida.</p>
-                      <p class="pure-branch-text">physis es la base: entender tu cuerpo. qué necesita, cómo responde y por qué te pide comodidad. aprende la diferencia entre necesitar descanso y evitar el esfuerzo, entre el hambre y un antojo, entre un límite físico y la incomodidad de hacer algo desconocido.</p>
+                      <p class="pure-branch-text">physis es el primer pilar: entender tu cuerpo. qué necesita, cómo responde y por qué pide comodidad. aprende la diferencia entre necesitar descanso y evitar el esfuerzo, entre el hambre y un antojo, entre un límite físico y la incomodidad de hacer algo poco habitual.</p>
                       <p class="pure-branch-text">tu cuerpo envía señales todo el día. hambre, frío, cansancio, la atracción de volver a la cama caliente. la mayoría de los hombres tratan esas señales como órdenes. no son órdenes. son información. el agua fría lo enseña más rápido que cualquier gimnasio. el cuerpo grita, no te pasa nada, y aprendes la diferencia entre una señal y una orden.</p>
                       <p class="pure-branch-text">no se trata de castigar tu cuerpo ni de ignorar sus señales. se trata de aprender a trabajar con él en lugar de dejar que cada impulso decida por ti.</p>
                       <p class="pure-branch-text">el esfuerzo físico, el frío, la meditación y la disciplina forman parte del sistema que construí. son formas de observar tus reacciones, entender tus límites y practicar decisiones conscientes cuando la comodidad tira de ti hacia otro lado.</p>
                       <p class="pure-branch-text">aprendes cuándo exigirte, cuándo recuperarte y cuándo decir que no. entender tu cuerpo te da una base para dirigir tu vida.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">u</span>nderstanding</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-understanding" role="region" aria-labelledby="ph-btn-understanding" hidden>
                       <p class="pure-branch-text">tu mente no es tu cerebro. el cerebro es un órgano físico. tu mente son tus pensamientos, tus sentimientos, tu conciencia, tu experiencia interior.</p>
                       <p class="pure-branch-text">imagínalo como hardware y software. tu cerebro es el hardware, tu mente el software. están conectados, pero no son lo mismo.</p>
                       <p class="pure-branch-text">la mayoría de los hombres nunca nota la diferencia. pasan la vida siguiendo órdenes que nunca dieron.</p>
@@ -305,9 +303,8 @@
                       <p class="pure-branch-text">entiende esto: algo puede resultarte gratificante en el momento y aun así alejarte de la vida que quieres.</p>
                       <p class="pure-branch-text">empieza a fijarte en qué buscas, cuándo lo buscas y qué sientes justo antes. ¿estás eligiendo de forma consciente o intentas escapar del aburrimiento, la incomodidad o la soledad?</p>
                       <p class="pure-branch-text">el propósito no es eliminar el placer de tu vida. es entender tu comportamiento lo bastante bien como para elegir qué merece tu atención.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">r</span>esponsibility</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-responsibility" role="region" aria-labelledby="ph-btn-responsibility" hidden>
                       <p class="pure-branch-text">la responsabilidad no es solo un peso que cargas. es un poder que eliges tomar.</p>
                       <p class="pure-branch-text">empieza por ti. asume la responsabilidad de tus actos, tus decisiones y la forma en que tratas a los demás. eso no significa que todo lo que pasa sea culpa tuya. significa reconocer dónde puedes actuar y ser honesto sobre tu parte.</p>
                       <p class="pure-branch-text">la única pregunta que importa casi nadie se la hace. ¿dónde fui plenamente responsable? no en parte. no dadas las circunstancias. plenamente. respóndela con honestidad y algo cambia.</p>
@@ -316,9 +313,8 @@
                       <p class="pure-branch-text">no necesitas poseerlo todo para ser libre. necesitas dejar de evitar las decisiones y los compromisos que te corresponden.</p>
                       <p class="pure-branch-text">la mayoría de los hombres prefiere tener razón sobre el mundo antes que ser libre dentro de él.</p>
                       <p class="pure-branch-text">asumir la responsabilidad es el camino hacia la verdadera libertad. no puedes controlar todas las circunstancias, pero sí puedes decidir cómo respondes y qué clase de hombre llegas a ser a través de tus actos.</p>
-                    </details>
-                    <details class="pure-branch" name="pure-chapter">
-                      <summary><span class="pure-letter">e</span>go</summary>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-ego" role="region" aria-labelledby="ph-btn-ego" hidden>
                       <p class="pure-branch-text">la mayoría de las personas no entiende qué es el ego. creen que significa arrogancia, ser ruidoso o creerse mejor que otra persona.</p>
                       <p class="pure-branch-text">lo que yo entiendo por ego es más profundo. es tu apego a la imagen que tienes de ti mismo. puedes notarlo cuando tener razón se vuelve más importante que entender, cuando un desacuerdo se siente como una falta de respeto o cuando necesitas la aprobación de otra persona para sentirte seguro.</p>
                       <p class="pure-branch-text">el ego puede ser lo bastante inteligente como para esconderse detrás de tus propias explicaciones. crees que actúas con libertad mientras es la necesidad de defenderte la que decide. incluso decir «he dominado mi ego» puede convertirse en otra forma de sentirte superior.</p>
@@ -335,9 +331,19 @@
                       <p class="pure-branch-text">en el centro de este sistema está mi convicción de que la libertad empieza cuando entiendes, en lo más profundo de tu corazón y de tu alma, que existe algo más grande y más inteligente que tú. tu entendimiento no es el límite de lo real.</p>
                       <p class="pure-branch-text">le pongas el nombre que le pongas, la etiqueta no es lo importante. lo importante es reconocer que no estás por encima de todo y que no necesitas estarlo.</p>
                       <p class="pure-branch-text">para mí, aceptarlo es el comienzo de la verdadera libertad. es la base para convertirte en un hombre que conoce sus límites, asume su responsabilidad y puede amar sin que su ego se interponga.</p>
-                    </details>
+                    </div>
+                    <div class="ph-panel" id="ph-panel-trust" role="region" aria-labelledby="ph-btn-trust" hidden>
+                      <p class="pure-branch-text">sin confianza, nada de esto funciona.</p>
+                      <p class="pure-branch-text">antes que nada tienes que tener clara una cosa. la confianza es el suelo sobre el que se apoya todo lo demás. no primero la confianza de los demás. la confianza en ti mismo.</p>
+                      <p class="pure-branch-text">la confianza en uno mismo no es algo con lo que se nace. se construye. la construyes haciendo aquello que dijiste que harías. dijiste las seis de la mañana, así que te levantas a las seis. dijiste que harías la cama, así que haces la cama, sobre todo los días en que no quieres.</p>
+                      <p class="pure-branch-text">de ahí viene la confianza en uno mismo. no del tamaño de la tarea. de cumplir tu palabra contigo mismo.</p>
+                      <p class="pure-branch-text">funciona como el gimnasio. nadie consigue músculo de un día para otro. entrenas y se acumula. di tres flexiones al día y haz tres. una semana después son seis. el número no es lo importante. lo importante es que hiciste lo que dijiste. incluso una sola flexión cuenta, porque cumpliste tu palabra.</p>
+                      <p class="pure-branch-text">cuando confías en ti mismo, los demás pueden confiar en ti. se nota en cómo te plantas, cómo hablas y qué prometes. al revés no funciona. un hombre que rompe su palabra consigo mismo cada mañana nunca sostendrá la de otro.</p>
+                      <p class="pure-branch-text">sobre eso se construye una vida. personas que confían en ti lo bastante como para querer estar a tu lado, porque saben que pueden contar contigo.</p>
+                      <p class="pure-branch-text">la confianza es mi moneda.</p>
+                    </div>
                   </div>
-                  <p class="item-note">el método, el blueprint y todo lo que hay detrás.</p>
+                                    <p class="item-note">el método, el blueprint y todo lo que hay detrás.</p>
                 </div>
                 <a class="row-cta" href="/pure/">explorar pure</a>
                 <p class="item-note pact-note">pure pact: antes de una relación, cada uno dice lo que le importa, dónde están sus límites y lo que desea. envía el enlace y mirad dónde encajáis.</p>

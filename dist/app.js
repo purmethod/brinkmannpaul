@@ -154,3 +154,20 @@
   if (!animation.canPlayType('video/mp4; codecs="avc1.42E01E"')) showStill();
   else whenPortrait(() => { portraitReady = true; play(); });
 })();
+
+/* The pure elevation: each pillar and the foundation opens its own chapter. */
+(function () {
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-chapter]'));
+  if (!buttons.length) return;
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      if (button.getAttribute('aria-expanded') === 'true') return;
+      buttons.forEach(function (other) {
+        var open = other === button;
+        other.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var panel = document.getElementById('ph-panel-' + other.dataset.chapter);
+        if (panel) panel.hidden = !open;
+      });
+    });
+  });
+})();
