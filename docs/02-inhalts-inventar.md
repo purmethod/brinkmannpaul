@@ -2,6 +2,15 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: pure führt zu purmethod.com (2026-11-01)
+
+- **Paul:** Über brinkmannpaul.com sollen die Leute auf purmethod.com kommen, dort liegt alles. purmethod.com bekommt ein Redesign auf „pure“ (Repo `purmethod/pur`, PR #3).
+- **Rubrik pure:** Die Kapitel physis, understanding, responsibility und ego bleiben, aufklappbar wie bisher.
+  - Die Notiz „coming soon. follow for the blueprint.“ heißt jetzt „the method, the blueprint and everything behind it live on purmethod.com.“
+  - Statt des Instagram-Buttons steht „explore purmethod.com“. Er öffnet https://purmethod.com/ in einem neuen Tab.
+  - Alle sechs Sprachen.
+- **www.purmethod.com** hat bei Wix keinen DNS-Eintrag und ist deshalb nicht erreichbar. Nötig ist ein CNAME `www` auf `cname.vercel-dns.com` bei Wix und die Domain `www.purmethod.com` im Vercel-Projekt `pur`.
+
 ## Aktualisierung: Neuroarchitektur-Journal mit sechs Studien, keine Pfeile mehr (2026-11-01)
 
 - **Paul:**
