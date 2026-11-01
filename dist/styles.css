@@ -741,3 +741,8 @@ a:focus-visible {
 }
 .pact-note { margin-top: 0.4rem; }
 #site-page .item-content a.row-cta.pact-cta { background: transparent; color: var(--tone-dark, var(--ink)); border: 1px solid var(--tone-dark, var(--ink)); }
+
+/* pact: the three steps, numbered with thin figures */
+.pact-steps { list-style: none; counter-reset: step; margin: 0.8rem 0 1rem; padding: 0; border-top: 1px solid rgba(0,0,0,.12); }
+.pact-steps li { counter-increment: step; display: grid; grid-template-columns: 1.6rem 1fr; padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,.12); color: var(--muted); line-height: 1.55; }
+.pact-steps li::before { content: counter(step); color: var(--tone-dark, var(--ink)); }

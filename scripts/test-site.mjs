@@ -45,7 +45,7 @@ function boot(options = {}) {
   const events = new Map(), timers = new Map();
   let nextTimer = 0;
   const motion = { matches: !!options.reduced, [options.legacy ? 'addListener' : 'addEventListener']: (...args) => { motion.listener = args.at(-1); } };
-  const document = { body, activeElement: gate, hidden: false, addEventListener() {}, querySelector: sel => (options.missing === sel ? null : elems[sel]) };
+  const document = { body, activeElement: gate, hidden: false, addEventListener() {}, querySelector: sel => (options.missing === sel ? null : elems[sel]), querySelectorAll: () => [] };
   const window = {
     matchMedia: () => motion, location: { hash: options.hash || '' },
     ...(options.switched ? { sessionStorage: { getItem: key => (key === 'bs-language-switch' ? '{}' : null) } } : {}),
@@ -120,12 +120,12 @@ s = boot({ missing: '#intro-animation' }); released(s);
 const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('\n        </section>'));
 const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
-assert.equal(items.length, 11, 'eleven projects, each with an id');
-assert.equal(new Set(items.map(item => item[1])).size, 11, 'project ids are unique');
+assert.equal(items.length, 12, 'twelve projects, each with an id');
+assert.equal(new Set(items.map(item => item[1])).size, 12, 'project ids are unique');
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/|\/pure\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/|\/pure\/|\/pact")/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -348,7 +348,7 @@ for (const f of ['index.html', 'weekends/index.html', 'skyn/index.html', 'rye/in
 assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap');
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
-console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 11 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax, cutcake and compaz waitlists, local assets, og image, robots and sitemap.');
+console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 12 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax, cutcake and compaz waitlists, local assets, og image, robots and sitemap.');
 
 // /pact is proxied to the pur project, and /pakt leads there too.
 const vercel = JSON.parse(fs.readFileSync(path.join(root, 'dist/vercel.json'), 'utf8'));
