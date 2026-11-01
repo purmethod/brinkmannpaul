@@ -2,6 +2,14 @@
 
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
+## Aktualisierung: pure unter brinkmannpaul.com/pure (2026-11-01)
+
+- **Paul:** Keine eigene Website. pure läuft über brinkmannpaul.com/pure.
+- **Technik:** `dist/vercel.json` leitet `/pure` und `/pure/*` im Hintergrund an `https://purmethod.com/pure/*` weiter (externer Rewrite). Das Projekt `pur` liefert sich selbst unter `/pure` aus (purmethod/pur#4).
+  - purmethod.com/ und /blueprint leiten auf brinkmannpaul.com/pure um.
+  - Der Blueprint ruft seine Claude-Funktion direkt auf purmethod.com auf, damit lange Antworten nicht über den Proxy laufen.
+- **Rubrik pure:** „the method, the blueprint and everything behind it.“ und der Button „explore pure“ führen auf /pure/. Alle sechs Sprachen.
+
 ## Aktualisierung: pure führt zu purmethod.com (2026-11-01)
 
 - **Paul:** Über brinkmannpaul.com sollen die Leute auf purmethod.com kommen, dort liegt alles. purmethod.com bekommt ein Redesign auf „pure“ (Repo `purmethod/pur`, PR #3).

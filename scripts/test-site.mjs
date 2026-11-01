@@ -125,7 +125,7 @@ assert.equal(new Set(items.map(item => item[1])).size, 11, 'project ids are uniq
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/)/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/|\/pure\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
@@ -299,7 +299,8 @@ for (const app of ['cyclemax', 'cutcake']) {
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href|poster)="([^"#]+)"/g)) {
-    if (/^(https?:|mailto:|data:)/.test(local) || local === '/') continue;
+    // /pure/ is served by the pur project through the proxy in dist/vercel.json.
+    if (/^(https?:|mailto:|data:)/.test(local) || local === '/' || local.startsWith('/pure/')) continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
     assert.ok(fs.existsSync(file), `Missing ${local}`);
     // A looping clip loads only when it comes near while reading, so it may be larger.
@@ -337,6 +338,9 @@ assert.equal(locs.length, 84, 'sitemap lists home, weekends, skyn, rye, cyclemax
   }
   for (const lang of ['en', ...LANGS]) assert.ok(fs.existsSync(path.join(root, 'dist', lang === 'en' ? '' : lang, 'research', 'index.html')), `${lang}: research list`);
   assert.ok(!html.includes('get in touch'), 'neuroarchitecture: no get in touch button');
+  const vercel = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'vercel.json'), 'utf8'));
+  assert.ok(vercel.rewrites.some(r => r.source === '/pure/:path*' && r.destination === 'https://purmethod.com/pure/:path*'), 'brinkmannpaul.com/pure shows the pur project');
+  assert.ok(html.includes('<a class="row-cta" href="/pure/">explore pure</a>'), 'the pure row opens brinkmannpaul.com/pure');
 }
 for (const f of ['index.html', 'weekends/index.html', 'skyn/index.html', 'rye/index.html', 'cyclemax/index.html', 'cutcake/index.html', 'compaz/index.html']) {
   for (const lang of ['', ...LANGS.map(l => l + '/')]) assert.ok(!fs.readFileSync(path.join(root, 'dist', lang + f), 'utf8').includes('↗'), `${lang}${f}: no arrows (ios draws them as blue emoji)`);
