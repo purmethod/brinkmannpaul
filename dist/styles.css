@@ -708,11 +708,13 @@ a:focus-visible {
 
 /* pure as a building: the roof is something greater than you, four pillars, one foundation */
 .pure-house { margin: 0.4rem 0 1.6rem; max-width: 30rem; color: var(--tone-dark, var(--ink)); }
+.ph-roof-btn { display: block; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .ph-roof { display: block; width: 100%; height: auto; }
-.ph-roof polygon { fill: none; stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.ph-roof text { fill: currentColor; font-family: inherit; font-size: 15px; letter-spacing: 0.38em; text-anchor: middle; }
-.ph-architrave { border-top: 1px solid currentColor; margin-top: -1px; }
-.ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.55rem; }
+.ph-roof polygon { fill: none; stroke: var(--soft-line); stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill 200ms ease, stroke 200ms ease; }
+.ph-roof text { fill: var(--tone-dark, var(--ink)); font-family: inherit; font-size: 15px; letter-spacing: 0.38em; text-anchor: middle; transition: fill 200ms ease; }
+.ph-roof-btn[aria-expanded="true"] .ph-roof polygon { fill: var(--tone-dark, var(--ink)); stroke: var(--tone-dark, var(--ink)); }
+.ph-roof-btn[aria-expanded="true"] .ph-roof text { fill: var(--paper); }
+.ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.35rem; }
 .ph-pillar { display: flex; flex-direction: column; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--muted); font: inherit; text-transform: lowercase; text-align: center; cursor: pointer; }
 .ph-shaft { display: grid; place-items: center; min-height: clamp(6rem, 22vw, 8.5rem); border: 1px solid var(--soft-line); border-top: 0; transition: background-color 200ms ease, border-color 200ms ease; }
 .ph-letter { font-size: clamp(1.5rem, 7vw, 2.25rem); line-height: 1; font-weight: 400; color: var(--tone-dark, var(--ink)); transition: color 200ms ease; }
@@ -720,11 +722,13 @@ a:focus-visible {
 .ph-pillar[aria-expanded="true"] .ph-shaft { background: var(--tone-dark, var(--ink)); border-color: var(--tone-dark, var(--ink)); }
 .ph-pillar[aria-expanded="true"] .ph-letter { color: var(--paper); }
 .ph-pillar[aria-expanded="true"] .ph-name { color: var(--tone-dark, var(--ink)); }
-.pure-house .ph-base { display: block; width: 100%; margin: 0; padding: 0.7rem 0; border: 1px solid currentColor; border-radius: 0; background: transparent; color: inherit; font: inherit; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: lowercase; text-align: center; cursor: pointer; transition: background-color 200ms ease, color 200ms ease; }
+.pure-house .ph-base { display: block; width: 100%; margin: 0; padding: 0.7rem 0; border: 1px solid var(--soft-line); border-radius: 0; background: transparent; color: inherit; font: inherit; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: lowercase; text-align: center; cursor: pointer; transition: background-color 200ms ease, color 200ms ease; }
 .pure-house .ph-base[aria-expanded="true"] { background: var(--tone-dark, var(--ink)); color: var(--paper); }
 @media (hover: hover) {
   .ph-pillar:hover .ph-shaft { border-color: var(--tone-dark, var(--ink)); }
   .ph-pillar:hover .ph-name { color: var(--tone-dark, var(--ink)); }
+  .ph-roof-btn:hover .ph-roof polygon { stroke: var(--tone-dark, var(--ink)); }
+  .pure-house .ph-base:hover { border-color: var(--tone-dark, var(--ink)); }
 }
 .pure-chapters { margin-bottom: 1rem; }
 .ph-panel[hidden] { display: none; }
@@ -732,7 +736,8 @@ a:focus-visible {
 @keyframes ph-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .ph-panel { animation: none; }
-  .ph-shaft, .ph-letter, .pure-house .ph-name, .pure-house .ph-base { transition: none; }
+  .ph-shaft, .ph-letter, .pure-house .ph-name, .pure-house .ph-base,
+  .ph-roof polygon, .ph-roof text { transition: none; }
 }
 .pact-note { margin-top: 0.4rem; }
 #site-page .item-content a.row-cta.pact-cta { background: transparent; color: var(--tone-dark, var(--ink)); border: 1px solid var(--tone-dark, var(--ink)); }
