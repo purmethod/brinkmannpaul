@@ -299,8 +299,8 @@ for (const app of ['cyclemax', 'cutcake']) {
 // Every local asset referenced by the pages exists and stays small.
 for (const [page, source] of pages) {
   for (const [, local] of source.matchAll(/(?:src|srcset|href|poster)="([^"#]+)"/g)) {
-    // /pure/ is served by the pur project through the proxy in dist/vercel.json.
-    if (/^(https?:|mailto:|data:)/.test(local) || local === '/' || local.startsWith('/pure/')) continue;
+    // /pure/ and /pact are served by the pur project through the proxy in dist/vercel.json.
+    if (/^(https?:|mailto:|data:)/.test(local) || local === '/' || local.startsWith('/pure/') || local === '/pact') continue;
     const file = path.join(root, page, local.replace(/^\//, '').split('?')[0]);
     assert.ok(fs.existsSync(file), `Missing ${local}`);
     // A looping clip loads only when it comes near while reading, so it may be larger.
@@ -349,3 +349,8 @@ assert.ok(!sitemap.includes('thanks'), 'thank-you pages stay out of the sitemap'
 for (const loc of locs) assert.ok(fs.existsSync(path.join(root, 'dist', new URL(loc).pathname, 'index.html')), `sitemap page exists: ${loc}`);
 
 console.log('PASS: intro exits, keyboard, swipe, pinch guard, playback, source error, codec, timeout, reduced motion, legacy API, direct anchor, language switch, missing element, 11 projects with ids, copy and actions, wheel script and drawing, six languages, weekends booking and payment, skyn and rye pre-order pages, cyclemax, cutcake and compaz waitlists, local assets, og image, robots and sitemap.');
+
+// /pact is proxied to the pur project, and /pakt leads there too.
+const vercel = JSON.parse(fs.readFileSync(path.join(root, 'dist/vercel.json'), 'utf8'));
+assert.ok(vercel.rewrites.some((r) => r.source === '/pact' && r.destination === 'https://purmethod.com/pure/pact'), '/pact is proxied to pure pact');
+assert.ok(vercel.redirects.some((r) => r.source === '/pakt' && r.destination === '/pact'), '/pakt leads to /pact');

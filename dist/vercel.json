@@ -1,8 +1,38 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/pure", "destination": "https://purmethod.com/pure" },
-    { "source": "/pure/", "destination": "https://purmethod.com/pure" },
-    { "source": "/pure/:path+", "destination": "https://purmethod.com/pure/:path+" }
+    {
+      "source": "/pact",
+      "destination": "https://purmethod.com/pure/pact"
+    },
+    {
+      "source": "/pure",
+      "destination": "https://purmethod.com/pure"
+    },
+    {
+      "source": "/pure/",
+      "destination": "https://purmethod.com/pure"
+    },
+    {
+      "source": "/pure/:path+",
+      "destination": "https://purmethod.com/pure/:path+"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/pakt",
+      "destination": "/pact",
+      "permanent": false
+    },
+    {
+      "source": "/:lang(de|fr|es|ar|ru)/pact",
+      "destination": "/pact",
+      "permanent": false
+    },
+    {
+      "source": "/:lang(de|fr|es|ar|ru)/pakt",
+      "destination": "/pact",
+      "permanent": false
+    }
   ]
 }
