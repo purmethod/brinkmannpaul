@@ -711,9 +711,7 @@ a:focus-visible {
 .ph-roof-btn { display: block; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .ph-roof { display: block; width: 100%; height: auto; }
 .ph-roof polygon { fill: none; stroke: var(--soft-line); stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill 200ms ease, stroke 200ms ease; }
-.ph-roof text { fill: var(--tone-dark, var(--ink)); font-family: inherit; font-size: 15px; letter-spacing: 0.38em; text-anchor: middle; transition: fill 200ms ease; }
 .ph-roof-btn[aria-expanded="true"] .ph-roof polygon { fill: var(--tone-dark, var(--ink)); stroke: var(--tone-dark, var(--ink)); }
-.ph-roof-btn[aria-expanded="true"] .ph-roof text { fill: var(--paper); }
 .ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.35rem; }
 .ph-pillar { display: flex; flex-direction: column; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--muted); font: inherit; text-transform: lowercase; text-align: center; cursor: pointer; }
 .ph-shaft { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.55rem; min-height: clamp(6rem, 22vw, 8.5rem); padding: 0.8rem 0.25rem; border: 1px solid var(--soft-line); transition: background-color 200ms ease, border-color 200ms ease; }
@@ -737,7 +735,7 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .ph-panel { animation: none; }
   .ph-shaft, .ph-letter, .pure-house .ph-name, .pure-house .ph-base,
-  .ph-roof polygon, .ph-roof text { transition: none; }
+  .ph-roof polygon { transition: none; }
 }
 .pact-note { margin-top: 0.4rem; }
 #site-page .item-content a.row-cta.pact-cta { background: transparent; color: var(--tone-dark, var(--ink)); border: 1px solid var(--tone-dark, var(--ink)); }
