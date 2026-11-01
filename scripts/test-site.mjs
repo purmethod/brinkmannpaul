@@ -339,7 +339,7 @@ assert.equal(locs.length, 84, 'sitemap lists home, weekends, skyn, rye, cyclemax
   for (const lang of ['en', ...LANGS]) assert.ok(fs.existsSync(path.join(root, 'dist', lang === 'en' ? '' : lang, 'research', 'index.html')), `${lang}: research list`);
   assert.ok(!html.includes('get in touch'), 'neuroarchitecture: no get in touch button');
   const vercel = JSON.parse(fs.readFileSync(path.join(root, 'dist', 'vercel.json'), 'utf8'));
-  assert.ok(vercel.rewrites.some(r => r.source === '/pure/:path*' && r.destination === 'https://purmethod.com/pure/:path*'), 'brinkmannpaul.com/pure shows the pur project');
+  assert.ok(vercel.rewrites.some(r => r.source === '/pure/:path+' && r.destination === 'https://purmethod.com/pure/:path+'), 'brinkmannpaul.com/pure shows the pur project');
   assert.ok(html.includes('<a class="row-cta" href="/pure/">explore pure</a>'), 'the pure row opens brinkmannpaul.com/pure');
 }
 for (const f of ['index.html', 'weekends/index.html', 'skyn/index.html', 'rye/index.html', 'cyclemax/index.html', 'cutcake/index.html', 'compaz/index.html']) {
