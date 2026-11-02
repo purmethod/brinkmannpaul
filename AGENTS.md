@@ -27,6 +27,9 @@ orders@brinkmannpaul.com.
   (Trace + Pen-Reveal, siehe Skript-Header). Nur für Intro-Änderungen relevant.
 - `docs/` — Analyse, Inventar, Backlog, Workflow. Änderungen an Inhalten dokumentieren.
 - `.openai/hosting.json` — Deployment-Konfiguration des ChatGPT-Hostings. **Nicht löschen.**
+- `knowledge/` — Pauls Wissensbasis (PURE: Säulen, Module, Buchtexte, Belege). **Vor jedem PURE-Text lesen:**
+  [knowledge/README.md](./knowledge/README.md). Wird nicht deployed; Änderungen dort dürfen direkt auf `main`
+  (`docs(knowledge): …`), danach `python3 scripts/build_knowledge_bundle.py` für `knowledge/pure/ALL.md`.
 
 ## 4. Brand & Design-System (nicht verhandelbar)
 
