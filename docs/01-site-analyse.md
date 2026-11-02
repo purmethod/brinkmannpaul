@@ -27,8 +27,8 @@ index.html, styles.css, app.js **byte-identisch** mit brinkmannpaul.com; genutzt
 | `assets/intro-handwriting-split.mp4` | 139 KB | 9,62 s, 900×1100 (9:11), h264, **60 fps** — Handschrift-Reveal |
 | `assets/intro-handwriting-split-complete.png` | 83 KB | 900×1100, finaler Frame der Signatur (Fallback/Endbild) |
 
-**Stack:** statisch, null Abhängigkeiten, kein Build. Hosting: ChatGPT-Hosting (OpenAI), konfiguriert via
-`.openai/hosting.json` im Repo (static directory: `dist`).
+**Stack:** statisch, null Abhängigkeiten, kein Build. Hosting: Vercel (Projekt `brinkmannpaul`, Root Directory `dist`),
+automatisches Deployment bei jedem Push auf `main`. `.openai/hosting.json` ist veraltet.
 
 **Intro-Produktionskette:** `dist/assets/intro-handwriting-split.mp4` wird NICHT generiert, sondern aus Pauls
 echter Handschrift gerendert — `scripts/render_handwriting_photo.py` (SVG-Trace der Tinten-Fotos),

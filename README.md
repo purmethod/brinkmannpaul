@@ -1,7 +1,18 @@
 # brinkmann paul — Website
 
 One-Pager von Paul Brinkmann: **brinkmannpaul.com** — Projekte & Produkte aus Architektur & Art, Health und Mind.
-Live über ChatGPT-Hosting (OpenAI, konfiguriert in `.openai/hosting.json`, static directory: `dist/`).
+Live über **Vercel** (Projekt `brinkmannpaul`, Root Directory `dist/`). Jeder Push auf `main` geht automatisch live.
+
+## So arbeiten Claude und ChatGPT zusammen
+
+Ein Repo, ein Hosting, eine Wissensbasis. Beide Agenten arbeiten an genau derselben Sache:
+
+1. **Code und Texte der Website:** dieses Repo, Ordner `dist/`. Beide pushen hierher.
+2. **Live:** Vercel deployt automatisch aus `main`. Kein Agent deployt woanders hin.
+3. **Wissen:** `knowledge/`. Beide lesen von dort und sortieren neue Erkenntnisse dort ein.
+4. **Regeln:** [AGENTS.md](./AGENTS.md) gilt für beide. Claude Code liest sie über `CLAUDE.md`, ChatGPT über `AGENTS.md`.
+
+`/pure` und `/pact` liegen auf purmethod.com und werden über Rewrites in `dist/vercel.json` unter brinkmannpaul.com angezeigt.
 
 ## Stack
 
@@ -39,7 +50,8 @@ docs/02-inhalts-inventar.md → komplettes Inhalts-, Link- und Asset-Inventar
 docs/03-optimierungs-backlog.md → priorisierte Optimierungsaufgaben (P0–P2)
 docs/04-multi-agent-workflow.md → Zusammenarbeits-Ablauf für alle Agenten
 docs/assets/                → Screenshots als Referenz (Desktop/Mobile)
-.openai/hosting.json        → ChatGPT-Hosting-Konfiguration (static: dist)
+dist/vercel.json            → Vercel-Konfiguration (Rewrites für /pure und /pact auf purmethod.com)
+.openai/hosting.json        → veraltet: frühere ChatGPT-Hosting-Konfiguration, wird nicht mehr genutzt
 knowledge/                  → Pauls Wissensbasis für alle Agenten (PURE), Einstieg knowledge/README.md
 ```
 

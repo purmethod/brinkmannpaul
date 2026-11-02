@@ -150,9 +150,7 @@ Status: implementiert und in Vercel-Vorschau geprüft; zur Veröffentlichung fre
 - Voraussetzung: Inhalte von Paul (Fotos, Referenzen, Preise).
 
 ### P2-02 Hosting-Umzug evaluieren
-- ChatGPT-Hosting ist funktional; ein eigener Standort (z. B. Cloudflare Pages / GitHub Pages / Higgsfield-Builder)
-  bringt Analytics, Redirect-Kontrolle und einfachere CI. `.openai/hosting.json` dann dort spiegeln.
-- DNS/Domain-Entscheidung liegt bei Paul.
+- ✅ Erledigt: Die Seite läuft auf Vercel mit automatischem Deployment aus `main`. DNS liegt bei Vercel.
 
 ### P2-03 Mehrsprachigkeit (en/de)
 - Content aktuell englisch, Zielgruppe teils DACH. Sprach-Toggle als eigener Issue-Komplex.

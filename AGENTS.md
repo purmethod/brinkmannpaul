@@ -21,12 +21,13 @@ orders@brinkmannpaul.com.
 
 ## 3. Repo-Layout
 
-- `dist/` — der produktive, **deployed Code** (index.html, styles.css, app.js, assets/). Wird laut
-  `.openai/hosting.json` statisch ausgeliefert — dieser Stand entspricht 1:1 dem Live-System. Hier wird gearbeitet.
+- `dist/` — der produktive, **deployed Code** (index.html, styles.css, app.js, assets/). Wird von **Vercel**
+  (Projekt `brinkmannpaul`) bei jedem Push auf `main` automatisch ausgeliefert — dieser Stand entspricht 1:1 dem Live-System. Hier wird gearbeitet.
+- `dist/vercel.json` — Rewrites: `/pure` und `/pact` kommen von purmethod.com. Diese Seiten liegen deshalb nicht als Dateien in `dist/`.
 - `scripts/` — Python-Tooling, das Pauls **echte Handschrift-Fotos** in die Intro-Videos rendert
   (Trace + Pen-Reveal, siehe Skript-Header). Nur für Intro-Änderungen relevant.
 - `docs/` — Analyse, Inventar, Backlog, Workflow. Änderungen an Inhalten dokumentieren.
-- `.openai/hosting.json` — Deployment-Konfiguration des ChatGPT-Hostings. **Nicht löschen.**
+- `.openai/hosting.json` — **veraltet.** Frühere ChatGPT-Hosting-Konfiguration, die Seite läuft nicht mehr darüber. Nicht als Deployment-Weg benutzen.
 - `knowledge/` — Pauls Wissensbasis (PURE: Säulen, Module, Buchtexte, Belege). **Vor jedem PURE-Text lesen:**
   [knowledge/README.md](./knowledge/README.md). Wird nicht deployed; Änderungen dort dürfen direkt auf `main`
   (`docs(knowledge): …`), danach `python3 scripts/build_knowledge_bundle.py` für `knowledge/pure/ALL.md`.

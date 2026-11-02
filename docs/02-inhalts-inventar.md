@@ -832,7 +832,7 @@ Die folgenden Abschnitte dokumentieren den historischen Stand vor dieser Aktuali
 | `<html lang>` | `en` |
 | `theme-color` | `#ffffff` |
 | Favicon | Inline-SVG (weißes Quadrat, schwarzes „P") |
-| Domain | brinkmannpaul.com (ChatGPT-Hosting) |
+| Domain | brinkmannpaul.com (Vercel) |
 
 ## Header
 
