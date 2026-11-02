@@ -42,4 +42,4 @@
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
 | Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
 | PURE Pact | final | |
-| Seite brinkmannpaul.com/pure | offen | „explore pure“ zeigt auf eine noch nicht vorhandene Seite |
+| Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |

@@ -25,4 +25,4 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 
 ## Website-Hinweis
 
-- Der Button „explore pure“ auf brinkmannpaul.com verlinkt auf `/pure/`. Diese Seite existiert im Ordner `dist/` noch nicht. Geplant: Produktseite brinkmannpaul.com/pure, auf der man vor dem Kauf lesen kann, Checkout über Stan.
+- Die PURE-Seite ist **fertig und live**: Der Button „explore pure“ führt auf brinkmannpaul.com/pure. Ausgeliefert wird sie von purmethod.com/pure über eine Weiterleitung in `dist/vercel.json` (Rewrites für `/pure`, `/pure/` und `/pure/:path+`). Sie liegt deshalb nicht als Datei in `dist/`. Dasselbe gilt für `/pact` (→ purmethod.com/pure/pact).
