@@ -7,6 +7,7 @@ import { testContext } from "./test-utils";
 const answer = (over: Partial<SurveyBody> = {}) => ({
   consent: true,
   version: SURVEY_VERSION,
+  lang: "de",
   ratings: { one_tap: 4, food_macros: 3, heat_cold: 2, privacy: 4 },
   annoyances: ["zu kompliziert", "Werbung oder Abo-Druck"],
   currentApp: "Flo",
@@ -58,8 +59,8 @@ describe("summarizeSurvey + csv", () => {
     expect(s.prices[0]).toEqual({ key: "bis 5 € im Monat", n: 2 });
     const csv = surveyCsv(rows.map((r, i) => ({ ...r, id: `0000000${i}-0000-0000-0000-000000000000` })));
     const [head, first] = csv.split("\n");
-    expect(head.split(",")).toHaveLength(3 + QUESTION_IDS.length + 6);
-    expect(first.startsWith("00000000,2026-11,2026-11,4,")).toBe(true);
+    expect(head.split(",")).toHaveLength(4 + QUESTION_IDS.length + 6);
+    expect(first.startsWith("00000000,2026-11,2026-11,de,4,")).toBe(true);
     expect(first).toContain("zu kompliziert | Werbung oder Abo-Druck");
   });
 });
@@ -73,7 +74,17 @@ describe("POST /api/survey", () => {
     expect(row).toMatchObject({ ratings: { one_tap: 4, food_macros: 3, heat_cold: 2, privacy: 4 }, currentApp: "Flo", voice: true });
     expect(row.wish).toBe("Mehr Tipps fürs Training, ruf mich an: [entfernt]");
     // nothing that points to a device or a sender
-    expect(Object.keys(row).sort()).toEqual(["ageGroup", "annoyances", "createdMonth", "currentApp", "id", "price", "ratings", "version", "voice", "wish"]);
+    expect(Object.keys(row).sort()).toEqual(["ageGroup", "annoyances", "createdMonth", "currentApp", "id", "lang", "price", "ratings", "version", "voice", "wish"]);
+    expect(row.lang).toBe("de");
+  });
+
+  it("keeps the language she answered in – same keys in every language", async () => {
+    const { call, store } = await testContext();
+    expect((await call("POST", "/api/survey", answer({ lang: "ar", wish: "أريد نصائح يومية للنوم" } as never))).status).toBe(200);
+    expect((await call("POST", "/api/survey", answer({ lang: "xx" } as never))).status).toBe(400);
+    const [row] = await store.surveyResponses();
+    expect(row).toMatchObject({ lang: "ar", wish: "أريد نصائح يومية للنوم", currentApp: "Flo" });
+    expect(summarizeSurvey([row]).languages[0]).toEqual({ key: "ar", n: 1 });
   });
 
   it("rejects unknown questions, out-of-scale values, no consent and empty answers", async () => {

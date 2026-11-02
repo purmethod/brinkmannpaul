@@ -1,6 +1,7 @@
 // Survey cyclemax.app/questions: anonymous answers (no device id, no IP), aggregates and a Claude summary for /admin.
 import * as z from "zod/v4";
 import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTION_IDS, QUESTIONS, SCALE, WISH_MAX } from "../shared/survey";
+import { LANG_CODES } from "../shared/survey-i18n";
 import { csvRow } from "./csv";
 import type { Llm } from "./llm";
 
@@ -12,6 +13,7 @@ export const SurveyBody = z
   .object({
     consent: z.literal(true, { message: "Bitte bestätige, dass wir deine Antworten anonym speichern dürfen." }),
     version: z.string().max(20),
+    lang: z.enum(LANG_CODES).default("de"),
     // partial: every question may be skipped
     ratings: z.partialRecord(z.enum(QUESTION_IDS as [string, ...string[]]), z.number().int().min(1).max(SCALE.length)),
     annoyances: z.array(z.enum(ANNOYANCES)).max(ANNOYANCES.length).default([]),
@@ -30,6 +32,7 @@ export type SurveyBody = z.infer<typeof SurveyBody>;
 export interface SurveyResponse {
   createdMonth: string;
   version: string;
+  lang: string;
   ratings: Record<string, number>;
   annoyances: string[];
   currentApp: string | null;
@@ -60,6 +63,7 @@ export function toResponse(b: SurveyBody, now = Date.now()): SurveyResponse {
   return {
     createdMonth: new Date(now).toISOString().slice(0, 7),
     version: b.version,
+    lang: b.lang,
     ratings: Object.fromEntries(Object.entries(b.ratings).filter((e): e is [string, number] => typeof e[1] === "number")),
     annoyances: [...new Set(b.annoyances)],
     currentApp: b.currentApp,
@@ -106,16 +110,18 @@ export function summarizeSurvey(rows: SurveyResponse[]) {
     currentApps: count(rows.map((r) => r.currentApp), CURRENT_APPS),
     ageGroups: count(rows.map((r) => r.ageGroup), AGE_GROUPS),
     prices: count(rows.map((r) => r.price), PRICES),
+    languages: count(rows.map((r) => r.lang), LANG_CODES),
   };
 }
 
 export function surveyCsv(rows: (SurveyResponse & { id: string })[]): string {
-  const head = ["id", "month", "version", ...QUESTION_IDS, "annoyances", "current_app", "age_group", "price", "voice", "wish"];
+  const head = ["id", "month", "version", "lang", ...QUESTION_IDS, "annoyances", "current_app", "age_group", "price", "voice", "wish"];
   const lines = rows.map((r) =>
     csvRow([
       r.id.slice(0, 8),
       r.createdMonth,
       r.version,
+      r.lang,
       ...QUESTION_IDS.map((id) => r.ratings[id] ?? ""),
       r.annoyances.join(" | "),
       r.currentApp,
@@ -138,7 +144,8 @@ export type WishSummary = z.infer<typeof WishSummary>;
 
 const SUMMARY_SYSTEM = `Du wertest Freitext-Antworten einer Umfrage unter Frauen aus: Was wünschen sie sich von einer Zyklus-App,
 die wie eine Wettervorhersage jeden Tag wissenschaftlich fundierte Tipps gibt (Ernährung, Training, Schlaf, Sauna, Kälte)?
-Fasse ehrlich und konkret zusammen, auf Deutsch:
+Die Antworten können auf Deutsch, Englisch, Französisch, Spanisch, Arabisch oder Russisch sein.
+Fasse ehrlich und konkret zusammen, auf Deutsch (Zitate ins Deutsche übersetzt):
 - themes: die häufigsten Themen, absteigend nach Anzahl Nennungen (geschätzt), je mit einem kurzen wörtlichen Zitat (ohne persönliche Details).
 - features: konkrete Funktionen, die gewünscht werden.
 - frustrations: was an heutigen Zyklus-Apps stört.

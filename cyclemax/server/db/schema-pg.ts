@@ -119,6 +119,7 @@ export const surveyResponses = cm.table("survey_responses", {
   id: text("id").primaryKey(),
   createdMonth: text("created_month").notNull(),
   version: text("version").notNull(),
+  lang: text("lang").notNull().default("de"),
   ratings: text("ratings").notNull(),
   annoyances: text("annoyances").notNull(),
   currentApp: text("current_app"),

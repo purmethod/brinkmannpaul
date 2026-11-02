@@ -42,7 +42,7 @@ const ERRORS: Record<string, string> = {
   "audio-capture": "Kein Mikrofon gefunden.",
 };
 
-export function createWebSpeech(win: object = globalThis): SpeechAdapter {
+export function createWebSpeech(win: object = globalThis, lang: string = SPEECH_LANG): SpeechAdapter {
   let current: RecognitionLike | null = null;
   return {
     kind: "web",
@@ -55,7 +55,7 @@ export function createWebSpeech(win: object = globalThis): SpeechAdapter {
       current?.stop();
       const rec = new Ctor();
       current = rec;
-      rec.lang = SPEECH_LANG;
+      rec.lang = lang;
       rec.continuous = true;
       rec.interimResults = true;
       let failed: string | undefined;

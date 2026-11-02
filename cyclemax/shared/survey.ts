@@ -81,6 +81,8 @@ export const WISH_MAX = 3000;
 export interface SurveyAnswer {
   consent: true;
   version: string;
+  /** language she answered in (see shared/survey-i18n.ts) */
+  lang: string;
   /** question id → 1 (unwichtig) … 4 (ultra wichtig) */
   ratings: Record<string, number>;
   annoyances: string[];

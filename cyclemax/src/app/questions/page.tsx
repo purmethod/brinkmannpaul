@@ -1,32 +1,57 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTIONS, SCALE, SECTIONS, SURVEY_VERSION, WISH_MAX } from "@shared/survey";
+import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTIONS, SECTIONS, SURVEY_VERSION, WISH_MAX } from "@shared/survey";
+import { fill, LANGS, pickLang, SURVEY_STRINGS, type Lang } from "@shared/survey-i18n";
 import { createWebSpeech } from "@/adapters/speech";
 import { Wordmark } from "@/components/Logo";
 import { MicButton, useDictation } from "@/components/Mic";
 import { Button, Screen } from "@/components/ui";
-import { surveyApi } from "@/lib/api";
+import { ApiError, surveyApi } from "@/lib/api";
 
-function Scale({ id, value, onChange }: { id: string; value: number | undefined; onChange: (v: number) => void }) {
+/** Language boxes at the top – every woman sees her language at once. */
+function LanguagePicker({ lang, onChange, label }: { lang: Lang; onChange: (l: Lang) => void; label: string }) {
+  return (
+    <div role="radiogroup" aria-label={label} className="grid grid-cols-3 gap-2" data-testid="languages">
+      {LANGS.map((l) => (
+        <button
+          key={l.code}
+          type="button"
+          role="radio"
+          aria-checked={lang === l.code}
+          lang={l.code}
+          dir={l.dir}
+          onClick={() => onChange(l.code)}
+          className={`min-h-11 rounded-xl px-2 text-[15px] transition-colors ${lang === l.code ? "bg-ink text-white" : "bg-surface active:bg-line"}`}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Scale({ id, value, onChange, labels, rtl }: { id: string; value: number | undefined; onChange: (v: number) => void; labels: readonly string[]; rtl: boolean }) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
-  // radio group: one tab stop per question, arrow keys move the choice
+  // radio group: one tab stop per question, arrow keys move the choice (mirrored right-to-left)
   const onKey = (e: KeyboardEvent) => {
-    const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+    const forward = rtl ? "ArrowLeft" : "ArrowRight";
+    const backward = rtl ? "ArrowRight" : "ArrowLeft";
+    const step = e.key === forward || e.key === "ArrowDown" ? 1 : e.key === backward || e.key === "ArrowUp" ? -1 : 0;
     if (!step) return;
     e.preventDefault();
-    const next = Math.min(SCALE.length, Math.max(1, (value ?? 0) + step));
+    const next = Math.min(labels.length, Math.max(1, (value ?? 0) + step));
     onChange(next);
     refs.current[next - 1]?.focus();
   };
   return (
     <div role="radiogroup" aria-labelledby={`${id}-label`} className="grid grid-cols-4 gap-1.5" onKeyDown={onKey}>
-      {SCALE.map((label, i) => {
+      {labels.map((label, i) => {
         const v = i + 1;
         const on = value === v;
         return (
           <button
-            key={label}
+            key={v}
             ref={(el) => {
               refs.current[i] = el;
             }}
@@ -46,7 +71,20 @@ function Scale({ id, value, onChange }: { id: string; value: number | undefined;
   );
 }
 
-function Chips({ options, selected, onToggle, label }: { options: readonly string[]; selected: string[]; onToggle: (v: string) => void; label: string }) {
+/** Choice chips: `value` is the stored (language independent) key, `labels` the translation. */
+function Chips<K extends string>({
+  options,
+  labels,
+  selected,
+  onToggle,
+  label,
+}: {
+  options: readonly K[];
+  labels: Record<K, string>;
+  selected: string[];
+  onToggle: (v: K) => void;
+  label: string;
+}) {
   return (
     <div role="group" aria-label={label} className="flex flex-wrap gap-2">
       {options.map((o) => {
@@ -59,7 +97,7 @@ function Chips({ options, selected, onToggle, label }: { options: readonly strin
             onClick={() => onToggle(o)}
             className={`min-h-10 rounded-full px-4 text-[14px] transition-colors ${on ? "bg-ink text-white" : "bg-surface active:bg-line"}`}
           >
-            {o}
+            {labels[o]}
           </button>
         );
       })}
@@ -70,6 +108,31 @@ function Chips({ options, selected, onToggle, label }: { options: readonly strin
 const one = (set: (v: string | null) => void, current: string | null) => (v: string) => set(current === v ? null : v);
 
 export default function QuestionsPage() {
+  const [lang, setLang] = useState<Lang>("de");
+  const t = SURVEY_STRINGS[lang];
+  const meta = LANGS.find((l) => l.code === lang)!;
+  const rtl = meta.dir === "rtl";
+
+  // ?lang=… or the browser language; the choice goes into the address (shareable link), nothing is stored
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLang(pickLang(new URLSearchParams(window.location.search).get("lang"), navigator.languages ?? [navigator.language]));
+  }, []);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = meta.dir;
+    return () => {
+      document.documentElement.lang = "de";
+      document.documentElement.dir = "ltr";
+    };
+  }, [lang, meta.dir]);
+  const chooseLang = (l: Lang) => {
+    setLang(l);
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", l);
+    window.history.replaceState(null, "", url);
+  };
+
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [annoyances, setAnnoyances] = useState<string[]>([]);
   const [currentApp, setCurrentApp] = useState<string | null>(null);
@@ -87,7 +150,8 @@ export default function QuestionsPage() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
-  const speech = useMemo(() => createWebSpeech(typeof window === "undefined" ? {} : window), []);
+  // speech recognition in her language
+  const speech = useMemo(() => createWebSpeech(typeof window === "undefined" ? {} : window, meta.speech), [meta.speech]);
   const [canSpeak, setCanSpeak] = useState(false);
   useEffect(() => {
     void speech.available().then(setCanSpeak);
@@ -114,11 +178,12 @@ export default function QuestionsPage() {
       await new Promise((r) => setTimeout(r, 600));
     }
     try {
-      await surveyApi.send({ consent: true, version: SURVEY_VERSION, ratings, annoyances, currentApp, ageGroup, price, wish: wishRef.current.trim(), voice: usedVoice });
+      await surveyApi.send({ consent: true, version: SURVEY_VERSION, lang, ratings, annoyances, currentApp, ageGroup, price, wish: wishRef.current.trim(), voice: usedVoice });
       setDone(true);
       window.scrollTo({ top: 0 });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Das hat nicht geklappt. Bitte versuch es noch einmal.");
+      const status = e instanceof ApiError ? e.status : 0;
+      setError(status === 429 ? t.errors.limit : status === 503 ? t.errors.busy : status === 400 ? t.errors.invalid : t.errors.generic);
     } finally {
       setBusy(false);
     }
@@ -126,141 +191,139 @@ export default function QuestionsPage() {
 
   if (done) {
     return (
-      <Screen className="gap-6 py-10">
-        <Wordmark />
-        <h1 ref={doneRef} tabIndex={-1} className="text-[30px] leading-tight font-semibold tracking-tight outline-none">
-          Danke dir.
-        </h1>
-        <p className="text-[17px] leading-relaxed">
-          Deine Antworten sind angekommen – anonym. Du hilfst, Cyclemax so zu bauen, wie Frauen es wirklich wollen.
-        </p>
-        <div className="flex flex-col gap-3 rounded-2xl bg-surface p-4">
-          <p className="text-[15px] leading-relaxed">
-            Magst du noch mehr beitragen? Teile Screenshots deiner Zyklus-App – anonym, gespeichert werden nur Zahlen und Einträge, keine Bilder.
-          </p>
-          <a href="/upload/" className="flex min-h-12 items-center justify-center rounded-2xl bg-ink px-6 text-[16px] font-medium text-white">
-            Screenshots anonym teilen
-          </a>
-        </div>
-      </Screen>
+      <div dir={meta.dir} lang={lang}>
+        <Screen className="gap-6 py-10">
+          <Wordmark />
+          <h1 ref={doneRef} tabIndex={-1} className="text-[30px] leading-tight font-semibold tracking-tight outline-none">
+            {t.thanksTitle}
+          </h1>
+          <p className="text-[17px] leading-relaxed">{t.thanksText}</p>
+          {/* the screenshot upload exists in German only so far */}
+          {lang === "de" && (
+            <div className="flex flex-col gap-3 rounded-2xl bg-surface p-4">
+              <p className="text-[15px] leading-relaxed">
+                Magst du noch mehr beitragen? Teile Screenshots deiner Zyklus-App – anonym, gespeichert werden nur Zahlen und Einträge, keine Bilder.
+              </p>
+              <a href="/upload/" className="flex min-h-12 items-center justify-center rounded-2xl bg-ink px-6 text-[16px] font-medium text-white">
+                Screenshots anonym teilen
+              </a>
+            </div>
+          )}
+        </Screen>
+      </div>
     );
   }
 
   return (
-    <Screen className="gap-8 py-10">
-      <Wordmark />
-      <section className="flex flex-col gap-3">
-        <h1 className="text-[30px] leading-tight font-semibold tracking-tight">Bau deine Zyklus-App mit.</h1>
-        <p className="text-[17px] leading-relaxed">
-          Cyclemax wird deine Wettervorhersage für den Zyklus. Jeden Morgen weißt du, was dir heute guttut: mehr Kohlenhydrate oder mehr Eiweiß,
-          Training oder Ruhe, Sauna oder kalte Dusche – wissenschaftlich belegt, damit du dich viel besser fühlst.
-        </p>
-        <p className="text-[15px] text-muted">{total} kurze Fragen · ca. 3 Minuten · anonym</p>
-      </section>
-
-      {SECTIONS.map((section) => (
-        <section key={section.title} className="flex flex-col gap-5">
-          <div>
-            <h2 className="text-[21px] font-semibold tracking-tight">{section.title}</h2>
-            <p className="text-[15px] text-muted">{section.intro}</p>
-          </div>
-          {section.questions.map((q) => (
-            <div key={q.id} className="flex flex-col gap-2.5">
-              <p id={`${q.id}-label`} className="text-[16px] leading-snug">
-                {q.text}
-              </p>
-              <Scale id={q.id} value={ratings[q.id]} onChange={(v) => setRatings((r) => ({ ...r, [q.id]: v }))} />
-            </div>
-          ))}
+    <div dir={meta.dir} lang={lang}>
+      <Screen className="gap-8 py-10">
+        <Wordmark />
+        <LanguagePicker lang={lang} onChange={chooseLang} label={t.language} />
+        <section className="flex flex-col gap-3">
+          <h1 className="text-[30px] leading-tight font-semibold tracking-tight">{t.title}</h1>
+          <p className="text-[17px] leading-relaxed">{t.intro}</p>
+          <p className="text-[15px] text-muted">{fill(t.meta, { n: total })}</p>
         </section>
-      ))}
 
-      <section className="flex flex-col gap-5">
-        <h2 className="text-[21px] font-semibold tracking-tight">Was dich heute stört</h2>
-        <div className="flex flex-col gap-2.5">
-          <p className="text-[16px]">Was nervt dich an deiner jetzigen Zyklus-App? (mehrere möglich)</p>
-          <Chips
-            label="Was stört"
-            options={ANNOYANCES}
-            selected={annoyances}
-            onToggle={(v) => setAnnoyances((a) => (a.includes(v) ? a.filter((x) => x !== v) : [...a, v]))}
-          />
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <p className="text-[16px]">Womit trackst du deinen Zyklus gerade?</p>
-          <Chips label="Aktuelle App" options={CURRENT_APPS} selected={currentApp ? [currentApp] : []} onToggle={one(setCurrentApp, currentApp)} />
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <p className="text-[16px]">Was wäre dir so eine App wert?</p>
-          <Chips label="Preis" options={PRICES} selected={price ? [price] : []} onToggle={one(setPrice, price)} />
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <p className="text-[16px]">
-            Dein Alter <span className="text-muted">(freiwillig)</span>
-          </p>
-          <Chips label="Alter" options={AGE_GROUPS} selected={ageGroup ? [ageGroup] : []} onToggle={one(setAgeGroup, ageGroup)} />
-        </div>
-      </section>
+        {SECTIONS.map((section, i) => (
+          <section key={section.title} className="flex flex-col gap-5">
+            <div>
+              <h2 className="text-[21px] font-semibold tracking-tight">{t.sections[i].title}</h2>
+              <p className="text-[15px] text-muted">{t.sections[i].intro}</p>
+            </div>
+            {section.questions.map((q) => (
+              <div key={q.id} className="flex flex-col gap-2.5">
+                <p id={`${q.id}-label`} className="text-[16px] leading-snug">
+                  {t.questions[q.id]}
+                </p>
+                <Scale id={q.id} labels={t.scale} rtl={rtl} value={ratings[q.id]} onChange={(v) => setRatings((r) => ({ ...r, [q.id]: v }))} />
+              </div>
+            ))}
+          </section>
+        ))}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-[21px] font-semibold tracking-tight">Deine Traum-App</h2>
-        <p id="wish-label" className="text-[16px] leading-snug">
-          Wenn du deine Zyklus-App selbst bauen würdest: Was müsste sie können? Was soll sie dir jeden Tag sagen? Was würdest du an deiner
-          jetzigen ändern?
-        </p>
-        <div className="flex items-start gap-3">
-          <textarea
-            value={wish}
-            aria-labelledby="wish-label"
-            // typing while the microphone runs would be overwritten by the next transcript
-            onFocus={() => dictation.listening && void dictation.stop()}
-            onChange={(e) => setWish(e.target.value.slice(0, WISH_MAX))}
-            rows={5}
-            placeholder={canSpeak ? "Sprich einfach drauflos – oder tipp." : "Schreib einfach drauflos."}
-            className="min-h-32 flex-1 resize-y rounded-2xl bg-surface p-4 text-[16px] leading-relaxed"
-            data-testid="wish"
-          />
-          {canSpeak && (
-            <MicButton
-              listening={dictation.listening}
-              onClick={() => void dictation.toggle()}
-              size={52}
-              label="Reinsprechen"
+        <section className="flex flex-col gap-5">
+          <h2 className="text-[21px] font-semibold tracking-tight">{t.todayTitle}</h2>
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[16px]">{t.annoyQ}</p>
+            <Chips
+              label={t.todayTitle}
+              options={ANNOYANCES}
+              labels={t.annoyances}
+              selected={annoyances}
+              onToggle={(v) => setAnnoyances((a) => (a.includes(v) ? a.filter((x) => x !== v) : [...a, v]))}
             />
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[16px]">{t.appQ}</p>
+            <Chips label={t.appQ} options={CURRENT_APPS} labels={t.apps} selected={currentApp ? [currentApp] : []} onToggle={one(setCurrentApp, currentApp)} />
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[16px]">{t.priceQ}</p>
+            <Chips label={t.priceQ} options={PRICES} labels={t.prices} selected={price ? [price] : []} onToggle={one(setPrice, price)} />
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[16px]">
+              {t.ageQ} <span className="text-muted">{t.optional}</span>
+            </p>
+            <Chips label={t.ageQ} options={AGE_GROUPS} labels={t.ages} selected={ageGroup ? [ageGroup] : []} onToggle={one(setAgeGroup, ageGroup)} />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-[21px] font-semibold tracking-tight">{t.dreamTitle}</h2>
+          <p id="wish-label" className="text-[16px] leading-snug">
+            {t.dreamQ}
+          </p>
+          <div className="flex items-start gap-3">
+            <textarea
+              value={wish}
+              aria-labelledby="wish-label"
+              dir="auto"
+              // typing while the microphone runs would be overwritten by the next transcript
+              onFocus={() => dictation.listening && void dictation.stop()}
+              onChange={(e) => setWish(e.target.value.slice(0, WISH_MAX))}
+              rows={5}
+              placeholder={canSpeak ? t.placeholderSpeak : t.placeholderType}
+              className="min-h-32 flex-1 resize-y rounded-2xl bg-surface p-4 text-[16px] leading-relaxed"
+              data-testid="wish"
+            />
+            {canSpeak && <MicButton listening={dictation.listening} onClick={() => void dictation.toggle()} size={52} label={t.mic} stopLabel={t.micStop} />}
+          </div>
+          {dictation.error && (
+            <p className="text-[14px] text-accent" role="alert">
+              {t.errors.mic}
+            </p>
           )}
-        </div>
-        {dictation.error && (
+          <p className="text-[13px] text-muted">{t.textHint}</p>
+        </section>
+
+        <label className="flex items-start gap-3 text-[14px] leading-relaxed">
+          <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#111]" data-testid="survey-consent" />
+          <span>
+            {t.consent}{" "}
+            <a href="/datenschutz/#umfrage" target="_blank" rel="noopener" className="underline underline-offset-2">
+              {t.privacy}
+            </a>
+            .
+          </span>
+        </label>
+
+        {error && (
           <p className="text-[14px] text-accent" role="alert">
-            {dictation.error}
+            {error}
           </p>
         )}
-        <p className="text-[13px] text-muted">Bitte keine Namen oder Kontaktdaten. Spracheingabe läuft über die Spracherkennung deines Browsers.</p>
-      </section>
-
-      <label className="flex items-start gap-3 text-[14px] leading-relaxed">
-        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#111]" data-testid="survey-consent" />
-        <span>
-          Einverstanden: Meine Antworten werden anonym gespeichert und für die Entwicklung von Cyclemax ausgewertet. Details in der{" "}
-          <a href="/datenschutz/#umfrage" target="_blank" rel="noopener" className="underline underline-offset-2">
-            Datenschutzerklärung
-          </a>
-          .
-        </span>
-      </label>
-
-      {error && (
-        <p className="text-[14px] text-accent" role="alert">
-          {error}
-        </p>
-      )}
-      <div className="flex flex-col gap-2">
-        <Button disabled={!consent || busy || !anything} onClick={send} data-testid="survey-send">
-          {busy ? "Wird gesendet …" : "Antworten senden"}
-        </Button>
-        <p className="text-center text-[13px] text-muted">
-          {answered} von {total} beantwortet{answered < total ? " – du kannst auch Fragen auslassen" : ""}
-        </p>
-      </div>
-    </Screen>
+        <div className="flex flex-col gap-2">
+          <Button disabled={!consent || busy || !anything} onClick={send} data-testid="survey-send">
+            {busy ? t.sending : t.send}
+          </Button>
+          <p className="text-center text-[13px] text-muted">
+            {fill(t.progress, { a: answered, n: total })}
+            {answered < total ? t.skip : ""}
+          </p>
+        </div>
+      </Screen>
+    </div>
   );
 }

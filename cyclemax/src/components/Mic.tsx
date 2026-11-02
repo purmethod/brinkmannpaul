@@ -49,12 +49,24 @@ export function IconMic(p: { width?: number; height?: number }) {
 }
 
 /** Round mic button. While listening it becomes the pulsing Cyclemax ring. */
-export function MicButton({ listening, onClick, size = 48, label = "Sprechen" }: { listening: boolean; onClick: () => void; size?: number; label?: string }) {
+export function MicButton({
+  listening,
+  onClick,
+  size = 48,
+  label = "Sprechen",
+  stopLabel = "Aufnahme beenden",
+}: {
+  listening: boolean;
+  onClick: () => void;
+  size?: number;
+  label?: string;
+  stopLabel?: string;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={listening ? "Aufnahme beenden" : label}
+      aria-label={listening ? stopLabel : label}
       aria-pressed={listening}
       data-testid="mic"
       className={`relative flex shrink-0 items-center justify-center rounded-full transition-colors ${listening ? "bg-ink text-white" : "bg-surface text-ink"}`}

@@ -231,6 +231,7 @@ interface SurveyData {
     currentApps: Count[];
     ageGroups: Count[];
     prices: Count[];
+    languages: Count[];
   };
   wishes: { month: string; text: string; voice: boolean }[];
 }
@@ -293,6 +294,9 @@ function Survey({ api }: { api: ReturnType<typeof adminApi> }) {
       </p>
       <p className="text-[14px] text-muted">
         <span className="text-ink">Alter:</span> {list(s.ageGroups)}
+      </p>
+      <p className="text-[14px] text-muted">
+        <span className="text-ink">Sprachen:</span> {list(s.languages)}
       </p>
       <div className="flex flex-wrap gap-2">
         <Small
