@@ -17,6 +17,8 @@ export default defineConfig({
     browserName: "chromium",
     defaultBrowserType: "chromium",
     baseURL: "http://localhost:3100",
+    // the web app is closed before launch (src/lib/launch.ts) – the tests open it like the owner does
+    storageState: { cookies: [], origins: [{ origin: "http://localhost:3100", localStorage: [{ name: "cyclemax-preview", value: "1" }] }] },
     locale: "de-DE",
     timezoneId: "Europe/Berlin",
     // Cloud sandbox ships Chromium here; CI uses Playwright's own download.

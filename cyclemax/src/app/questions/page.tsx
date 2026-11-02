@@ -241,7 +241,7 @@ export default function QuestionsPage() {
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#111]" data-testid="survey-consent" />
         <span>
           Einverstanden: Meine Antworten werden anonym gespeichert und für die Entwicklung von Cyclemax ausgewertet. Details in der{" "}
-          <a href="/datenschutz/#umfrage" className="underline underline-offset-2">
+          <a href="/datenschutz/#umfrage" target="_blank" rel="noopener" className="underline underline-offset-2">
             Datenschutzerklärung
           </a>
           .

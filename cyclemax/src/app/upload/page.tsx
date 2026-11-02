@@ -220,7 +220,7 @@ export default function UploadPage() {
           Ich bin mindestens 16 Jahre alt, lade nur meine eigenen Daten hoch und willige ein, dass meine Screenshots einmalig automatisch
           ausgewertet (durch Claude von Anthropic, USA) und Zyklus- und Befindensdaten daraus als anonymer Datensatz gespeichert werden.
           Details in der{" "}
-          <a href="/datenschutz/#upload" className="underline underline-offset-2">
+          <a href="/datenschutz/#upload" target="_blank" rel="noopener" className="underline underline-offset-2">
             Datenschutzerklärung
           </a>
           .
