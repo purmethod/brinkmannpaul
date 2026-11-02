@@ -15,6 +15,7 @@ const TABLES = (ms: string, q = "") => [
   `CREATE TABLE IF NOT EXISTS ${q}chat_usage (device_id TEXT NOT NULL, day TEXT NOT NULL, count INTEGER NOT NULL, PRIMARY KEY (device_id, day))`,
   `CREATE TABLE IF NOT EXISTS ${q}job_runs (id TEXT PRIMARY KEY, started_at ${ms} NOT NULL, summary TEXT NOT NULL)`,
   `CREATE TABLE IF NOT EXISTS ${q}datasets (id TEXT PRIMARY KEY, created_month TEXT NOT NULL, source_app TEXT NOT NULL, age_group TEXT, contraception TEXT, cycle_lengths TEXT NOT NULL, period_lengths TEXT NOT NULL, avg_cycle REAL, avg_period REAL, symptoms TEXT NOT NULL, observations TEXT NOT NULL DEFAULT '[]', metrics TEXT NOT NULL DEFAULT '[]', quality TEXT NOT NULL, images INTEGER NOT NULL)`,
+  `CREATE TABLE IF NOT EXISTS ${q}survey_responses (id TEXT PRIMARY KEY, created_month TEXT NOT NULL, version TEXT NOT NULL, ratings TEXT NOT NULL, annoyances TEXT NOT NULL, current_app TEXT, age_group TEXT, price TEXT, wish TEXT NOT NULL, voice INTEGER NOT NULL DEFAULT 0)`,
 ];
 
 /** Columns added after a table first went live. Postgres skips existing ones itself; SQLite errors are ignored. */

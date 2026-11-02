@@ -3,6 +3,7 @@ import { and, asc, desc, eq, gte, inArray, isNull, lte, ne, sql } from "drizzle-
 import { SEED_LINES, SEED_PRINCIPLES } from "../shared/knowledge.generated";
 import type { Line, LineCategory, ScheduledItem } from "../shared/types";
 import type { Database } from "./db";
+import type { SurveyResponse } from "./survey";
 import type { Dataset } from "./upload";
 
 /** "deleted" is a tombstone: keeps seed content from coming back on the next cold start. */
@@ -384,6 +385,40 @@ export function createStore(database: Database) {
         metrics: JSON.parse((r.metrics as string) || "[]"),
         quality: r.quality as Dataset["quality"],
         images: Number(r.images),
+      }));
+    },
+
+    // ------------------------------------------------------------ survey (/questions)
+    async insertSurvey(r: SurveyResponse): Promise<string> {
+      const id = uuid();
+      await db.insert(t.surveyResponses).values({
+        id,
+        createdMonth: r.createdMonth,
+        version: r.version,
+        ratings: JSON.stringify(r.ratings),
+        annoyances: JSON.stringify(r.annoyances),
+        currentApp: r.currentApp,
+        ageGroup: r.ageGroup,
+        price: r.price,
+        wish: r.wish,
+        voice: r.voice ? 1 : 0,
+      });
+      return id;
+    },
+
+    async surveyResponses(limit = 20_000): Promise<(SurveyResponse & { id: string })[]> {
+      const rows = await db.select().from(t.surveyResponses).orderBy(desc(t.surveyResponses.createdMonth)).limit(limit);
+      return rows.map((r: Record<string, unknown>) => ({
+        id: r.id as string,
+        createdMonth: r.createdMonth as string,
+        version: r.version as string,
+        ratings: JSON.parse(r.ratings as string),
+        annoyances: JSON.parse(r.annoyances as string),
+        currentApp: (r.currentApp ?? null) as string | null,
+        ageGroup: (r.ageGroup ?? null) as string | null,
+        price: (r.price ?? null) as string | null,
+        wish: r.wish as string,
+        voice: Number(r.voice) === 1,
       }));
     },
 

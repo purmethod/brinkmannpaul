@@ -13,6 +13,7 @@ import { createClaude, errorText, type Llm } from "./llm";
 import { createWebPushSender, sendDuePushes, vapidKeys, type PushSender } from "./push";
 import { createStore, GLOBAL_CLAUDE_KEY, type Store } from "./store";
 import { anonymize, checkImage, extract, summarize, toCsv, UploadBody, UPLOADS_PER_DAY_PER_SENDER } from "./upload";
+import { SurveyBody, surveyCsv, summarizeSurvey, summarizeWishes, SURVEYS_PER_DAY_PER_SENDER, toResponse } from "./survey";
 
 const HEALTH_CHECK_KEY = "health-claude-check";
 const HEALTH_CHECK_DAILY_LIMIT = 30;
@@ -133,10 +134,11 @@ function requireAdmin(req: Request, config: Config) {
 }
 
 const UPLOADS_GLOBAL_KEY = "__uploads-global__";
+const SURVEYS_GLOBAL_KEY = "__surveys-global__";
 /** Admin view and CSV read at most this many (newest) datasets. */
 const DATASET_LIMIT = 20_000;
-/** The upload page is web only: browsers on other sites must not be able to post into it. */
-const UPLOAD_ORIGINS = new Set(["https://cyclemax.app", "https://www.cyclemax.app"]);
+/** /upload and /questions are web only: browsers on other sites must not be able to post into them. */
+const WEB_ORIGINS = new Set(["https://cyclemax.app", "https://www.cyclemax.app"]);
 
 /** Sender for the per-day upload limit: the IP, for IPv6 its /64 network (one connection, many addresses). */
 function senderOf(req: Request): string {
@@ -163,9 +165,9 @@ function createUploadLimiter(limit: number) {
   };
 }
 
-const csv = (text: string) =>
+const csv = (text: string, filename = "cyclemax-datasets.csv") =>
   new Response(text, {
-    headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="cyclemax-datasets.csv"', "cache-control": "no-store", ...CORS },
+    headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": `attachment; filename="${filename}"`, "cache-control": "no-store", ...CORS },
   });
 
 function requireCron(req: Request, config: Config) {
@@ -185,6 +187,7 @@ export function routeOf(url: URL): string {
 
 export function createHandler(getContext: () => Promise<AppContext>) {
   const takeUpload = createUploadLimiter(UPLOADS_PER_DAY_PER_SENDER);
+  const takeSurvey = createUploadLimiter(SURVEYS_PER_DAY_PER_SENDER);
   return async function handle(req: Request): Promise<Response> {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
@@ -246,7 +249,7 @@ export function createHandler(getContext: () => Promise<AppContext>) {
 
       if (m === "POST" && path === "/api/upload") {
         const origin = req.headers.get("origin");
-        if (config.production && origin && !UPLOAD_ORIGINS.has(origin)) throw new HttpError(403, "Uploads nur über cyclemax.app/upload.");
+        if (config.production && origin && !WEB_ORIGINS.has(origin)) throw new HttpError(403, "Uploads nur über cyclemax.app/upload.");
         const b = await body(req, UploadBody);
         for (const img of b.images) {
           const problem = checkImage(img);
@@ -289,6 +292,17 @@ export function createHandler(getContext: () => Promise<AppContext>) {
         const code = path.slice("/api/upload/".length);
         if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(code)) throw new HttpError(400, "Ungültiger Löschcode.");
         return json({ ok: true, deleted: await store.deleteDataset(code.toLowerCase()) });
+      }
+
+      if (m === "POST" && path === "/api/survey") {
+        const origin = req.headers.get("origin");
+        if (config.production && origin && !WEB_ORIGINS.has(origin)) throw new HttpError(403, "Antworten nur über cyclemax.app/questions.");
+        const b = await body(req, SurveyBody);
+        if (!takeSurvey(senderOf(req))) throw new HttpError(429, "Danke – für heute haben wir deine Antworten schon.");
+        if (!(await store.takeQuota(SURVEYS_GLOBAL_KEY, config.surveyDailyLimit)))
+          throw new HttpError(503, "Heute kommen sehr viele Antworten an. Bitte versuch es morgen noch einmal.");
+        await store.insertSurvey(toResponse(b));
+        return json({ ok: true });
       }
 
       if (m === "GET" && path === "/api/push/key") {
@@ -370,6 +384,20 @@ export function createHandler(getContext: () => Promise<AppContext>) {
           const rows = await store.datasets(DATASET_LIMIT);
           if (url.searchParams.get("format") === "csv") return csv(toCsv(rows));
           return json({ summary: { ...summarize(rows), capped: rows.length >= DATASET_LIMIT }, rows: rows.slice(0, 200) });
+        }
+        if (resource === "survey" && !id && m === "GET") {
+          const rows = await store.surveyResponses();
+          if (url.searchParams.get("format") === "csv") return csv(surveyCsv(rows), "cyclemax-umfrage.csv");
+          return json({ summary: summarizeSurvey(rows), wishes: rows.filter((r) => r.wish).slice(0, 300).map((r) => ({ month: r.createdMonth, text: r.wish, voice: r.voice })) });
+        }
+        if (resource === "survey" && id === "summary" && m === "POST") {
+          if (!ctx.llm) throw new HttpError(503, "Claude ist nicht verbunden.");
+          const wishes = (await store.surveyResponses(500)).map((r) => r.wish).filter(Boolean);
+          try {
+            return json({ ok: true, count: wishes.length, summary: await summarizeWishes(ctx.llm, wishes) });
+          } catch (e) {
+            throw new HttpError(502, `Zusammenfassung fehlgeschlagen: ${errorText(e)}`);
+          }
         }
         if (resource === "job" && m === "POST") return json({ ok: true, ...(await runKnowledgeJob(store, ctx.llm)) });
         if (resource === "test-push" && m === "POST") {

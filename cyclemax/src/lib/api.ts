@@ -1,5 +1,6 @@
 // Backend client. Always absolute via NEXT_PUBLIC_API_BASE – the same build runs inside
 // Capacitor (capacitor://localhost), where relative URLs would hit the device.
+import type { SurveyAnswer } from "@shared/survey";
 import type { ChatRequest, ChatResponse, Line, ProfileRequest, ProfileResponse, ScheduledItem } from "@shared/types";
 
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8787").replace(/\/+$/, "");
@@ -85,6 +86,11 @@ export interface UploadResult {
   };
 }
 
+/** /questions: anonymous – no device id is sent. */
+export const surveyApi = {
+  send: (answer: SurveyAnswer) => call<{ ok: true }>("/api/survey", { method: "POST", body: json(answer) }, 30_000),
+};
+
 /** /upload: anonymous – no device id is sent. */
 export const uploadApi = {
   send: (payload: UploadPayload) => call<UploadResult>("/api/upload", { method: "POST", body: json(payload) }, 90_000),
@@ -111,6 +117,15 @@ export function adminApi(password: string) {
     datasets: () => req<any>("GET", "/api/admin/datasets"),
     datasetsCsv: async () => {
       const res = await fetch(`${API_BASE}/api/admin/datasets?format=csv`, { headers: auth });
+      if (!res.ok) throw new ApiError(res.status, res.statusText);
+      return res.blob();
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    survey: () => req<any>("GET", "/api/admin/survey"),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    surveySummary: () => req<any>("POST", "/api/admin/survey/summary"),
+    surveyCsv: async () => {
+      const res = await fetch(`${API_BASE}/api/admin/survey?format=csv`, { headers: auth });
       if (!res.ok) throw new ApiError(res.status, res.statusText);
       return res.blob();
     },

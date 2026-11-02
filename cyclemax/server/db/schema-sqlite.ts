@@ -109,3 +109,17 @@ export const datasets = sqliteTable("datasets", {
   quality: text("quality").notNull(),
   images: integer("images").notNull(),
 });
+
+/** Answers from cyclemax.app/questions: no device id, no IP; free text cleaned of contacts (see server/survey.ts). */
+export const surveyResponses = sqliteTable("survey_responses", {
+  id: text("id").primaryKey(),
+  createdMonth: text("created_month").notNull(),
+  version: text("version").notNull(),
+  ratings: text("ratings").notNull(),
+  annoyances: text("annoyances").notNull(),
+  currentApp: text("current_app"),
+  ageGroup: text("age_group"),
+  price: text("price"),
+  wish: text("wish").notNull(),
+  voice: integer("voice").notNull().default(0),
+});

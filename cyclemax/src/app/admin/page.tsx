@@ -34,7 +34,7 @@ interface Overview {
   claude: boolean;
 }
 
-const TABS = ["Freigabe", "Zeilen", "Leitsätze", "Meldungen", "Daten", "Wissen", "System"] as const;
+const TABS = ["Freigabe", "Zeilen", "Leitsätze", "Meldungen", "Umfrage", "Daten", "Wissen", "System"] as const;
 const KEY = "cyclemax-admin";
 
 export default function AdminPage() {
@@ -152,6 +152,7 @@ export default function AdminPage() {
               </div>
             ))
           ))}
+        {tab === "Umfrage" && <Survey api={api} />}
         {tab === "Daten" && <Datasets api={api} />}
         {tab === "Wissen" &&
           data.docs.map((d) => (
@@ -208,6 +209,140 @@ interface DatasetSummary {
   metrics: { name: string; unit: string; n: number; mean: number | null }[];
 }
 const PHASE_LABEL: Record<string, string> = { yellow: "Gelb · Wärme", pink: "Pink · Führen", green: "Grün · Nähe", red: "Rot · Standfest" };
+
+async function saveBlob(blob: Blob, name: string) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+}
+
+interface SurveyData {
+  summary: {
+    responses: number;
+    withWish: number;
+    viaVoice: number;
+    scale: string[];
+    ranking: { id: string; text: string; n: number; mean: number | null; top: number | null; dist: number[] }[];
+    annoyances: Count[];
+    currentApps: Count[];
+    ageGroups: Count[];
+    prices: Count[];
+  };
+  wishes: { month: string; text: string; voice: boolean }[];
+}
+interface WishSummary {
+  themes: { title: string; mentions: number; quote: string }[];
+  features: string[];
+  frustrations: string[];
+  surprises: string[];
+}
+
+/** Answers from cyclemax.app/questions: what women want most, what bothers them, their own words. */
+function Survey({ api }: { api: ReturnType<typeof adminApi> }) {
+  const [data, setData] = useState<SurveyData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [themes, setThemes] = useState<WishSummary | null>(null);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    api
+      .survey()
+      .then((r: SurveyData) => setData(r))
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "Fehler"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (error) return <p className="text-accent">{error}</p>;
+  if (!data) return <p className="text-muted">Lädt …</p>;
+  const s = data.summary;
+  const list = (rows: Count[]) => rows.filter((r) => r.n > 0).map((r) => `${r.key} (${r.n})`).join(", ") || "–";
+  const pct = (x: number | null) => (x === null ? "–" : `${Math.round(x * 100)} %`);
+  return (
+    <div className="flex flex-col gap-5">
+      <p className="text-muted">
+        Antworten aus <a className="underline" href="/questions/">cyclemax.app/questions</a> – anonym.
+      </p>
+      <p>
+        <b>{s.responses}</b> Antworten · <b>{s.withWish}</b> mit eigenen Worten ({s.viaVoice} gesprochen)
+      </p>
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">Was am wichtigsten ist (Ø 1 = unwichtig … 4 = ultra wichtig)</p>
+        {s.ranking.map((q, i) => (
+          <div key={q.id} className="rounded-xl bg-surface p-3">
+            <p className="text-[14px]">
+              <b>{i + 1}.</b> {q.text}
+            </p>
+            <p className="text-[13px] text-muted">
+              Ø {q.mean ?? "–"} · sehr/ultra wichtig: {pct(q.top)} · {s.scale.map((l, k) => `${l} ${q.dist[k]}`).join(" · ")}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p className="text-[14px] text-muted">
+        <span className="text-ink">Was stört:</span> {list(s.annoyances)}
+      </p>
+      <p className="text-[14px] text-muted">
+        <span className="text-ink">Apps heute:</span> {list(s.currentApps)}
+      </p>
+      <p className="text-[14px] text-muted">
+        <span className="text-ink">Zahlungsbereitschaft:</span> {list(s.prices)}
+      </p>
+      <p className="text-[14px] text-muted">
+        <span className="text-ink">Alter:</span> {list(s.ageGroups)}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <Small onClick={() => void api.surveyCsv().then((b) => saveBlob(b, "cyclemax-umfrage.csv"))}>CSV herunterladen</Small>
+        <Small
+          onClick={() => {
+            setBusy(true);
+            void api
+              .surveySummary()
+              .then((r: { summary: WishSummary }) => setThemes(r.summary))
+              .catch((e: unknown) => setError(e instanceof Error ? e.message : "Fehler"))
+              .finally(() => setBusy(false));
+          }}
+        >
+          {busy ? "Claude liest …" : "Eigene Worte zusammenfassen (Claude)"}
+        </Small>
+      </div>
+      {themes && (
+        <div className="flex flex-col gap-2 rounded-2xl border border-line p-4">
+          <p className="font-medium">Themen</p>
+          {themes.themes.map((t) => (
+            <p key={t.title} className="text-[14px]">
+              <b>{t.title}</b> ({t.mentions}) – <span className="text-muted">„{t.quote}“</span>
+            </p>
+          ))}
+          <p className="text-[14px]">
+            <b>Gewünschte Funktionen:</b> {themes.features.join(" · ") || "–"}
+          </p>
+          <p className="text-[14px]">
+            <b>Frust heute:</b> {themes.frustrations.join(" · ") || "–"}
+          </p>
+          <p className="text-[14px]">
+            <b>Überraschend:</b> {themes.surprises.join(" · ") || "–"}
+          </p>
+        </div>
+      )}
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">In ihren eigenen Worten</p>
+        {data.wishes.length === 0 ? (
+          <p className="text-muted">–</p>
+        ) : (
+          data.wishes.map((w, i) => (
+            <p key={i} className="rounded-xl bg-surface p-3 text-[14px] whitespace-pre-wrap">
+              {w.text}
+              <span className="block text-[12px] text-muted">
+                {w.month}
+                {w.voice ? " · gesprochen" : ""}
+              </span>
+            </p>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
 
 /** Anonymous datasets from cyclemax.app/upload: aggregates + CSV export. */
 function Datasets({ api }: { api: ReturnType<typeof adminApi> }) {

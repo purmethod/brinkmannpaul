@@ -3,6 +3,7 @@
 // Cyclemax (mood, energy, sleep, desire, temperature, the app's own statistics …), the server turns that into an
 // anonymous dataset (no dates, no names, no notes, no device id, no IP) – the images are never stored.
 import * as z from "zod/v4";
+import { csvCell } from "./csv";
 import type { Llm } from "./llm";
 
 export const MAX_IMAGES = 6;
@@ -345,12 +346,6 @@ export function summarize(rows: Dataset[]) {
   };
 }
 
-const csvCell = (v: unknown) => {
-  let s = v === null || v === undefined ? "" : Array.isArray(v) ? v.join(" ") : String(v);
-  // text read from screenshots must never run as a formula in Excel/Numbers
-  if (typeof v !== "number" && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
-  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-};
 
 /** One row per dataset; number lists space separated, symptoms as name@cycleDay, observations category:value@cycleDay. */
 export function toCsv(rows: (Dataset & { id: string })[]): string {

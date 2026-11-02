@@ -1,3 +1,4 @@
+import { SURVEYS_PER_DAY_DEFAULT } from "./survey";
 import { UPLOADS_PER_DAY_DEFAULT } from "./upload";
 
 // Backend configuration (all from environment variables, documented in .env.example / README).
@@ -13,6 +14,8 @@ export interface Config {
   claudeDailyLimit: number;
   /** Max screenshot uploads per day for the whole app (own budget, see server/upload.ts). */
   uploadDailyLimit: number;
+  /** Max survey answers per day for the whole app. */
+  surveyDailyLimit: number;
   /** True on a production deployment (Vercel production or NODE_ENV=production). */
   production: boolean;
   /** DATABASE_URL points to Postgres (persistent). */
@@ -43,6 +46,7 @@ export function readConfig(env: Record<string, string | undefined> = process.env
     claudeJsonEffort: isEffort(jsonEffort) ? jsonEffort : null,
     claudeDailyLimit: Number(env.CLAUDE_DAILY_LIMIT ?? 3000),
     uploadDailyLimit: Number(env.UPLOAD_DAILY_LIMIT ?? UPLOADS_PER_DAY_DEFAULT),
+    surveyDailyLimit: Number(env.SURVEY_DAILY_LIMIT ?? SURVEYS_PER_DAY_DEFAULT),
     production: env.VERCEL_ENV === "production" || env.NODE_ENV === "production",
     persistentDb: /^postgres(ql)?:\/\//.test(env.DATABASE_URL ?? ""),
     claudeFallbacks: env.CLAUDE_FALLBACKS ? env.CLAUDE_FALLBACKS !== "off" : FALLBACK_MODELS.has(model),
