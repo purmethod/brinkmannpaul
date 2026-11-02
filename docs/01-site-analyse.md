@@ -28,7 +28,7 @@ index.html, styles.css, app.js **byte-identisch** mit brinkmannpaul.com; genutzt
 | `assets/intro-handwriting-split-complete.png` | 83 KB | 900×1100, finaler Frame der Signatur (Fallback/Endbild) |
 
 **Stack:** statisch, null Abhängigkeiten, kein Build. Hosting: Vercel (Projekt `brinkmannpaul`, Root Directory `dist`),
-automatisches Deployment bei jedem Push auf `main`. `.openai/hosting.json` ist veraltet.
+automatisches Deployment bei jedem Push auf `main`.
 
 **Intro-Produktionskette:** `dist/assets/intro-handwriting-split.mp4` wird NICHT generiert, sondern aus Pauls
 echter Handschrift gerendert — `scripts/render_handwriting_photo.py` (SVG-Trace der Tinten-Fotos),

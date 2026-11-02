@@ -27,7 +27,6 @@ orders@brinkmannpaul.com.
 - `scripts/` — Python-Tooling, das Pauls **echte Handschrift-Fotos** in die Intro-Videos rendert
   (Trace + Pen-Reveal, siehe Skript-Header). Nur für Intro-Änderungen relevant.
 - `docs/` — Analyse, Inventar, Backlog, Workflow. Änderungen an Inhalten dokumentieren.
-- `.openai/hosting.json` — **veraltet.** Frühere ChatGPT-Hosting-Konfiguration, die Seite läuft nicht mehr darüber. Nicht als Deployment-Weg benutzen.
 - `knowledge/` — Pauls Wissensbasis (PURE: Säulen, Module, Buchtexte, Belege). **Vor jedem PURE-Text lesen:**
   [knowledge/README.md](./knowledge/README.md). Wird nicht deployed; Änderungen dort dürfen direkt auf `main`
   (`docs(knowledge): …`), danach `python3 scripts/build_knowledge_bundle.py` für `knowledge/pure/ALL.md`.

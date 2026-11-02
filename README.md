@@ -50,9 +50,7 @@ docs/02-inhalts-inventar.md → komplettes Inhalts-, Link- und Asset-Inventar
 docs/03-optimierungs-backlog.md → priorisierte Optimierungsaufgaben (P0–P2)
 docs/04-multi-agent-workflow.md → Zusammenarbeits-Ablauf für alle Agenten
 docs/assets/                → Screenshots als Referenz (Desktop/Mobile)
-dist/vercel.json            → Vercel-Konfiguration (Rewrites für /pure und /pact auf purmethod.com)
-.openai/hosting.json        → veraltet: frühere ChatGPT-Hosting-Konfiguration, wird nicht mehr genutzt
-knowledge/                  → Pauls Wissensbasis für alle Agenten (PURE), Einstieg knowledge/README.md
+dist/vercel.json            → Vercel-Konfiguration (Rewrites für /pure und /pact auf purmethod.com)knowledge/                  → Pauls Wissensbasis für alle Agenten (PURE), Einstieg knowledge/README.md
 ```
 
 ## Stand
