@@ -2,6 +2,10 @@
 
 > Hier liegt Pauls Wissen, damit Claude, Claude Code, ChatGPT, Higgsfield und jeder andere Agent darauf zugreifen kann. Dieser Ordner wird nicht auf der Website ausgeliefert (`dist/` ist das Deployment), das Repo selbst ist aber **öffentlich**.
 
+## Prinzip: ein Fach pro Projekt
+
+`knowledge/` ist das Regal, jedes Projekt bekommt ein eigenes Fach: `knowledge/pure/`, später z. B. `knowledge/cyclemax/` oder `knowledge/alf/`. Ein Agent liest nur das Fach des Projekts, an dem er arbeitet. Ein neues Projekt bekommt ein neues Fach mit eigener `README.md`, nichts wird in ein fremdes Fach gelegt.
+
 ## Inhalt
 
 | Ordner | Inhalt |
