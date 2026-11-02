@@ -135,6 +135,8 @@ function requireAdmin(req: Request, config: Config) {
 
 const UPLOADS_GLOBAL_KEY = "__uploads-global__";
 const SURVEYS_GLOBAL_KEY = "__surveys-global__";
+/** Admin survey view and CSV read at most this many answers. */
+const SURVEY_LIMIT = 20_000;
 /** Admin view and CSV read at most this many (newest) datasets. */
 const DATASET_LIMIT = 20_000;
 /** /upload and /questions are web only: browsers on other sites must not be able to post into them. */
@@ -166,7 +168,8 @@ function createUploadLimiter(limit: number) {
 }
 
 const csv = (text: string, filename = "cyclemax-datasets.csv") =>
-  new Response(text, {
+  // BOM: Excel otherwise reads UTF-8 umlauts and € as garbage
+  new Response(`\uFEFF${text}`, {
     headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": `attachment; filename="${filename}"`, "cache-control": "no-store", ...CORS },
   });
 
@@ -249,7 +252,7 @@ export function createHandler(getContext: () => Promise<AppContext>) {
 
       if (m === "POST" && path === "/api/upload") {
         const origin = req.headers.get("origin");
-        if (config.production && origin && !WEB_ORIGINS.has(origin)) throw new HttpError(403, "Uploads nur über cyclemax.app/upload.");
+        if (config.production && !(origin && WEB_ORIGINS.has(origin))) throw new HttpError(403, "Uploads nur über cyclemax.app/upload.");
         const b = await body(req, UploadBody);
         for (const img of b.images) {
           const problem = checkImage(img);
@@ -296,7 +299,7 @@ export function createHandler(getContext: () => Promise<AppContext>) {
 
       if (m === "POST" && path === "/api/survey") {
         const origin = req.headers.get("origin");
-        if (config.production && origin && !WEB_ORIGINS.has(origin)) throw new HttpError(403, "Antworten nur über cyclemax.app/questions.");
+        if (config.production && !(origin && WEB_ORIGINS.has(origin))) throw new HttpError(403, "Antworten nur über cyclemax.app/questions.");
         const b = await body(req, SurveyBody);
         if (!takeSurvey(senderOf(req))) throw new HttpError(429, "Danke – für heute haben wir deine Antworten schon.");
         if (!(await store.takeQuota(SURVEYS_GLOBAL_KEY, config.surveyDailyLimit)))
@@ -386,13 +389,13 @@ export function createHandler(getContext: () => Promise<AppContext>) {
           return json({ summary: { ...summarize(rows), capped: rows.length >= DATASET_LIMIT }, rows: rows.slice(0, 200) });
         }
         if (resource === "survey" && !id && m === "GET") {
-          const rows = await store.surveyResponses();
+          const [rows, total] = await Promise.all([store.surveyResponses(SURVEY_LIMIT), store.surveyCount()]);
           if (url.searchParams.get("format") === "csv") return csv(surveyCsv(rows), "cyclemax-umfrage.csv");
-          return json({ summary: summarizeSurvey(rows), wishes: rows.filter((r) => r.wish).slice(0, 300).map((r) => ({ month: r.createdMonth, text: r.wish, voice: r.voice })) });
+          return json({ summary: { ...summarizeSurvey(rows), total, capped: total > rows.length }, wishes: await store.surveyWishes(300) });
         }
         if (resource === "survey" && id === "summary" && m === "POST") {
           if (!ctx.llm) throw new HttpError(503, "Claude ist nicht verbunden.");
-          const wishes = (await store.surveyResponses(500)).map((r) => r.wish).filter(Boolean);
+          const wishes = (await store.surveyWishes(500)).map((w) => w.text);
           try {
             return json({ ok: true, count: wishes.length, summary: await summarizeWishes(ctx.llm, wishes) });
           } catch (e) {

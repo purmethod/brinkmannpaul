@@ -32,6 +32,13 @@ describe("cleanWish", () => {
       "Schreib mir: [entfernt] oder [entfernt], siehe [entfernt] – mehr Eisen-Tipps!",
     );
     expect(cleanWish("  Tag 3:   weniger   Kaffee  ")).toBe("Tag 3: weniger Kaffee");
+    expect(cleanWish("Folg mir: instagram.com/lisa.m oder @lisa_m, Shop lisa-mueller.de")).toBe("Folg mir: [entfernt] oder [entfernt], Shop [entfernt]");
+    expect(cleanWish("Ruf an: 0151 23456789")).toBe("Ruf an: [entfernt]");
+  });
+
+  it("keeps numbers that are part of the answer", () => {
+    for (const t of ["Meine Zyklen: 28 30 29 31 Tage", "1500-2000 kcal am Tag", "Kosten 10 - 15 - 20 Euro", "z. B. 2.5 g Kreatin, d. h. täglich"])
+      expect(cleanWish(t)).toBe(t);
   });
 });
 
@@ -74,10 +81,11 @@ describe("POST /api/survey", () => {
     expect((await call("POST", "/api/survey", answer({ ratings: { hacked: 4 } }))).status).toBe(400);
     expect((await call("POST", "/api/survey", answer({ ratings: { one_tap: 5 } }))).status).toBe(400);
     expect((await call("POST", "/api/survey", answer({ consent: false as never }))).status).toBe(400);
-    expect((await call("POST", "/api/survey", answer({ ratings: {}, wish: "  " }))).status).toBe(400);
+    expect((await call("POST", "/api/survey", answer({ ratings: {}, wish: "  ", annoyances: [], currentApp: null, ageGroup: null, price: null }))).status).toBe(400);
     expect((await call("POST", "/api/survey", answer({ annoyances: ["erfunden" as never] }))).status).toBe(400);
-    // only the free text is fine
+    // only the free text is fine – and so are only the choice questions
     expect((await call("POST", "/api/survey", answer({ ratings: {}, wish: "Weniger Werbung" }))).status).toBe(200);
+    expect((await call("POST", "/api/survey", answer({ ratings: {}, wish: "", annoyances: [], currentApp: null, ageGroup: null, price: "bis 3 € im Monat" }))).status).toBe(200);
   });
 
   it("limits answers per sender and day; foreign sites cannot post in production", async () => {
@@ -90,6 +98,15 @@ describe("POST /api/survey", () => {
       prod.handle(new Request("http://test/api/survey", { method: "POST", headers: { "content-type": "application/json", origin }, body: JSON.stringify(answer()) }));
     expect((await post("https://evil.example")).status).toBe(403);
     expect((await post("https://cyclemax.app")).status).toBe(200);
+    // scripts without an Origin header are refused too
+    expect((await prod.call("POST", "/api/survey", answer())).status).toBe(403);
+  });
+
+  it("admin summary: a refusal from Claude is an error, not an empty success", async () => {
+    const llm = { chat: vi.fn(), json: vi.fn(async () => null) } as unknown as Llm;
+    const { call } = await testContext({ llm });
+    await call("POST", "/api/survey", answer());
+    expect((await call("POST", "/api/admin/survey/summary", undefined, "secret")).status).toBe(502);
   });
 
   it("admin: ranking, wishes, csv and a Claude summary – only with the password", async () => {
@@ -99,7 +116,7 @@ describe("POST /api/survey", () => {
     await call("POST", "/api/survey", answer());
     expect((await call("GET", "/api/admin/survey")).status).toBe(401);
     const res = await call("GET", "/api/admin/survey", undefined, "secret");
-    expect(res.data.summary.responses).toBe(1);
+    expect(res.data.summary).toMatchObject({ responses: 1, total: 1, capped: false });
     expect(res.data.wishes).toEqual([{ month: expect.any(String), text: answer().wish, voice: true }]);
     const csv = await handle(new Request("http://test/api/admin/survey?format=csv", { headers: { authorization: "Bearer secret" } }));
     expect(csv.headers.get("content-disposition")).toContain("cyclemax-umfrage.csv");

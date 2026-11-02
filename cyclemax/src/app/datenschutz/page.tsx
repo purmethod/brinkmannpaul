@@ -88,10 +88,13 @@ export default function Datenschutz() {
 
       <h2 id="umfrage">Umfrage (cyclemax.app/questions)</h2>
       <p>
-        Die Umfrage ist freiwillig und anonym. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die du vor dem Absenden
-        gibst. Gespeichert werden deine Bewertungen, deine Auswahl (was dich stört, deine App, Preis, Altersgruppe), dein Text und der Monat –
-        keine Geräte-ID, keine IP-Adresse, kein Name. E-Mail-Adressen, Links und Telefonnummern in deinem Text werden vor dem Speichern
-        entfernt. Gegen Missbrauch zählt der Server Antworten pro Absender und Tag nur im Arbeitsspeicher. Sprichst du deine Antwort ein,
+        Die Umfrage ist freiwillig und anonym. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO; schreibst du über deine
+        Gesundheit, etwa Schmerzen oder Verhütung, zusätzlich Art. 9 Abs. 2 lit. a DSGVO), die du vor dem Absenden gibst. Gespeichert werden
+        deine Bewertungen, deine Auswahl (was dich stört, deine App, Preis, Altersgruppe), dein Text, ob du ihn eingesprochen hast, die
+        Version der Umfrage und der Monat – keine Geräte-ID, keine IP-Adresse, kein Name. E-Mail-Adressen, Links, Social-Media-Namen und
+        Telefonnummern in deinem Text werden vor dem Speichern nach Möglichkeit automatisch entfernt – schreib deshalb bitte keine Namen
+        oder Kontaktdaten hinein. Gegen Missbrauch zählt der Server Antworten pro Absender (IP-Adresse) und Tag nur im Arbeitsspeicher;
+        davon wird nichts gespeichert. Sprichst du deine Antwort ein,
         wandelt die Spracherkennung deines Browsers (z. B. Apple oder Google) die Sprache in Text um; Cyclemax erhält nur den Text. Für die
         Auswertung der Freitexte nutzen wir Claude von Anthropic (USA), ohne Training auf diesen Daten. Da die Antworten keiner Person
         zugeordnet sind, können wir einzelne Antworten nachträglich nicht finden oder löschen.

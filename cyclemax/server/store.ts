@@ -406,6 +406,21 @@ export function createStore(database: Database) {
       return id;
     },
 
+    /** Free texts only – the summary needs wishes, not rows. */
+    async surveyWishes(limit = 500): Promise<{ month: string; text: string; voice: boolean }[]> {
+      const rows = await db
+        .select({ month: t.surveyResponses.createdMonth, text: t.surveyResponses.wish, voice: t.surveyResponses.voice })
+        .from(t.surveyResponses)
+        .where(ne(t.surveyResponses.wish, ""))
+        .orderBy(desc(t.surveyResponses.createdMonth))
+        .limit(limit);
+      return rows.map((r: { month: string; text: string; voice: number }) => ({ month: r.month, text: r.text, voice: Number(r.voice) === 1 }));
+    },
+
+    async surveyCount(): Promise<number> {
+      return Number((await db.select({ n: sql<number>`count(*)` }).from(t.surveyResponses))[0].n);
+    },
+
     async surveyResponses(limit = 20_000): Promise<(SurveyResponse & { id: string })[]> {
       const rows = await db.select().from(t.surveyResponses).orderBy(desc(t.surveyResponses.createdMonth)).limit(limit);
       return rows.map((r: Record<string, unknown>) => ({

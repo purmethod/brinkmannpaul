@@ -247,6 +247,7 @@ describe("POST /api/upload", () => {
       handle(new Request("http://test/api/upload", { method: "POST", headers: { "content-type": "application/json", origin }, body: JSON.stringify(upload()) }));
     expect((await post("https://evil.example")).status).toBe(403);
     expect((await post("https://cyclemax.app")).status).toBe(200);
+    expect((await handle(new Request("http://test/api/upload", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(upload()) }))).status).toBe(403);
   });
 
   it("has its own daily budget and never uses up the chat's Claude budget", async () => {

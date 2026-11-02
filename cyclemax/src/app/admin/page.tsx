@@ -221,6 +221,8 @@ async function saveBlob(blob: Blob, name: string) {
 interface SurveyData {
   summary: {
     responses: number;
+    total: number;
+    capped: boolean;
     withWish: number;
     viaVoice: number;
     scale: string[];
@@ -245,6 +247,7 @@ function Survey({ api }: { api: ReturnType<typeof adminApi> }) {
   const [error, setError] = useState<string | null>(null);
   const [themes, setThemes] = useState<WishSummary | null>(null);
   const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
   useEffect(() => {
     api
       .survey()
@@ -263,7 +266,8 @@ function Survey({ api }: { api: ReturnType<typeof adminApi> }) {
         Antworten aus <a className="underline" href="/questions/">cyclemax.app/questions</a> – anonym.
       </p>
       <p>
-        <b>{s.responses}</b> Antworten · <b>{s.withWish}</b> mit eigenen Worten ({s.viaVoice} gesprochen)
+        <b>{s.total}</b> Antworten · <b>{s.withWish}</b> mit eigenen Worten ({s.viaVoice} gesprochen)
+        {s.capped && <span className="text-muted"> (Auswertung über {s.responses})</span>}
       </p>
       <div className="flex flex-col gap-2">
         <p className="font-medium">Was am wichtigsten ist (Ø 1 = unwichtig … 4 = ultra wichtig)</p>
@@ -291,20 +295,30 @@ function Survey({ api }: { api: ReturnType<typeof adminApi> }) {
         <span className="text-ink">Alter:</span> {list(s.ageGroups)}
       </p>
       <div className="flex flex-wrap gap-2">
-        <Small onClick={() => void api.surveyCsv().then((b) => saveBlob(b, "cyclemax-umfrage.csv"))}>CSV herunterladen</Small>
+        <Small
+          onClick={() =>
+            void api
+              .surveyCsv()
+              .then((b) => saveBlob(b, "cyclemax-umfrage.csv"))
+              .catch((e: unknown) => setNote(e instanceof Error ? e.message : "Download fehlgeschlagen"))
+          }
+        >
+          CSV herunterladen
+        </Small>
         <Small
           onClick={() => {
             setBusy(true);
             void api
               .surveySummary()
-              .then((r: { summary: WishSummary }) => setThemes(r.summary))
-              .catch((e: unknown) => setError(e instanceof Error ? e.message : "Fehler"))
+              .then((r: { summary: WishSummary }) => (setThemes(r.summary), setNote(null)))
+              .catch((e: unknown) => setNote(e instanceof Error ? e.message : "Fehler"))
               .finally(() => setBusy(false));
           }}
         >
           {busy ? "Claude liest …" : "Eigene Worte zusammenfassen (Claude)"}
         </Small>
       </div>
+      {note && <p className="text-[14px] text-accent">{note}</p>}
       {themes && (
         <div className="flex flex-col gap-2 rounded-2xl border border-line p-4">
           <p className="font-medium">Themen</p>

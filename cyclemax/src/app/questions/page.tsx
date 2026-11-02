@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTIONS, SCALE, SECTIONS, SURVEY_VERSION, WISH_MAX } from "@shared/survey";
 import { createWebSpeech } from "@/adapters/speech";
 import { Wordmark } from "@/components/Logo";
@@ -9,17 +9,31 @@ import { Button, Screen } from "@/components/ui";
 import { surveyApi } from "@/lib/api";
 
 function Scale({ id, value, onChange }: { id: string; value: number | undefined; onChange: (v: number) => void }) {
+  const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  // radio group: one tab stop per question, arrow keys move the choice
+  const onKey = (e: KeyboardEvent) => {
+    const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const next = Math.min(SCALE.length, Math.max(1, (value ?? 0) + step));
+    onChange(next);
+    refs.current[next - 1]?.focus();
+  };
   return (
-    <div role="radiogroup" aria-labelledby={`${id}-label`} className="grid grid-cols-4 gap-1.5">
+    <div role="radiogroup" aria-labelledby={`${id}-label`} className="grid grid-cols-4 gap-1.5" onKeyDown={onKey}>
       {SCALE.map((label, i) => {
         const v = i + 1;
         const on = value === v;
         return (
           <button
             key={label}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
             type="button"
             role="radio"
             aria-checked={on}
+            tabIndex={on || (!value && i === 0) ? 0 : -1}
             onClick={() => onChange(v)}
             data-testid={`${id}-${v}`}
             className={`min-h-11 rounded-xl px-1 text-[12.5px] leading-tight transition-colors ${on ? "bg-ink text-white" : "bg-surface active:bg-line"}`}
@@ -62,6 +76,11 @@ export default function QuestionsPage() {
   const [price, setPrice] = useState<string | null>(null);
   const [ageGroup, setAgeGroup] = useState<string | null>(null);
   const [wish, setWish] = useState("");
+  const wishRef = useRef("");
+  useEffect(() => {
+    wishRef.current = wish;
+  }, [wish]);
+  const doneRef = useRef<HTMLHeadingElement>(null);
   const [usedVoice, setUsedVoice] = useState(false);
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -73,7 +92,15 @@ export default function QuestionsPage() {
   useEffect(() => {
     void speech.available().then(setCanSpeak);
   }, [speech]);
-  const dictation = useDictation(speech, wish, (v) => setWish(v.slice(0, WISH_MAX)));
+  // "spoken" only once a transcript really arrives (not on a mere tap or a denied microphone)
+  const dictation = useDictation(speech, wish, (v) => {
+    setUsedVoice(true);
+    setWish(v.slice(0, WISH_MAX));
+  });
+  const anything = Object.keys(ratings).length > 0 || !!wish.trim() || annoyances.length > 0 || !!currentApp || !!price || !!ageGroup;
+  useEffect(() => {
+    if (done) doneRef.current?.focus();
+  }, [done]);
 
   const answered = Object.keys(ratings).length;
   const total = QUESTIONS.length;
@@ -81,9 +108,13 @@ export default function QuestionsPage() {
   const send = async () => {
     setBusy(true);
     setError(null);
-    if (dictation.listening) await dictation.stop();
+    if (dictation.listening) {
+      await dictation.stop();
+      // the last words arrive just after stopping
+      await new Promise((r) => setTimeout(r, 600));
+    }
     try {
-      await surveyApi.send({ consent: true, version: SURVEY_VERSION, ratings, annoyances, currentApp, ageGroup, price, wish: wish.trim(), voice: usedVoice });
+      await surveyApi.send({ consent: true, version: SURVEY_VERSION, ratings, annoyances, currentApp, ageGroup, price, wish: wishRef.current.trim(), voice: usedVoice });
       setDone(true);
       window.scrollTo({ top: 0 });
     } catch (e) {
@@ -97,7 +128,9 @@ export default function QuestionsPage() {
     return (
       <Screen className="gap-6 py-10">
         <Wordmark />
-        <h1 className="text-[30px] leading-tight font-semibold tracking-tight">Danke dir.</h1>
+        <h1 ref={doneRef} tabIndex={-1} className="text-[30px] leading-tight font-semibold tracking-tight outline-none">
+          Danke dir.
+        </h1>
         <p className="text-[17px] leading-relaxed">
           Deine Antworten sind angekommen – anonym. Du hilfst, Cyclemax so zu bauen, wie Frauen es wirklich wollen.
         </p>
@@ -171,13 +204,16 @@ export default function QuestionsPage() {
 
       <section className="flex flex-col gap-3">
         <h2 className="text-[21px] font-semibold tracking-tight">Deine Traum-App</h2>
-        <p className="text-[16px] leading-snug">
+        <p id="wish-label" className="text-[16px] leading-snug">
           Wenn du deine Zyklus-App selbst bauen würdest: Was müsste sie können? Was soll sie dir jeden Tag sagen? Was würdest du an deiner
           jetzigen ändern?
         </p>
         <div className="flex items-start gap-3">
           <textarea
             value={wish}
+            aria-labelledby="wish-label"
+            // typing while the microphone runs would be overwritten by the next transcript
+            onFocus={() => dictation.listening && void dictation.stop()}
             onChange={(e) => setWish(e.target.value.slice(0, WISH_MAX))}
             rows={5}
             placeholder={canSpeak ? "Sprich einfach drauflos – oder tipp." : "Schreib einfach drauflos."}
@@ -187,16 +223,17 @@ export default function QuestionsPage() {
           {canSpeak && (
             <MicButton
               listening={dictation.listening}
-              onClick={() => {
-                setUsedVoice(true);
-                void dictation.toggle();
-              }}
+              onClick={() => void dictation.toggle()}
               size={52}
               label="Reinsprechen"
             />
           )}
         </div>
-        {dictation.error && <p className="text-[14px] text-accent">{dictation.error}</p>}
+        {dictation.error && (
+          <p className="text-[14px] text-accent" role="alert">
+            {dictation.error}
+          </p>
+        )}
         <p className="text-[13px] text-muted">Bitte keine Namen oder Kontaktdaten. Spracheingabe läuft über die Spracherkennung deines Browsers.</p>
       </section>
 
@@ -217,7 +254,7 @@ export default function QuestionsPage() {
         </p>
       )}
       <div className="flex flex-col gap-2">
-        <Button disabled={!consent || busy || (answered === 0 && !wish.trim())} onClick={send} data-testid="survey-send">
+        <Button disabled={!consent || busy || !anything} onClick={send} data-testid="survey-send">
           {busy ? "Wird gesendet …" : "Antworten senden"}
         </Button>
         <p className="text-center text-[13px] text-muted">

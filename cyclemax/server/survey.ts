@@ -4,7 +4,8 @@ import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTION_IDS, QUESTIONS, 
 import { csvRow } from "./csv";
 import type { Llm } from "./llm";
 
-export const SURVEYS_PER_DAY_PER_SENDER = 3;
+/** Per IP and day – generous, because many women can share one network (gym, office, university). */
+export const SURVEYS_PER_DAY_PER_SENDER = 25;
 export const SURVEYS_PER_DAY_DEFAULT = 3000;
 
 export const SurveyBody = z
@@ -20,7 +21,10 @@ export const SurveyBody = z
     wish: z.string().max(WISH_MAX).default(""),
     voice: z.boolean().default(false),
   })
-  .refine((b) => Object.keys(b.ratings).length > 0 || b.wish.trim().length > 0, "Bitte beantworte mindestens eine Frage.");
+  .refine(
+    (b) => Object.keys(b.ratings).length > 0 || b.wish.trim().length > 0 || b.annoyances.length > 0 || !!b.currentApp || !!b.price || !!b.ageGroup,
+    "Bitte beantworte mindestens eine Frage.",
+  );
 export type SurveyBody = z.infer<typeof SurveyBody>;
 
 export interface SurveyResponse {
@@ -35,12 +39,18 @@ export interface SurveyResponse {
   voice: boolean;
 }
 
-/** Free text stays anonymous: mail addresses, links and phone numbers are removed before storing. */
+const TLD = "de|com|at|ch|net|org|io|me|app|eu|info|co|uk|fr|it|es|nl|tv|link|bio|page|shop|online|ee";
+/** Phone numbers start with + or 0 and have at least 9 digits – "28 30 29 31 Tage" or "1500-2000 kcal" are not. */
+const isPhone = (m: string) => /^(\+|0)/.test(m) && m.replace(/\D/g, "").length >= 9;
+
+/** Free text stays anonymous: mail addresses, links, social handles and phone numbers are removed before storing. */
 export function cleanWish(text: string): string {
   return text
     .replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, "[entfernt]")
     .replace(/\b(?:https?:\/\/|www\.)\S+/gi, "[entfernt]")
-    .replace(/\+?\d[\d\s/().-]{7,}\d/g, "[entfernt]")
+    .replace(new RegExp(`\\b[\\w-]+(?:\\.[\\w-]+)*\\.(?:${TLD})\\b(?:\\/\\S*)?`, "gi"), "[entfernt]")
+    .replace(/(^|\s)@[\w.]{2,}/g, "$1[entfernt]")
+    .replace(/\+?\d[\d\s/().-]{7,}\d/g, (m) => (isPhone(m) ? "[entfernt]" : m))
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, WISH_MAX);
@@ -143,5 +153,7 @@ export async function summarizeWishes(llm: Llm, wishes: string[]): Promise<WishS
     .map((w, i) => `${i + 1}. ${w.slice(0, 600)}`)
     .join("\n");
   if (!list) return { themes: [], features: [], frustrations: [], surprises: [] };
-  return llm.json(WishSummary, SUMMARY_SYSTEM, `Antworten (${wishes.length}):\n${list}`, 3000, { timeoutMs: 50_000, maxRetries: 0 });
+  const out = await llm.json(WishSummary, SUMMARY_SYSTEM, `Antworten (${wishes.length}):\n${list}`, 3000, { timeoutMs: 50_000, maxRetries: 0 });
+  if (!out) throw new Error("Claude hat keine Zusammenfassung geliefert");
+  return out;
 }
