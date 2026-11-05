@@ -1,5 +1,13 @@
 # 03 — Optimierungs-Backlog
 
+## #208 · All Art direkt vollständig lesen
+
+Status: umgesetzt; Entfernung des zusätzlichen Weiterlesen-Schritts und Veröffentlichung von Paul ausdrücklich beauftragt. Unabhängiger Agentenreview vor dem Merge.
+
+- In allen sechs Sprachen das innere Weiterlesen-/Weniger-anzeigen-Akkordeon entfernt. Nach dem Öffnen von All Art sind sämtliche 30 bestehenden Absätze direkt lesbar.
+- Wortlaut und Absatzreihenfolge in jeder Sprache unverändert; deutscher Schluss „dir.“ bleibt erhalten. Keine Änderung an anderen Rubriken, JavaScript oder Assets.
+- Nicht mehr benötigte, ausschließlich für diese Aufklappfunktion geltende CSS-Regeln entfernt; vorhandenen Übersetzungs-Generator für die fünf Sprachfassungen verwendet.
+
 ## #206 · All Art: freigegebener Volltext, zwei Absätze und Weiterlesen
 
 Status: umgesetzt; Veröffentlichung von Paul ausdrücklich freigegeben. Unabhängiger Agentenreview vor dem Merge.

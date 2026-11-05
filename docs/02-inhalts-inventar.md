@@ -1,5 +1,11 @@
 # 02 — Inhalts-Inventar brinkmannpaul.com
 
+## Aktualisierung: All Art ohne Weiterlesen (2026-11-05, #208)
+
+- Paul möchte den vollständigen Text direkt nach dem Öffnen von All Art lesen. Das zusätzliche Weiterlesen-/Weniger-anzeigen-Akkordeon entfällt in allen sechs Sprachen.
+- Alle 30 vorhandenen Absätze bleiben wortgetreu und in derselben Reihenfolge erhalten, einschließlich des deutschen Schlusses „dir.“. Alle Absätze stehen direkt in der vorhandenen Lesespalte.
+- Ausschließlich die nicht mehr benötigten All-Art-Aufklappstile entfernt; sonstige Rubriken, Lesefunktion, JavaScript, Typografie und Assets unverändert. Übersetzte Startseiten über den bestehenden i18n-Generator erzeugt.
+
 ## Aktualisierung: freigegebener All-Art-Text mit Weiterlesen (2026-11-05, #206)
 
 - Paul hat den vollständigen englischen Entwurf ausdrücklich wortgetreu zur Veröffentlichung freigegeben: 30 Absätze, 905 Wörter, einschließlich Akzeptanz, dem roten und blauen Zimmer, Kursen und der Friedensvision.
