@@ -1,5 +1,15 @@
 # 03 — Optimierungs-Backlog
 
+## #217 · Neuroarchitektur: 15 Studien, sechs Sprachen und einheitliches Design
+
+Status: umgesetzt und lokal geprüft; unabhängiger Review und Produktionskontrolle werden im zugehörigen PR dokumentiert. Anpassung der veröffentlichten Rubrik von Paul beauftragt.
+
+- Inhaltliche Einzelprüfung aller 15 Studien mit Primärquellen. Konkrete Ergebnisse und Gegenbefunde statt wiederholter Einleitungen und Schlussabsätze. Keine ungesicherten Präventions-, Heilungs- oder Gehirnveränderungsversprechen; Zugangsgrenzen bei Abstract-Prüfungen offengelegt.
+- Fehlende 45 Übersetzungsseiten ergänzt, alle 90 Artikel und sechs Listen aus einer Quelle erzeugt. Einheitliches Layout mit vorhandenen Designvariablen, semantischen Überschriften, Tastaturfokus, Sprachwahl im selben Artikel und RTL-Darstellung. Keine Änderungen am übrigen Portfolio.
+- `research_validation.py` blockiert fehlende Sprachen, englische Ersatztexte, doppelte DOIs, Platzhalterautoren und wiederholte Einleitungen/Schlüsse vor dem Schreiben von Seiten. `test-research.py` prüft 96 Journalrouten, Zahlenkonsistenz der Kernstichproben, Quellenmetadaten, interne Links, Sprachalternativen und die tatsächlichen früheren Fehlerfälle. Bestehenden Test von sechs auf 15 Artikel und dynamische Sitemap-Anzahl aktualisiert.
+- Lokal bestanden: Forschungs- und Übersetzungs-Build, zwölf gezielte Regressionstests, vollständiger `test-site.mjs`, JavaScript-Syntax und Python-Kompilierung. Startseiten außerhalb der Journal-Sektion in allen sechs Sprachen gegen den Ausgangsstand abgeglichen. Wissenschaftliche Abkürzungen, Immunmarker und Taxonnamen behalten trotz Kleinschreibung des Layouts ihre korrekte Schreibweise und Leserichtung.
+- Visuelle Produktionsprüfung wird nach Deployment protokolliert. Ein echter mobiler Browserlauf ist hier nicht verfügbar: Die Browsersteuerung bietet keine Viewport-Änderung; lokal ist kein Browser-Binary installiert. Responsive CSS berücksichtigt 320 px Breite, aber diese statische Kontrolle wird nicht als mobiler Browser-Smoke-Test ausgegeben. Schutzmechanismen von Vorschau-Deployments werden nicht verändert.
+
 ## #208 · All Art direkt vollständig lesen
 
 Status: umgesetzt; Entfernung des zusätzlichen Weiterlesen-Schritts und Veröffentlichung von Paul ausdrücklich beauftragt. Unabhängiger Agentenreview vor dem Merge.

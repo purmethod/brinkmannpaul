@@ -1,5 +1,13 @@
 # 02 — Inhalts-Inventar brinkmannpaul.com
 
+## Aktualisierung: Forschungsjournal vollständig geprüft (2026-11-05, #217)
+
+- Alle 15 vorhandenen Studienzusammenfassungen fachlich überarbeitet: Studiendesign und Stichprobe, konkrete Ergebnisse, architektonische Einordnung sowie Grenzen getrennt dargestellt. Beobachtungsdaten werden nicht als Kausalnachweise dargestellt; relevante nicht signifikante Ergebnisse ergänzt. Autorenangaben für Maestre und Zähme sowie Zeitschriftenangaben korrigiert.
+- Sechs vollständige Sprachfassungen je Studie. Bei den neun neueren Beiträgen waren die fremdsprachigen Datensätze zuvor englische Kopien; 45 zugehörige Artikelseiten fehlten. Jetzt 90 Artikelseiten und sechs Journalübersichten, alle mit DOI, kanonischer URL und vollständigen Sprachalternativen. Sitemap: 138 indexierbare Seiten.
+- Quellenprotokoll in `research/source-audit.json`: Originalquellen, überprüfte Kerndaten und tatsächlicher Zugangsumfang. Abstract-basierte Prüfungen werden ausdrücklich von Volltextprüfungen unterschieden. Die Beiträge zu Immunregulation und Mikrobiota behaupten keine nachgewiesene Wirkung auf das Gehirn.
+- Alle Journalseiten verwenden die bestehende Arial/Helvetica-Typografie, Farbvariablen, feinen Linien, das dezente neuronale Hintergrundmotiv sowie Kontakt- und Sprachsymbole der Hauptseite. Gemeinsames Layout in `dist/research.css`; keine neuen Abhängigkeiten. Originaltitel der zitierten Arbeiten bleiben in der Quellenangabe unverändert großgeschrieben.
+- Alle sechs Startseiten außerhalb der Journal-Sektion sind byteidentisch zum Ausgangsstand `6fbe0f9`. Insbesondere All Art, PURE, Signatur, PhD-Einleitung und andere Projekte unverändert. Generierung weiterhin über `scripts/research.py` und danach `scripts/i18n.py build`.
+
 ## Aktualisierung: All Art ohne Weiterlesen (2026-11-05, #208)
 
 - Paul möchte den vollständigen Text direkt nach dem Öffnen von All Art lesen. Das zusätzliche Weiterlesen-/Weniger-anzeigen-Akkordeon entfällt in allen sechs Sprachen.
