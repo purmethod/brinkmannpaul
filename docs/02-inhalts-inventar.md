@@ -164,6 +164,10 @@ Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Li
 
 ## Metadaten
 
+## #202 · all art.
+
+Freigegebene Kurzfassung in Englisch und Deutsch, vier weitere Übersetzungen. Kunst, Arbeit, Liebe, Dialog und Frieden; KI-Passage entfällt. Die längere Lesefassung bleibt unveröffentlicht.
+
 ## Aktualisierung: „book a session“ nur noch unten in der Wim-Hof-Rubrik (2026-10-30)
 
 - **Paul:** Der Button oben wirkt zu sehr nach Verkaufen, und verkaufen will er nicht. „book a session“ gehört nur nach unten.
