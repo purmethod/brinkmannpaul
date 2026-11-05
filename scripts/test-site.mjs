@@ -317,13 +317,14 @@ const robots = fs.readFileSync(path.join(root, 'dist/robots.txt'), 'utf8');
 assert.ok(robots.includes('Sitemap: https://brinkmannpaul.com/sitemap.xml') && robots.includes('Disallow: /api/'), 'robots.txt names the sitemap and keeps /api/ out');
 const sitemap = fs.readFileSync(path.join(root, 'dist/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-assert.equal(locs.length, 84, 'sitemap lists home, weekends, skyn, rye, cyclemax, cutcake, compaz and the research journal (list and six articles) in six languages');
+const researchCount = JSON.parse(fs.readFileSync(path.join(root, 'research', 'articles.json'), 'utf8')).articles.length;
+assert.equal(locs.length, (8 + researchCount) * 6, 'sitemap lists seven main pages, the journal index and every study in six languages');
 
 // The research journal: built by scripts/research.py from research/articles.json, every
 // article in every language with its study and DOI, listed in the neuroarchitecture row.
 {
   const { articles } = JSON.parse(fs.readFileSync(path.join(root, 'research', 'articles.json'), 'utf8'));
-  assert.equal(articles.length, 6, 'six research articles');
+  assert.equal(articles.length, 15, 'all fifteen reviewed research articles');
   for (const a of articles) {
     assert.ok(/^10\.\d{4,}\//.test(a.doi), `${a.slug}: has a doi`);
     assert.ok(html.includes(`href="research/${a.slug}/"`), `${a.slug}: teaser in the neuroarchitecture row`);

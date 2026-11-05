@@ -1,0 +1,165 @@
+{
+  "checked": "2026-11-05",
+  "scope": "Fifteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "studies": [
+    {
+      "doi": "10.1016/j.envres.2026.124671",
+      "primary_url": "https://edoc.hu-berlin.de/bitstreams/de29c908-125f-4667-8392-cf3b3f3dd3c4/download",
+      "access": "Full paper, institutional repository PDF",
+      "key_counts": [
+        334,
+        249,
+        25
+      ],
+      "review": "334 baseline, 249 follow-up, average 1.9 years. Observational structural/microstructural MRI associations; feature selection is not a causal effect or a reliable direction/size estimate for each exposure. Correct journal Part 1."
+    },
+    {
+      "doi": "10.1126/science.6143402",
+      "primary_url": "https://wrrc.arizona.edu/sites/default/files/ulrich-view%20through%20a%20window.pdf",
+      "access": "Full paper, university-hosted PDF",
+      "key_counts": [
+        23,
+        1972,
+        1981
+      ],
+      "review": "23 matched pairs, retrospective nonrandom room allocation. Mean postoperative stay 7.96 vs 8.70 days. Moderate/strong analgesic difference on days 2-5. Minor complications and antianxiety medication nonsignificant."
+    },
+    {
+      "doi": "10.1038/nature10190",
+      "primary_url": "https://www.nature.com/articles/nature10190",
+      "full_text_url": "https://nsdm.no/arkiv/filarkiv/File/Artikler/nature10190.pdf",
+      "access": "Full paper PDF and publisher abstract",
+      "key_counts": [
+        32
+      ],
+      "review": "Healthy volunteers, 32 in discovery experiment, replication and no-stress control experiments. Current urban residence relates to amygdala response; upbringing to pACC. No random assignment of life history and no clinical diagnoses. Specific design variables not tested."
+    },
+    {
+      "doi": "10.1073/pnas.1301227110",
+      "primary_url": "https://www.pnas.org/doi/10.1073/pnas.1301227110",
+      "access": "Publisher-indexed full-text methods/results and institutional record; full PDF not retrieved",
+      "key_counts": [
+        18,
+        200
+      ],
+      "review": "18 adults, 200 interior photos across beauty and approach/avoidance runs. Curves favored for beauty with ACC response; contour did not significantly influence enter/leave decisions. No clinical outcome."
+    },
+    {
+      "doi": "10.1038/s41598-017-12046-7",
+      "primary_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5607225/",
+      "access": "Full text",
+      "key_counts": [
+        341
+      ],
+      "review": "341 older adults, land use within 1 km. Forest association with latent MRI amygdala integrity; other land-use associations nonsignificant. Cross-sectional, not proof of protection or direct health score. Balanced title retains original URL."
+    },
+    {
+      "doi": "10.1038/s41380-022-01720-6",
+      "primary_url": "https://www.nature.com/articles/s41380-022-01720-6",
+      "access": "Full text",
+      "key_counts": [
+        63
+      ],
+      "review": "63 healthy adults, randomized one-hour walks. Faces-task amygdala decrease after forest and stable urban response. MIST interaction significant but forest-only post hoc p=.070. Self-report, cognitive and physiological group-by-time interactions nonsignificant. Correct citation 27(11),4446-4452."
+    },
+    {
+      "doi": "10.1371/journal.pone.0347162",
+      "primary_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347162",
+      "access": "Full text",
+      "key_counts": [
+        282,
+        10
+      ],
+      "review": "282 students, ten randomized VR arms. SCL and perceived restorativeness differed; HR and RMSSD did not. Coherence/complexity main effects on perceived restorativeness; physiological interaction rather than significant physiological main effects. Five-minute recovery is not long-term health evidence."
+    },
+    {
+      "doi": "10.1080/13607863.2026.2678989",
+      "primary_url": "https://pubmed.ncbi.nlm.nih.gov/42251690/",
+      "access": "Published abstract; publisher full text unavailable",
+      "key_counts": [
+        426220,
+        300,
+        1000,
+        3513,
+        864
+      ],
+      "review": "426,220 dementia-free baseline, median 13.6 years, 3,513 AD and 864 MCI cases. Per-IQR green associations: AD relative risk 5.8% lower at 300m, 6.7% at 1000m; green/natural MCI 14.9-22.2% lower. Blue-space MCI nonsignificant. No invented model covariates, confidence intervals or causal prevention."
+    },
+    {
+      "doi": "10.1186/s40168-026-02352-6",
+      "primary_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13019970/",
+      "access": "Full text",
+      "key_counts": [
+        15,
+        0,
+        4,
+        8
+      ],
+      "review": "Six Finnish homes: five intervention, one control. 15g forest soil on rugs at weeks0/4/8. Localized bacterial signal strongest near rug at infant breathing height in first two weeks. Soil-specific fungal index null. No clinical benefit or brain outcome. Duration omitted because abstract and methods report different week counts."
+    },
+    {
+      "doi": "10.1038/s41598-025-23224-3",
+      "primary_url": "https://www.nature.com/articles/s41598-025-23224-3",
+      "access": "Publisher-indexed full-text sections; direct full text unavailable",
+      "key_counts": [
+        41,
+        21,
+        20,
+        37
+      ],
+      "review": "41 recruited participants, 37 physiological analyses; real21/VR20. Counterbalanced sessions, living wall vs object-filled shelf. Task %HF difference significant, resting and cognitive comparisons nonsignificant. Positive-emotion ratings higher with living wall only in real environment; no baseline emotion comparison. No empty-room control or baseline emotion."
+    },
+    {
+      "doi": "10.3389/fpsyg.2025.1571176",
+      "primary_url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1571176/full",
+      "access": "Full text",
+      "key_counts": [
+        30,
+        23
+      ],
+      "review": "30 recruited, 23 analyzed; five one-minute VR scenes across days. Results section: frontal/central/parietal alpha differences; paper conclusion inconsistently names regions, so summary follows Results. Systolic BP/PRS effects; HR and diastolic BP null. Nonsignificance vs natural view/wall is not equivalence. Control is the same furnished office with blank foreground, not an empty room; architectural window view is the other built comparator."
+    },
+    {
+      "doi": "10.1126/sciadv.aba2578",
+      "primary_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7556828/",
+      "access": "Full text",
+      "key_counts": [
+        75,
+        10,
+        36,
+        16,
+        23,
+        28
+      ],
+      "review": "75 children3-5, ten centers with group sizes36/16/23, 28days, no individual randomization. IL10:IL17A .86 to1.15, adjusted p=.04 intervention only. Skin Gammaproteobacterial diversity associations with TGF-beta1/Treg. Outcome-specific sample sizes smaller; no demonstrated disease prevention or brain effect."
+    },
+    {
+      "doi": "10.1016/j.buildenv.2024.112014",
+      "primary_url": "https://doi.org/10.1016/j.buildenv.2024.112014",
+      "author_preprint_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4790423",
+      "access": "Publisher abstract/highlights and author preprint bibliographic record; full text unavailable",
+      "key_counts": [
+        95
+      ],
+      "review": "Correct authors to Maestre et al. 95 homes, HVAC dust. Less development: greater bacterial richness; more development: greater fungal richness. Childhood-asthma homes: greater bacterial/lower fungal diversity. No blanket diversity benefit, causal microbe claim or invented effect sizes."
+    },
+    {
+      "doi": "10.1016/j.braen.2026.100028",
+      "primary_url": "https://doi.org/10.1016/j.braen.2026.100028",
+      "access": "Publisher abstract/highlights and institutional bibliographic record; full text unavailable",
+      "key_counts": [
+        63
+      ],
+      "review": "Correct authors to Zähme et al. 63 adults, EEG street-photo appraisal. Green/built ratio (roads, sidewalks, towers and buildings in denominator) linked to more positive appraisals and P1; straight edges to N1; later P3/LPP to higher-order appraisal rather than basic affect. Sky and mean metric depth negative appraisal associations within stimulus set. No structural brain or clinical claim."
+    },
+    {
+      "doi": "10.1159/ger/acxag009",
+      "primary_url": "https://karger.com/ger/article/doi/10.1159/ger/acxag009/957169/Greenspace-Exposure-During-Everyday-Mobility-and",
+      "access": "Publisher abstract and PubMed record; full text unavailable",
+      "key_counts": [
+        123
+      ],
+      "review": "Valid DOI, online21Oct2026, PMID42905620. 123 adults65-89, two weeks, assessments every two hours seven/day. Within-person preceding-two-hour green association moderated by reported stressors; between-person overall association. No invented coefficients/CIs or claim of a formally null no-stressor association."
+    }
+  ]
+}

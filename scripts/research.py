@@ -19,6 +19,7 @@ import html
 import json
 import re
 from pathlib import Path
+from research_validation import validate_articles
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://brinkmannpaul.com/'
@@ -38,15 +39,16 @@ UI = {
     'ru': {'all': 'все статьи', 'more': 'читать дальше', 'index_title': 'Исследования нейроархитектуры',
            'index_dek': 'Исследования о том, как связаны с мозгом пространства, которые мы строим, кратко для архитектуры.', 'source': 'original research / doi'},
 }
-CSS = (':root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#fff;color:#101010;font:17px/1.65 Arial,Helvetica,sans-serif}'
-       'main{max-width:740px;margin:0 auto;padding:50px 24px 100px}header{border-top:2px solid #101010;padding-top:12px;display:flex;justify-content:space-between;gap:20px;font-size:13px}'
-       'a{color:inherit;text-underline-offset:4px}h1{font-size:clamp(32px,6vw,56px);line-height:1.12;letter-spacing:-.045em;margin:85px 0 15px}'
-       'h2{font-size:23px;line-height:1.25;letter-spacing:-.025em;margin:44px 0 8px}p{margin:0 0 20px}.dek{color:#666;font-size:21px;margin-bottom:55px}'
-       '.source{border-top:1px solid #ccc;margin-top:60px;padding-top:22px;font-size:14px}nav{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;font-size:12px}'
-       'nav a[aria-current]{font-weight:bold}footer{font-size:12px;color:#666;margin-top:45px;display:flex;justify-content:space-between;gap:16px}'
-       '.list{list-style:none;margin:0;padding:0;border-top:1px solid #ccc}.list li{border-bottom:1px solid #ccc;padding:22px 0}'
-       '.list .no{display:block;font-size:12px;letter-spacing:.08em;color:#666;margin-bottom:6px}.list h2{margin:0 0 6px}.list h2 a{text-decoration:none}.list p{margin:0;color:#666}'
-       '@media(max-width:600px){main{padding-top:24px}h1{margin-top:55px}}')
+LABELS = {
+    'en': ('research journal', 'original study', 'study summary', 'skip to content', 'contact', 'language', 'e-mail'),
+    'de': ('forschungsjournal', 'originalstudie', 'studienzusammenfassung', 'zum inhalt', 'kontakt', 'sprache', 'e-mail'),
+    'fr': ('carnet de recherche', 'étude originale', 'synthèse d’étude', 'aller au contenu', 'contact', 'langue', 'e-mail'),
+    'es': ('cuaderno de investigación', 'estudio original', 'resumen del estudio', 'ir al contenido', 'contacto', 'idioma', 'correo electrónico'),
+    'ar': ('دفتر الأبحاث', 'الدراسة الأصلية', 'ملخص دراسة', 'انتقل إلى المحتوى', 'تواصل', 'اللغة', 'البريد الإلكتروني'),
+    'ru': ('исследовательский журнал', 'оригинальное исследование', 'обзор исследования', 'к содержанию', 'контакты', 'язык', 'электронная почта'),
+}
+NATIVE = {'en': ('en', 'english'), 'de': ('de', 'deutsch'), 'fr': ('fr', 'français'),
+          'es': ('es', 'español'), 'ar': ('ع', 'العربية'), 'ru': ('ру', 'русский')}
 
 
 def prefix(lang):
@@ -63,34 +65,60 @@ def txt(text):
     return html.escape(text, quote=False)
 
 
+def prose(text):
+    """Keep scientific symbols and abbreviations exact within lowercase styling."""
+    # Arabic conjunctions can attach directly to Latin symbols, e.g. وLPP.
+    word = r'A-Za-z0-9_\u00c0-\u024f\u0400-\u04ff'
+    terms = rf'(?<![{word}])(IL-10:IL-17A|TGF-beta1|Gammaproteobacteria|Gammaproteobacterial|Gammaproteobakterien|RMSSD|MRI|MRT|IRM|EEG|GPS|P1|N1|P3|LPP|МРТ|ЭЭГ)(?![{word}])'
+    return re.sub(terms, lambda m: f'<bdi class="research-term" dir="ltr">{m.group(0)}</bdi>', txt(text))
+
+
 def page(lang, path, title, description, body, ld, og_type):
+    # Share the actual homepage typography, palette, neural drawing, favicon
+    # and contact symbols. Research-specific layout stays in a scoped CSS file.
+    home = (ROOT / 'dist' / 'index.html').read_text()
+    shared_css = re.search(r'<link rel="stylesheet" href="(styles\.css[^\"]*)"\s*/?>', home).group(1)
+    favicon = re.search(r'<link\s+rel="icon"[^>]*>', home).group(0)
+    contacts = re.search(r'<nav class="contact-links".*?</nav>', home, re.S).group(0)
+    journal, source, summary, skip, contact, language, email = LABELS[lang]
+    contacts = contacts.replace('aria-label="contact"', f'aria-label="{contact}"').replace('aria-label="e-mail"', f'aria-label="{email}"')
     url = f'{SITE}{prefix(lang)}{path}'
     alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{prefix(l)}{path}">' for l in LANGS)
     alternates += f'<link rel="alternate" hreflang="x-default" href="{SITE}{path}">'
-    langs = ''.join(f'<a href="/{prefix(l)}{path}" hreflang="{l}" lang="{l}"{" aria-current=" + chr(34) + "page" + chr(34) if l == lang else ""}>{l.upper()}</a>' for l in LANGS)
+    langs = ''.join(f'<a href="/{prefix(l)}{path}" hreflang="{l}" lang="{l}" aria-label="{NATIVE[l][1]}"' + (' aria-current="page"' if l == lang else '') + f'>{NATIVE[l][0]}</a>' for l in LANGS)
     rtl = ' dir="rtl"' if lang == 'ar' else ''
+    structured = json.dumps(ld, ensure_ascii=False).replace('<', '\\u003c')
     return (f'<!doctype html><html lang="{lang}"{rtl}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>{esc(title)} | paul brinkmann</title><meta name="description" content="{esc(description)}">'
-            f'<link rel="canonical" href="{url}">{alternates}<link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml">'
+            f'<link rel="canonical" href="{url}">{alternates}{favicon}'
             f'<meta property="og:type" content="{og_type}"><meta property="og:site_name" content="paul brinkmann"><meta property="og:locale" content="{LOCALE[lang]}">'
             f'<meta property="og:url" content="{url}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}">'
             f'<meta property="og:image" content="{SITE}assets/og-image.jpg">'
-            f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><style>{CSS}</style></head>'
-            f'<body><main><header><a href="/{prefix(lang)}#neuroarchitecture">paul brinkmann</a><span>neuroarchitecture / research</span></header>'
-            f'<nav aria-label="language">{langs}</nav>{body}'
-            f'<footer><span>paul brinkmann · research journal</span><a href="/{prefix(lang)}research/">{UI[lang]["all"]}</a></footer></main></body></html>\n')
+            f'<script type="application/ld+json">{structured}</script>'
+            f'<link rel="stylesheet" href="/{shared_css}"><link rel="stylesheet" href="/research.css?v=1"></head>'
+            f'<body class="research-page"><a class="skip-link" href="#main-content">{skip}</a>'
+            f'<div class="neural-background" aria-hidden="true"></div>'
+            f'<header class="site-header"><a href="/{prefix(lang)}#neuroarchitecture">paul brinkmann, m.sc.</a>'
+            f'<a href="/{prefix(lang)}research/">{journal}</a></header>'
+            f'<main class="research-main" id="main-content">{body}</main>'
+            f'<footer class="research-footer">{contacts}<nav class="footer-langs" aria-label="{language}">{langs}</nav></footer>'
+            f'</body></html>\n')
 
 
 def article_page(a, number, lang):
     t = a['text'][lang]
     path = f'research/{a["slug"]}/'
     doi = f'https://doi.org/{a["doi"]}'
-    sections = ''.join(f'<h2>{txt(h)}</h2><p>{txt(p)}</p>' for h, p in t['sections'])
-    body = (f'<article><h1>{txt(t["title"])}</h1><p class="dek">{txt(t["dek"])}</p><p>{txt(t["intro"])}</p>{sections}'
-            f'<section class="source"><strong>{txt(a["cite_authors"])}</strong><p><em>{txt(a["cite_title"])}</em> {txt(a["cite_journal"])}</p>'
-            f'<a href="{doi}" target="_blank" rel="noopener noreferrer">{UI[lang]["source"]}</a></section></article>')
+    sections = ''.join(f'<h2>{txt(h)}</h2><p>{prose(p)}</p>' for h, p in t['sections'])
+    body = (f'<article><p class="research-label">{LABELS[lang][2]} / {number:03d}</p>'
+            f'<h1>{txt(t["title"])}</h1><p class="dek">{prose(t["dek"])}</p><p>{prose(t["intro"])}</p>{sections}'
+            f'<section class="source" aria-label="{LABELS[lang][1]}"><p class="research-label">{LABELS[lang][1]}</p>'
+            f'<div lang="en" dir="ltr" class="citation"><p><strong>{txt(a["cite_authors"])}</strong><br>'
+            f'<cite>{txt(a["cite_title"])}</cite>{"" if a["cite_title"].endswith(".") else "."} {txt(a["cite_journal"])}</p>'
+            f'<a href="{doi}" target="_blank" rel="noopener noreferrer">doi: {txt(a["doi"])}</a></div></section></article>'
+            f'<nav class="research-nav" aria-label="{UI[lang]["all"]}"><a href="/{prefix(lang)}research/">{UI[lang]["all"]}</a></nav>')
     ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': t['title'], 'description': t['dek'], 'inLanguage': lang,
-          'datePublished': a['published'], 'author': {'@type': 'Person', 'name': 'Paul Brinkmann'},
+          'datePublished': a['published'], 'dateModified': a['modified'], 'author': {'@type': 'Person', 'name': 'Paul Brinkmann'},
           'mainEntityOfPage': f'{SITE}{prefix(lang)}{path}',
           'isPartOf': {'@type': 'Periodical', 'name': 'paul brinkmann · research journal'},
           'citation': {'@type': 'ScholarlyArticle', 'name': a['cite_title'].rstrip('.'), 'sameAs': doi}}
@@ -99,9 +127,9 @@ def article_page(a, number, lang):
 
 def index_page(arts, lang):
     items = ''.join(f'<li><span class="no">{i:03d}</span><h2><a href="/{prefix(lang)}research/{a["slug"]}/">{txt(a["text"][lang]["title"])}</a></h2>'
-                    f'<p>{txt(a["text"][lang]["dek"])}</p></li>' for i, a in enumerate(arts, 1))
+                    f'<p>{prose(a["text"][lang]["dek"])}</p></li>' for i, a in enumerate(arts, 1))
     ui = UI[lang]
-    body = f'<h1>{txt(ui["index_title"])}</h1><p class="dek">{txt(ui["index_dek"])}</p><ol class="list">{items}</ol>'
+    body = f'<p class="research-label">{LABELS[lang][0]} / {len(arts):03d}</p><h1>{txt(ui["index_title"])}</h1><p class="dek">{txt(ui["index_dek"])}</p><ol class="list">{items}</ol>'
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': ui['index_title'], 'inLanguage': lang,
           'hasPart': [{'@type': 'Article', 'headline': a['text'][lang]['title'], 'url': f'{SITE}{prefix(lang)}research/{a["slug"]}/'} for a in arts]}
     return page(lang, 'research/', ui['index_title'], ui['index_dek'], body, ld, 'website')
@@ -124,7 +152,7 @@ def teaser(arts):
 
 
 def main():
-    arts = json.loads((ROOT / 'research' / 'articles.json').read_text())['articles']
+    arts = validate_articles(json.loads((ROOT / 'research' / 'articles.json').read_text())['articles'])
     for lang in LANGS:
         base = ROOT / 'dist' / prefix(lang) / 'research'
         for i, a in enumerate(arts, 1):
@@ -142,7 +170,7 @@ def main():
     for lang in LANGS[1:]:
         f = ROOT / 'i18n' / f'{lang}.json'
         table = json.loads(f.read_text())
-        table['research journal'] = 'research journal'
+        table['research journal'] = LABELS[lang][0]
         table['read more'] = UI[lang]['more']
         table['all articles'] = UI[lang]['all']
         for a in arts:
