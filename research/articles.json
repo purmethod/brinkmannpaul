@@ -899,7 +899,7 @@
         "en": {
           "title": "Can a planted courtyard calm the body?",
           "dek": "A randomized VR experiment with 282 students tested vegetation, order and complexity.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "A courtyard is not simply empty space between buildings. In a controlled virtual-reality experiment, researchers asked whether the arrangement and variety of planting could influence how students recover from stress.",
           "sections": [
             [
               "The study",
@@ -915,7 +915,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "The experiment suggests that planting design matters beyond the presence of greenery. Physiological and self-report effects were measured immediately in virtual scenes, so real-world and long-term benefits remain to be established."
             ]
           ]
         },
@@ -1047,7 +1047,7 @@
         "en": {
           "title": "Does neighborhood nature relate to dementia risk?",
           "dek": "A 13-year cohort of 426,220 adults links greener surroundings with lower observed risk.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "A tree-lined street is pleasant, but could the amount of nature surrounding a home also be related to later cognitive disease? A large UK cohort examined that question over more than a decade.",
           "sections": [
             [
               "The study",
@@ -1063,7 +1063,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "In this cohort, greater nearby greenery was associated with lower observed risks of Alzheimer's disease and mild cognitive impairment. Because the study was observational, the result is not proof that greenery prevents either condition."
             ]
           ]
         },
@@ -1195,7 +1195,7 @@
         "en": {
           "title": "Can forest microbes enter our homes?",
           "dek": "A proof-of-principle study examines microbial transfer from forest material indoors.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "What happens to the invisible life in our homes if we bring in material from the forest? Researchers tested this question by tracking microbes in household dust before and after a soil-based intervention.",
           "sections": [
             [
               "The study",
@@ -1211,7 +1211,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "Forest-derived bacteria could be detected in indoor dust, especially close to the source and soon after application. This is evidence of microbial transfer, not evidence that bringing forest soil indoors improves health."
             ]
           ]
         },
@@ -1343,7 +1343,7 @@
         "en": {
           "title": "Can a living wall reduce stress at work?",
           "dek": "A study of 41 adults compares living plants with a shelf in real and virtual rooms.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "An office can contain plants, screens and shelves, but do these details affect the body during demanding work? This study compared responses to a living wall and an object-filled shelf in real and virtual rooms.",
           "sections": [
             [
               "The study",
@@ -1359,7 +1359,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "The living wall was linked to some indicators of physiological relaxation, while emotional effects varied by setting. This small study does not show that a green wall improves long-term health or work performance."
             ]
           ]
         },
@@ -1491,7 +1491,7 @@
         "en": {
           "title": "Can nature-themed art change our brain response?",
           "dek": "VR and EEG explore responses to artworks and views in interior spaces.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "A painting can change how a room feels. Could a nature-themed artwork also change measurable responses while someone experiences an interior? Researchers combined virtual reality with EEG to investigate.",
           "sections": [
             [
               "The study",
@@ -1507,7 +1507,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "The study reported differences in restoration ratings and selected EEG measures between indoor scenes. These are immediate responses, not evidence that art creates new neural connections or permanently rewires the brain."
             ]
           ]
         },
@@ -1639,7 +1639,7 @@
         "en": {
           "title": "Can biodiverse playgrounds change immunity?",
           "dek": "A 28-day daycare intervention links greener play environments with microbiome and immune markers.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "Children do not only encounter nature by looking at it. They touch soil, plants and other living materials every day. A Finnish daycare intervention tested whether changing playground biodiversity also changes microbial and immune markers.",
           "sections": [
             [
               "The study",
@@ -1655,7 +1655,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "After 28 days, children in the biodiversity intervention showed changes in skin and gut-associated microbiota and selected immune markers. Whether such changes prevent disease requires further research."
             ]
           ]
         },
@@ -1787,7 +1787,7 @@
         "en": {
           "title": "Does the home microbiome relate to asthma?",
           "dek": "Household dust connects land use, indoor microbes and childhood respiratory health.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "Every home contains a microbial ecosystem shaped by the people inside it and the landscape outside. Researchers compared dust from ventilation systems in rural and urban homes to investigate links with land use and childhood asthma.",
           "sections": [
             [
               "The study",
@@ -1803,7 +1803,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "Indoor microbial profiles varied with nearby land use and asthma status. The cross-sectional findings cannot determine whether microbes caused or prevented asthma; they point to questions for future interventions."
             ]
           ]
         },
@@ -1935,7 +1935,7 @@
         "en": {
           "title": "How do urban scenes shape brain signals?",
           "dek": "EEG distinguishes early visual responses from later appraisal of green urban scenes.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "Two streets may have the same buildings but very different amounts of vegetation. Researchers used EEG while people viewed urban scenes to investigate how visual features are processed and evaluated.",
           "sections": [
             [
               "The study",
@@ -1951,7 +1951,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "Greenery was linked to more positive subjective responses and differences in early and later EEG components. Those signals reflect perception and appraisal during the task, not permanent brain changes."
             ]
           ]
         },
@@ -2083,7 +2083,7 @@
         "en": {
           "title": "Can daily green exposure support memory?",
           "dek": "An ambulatory study asks whether everyday greenspace relates to momentary working memory.",
-          "intro": "Our everyday environments are designed. What can this published study actually tell us about their relationship with human health and the brain?",
+          "intro": "Does passing through a park during an ordinary day matter for memory, especially after a stressful moment? Researchers followed older adults as they moved through their daily environments.",
           "sections": [
             [
               "The study",
@@ -2099,7 +2099,7 @@
             ],
             [
               "Conclusion",
-              "The evidence points to an important research question, not a universal design rule. Better controlled and longer-term studies are needed."
+              "Among 123 adults aged 65 to 89, greener exposure in the preceding two hours was associated with better momentary working memory when recent stressors were reported. The ambulatory observational design cannot establish causation."
             ]
           ]
         },
