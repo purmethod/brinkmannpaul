@@ -22,7 +22,7 @@
   margin-inline: auto;
   padding-inline: var(--edge);
 }
-.research-main { padding-block: clamp(3rem, 8vw, 6rem) 2.5rem; }
+.research-main { padding-block: clamp(2rem, 4vw, 3rem) 2.5rem; }
 .research-page h1 {
   margin: 0.75rem 0 1.1rem;
   font-size: clamp(1.75rem, 4.8vw, 2.5rem);
@@ -65,19 +65,24 @@
 .research-page .research-footer {
   --button: 2.75rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 1.25rem;
   padding-block: 0 2rem;
   color: var(--muted);
 }
-.research-page .footer-langs { gap: 3px; }
+.research-page .header-langs {
+  --button: 2.75rem;
+  flex-basis: 100%;
+  justify-content: flex-end;
+  gap: 3px;
+  direction: ltr;
+}
 .research-page a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 [dir="rtl"] .research-page .site-header > a:first-child { direction: ltr; unicode-bidi: isolate; }
 [dir="rtl"] .research-page .source { text-align: start; }
 @media (max-width: 580px) {
   .research-main, .research-footer { padding-inline: 1.25rem; }
-  .research-page .research-footer { flex-direction: column; align-items: flex-start; }
 }
 @media print {
   .research-page .neural-background,
