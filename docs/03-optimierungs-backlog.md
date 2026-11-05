@@ -1,5 +1,9 @@
 # 03 — Optimierungs-Backlog
 
+## #202 · all art.
+
+Freigegebenen Rubriktext in sechs Sprachen ersetzen. Keine Änderung an Layout oder anderen Rubriken.
+
 ## Issue #181 — Ungefragten ÂLF-Zusatz entfernt (2026-10-26)
 
 - Ausschließlich den von Paul beanstandeten Schlusssatz des Methodenabsatzes in allen sechs Sprachen entfernen. Andere Texte, Buttons und Funktionen unverändert. Quelltextreview und Live-Abgleich; keine Browser-Vorschau.
