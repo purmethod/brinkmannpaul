@@ -95,13 +95,14 @@ def page(lang, path, title, description, body, ld, og_type):
             f'<meta property="og:url" content="{url}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}">'
             f'<meta property="og:image" content="{SITE}assets/og-image.jpg">'
             f'<script type="application/ld+json">{structured}</script>'
-            f'<link rel="stylesheet" href="/{shared_css}"><link rel="stylesheet" href="/research.css?v=1"></head>'
+            f'<link rel="stylesheet" href="/{shared_css}"><link rel="stylesheet" href="/research.css?v=2"></head>'
             f'<body class="research-page"><a class="skip-link" href="#main-content">{skip}</a>'
             f'<div class="neural-background" aria-hidden="true"></div>'
             f'<header class="site-header"><a href="/{prefix(lang)}#neuroarchitecture">paul brinkmann, m.sc.</a>'
-            f'<a href="/{prefix(lang)}research/">{journal}</a></header>'
+            f'<a href="/{prefix(lang)}research/">{journal}</a>'
+            f'<nav class="footer-langs header-langs" aria-label="{language}">{langs}</nav></header>'
             f'<main class="research-main" id="main-content">{body}</main>'
-            f'<footer class="research-footer">{contacts}<nav class="footer-langs" aria-label="{language}">{langs}</nav></footer>'
+            f'<footer class="research-footer">{contacts}</footer>'
             f'</body></html>\n')
 
 

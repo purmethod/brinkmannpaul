@@ -1,5 +1,12 @@
 # 03 — Optimierungs-Backlog
 
+## #221 · Sprachen oben, Kontakt unten
+
+Status: entsprechend Pauls zusätzlicher Anweisung umgesetzt; unabhängiger Review vor Veröffentlichung.
+
+- Sprachauswahl im Kopfbereich aller Journal- und Artikelseiten; Kontaktlinks allein am bisherigen unteren Sprachwahlplatz. Alle sechs Sprachen, Links zum gleichen Artikel und RTL berücksichtigt. Keine Textänderung.
+- Generator und zwölf Regressionstests bestanden, einschließlich Kopf-/Fußbereich-Prüfung aller 96 Journalrouten. Mobil passen sechs 44-px-Buttons mit 3-px-Abständen in die 280-px-Innenbreite bei 320-px-Viewport. Diese rechnerische Kontrolle ersetzt keinen echten mobilen Browserlauf; die technische Einschränkung bleibt dokumentiert.
+
 ## #219 · Zahlenbereiche im Forschungsjournal eindeutig darstellen
 
 Status: Folgekorrektur aus dem öffentlichen Desktop-Smoke-Test von #218.

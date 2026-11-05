@@ -128,7 +128,15 @@ class ResearchTests(unittest.TestCase):
                     self.assertEqual(len(language_links), 6)
                     self.assertEqual([l['hreflang'] for l in language_links if l.get('aria-current') == 'page'], [lang])
                     styles = [l['href'] for l in links if l.get('rel') == 'stylesheet']
-                    self.assertEqual(styles, ['/styles.css?v=74', '/research.css?v=1'])
+                    home = (ROOT / 'dist/index.html').read_text()
+                    shared_css = re.search(r'<link rel="stylesheet" href="(styles\.css[^\"]*)"', home)[1]
+                    self.assertEqual(styles, ['/' + shared_css, '/research.css?v=2'])
+                    header = re.search(r'<header\b.*?</header>', source, re.S)[0]
+                    footer = re.search(r'<footer\b.*?</footer>', source, re.S)[0]
+                    self.assertEqual(len(Page(header).all('a')), 8, 'brand, journal and six languages at the top')
+                    self.assertEqual(len([a for a in Page(header).all('a') if 'hreflang' in a]), 6)
+                    self.assertNotIn('hreflang=', footer, 'no language selector after the article')
+                    self.assertEqual(len(Page(footer).all('a')), 3, 'email, whatsapp and instagram at the bottom')
                     self.assertNotIn('<style', source)
                     self.assertIn('class="neural-background"', source)
                     self.assertIn('class="contact-links"', source)

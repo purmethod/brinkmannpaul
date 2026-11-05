@@ -1,5 +1,11 @@
 # 02 — Inhalts-Inventar brinkmannpaul.com
 
+## Sprachauswahl vor dem Lesen (2026-11-05, #221)
+
+- Auf Pauls Wunsch stehen die sechs Sprachbuttons im Kopfbereich aller 90 Artikel und sechs Journalübersichten. Der Wechsel führt weiterhin zur entsprechenden Fassung desselben Artikels; aktuelle Sprache und native Sprachbezeichnungen bleiben gekennzeichnet.
+- Im bisherigen Fußbereich der Sprachauswahl stehen jetzt ausschließlich E-Mail, WhatsApp und Instagram, am logischen Zeilenende. Kontaktziele unverändert. 44-px-Bedienflächen, sichtbarer Tastaturfokus und arabische Leserichtung erhalten; keine zusätzlichen JavaScript-Funktionen.
+- Einheitliche Ausgabe über `research.py`, Layoutversion `research.css?v=2`. Studienwortlaut, Quellen und übrige Website unverändert. Regression prüft die Positionen und Linkzahlen auf allen 96 Seiten.
+
 ## Live-Kontrolle des Forschungsjournals (2026-11-05, #219)
 
 - Nach Veröffentlichung von #218 alle 90 Artikel und sechs Übersichten im öffentlichen Desktop-Browser geöffnet. Sämtliche Artikeltexte einschließlich aller vier Abschnitte und DOI-Links stimmen exakt mit der geprüften Datenquelle überein. Jede Liste enthält 15 Beiträge; Sprachwechsel, kanonische URLs und gemeinsame Styles korrekt. Kein horizontaler Überlauf bei der verfügbaren Desktop-Breite.
