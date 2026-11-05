@@ -1,5 +1,9 @@
 # 03 — Optimierungs-Backlog
 
+## #204 · alles kunst. – einheitlicher Fließtext
+
+Der erste Absatz verwendet in allen sechs Sprachen dieselbe Typografie wie die Folgeabsätze. Wortlaut und Überschrift bleiben unverändert.
+
 ## #202 · all art.
 
 Freigegebenen Rubriktext in sechs Sprachen ersetzen. Keine Änderung an Layout oder anderen Rubriken.
