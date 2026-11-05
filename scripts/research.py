@@ -69,7 +69,7 @@ def prose(text):
     """Keep scientific symbols and abbreviations exact within lowercase styling."""
     # Arabic conjunctions can attach directly to Latin symbols, e.g. وLPP.
     word = r'A-Za-z0-9_\u00c0-\u024f\u0400-\u04ff'
-    terms = rf'(?<![{word}])(IL-10:IL-17A|TGF-beta1|Gammaproteobacteria|Gammaproteobacterial|Gammaproteobakterien|RMSSD|MRI|MRT|IRM|EEG|GPS|P1|N1|P3|LPP|МРТ|ЭЭГ)(?![{word}])'
+    terms = rf'(?<![{word}])(IL-10:IL-17A|TGF-beta1|Gammaproteobacteria|Gammaproteobacterial|Gammaproteobakterien|RMSSD|MRI|MRT|IRM|EEG|GPS|P1|N1|P3|LPP|МРТ|ЭЭГ|\d+(?:[.,]\d+)?-\d+(?:[.,]\d+)?)(?![{word}])'
     return re.sub(terms, lambda m: f'<bdi class="research-term" dir="ltr">{m.group(0)}</bdi>', txt(text))
 
 

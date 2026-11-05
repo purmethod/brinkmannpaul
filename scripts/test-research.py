@@ -172,6 +172,9 @@ class ResearchTests(unittest.TestCase):
         source = page.read_text()
         for term in ('IL-10:IL-17A', 'TGF-beta1', 'Gammaproteobacteria'):
             self.assertIn(f'<bdi class="research-term" dir="ltr">{term}</bdi>', source)
+        self.assertIn('<bdi class="research-term" dir="ltr">3-5</bdi>', source)
+        memory = ROOT / 'dist/ar/research/can-daily-green-exposure-support-memory/index.html'
+        self.assertIn('<bdi class="research-term" dir="ltr">65-89</bdi>', memory.read_text())
         street = ROOT / 'dist/ar/research/how-do-urban-scenes-shape-brain-signals/index.html'
         self.assertIn('و<bdi class="research-term" dir="ltr">LPP</bdi>', street.read_text())
         self.assertIn('[dir="rtl"] .research-page .site-header', css)

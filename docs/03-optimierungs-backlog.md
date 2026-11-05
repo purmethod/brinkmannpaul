@@ -1,5 +1,12 @@
 # 03 — Optimierungs-Backlog
 
+## #219 · Zahlenbereiche im Forschungsjournal eindeutig darstellen
+
+Status: Folgekorrektur aus dem öffentlichen Desktop-Smoke-Test von #218.
+
+- 90 Live-Artikeltexte mit geprüfter Quelle exakt abgeglichen; sechs vollständige Journalübersichten und korrekte Quellen-/Sprachverknüpfungen bestätigt. Visuelle Prüfung der Übersicht und arabischer Fachnotation.
+- Zahlenbereiche werden mit derselben LTR-Isolation wie Fachabkürzungen ausgegeben. Originaldaten und Text unverändert; Regression prüft die arabischen Altersbereiche `3-5` und `65-89`. Unabhängiger Review vor dem Merge. Mobiler Browsertest weiterhin technisch nicht verfügbar.
+
 ## #217 · Neuroarchitektur: 15 Studien, sechs Sprachen und einheitliches Design
 
 Status: umgesetzt und lokal geprüft; unabhängiger Review und Produktionskontrolle werden im zugehörigen PR dokumentiert. Anpassung der veröffentlichten Rubrik von Paul beauftragt.

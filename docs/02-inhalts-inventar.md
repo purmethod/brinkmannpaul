@@ -1,5 +1,10 @@
 # 02 — Inhalts-Inventar brinkmannpaul.com
 
+## Live-Kontrolle des Forschungsjournals (2026-11-05, #219)
+
+- Nach Veröffentlichung von #218 alle 90 Artikel und sechs Übersichten im öffentlichen Desktop-Browser geöffnet. Sämtliche Artikeltexte einschließlich aller vier Abschnitte und DOI-Links stimmen exakt mit der geprüften Datenquelle überein. Jede Liste enthält 15 Beiträge; Sprachwechsel, kanonische URLs und gemeinsame Styles korrekt. Kein horizontaler Überlauf bei der verfügbaren Desktop-Breite.
+- Journalübersicht und arabischen Fachartikel visuell kontrolliert. Numerische Bereiche erhalten zusätzlich die bestehende LTR-Isolation für Fachnotation, damit Altersbereiche wie `3-5` und `65-89` im arabischen Fließtext nicht ihre visuelle Reihenfolge wechseln. Nur generiertes Markup, kein Wortlaut geändert. Mobiler Browsertest bleibt unbestätigt.
+
 ## Aktualisierung: Forschungsjournal vollständig geprüft (2026-11-05, #217)
 
 - Alle 15 vorhandenen Studienzusammenfassungen fachlich überarbeitet: Studiendesign und Stichprobe, konkrete Ergebnisse, architektonische Einordnung sowie Grenzen getrennt dargestellt. Beobachtungsdaten werden nicht als Kausalnachweise dargestellt; relevante nicht signifikante Ergebnisse ergänzt. Autorenangaben für Maestre und Zähme sowie Zeitschriftenangaben korrigiert.
