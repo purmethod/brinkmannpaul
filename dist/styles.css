@@ -744,3 +744,32 @@ a:focus-visible {
 .pact-steps { list-style: none; counter-reset: step; margin: 0.8rem 0 1rem; padding: 0; border-top: 1px solid rgba(0,0,0,.12); }
 .pact-steps li { counter-increment: step; display: grid; grid-template-columns: 1.6rem 1fr; padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,.12); color: var(--muted); line-height: 1.55; }
 .pact-steps li::before { content: counter(step); color: var(--tone-dark, var(--ink)); }
+
+/* All Art shows its first two paragraphs before the full statement. */
+#site-page .art-more > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0;
+  color: var(--ink);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  list-style: none;
+  cursor: pointer;
+}
+#site-page .art-more > summary::-webkit-details-marker { display: none; }
+#site-page .art-more > summary::after { content: "+"; }
+#site-page .art-more[open] > summary::after { content: "−"; }
+#site-page .art-more-label {
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+#site-page .art-more-collapse,
+#site-page .art-more[open] .art-more-expand { display: none; }
+#site-page .art-more[open] .art-more-collapse { display: inline; }
+#site-page .art-more-text { padding-top: 1rem; }

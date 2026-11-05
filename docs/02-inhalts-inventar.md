@@ -1,5 +1,12 @@
 # 02 — Inhalts-Inventar brinkmannpaul.com
 
+## Aktualisierung: freigegebener All-Art-Text mit Weiterlesen (2026-11-05, #206)
+
+- Paul hat den vollständigen englischen Entwurf ausdrücklich wortgetreu zur Veröffentlichung freigegeben: 30 Absätze, 905 Wörter, einschließlich Akzeptanz, dem roten und blauen Zimmer, Kursen und der Friedensvision.
+- Nach dem Öffnen von All Art erscheinen genau die ersten zwei Absätze des freigegebenen Textes. Ein natives, lokalisiertes „read more“ / „weiterlesen“ öffnet die übrigen 28 Absätze; „read less“ / „weniger anzeigen“ schließt sie wieder.
+- Vollständige Fassungen auf Englisch, Deutsch, Französisch, Spanisch, Hocharabisch und Russisch. Die deutsche Fassung endet auf ausdrückliche Korrektur mit „dir.“
+- Englische Quelle bleibt `dist/index.html`; die fünf Übersetzungen werden über `i18n/*.json` und `scripts/i18n.py build` erzeugt. Andere Rubriken und die vorhandene Lesefunktion bleiben erhalten.
+
 Extrahierter Original-Stand 2026-09-22. **Nichts erfinden: Alle Texte 1:1 vom Live-System.**
 
 ## Aktualisierung: pure unter brinkmannpaul.com/pure (2026-11-01)

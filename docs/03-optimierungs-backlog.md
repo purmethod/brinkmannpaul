@@ -1,5 +1,13 @@
 # 03 — Optimierungs-Backlog
 
+## #206 · All Art: freigegebener Volltext, zwei Absätze und Weiterlesen
+
+Status: umgesetzt; Veröffentlichung von Paul ausdrücklich freigegeben. Unabhängiger Agentenreview vor dem Merge.
+
+- Freigegebenen englischen Text wortgetreu übernommen (30 Absätze, 905 Wörter) und vollständig in die fünf vorhandenen Sprachen übersetzt; deutscher Schluss „dir.“
+- Genau zwei Einleitungsabsätze vor einem nativen, lokalisierten Weiterlesen-Akkordeon. Auch ohne JavaScript bedienbar; 44 px hohe Klickfläche und vorhandene Tastaturfokus-Anzeige.
+- Keine Änderungen an anderen Rubriken, Projektreihenfolge, Intro, JavaScript oder Assets. Nur die benötigten All-Art-Stile ergänzt; Übersetzungen über den bestehenden Generator.
+
 ## #204 · alles kunst. – einheitlicher Fließtext
 
 Der erste Absatz verwendet in allen sechs Sprachen dieselbe Typografie wie die Folgeabsätze. Wortlaut und Überschrift bleiben unverändert.
