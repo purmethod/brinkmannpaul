@@ -2234,6 +2234,155 @@
         }
       },
       "modified": "2026-11-05"
+    },
+    {
+      "slug": "do-office-plants-improve-thinking-or-only-stress",
+      "published": "2026-11-06",
+      "modified": "2026-11-06",
+      "doi": "10.1016/j.jenvp.2026.103171",
+      "cite_authors": "Zhang & Du (2026)",
+      "cite_title": "A Re-investigation of human performance in open-plan offices: The restorative impact of plant quantity and access to window views following ego-depletion.",
+      "cite_journal": "Journal of Environmental Psychology, article 103171.",
+      "text": {
+        "en": {
+          "title": "Do office plants improve thinking—or only stress?",
+          "dek": "Four randomized VR experiments found physiological benefits from greenery, but no measurable cognitive improvement.",
+          "intro": "We put plants into offices hoping people will think better. But do plants actually improve attention and cognition, or do they mainly change how our bodies respond to stress? A 2026 study tested those outcomes separately.",
+          "sections": [
+            [
+              "Four controlled experiments",
+              "Zhang and Du conducted four randomized experiments in virtual open-plan offices, with 132, 126, 134 and 96 participants respectively (488 participations across experiments). They varied the amount of indoor plants and access to nature or urban window views after a mentally demanding task. Researchers measured heart-rate variability (HRV), electrodermal activity (EDA), mood, attention and cognitive performance."
+            ],
+            [
+              "What the researchers found",
+              "All tested quantities of indoor plants were associated with improved HRV and reduced EDA after the task. Medium and high access to natural window views also reduced EDA. But plants did not significantly improve mood or cognitive test performance. Only a high quantity of plants improved reported affective qualities of the space. Window views sometimes improved mood and the perceived quality of the office."
+            ],
+            [
+              "What this means for architecture",
+              "A green office should not automatically be marketed as a productivity machine. The more defensible design argument is that greenery can influence short-term physiological recovery and how occupants experience a room. Plant quantity and window access are distinct design decisions, not interchangeable guarantees."
+            ],
+            [
+              "Limits and conclusion",
+              "These were short-term experiments in virtual offices, not long-term studies of actual workplaces. HRV and EDA are indirect indicators of autonomic activity, not proof of better health or new neural connections. The reported cognitive benefits were not significant. The study supports cautious design hypotheses, not universal prescriptions."
+            ]
+          ]
+        },
+        "de": {
+          "title": "Machen Büropflanzen uns klüger – oder nur entspannter?",
+          "dek": "Vier randomisierte VR-Experimente zeigen physiologische Effekte von Begrünung, aber keine messbare Verbesserung der Kognition.",
+          "intro": "Wir stellen Pflanzen in Büros und hoffen auf bessere Konzentration. Aber verbessert Grün wirklich unser Denken – oder verändert es vor allem die körperliche Stressreaktion? Eine Studie von 2026 untersuchte beides getrennt.",
+          "sections": [
+            [
+              "Vier kontrollierte Experimente",
+              "Zhang und Du führten vier randomisierte Experimente in virtuellen Großraumbüros mit 132, 126, 134 und 96 Teilnehmenden durch (insgesamt 488 Teilnahmen). Nach einer mental belastenden Aufgabe variierten sie die Pflanzenmenge sowie den Blick auf Natur oder Stadt. Gemessen wurden Herzratenvariabilität (HRV), elektrodermale Aktivität (EDA), Stimmung, Aufmerksamkeit und kognitive Leistung."
+            ],
+            [
+              "Die Ergebnisse",
+              "Alle untersuchten Pflanzenmengen waren mit verbesserter HRV und verringerter EDA nach der Aufgabe verbunden. Ein mittlerer oder großer Naturausblick verringerte ebenfalls die EDA. Pflanzen verbesserten jedoch weder die Stimmung noch die kognitiven Testergebnisse statistisch signifikant. Nur viele Pflanzen verbesserten die wahrgenommene emotionale Qualität des Raums. Fensterblicke beeinflussten teilweise Stimmung und Raumwahrnehmung positiv."
+            ],
+            [
+              "Bedeutung für die Architektur",
+              "Ein begrüntes Büro ist nicht automatisch eine Produktivitätsmaschine. Die belastbarere Aussage lautet: Pflanzen können die kurzfristige physiologische Erholung und das Erleben eines Raums beeinflussen. Pflanzenmenge und Fensterblick sind unterschiedliche Gestaltungsparameter – keine austauschbaren Erfolgsgarantien."
+            ],
+            [
+              "Grenzen und Fazit",
+              "Untersucht wurden kurzfristige Reaktionen in virtuellen Büros, nicht die langfristige Gesundheit realer Beschäftigter. HRV und EDA sind indirekte Indikatoren autonomer Aktivität und kein Beweis für neue neuronale Verbindungen. Signifikante kognitive Vorteile wurden nicht gefunden. Die Ergebnisse begründen vorsichtige Gestaltungshypothesen, keine allgemeingültigen Regeln."
+            ]
+          ]
+        },
+        "fr": {
+          "title": "Les plantes au bureau améliorent-elles la pensée ou surtout la récupération du stress ?",
+          "dek": "Quatre expériences randomisées en réalité virtuelle montrent des effets physiologiques, mais pas d'amélioration cognitive mesurable.",
+          "intro": "On ajoute des plantes au bureau en espérant mieux se concentrer. Pourtant, améliorent-elles la cognition ou surtout la réponse physiologique au stress ? Une étude de 2026 distingue ces effets.",
+          "sections": [
+            [
+              "Quatre expériences contrôlées",
+              "Zhang et Du ont mené quatre expériences randomisées dans des bureaux paysagers virtuels, réunissant respectivement 132, 126, 134 et 96 participants (488 participations au total). Après une tâche mentalement exigeante, ils ont fait varier la quantité de plantes et la vue sur la nature ou la ville. Ils ont mesuré la variabilité de la fréquence cardiaque (VFC), l'activité électrodermale, l'humeur, l'attention et la cognition."
+            ],
+            [
+              "Les résultats",
+              "Toutes les quantités de plantes testées étaient associées à une meilleure VFC et à une activité électrodermale réduite. Une vue naturelle moyenne ou importante réduisait aussi cette activité. En revanche, les plantes n'amélioraient pas significativement l'humeur ni les performances cognitives. Seule une grande quantité de plantes améliorait les qualités affectives perçues de l'espace."
+            ],
+            [
+              "Interprétation architecturale",
+              "Un bureau végétalisé ne garantit pas une meilleure productivité. L'argument le plus solide concerne la récupération physiologique à court terme et l'expérience subjective de l'espace. La quantité de plantes et la vue depuis la fenêtre constituent deux paramètres distincts."
+            ],
+            [
+              "Limites et conclusion",
+              "Les expériences étaient brèves et virtuelles, sans suivi de la santé dans des bureaux réels. La VFC et l'activité électrodermale sont des indicateurs indirects, pas une preuve de nouvelles connexions neuronales. Aucun gain cognitif significatif n'a été démontré."
+            ]
+          ]
+        },
+        "es": {
+          "title": "¿Las plantas de oficina mejoran el pensamiento o solo la recuperación del estrés?",
+          "dek": "Cuatro experimentos aleatorizados en realidad virtual detectaron efectos fisiológicos, pero no mejoras cognitivas significativas.",
+          "intro": "Colocamos plantas en oficinas con la esperanza de mejorar la concentración. Pero ¿mejoran la cognición o principalmente la respuesta corporal al estrés? Un estudio de 2026 separó ambas preguntas.",
+          "sections": [
+            [
+              "Cuatro experimentos controlados",
+              "Zhang y Du realizaron cuatro experimentos aleatorizados en oficinas abiertas virtuales con 132, 126, 134 y 96 participantes, respectivamente (488 participaciones en total). Tras una tarea exigente variaron la cantidad de plantas y las vistas naturales o urbanas. Midieron variabilidad de la frecuencia cardíaca (VFC), actividad electrodérmica, estado de ánimo, atención y cognición."
+            ],
+            [
+              "Los resultados",
+              "Todas las cantidades de plantas evaluadas se asociaron con una mejor VFC y menor actividad electrodérmica. Las vistas naturales de tamaño medio o grande también redujeron esta actividad. Sin embargo, las plantas no mejoraron significativamente el ánimo ni el rendimiento cognitivo. Solo una gran cantidad de plantas mejoró las cualidades afectivas percibidas del espacio."
+            ],
+            [
+              "Interpretación arquitectónica",
+              "Una oficina verde no garantiza mayor productividad. La conclusión más sólida se refiere a la recuperación fisiológica inmediata y a cómo se percibe el espacio. La cantidad de plantas y las vistas son decisiones de diseño diferentes."
+            ],
+            [
+              "Límites y conclusión",
+              "Los experimentos fueron breves y virtuales, sin evaluar efectos sanitarios a largo plazo en oficinas reales. La VFC y la actividad electrodérmica son indicadores indirectos, no pruebas de nuevas conexiones neuronales. No se observaron beneficios cognitivos significativos."
+            ]
+          ]
+        },
+        "ar": {
+          "title": "هل تحسن نباتات المكاتب التفكير أم التعافي من التوتر فقط؟",
+          "dek": "أظهرت أربع تجارب عشوائية في الواقع الافتراضي آثاراً فسيولوجية للنباتات دون تحسن معرفي ملحوظ إحصائياً.",
+          "intro": "نضع النباتات في المكاتب أملاً في تحسين التركيز. لكن هل تحسن التفكير فعلاً أم تؤثر أساساً في استجابة الجسم للتوتر؟ فصلت دراسة منشورة عام 2026 بين هذين السؤالين.",
+          "sections": [
+            [
+              "أربع تجارب مضبوطة",
+              "أجرى تشانغ ودو أربع تجارب عشوائية في مكاتب مفتوحة افتراضية، شملت على التوالي 132 و126 و134 و96 مشاركاً، أي 488 مشاركة عبر التجارب. بعد مهمة ذهنية مرهقة، غيّر الباحثان كمية النباتات وإطلالات النوافذ على الطبيعة أو المدينة. وقاسا تباين معدل ضربات القلب والنشاط الكهربائي للجلد والمزاج والانتباه والأداء المعرفي."
+            ],
+            [
+              "النتائج",
+              "ارتبطت جميع كميات النباتات المختبرة بتحسن تباين معدل ضربات القلب وانخفاض النشاط الكهربائي للجلد. كما خفضت الإطلالات الطبيعية المتوسطة والكبيرة هذا النشاط. لكن النباتات لم تحسن المزاج أو الأداء المعرفي تحسناً ذا دلالة إحصائية. ولم تتحسن الصفات العاطفية المدركة للمكان إلا عند وجود كمية كبيرة من النباتات."
+            ],
+            [
+              "الدلالة المعمارية",
+              "المكتب المزروع بالنباتات ليس ضماناً لزيادة الإنتاجية. الاستنتاج الأقوى هو احتمال تأثير النباتات في التعافي الفسيولوجي القصير المدى وفي تجربة المستخدم للمكان. وتبقى كمية النباتات والإطلالة قرارين تصميميين مختلفين."
+            ],
+            [
+              "الحدود والخلاصة",
+              "كانت التجارب قصيرة وأُجريت في بيئات افتراضية، ولم تختبر الصحة طويلة المدى في مكاتب حقيقية. المؤشرات الفسيولوجية غير مباشرة ولا تثبت نشوء وصلات عصبية جديدة. ولم تثبت الدراسة تحسناً معرفياً ذا دلالة إحصائية."
+            ]
+          ]
+        },
+        "ru": {
+          "title": "Растения в офисе улучшают мышление или лишь восстановление после стресса?",
+          "dek": "Четыре рандомизированных VR-эксперимента выявили физиологические эффекты озеленения, но не значимое улучшение когнитивных результатов.",
+          "intro": "Мы ставим растения в офисах в надежде улучшить концентрацию. Но помогают ли они мышлению или прежде всего меняют физиологическую реакцию на стресс? Исследование 2026 года проверило эти эффекты отдельно.",
+          "sections": [
+            [
+              "Четыре контролируемых эксперимента",
+              "Чжан и Ду провели четыре рандомизированных эксперимента в виртуальных офисах открытого типа с 132, 126, 134 и 96 участниками соответственно (488 участий в общей сложности). После сложного умственного задания они варьировали количество растений и виды из окон на природу или город. Измерялись вариабельность сердечного ритма (ВСР), электродермальная активность, настроение, внимание и когнитивные показатели."
+            ],
+            [
+              "Результаты",
+              "Все исследованные количества растений были связаны с улучшением ВСР и снижением электродермальной активности. Средний и широкий вид на природу также снижал эту активность. Однако растения не улучшили статистически значимо настроение или когнитивные результаты. Лишь большое количество растений улучшило субъективное эмоциональное восприятие пространства."
+            ],
+            [
+              "Значение для архитектуры",
+              "Озеленённый офис не гарантирует повышения производительности. Более обоснованный вывод касается кратковременного физиологического восстановления и восприятия помещения. Количество растений и вид из окна — разные параметры проектирования."
+            ],
+            [
+              "Ограничения и вывод",
+              "Эксперименты были краткосрочными и виртуальными, без оценки долгосрочного здоровья в реальных офисах. ВСР и электродермальная активность — косвенные показатели, а не доказательство новых нейронных связей. Значимого улучшения когнитивных функций не обнаружено."
+            ]
+          ]
+        }
+      }
     }
   ]
 }
