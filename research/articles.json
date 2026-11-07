@@ -2238,15 +2238,15 @@
     {
       "slug": "do-office-plants-improve-thinking-or-only-stress",
       "published": "2026-11-06",
-      "modified": "2026-11-06",
+      "modified": "2026-11-07",
       "doi": "10.1016/j.jenvp.2026.103171",
       "cite_authors": "Zhang & Du (2026)",
       "cite_title": "A Re-investigation of human performance in open-plan offices: The restorative impact of plant quantity and access to window views following ego-depletion.",
       "cite_journal": "Journal of Environmental Psychology, article 103171.",
       "text": {
         "en": {
-          "title": "Do office plants improve thinking—or only stress?",
-          "dek": "Four randomized VR experiments found physiological benefits from greenery, but no measurable cognitive improvement.",
+          "title": "Do office plants improve thinking, or only stress recovery?",
+          "dek": "Four randomized VR experiments found short-term physiological effects of greenery, but no significant cognitive improvement.",
           "intro": "We put plants into offices hoping people will think better. But do plants actually improve attention and cognition, or do they mainly change how our bodies respond to stress? A 2026 study tested those outcomes separately.",
           "sections": [
             [
@@ -2268,9 +2268,9 @@
           ]
         },
         "de": {
-          "title": "Machen Büropflanzen uns klüger – oder nur entspannter?",
+          "title": "Machen Büropflanzen uns klüger oder nur entspannter?",
           "dek": "Vier randomisierte VR-Experimente zeigen physiologische Effekte von Begrünung, aber keine messbare Verbesserung der Kognition.",
-          "intro": "Wir stellen Pflanzen in Büros und hoffen auf bessere Konzentration. Aber verbessert Grün wirklich unser Denken – oder verändert es vor allem die körperliche Stressreaktion? Eine Studie von 2026 untersuchte beides getrennt.",
+          "intro": "Wir stellen Pflanzen in Büros und hoffen auf bessere Konzentration. Aber verbessert Grün wirklich unser Denken, oder verändert es vor allem die körperliche Stressreaktion? Eine Studie von 2026 untersuchte beides getrennt.",
           "sections": [
             [
               "Vier kontrollierte Experimente",
@@ -2282,7 +2282,7 @@
             ],
             [
               "Bedeutung für die Architektur",
-              "Ein begrüntes Büro ist nicht automatisch eine Produktivitätsmaschine. Die belastbarere Aussage lautet: Pflanzen können die kurzfristige physiologische Erholung und das Erleben eines Raums beeinflussen. Pflanzenmenge und Fensterblick sind unterschiedliche Gestaltungsparameter – keine austauschbaren Erfolgsgarantien."
+              "Ein begrüntes Büro ist nicht automatisch eine Produktivitätsmaschine. Die belastbarere Aussage lautet: Pflanzen können die kurzfristige physiologische Erholung und das Erleben eines Raums beeinflussen. Pflanzenmenge und Fensterblick sind unterschiedliche Gestaltungsparameter, keine austauschbaren Erfolgsgarantien."
             ],
             [
               "Grenzen und Fazit",
@@ -2396,7 +2396,7 @@
         "en": {
           "title": "Does disinfecting every hospital surface prevent more infections?",
           "dek": "A randomized study of 13,896 patients found no superiority of routine disinfection over soap-based or probiotic cleaning on non-ICU wards.",
-          "intro": "A hospital room is not just walls and furniture. Its cleaning regime is part of the built environment. But does stronger routine disinfection actually prevent more infections?",
+          "intro": "For me, a hospital room is more than walls and furniture. The way we clean it is part of the environment we build. So I wanted to know: does more routine disinfection really prevent more infections?",
           "sections": [
             [
               "The study",
@@ -2419,7 +2419,7 @@
         "de": {
           "title": "Verhindert mehr Desinfektion im Krankenhaus wirklich mehr Infektionen?",
           "dek": "Eine randomisierte Studie mit 13.896 Patienten fand auf Normalstationen keinen Vorteil routinemäßiger Desinfektion gegenüber Seifen- oder probiotischer Reinigung.",
-          "intro": "Ein Krankenhauszimmer besteht nicht nur aus Wänden und Möbeln. Auch seine Reinigung gehört zur gebauten Umwelt. Aber verhindert stärkere routinemäßige Desinfektion tatsächlich mehr Infektionen?",
+          "intro": "Für mich ist ein Krankenhauszimmer mehr als Wände und Möbel. Wie wir es reinigen, gehört zu der Umwelt, die wir bauen. Deshalb wollte ich wissen: Verhindert mehr routinemäßige Desinfektion wirklich mehr Infektionen?",
           "sections": [
             [
               "Die Untersuchung",
@@ -2435,14 +2435,14 @@
             ],
             [
               "Grenzen und Fazit",
-              "Es handelt sich um eine einzelne Klinik und Normalstationen – nicht um Intensivstationen, Ausbrüche oder Privathaushalte. Die Konfidenzintervalle lassen relevante Unterschiede zu: Ein nicht signifikanter Unterschied beweist keine Gleichwertigkeit. Gehirnaktivität, Epigenetik und Veränderungen des Innenraummikrobioms wurden nicht gemessen."
+              "Es handelt sich um eine einzelne Klinik und um Normalstationen, nicht um Intensivstationen, Ausbrüche oder Privathaushalte. Die Konfidenzintervalle lassen relevante Unterschiede zu: Ein nicht signifikanter Unterschied beweist keine Gleichwertigkeit. Gehirnaktivität, Epigenetik und Veränderungen des Innenraummikrobioms wurden nicht gemessen."
             ]
           ]
         },
         "fr": {
           "title": "Désinfecter davantage les surfaces hospitalières évite-t-il plus d’infections ?",
           "dek": "Un essai randomisé portant sur 13 896 patients n’a montré aucune supériorité de la désinfection de routine sur le savon ou le nettoyage probiotique dans les services non intensifs.",
-          "intro": "La chambre d’hôpital comprend aussi ses pratiques d’entretien. Une désinfection chimique plus intensive réduit-elle vraiment les infections ?",
+          "intro": "Pour moi, une chambre d’hôpital est plus que des murs et des meubles. La façon dont nous la nettoyons fait partie de l’environnement que nous construisons. Je voulais donc savoir : davantage de désinfection de routine prévient-elle vraiment plus d’infections ?",
           "sections": [
             [
               "L’étude",
@@ -2465,7 +2465,7 @@
         "es": {
           "title": "¿Desinfectar más superficies hospitalarias evita más infecciones?",
           "dek": "Un ensayo aleatorizado con 13.896 pacientes no halló superioridad de la desinfección rutinaria frente al jabón o la limpieza probiótica en plantas no intensivas.",
-          "intro": "La limpieza forma parte del entorno construido de un hospital. ¿Reduce realmente más infecciones una desinfección química rutinaria más intensa?",
+          "intro": "Para mí, una habitación de hospital es más que paredes y muebles. La forma en que la limpiamos forma parte del entorno que construimos. Por eso quise saber: ¿más desinfección rutinaria previene realmente más infecciones?",
           "sections": [
             [
               "El estudio",
@@ -2488,7 +2488,7 @@
         "ar": {
           "title": "هل يؤدي تعقيم أسطح المستشفيات أكثر إلى منع عدوى أكثر؟",
           "dek": "لم تُظهر تجربة عشوائية شملت 13,896 مريضاً تفوق التعقيم الروتيني على التنظيف بالصابون أو بالمواد البروبيوتيكية في الأقسام غير المكثفة.",
-          "intro": "لا تتحدد بيئة المستشفى بالجدران والأثاث وحدهما، بل تشمل طريقة تنظيف الغرف أيضاً. فهل يمنع التعقيم الكيميائي الروتيني المزيد من العدوى؟",
+          "intro": "بالنسبة لي، غرفة المستشفى أكثر من جدران وأثاث. فالطريقة التي ننظفها بها جزء من البيئة التي نبنيها. لذلك أردت أن أعرف: هل يمنع مزيد من التعقيم الروتيني فعلاً مزيداً من العدوى؟",
           "sections": [
             [
               "الدراسة",
@@ -2511,7 +2511,7 @@
         "ru": {
           "title": "Предотвращает ли более частая дезинфекция больничных поверхностей больше инфекций?",
           "dek": "Рандомизированное исследование с 13 896 пациентами не выявило преимущества обычной дезинфекции перед мыльной или пробиотической уборкой в отделениях вне реанимации.",
-          "intro": "Больничная среда определяется не только стенами и мебелью, но и тем, как убирают помещения. Уменьшает ли более интенсивная химическая дезинфекция число инфекций?",
+          "intro": "Для меня больничная палата больше, чем стены и мебель. То, как мы её убираем, тоже часть среды, которую мы строим. Поэтому я хотел понять: действительно ли более частая плановая дезинфекция предотвращает больше инфекций?",
           "sections": [
             [
               "Исследование",

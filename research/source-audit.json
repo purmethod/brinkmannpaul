@@ -1,6 +1,6 @@
 {
-  "checked": "2026-11-05",
-  "scope": "Fifteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "checked": "2026-11-07",
+  "scope": "Seventeen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
       "doi": "10.1016/j.envres.2026.124671",
@@ -160,6 +160,27 @@
         123
       ],
       "review": "Valid DOI, online21Oct2026, PMID42905620. 123 adults65-89, two weeks, assessments every two hours seven/day. Within-person preceding-two-hour green association moderated by reported stressors; between-person overall association. No invented coefficients/CIs or claim of a formally null no-stressor association."
+    },
+    {
+      "doi": "10.1016/j.jenvp.2026.103171",
+      "primary_url": "https://www.sciencedirect.com/science/article/pii/S0272494426002720",
+      "access": "Bibliographic record only (title, journal, article number confirmed); abstract and full text not retrievable on 2026-11-07",
+      "key_counts": [
+        488
+      ],
+      "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'."
+    },
+    {
+      "doi": "10.1016/j.eclinm.2023.101958",
+      "primary_url": "https://doaj.org/article/c7efdf7916b641ccb56f9a7a0b9bfbf4",
+      "access": "Publisher abstract via DOAJ; full text not retrieved",
+      "key_counts": [
+        13896,
+        4708,
+        4535,
+        4653
+      ],
+      "review": "Leistner et al., EClinicalMedicine 59:101958 (May 2023). Pragmatic single-centre cluster-randomized crossover trial, 18 non-ICU wards, June 2017 to August 2018, four months per strategy after one-month wash-in. HAI per 1,000 exposure days 2.31/2.21/2.21; IRR 0.95 (0.69-1.31, p=0.953) and 0.96 (0.69-1.32, p=0.955). Split of 10 surgical / 8 medical wards not in abstract, still to confirm in full text. Superiority, not equivalence, tested."
     }
   ]
 }

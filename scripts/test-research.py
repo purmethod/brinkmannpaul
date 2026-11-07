@@ -45,8 +45,7 @@ class ResearchTests(unittest.TestCase):
         self.assertTrue({'426220', '3513', '13.6', '1981'}.issubset(numbers('426.220 / 3 513 / 13,6 / و1981')))
 
     def test_all_approved_studies_have_source_audit(self):
-        self.assertEqual(len(ARTICLES), 15)
-        self.assertEqual(len(AUDIT['studies']), 15)
+        self.assertEqual(len(AUDIT["studies"]), 17)
         self.assertEqual({s['doi'] for s in AUDIT['studies']}, {a['doi'] for a in ARTICLES})
         validate_articles(ARTICLES)
         for a in ARTICLES:
@@ -155,7 +154,7 @@ class ResearchTests(unittest.TestCase):
                         for heading, paragraph in a['text'][lang]['sections']:
                             self.assertIn(html.escape(paragraph, quote=False), plain_source)
                     else:
-                        self.assertEqual(len(ld['hasPart']), 15)
+                        self.assertEqual(len(ld['hasPart']), len(ARTICLES))
                         for study in ARTICLES:
                             self.assertIn(f'href="/{prefix}research/{study["slug"]}/"', source)
                     for attrs in [*dom.all('a'), *links]:
@@ -165,13 +164,13 @@ class ResearchTests(unittest.TestCase):
                             dest = ROOT / 'dist' / url.path.lstrip('/')
                             self.assertTrue(dest.is_file() or (dest / 'index.html').is_file(), href)
                     pages.append(route)
-        self.assertEqual(len(pages), 96)
+        self.assertEqual(len(pages), len(LANGS) * (len(ARTICLES) + 1))
 
     def test_sitemap_has_all_journal_pages(self):
         sitemap = (ROOT / 'dist/sitemap.xml').read_text()
         urls = re.findall(r'<loc>([^<]+)</loc>', sitemap)
         self.assertEqual(len(urls), len(set(urls)))
-        self.assertEqual(sum('/research/' in u for u in urls), 96)
+        self.assertEqual(sum('/research/' in u for u in urls), len(LANGS) * (len(ARTICLES) + 1))
 
     def test_scientific_symbol_case_and_direction_are_preserved(self):
         css = (ROOT / 'dist/research.css').read_text()
