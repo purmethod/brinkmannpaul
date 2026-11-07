@@ -45,7 +45,7 @@ class ResearchTests(unittest.TestCase):
         self.assertTrue({'426220', '3513', '13.6', '1981'}.issubset(numbers('426.220 / 3 513 / 13,6 / و1981')))
 
     def test_all_approved_studies_have_source_audit(self):
-        self.assertEqual(len(AUDIT["studies"]), 17)
+        self.assertEqual(len(ARTICLES), len(AUDIT['studies']))
         self.assertEqual({s['doi'] for s in AUDIT['studies']}, {a['doi'] for a in ARTICLES})
         validate_articles(ARTICLES)
         for a in ARTICLES:
