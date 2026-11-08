@@ -3,21 +3,31 @@
 // POST { session, name }        → { ok, id, session, when, place, group }   reserves one place
 // POST { cancel: id }           → { ok }                                    frees it again
 // Each sign-up is a customer in Paul's Stripe account (metadata.soma = session id), so no database is
-// needed and the list is in the dashboard (Customers → search metadata). The customer id is the cancel key.
+// needed and the list is in the dashboard (Customers, filter by metadata soma). The customer id is the cancel key.
 const { stripe } = require("./_stripe");
 const { SESSIONS, PLACES, GROUP } = require("./_soma");
 
 const now = () => new Date().toISOString().slice(0, 16);
 const open = (s, test) => (test || !s.test) && s.when > now();
 
-async function taken(id) {
-  const found = await stripe("GET", "customers/search", { query: `metadata['soma']:'${id}'`, limit: 100 });
-  return (found.data || []).length;
+// counted from the customer list itself (sign-ups of the last 180 days), not from search,
+// which only sees a new customer after up to a minute and could let a 16th person in
+async function counts() {
+  const since = Math.floor(Date.now() / 1000) - 180 * 86400;
+  const n = {};
+  let after;
+  for (let page = 0; page < 20; page++) {
+    const list = await stripe("GET", "customers", { limit: 100, starting_after: after, created: { gte: since } });
+    for (const c of list.data || []) if (c.metadata && c.metadata.soma) n[c.metadata.soma] = (n[c.metadata.soma] || 0) + 1;
+    if (!list.has_more || !list.data.length) break;
+    after = list.data[list.data.length - 1].id;
+  }
+  return n;
 }
 async function withPlaces(test) {
   const list = SESSIONS.filter((s) => open(s, test));
-  const counts = await Promise.all(list.map((s) => taken(s.id)));
-  return list.map((s, i) => ({ id: s.id, when: s.when, place: s.place, left: Math.max(0, PLACES - counts[i]) }));
+  const n = list.length ? await counts() : {};
+  return list.map((s) => ({ id: s.id, when: s.when, place: s.place, left: Math.max(0, PLACES - (n[s.id] || 0)) }));
 }
 
 module.exports = async (req, res) => {
@@ -47,7 +57,7 @@ module.exports = async (req, res) => {
     if (name.length < 2) return res.status(400).json({ error: "name" });
     const s = SESSIONS.find((x) => x.id === body.session && open(x, true));
     if (!s) return res.status(400).json({ error: "session" });
-    if ((await taken(s.id)) >= PLACES) return res.status(409).json({ error: "full" });
+    if (((await counts())[s.id] || 0) >= PLACES) return res.status(409).json({ error: "full" });
     const c = await stripe("POST", "customers", {
       name,
       description: `soma flow club · ${s.when} · ${s.place}`,
