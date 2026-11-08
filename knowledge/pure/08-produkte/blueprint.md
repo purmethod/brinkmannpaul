@@ -1,6 +1,6 @@
 # Der PURE Blueprint
 
-> Status: **Konzept steht, Quiz existiert.** Auf purmethod.com läuft bereits ein Quiz mit 53 Fragen in sechs Sprachen (Claude API über Vercel Serverless Functions). Es läuft noch mit drei Säulen und muss auf PURE und die Säule ego angepasst werden, nicht neu erfunden.
+> Status: **live.** Das Quiz läuft auf brinkmannpaul.com/pure/blueprint (Code im Repo `purmethod/pur`, Datei `blueprint/questions.js`): 84 Fragen in sechs Sprachen, vier Säulen P, U, R, E, Profil, Gesundheitscheck und zwei gesprochene Antworten. Bezahlt wird nach der letzten Frage. Davor sieht er seine Karte kostenlos, danach schreibt Claude sein Buch.
 
 ## Kernaussagen (Paul)
 

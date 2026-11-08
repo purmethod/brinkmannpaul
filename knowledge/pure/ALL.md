@@ -242,7 +242,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | Feel That You Are Mortal | steht | |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
+| Blueprint | live | 84 Fragen, vier Säulen und ego; Bezahlung nach der letzten Frage, dann wird das Buch geschrieben |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |
 
@@ -2035,7 +2035,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 # Der PURE Blueprint
 
-> Status: **Konzept steht, Quiz existiert.** Auf purmethod.com läuft bereits ein Quiz mit 53 Fragen in sechs Sprachen (Claude API über Vercel Serverless Functions). Es läuft noch mit drei Säulen und muss auf PURE und die Säule ego angepasst werden, nicht neu erfunden.
+> Status: **live.** Das Quiz läuft auf brinkmannpaul.com/pure/blueprint (Code im Repo `purmethod/pur`, Datei `blueprint/questions.js`): 84 Fragen in sechs Sprachen, vier Säulen P, U, R, E, Profil, Gesundheitscheck und zwei gesprochene Antworten. Bezahlt wird nach der letzten Frage. Davor sieht er seine Karte kostenlos, danach schreibt Claude sein Buch.
 
 ## Kernaussagen (Paul)
 
