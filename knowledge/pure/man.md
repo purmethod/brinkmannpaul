@@ -16,6 +16,10 @@
 - Genau diese Macht will ich den Männern ebenfalls geben. Das Zepter, das durch Social Media verloren gegangen ist, durch Instagram, weil Frauen dort nonstop Validierung bekommen, will ich dir wieder in die Hand geben: dass du Auswahl hast, dass du wählen kannst.
 - Und zwar nicht aus den Reihen der Frauen, die schon vorher von Männern manipuliert und traumatisiert wurden. Ich gebe dir die Macht, dir eine Frau auszuwählen, die nicht kaputt gemacht wurde, die nicht zerstört wurde.
 - Darum geht es im Dating hier, und das bespreche ich mit dir.
+- Das ist meine Überzeugung und meine Erfahrung, und es ist so. Dafür brauche ich keine wissenschaftliche Studie über die Natur der Frauen oder die Natur des Datings.
+- Frauen können aus ihrer Sicht keine Dating Tipps für Männer geben. Der Angler muss wissen, wie er den Fisch fängt. Du fragst nicht den Fisch, wie man ihn fängt, du fragst den Angler.
+- Das ganze Gequassel von Red Pill, von Manipulieren, davon, sie schlecht zu behandeln: alles Bullshit. Es funktioniert überhaupt nicht. Null.
+- Was funktioniert: absolute Ehrlichkeit, Fokus auf dich selbst und Optionen. Wie man Optionen bekommt, kann ich zeigen.
 
 ## Buchtext (EN)
 
@@ -30,6 +34,10 @@
 - Do you think a woman has only one option? A woman has hundreds, thousands of options. She chooses from a full table: the millionaire, the Alejandro, the hot body. She can choose whatever she wants.
 - Paul wants to give men that same power. The sceptre that social media took away, Instagram, where women get validation nonstop: he puts it back in your hand, so you have a choice, so you can choose.
 - Not from the ranks of women who were already manipulated and traumatised by men before. The power to choose a woman who has not been broken, who has not been destroyed.
+- This is how it is. It needs no study on the nature of women or of dating.
+- Women cannot give men dating advice from their side. The angler has to know how to catch the fish. You do not ask the fish how it is caught. You ask the angler.
+- All the talk of red pill, manipulation, treating her badly: bullshit. It does not work at all. Zero.
+- What works: absolute honesty, focus on yourself, and options. How to get options, Paul can show.
 
 ## Nur für den Mann, steht in den Modulen
 
