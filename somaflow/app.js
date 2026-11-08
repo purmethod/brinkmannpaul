@@ -171,7 +171,8 @@
     put(
       el("p", { class: "tag" }, t("tag")),
       el("h1", {}, t("h1")),
-      el("p", { class: "lead" }, t("lead")),
+      // each sentence of the lead on its own line: the retreat, then "you have earned it."
+      el("p", { class: "lead" }, t("lead").split(/(?<=\.)\s+/).flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
