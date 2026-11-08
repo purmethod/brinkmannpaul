@@ -1,12 +1,15 @@
 // soma flow club: the sessions and the whatsapp group. Paul fills these in; the page reads them from /api/soma.
 // when is the local time at the place, written as YYYY-MM-DDTHH:MM. A session that has begun is closed.
-// map is a google maps link to the place. a date without a time (YYYY-MM-DD): the time is announced in the group.
+// map is a google maps link to the place. a date without a time (YYYY-MM-DD): the time is announced in the group. no date at all
+// (when ""): date and time are announced in the group, and the session stays open until it is removed here.
 // test sessions are only shown with ?test=1, so the page can be tried before the first real date.
 // while no real date is set, people reserve a place for the next session (id "next"); its date and place
 // follow in the whatsapp group, which a person only sees after signing up.
 const SESSIONS = [
   // paul, 8.11.: wednesday 11.11. at 10 at the creative hub in sidi bou said (in the ennejma ezzahra palace)
-  { id: "2026-11-11", when: "2026-11-11", place: "creative hub, sidi bou said", map: "https://www.google.com/maps/search/?api=1&query=Creative+Hub+Sidi+Bou+Said" },
+  // paul, 8.11.: no date and no time on the page; both are announced in the whatsapp group.
+  // (the id stays as it was, so the people who signed up keep their place)
+  { id: "2026-11-11", when: "", place: "creative hub, sidi bou said", map: "https://www.google.com/maps/search/?api=1&query=Creative+Hub+Sidi+Bou+Said" },
   { id: "test", when: "2030-01-01T10:00", place: "test", test: true },
 ];
 const PLACES = 15;
