@@ -2,8 +2,12 @@
 // GET                          → { sessions: [{ id, when, place, map, left }], places }   (no group link: that is for signed-up people only)
 // POST { session, name }        → { ok, id, session, when, place, map, group }   reserves one place
 // POST { cancel: id }           → { ok }                                    frees it again
+// admin (header x-soma-key = SOMA_ADMIN_KEY, set in vercel, never in the repo):
+// GET ?admin=1                  → { sessions: [{ id, when, place, people: [{ id, name, joined }] }] }
+// POST { remove: id }            → { ok }                                    takes someone off the list
 // Each sign-up is a customer in Paul's Stripe account (metadata.soma = session id), so no database is
 // needed and the list is in the dashboard (Customers, filter by metadata soma). The customer id is the cancel key.
+const crypto = require("crypto");
 const { stripe } = require("./_stripe");
 const { SESSIONS, PLACES, GROUP } = require("./_soma");
 
@@ -36,8 +40,58 @@ async function withPlaces(test) {
   return list.map((s) => ({ id: s.id, when: s.when, place: s.place, map: s.map || "", left: Math.max(0, PLACES - (n[s.id] || 0)) }));
 }
 
+// every sign-up of the last 180 days, grouped by session
+async function people() {
+  const since = Math.floor(Date.now() / 1000) - 180 * 86400;
+  const by = {};
+  let after;
+  for (let page = 0; page < 20; page++) {
+    const list = await stripe("GET", "customers", { limit: 100, starting_after: after, created: { gte: since } });
+    for (const c of list.data || []) {
+      const m = c.metadata || {};
+      if (!m.soma) continue;
+      (by[m.soma] = by[m.soma] || []).push({ id: c.id, name: c.name || "", joined: new Date(c.created * 1000).toISOString() });
+    }
+    if (!list.has_more || !list.data.length) break;
+    after = list.data[list.data.length - 1].id;
+  }
+  return by;
+}
+function admin(req) {
+  const key = process.env.SOMA_ADMIN_KEY || "";
+  const given = String(req.headers["x-soma-key"] || "");
+  if (!key || !given) return false;
+  const a = crypto.createHash("sha256").update(key).digest();
+  const b = crypto.createHash("sha256").update(given).digest();
+  return crypto.timingSafeEqual(a, b);
+}
+
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
+  if (req.headers["x-soma-key"] !== undefined) {
+    if (!admin(req)) return res.status(401).json({ error: "key" });
+    try {
+      if (req.method === "GET") {
+        const by = await people();
+        const known = SESSIONS.map((s) => s.id);
+        const ids = [...SESSIONS.map((s) => s.id), "next", ...Object.keys(by).filter((id) => !known.includes(id) && id !== "next")];
+        const sessions = ids
+          .map((id) => { const s = SESSIONS.find((x) => x.id === id) || { id, when: "", place: "" }; return { id, when: s.when, place: s.place, test: Boolean(s.test), people: (by[id] || []).sort((x, y) => x.joined.localeCompare(y.joined)) }; })
+          .filter((s) => s.people.length || (!s.test && s.id !== "next" && s.when > now()));
+        return res.status(200).json({ sessions, places: PLACES });
+      }
+      let body = req.body || {};
+      if (typeof body === "string") { try { body = JSON.parse(body); } catch { body = {}; } }
+      const id = String(body.remove || "");
+      if (!/^cus_[A-Za-z0-9]+$/.test(id)) return res.status(400).json({ error: "invalid" });
+      const c = await stripe("GET", `customers/${id}`).catch(() => null);
+      if (c && !c.deleted && c.metadata && c.metadata.soma) await stripe("DELETE", `customers/${id}`);
+      return res.status(200).json({ ok: true });
+    } catch (err) {
+      console.error("soma admin", err.status, err.message);
+      return res.status(502).json({ error: "unavailable" });
+    }
+  }
   const test = req.query && req.query.test === "1";
   try {
     if (req.method === "GET") return res.status(200).json({ sessions: await withPlaces(test), places: PLACES });
