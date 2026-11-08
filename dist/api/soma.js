@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
     const c = await stripe("POST", "customers", {
       name,
       description: `soma flow club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
-      metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "brinkmannpaul.com/soma" },
+      metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "somaflowclub.com" },
     });
     return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, group: GROUP });
   } catch (err) {
