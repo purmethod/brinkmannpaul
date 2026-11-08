@@ -66,11 +66,9 @@
     .rules { list-style: none; border-top: 1px solid var(--line); margin: 24px 0; }
     .rules li { padding: 12px 0; border-bottom: 1px solid var(--line); }
     .acts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
-    footer { max-width: 640px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
-    footer .brand { white-space: nowrap; }
-    footer .brand em { font-style: italic; }
-    footer .by { text-align: center; }
-    footer .ig { color: inherit; justify-self: end; line-height: 0; }
+    footer { max-width: 640px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
+    footer .by { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    footer .ig { color: inherit; line-height: 0; flex: none; }
     @media (prefers-reduced-motion: reduce) { .cue i { animation: none; } }
   </style>
 </head>
@@ -97,10 +95,9 @@
     <noscript><p class="lead">soma flow club needs javascript to reserve a place. please turn it on and reload.</p></noscript>
   </main>
   <footer>
-    <span class="brand">soma<em>flow</em> club</span>
     <span class="by">raouf baaroussi &amp; paul brinkmann</span>
     <a class="ig" href="https://www.instagram.com/buildpaul/" target="_blank" rel="noopener noreferrer" aria-label="instagram · paul brinkmann"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a>
   </footer>
-  <script src="/soma/app.js?v=2"></script>
+  <script src="/soma/app.js?v=3"></script>
 </body>
 </html>

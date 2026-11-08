@@ -6,7 +6,7 @@
   const T = {
     en: {
       cue: "tap or scroll", tag: "soma flow club", h1: "feel your body.",
-      lead: "an unforgettable retreat for your body. you have earned it.", limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
+      lead: "an unforgettable retreat for your body. you have earned it.", limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
       next: "choose your session", none: "the sessions could not be loaded. please reload the page.",
       left: "{n} of {max} places free", full: "full",
       name: "your name", reserve: "reserve my place", wait: "one moment…",
@@ -19,7 +19,7 @@
     },
     de: {
       cue: "tippen oder scrollen", tag: "soma flow club", h1: "fühle deinen körper.",
-      lead: "ein unvergessliches retreat für deinen körper. du hast es dir verdient.", limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
+      lead: "ein unvergessliches retreat für deinen körper. du hast es dir verdient.", limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
       next: "wähle deinen termin", none: "die termine konnten nicht geladen werden. bitte lade die seite neu.",
       left: "{n} von {max} plätzen frei", full: "voll",
       name: "dein name", reserve: "platz reservieren", wait: "einen moment…",
@@ -32,7 +32,7 @@
     },
     fr: {
       cue: "touche ou fais défiler", tag: "soma flow club", h1: "ressens ton corps.",
-      lead: "une retraite inoubliable pour ton corps. tu l'as méritée.", limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
+      lead: "une retraite inoubliable pour ton corps. tu l'as méritée.", limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
       next: "choisis ta séance", none: "les séances n'ont pas pu être chargées. recharge la page.",
       left: "{n} places libres sur {max}", full: "complet",
       name: "ton prénom", reserve: "réserver ma place", wait: "un instant…",
@@ -45,7 +45,7 @@
     },
     es: {
       cue: "toca o desliza", tag: "soma flow club", h1: "siente tu cuerpo.",
-      lead: "un retiro inolvidable para tu cuerpo. te lo has ganado.", limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
+      lead: "un retiro inolvidable para tu cuerpo. te lo has ganado.", limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
       next: "elige tu sesión", none: "no se pudieron cargar las sesiones. vuelve a cargar la página.",
       left: "{n} de {max} plazas libres", full: "completo",
       name: "tu nombre", reserve: "reservar mi plaza", wait: "un momento…",
@@ -58,7 +58,7 @@
     },
     ar: {
       cue: "المس أو مرّر", tag: "soma flow club", h1: "اشعر بجسدك.",
-      lead: "خلوة لا تُنسى لجسدك. أنت تستحق ذلك.", limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
+      lead: "خلوة لا تُنسى لجسدك. أنت تستحق ذلك.", limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
       next: "اختر موعدك", none: "تعذّر تحميل المواعيد. أعد تحميل الصفحة.",
       left: "{n} من {max} أماكن متاحة", full: "مكتمل",
       name: "اسمك", reserve: "احجز مكاني", wait: "لحظة…",
@@ -71,7 +71,7 @@
     },
     ru: {
       cue: "коснись или прокрути", tag: "soma flow club", h1: "почувствуй своё тело.",
-      lead: "незабываемый ретрит для твоего тела. ты это заслуживаешь.", limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
+      lead: "незабываемый ретрит для твоего тела. ты это заслуживаешь.", limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
       next: "выбери занятие", none: "не удалось загрузить занятия. обнови страницу.",
       left: "свободно {n} из {max} мест", full: "мест нет",
       name: "твоё имя", reserve: "забронировать место", wait: "минуту…",
@@ -129,7 +129,8 @@
       return new Intl.DateTimeFormat(tag, { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }).format(d);
     } catch { return s.when.replace("T", " · "); }
   }
-  const place = (s) => (s.place === "test" ? t("test") : s.place || t("nextPlace"));
+  // no date yet: date and place follow in the group; a date without a place: the place follows there
+  const place = (s) => (s.place === "test" ? t("test") : s.place || (s.when ? t("placeLater") : t("nextPlace")));
 
   // ---------- the opening ----------
   const flow = document.getElementById("flow");
