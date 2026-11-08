@@ -13,7 +13,7 @@
       errName: "please write your name.", errSession: "please choose a session.", errFull: "this session is full. please choose another one.", errAny: "that did not work. please try again.",
       thanks: "thank you, {name}. we are happy you are coming.", reserved: "your place is reserved.",
       r1: "places are limited: max 15 people.", r2: "if you cannot come, cancel in time, so someone else can take part.", r3: "it is up to you to bring good energy.",
-      group: "join the whatsapp group", cancel: "i cannot come, cancel my place", sure: "cancel your place?",
+      group: "join our whatsapp group", follow: "follow on instagram", placeIs: "the place:", cancel: "i cannot come, cancel my place", sure: "cancel your place?",
       cancelled: "your place is free again. thank you for letting us know.", again: "choose another session",
       loading: "loading the sessions…", test: "test session",
     },
@@ -26,7 +26,7 @@
       errName: "bitte schreib deinen namen.", errSession: "bitte wähle einen termin.", errFull: "dieser termin ist voll. bitte wähle einen anderen.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal.",
       thanks: "danke, {name}. wir freuen uns, dass du kommst.", reserved: "dein platz ist reserviert.",
       r1: "die plätze sind begrenzt: maximal 15 personen.", r2: "wenn du nicht kommen kannst, sag rechtzeitig ab, damit andere teilnehmen können.", r3: "es liegt an dir, gute energie zu verbreiten.",
-      group: "zur whatsapp-gruppe", cancel: "ich kann nicht kommen, platz absagen", sure: "deinen platz absagen?",
+      group: "tritt unserer whatsapp-gruppe bei", follow: "folge uns auf instagram", placeIs: "der ort:", cancel: "ich kann nicht kommen, platz absagen", sure: "deinen platz absagen?",
       cancelled: "dein platz ist wieder frei. danke, dass du abgesagt hast.", again: "anderen termin wählen",
       loading: "termine werden geladen…", test: "testtermin",
     },
@@ -39,7 +39,7 @@
       errName: "écris ton prénom, s'il te plaît.", errSession: "choisis une séance, s'il te plaît.", errFull: "cette séance est complète. choisis-en une autre.", errAny: "ça n'a pas marché. réessaie.",
       thanks: "merci, {name}. nous sommes heureux que tu viennes.", reserved: "ta place est réservée.",
       r1: "les places sont limitées : 15 personnes maximum.", r2: "si tu ne peux pas venir, annule à temps pour que quelqu'un d'autre puisse participer.", r3: "c'est à toi d'apporter une bonne énergie.",
-      group: "rejoindre le groupe whatsapp", cancel: "je ne peux pas venir, annuler ma place", sure: "annuler ta place ?",
+      group: "rejoins notre groupe whatsapp", follow: "suis-nous sur instagram", placeIs: "le lieu :", cancel: "je ne peux pas venir, annuler ma place", sure: "annuler ta place ?",
       cancelled: "ta place est de nouveau libre. merci de nous avoir prévenus.", again: "choisir une autre séance",
       loading: "chargement des séances…", test: "séance test",
     },
@@ -52,7 +52,7 @@
       errName: "escribe tu nombre, por favor.", errSession: "elige una sesión, por favor.", errFull: "esta sesión está completa. elige otra.", errAny: "no ha funcionado. inténtalo de nuevo.",
       thanks: "gracias, {name}. nos alegra que vengas.", reserved: "tu plaza está reservada.",
       r1: "las plazas son limitadas: máximo 15 personas.", r2: "si no puedes venir, cancela a tiempo para que otra persona pueda participar.", r3: "depende de ti traer buena energía.",
-      group: "unirme al grupo de whatsapp", cancel: "no puedo ir, cancelar mi plaza", sure: "¿cancelar tu plaza?",
+      group: "únete a nuestro grupo de whatsapp", follow: "síguenos en instagram", placeIs: "el lugar:", cancel: "no puedo ir, cancelar mi plaza", sure: "¿cancelar tu plaza?",
       cancelled: "tu plaza vuelve a estar libre. gracias por avisar.", again: "elegir otra sesión",
       loading: "cargando las sesiones…", test: "sesión de prueba",
     },
@@ -65,7 +65,7 @@
       errName: "اكتب اسمك من فضلك.", errSession: "اختر موعدًا من فضلك.", errFull: "هذا الموعد مكتمل. اختر موعدًا آخر.", errAny: "لم ينجح ذلك. حاول مرة أخرى.",
       thanks: "شكرًا، {name}. يسعدنا أنك قادم.", reserved: "مكانك محجوز.",
       r1: "الأماكن محدودة: 15 شخصًا كحد أقصى.", r2: "إذا لم تستطع الحضور، ألغِ في الوقت المناسب ليتمكن شخص آخر من المشاركة.", r3: "الأمر بيدك أن تنشر طاقة طيبة.",
-      group: "انضم إلى مجموعة واتساب", cancel: "لا أستطيع الحضور، ألغِ مكاني", sure: "إلغاء مكانك؟",
+      group: "انضم إلى مجموعة واتساب الخاصة بنا", follow: "تابعنا على إنستغرام", placeIs: "المكان:", cancel: "لا أستطيع الحضور، ألغِ مكاني", sure: "إلغاء مكانك؟",
       cancelled: "مكانك متاح من جديد. شكرًا لأنك أخبرتنا.", again: "اختر موعدًا آخر",
       loading: "جارٍ تحميل المواعيد…", test: "موعد تجريبي",
     },
@@ -78,7 +78,7 @@
       errName: "пожалуйста, напиши своё имя.", errSession: "пожалуйста, выбери занятие.", errFull: "на это занятие мест нет. выбери другое.", errAny: "не получилось. попробуй ещё раз.",
       thanks: "спасибо, {name}. мы рады, что ты придёшь.", reserved: "твоё место забронировано.",
       r1: "мест мало: максимум 15 человек.", r2: "если не сможешь прийти, отмени заранее, чтобы пришёл кто-то другой.", r3: "от тебя зависит, какую энергию ты принесёшь.",
-      group: "вступить в группу whatsapp", cancel: "не смогу прийти, отменить место", sure: "отменить твоё место?",
+      group: "вступи в нашу группу whatsapp", follow: "подписывайся в instagram", placeIs: "место:", cancel: "не смогу прийти, отменить место", sure: "отменить твоё место?",
       cancelled: "твоё место снова свободно. спасибо, что предупредил.", again: "выбрать другое занятие",
       loading: "загружаем занятия…", test: "тестовое занятие",
     },
@@ -86,6 +86,7 @@
   const LANGS = Object.keys(T);
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
+  const IG = "https://www.instagram.com/buildpaul/";
   const API = "/api/soma" + (TEST ? "?test=1" : "");
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } },
@@ -130,6 +131,9 @@
     } catch { return s.when.replace("T", " · "); }
   }
   // no date yet: date and place follow in the group; a date without a place: the place follows there
+  // "the place: creative hub, sidi bou said · google maps"
+  const where = (s) => el("p", { class: "where" }, t("placeIs") + " " + s.place + " · ",
+    el("a", { href: s.map, target: "_blank", rel: "noopener" }, "google maps"));
   const place = (s) => (s.place === "test" ? t("test") : s.place || (s.when ? t("placeLater") : t("nextPlace")));
 
   // ---------- the opening ----------
@@ -187,8 +191,9 @@
         onclick: () => { st.pick = s.id; st.error = ""; render(); },
       },
         el("span", { class: "dot", "aria-hidden": "true" }),
-        el("span", {}, when(s), el("span", { class: "place" }, place(s))),
+        el("span", {}, when(s), s.map ? null : el("span", { class: "place" }, place(s))),
         el("span", { class: "left" }, full ? t("full") : t("left", { n: s.left, max: st.max }))));
+      if (s.map) rows.append(where(s));
     }
     const input = el("input", { type: "text", id: "nm", autocomplete: "given-name", maxlength: "60", value: st.name });
     input.addEventListener("input", () => { st.name = input.value; });
@@ -204,15 +209,18 @@
     const b = st.booking;
     const acts = el("div", { class: "acts" });
     if (b.group) acts.append(el("a", { class: "btn", href: b.group, target: "_blank", rel: "noopener" }, t("group")));
-    acts.append(el("button", { class: "ghost", type: "button", onclick: cancel }, t("cancel")));
+    acts.append(el("a", { class: "ghost", href: IG, target: "_blank", rel: "noopener" }, t("follow")));
+    if (b.map) acts.append(el("a", { class: "ghost", href: b.map, target: "_blank", rel: "noopener" }, b.place.split(",")[0] + " · google maps"));
+    const leave = el("div", { class: "acts leave" }, el("button", { class: "ghost", type: "button", onclick: cancel }, t("cancel")));
     put(el("section", { class: "done", "aria-live": "polite" },
       el("p", { class: "tag" }, t("tag")),
       el("h1", {}, t("thanks", { name: b.name })),
       el("p", { class: "when" }, when(b)),
-      b.when ? el("p", { class: "fine" }, place(b)) : null,
+      b.when ? (b.map ? where(b) : el("p", { class: "fine" }, place(b))) : null,
       el("p", { class: "lead" }, b.when ? t("reserved") : t("nextReserved")),
       el("ul", { class: "rules" }, ["r1", "r2", "r3"].map((k) => el("li", {}, t(k)))),
       acts,
+      leave,
       st.error ? el("p", { class: "err", role: "alert" }, st.error) : null));
   }
 
@@ -243,7 +251,7 @@
       st.busy = false;
       if (r.status === 409) { st.error = t("errFull"); await load(); return; }
       if (!r.ok || !d.id) { st.error = t("errAny"); return render(); }
-      st.booking = { id: d.id, name, when: d.when, place: d.place, group: d.group || "" };
+      st.booking = { id: d.id, name, when: d.when, place: d.place, map: d.map || "", group: d.group || "" };
       st.cancelled = false;
       store.set({ ...store.get(), booking: st.booking });
       render();
