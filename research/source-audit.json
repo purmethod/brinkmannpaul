@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-07",
+  "checked": "2026-11-08",
   "scope": "Sixteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
@@ -164,11 +164,12 @@
     {
       "doi": "10.1016/j.jenvp.2026.103171",
       "primary_url": "https://www.sciencedirect.com/science/article/pii/S0272494426002720",
-      "access": "Bibliographic record only (title, journal, article number confirmed); abstract and full text not retrievable on 2026-11-07",
+      "access": "Bibliographic record only: University of Liverpool staff publication list (authors Zhang, X. & Du, J., volume 114, 26 pages, DOI) checked 2026-11-08. Publisher page, Crossref record and institutional repository eprint 3199779 not retrievable on 2026-11-07 or 2026-11-08; abstract and full text not read.",
       "key_counts": [
         488
       ],
-      "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'."
+      "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'. 2026-11-08: authors and volume 114 confirmed from the author institution listing; volume added to the citation. Per-experiment counts, VR setting, randomization and all outcome directions remain NOT yet verified.",
+      "author_record_url": "https://www.liverpool.ac.uk/people/jiangtao-du/research-outputs"
     }
   ]
 }
