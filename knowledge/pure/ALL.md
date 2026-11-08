@@ -51,8 +51,8 @@ PURE ist ein System für Männer, die aufgehört haben, mit sich selbst zu verha
 **e · ego**
 - [E0 bis E5](06-ego/e-module.md) · [The 1% · The Building](06-ego/the-1-percent.md) · [Four Arenas](06-ego/four-arenas.md) · [Rock Bottom](06-ego/rock-bottom.md) · [You Cannot Force It](06-ego/you-cannot-force-it.md) · [The Gate](06-ego/the-gate.md) · [Feel That You Are Mortal](06-ego/feel-mortal.md) · [What a Good Man Is](06-ego/good-man.md)
 
-**Mann und Frau**
-- [10-mann-und-frau](10-mann-und-frau/README.md) · eine Methode, zwei Wege: nur was sich unterscheidet · [Mann](10-mann-und-frau/mann.md) · [Frau](10-mann-und-frau/frau.md)
+**Man und Woman**
+- [man.md](man.md) · nur was für den Mann gilt · [woman.md](woman.md) · nur was für die Frau gilt. Alles andere gilt für beide und steht im Modul.
 
 **Bücher**
 - [07-buecher/buchplan.md](07-buecher/buchplan.md) · Dachmarke, Buchstruktur, Preise
@@ -243,8 +243,8 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | You Cannot Force It | steht | |
 | The Gate | steht | |
 | Feel That You Are Mortal | steht | |
-| Mann (10-mann-und-frau) | Kern | Verweise auf die Module, Pauls Ergänzungen |
-| Frau (10-mann-und-frau) | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
+| man.md | Kern | Pauls Ergänzungen |
+| woman.md | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
 | Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
@@ -2193,114 +2193,80 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 
 ---
 
-<!-- Datei: knowledge/pure/10-mann-und-frau/README.md -->
+<!-- Datei: knowledge/pure/man.md -->
 
-# Mann und Frau
+# Man
 
-> Status: **angelegt am 08.11.2026.** PURE ist seit dem 08.11.2026 auch für Frauen. Verwandt: [08-produkte/blueprint.md](../08-produkte/blueprint.md).
+> Status: **Kern.** Nur was ausschließlich für den Mann gilt. Was für beide gilt, steht im passenden Modul. Der Buch-Server liest die englische Fassung aus `purmethod/pur` · Ordner `knowledge/man/`.
 
-## Prinzip: eine Methode, zwei Wege
+## Kernaussagen (Paul)
 
-- Die Methode ist eine: vier Säulen, der Giebel, der Sockel trust, die Kernregel „so klein anfangen, dass man es kaum merkt“. Sie steht in den Modulen 01 bis 06 und gilt für jeden Menschen.
-- Hier steht nur, was sich für Mann und Frau **unterscheidet**. Nichts wird doppelt geschrieben.
-- Neue Erkenntnis von Paul:
-  - gilt sie für beide, gehört sie in das passende Modul (z. B. R3);
-  - gilt sie nur für einen, gehört sie in [mann.md](mann.md) oder [frau.md](frau.md), mit Verweis auf das Modul.
+- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich. Der Mann muss lernen, seine Frau zu verwöhnen. Nicht um etwas zu bekommen, nicht um etwas zu kriegen. Er muss in der Lage sein, es zu genießen. (Ganzer Gedanke für beide: [R3](05-responsibility/r3-relationship-leadership.md), „Beschenken und genießen“.)
 
-## Dateien
+## Buchtext (EN)
 
-- [mann.md](mann.md) · was nur für den Mann gilt
-- [frau.md](frau.md) · was nur für die Frau gilt
+- A woman does not only want material gifts from her man. She wants to be given to physically. A man has to learn to pamper his woman. Not to get something, not to receive anything. He has to be able to enjoy it.
 
-## Woher der Blueprint sein Wissen zieht
+## Nur für den Mann, steht in den Modulen
 
-Der Blueprint auf purmethod.com liest eigene Textdateien im Repo `purmethod/pur`, Ordner `knowledge/`:
-
-| Ordner | Für wen |
-|---|---|
-| `knowledge/` | alle |
-| `knowledge/man/` | nur Männerbücher |
-| `knowledge/woman/` | nur Frauenbücher |
-
-Wer hier etwas ändert, zieht die passende Datei dort nach.
+- [P0 Sexual Control](03-physis/p0-sexual-control.md) · Orgasmus und Ejakulation trennen, der Entspannungsweg
+- [R3 Relationship Leadership](05-responsibility/r3-relationship-leadership.md) · Wahl aus Stärke, Partnerwahl, Anziehung aus Sicht des Mannes
+- [What a Good Man Is](06-ego/good-man.md)
 
 
 ---
 
-<!-- Datei: knowledge/pure/10-mann-und-frau/frau.md -->
+<!-- Datei: knowledge/pure/woman.md -->
 
-# Frau
+# Woman
 
-> Status: **angelegt, Pauls Wissen kommt.** Was nur für die Frau gilt. Paul spricht es ein, Agenten sortieren es hier ein.
+> Status: **angelegt, Pauls Wissen kommt.** Nur was ausschließlich für die Frau gilt. Was für beide gilt, steht im passenden Modul. Der Buch-Server liest die englische Fassung aus `purmethod/pur` · Ordner `knowledge/woman/`.
 
 ## Kernaussagen (Paul)
-
-### Beschenken und genießen
 
 - Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
 - Das Gleiche gilt für die Frau: Sie verwöhnt ihren Mann nicht, um etwas zu bekommen. Sie muss in der Lage sein, es zu genießen.
 - Durch die Atemübungen, die Kälte und die richtige Ernährung kommt sie in Bereiche, in denen sie körperlich genießen kann, ohne etwas zu wollen.
-- Ganzer Gedanke, der für beide gilt: [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md), Abschnitt „Beschenken und genießen“.
+- Pornos sind kein Genuss, sondern reine Antizipation. Das gilt für sie genauso wie für ihn ([P0](03-physis/p0-sexual-control.md)).
+
+### Weibliche Energie, Körper zuerst
+
+> Paul hat das am 08.11.2026 in einer anderen Session eingesprochen. Dort ist nur die englische Fassung gespeichert (`purmethod/pur` · `knowledge/woman/body-first-femininity.txt`). Das Deutsche hier ist daraus zurückübersetzt. Paul prüft es.
+
+- Die Gesellschaft versucht heute, Frauen zu Männern und Männer zu Frauen zu machen. Paul will, dass Frauen wieder in ihrer weiblichen Energie strahlen: ganz Frau sein, ohne sich dafür zu entschuldigen.
+- Eine Frau stellt sich selbst an erste Stelle. Nicht egoistisch, sondern körperlich. Sie vernachlässigt ihren Körper nicht: Essen, Schlaf, Bewegung, Atem, alles. Ihr Körper ist die Nummer eins. Das ist der Sinn.
+- Wenn sie das gefunden hat, wird sie nicht egoistisch. Sie kann mehr Liebe geben, weil sie aus der Fülle gibt und nicht aus der Leere.
+- Weiblichkeit ist keine Schwäche und keine Rolle, die sie jemandem schuldet. Sie ist eine Stärke, die sie von innen lebt. Sie kann hart arbeiten, Geld verdienen, ein Team führen und trotzdem zu Hause und in ihrem Körper weich sein. Es geht darum, dass sie nicht mehr dauerhaft im Kampfmodus leben muss.
+
+## Buchtext (EN)
+
+- A woman does not only want material gifts from her man. She wants to be given to physically.
+- The same holds for her: she does not pamper her man to get something back. She has to be able to enjoy it herself.
+- Through the breathing, the cold and the right food she reaches places where she can enjoy physically without wanting anything.
+- Porn is not pleasure. It is pure anticipation, for her exactly as for him.
+- Feminine energy and body first: see `purmethod/pur` · `knowledge/woman/body-first-femininity.txt` (Paul's stance in English, with the checked studies).
 
 ## Arbeitsstand im Blueprint (nicht von Paul, zu bestätigen)
 
-Diese Regeln hat Claude am 08.11.2026 für die Frauenbücher geschrieben, damit sie nicht leer starten. Sie sind **nicht Pauls Worte**. Wo Paul etwas anderes sagt, gilt Paul.
+Diese Regeln hat Claude am 08.11.2026 geschrieben, damit die Frauenbücher nicht leer starten. Sie sind **nicht Pauls Worte**. Wo Paul etwas anderes sagt, gilt Paul.
 
 - **Keine Männerprotokolle:** keine Ejakulationskontrolle, keine Morgenerektion, keine Testosteronziele.
-- **P0 für sie:**
-  - wohin ihre sexuelle Energie und Aufmerksamkeit gehen (Pornos und schnelle Entladung wirken auf ihr Dopamin genauso);
-  - ihr Körpergefühl und ihr Beckenboden;
-  - ihr Verlangen und was sie in der Intimität zulässt.
-- **Zyklus:**
-  - Energie, Schlaf und Appetit ändern sich über den Monat;
-  - sie beobachtet ihr eigenes Muster;
-  - zyklusbasiertes Training oder Essen nie als bewiesen darstellen.
+- **P0 für sie:** wohin ihre sexuelle Energie und Aufmerksamkeit gehen, ihr Körpergefühl, ihr Beckenboden, ihr Verlangen, was sie in der Intimität zulässt.
+- **Zyklus:** Energie, Schlaf und Appetit ändern sich über den Monat. Sie beobachtet ihr eigenes Muster. Zyklusbasiertes Training oder Essen nie als bewiesen darstellen.
 - **Krafttraining** schützt Muskeln und Knochen ein Leben lang. Sie startet mit der Leiter wie jeder.
-- **Fasten:**
-  - sanft, weil langes, hartes Fasten den Zyklus stören kann;
-  - kein Fasten bei unregelmäßigem Zyklus, in Schwangerschaft und Stillzeit oder bei einer Essstörung in der Geschichte.
-- **Beziehung:**
-  - Paul: Familie und Kinder zählen langfristig am meisten. Das wird einmal gesagt, wo es zu ihrem Ziel passt, nie als Druck.
-  - Beziehungsführung heißt für sie: ihre Grenzen, was sie von einem Mann erwartet, wie sie ruhig und klar bleibt.
+- **Fasten:** sanft, weil langes, hartes Fasten den Zyklus stören kann. Kein Fasten bei unregelmäßigem Zyklus, in Schwangerschaft und Stillzeit oder bei einer Essstörung in der Geschichte.
+- **Beziehung:** Pauls Haltung (Familie und Kinder zählen langfristig am meisten) wird einmal gesagt, wo es passt, nie als Druck. Beziehungsführung heißt für sie: ihre Grenzen, was sie von einem Mann erwartet, wie sie ruhig und klar bleibt.
 - **Ego und Vergleich** laufen bei ihr oft über Aussehen, Körper, Social Media und das Leben anderer Frauen.
-- **Ton:** der ältere Bruder bleibt, warm, ehrlich, direkt.
 
 ## Belege
 
-- Beckenbodentraining unterstützt bei Frauen Kontinenz und sexuelle Funktion: noch nicht in [09-quellen.md](../09-quellen.md) erfasst, Recherche offen.
-- Zyklus und Training: Evidenz dünn, darum nie als bewiesen formulieren. Recherche offen.
+- Beckenbodentraining bei Frauen (Kontinenz, sexuelle Funktion): Recherche offen, noch nicht in [09-quellen.md](09-quellen.md).
+- Zyklus und Training: Evidenz dünn, nie als bewiesen formulieren.
 
 ## Offen (nur Paul)
 
-- P0 für die Frau in Pauls Worten.
-- Zyklus, Fasten und Kälte bei Frauen: was Paul gesehen oder getestet hat.
-- Was eine Frau von einem Mann erwarten darf, und was sie selbst mitbringt.
-- Ego bei Frauen.
-- Geschichten von Frauen, mit denen Paul gearbeitet hat, ohne Namen.
-
-
----
-
-<!-- Datei: knowledge/pure/10-mann-und-frau/mann.md -->
-
-# Mann
-
-> Status: **Kern.** Was nur für den Mann gilt. Das meiste davon steht schon in den Modulen, weil PURE als system for man begonnen hat. Hier stehen die Verweise.
-
-## Kernaussagen (Paul)
-
-### Beschenken und genießen
-
-- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
-- Der Mann muss lernen, seine Frau zu verwöhnen. Nicht um etwas zu bekommen, nicht um etwas zu kriegen. Er muss in der Lage sein, es zu genießen.
-- Ganzer Gedanke, der für beide gilt: [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md), Abschnitt „Beschenken und genießen“.
-
-## Nur für den Mann, steht in den Modulen
-
-- [P0 Sexual Control](../03-physis/p0-sexual-control.md) · Orgasmus und Ejakulation trennen, der Entspannungsweg.
-- [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md) · Wahl aus Stärke, Partnerwahl, Anziehung aus Sicht des Mannes.
-- [What a Good Man Is](../06-ego/good-man.md)
-
-## Offen
-
-- Nur Paul: was er Männern über Frauen noch mitgeben will.
+- P0 für die Frau in Pauls Worten
+- Zyklus, Fasten und Kälte bei Frauen: was Paul gesehen oder getestet hat
+- Was eine Frau von einem Mann erwarten darf und was sie selbst mitbringt
+- Ego bei Frauen
+- Geschichten von Frauen, ohne Namen

@@ -42,8 +42,8 @@ PURE ist ein System für Männer, die aufgehört haben, mit sich selbst zu verha
 **e · ego**
 - [E0 bis E5](06-ego/e-module.md) · [The 1% · The Building](06-ego/the-1-percent.md) · [Four Arenas](06-ego/four-arenas.md) · [Rock Bottom](06-ego/rock-bottom.md) · [You Cannot Force It](06-ego/you-cannot-force-it.md) · [The Gate](06-ego/the-gate.md) · [Feel That You Are Mortal](06-ego/feel-mortal.md) · [What a Good Man Is](06-ego/good-man.md)
 
-**Mann und Frau**
-- [10-mann-und-frau](10-mann-und-frau/README.md) · eine Methode, zwei Wege: nur was sich unterscheidet · [Mann](10-mann-und-frau/mann.md) · [Frau](10-mann-und-frau/frau.md)
+**Man und Woman**
+- [man.md](man.md) · nur was für den Mann gilt · [woman.md](woman.md) · nur was für die Frau gilt. Alles andere gilt für beide und steht im Modul.
 
 **Bücher**
 - [07-buecher/buchplan.md](07-buecher/buchplan.md) · Dachmarke, Buchstruktur, Preise
