@@ -10,6 +10,7 @@
 - Der Atem ist der Motor. Tiefe Bauchatmung löst die Energie aus den Genitalien. Dann die Aufmerksamkeit lenken und die Empfindung die Wirbelsäule hinauf wandern lassen. Vom lokalen Gefühl zum Ganzkörpergefühl.
 - Graduell aufbauen. Nicht erzwingen. Der Körper lernt eine neue Trennung, gib ihm Zeit.
 - Pornos sind kein Genuss. Pornos sind reine Antizipation. Sie leeren dasselbe System, das deinen Ehrgeiz antreibt.
+- Genießen, ohne etwas zu wollen: Atem, Kälte und die richtige Ernährung führen dorthin. Verwöhnen nicht, um etwas zu bekommen. Ganzer Gedanke in [R3](../05-responsibility/r3-relationship-leadership.md), „Beschenken und genießen“.
 
 ## Buchtext (EN)
 

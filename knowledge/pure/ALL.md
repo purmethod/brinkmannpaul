@@ -51,6 +51,9 @@ PURE ist ein System für Männer, die aufgehört haben, mit sich selbst zu verha
 **e · ego**
 - [E0 bis E5](06-ego/e-module.md) · [The 1% · The Building](06-ego/the-1-percent.md) · [Four Arenas](06-ego/four-arenas.md) · [Rock Bottom](06-ego/rock-bottom.md) · [You Cannot Force It](06-ego/you-cannot-force-it.md) · [The Gate](06-ego/the-gate.md) · [Feel That You Are Mortal](06-ego/feel-mortal.md) · [What a Good Man Is](06-ego/good-man.md)
 
+**Mann und Frau**
+- [10-mann-und-frau](10-mann-und-frau/README.md) · eine Methode, zwei Wege: nur was sich unterscheidet · [Mann](10-mann-und-frau/mann.md) · [Frau](10-mann-und-frau/frau.md)
+
 **Bücher**
 - [07-buecher/buchplan.md](07-buecher/buchplan.md) · Dachmarke, Buchstruktur, Preise
 - [07-buecher/fastenbuch.md](07-buecher/fastenbuch.md) · Die Revolution des Fastens
@@ -240,6 +243,8 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | You Cannot Force It | steht | |
 | The Gate | steht | |
 | Feel That You Are Mortal | steht | |
+| Mann (10-mann-und-frau) | Kern | Verweise auf die Module, Pauls Ergänzungen |
+| Frau (10-mann-und-frau) | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
 | Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
@@ -454,6 +459,7 @@ Every man knows the moment: the hand reaches for the phone, the fridge, the rele
 - Der Atem ist der Motor. Tiefe Bauchatmung löst die Energie aus den Genitalien. Dann die Aufmerksamkeit lenken und die Empfindung die Wirbelsäule hinauf wandern lassen. Vom lokalen Gefühl zum Ganzkörpergefühl.
 - Graduell aufbauen. Nicht erzwingen. Der Körper lernt eine neue Trennung, gib ihm Zeit.
 - Pornos sind kein Genuss. Pornos sind reine Antizipation. Sie leeren dasselbe System, das deinen Ehrgeiz antreibt.
+- Genießen, ohne etwas zu wollen: Atem, Kälte und die richtige Ernährung führen dorthin. Verwöhnen nicht, um etwas zu bekommen. Ganzer Gedanke in [R3](../05-responsibility/r3-relationship-leadership.md), „Beschenken und genießen“.
 
 ## Buchtext (EN)
 
@@ -1111,6 +1117,13 @@ Textregeln:
 - **Text ist Logistik.** Die Emotion gehört ins nächste Treffen. Jede Nachricht führt Richtung Treffen.
 - **Konkreter Plan** mit Tag und Ort statt „we should meet again sometime“.
 - **Verlustangst ist die Wurzel der Bedürftigkeit.** Interesse stirbt nicht in zwei Tagen Stille. Es stirbt durch Überinvestment.
+
+### Beschenken und genießen
+
+- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
+- Der Mann muss lernen, seine Frau zu verwöhnen. Nicht um etwas zu bekommen, nicht um etwas zu kriegen. Er muss in der Lage sein, es zu genießen.
+- Das Gleiche gilt für die Frau.
+- Durch die Atemübungen, die Kälte und die richtige Ernährung kommt man in Bereiche, in denen man körperlich genießen kann, ohne etwas zu wollen. (Pauls Erfahrung, siehe [P4 Breath](../03-physis/p4-breath.md), [P5 Temperature](../03-physis/p5-temperature.md), [P3 Food](../03-physis/p3-food.md).)
 
 ## Buchtext (EN)
 
@@ -2176,3 +2189,118 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 - **U2:** Die Sieben-Tage-Marke ist durch eine randomisierte Studie gestützt. Die Stufen 24 Stunden und 48 bis 72 Stunden sind Pauls Erfahrungswerte.
 - **P1:** Spätes Essen und Schlaf ist bisher Pauls Erfahrungswert, Recherche folgt mit dem Modul.
 - **P0, U2:** Die Studie zu Pornokonsum und Gehirn ist eine Querschnittsstudie. Sie zeigt einen Zusammenhang, keine bewiesene Ursache.
+
+
+---
+
+<!-- Datei: knowledge/pure/10-mann-und-frau/README.md -->
+
+# Mann und Frau
+
+> Status: **angelegt am 08.11.2026.** PURE ist seit dem 08.11.2026 auch für Frauen. Verwandt: [08-produkte/blueprint.md](../08-produkte/blueprint.md).
+
+## Prinzip: eine Methode, zwei Wege
+
+- Die Methode ist eine: vier Säulen, der Giebel, der Sockel trust, die Kernregel „so klein anfangen, dass man es kaum merkt“. Sie steht in den Modulen 01 bis 06 und gilt für jeden Menschen.
+- Hier steht nur, was sich für Mann und Frau **unterscheidet**. Nichts wird doppelt geschrieben.
+- Neue Erkenntnis von Paul:
+  - gilt sie für beide, gehört sie in das passende Modul (z. B. R3);
+  - gilt sie nur für einen, gehört sie in [mann.md](mann.md) oder [frau.md](frau.md), mit Verweis auf das Modul.
+
+## Dateien
+
+- [mann.md](mann.md) · was nur für den Mann gilt
+- [frau.md](frau.md) · was nur für die Frau gilt
+
+## Woher der Blueprint sein Wissen zieht
+
+Der Blueprint auf purmethod.com liest eigene Textdateien im Repo `purmethod/pur`, Ordner `knowledge/`:
+
+| Ordner | Für wen |
+|---|---|
+| `knowledge/` | alle |
+| `knowledge/man/` | nur Männerbücher |
+| `knowledge/woman/` | nur Frauenbücher |
+
+Wer hier etwas ändert, zieht die passende Datei dort nach.
+
+
+---
+
+<!-- Datei: knowledge/pure/10-mann-und-frau/frau.md -->
+
+# Frau
+
+> Status: **angelegt, Pauls Wissen kommt.** Was nur für die Frau gilt. Paul spricht es ein, Agenten sortieren es hier ein.
+
+## Kernaussagen (Paul)
+
+### Beschenken und genießen
+
+- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
+- Das Gleiche gilt für die Frau: Sie verwöhnt ihren Mann nicht, um etwas zu bekommen. Sie muss in der Lage sein, es zu genießen.
+- Durch die Atemübungen, die Kälte und die richtige Ernährung kommt sie in Bereiche, in denen sie körperlich genießen kann, ohne etwas zu wollen.
+- Ganzer Gedanke, der für beide gilt: [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md), Abschnitt „Beschenken und genießen“.
+
+## Arbeitsstand im Blueprint (nicht von Paul, zu bestätigen)
+
+Diese Regeln hat Claude am 08.11.2026 für die Frauenbücher geschrieben, damit sie nicht leer starten. Sie sind **nicht Pauls Worte**. Wo Paul etwas anderes sagt, gilt Paul.
+
+- **Keine Männerprotokolle:** keine Ejakulationskontrolle, keine Morgenerektion, keine Testosteronziele.
+- **P0 für sie:**
+  - wohin ihre sexuelle Energie und Aufmerksamkeit gehen (Pornos und schnelle Entladung wirken auf ihr Dopamin genauso);
+  - ihr Körpergefühl und ihr Beckenboden;
+  - ihr Verlangen und was sie in der Intimität zulässt.
+- **Zyklus:**
+  - Energie, Schlaf und Appetit ändern sich über den Monat;
+  - sie beobachtet ihr eigenes Muster;
+  - zyklusbasiertes Training oder Essen nie als bewiesen darstellen.
+- **Krafttraining** schützt Muskeln und Knochen ein Leben lang. Sie startet mit der Leiter wie jeder.
+- **Fasten:**
+  - sanft, weil langes, hartes Fasten den Zyklus stören kann;
+  - kein Fasten bei unregelmäßigem Zyklus, in Schwangerschaft und Stillzeit oder bei einer Essstörung in der Geschichte.
+- **Beziehung:**
+  - Paul: Familie und Kinder zählen langfristig am meisten. Das wird einmal gesagt, wo es zu ihrem Ziel passt, nie als Druck.
+  - Beziehungsführung heißt für sie: ihre Grenzen, was sie von einem Mann erwartet, wie sie ruhig und klar bleibt.
+- **Ego und Vergleich** laufen bei ihr oft über Aussehen, Körper, Social Media und das Leben anderer Frauen.
+- **Ton:** der ältere Bruder bleibt, warm, ehrlich, direkt.
+
+## Belege
+
+- Beckenbodentraining unterstützt bei Frauen Kontinenz und sexuelle Funktion: noch nicht in [09-quellen.md](../09-quellen.md) erfasst, Recherche offen.
+- Zyklus und Training: Evidenz dünn, darum nie als bewiesen formulieren. Recherche offen.
+
+## Offen (nur Paul)
+
+- P0 für die Frau in Pauls Worten.
+- Zyklus, Fasten und Kälte bei Frauen: was Paul gesehen oder getestet hat.
+- Was eine Frau von einem Mann erwarten darf, und was sie selbst mitbringt.
+- Ego bei Frauen.
+- Geschichten von Frauen, mit denen Paul gearbeitet hat, ohne Namen.
+
+
+---
+
+<!-- Datei: knowledge/pure/10-mann-und-frau/mann.md -->
+
+# Mann
+
+> Status: **Kern.** Was nur für den Mann gilt. Das meiste davon steht schon in den Modulen, weil PURE als system for man begonnen hat. Hier stehen die Verweise.
+
+## Kernaussagen (Paul)
+
+### Beschenken und genießen
+
+- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
+- Der Mann muss lernen, seine Frau zu verwöhnen. Nicht um etwas zu bekommen, nicht um etwas zu kriegen. Er muss in der Lage sein, es zu genießen.
+- Ganzer Gedanke, der für beide gilt: [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md), Abschnitt „Beschenken und genießen“.
+
+## Nur für den Mann, steht in den Modulen
+
+- [P0 Sexual Control](../03-physis/p0-sexual-control.md) · Orgasmus und Ejakulation trennen, der Entspannungsweg.
+- [R3 Relationship Leadership](../05-responsibility/r3-relationship-leadership.md) · Wahl aus Stärke, Partnerwahl, Anziehung aus Sicht des Mannes.
+- [What a Good Man Is](../06-ego/good-man.md)
+
+## Offen
+
+- Nur Paul: was er Männern über Frauen noch mitgeben will.

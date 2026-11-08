@@ -10,7 +10,7 @@ function priceFor(country) {
   return { tier: "standard", amount: 1900, currency: "eur" };
 }
 
-// a paid checkout writes one book; a few more tries cover a book that failed while it was being written
-const MAX_BOOKS = 3;
+// one payment, one book (Paul, 8.11.). the book is counted only once it is written, so a failed try can be repeated
+const MAX_BOOKS = 1;
 
 module.exports = { priceFor, MAX_BOOKS };
