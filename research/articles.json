@@ -2383,6 +2383,154 @@
           ]
         }
       }
+    },
+    {
+      "slug": "can-neighborhood-greenery-shape-the-developing-brain",
+      "published": "2026-11-08",
+      "doi": "10.1016/j.biopsych.2025.03.026",
+      "cite_authors": "Li, Whittle & Rakesh (2025/2026)",
+      "cite_title": "Longitudinal Associations Between Greenspace Exposure, Structural Brain Development, and Mental Health and Academic Performance During Early Adolescence.",
+      "cite_journal": "Biological Psychiatry, 99(4), 286–298.",
+      "text": {
+        "en": {
+          "title": "Can neighborhood greenery shape a child's developing brain?",
+          "dek": "A longitudinal MRI study of 7,102 children links residential vegetation with cortical development, but does not establish causation.",
+          "intro": "Can the amount of vegetation around a child's home be related to how their brain develops? A preregistered US study connected satellite-derived residential greenery with repeated MRI scans and later mental-health and academic measures.",
+          "sections": [
+            [
+              "The study",
+              "Li, Whittle and Rakesh analyzed 7,102 children in the ABCD cohort, initially aged 9–10. Residential greenery was estimated with the normalized difference vegetation index (NDVI). Structural MRI was assessed about two years later, including changes over time. Models adjusted for household income relative to needs and neighborhood deprivation."
+            ],
+            [
+              "Measured results",
+              "Greater greenery was associated with greater total cortical surface area (B = 0.046, SE = 0.012, p < 0.001) and total cortical volume (B = 0.049, SE = 0.012, p < 0.001). Regional thickness associations differed in direction. For academic performance, the indirect association through total cortical surface area was 0.004 (95% CI 0.002–0.007), while the total association was not significant (p = 0.985)."
+            ],
+            [
+              "Why it matters for architecture",
+              "Neighborhood vegetation is a measurable spatial exposure potentially relevant to neurodevelopment. The results motivate research combining urban design, longitudinal mental-health assessments and neuroimaging, rather than assuming that greener neighborhoods automatically improve cognition."
+            ],
+            [
+              "Limits and PhD question",
+              "This observational study cannot show that adding trees changes the brain. NDVI does not measure use or quality of green space. MRI cannot count synapses. Importantly, study site explained substantial variation in greenery and adjusting for site weakened several findings. A future intervention with comparison neighborhoods could test whether deliberately improving green space changes health or brain outcomes."
+            ]
+          ]
+        },
+        "de": {
+          "title": "Kann das Grün im Wohnviertel die Entwicklung des Gehirns prägen?",
+          "dek": "Eine MRT-Längsschnittstudie mit 7.102 Kindern verbindet Wohnumfeld-Begrünung mit der Entwicklung der Hirnrinde – ohne Kausalität zu beweisen.",
+          "intro": "Kann die Vegetation rund um das Zuhause eines Kindes mit seiner Gehirnentwicklung zusammenhängen? Eine vorregistrierte US-Studie verknüpfte satellitengestützte Grünflächenmessungen mit wiederholten MRT-Aufnahmen sowie späteren Angaben zu psychischer Gesundheit und schulischer Leistung.",
+          "sections": [
+            [
+              "Die Untersuchung",
+              "Li, Whittle und Rakesh analysierten 7.102 Kinder der ABCD-Kohorte, anfangs neun bis zehn Jahre alt. Die Vegetation im Wohnumfeld wurde mit dem Normalized Difference Vegetation Index (NDVI) erfasst. Rund zwei Jahre später untersuchten sie die Gehirnstruktur mittels MRT und analysierten Veränderungen im Zeitverlauf. Die Modelle berücksichtigten unter anderem das Verhältnis von Haushaltseinkommen zu Bedarf und die soziale Benachteiligung des Quartiers."
+            ],
+            [
+              "Konkrete Ergebnisse",
+              "Mehr Grün war mit einer größeren gesamten kortikalen Oberfläche (B = 0,046; SE = 0,012; p < 0,001) und einem größeren gesamten kortikalen Volumen (B = 0,049; SE = 0,012; p < 0,001) assoziiert. Regionale Zusammenhänge mit der Hirnrindendicke gingen in unterschiedliche Richtungen. Für schulische Leistungen betrug der indirekte Zusammenhang über die gesamte kortikale Oberfläche 0,004 (95-%-KI 0,002–0,007), während der Gesamteffekt nicht signifikant war (p = 0,985)."
+            ],
+            [
+              "Bedeutung für die Architektur",
+              "Vegetation im Wohnquartier ist eine messbare räumliche Exposition, die möglicherweise mit der Gehirnentwicklung zusammenhängt. Die Ergebnisse motivieren Forschung, die Stadtgestaltung, wiederholte Gesundheitsbefragungen und bildgebende Neurowissenschaften verbindet. Sie erlauben nicht die pauschale Behauptung, grünere Viertel verbesserten automatisch das Denken."
+            ],
+            [
+              "Grenzen und Promotionsfrage",
+              "Die Beobachtungsstudie beweist nicht, dass zusätzliche Bäume das Gehirn verändern. Der NDVI erfasst weder Nutzung noch Qualität von Grünflächen; MRT misst keine einzelnen Synapsen. Wichtig: Der Studienstandort erklärte einen erheblichen Teil der Grünflächenunterschiede, und nach Berücksichtigung des Standorts wurden mehrere Befunde schwächer. Ein Interventionsprojekt mit Vergleichsquartieren könnte untersuchen, ob gezielte Begrünung tatsächlich Gesundheits- oder Gehirnmerkmale verändert."
+            ]
+          ]
+        },
+        "fr": {
+          "title": "La végétation du quartier peut-elle influencer le développement cérébral ?",
+          "dek": "Une étude longitudinale par IRM portant sur 7 102 enfants relie la végétation résidentielle au développement cortical, sans démontrer de causalité.",
+          "intro": "La végétation autour du domicile est-elle liée au développement du cerveau ? Une étude américaine préenregistrée a rapproché des données satellitaires sur la végétation, des IRM répétées et des indicateurs ultérieurs de santé mentale et de réussite scolaire.",
+          "sections": [
+            [
+              "L’étude",
+              "Li, Whittle et Rakesh ont analysé 7 102 enfants de la cohorte ABCD, âgés initialement de 9 à 10 ans. La végétation résidentielle a été estimée à l’aide de l’indice NDVI. Les chercheurs ont examiné la structure cérébrale environ deux ans plus tard et son évolution. Les modèles tenaient compte du revenu familial et de la défavorisation du quartier."
+            ],
+            [
+              "Résultats chiffrés",
+              "Une exposition plus élevée à la végétation était associée à une plus grande surface corticale totale (B = 0,046 ; erreur-type = 0,012 ; p < 0,001) et à un volume cortical total plus élevé (B = 0,049 ; erreur-type = 0,012 ; p < 0,001). Les associations régionales avec l’épaisseur corticale variaient. Pour la réussite scolaire, l’effet indirect via la surface corticale totale était de 0,004 (IC à 95 % : 0,002–0,007), alors que l’effet total n’était pas significatif (p = 0,985)."
+            ],
+            [
+              "Pour l’architecture",
+              "La végétation du quartier constitue une exposition spatiale mesurable potentiellement liée au développement cérébral. Ces résultats encouragent à associer urbanisme, suivi de la santé mentale et neuro-imagerie, sans présumer qu’un quartier plus vert améliore automatiquement les capacités cognitives."
+            ],
+            [
+              "Limites et question doctorale",
+              "L’étude observationnelle ne démontre pas que planter des arbres modifie le cerveau. Le NDVI ne mesure ni la qualité ni l’usage des espaces verts, et l’IRM ne mesure pas les synapses individuelles. La prise en compte du site d’étude affaiblissait plusieurs résultats. Une intervention comparant plusieurs quartiers pourrait mieux tester les effets causaux."
+            ]
+          ]
+        },
+        "es": {
+          "title": "¿Puede la vegetación del barrio influir en el desarrollo cerebral?",
+          "dek": "Un estudio longitudinal de resonancia magnética con 7.102 niños relaciona la vegetación residencial con el desarrollo cortical, sin demostrar causalidad.",
+          "intro": "¿Se relaciona la vegetación alrededor del hogar con el desarrollo del cerebro infantil? Un estudio estadounidense prerregistrado combinó datos satelitales, resonancias magnéticas repetidas y medidas posteriores de salud mental y rendimiento escolar.",
+          "sections": [
+            [
+              "El estudio",
+              "Li, Whittle y Rakesh analizaron a 7.102 niños de la cohorte ABCD, inicialmente de 9 a 10 años. Estimaron la vegetación residencial mediante el índice NDVI y evaluaron la estructura cerebral unos dos años después y sus cambios temporales. Los modelos ajustaron por ingresos familiares y privación del barrio."
+            ],
+            [
+              "Resultados cuantitativos",
+              "Una mayor exposición a vegetación se asoció con mayor superficie cortical total (B = 0,046; error estándar = 0,012; p < 0,001) y volumen cortical total (B = 0,049; error estándar = 0,012; p < 0,001). Las asociaciones regionales con el grosor cortical variaron de dirección. Para el rendimiento escolar, la asociación indirecta mediante la superficie cortical total fue 0,004 (IC del 95 %: 0,002–0,007), pero la asociación total no fue significativa (p = 0,985)."
+            ],
+            [
+              "Importancia arquitectónica",
+              "La vegetación residencial es una exposición espacial medible que podría estar relacionada con el neurodesarrollo. Los resultados justifican investigaciones que combinen urbanismo, seguimiento psicológico y neuroimagen, sin afirmar que los barrios verdes mejoran automáticamente la cognición."
+            ],
+            [
+              "Límites y tesis doctoral",
+              "Este estudio observacional no demuestra que plantar árboles cambie el cerebro. El NDVI no mide el uso ni la calidad del espacio verde y la resonancia no cuenta sinapsis. El ajuste por centro de estudio debilitó varios hallazgos. Una intervención con barrios comparables permitiría investigar mejor la causalidad."
+            ]
+          ]
+        },
+        "ar": {
+          "title": "هل يمكن لخضرة الحي أن ترتبط بنمو دماغ الطفل؟",
+          "dek": "ربطت دراسة طولية بالتصوير بالرنين المغناطيسي شملت 7102 أطفال بين الغطاء النباتي حول المنزل ونمو القشرة الدماغية، من دون إثبات السببية.",
+          "intro": "هل يرتبط الغطاء النباتي حول المنزل بتطور دماغ الطفل؟ جمعت دراسة أمريكية مسجلة مسبقاً بين بيانات الأقمار الصناعية وصور الرنين المغناطيسي المتكررة ومؤشرات الصحة النفسية والأداء الدراسي.",
+          "sections": [
+            [
+              "تصميم الدراسة",
+              "حلل لي وويتل وراكيش بيانات 7102 أطفال من دراسة ABCD، تراوحت أعمارهم في البداية بين 9 و10 سنوات. قاس الباحثون الغطاء النباتي حول المنازل بمؤشر NDVI، ثم درسوا بنية الدماغ بعد نحو عامين وتغيرها بمرور الوقت. أخذت النماذج في الاعتبار الدخل الأسري والحرمان الاجتماعي في الأحياء."
+            ],
+            [
+              "النتائج الرقمية",
+              "ارتبط ارتفاع الغطاء النباتي بمساحة قشرية كلية أكبر (B = 0.046؛ الخطأ المعياري = 0.012؛ p < 0.001) وحجم قشري كلي أكبر (B = 0.049؛ الخطأ المعياري = 0.012؛ p < 0.001). واختلف اتجاه الارتباطات بحسب المنطقة الدماغية. بلغ الارتباط غير المباشر بالأداء الدراسي عبر المساحة القشرية الكلية 0.004 (فاصل ثقة 95٪: 0.002–0.007)، بينما لم يكن الارتباط الكلي ذا دلالة إحصائية (p = 0.985)."
+            ],
+            [
+              "الدلالة المعمارية",
+              "يمثل الغطاء النباتي في الحي متغيراً مكانياً يمكن قياسه، وقد يرتبط بنمو الدماغ. تدعم النتائج تطوير أبحاث تجمع بين التخطيط الحضري والمتابعة النفسية والتصوير العصبي، لكنها لا تثبت أن الأحياء الأكثر خضرة تحسن الإدراك تلقائياً."
+            ],
+            [
+              "القيود وسؤال الدكتوراه",
+              "هذه دراسة رصدية لا تثبت أن زراعة الأشجار تغير الدماغ. لا يقيس مؤشر NDVI جودة المساحات الخضراء أو استخدامها، ولا يقيس الرنين المغناطيسي المشابك العصبية الفردية. أدى ضبط موقع الدراسة إلى إضعاف عدة نتائج. ويمكن لتجربة مقارنة بين أحياء مختلفة أن تختبر العلاقة السببية بصورة أفضل."
+            ]
+          ]
+        },
+        "ru": {
+          "title": "Может ли зелень района быть связана с развитием мозга ребёнка?",
+          "dek": "Продольное МРТ-исследование 7102 детей связывает растительность вокруг дома с развитием коры мозга, но не доказывает причинность.",
+          "intro": "Может ли растительность возле дома быть связана с развитием детского мозга? В предварительно зарегистрированном американском исследовании сопоставили спутниковые данные о зелени, повторные МРТ и последующие показатели психического здоровья и школьной успеваемости.",
+          "sections": [
+            [
+              "Дизайн исследования",
+              "Ли, Уиттл и Ракеш проанализировали данные 7102 детей когорты ABCD, которым в начале было 9–10 лет. Растительность возле дома оценивали индексом NDVI. Структуру мозга и её изменения исследовали примерно через два года. Модели учитывали доход семьи и социально-экономические характеристики района."
+            ],
+            [
+              "Численные результаты",
+              "Более высокая доля зелени была связана с большей общей площадью коры (B = 0,046; стандартная ошибка = 0,012; p < 0,001) и большим общим объёмом коры (B = 0,049; стандартная ошибка = 0,012; p < 0,001). Региональные связи с толщиной коры различались по направлению. Косвенная связь с успеваемостью через общую площадь коры составляла 0,004 (95% ДИ: 0,002–0,007), тогда как общая связь была незначимой (p = 0,985)."
+            ],
+            [
+              "Значение для архитектуры",
+              "Озеленение района — измеримый пространственный фактор, потенциально связанный с развитием мозга. Результаты обосновывают исследования на стыке градостроительства, психологического мониторинга и нейровизуализации, но не доказывают автоматического улучшения мышления в зелёных районах."
+            ],
+            [
+              "Ограничения и тема диссертации",
+              "Наблюдательное исследование не доказывает, что посадка деревьев изменяет мозг. NDVI не измеряет качество зелёных пространств или их использование, а МРТ не измеряет отдельные синапсы. Учёт исследовательского центра ослабил ряд результатов. Интервенционное исследование с сопоставимыми районами помогло бы проверить причинность."
+            ]
+          ]
+        }
+      }
     }
   ]
 }
