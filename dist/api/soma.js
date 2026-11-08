@@ -12,7 +12,9 @@ const { stripe } = require("./_stripe");
 const { SESSIONS, PLACES, GROUP } = require("./_soma");
 
 const now = () => new Date().toISOString().slice(0, 16);
-const open = (s, test) => (test || !s.test) && s.when > now();
+// a date without a time stays open through that day
+const ends = (s) => (s.when.length === 10 ? s.when + "T23:59" : s.when);
+const open = (s, test) => (test || !s.test) && ends(s) > now();
 // with no real date yet, one place list for "the next session": date and place follow in the group
 const NEXT = { id: "next", when: "", place: "" };
 const listed = (test) => {
@@ -77,7 +79,7 @@ module.exports = async (req, res) => {
         const ids = [...SESSIONS.map((s) => s.id), "next", ...Object.keys(by).filter((id) => !known.includes(id) && id !== "next")];
         const sessions = ids
           .map((id) => { const s = SESSIONS.find((x) => x.id === id) || { id, when: "", place: "" }; return { id, when: s.when, place: s.place, test: Boolean(s.test), people: (by[id] || []).sort((x, y) => x.joined.localeCompare(y.joined)) }; })
-          .filter((s) => s.people.length || (!s.test && s.id !== "next" && s.when > now()));
+          .filter((s) => s.people.length || (!s.test && s.id !== "next" && s.when && ends(s) > now()));
         return res.status(200).json({ sessions, places: PLACES });
       }
       let body = req.body || {};
