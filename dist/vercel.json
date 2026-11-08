@@ -20,6 +20,16 @@
   ],
   "redirects": [
     {
+      "source": "/soma",
+      "destination": "https://somaflowclub.com/",
+      "permanent": false
+    },
+    {
+      "source": "/soma/:path*",
+      "destination": "https://somaflowclub.com/",
+      "permanent": false
+    },
+    {
       "source": "/pakt",
       "destination": "/pact",
       "permanent": false
