@@ -1,6 +1,6 @@
 // /api/soma · soma flow club sign-ups, free, max 15 places per session.
-// GET                          → { sessions: [{ id, when, place, left }], places }   (no group link: that is for signed-up people only)
-// POST { session, name }        → { ok, id, session, when, place, group }   reserves one place
+// GET                          → { sessions: [{ id, when, place, map, left }], places }   (no group link: that is for signed-up people only)
+// POST { session, name }        → { ok, id, session, when, place, map, group }   reserves one place
 // POST { cancel: id }           → { ok }                                    frees it again
 // Each sign-up is a customer in Paul's Stripe account (metadata.soma = session id), so no database is
 // needed and the list is in the dashboard (Customers, filter by metadata soma). The customer id is the cancel key.
@@ -33,7 +33,7 @@ async function counts() {
 async function withPlaces(test) {
   const list = listed(test);
   const n = list.length ? await counts() : {};
-  return list.map((s) => ({ id: s.id, when: s.when, place: s.place, left: Math.max(0, PLACES - (n[s.id] || 0)) }));
+  return list.map((s) => ({ id: s.id, when: s.when, place: s.place, map: s.map || "", left: Math.max(0, PLACES - (n[s.id] || 0)) }));
 }
 
 module.exports = async (req, res) => {
@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
       description: `soma flow club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
       metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "somaflowclub.com" },
     });
-    return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, group: GROUP });
+    return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, map: s.map || "", group: GROUP });
   } catch (err) {
     console.error("soma", err.status, err.message);
     return res.status(502).json({ error: "unavailable" });
