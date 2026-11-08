@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button, Screen } from "@/components/ui";
+import { InstaFollow } from "@/components/InstaFollow";
 import { Wordmark } from "@/components/Logo";
 import { uploadApi, type UploadResult } from "@/lib/api";
 
@@ -151,6 +152,7 @@ export default function UploadPage() {
         )}
         {error && <p className="text-[14px] text-accent">{error}</p>}
         <Button onClick={reset}>Weitere Screenshots teilen</Button>
+        <InstaFollow />
       </Screen>
     );
   }
@@ -235,6 +237,7 @@ export default function UploadPage() {
       <Button disabled={!files.length || !consent || busy} onClick={send} data-testid="upload-send">
         {busy ? "Wird ausgewertet …" : "Anonym hochladen"}
       </Button>
+      <InstaFollow />
     </Screen>
   );
 }

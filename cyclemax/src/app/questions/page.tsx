@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { AGE_GROUPS, ANNOYANCES, CURRENT_APPS, PRICES, QUESTIONS, SECTIONS, SURVEY_VERSION, WISH_MAX } from "@shared/survey";
 import { fill, LANGS, pickLang, SURVEY_STRINGS, type Lang } from "@shared/survey-i18n";
 import { createWebSpeech } from "@/adapters/speech";
+import { InstaFollow } from "@/components/InstaFollow";
 import { Wordmark } from "@/components/Logo";
 import { MicButton, useDictation } from "@/components/Mic";
 import { Button, Screen } from "@/components/ui";
@@ -209,6 +210,7 @@ export default function QuestionsPage() {
               </a>
             </div>
           )}
+          <InstaFollow />
         </Screen>
       </div>
     );
@@ -323,6 +325,7 @@ export default function QuestionsPage() {
             {answered < total ? t.skip : ""}
           </p>
         </div>
+        <InstaFollow />
       </Screen>
     </div>
   );

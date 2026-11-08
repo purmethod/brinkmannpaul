@@ -6,6 +6,7 @@ test.describe("survey in six languages", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("ساهمي في بناء تطبيق دورتكِ.");
     await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
     await expect(page.getByTestId("languages").getByRole("radio")).toHaveCount(6);
+    await expect(page.getByTestId("instagram")).toContainText("@buildpaul");
 
     await page.getByRole("radio", { name: "English" }).click();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Help build your cycle app.");
@@ -14,7 +15,7 @@ test.describe("survey in six languages", () => {
     await expect(page.getByTestId("one_tap-4")).toHaveText("essential");
 
     await page.getByRole("radio", { name: "Русский" }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Создай своё приложение для цикла вместе с нами.");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Сделаем твоё приложение для цикла вместе.");
   });
 
   test("an answer in Spanish is sent with its language", async ({ page }) => {
@@ -28,7 +29,8 @@ test.describe("survey in six languages", () => {
     await page.getByRole("button", { name: "demasiado complicada" }).click();
     await page.getByTestId("survey-consent").check();
     await page.getByTestId("survey-send").click();
-    await expect(page.getByRole("heading", { name: "Gracias." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "¡Muchas gracias!" })).toBeVisible();
+    await expect(page.getByTestId("instagram")).toHaveAttribute("href", "https://www.instagram.com/buildpaul/");
     expect(sent).toMatchObject({ lang: "es", ratings: { one_tap: 3 }, annoyances: ["zu kompliziert"] });
   });
 });
