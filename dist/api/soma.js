@@ -1,5 +1,5 @@
 // /api/soma · soma flow club sign-ups, free, max 15 places per session.
-// GET                          → { sessions: [{ id, when, place, left }], group }
+// GET                          → { sessions: [{ id, when, place, left }], places }   (no group link: that is for signed-up people only)
 // POST { session, name }        → { ok, id, session, when, place, group }   reserves one place
 // POST { cancel: id }           → { ok }                                    frees it again
 // Each sign-up is a customer in Paul's Stripe account (metadata.soma = session id), so no database is
@@ -9,6 +9,12 @@ const { SESSIONS, PLACES, GROUP } = require("./_soma");
 
 const now = () => new Date().toISOString().slice(0, 16);
 const open = (s, test) => (test || !s.test) && s.when > now();
+// with no real date yet, one place list for "the next session": date and place follow in the group
+const NEXT = { id: "next", when: "", place: "" };
+const listed = (test) => {
+  const real = SESSIONS.filter((s) => open(s, false));
+  return [...(real.length ? [] : [NEXT]), ...SESSIONS.filter((s) => s.test && open(s, test))].concat(real);
+};
 
 // counted from the customer list itself (sign-ups of the last 180 days), not from search,
 // which only sees a new customer after up to a minute and could let a 16th person in
@@ -25,7 +31,7 @@ async function counts() {
   return n;
 }
 async function withPlaces(test) {
-  const list = SESSIONS.filter((s) => open(s, test));
+  const list = listed(test);
   const n = list.length ? await counts() : {};
   return list.map((s) => ({ id: s.id, when: s.when, place: s.place, left: Math.max(0, PLACES - (n[s.id] || 0)) }));
 }
@@ -34,7 +40,7 @@ module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
   const test = req.query && req.query.test === "1";
   try {
-    if (req.method === "GET") return res.status(200).json({ sessions: await withPlaces(test), group: GROUP, places: PLACES });
+    if (req.method === "GET") return res.status(200).json({ sessions: await withPlaces(test), places: PLACES });
     if (req.method !== "POST") {
       res.setHeader("Allow", "GET, POST");
       return res.status(405).json({ error: "Method not allowed" });
@@ -55,12 +61,12 @@ module.exports = async (req, res) => {
 
     const name = String(body.name || "").replace(/\s+/g, " ").trim().slice(0, 60);
     if (name.length < 2) return res.status(400).json({ error: "name" });
-    const s = SESSIONS.find((x) => x.id === body.session && open(x, true));
+    const s = listed(true).find((x) => x.id === body.session);
     if (!s) return res.status(400).json({ error: "session" });
     if (((await counts())[s.id] || 0) >= PLACES) return res.status(409).json({ error: "full" });
     const c = await stripe("POST", "customers", {
       name,
-      description: `soma flow club · ${s.when} · ${s.place}`,
+      description: `soma flow club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
       metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "brinkmannpaul.com/soma" },
     });
     return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, group: GROUP });
