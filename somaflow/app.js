@@ -86,7 +86,7 @@
   const LANGS = Object.keys(T);
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
-  const IG = "https://www.instagram.com/buildpaul/";
+  const IG = "https://www.instagram.com/somaflowclub/";
   const API = "/api/soma" + (TEST ? "?test=1" : "");
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } },
