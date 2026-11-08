@@ -70,7 +70,7 @@
       return n;
     }
     const fmt = (iso, opts) => { try { return new Intl.DateTimeFormat("de-DE", opts).format(new Date(iso)); } catch { return iso; } };
-    const sessionTitle = (s) => s.when ? fmt((s.when.length === 10 ? s.when + "T12:00" : s.when) + ":00Z", s.when.length === 10 ? { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" } : { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + (s.when.length === 10 ? " · uhrzeit in der gruppe" : "") : (s.id === "next" ? "nächster termin (ohne datum)" : s.id);
+    const sessionTitle = (s) => s.when ? fmt((s.when.length === 10 ? s.when + "T12:00" : s.when) + ":00Z", s.when.length === 10 ? { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" } : { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + (s.when.length === 10 ? " · uhrzeit in der gruppe" : "") : (s.id === "next" ? "nächster termin (ohne datum)" : "nächster termin · datum und uhrzeit in der gruppe");
     async function api(method, body) {
       const r = await fetch("/api/soma" + (method === "GET" ? "?admin=1" : ""), { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
       if (r.status === 401) throw Object.assign(new Error("key"), { code: 401 });
