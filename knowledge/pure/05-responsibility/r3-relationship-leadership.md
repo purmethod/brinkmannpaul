@@ -47,6 +47,13 @@ Textregeln:
 - **Konkreter Plan** mit Tag und Ort statt „we should meet again sometime“.
 - **Verlustangst ist die Wurzel der Bedürftigkeit.** Interesse stirbt nicht in zwei Tagen Stille. Es stirbt durch Überinvestment.
 
+### Beschenken und genießen
+
+- Eine Frau will von ihrem Mann nicht nur materiell beschenkt werden, sondern körperlich.
+- Der Mann muss lernen, seine Frau zu verwöhnen. Nicht um etwas zu bekommen, nicht um etwas zu kriegen. Er muss in der Lage sein, es zu genießen.
+- Das Gleiche gilt für die Frau.
+- Durch die Atemübungen, die Kälte und die richtige Ernährung kommt man in Bereiche, in denen man körperlich genießen kann, ohne etwas zu wollen. (Pauls Erfahrung, siehe [P4 Breath](../03-physis/p4-breath.md), [P5 Temperature](../03-physis/p5-temperature.md), [P3 Food](../03-physis/p3-food.md).)
+
 ## Buchtext (EN)
 
 ### Kurzfassung

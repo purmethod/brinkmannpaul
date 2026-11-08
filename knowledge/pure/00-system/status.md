@@ -38,6 +38,8 @@
 | You Cannot Force It | steht | |
 | The Gate | steht | |
 | Feel That You Are Mortal | steht | |
+| Mann (10-mann-und-frau) | Kern | Verweise auf die Module, Pauls Ergänzungen |
+| Frau (10-mann-und-frau) | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
 | Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
