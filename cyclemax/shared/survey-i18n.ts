@@ -16,6 +16,9 @@ export const LANG_CODES = LANGS.map((l) => l.code) as [Lang, ...Lang[]];
 
 export interface SurveyStrings {
   language: string;
+  /** start page cyclemax.app: invitation to the survey */
+  inviteTitle: string;
+  inviteButton: string;
   title: string;
   intro: string;
   /** {n} = number of questions */
@@ -59,6 +62,8 @@ const NB = " "; // French: no-break space before : ? ! ; and inside "3 €"
 
 export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   de: {
+    inviteTitle: "Hilf mit, die beste Zyklus-App zu bauen.",
+    inviteButton: "Sei Teil davon",
     language: "Sprache",
     title: "Bau deine Zyklus-App mit.",
     intro:
@@ -152,6 +157,8 @@ export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   },
 
   en: {
+    inviteTitle: "Help build the best cycle app.",
+    inviteButton: "Be part of it",
     language: "Language",
     title: "Help build your cycle app.",
     intro:
@@ -245,6 +252,8 @@ export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   },
 
   fr: {
+    inviteTitle: "Aide-nous à créer la meilleure appli de suivi de cycle.",
+    inviteButton: "Participe",
     language: "Langue",
     title: "Construis avec nous ton appli de suivi de cycle.",
     intro: `Cyclemax sera la météo de ton cycle. Chaque matin, tu sauras ce qui te fait du bien aujourd’hui${NB}: plus de glucides ou plus de protéines, sport ou repos, sauna ou douche froide – le tout fondé sur la science, pour que tu te sentes beaucoup mieux.`,
@@ -336,6 +345,8 @@ export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   },
 
   es: {
+    inviteTitle: "Ayúdanos a crear la mejor app del ciclo.",
+    inviteButton: "Forma parte",
     language: "Idioma",
     title: "Ayúdanos a crear tu app del ciclo.",
     intro:
@@ -428,6 +439,8 @@ export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   },
 
   ar: {
+    inviteTitle: "ساهمي في بناء أفضل تطبيق للدورة الشهرية.",
+    inviteButton: "كوني جزءًا منه",
     language: "اللغة",
     title: "ساهمي في بناء تطبيق دورتكِ.",
     intro:
@@ -520,6 +533,8 @@ export const SURVEY_STRINGS: Record<Lang, SurveyStrings> = {
   },
 
   ru: {
+    inviteTitle: "Помоги создать лучшее приложение для цикла.",
+    inviteButton: "Стань частью этого",
     language: "Язык",
     title: "Сделаем твоё приложение для цикла вместе.",
     intro:

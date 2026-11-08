@@ -175,14 +175,20 @@ test("Offline-Start und Offline-Chat aus der Wissensbasis", async ({ page, conte
   await context.setOffline(false);
 });
 
-test("Startseite: Ring, CYCLEMAX und coming soon ohne Navigation", async ({ page }) => {
+test("Startseite: Ring, CYCLEMAX, coming soon – und nur der Weg zur Umfrage", async ({ page }) => {
   await page.goto("/");
   const start = page.getByTestId("start-ring");
   await expect(start).toBeVisible();
-  await expect(page.locator("main")).toHaveText(/^\s*Cyclemax\s*coming soon\s*$/i);
-  await expect(page.locator("main button, main a, main [role=button], main [tabindex]")).toHaveCount(0);
+  await expect(start).toHaveText(/^\s*Cyclemax\s*coming soon\s*$/i);
+  // the ring itself stays without a way into the app
   await start.click();
   await expect(page).toHaveURL((url) => url.pathname === "/");
+  // one single link: help build the app (German browser → German)
+  await expect(page.locator("main button, main a, main [role=button], main [tabindex]")).toHaveCount(1);
+  await expect(page.getByTestId("start-invite")).toContainText("Hilf mit, die beste Zyklus-App zu bauen.");
+  await page.getByRole("link", { name: "Sei Teil davon" }).click();
+  await expect(page).toHaveURL(/\/questions\/\?lang=de$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Bau deine Zyklus-App mit.");
 });
 
 test("Vorschau: einen Tag vor Standfest kommt der Hinweis", async ({ page }) => {

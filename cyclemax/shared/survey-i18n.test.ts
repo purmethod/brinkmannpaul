@@ -11,6 +11,7 @@ describe("survey translations", () => {
   for (const code of LANG_CODES) {
     it(`${code}: every text is there and filled`, () => {
       const t = SURVEY_STRINGS[code];
+      expect(t.inviteTitle.trim() && t.inviteButton.trim()).toBeTruthy();
       expect(t.sections).toHaveLength(SECTIONS.length);
       for (const s of t.sections) expect(s.title && s.intro).toBeTruthy();
       expect(Object.keys(t.questions).sort()).toEqual([...QUESTION_IDS].sort());
