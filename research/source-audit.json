@@ -1,6 +1,6 @@
 {
   "checked": "2026-11-08",
-  "scope": "Sixteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "scope": "Seventeen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
       "doi": "10.1016/j.envres.2026.124671",
@@ -170,6 +170,16 @@
       ],
       "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'. 2026-11-08: authors and volume 114 confirmed from the author institution listing; volume added to the citation. Per-experiment counts, VR setting, randomization and all outcome directions remain NOT yet verified.",
       "author_record_url": "https://www.liverpool.ac.uk/people/jiangtao-du/research-outputs"
+    },
+    {
+      "doi": "10.1016/j.biopsych.2025.03.026",
+      "primary_url": "https://kclpure.kcl.ac.uk/portal/en/publications/longitudinal-associations-between-greenspace-exposure-structural-/",
+      "secondary_url": "https://www.elsevier.com/about/press-releases/study-reveals-the-beneficial-nature-of-greenspace-exposure-for-brain",
+      "access": "Abstract and bibliographic record (King's College London repository, PMID 40222467, online 11 April 2025) and publisher press release. Full text (ScienceDirect, journal site, PubMed, Europe PMC) not retrievable on 2026-11-08.",
+      "key_counts": [
+        7102
+      ],
+      "review": "Relevant: residential greenery (built and designed environment) linked to brain structure, mental health and academic performance. Confirmed from abstract: authors Li, Whittle, Rakesh; preregistered; ABCD n = 7102; greenspace at 9 to 10 years; brain structure two years later and change over time; greater total surface area and cortical volume; regional thickness and surface area differences; greater caudate, putamen and accumbens volume; greater total SA growth and reduced total CV growth; significant indirect effects through cortical structure for academic performance and mental health. Added the omitted subcortical, longitudinal and mental-health mediation findings. Removed a dash from the German dek. NOT yet verified against full text: NDVI as metric, covariates, B/SE/p values (0.046/0.049, SE 0.012), indirect effect 0.004 (CI 0.002 to 0.007), total effect p = 0.985, weakening after site adjustment, volume 99(4) and pages 286 to 298."
     }
   ]
 }

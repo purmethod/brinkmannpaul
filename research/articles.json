@@ -2387,6 +2387,7 @@
     {
       "slug": "can-neighborhood-greenery-shape-the-developing-brain",
       "published": "2026-11-08",
+      "modified": "2026-11-08",
       "doi": "10.1016/j.biopsych.2025.03.026",
       "cite_authors": "Li, Whittle & Rakesh (2025/2026)",
       "cite_title": "Longitudinal Associations Between Greenspace Exposure, Structural Brain Development, and Mental Health and Academic Performance During Early Adolescence.",
@@ -2395,7 +2396,7 @@
         "en": {
           "title": "Can neighborhood greenery shape a child's developing brain?",
           "dek": "A longitudinal MRI study of 7,102 children links residential vegetation with cortical development, but does not establish causation.",
-          "intro": "Can the amount of vegetation around a child's home be related to how their brain develops? A preregistered US study connected satellite-derived residential greenery with repeated MRI scans and later mental-health and academic measures.",
+          "intro": "A child grows up between walls, streets and the trees outside the window. I often ask myself what that green does to a brain that is still being built. A large study from the United States followed thousands of children and looked for an answer.",
           "sections": [
             [
               "The study",
@@ -2403,11 +2404,11 @@
             ],
             [
               "Measured results",
-              "Greater greenery was associated with greater total cortical surface area (B = 0.046, SE = 0.012, p < 0.001) and total cortical volume (B = 0.049, SE = 0.012, p < 0.001). Regional thickness associations differed in direction. For academic performance, the indirect association through total cortical surface area was 0.004 (95% CI 0.002–0.007), while the total association was not significant (p = 0.985)."
+              "Greater greenery was associated with greater total cortical surface area (B = 0.046, SE = 0.012, p < 0.001) and total cortical volume (B = 0.049, SE = 0.012, p < 0.001). Regional thickness associations differed in direction. Greater greenery was also associated with larger caudate, putamen and nucleus accumbens volumes. Over time, it was linked to greater growth in total surface area and smaller growth in total cortical volume. According to the abstract, indirect associations through cortical structure were significant for both academic performance and mental health. For academic performance, the indirect association through total cortical surface area was 0.004 (95% CI 0.002–0.007), while the total association was not significant (p = 0.985)."
             ],
             [
               "Why it matters for architecture",
-              "Neighborhood vegetation is a measurable spatial exposure potentially relevant to neurodevelopment. The results motivate research combining urban design, longitudinal mental-health assessments and neuroimaging, rather than assuming that greener neighborhoods automatically improve cognition."
+              "For me, a tree outside a child's window is architecture too. Where we plant, how much, and how close to home are design decisions. This study does not prove that greener streets build better brains. It tells me that greenery belongs in the plan from the beginning, and that we should measure what it does, not assume it."
             ],
             [
               "Limits and PhD question",
@@ -2417,8 +2418,8 @@
         },
         "de": {
           "title": "Kann das Grün im Wohnviertel die Entwicklung des Gehirns prägen?",
-          "dek": "Eine MRT-Längsschnittstudie mit 7.102 Kindern verbindet Wohnumfeld-Begrünung mit der Entwicklung der Hirnrinde – ohne Kausalität zu beweisen.",
-          "intro": "Kann die Vegetation rund um das Zuhause eines Kindes mit seiner Gehirnentwicklung zusammenhängen? Eine vorregistrierte US-Studie verknüpfte satellitengestützte Grünflächenmessungen mit wiederholten MRT-Aufnahmen sowie späteren Angaben zu psychischer Gesundheit und schulischer Leistung.",
+          "dek": "Eine MRT-Längsschnittstudie mit 7.102 Kindern verbindet Grün im Wohnumfeld mit der Entwicklung der Hirnrinde, beweist aber keine Kausalität.",
+          "intro": "Ein Kind wächst zwischen Wänden, Straßen und den Bäumen vor dem Fenster auf. Ich frage mich oft, was dieses Grün mit einem Gehirn macht, das sich noch entwickelt. Eine große Studie aus den USA hat Tausende Kinder begleitet und nach einer Antwort gesucht.",
           "sections": [
             [
               "Die Untersuchung",
@@ -2426,11 +2427,11 @@
             ],
             [
               "Konkrete Ergebnisse",
-              "Mehr Grün war mit einer größeren gesamten kortikalen Oberfläche (B = 0,046; SE = 0,012; p < 0,001) und einem größeren gesamten kortikalen Volumen (B = 0,049; SE = 0,012; p < 0,001) assoziiert. Regionale Zusammenhänge mit der Hirnrindendicke gingen in unterschiedliche Richtungen. Für schulische Leistungen betrug der indirekte Zusammenhang über die gesamte kortikale Oberfläche 0,004 (95-%-KI 0,002–0,007), während der Gesamteffekt nicht signifikant war (p = 0,985)."
+              "Mehr Grün war mit einer größeren gesamten kortikalen Oberfläche (B = 0,046; SE = 0,012; p < 0,001) und einem größeren gesamten kortikalen Volumen (B = 0,049; SE = 0,012; p < 0,001) assoziiert. Regionale Zusammenhänge mit der Hirnrindendicke gingen in unterschiedliche Richtungen. Mehr Grün ging außerdem mit größeren Volumina von Nucleus caudatus, Putamen und Nucleus accumbens einher. Im Zeitverlauf war es mit stärkerem Wachstum der gesamten kortikalen Oberfläche und geringerem Wachstum des gesamten kortikalen Volumens verbunden. Laut Abstract waren indirekte Zusammenhänge über die Hirnrindenstruktur sowohl für schulische Leistung als auch für psychische Gesundheit signifikant. Für schulische Leistungen betrug der indirekte Zusammenhang über die gesamte kortikale Oberfläche 0,004 (95-%-KI 0,002–0,007), während der Gesamteffekt nicht signifikant war (p = 0,985)."
             ],
             [
               "Bedeutung für die Architektur",
-              "Vegetation im Wohnquartier ist eine messbare räumliche Exposition, die möglicherweise mit der Gehirnentwicklung zusammenhängt. Die Ergebnisse motivieren Forschung, die Stadtgestaltung, wiederholte Gesundheitsbefragungen und bildgebende Neurowissenschaften verbindet. Sie erlauben nicht die pauschale Behauptung, grünere Viertel verbesserten automatisch das Denken."
+              "Für mich ist auch der Baum vor dem Kinderzimmer Architektur. Wo wir pflanzen, wie viel und wie nah am Zuhause, sind Entscheidungen der Gestaltung. Diese Studie beweist nicht, dass grünere Straßen bessere Gehirne bauen. Sie sagt mir, dass Grün von Anfang an in den Plan gehört und dass wir messen sollten, was es bewirkt, statt es anzunehmen."
             ],
             [
               "Grenzen und Promotionsfrage",
@@ -2441,7 +2442,7 @@
         "fr": {
           "title": "La végétation du quartier peut-elle influencer le développement cérébral ?",
           "dek": "Une étude longitudinale par IRM portant sur 7 102 enfants relie la végétation résidentielle au développement cortical, sans démontrer de causalité.",
-          "intro": "La végétation autour du domicile est-elle liée au développement du cerveau ? Une étude américaine préenregistrée a rapproché des données satellitaires sur la végétation, des IRM répétées et des indicateurs ultérieurs de santé mentale et de réussite scolaire.",
+          "intro": "Un enfant grandit entre des murs, des rues et les arbres devant sa fenêtre. Je me demande souvent ce que ce vert fait à un cerveau encore en construction. Une vaste étude américaine a suivi des milliers d’enfants pour chercher une réponse.",
           "sections": [
             [
               "L’étude",
@@ -2449,11 +2450,11 @@
             ],
             [
               "Résultats chiffrés",
-              "Une exposition plus élevée à la végétation était associée à une plus grande surface corticale totale (B = 0,046 ; erreur-type = 0,012 ; p < 0,001) et à un volume cortical total plus élevé (B = 0,049 ; erreur-type = 0,012 ; p < 0,001). Les associations régionales avec l’épaisseur corticale variaient. Pour la réussite scolaire, l’effet indirect via la surface corticale totale était de 0,004 (IC à 95 % : 0,002–0,007), alors que l’effet total n’était pas significatif (p = 0,985)."
+              "Une exposition plus élevée à la végétation était associée à une plus grande surface corticale totale (B = 0,046 ; erreur-type = 0,012 ; p < 0,001) et à un volume cortical total plus élevé (B = 0,049 ; erreur-type = 0,012 ; p < 0,001). Les associations régionales avec l’épaisseur corticale variaient. Davantage de végétation était aussi associé à des volumes plus importants du noyau caudé, du putamen et du noyau accumbens. Au fil du temps, elle était liée à une croissance plus forte de la surface corticale totale et à une croissance plus faible du volume cortical total. Selon le résumé, les effets indirects via la structure corticale étaient significatifs pour la réussite scolaire comme pour la santé mentale. Pour la réussite scolaire, l’effet indirect via la surface corticale totale était de 0,004 (IC à 95 % : 0,002–0,007), alors que l’effet total n’était pas significatif (p = 0,985)."
             ],
             [
               "Pour l’architecture",
-              "La végétation du quartier constitue une exposition spatiale mesurable potentiellement liée au développement cérébral. Ces résultats encouragent à associer urbanisme, suivi de la santé mentale et neuro-imagerie, sans présumer qu’un quartier plus vert améliore automatiquement les capacités cognitives."
+              "Pour moi, l’arbre devant la chambre d’un enfant est aussi de l’architecture. Où nous plantons, combien et à quelle distance du logement sont des décisions de conception. Cette étude ne prouve pas que des rues plus vertes construisent de meilleurs cerveaux. Elle me dit que la végétation a sa place dans le plan dès le départ, et que nous devons mesurer ce qu’elle produit au lieu de le supposer."
             ],
             [
               "Limites et question doctorale",
@@ -2464,7 +2465,7 @@
         "es": {
           "title": "¿Puede la vegetación del barrio influir en el desarrollo cerebral?",
           "dek": "Un estudio longitudinal de resonancia magnética con 7.102 niños relaciona la vegetación residencial con el desarrollo cortical, sin demostrar causalidad.",
-          "intro": "¿Se relaciona la vegetación alrededor del hogar con el desarrollo del cerebro infantil? Un estudio estadounidense prerregistrado combinó datos satelitales, resonancias magnéticas repetidas y medidas posteriores de salud mental y rendimiento escolar.",
+          "intro": "Un niño crece entre paredes, calles y los árboles frente a su ventana. A menudo me pregunto qué hace ese verde con un cerebro que aún se está formando. Un gran estudio de Estados Unidos siguió a miles de niños en busca de una respuesta.",
           "sections": [
             [
               "El estudio",
@@ -2472,11 +2473,11 @@
             ],
             [
               "Resultados cuantitativos",
-              "Una mayor exposición a vegetación se asoció con mayor superficie cortical total (B = 0,046; error estándar = 0,012; p < 0,001) y volumen cortical total (B = 0,049; error estándar = 0,012; p < 0,001). Las asociaciones regionales con el grosor cortical variaron de dirección. Para el rendimiento escolar, la asociación indirecta mediante la superficie cortical total fue 0,004 (IC del 95 %: 0,002–0,007), pero la asociación total no fue significativa (p = 0,985)."
+              "Una mayor exposición a vegetación se asoció con mayor superficie cortical total (B = 0,046; error estándar = 0,012; p < 0,001) y volumen cortical total (B = 0,049; error estándar = 0,012; p < 0,001). Las asociaciones regionales con el grosor cortical variaron de dirección. Más vegetación también se asoció con mayores volúmenes del núcleo caudado, el putamen y el núcleo accumbens. Con el tiempo, se vinculó con un mayor crecimiento de la superficie cortical total y un menor crecimiento del volumen cortical total. Según el resumen, las asociaciones indirectas a través de la estructura cortical fueron significativas tanto para el rendimiento escolar como para la salud mental. Para el rendimiento escolar, la asociación indirecta mediante la superficie cortical total fue 0,004 (IC del 95 %: 0,002–0,007), pero la asociación total no fue significativa (p = 0,985)."
             ],
             [
               "Importancia arquitectónica",
-              "La vegetación residencial es una exposición espacial medible que podría estar relacionada con el neurodesarrollo. Los resultados justifican investigaciones que combinen urbanismo, seguimiento psicológico y neuroimagen, sin afirmar que los barrios verdes mejoran automáticamente la cognición."
+              "Para mí, el árbol frente a la habitación de un niño también es arquitectura. Dónde plantamos, cuánto y a qué distancia de casa son decisiones de diseño. Este estudio no demuestra que las calles más verdes construyan mejores cerebros. Me dice que la vegetación pertenece al plano desde el principio, y que debemos medir lo que hace en lugar de suponerlo."
             ],
             [
               "Límites y tesis doctoral",
@@ -2486,20 +2487,20 @@
         },
         "ar": {
           "title": "هل يمكن لخضرة الحي أن ترتبط بنمو دماغ الطفل؟",
-          "dek": "ربطت دراسة طولية بالتصوير بالرنين المغناطيسي شملت 7102 أطفال بين الغطاء النباتي حول المنزل ونمو القشرة الدماغية، من دون إثبات السببية.",
-          "intro": "هل يرتبط الغطاء النباتي حول المنزل بتطور دماغ الطفل؟ جمعت دراسة أمريكية مسجلة مسبقاً بين بيانات الأقمار الصناعية وصور الرنين المغناطيسي المتكررة ومؤشرات الصحة النفسية والأداء الدراسي.",
+          "dek": "ربطت دراسة طولية بالتصوير بالرنين المغناطيسي شملت 7102 طفل بين الغطاء النباتي حول المنزل ونمو القشرة الدماغية، من دون إثبات السببية.",
+          "intro": "يكبر الطفل بين الجدران والشوارع والأشجار أمام نافذته. كثيرا ما أسأل نفسي ماذا تفعل هذه الخضرة بدماغ ما زال في طور التكوين. تابعت دراسة كبيرة من الولايات المتحدة آلاف الأطفال بحثا عن إجابة.",
           "sections": [
             [
               "تصميم الدراسة",
-              "حلل لي وويتل وراكيش بيانات 7102 أطفال من دراسة ABCD، تراوحت أعمارهم في البداية بين 9 و10 سنوات. قاس الباحثون الغطاء النباتي حول المنازل بمؤشر NDVI، ثم درسوا بنية الدماغ بعد نحو عامين وتغيرها بمرور الوقت. أخذت النماذج في الاعتبار الدخل الأسري والحرمان الاجتماعي في الأحياء."
+              "حلل لي وويتل وراكيش بيانات 7102 طفل من دراسة ABCD، تراوحت أعمارهم في البداية بين 9 و10 سنوات. قاس الباحثون الغطاء النباتي حول المنازل بمؤشر NDVI، ثم درسوا بنية الدماغ بعد نحو عامين وتغيرها بمرور الوقت. أخذت النماذج في الاعتبار الدخل الأسري والحرمان الاجتماعي في الأحياء."
             ],
             [
               "النتائج الرقمية",
-              "ارتبط ارتفاع الغطاء النباتي بمساحة قشرية كلية أكبر (B = 0.046؛ الخطأ المعياري = 0.012؛ p < 0.001) وحجم قشري كلي أكبر (B = 0.049؛ الخطأ المعياري = 0.012؛ p < 0.001). واختلف اتجاه الارتباطات بحسب المنطقة الدماغية. بلغ الارتباط غير المباشر بالأداء الدراسي عبر المساحة القشرية الكلية 0.004 (فاصل ثقة 95٪: 0.002–0.007)، بينما لم يكن الارتباط الكلي ذا دلالة إحصائية (p = 0.985)."
+              "ارتبط ارتفاع الغطاء النباتي بمساحة قشرية كلية أكبر (B = 0.046؛ الخطأ المعياري = 0.012؛ p < 0.001) وحجم قشري كلي أكبر (B = 0.049؛ الخطأ المعياري = 0.012؛ p < 0.001). واختلف اتجاه الارتباطات بحسب المنطقة الدماغية. كما ارتبطت الخضرة الأكثر بأحجام أكبر للنواة المذنبة والبطامة والنواة المتكئة. ومع مرور الوقت ارتبطت بنمو أكبر في المساحة القشرية الكلية ونمو أقل في الحجم القشري الكلي. وبحسب الملخص، كانت الارتباطات غير المباشرة عبر بنية القشرة ذات دلالة إحصائية للأداء الدراسي وللصحة النفسية معا. بلغ الارتباط غير المباشر بالأداء الدراسي عبر المساحة القشرية الكلية 0.004 (فاصل ثقة 95٪: 0.002–0.007)، بينما لم يكن الارتباط الكلي ذا دلالة إحصائية (p = 0.985)."
             ],
             [
               "الدلالة المعمارية",
-              "يمثل الغطاء النباتي في الحي متغيراً مكانياً يمكن قياسه، وقد يرتبط بنمو الدماغ. تدعم النتائج تطوير أبحاث تجمع بين التخطيط الحضري والمتابعة النفسية والتصوير العصبي، لكنها لا تثبت أن الأحياء الأكثر خضرة تحسن الإدراك تلقائياً."
+              "الشجرة أمام غرفة الطفل عندي جزء من العمارة أيضا. أين نزرع، وكم نزرع، وعلى أي بعد من البيت، كلها قرارات تصميمية. لا تثبت هذه الدراسة أن الشوارع الأكثر خضرة تبني أدمغة أفضل. لكنها تقول لي إن الخضرة تستحق مكانا في المخطط منذ البداية، وإن علينا أن نقيس أثرها بدلا من أن نفترضه."
             ],
             [
               "القيود وسؤال الدكتوراه",
@@ -2510,7 +2511,7 @@
         "ru": {
           "title": "Может ли зелень района быть связана с развитием мозга ребёнка?",
           "dek": "Продольное МРТ-исследование 7102 детей связывает растительность вокруг дома с развитием коры мозга, но не доказывает причинность.",
-          "intro": "Может ли растительность возле дома быть связана с развитием детского мозга? В предварительно зарегистрированном американском исследовании сопоставили спутниковые данные о зелени, повторные МРТ и последующие показатели психического здоровья и школьной успеваемости.",
+          "intro": "Ребёнок растёт среди стен, улиц и деревьев за окном. Я часто спрашиваю себя, что эта зелень делает с мозгом, который ещё формируется. Большое исследование из США наблюдало за тысячами детей в поисках ответа.",
           "sections": [
             [
               "Дизайн исследования",
@@ -2518,11 +2519,11 @@
             ],
             [
               "Численные результаты",
-              "Более высокая доля зелени была связана с большей общей площадью коры (B = 0,046; стандартная ошибка = 0,012; p < 0,001) и большим общим объёмом коры (B = 0,049; стандартная ошибка = 0,012; p < 0,001). Региональные связи с толщиной коры различались по направлению. Косвенная связь с успеваемостью через общую площадь коры составляла 0,004 (95% ДИ: 0,002–0,007), тогда как общая связь была незначимой (p = 0,985)."
+              "Более высокая доля зелени была связана с большей общей площадью коры (B = 0,046; стандартная ошибка = 0,012; p < 0,001) и большим общим объёмом коры (B = 0,049; стандартная ошибка = 0,012; p < 0,001). Региональные связи с толщиной коры различались по направлению. Больше зелени было связано также с большим объёмом хвостатого ядра, скорлупы и прилежащего ядра. Со временем она была связана с более сильным ростом общей площади коры и более слабым ростом общего объёма коры. Согласно аннотации, косвенные связи через структуру коры были значимы как для успеваемости, так и для психического здоровья. Косвенная связь с успеваемостью через общую площадь коры составляла 0,004 (95% ДИ: 0,002–0,007), тогда как общая связь была незначимой (p = 0,985)."
             ],
             [
               "Значение для архитектуры",
-              "Озеленение района — измеримый пространственный фактор, потенциально связанный с развитием мозга. Результаты обосновывают исследования на стыке градостроительства, психологического мониторинга и нейровизуализации, но не доказывают автоматического улучшения мышления в зелёных районах."
+              "Для меня дерево перед детской комнатой тоже является архитектурой. Место посадки, количество зелени и её близость к дому относятся к проектным решениям. Это исследование не доказывает, что более зелёные улицы создают лучший мозг. Оно говорит мне, что зелень должна быть в проекте с самого начала и что её действие нужно измерять, а не предполагать."
             ],
             [
               "Ограничения и тема диссертации",
