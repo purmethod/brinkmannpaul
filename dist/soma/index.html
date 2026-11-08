@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>soma flow club · breathe together</title>
+  <meta name="description" content="soma flow club: breathwork in a small group, max 15 people. choose a date, write your name, your place is reserved." />
+  <link rel="canonical" href="https://brinkmannpaul.com/soma" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="soma flow club" />
+  <meta property="og:description" content="breathwork in a small group, max 15 people. choose a date and reserve your place." />
+  <meta property="og:url" content="https://brinkmannpaul.com/soma" />
+  <link rel="icon" href="/assets/paul-brinkmann-signature.svg" type="image/svg+xml" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink: #5c5c56; --ink3: #7b7b75; --line: #cfcfca; --line2: #e4e4e0; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { background: #fff; color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; text-transform: lowercase; }
+    button, input { font: inherit; color: inherit; text-transform: none; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    nav.top { position: fixed; top: 0; left: 0; right: 0; z-index: 10; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #fff; border-top: 2px solid var(--ink); }
+    .logo { text-decoration: none; letter-spacing: .04em; }
+    .lsw { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+    .lb { background: #fff; border: 1px solid var(--line); cursor: pointer; padding: 3px 8px; font-size: 13px; }
+    .lb[aria-pressed=true] { border-color: var(--ink); }
+    /* the opening: breathing, slow, full screen */
+    .breath { position: relative; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; cursor: pointer; background: #fff; }
+    .breath video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+    .breath video.on { opacity: 1; }
+    .circle { width: min(46vw, 260px); aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--ink); animation: breathe 10s ease-in-out infinite; }
+    @keyframes breathe { 0%, 100% { transform: scale(.55); opacity: .45; } 50% { transform: scale(1); opacity: 1; } }
+    .breath .cue { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-size: 13px; color: var(--ink3); letter-spacing: .04em; }
+    .breath .word { position: absolute; font-size: 13px; letter-spacing: .08em; color: var(--ink3); }
+    .breath.clips .circle, .breath.clips .word { display: none; }
+    .breath.clips .cue { color: #fff; text-shadow: 0 0 12px rgba(0,0,0,.35); }
+    main { max-width: 640px; margin: 0 auto; padding: 70px 20px 80px; }
+    .tag { font-size: 12px; letter-spacing: .04em; color: var(--ink3); margin-bottom: 14px; }
+    h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.08; margin-bottom: 18px; font-weight: 400; letter-spacing: -.035em; }
+    h2 { font-size: 12px; font-weight: 400; letter-spacing: .08em; color: var(--ink3); margin: 34px 0 10px; }
+    .lead { font-size: 18px; margin-bottom: 22px; }
+    .fine { font-size: 13px; color: var(--ink3); margin: 14px 0; }
+    .rows { border-top: 1px solid var(--line); }
+    .slot { display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: center; width: 100%; padding: 14px 0; border: 0; border-bottom: 1px solid var(--line); background: #fff; text-align: left; cursor: pointer; text-transform: lowercase; }
+    .slot .dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--ink); }
+    .slot[aria-checked=true] .dot { background: var(--ink); }
+    .slot .left { font-size: 13px; color: var(--ink3); }
+    .slot:disabled { cursor: default; opacity: .45; }
+    .slot .place { display: block; font-size: 13px; color: var(--ink3); }
+    .form { display: grid; gap: 8px; margin: 22px 0; }
+    .form label { font-size: 13px; color: var(--ink3); }
+    input[type=text] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .btn { display: inline-block; padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; text-decoration: none; text-align: center; }
+    .btn:disabled { opacity: .35; cursor: default; }
+    .ghost { display: inline-block; padding: 13px 20px; border: 1px solid var(--line); background: #fff; cursor: pointer; text-decoration: none; }
+    .err { color: #8a3b2e; font-size: 14px; margin-top: 10px; }
+    .done { border-top: 2px solid var(--ink); padding-top: 22px; }
+    .when { font-size: clamp(22px, 5vw, 30px); line-height: 1.2; margin: 6px 0 4px; letter-spacing: -.02em; }
+    .rules { list-style: none; border-top: 1px solid var(--line); margin: 22px 0; }
+    .rules li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .acts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    footer { max-width: 640px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
+    footer .copy { text-align: right; }
+    @media (prefers-reduced-motion: reduce) { .circle { animation: none; transform: scale(.8); } html { scroll-behavior: auto; } .breath video { transition: none; } }
+  </style>
+</head>
+<body>
+  <nav class="top">
+    <a class="logo" href="#top">soma flow club</a>
+    <div class="lsw" role="group" aria-label="language">
+      <button class="lb" type="button" data-lang="en">en</button>
+      <button class="lb" type="button" data-lang="de">de</button>
+      <button class="lb" type="button" data-lang="fr">fr</button>
+      <button class="lb" type="button" data-lang="es">es</button>
+      <button class="lb" type="button" data-lang="ar">ع</button>
+      <button class="lb" type="button" data-lang="ru">ру</button>
+    </div>
+  </nav>
+  <section class="breath" id="top" aria-label="soma flow club">
+    <div class="circle" aria-hidden="true"></div>
+    <span class="word" id="word" aria-hidden="true"></span>
+    <p class="cue" id="cue">breathe · scroll</p>
+  </section>
+  <main id="book" tabindex="-1">
+    <noscript><p class="lead">soma flow club needs javascript to reserve a place. please turn it on and reload.</p></noscript>
+  </main>
+  <footer>
+    <span>soma flow club</span>
+    <a href="https://www.instagram.com/buildpaul/" target="_blank" rel="noopener noreferrer" aria-label="instagram · paul brinkmann"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a>
+    <span class="copy">© 2026 Paul Brinkmann</span>
+  </footer>
+  <script src="/soma/app.js?v=1"></script>
+</body>
+</html>
