@@ -40,6 +40,6 @@
 | Feel That You Are Mortal | steht | |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | live | 84 Fragen, vier Säulen und ego; Bezahlung nach der letzten Frage, dann wird das Buch geschrieben |
+| Blueprint | live | Männer 85 Fragen, Frauen 100 Fragen mit „deine weiblichkeit“; Bezahlung nach der letzten Frage; Buch 200 bis 300 Seiten |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |

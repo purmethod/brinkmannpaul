@@ -242,7 +242,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | Feel That You Are Mortal | steht | |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | live | 84 Fragen, vier Säulen und ego; Bezahlung nach der letzten Frage, dann wird das Buch geschrieben |
+| Blueprint | live | Männer 85 Fragen, Frauen 100 Fragen mit „deine weiblichkeit“; Bezahlung nach der letzten Frage; Buch 200 bis 300 Seiten |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |
 
@@ -2035,7 +2035,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 # Der PURE Blueprint
 
-> Status: **live.** Das Quiz läuft auf brinkmannpaul.com/pure/blueprint (Code im Repo `purmethod/pur`, Datei `blueprint/questions.js`): 84 Fragen in sechs Sprachen, vier Säulen P, U, R, E, Profil, Gesundheitscheck und zwei gesprochene Antworten. Bezahlt wird nach der letzten Frage. Davor sieht er seine Karte kostenlos, danach schreibt Claude sein Buch.
+> Status: **live.** Das Quiz läuft auf brinkmannpaul.com/pure/blueprint (Code im Repo `purmethod/pur`, Datei `blueprint/questions.js`), in sechs Sprachen. Die erste Frage ist „ich bin ein mann / eine frau“: Männer beantworten 85 Fragen in 9 Schritten, Frauen 100 Fragen in 10 Schritten, mit eigenem Schritt „deine weiblichkeit“ (Körper zuerst, Weiblichkeit, Liebe aus der Fülle), Zyklus und Schwangerschaft. Bezahlt wird nach der letzten Frage. Davor gibt es die Karte kostenlos, danach schreibt Claude das Buch: 200 bis 300 Seiten, das Buch der Frau mit eigenem Kapitel über ihre weibliche Energie.
 
 ## Kernaussagen (Paul)
 
@@ -2050,6 +2050,12 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
   3. **Die beantworteten Fragen des Lesers.**
 - Ergebnis: ein persönlicher Auszug aus dem Buch, gebaut für genau den Punkt, an dem der Leser heute steht.
 - Das ist das Hauptprodukt für die Online-Einnahmen. Geplanter Preis: etwa 9 $.
+
+## Für Frauen (Paul)
+
+- Die Frau soll wieder Frau sein. Die Gesellschaft versucht heute, Frauen zu Männern zu machen und Männer zu Frauen.
+- Sie stellt sich selbst an die erste Stelle, nicht egoistisch, sondern physisch: Sie vernachlässigt ihren Körper nicht. Ernährung, Schlaf, alles. Der Körper ist die Nummer eins. Das ist der Purpose.
+- Wer das findet, kann mehr Liebe geben.
 
 ## Text für Leser (EN)
 
