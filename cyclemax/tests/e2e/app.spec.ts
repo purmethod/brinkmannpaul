@@ -186,7 +186,8 @@ test("Startseite: Ring, CYCLEMAX, coming soon – und nur der Weg zur Umfrage", 
   // one single link: help build the app (German browser → German)
   await expect(page.locator("main button, main a, main [role=button], main [tabindex]")).toHaveCount(1);
   await expect(page.getByTestId("start-invite")).toContainText("Hilf mit, die beste Zyklus-App zu bauen.");
-  await page.getByRole("link", { name: "Sei Teil davon" }).click();
+  await expect(page.getByRole("link", { name: /sei teil davon/i })).toHaveCSS("text-transform", "uppercase");
+  await page.getByRole("link", { name: /sei teil davon/i }).click();
   await expect(page).toHaveURL(/\/questions\/\?lang=de$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Bau deine Zyklus-App mit.");
 });
