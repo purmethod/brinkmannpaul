@@ -5,6 +5,6 @@ const SESSIONS = [
   { id: "test", when: "2030-01-01T10:00", place: "test", test: true },
 ];
 const PLACES = 15;
-const GROUP = ""; // the whatsapp group invite link, https://chat.whatsapp.com/…
+const GROUP = "https://chat.whatsapp.com/HW6kPHQnzun92USCMKUX51"; // the whatsapp group
 
 module.exports = { SESSIONS, PLACES, GROUP };
