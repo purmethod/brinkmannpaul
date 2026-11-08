@@ -13,7 +13,7 @@
       errName: "please write your name.", errSession: "please choose a session.", errFull: "this session is full. please choose another one.", errAny: "that did not work. please try again.",
       thanks: "thank you, {name}. we are happy you are coming.", reserved: "your place is reserved.",
       r1: "places are limited: max 15 people.", r2: "if you cannot come, cancel in time, so someone else can take part.",
-      group: "join our whatsapp group", follow: "follow on instagram", placeIs: "the place:", cancel: "i cannot come, cancel my place", sure: "cancel your place?",
+      group: "join our whatsapp group", follow: "follow on instagram", timeLater: "the time is announced in the whatsapp group", joinHint: "sign up and join our whatsapp group. we announce the time there.", reservedNoTime: "your place is reserved. join our whatsapp group: we announce the time there.", placeIs: "the place:", cancel: "i cannot come, cancel my place", sure: "cancel your place?",
       cancelled: "your place is free again. thank you for letting us know.", again: "choose another session",
       loading: "loading the sessions…", test: "test session",
     },
@@ -26,7 +26,7 @@
       errName: "bitte schreib deinen namen.", errSession: "bitte wähle einen termin.", errFull: "dieser termin ist voll. bitte wähle einen anderen.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal.",
       thanks: "danke, {name}. wir freuen uns, dass du kommst.", reserved: "dein platz ist reserviert.",
       r1: "die plätze sind begrenzt: maximal 15 personen.", r2: "wenn du nicht kommen kannst, sag rechtzeitig ab, damit andere teilnehmen können.",
-      group: "tritt unserer whatsapp-gruppe bei", follow: "folge uns auf instagram", placeIs: "der ort:", cancel: "ich kann nicht kommen, platz absagen", sure: "deinen platz absagen?",
+      group: "tritt unserer whatsapp-gruppe bei", follow: "folge uns auf instagram", timeLater: "die uhrzeit geben wir in der whatsapp-gruppe bekannt", joinHint: "trag dich ein und tritt unserer whatsapp-gruppe bei. dort geben wir die uhrzeit bekannt.", reservedNoTime: "dein platz ist reserviert. tritt unserer whatsapp-gruppe bei: dort geben wir die uhrzeit bekannt.", placeIs: "der ort:", cancel: "ich kann nicht kommen, platz absagen", sure: "deinen platz absagen?",
       cancelled: "dein platz ist wieder frei. danke, dass du abgesagt hast.", again: "anderen termin wählen",
       loading: "termine werden geladen…", test: "testtermin",
     },
@@ -39,7 +39,7 @@
       errName: "écris ton prénom, s'il te plaît.", errSession: "choisis une séance, s'il te plaît.", errFull: "cette séance est complète. choisis-en une autre.", errAny: "ça n'a pas marché. réessaie.",
       thanks: "merci, {name}. nous sommes heureux que tu viennes.", reserved: "ta place est réservée.",
       r1: "les places sont limitées : 15 personnes maximum.", r2: "si tu ne peux pas venir, annule à temps pour que quelqu'un d'autre puisse participer.",
-      group: "rejoins notre groupe whatsapp", follow: "suis-nous sur instagram", placeIs: "le lieu :", cancel: "je ne peux pas venir, annuler ma place", sure: "annuler ta place ?",
+      group: "rejoins notre groupe whatsapp", follow: "suis-nous sur instagram", timeLater: "l'heure est annoncée dans le groupe whatsapp", joinHint: "inscris-toi et rejoins notre groupe whatsapp. nous y annonçons l'heure.", reservedNoTime: "ta place est réservée. rejoins notre groupe whatsapp : nous y annonçons l'heure.", placeIs: "le lieu :", cancel: "je ne peux pas venir, annuler ma place", sure: "annuler ta place ?",
       cancelled: "ta place est de nouveau libre. merci de nous avoir prévenus.", again: "choisir une autre séance",
       loading: "chargement des séances…", test: "séance test",
     },
@@ -52,7 +52,7 @@
       errName: "escribe tu nombre, por favor.", errSession: "elige una sesión, por favor.", errFull: "esta sesión está completa. elige otra.", errAny: "no ha funcionado. inténtalo de nuevo.",
       thanks: "gracias, {name}. nos alegra que vengas.", reserved: "tu plaza está reservada.",
       r1: "las plazas son limitadas: máximo 15 personas.", r2: "si no puedes venir, cancela a tiempo para que otra persona pueda participar.",
-      group: "únete a nuestro grupo de whatsapp", follow: "síguenos en instagram", placeIs: "el lugar:", cancel: "no puedo ir, cancelar mi plaza", sure: "¿cancelar tu plaza?",
+      group: "únete a nuestro grupo de whatsapp", follow: "síguenos en instagram", timeLater: "la hora la anunciamos en el grupo de whatsapp", joinHint: "apúntate y únete a nuestro grupo de whatsapp. allí anunciamos la hora.", reservedNoTime: "tu plaza está reservada. únete a nuestro grupo de whatsapp: allí anunciamos la hora.", placeIs: "el lugar:", cancel: "no puedo ir, cancelar mi plaza", sure: "¿cancelar tu plaza?",
       cancelled: "tu plaza vuelve a estar libre. gracias por avisar.", again: "elegir otra sesión",
       loading: "cargando las sesiones…", test: "sesión de prueba",
     },
@@ -65,7 +65,7 @@
       errName: "اكتب اسمك من فضلك.", errSession: "اختر موعدًا من فضلك.", errFull: "هذا الموعد مكتمل. اختر موعدًا آخر.", errAny: "لم ينجح ذلك. حاول مرة أخرى.",
       thanks: "شكرًا، {name}. يسعدنا أنك قادم.", reserved: "مكانك محجوز.",
       r1: "الأماكن محدودة: 15 شخصًا كحد أقصى.", r2: "إذا لم تستطع الحضور، ألغِ في الوقت المناسب ليتمكن شخص آخر من المشاركة.",
-      group: "انضم إلى مجموعة واتساب الخاصة بنا", follow: "تابعنا على إنستغرام", placeIs: "المكان:", cancel: "لا أستطيع الحضور، ألغِ مكاني", sure: "إلغاء مكانك؟",
+      group: "انضم إلى مجموعة واتساب الخاصة بنا", follow: "تابعنا على إنستغرام", timeLater: "نعلن عن الوقت في مجموعة واتساب", joinHint: "سجّل وانضم إلى مجموعة واتساب الخاصة بنا. هناك نعلن عن الوقت.", reservedNoTime: "مكانك محجوز. انضم إلى مجموعة واتساب الخاصة بنا: هناك نعلن عن الوقت.", placeIs: "المكان:", cancel: "لا أستطيع الحضور، ألغِ مكاني", sure: "إلغاء مكانك؟",
       cancelled: "مكانك متاح من جديد. شكرًا لأنك أخبرتنا.", again: "اختر موعدًا آخر",
       loading: "جارٍ تحميل المواعيد…", test: "موعد تجريبي",
     },
@@ -78,7 +78,7 @@
       errName: "пожалуйста, напиши своё имя.", errSession: "пожалуйста, выбери занятие.", errFull: "на это занятие мест нет. выбери другое.", errAny: "не получилось. попробуй ещё раз.",
       thanks: "спасибо, {name}. мы рады, что ты придёшь.", reserved: "твоё место забронировано.",
       r1: "мест мало: максимум 15 человек.", r2: "если не сможешь прийти, отмени заранее, чтобы пришёл кто-то другой.",
-      group: "вступи в нашу группу whatsapp", follow: "подписывайся в instagram", placeIs: "место:", cancel: "не смогу прийти, отменить место", sure: "отменить твоё место?",
+      group: "вступи в нашу группу whatsapp", follow: "подписывайся в instagram", timeLater: "время сообщим в группе whatsapp", joinHint: "запишись и вступи в нашу группу whatsapp. там мы сообщим время.", reservedNoTime: "твоё место забронировано. вступи в нашу группу whatsapp: там мы сообщим время.", placeIs: "место:", cancel: "не смогу прийти, отменить место", sure: "отменить твоё место?",
       cancelled: "твоё место снова свободно. спасибо, что предупредил.", again: "выбрать другое занятие",
       loading: "загружаем занятия…", test: "тестовое занятие",
     },
@@ -122,13 +122,14 @@
     return n;
   }
   // the session time is the local time at the place, so it is shown exactly as written
+  // a date without a time (YYYY-MM-DD): the day only, the time is announced in the group
+  const dayOnly = (s) => Boolean(s.when) && s.when.length === 10;
   function when(s) {
     if (!s.when) return t("nextName");
-    const d = new Date(s.when + ":00Z");
+    const d = new Date((dayOnly(s) ? s.when + "T12:00" : s.when) + ":00Z");
     const tag = { ar: "ar-TN", en: "en-GB" }[st.lang] || st.lang;
-    try {
-      return new Intl.DateTimeFormat(tag, { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }).format(d);
-    } catch { return s.when.replace("T", " · "); }
+    const opts = dayOnly(s) ? { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" } : { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" };
+    try { return new Intl.DateTimeFormat(tag, opts).format(d); } catch { return s.when.replace("T", " · "); }
   }
   // no date yet: date and place follow in the group; a date without a place: the place follows there
   // "the place: creative hub, sidi bou said · google maps"
@@ -191,13 +192,14 @@
         onclick: () => { st.pick = s.id; st.error = ""; render(); },
       },
         el("span", { class: "dot", "aria-hidden": "true" }),
-        el("span", {}, when(s), s.map ? null : el("span", { class: "place" }, place(s))),
+        el("span", {}, when(s), dayOnly(s) ? el("span", { class: "place" }, t("timeLater")) : null, s.map ? null : el("span", { class: "place" }, place(s))),
         el("span", { class: "left" }, full ? t("full") : t("left", { n: s.left, max: st.max }))));
       if (s.map) rows.append(where(s));
     }
     const input = el("input", { type: "text", id: "nm", autocomplete: "given-name", maxlength: "60", value: st.name });
     input.addEventListener("input", () => { st.name = input.value; });
     const form = el("form", { class: "form", novalidate: true, onsubmit: (e) => { e.preventDefault(); reserve(form); } },
+      st.sessions.some(dayOnly) ? el("p", { class: "hint" }, t("joinHint")) : null,
       el("label", { for: "nm" }, t("name")), input,
       el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
       el("div", {}, el("button", { class: "btn", type: "submit", disabled: st.busy }, st.busy ? t("wait") : t("reserve"))),
@@ -217,7 +219,7 @@
       el("h1", {}, t("thanks", { name: b.name })),
       el("p", { class: "when" }, when(b)),
       b.when ? (b.map ? where(b) : el("p", { class: "fine" }, place(b))) : null,
-      el("p", { class: "lead" }, b.when ? t("reserved") : t("nextReserved")),
+      el("p", { class: "lead" }, !b.when ? t("nextReserved") : dayOnly(b) ? t("reservedNoTime") : t("reserved")),
       el("ul", { class: "rules" }, ["r1", "r2"].map((k) => el("li", {}, t(k)))),
       acts,
       leave,
@@ -234,7 +236,7 @@
       if (!st.pick && open.length === 1) st.pick = open[0].id;
     } catch { st.sessions = []; }
     // a reservation for a session that has passed is forgotten
-    if (st.booking && st.booking.when && st.booking.when < new Date().toISOString().slice(0, 16)) { st.booking = null; store.set({ ...store.get(), booking: null }); }
+    if (st.booking && st.booking.when && (dayOnly(st.booking) ? st.booking.when + "T23:59" : st.booking.when) < new Date().toISOString().slice(0, 16)) { st.booking = null; store.set({ ...store.get(), booking: null }); }
     render();
   }
 
