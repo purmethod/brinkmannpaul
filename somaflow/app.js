@@ -285,6 +285,8 @@
       el("h2", {}, t("retreat")),
       el("p", {}, t("invite")),
       el("ul", { class: "rules offer" }, (T[st.lang].items || T.en.items).map((x) => el("li", {}, x.split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))))),
+      // the breakfast with real homemade kefir, above sidi bou said
+      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: "/photos/foyo-kefir.webp", alt: "a bowl of homemade kefir with pomegranate above the sea of sidi bou said", width: "720", height: "720", loading: "lazy", decoding: "async" }))),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
