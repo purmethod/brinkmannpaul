@@ -123,7 +123,7 @@ module.exports = async (req, res) => {
     if (((await counts())[s.id] || 0) >= PLACES) return res.status(409).json({ error: "full" });
     const c = await stripe("POST", "customers", {
       name,
-      description: `soma flow club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
+      description: `foyo club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
       metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "somaflowclub.com" },
     });
     return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, map: s.map || "", group: GROUP });
