@@ -7,9 +7,8 @@
 // follow in the whatsapp group, which a person only sees after signing up.
 const SESSIONS = [
   // paul, 8.11.: wednesday 11.11. at 10 at the creative hub in sidi bou said (in the ennejma ezzahra palace)
-  // paul, 8.11.: no date and no time on the page; both are announced in the whatsapp group.
-  // (the id stays as it was, so the people who signed up keep their place)
-  { id: "2026-11-11", when: "", place: "creative hub, sidi bou said", map: "https://www.google.com/maps/search/?api=1&query=Creative+Hub+Sidi+Bou+Said" },
+  // paul, 9.11.: sunday 15.11. at 10 am. (the id stays as it was, so the people who signed up keep their place)
+  { id: "2026-11-11", when: "2026-11-15T10:00", place: "creative hub, sidi bou said", map: "https://www.google.com/maps/search/?api=1&query=Creative+Hub+Sidi+Bou+Said" },
   { id: "test", when: "2030-01-01T10:00", place: "test", test: true },
 ];
 const PLACES = 15;
