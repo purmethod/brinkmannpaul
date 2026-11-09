@@ -12,6 +12,9 @@ const SESSIONS = [
   { id: "test", when: "2030-01-01T10:00", place: "test", test: true },
 ];
 const PLACES = 15;
+// paul, 9.11.: the first 10 places cost 50 dinar, the last 5 places 100 dinar. paid on site.
+const PRICES = { early: 50, late: 100, earlyPlaces: 10 };
+const priceFor = (taken) => (taken < PRICES.earlyPlaces ? PRICES.early : PRICES.late);
 const GROUP = "https://chat.whatsapp.com/EXtIPgHpo39LOlEybCjbrV"; // the whatsapp group
 
-module.exports = { SESSIONS, PLACES, GROUP };
+module.exports = { SESSIONS, PLACES, GROUP, PRICES, priceFor };

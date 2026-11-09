@@ -6,7 +6,7 @@
   const T = {
     en: {
       cue: "tap or scroll", tag: "foyo club", h1: "feel indescribably good.",
-      lead: "forever young.\nyou want to feel indescribably good, indescribably fit.\ni found out how. without pills, without expensive programs. just breath, cold and microbiome.", retreat: "the retreat", invite: "i am a certified wim hof instructor and warmly invite you to a retreat:", items: ["a breathing session", "ice baths [coming soon]", "a wonderful breakfast with homemade, real kefir", "included: your kefir grains to take home\nmake your own real kefir at home"], limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
+      lead: "forever young.\nyou want to feel indescribably good, indescribably fit.\ni found out how. without pills, without expensive programs. just breath, cold and microbiome.", retreat: "the retreat", invite: "i am a certified wim hof instructor and warmly invite you to a retreat:", items: ["a breathing session", "ice baths [coming soon]", "a wonderful breakfast with homemade, real kefir", "included: your kefir grains to take home\nmake your own real kefir at home"], priceFmt: "{p} dinar", priceEarly: "for the first 10 places. the last 5 places cost 100 dinar.", priceLate: "the last 5 places.", pay: "paid on site.", yourPrice: "your price: {p} dinar, paid on site.", limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
       next: "choose your session", none: "the sessions could not be loaded. please reload the page.",
       left: "{n} of {max} places free", full: "full",
       name: "your name", reserve: "reserve my place", wait: "one moment…",
@@ -19,7 +19,7 @@
     },
     de: {
       cue: "tippen oder scrollen", tag: "foyo club", h1: "fühl dich unbeschreiblich gut.",
-      lead: "forever young.\ndu willst dich unbeschreiblich gut fühlen, unbeschreiblich fit.\nich habe herausgefunden, wie das geht. ohne pillen, ohne teure programme. nur atem, kälte und mikrobiom.", retreat: "das retreat", invite: "ich bin zertifizierter wim hof instructor und lade dich herzlich ein zu einem retreat:", items: ["eine breathing session", "eisbäder [coming soon]", "ein wundervolles frühstück mit hausgemachtem, echtem kefir", "inklusive: deine kefirkörner zum mitnehmen\nmach deinen echten kefir zu hause selbst"], limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
+      lead: "forever young.\ndu willst dich unbeschreiblich gut fühlen, unbeschreiblich fit.\nich habe herausgefunden, wie das geht. ohne pillen, ohne teure programme. nur atem, kälte und mikrobiom.", retreat: "das retreat", invite: "ich bin zertifizierter wim hof instructor und lade dich herzlich ein zu einem retreat:", items: ["eine breathing session", "eisbäder [coming soon]", "ein wundervolles frühstück mit hausgemachtem, echtem kefir", "inklusive: deine kefirkörner zum mitnehmen\nmach deinen echten kefir zu hause selbst"], priceFmt: "{p} dinar", priceEarly: "für die ersten 10 plätze. die letzten 5 plätze kosten 100 dinar.", priceLate: "die letzten 5 plätze.", pay: "bezahlt wird vor ort.", yourPrice: "dein preis: {p} dinar, bezahlt wird vor ort.", limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
       next: "wähle deinen termin", none: "die termine konnten nicht geladen werden. bitte lade die seite neu.",
       left: "{n} von {max} plätzen frei", full: "voll",
       name: "dein name", reserve: "platz reservieren", wait: "einen moment…",
@@ -32,7 +32,7 @@
     },
     fr: {
       cue: "touche ou fais défiler", tag: "foyo club", h1: "sens-toi incroyablement bien.",
-      lead: "forever young.\ntu veux te sentir incroyablement bien, incroyablement en forme.\nj'ai trouvé comment. sans pilules, sans programmes coûteux. juste la respiration, le froid et le microbiome.", retreat: "la retraite", invite: "je suis instructeur certifié de la méthode wim hof et je t'invite chaleureusement à une retraite :", items: ["une séance de respiration", "bains de glace [bientôt]", "un merveilleux petit-déjeuner avec du vrai kéfir fait maison", "inclus : tes grains de kéfir à emporter\nfais ton vrai kéfir chez toi"], limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
+      lead: "forever young.\ntu veux te sentir incroyablement bien, incroyablement en forme.\nj'ai trouvé comment. sans pilules, sans programmes coûteux. juste la respiration, le froid et le microbiome.", retreat: "la retraite", invite: "je suis instructeur certifié de la méthode wim hof et je t'invite chaleureusement à une retraite :", items: ["une séance de respiration", "bains de glace [bientôt]", "un merveilleux petit-déjeuner avec du vrai kéfir fait maison", "inclus : tes grains de kéfir à emporter\nfais ton vrai kéfir chez toi"], priceFmt: "{p} dinars", priceEarly: "pour les 10 premières places. les 5 dernières places coûtent 100 dinars.", priceLate: "les 5 dernières places.", pay: "paiement sur place.", yourPrice: "ton prix : {p} dinars, paiement sur place.", limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
       next: "choisis ta séance", none: "les séances n'ont pas pu être chargées. recharge la page.",
       left: "{n} places libres sur {max}", full: "complet",
       name: "ton prénom", reserve: "réserver ma place", wait: "un instant…",
@@ -45,7 +45,7 @@
     },
     es: {
       cue: "toca o desliza", tag: "foyo club", h1: "siéntete increíblemente bien.",
-      lead: "forever young.\nquieres sentirte increíblemente bien, increíblemente en forma.\ndescubrí cómo. sin pastillas, sin programas caros. solo respiración, frío y microbioma.", retreat: "el retiro", invite: "soy instructor certificado del método wim hof y te invito de corazón a un retiro:", items: ["una sesión de respiración", "baños de hielo [muy pronto]", "un desayuno maravilloso con kéfir casero de verdad", "incluido: tus granos de kéfir para llevar\nhaz tu propio kéfir de verdad en casa"], limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
+      lead: "forever young.\nquieres sentirte increíblemente bien, increíblemente en forma.\ndescubrí cómo. sin pastillas, sin programas caros. solo respiración, frío y microbioma.", retreat: "el retiro", invite: "soy instructor certificado del método wim hof y te invito de corazón a un retiro:", items: ["una sesión de respiración", "baños de hielo [muy pronto]", "un desayuno maravilloso con kéfir casero de verdad", "incluido: tus granos de kéfir para llevar\nhaz tu propio kéfir de verdad en casa"], priceFmt: "{p} dinares", priceEarly: "para las 10 primeras plazas. las 5 últimas plazas cuestan 100 dinares.", priceLate: "las 5 últimas plazas.", pay: "se paga en el lugar.", yourPrice: "tu precio: {p} dinares, se paga en el lugar.", limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
       next: "elige tu sesión", none: "no se pudieron cargar las sesiones. vuelve a cargar la página.",
       left: "{n} de {max} plazas libres", full: "completo",
       name: "tu nombre", reserve: "reservar mi plaza", wait: "un momento…",
@@ -58,7 +58,7 @@
     },
     ar: {
       cue: "المس أو مرّر", tag: "foyo club", h1: "اشعر بشعور رائع لا يوصف.",
-      lead: "forever young.\nتريد أن تشعر بشعور رائع لا يوصف، وبلياقة لا توصف.\nاكتشفت كيف. بلا حبوب، بلا برامج باهظة. فقط التنفّس والبرد والميكروبيوم.", retreat: "الخلوة", invite: "أنا مدرّب معتمد لطريقة ويم هوف، وأدعوك بكل سرور إلى خلوة:", items: ["جلسة تنفّس", "حمّامات ثلج [قريبًا]", "فطور رائع مع كفير حقيقي محضّر في البيت", "مشمول: حبوب الكفير لتأخذها معك\nحضّر كفيرك الحقيقي في البيت"], limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
+      lead: "forever young.\nتريد أن تشعر بشعور رائع لا يوصف، وبلياقة لا توصف.\nاكتشفت كيف. بلا حبوب، بلا برامج باهظة. فقط التنفّس والبرد والميكروبيوم.", retreat: "الخلوة", invite: "أنا مدرّب معتمد لطريقة ويم هوف، وأدعوك بكل سرور إلى خلوة:", items: ["جلسة تنفّس", "حمّامات ثلج [قريبًا]", "فطور رائع مع كفير حقيقي محضّر في البيت", "مشمول: حبوب الكفير لتأخذها معك\nحضّر كفيرك الحقيقي في البيت"], priceFmt: "{p} دينار", priceEarly: "لأول 10 أماكن. آخر 5 أماكن بسعر 100 دينار.", priceLate: "آخر 5 أماكن.", pay: "الدفع في المكان.", yourPrice: "سعرك: {p} دينار، الدفع في المكان.", limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
       next: "اختر موعدك", none: "تعذّر تحميل المواعيد. أعد تحميل الصفحة.",
       left: "{n} من {max} أماكن متاحة", full: "مكتمل",
       name: "اسمك", reserve: "احجز مكاني", wait: "لحظة…",
@@ -71,7 +71,7 @@
     },
     ru: {
       cue: "коснись или прокрути", tag: "foyo club", h1: "почувствуй себя невероятно хорошо.",
-      lead: "forever young.\nты хочешь чувствовать себя невероятно хорошо, невероятно бодро.\nя нашёл, как это сделать. без таблеток, без дорогих программ. только дыхание, холод и микробиом.", retreat: "ретрит", invite: "я сертифицированный инструктор метода вима хофа и сердечно приглашаю тебя на ретрит:", items: ["дыхательная сессия", "ледяные ванны [скоро]", "прекрасный завтрак с настоящим домашним кефиром", "включено: кефирные зёрна с собой\nготовь настоящий кефир дома"], limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
+      lead: "forever young.\nты хочешь чувствовать себя невероятно хорошо, невероятно бодро.\nя нашёл, как это сделать. без таблеток, без дорогих программ. только дыхание, холод и микробиом.", retreat: "ретрит", invite: "я сертифицированный инструктор метода вима хофа и сердечно приглашаю тебя на ретрит:", items: ["дыхательная сессия", "ледяные ванны [скоро]", "прекрасный завтрак с настоящим домашним кефиром", "включено: кефирные зёрна с собой\nготовь настоящий кефир дома"], priceFmt: "{p} динаров", priceEarly: "за первые 10 мест. последние 5 мест стоят 100 динаров.", priceLate: "последние 5 мест.", pay: "оплата на месте.", yourPrice: "твоя цена: {p} динаров, оплата на месте.", limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
       next: "выбери занятие", none: "не удалось загрузить занятия. обнови страницу.",
       left: "свободно {n} из {max} мест", full: "мест нет",
       name: "твоё имя", reserve: "забронировать место", wait: "минуту…",
@@ -257,9 +257,9 @@
       el("p", { class: "tag" }, a.tag),
       el("p", { class: "lead" }, a.lead),
       el("p", {}, a.bio),
-      photo("/photos/foyo-old-wimhof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
-      el("p", {}, a.s1),
       photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
+      el("p", {}, a.s1),
+      photo("/photos/foyo-old-wimhof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
       el("p", {}, a.s3),
       photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
       el("p", {}, a.s4),
@@ -288,6 +288,10 @@
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
+    const priced = st.sessions && (st.sessions.find((x) => x.id === st.pick) || st.sessions.find((x) => x.left > 0));
+    if (priced && priced.price) put(el("div", { class: "price" },
+      el("p", { class: "amount" }, t("priceFmt", { p: priced.price })),
+      el("p", { class: "fine" }, (priced.price <= 50 ? t("priceEarly") : t("priceLate")) + " " + t("pay"))));
     if (!st.sessions) return put(el("p", { class: "fine" }, t("loading")));
     if (!st.sessions.length) return put(el("p", {}, t("none")));
     const rows = el("div", { class: "rows", role: "radiogroup", "aria-label": t("next") });
@@ -327,6 +331,7 @@
       el("p", { class: "when" }, when(b)),
       b.map ? where(b) : b.when ? el("p", { class: "fine" }, place(b)) : null,
       el("p", { class: "lead" }, !b.when ? (b.place ? t("reservedNoDate") : t("nextReserved")) : dayOnly(b) ? t("reservedNoTime") : t("reserved")),
+      b.price ? el("p", { class: "fine" }, t("yourPrice", { p: b.price })) : null,
       el("ul", { class: "rules" }, ["r1", "r2"].map((k) => el("li", {}, t(k)))),
       acts,
       leave,
@@ -360,7 +365,7 @@
       st.busy = false;
       if (r.status === 409) { st.error = t("errFull"); await load(); return; }
       if (!r.ok || !d.id) { st.error = t("errAny"); return render(); }
-      st.booking = { id: d.id, name, when: d.when, place: d.place, map: d.map || "", group: d.group || "" };
+      st.booking = { id: d.id, name, when: d.when, place: d.place, map: d.map || "", price: d.price || 0, group: d.group || "" };
       st.cancelled = false;
       store.set({ ...store.get(), booking: st.booking });
       render();

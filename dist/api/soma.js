@@ -9,7 +9,7 @@
 // needed and the list is in the dashboard (Customers, filter by metadata soma). The customer id is the cancel key.
 const crypto = require("crypto");
 const { stripe } = require("./_stripe");
-const { SESSIONS, PLACES, GROUP } = require("./_soma");
+const { SESSIONS, PLACES, GROUP, PRICES, priceFor } = require("./_soma");
 
 const now = () => new Date().toISOString().slice(0, 16);
 // a date without a time stays open through that day
@@ -40,7 +40,7 @@ async function counts() {
 async function withPlaces(test) {
   const list = listed(test);
   const n = list.length ? await counts() : {};
-  return list.map((s) => ({ id: s.id, when: s.when, place: s.place, map: s.map || "", left: Math.max(0, PLACES - (n[s.id] || 0)) }));
+  return list.map((s) => ({ id: s.id, when: s.when, place: s.place, map: s.map || "", left: Math.max(0, PLACES - (n[s.id] || 0)), price: priceFor(n[s.id] || 0) }));
 }
 
 // every sign-up of the last 180 days, grouped by session
@@ -53,7 +53,7 @@ async function people() {
     for (const c of list.data || []) {
       const m = c.metadata || {};
       if (!m.soma) continue;
-      (by[m.soma] = by[m.soma] || []).push({ id: c.id, name: c.name || "", joined: new Date(c.created * 1000).toISOString() });
+      (by[m.soma] = by[m.soma] || []).push({ id: c.id, name: c.name || "", price: m.price || "", joined: new Date(c.created * 1000).toISOString() });
     }
     if (!list.has_more || !list.data.length) break;
     after = list.data[list.data.length - 1].id;
@@ -97,7 +97,7 @@ module.exports = async (req, res) => {
   }
   const test = req.query && req.query.test === "1";
   try {
-    if (req.method === "GET") return res.status(200).json({ sessions: await withPlaces(test), places: PLACES });
+    if (req.method === "GET") return res.status(200).json({ sessions: await withPlaces(test), places: PLACES, prices: PRICES });
     if (req.method !== "POST") {
       res.setHeader("Allow", "GET, POST");
       return res.status(405).json({ error: "Method not allowed" });
@@ -120,13 +120,15 @@ module.exports = async (req, res) => {
     if (name.length < 2) return res.status(400).json({ error: "name" });
     const s = listed(true).find((x) => x.id === body.session);
     if (!s) return res.status(400).json({ error: "session" });
-    if (((await counts())[s.id] || 0) >= PLACES) return res.status(409).json({ error: "full" });
+    const taken = (await counts())[s.id] || 0;
+    if (taken >= PLACES) return res.status(409).json({ error: "full" });
+    const price = priceFor(taken); // the price of this place, kept with the sign-up
     const c = await stripe("POST", "customers", {
       name,
       description: `foyo club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
-      metadata: { soma: s.id, when: s.when, joined: new Date().toISOString().slice(0, 10), source: "somaflowclub.com" },
+      metadata: { soma: s.id, when: s.when, price: String(price), joined: new Date().toISOString().slice(0, 10), source: "myfoyo.com" },
     });
-    return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, map: s.map || "", group: GROUP });
+    return res.status(200).json({ ok: true, id: c.id, session: s.id, when: s.when, place: s.place, map: s.map || "", price, group: GROUP });
   } catch (err) {
     console.error("soma", err.status, err.message);
     return res.status(502).json({ error: "unavailable" });
