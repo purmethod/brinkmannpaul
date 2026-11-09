@@ -78,6 +78,17 @@
     .where { padding: 0 0 14px; padding-inline-start: 34px; margin-top: -6px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--ink3); }
     .where a { color: var(--ink); }
     .done .where { padding: 0; margin: 2px 0 0; border: 0; font-size: 15px; }
+    /* about paul: the circles of the wim hof page */
+    .about { max-width: 640px; margin: 0 auto; padding: 10px 20px 70px; border-top: 1px solid var(--line); }
+    .about .tag { margin-top: 34px; }
+    .about p { margin-bottom: 1.05em; }
+    .about .lead { margin: 6px 0 18px; }
+    .photo { display: grid; justify-items: center; gap: 14px; margin: 26px 0 30px; }
+    .photo-circle { position: relative; display: block; width: min(240px, 68vw); aspect-ratio: 1; border-radius: 50%; }
+    .photo-circle img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .photo-circle:after { content: ""; position: absolute; inset: -7px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); }
+    .photo figcaption { font-size: 12px; letter-spacing: .035em; color: var(--ink3); }
+    .about .sign { margin-top: 26px; color: var(--ink3); letter-spacing: .04em; }
     footer { max-width: 640px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
     footer .by { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     footer .ig { color: inherit; line-height: 0; flex: none; }
@@ -106,10 +117,11 @@
   <main id="book" tabindex="-1">
     <noscript><p class="lead">foyo club needs javascript to reserve a place. please turn it on and reload.</p></noscript>
   </main>
+  <section class="about" id="about" aria-label="about paul"></section>
   <footer>
     <span class="by">© raouf baaroussi &amp; paul brinkmann</span>
     <a class="ig" href="https://www.instagram.com/foyoclub/" target="_blank" rel="noopener noreferrer" aria-label="instagram · foyo club"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a>
   </footer>
-  <script src="/app.js?v=13"></script>
+  <script src="/app.js?v=14"></script>
 </body>
 </html>
