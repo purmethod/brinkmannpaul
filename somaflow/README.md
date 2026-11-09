@@ -1,4 +1,4 @@
-# somaflowclub.com · foyo club
+# myfoyo.com · foyo club (somaflowclub.com redirects here)
 
 foyo club (forever young), formerly soma flow club. Raouf Baaroussi & Paul Brinkmann. The home page says "coming soon"; the full page is at /preview/ until Paul opens it. A static page, its own Vercel project (`somaflow`, root directory `somaflow/`).
 

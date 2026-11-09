@@ -21,12 +21,12 @@
   "redirects": [
     {
       "source": "/soma",
-      "destination": "https://somaflowclub.com/",
+      "destination": "https://myfoyo.com/",
       "permanent": false
     },
     {
       "source": "/soma/:path*",
-      "destination": "https://somaflowclub.com/",
+      "destination": "https://myfoyo.com/",
       "permanent": false
     },
     {
