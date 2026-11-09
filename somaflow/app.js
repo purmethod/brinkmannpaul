@@ -245,27 +245,22 @@
     if (!box) return;
     const a = ABOUT[st.lang] || ABOUT.en;
     const photo = (src, alt, cap) => el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src, alt, width: "720", height: "720", loading: "lazy", decoding: "async" })), cap ? el("figcaption", {}, cap) : null);
-    // every photo, the old ones of the wim hof page and paul's new ones; only wim's house has a caption
+    // six photos, one after each paragraph; only wim's house has a caption
     box.replaceChildren(
       el("p", { class: "tag" }, a.tag),
       el("p", { class: "lead" }, a.lead),
       el("p", {}, a.bio),
       photo("/photos/foyo-old-wimhof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
-      photo("/photos/foyo-wim.webp", "paul brinkmann and wim hof by a river"),
       el("p", {}, a.s1),
       photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
-      photo("/photos/foyo-snow.webp", "paul brinkmann meditating bare-chested in the snow, the valley below"),
       el("p", {}, a.s3),
       photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
-      photo("/photos/foyo-old-climb.webp", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", {}, a.s4),
       photo("/photos/foyo-trail.webp", "paul leading a group bare-chested along a forest trail"),
-      photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"),
       el("p", {}, a.s5),
-      photo("/photos/foyo-instructor.webp", "paul from behind in a wim hof method instructor shirt, making a heart with his hands by a fire"),
-      photo("/photos/foyo-furhat.webp", "paul in the snow, bare-chested, making a heart with his hands"),
+      photo("/photos/foyo-old-climb.webp", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", { class: "lead fin" }, a.fin),
-      photo("/photos/foyo-flex.webp", "paul flexing in ice water under a waterfall"),
+      photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"),
       el("p", { class: "sign" }, "paul brinkmann"));
   }
 
