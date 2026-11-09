@@ -89,7 +89,7 @@
           const list = el("ol");
           if (!s.people.length) list.append(el("p", { class: "empty" }, "noch niemand angemeldet."));
           for (const p of s.people) list.append(el("li", {},
-            el("span", {}, el("span", { class: "who" }, p.name), el("span", { class: "when" }, "angemeldet " + fmt(p.joined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }))),
+            el("span", {}, el("span", { class: "who" }, p.name), el("span", { class: "when" }, "angemeldet " + fmt(p.joined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) + (p.price ? " · " + p.price + " dinar" : ""))),
             el("button", { class: "ghost", type: "button", onclick: () => remove(p) }, "austragen")));
           box.append(el("section", { class: "session" },
             el("h2", {}, sessionTitle(s) + (s.test ? " · test" : "")),
