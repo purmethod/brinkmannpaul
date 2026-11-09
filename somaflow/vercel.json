@@ -8,6 +8,28 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "somaflowclub.com"
+        }
+      ],
+      "destination": "https://myfoyo.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.somaflowclub.com"
+        }
+      ],
+      "destination": "https://myfoyo.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
