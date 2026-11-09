@@ -260,8 +260,7 @@
       el("p", {}, a.s5),
       photo("/photos/foyo-old-climb.webp", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", { class: "lead fin" }, a.fin),
-      photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"),
-      el("p", { class: "sign" }, "paul brinkmann"));
+      photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
 
   // ---------- the page ----------
