@@ -1,12 +1,12 @@
-// soma flow club: the videos open the page, a tap or a scroll leads to the sessions,
+// foyo club (forever young): the videos open the page, a tap or a scroll leads to the sessions,
 // a name reserves one place (max 15), the thank-you page holds the whatsapp group and the cancel button.
 // vanilla, no dependencies. sessions and places come from /api/soma.
 (function () {
   "use strict";
   const T = {
     en: {
-      cue: "tap or scroll", tag: "soma flow club", h1: "feel your body.",
-      lead: "an unforgettable retreat for your body. you have earned it.", limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
+      cue: "tap or scroll", tag: "foyo club", h1: "feel indescribably good.",
+      lead: "forever young.\nyou want to feel indescribably good, indescribably fit.\ni found out how. without pills, without antidepressants.", retreat: "the retreat", invite: "i am a certified wim hof instructor and warmly invite you to a retreat:", items: ["a breathing session", "ice baths · coming soon", "a wonderful breakfast with homemade, real kefir", "your kefir grains to take home, for free: make your own real kefir at home", "and something to take with you that lets you feel indescribably good"], care: "this is my personal experience, not medical advice. if you take medication, do not stop it on your own: talk to your doctor.", limit: "places are limited: max 15 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
       next: "choose your session", none: "the sessions could not be loaded. please reload the page.",
       left: "{n} of {max} places free", full: "full",
       name: "your name", reserve: "reserve my place", wait: "one moment…",
@@ -18,8 +18,8 @@
       loading: "loading the sessions…", test: "test session",
     },
     de: {
-      cue: "tippen oder scrollen", tag: "soma flow club", h1: "fühle deinen körper.",
-      lead: "ein unvergessliches retreat für deinen körper. du hast es dir verdient.", limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
+      cue: "tippen oder scrollen", tag: "foyo club", h1: "fühl dich unbeschreiblich gut.",
+      lead: "forever young.\ndu willst dich unbeschreiblich gut fühlen, unbeschreiblich fit.\nich habe herausgefunden, wie das geht. ohne pillen, ohne antidepressiva.", retreat: "das retreat", invite: "ich bin zertifizierter wim hof instructor und lade dich herzlich ein zu einem retreat:", items: ["eine breathing session", "eisbäder · coming soon", "ein wundervolles frühstück mit hausgemachtem, echtem kefir", "deine kefirkörner zum mitnehmen, for free: so machst du deinen echten kefir zu hause selbst", "und ich gebe dir etwas mit, womit du dich unbeschreiblich gut fühlst"], care: "das ist meine persönliche erfahrung, keine medizinische beratung. wenn du medikamente nimmst, setz sie nicht eigenmächtig ab: sprich mit deinem arzt.", limit: "die plätze sind begrenzt: maximal 15 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
       next: "wähle deinen termin", none: "die termine konnten nicht geladen werden. bitte lade die seite neu.",
       left: "{n} von {max} plätzen frei", full: "voll",
       name: "dein name", reserve: "platz reservieren", wait: "einen moment…",
@@ -31,8 +31,8 @@
       loading: "termine werden geladen…", test: "testtermin",
     },
     fr: {
-      cue: "touche ou fais défiler", tag: "soma flow club", h1: "ressens ton corps.",
-      lead: "une retraite inoubliable pour ton corps. tu l'as méritée.", limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
+      cue: "touche ou fais défiler", tag: "foyo club", h1: "sens-toi incroyablement bien.",
+      lead: "forever young.\ntu veux te sentir incroyablement bien, incroyablement en forme.\nj'ai trouvé comment. sans pilules, sans antidépresseurs.", retreat: "la retraite", invite: "je suis instructeur certifié de la méthode wim hof et je t'invite chaleureusement à une retraite :", items: ["une séance de respiration", "bains de glace · bientôt", "un merveilleux petit-déjeuner avec du vrai kéfir fait maison", "tes grains de kéfir à emporter, offerts : pour faire ton vrai kéfir chez toi", "et je te donne de quoi te sentir incroyablement bien"], care: "c'est mon expérience personnelle, pas un avis médical. si tu prends des médicaments, ne les arrête pas de ton propre chef : parle à ton médecin.", limit: "les places sont limitées : 15 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
       next: "choisis ta séance", none: "les séances n'ont pas pu être chargées. recharge la page.",
       left: "{n} places libres sur {max}", full: "complet",
       name: "ton prénom", reserve: "réserver ma place", wait: "un instant…",
@@ -44,8 +44,8 @@
       loading: "chargement des séances…", test: "séance test",
     },
     es: {
-      cue: "toca o desliza", tag: "soma flow club", h1: "siente tu cuerpo.",
-      lead: "un retiro inolvidable para tu cuerpo. te lo has ganado.", limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
+      cue: "toca o desliza", tag: "foyo club", h1: "siéntete increíblemente bien.",
+      lead: "forever young.\nquieres sentirte increíblemente bien, increíblemente en forma.\ndescubrí cómo. sin pastillas, sin antidepresivos.", retreat: "el retiro", invite: "soy instructor certificado del método wim hof y te invito de corazón a un retiro:", items: ["una sesión de respiración", "baños de hielo · muy pronto", "un desayuno maravilloso con kéfir casero de verdad", "tus granos de kéfir para llevar, gratis: para hacer tu propio kéfir en casa", "y te doy algo para que te sientas increíblemente bien"], care: "es mi experiencia personal, no un consejo médico. si tomas medicación, no la dejes por tu cuenta: habla con tu médico.", limit: "las plazas son limitadas: máximo 15 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
       next: "elige tu sesión", none: "no se pudieron cargar las sesiones. vuelve a cargar la página.",
       left: "{n} de {max} plazas libres", full: "completo",
       name: "tu nombre", reserve: "reservar mi plaza", wait: "un momento…",
@@ -57,8 +57,8 @@
       loading: "cargando las sesiones…", test: "sesión de prueba",
     },
     ar: {
-      cue: "المس أو مرّر", tag: "soma flow club", h1: "اشعر بجسدك.",
-      lead: "خلوة لا تُنسى لجسدك. أنت تستحق ذلك.", limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
+      cue: "المس أو مرّر", tag: "foyo club", h1: "اشعر بشعور رائع لا يوصف.",
+      lead: "forever young.\nتريد أن تشعر بشعور رائع لا يوصف، وبلياقة لا توصف.\nاكتشفت كيف. بلا حبوب، بلا مضادات اكتئاب.", retreat: "الخلوة", invite: "أنا مدرّب معتمد لطريقة ويم هوف، وأدعوك بكل سرور إلى خلوة:", items: ["جلسة تنفّس", "حمّامات ثلج · قريبًا", "فطور رائع مع كفير حقيقي محضّر في البيت", "حبوب الكفير هدية تأخذها معك: لتحضّر كفيرك الحقيقي في البيت", "وأعطيك شيئًا تشعر معه بشعور رائع لا يوصف"], care: "هذه تجربتي الشخصية وليست نصيحة طبية. إذا كنت تتناول أدوية، فلا توقفها من تلقاء نفسك: تحدّث مع طبيبك.", limit: "الأماكن محدودة: 15 شخصًا كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
       next: "اختر موعدك", none: "تعذّر تحميل المواعيد. أعد تحميل الصفحة.",
       left: "{n} من {max} أماكن متاحة", full: "مكتمل",
       name: "اسمك", reserve: "احجز مكاني", wait: "لحظة…",
@@ -70,8 +70,8 @@
       loading: "جارٍ تحميل المواعيد…", test: "موعد تجريبي",
     },
     ru: {
-      cue: "коснись или прокрути", tag: "soma flow club", h1: "почувствуй своё тело.",
-      lead: "незабываемый ретрит для твоего тела. ты это заслуживаешь.", limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
+      cue: "коснись или прокрути", tag: "foyo club", h1: "почувствуй себя невероятно хорошо.",
+      lead: "forever young.\nты хочешь чувствовать себя невероятно хорошо, невероятно бодро.\nя нашёл, как это сделать. без таблеток, без антидепрессантов.", retreat: "ретрит", invite: "я сертифицированный инструктор метода вима хофа и сердечно приглашаю тебя на ретрит:", items: ["дыхательная сессия", "ледяные ванны · скоро", "прекрасный завтрак с настоящим домашним кефиром", "кефирные зёрна в подарок: чтобы готовить настоящий кефир дома", "и я дам тебе то, с чем ты будешь чувствовать себя невероятно хорошо"], care: "это мой личный опыт, а не медицинский совет. если ты принимаешь лекарства, не отменяй их без врача.", limit: "мест мало: максимум 15 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
       next: "выбери занятие", none: "не удалось загрузить занятия. обнови страницу.",
       left: "свободно {n} из {max} мест", full: "мест нет",
       name: "твоё имя", reserve: "забронировать место", wait: "минуту…",
@@ -177,7 +177,12 @@
       el("p", { class: "tag" }, t("tag")),
       el("h1", {}, t("h1")),
       // each sentence of the lead on its own line: the retreat, then "you have earned it."
-      el("p", { class: "lead" }, t("lead").split(/(?<=\.)\s+/).flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      // the lead line by line: forever young, the wish, the discovery
+      el("p", { class: "lead" }, t("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      el("h2", {}, t("retreat")),
+      el("p", {}, t("invite")),
+      el("ul", { class: "rules offer" }, (T[st.lang].items || T.en.items).map((x) => el("li", {}, x))),
+      el("p", { class: "fine" }, t("care")),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
