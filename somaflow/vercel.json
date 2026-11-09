@@ -8,48 +8,36 @@
   ],
   "redirects": [
     {
-      "source": "/",
+      "source": "/((?!soon/|favicon\\.png|apple-touch-icon\\.png).*)",
       "has": [
         {
           "type": "host",
           "value": "somaflowclub.com"
         }
       ],
-      "destination": "https://myfoyo.com/",
-      "permanent": true
+      "destination": "https://somaflowclub.com/soon/",
+      "permanent": false
     },
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "somaflowclub.com"
-        }
-      ],
-      "destination": "https://myfoyo.com/$1",
-      "permanent": true
-    },
-    {
-      "source": "/",
+      "source": "/((?!soon/|favicon\\.png|apple-touch-icon\\.png).*)",
       "has": [
         {
           "type": "host",
           "value": "www.somaflowclub.com"
         }
       ],
-      "destination": "https://myfoyo.com/",
-      "permanent": true
+      "destination": "https://somaflowclub.com/soon/",
+      "permanent": false
     },
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.somaflowclub.com"
-        }
-      ],
-      "destination": "https://myfoyo.com/$1",
-      "permanent": true
+      "source": "/preview/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/preview",
+      "destination": "/",
+      "permanent": false
     },
     {
       "source": "/index.html",
@@ -68,15 +56,6 @@
         {
           "key": "Cache-Control",
           "value": "no-store"
-        }
-      ]
-    },
-    {
-      "source": "/preview(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
         }
       ]
     }
