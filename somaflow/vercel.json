@@ -8,25 +8,47 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "somaflowclub.com"
         }
       ],
-      "destination": "https://myfoyo.com/:path*",
+      "destination": "https://myfoyo.com/",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "somaflowclub.com"
+        }
+      ],
+      "destination": "https://myfoyo.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "www.somaflowclub.com"
         }
       ],
-      "destination": "https://myfoyo.com/:path*",
+      "destination": "https://myfoyo.com/",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.somaflowclub.com"
+        }
+      ],
+      "destination": "https://myfoyo.com/$1",
       "permanent": true
     },
     {
