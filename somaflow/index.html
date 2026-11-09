@@ -60,7 +60,7 @@
     .form label { font-size: 13px; color: var(--ink3); }
     .form .hint { font-size: 15px; margin-bottom: 8px; }
     input[type=text], input[type=tel] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; }
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; pointer-events: none; }
     .btn { display: inline-block; padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; text-decoration: none; text-align: center; }
     .btn:disabled { opacity: .35; cursor: default; }
     .ghost { display: inline-block; padding: 13px 20px; border: 1px solid var(--line); background: #fff; cursor: pointer; text-decoration: none; text-align: center; }
@@ -88,6 +88,21 @@
     .photo-circle img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
     .photo-circle:after { content: ""; position: absolute; inset: -7px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); }
     .photo figcaption { font-size: 12px; letter-spacing: .035em; color: var(--ink3); }
+    /* the wim hof method: four numbers, then the studies */
+    .facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); margin: 26px 0 8px; }
+    .facts div { padding: 16px 0 14px; border-bottom: 1px solid var(--line); }
+    .facts div:nth-child(odd) { padding-inline-end: 14px; }
+    .facts div:nth-child(even) { padding-inline-start: 14px; border-inline-start: 1px solid var(--line); }
+    .facts dt { font-size: clamp(26px, 6vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-align: start; }
+    [dir=rtl] .facts dt { text-align: right; }
+    .facts dd { font-size: 12px; color: var(--ink3); margin-top: 6px; }
+    .wim sup { font-size: 10px; line-height: 0; }
+    .wim sup + sup:before { content: ","; color: var(--ink3); }
+    .wim sup a { color: var(--ink3); text-decoration: none; padding: 0 1px; }
+    .wim .safe { margin: 22px 0 6px; }
+    .src { padding-inline-start: 18px; font-size: 12px; line-height: 1.5; color: var(--ink3); text-transform: none; }
+    .src li { margin-bottom: 8px; scroll-margin-top: 80px; }
+    .src a { color: var(--ink3); word-break: break-all; }
     .about .sign { margin-top: 26px; color: var(--ink3); letter-spacing: .04em; }
     footer { max-width: 640px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
     footer .by { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -117,11 +132,12 @@
   <main id="book" tabindex="-1">
     <noscript><p class="lead">foyo club needs javascript to reserve a place. please turn it on and reload.</p></noscript>
   </main>
+  <section class="about wim" id="wim" aria-label="the wim hof method"></section>
   <section class="about" id="about" aria-label="about paul"></section>
   <footer>
     <span class="by">© paul brinkmann</span>
     <a class="ig" href="https://www.instagram.com/foyoclub/" target="_blank" rel="noopener noreferrer" aria-label="instagram · foyo club"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a>
   </footer>
-  <script src="/app.js?v=28"></script>
+  <script src="/app.js?v=29"></script>
 </body>
 </html>
