@@ -89,69 +89,70 @@
     "tag": "about paul",
     "lead": "fifteen years of breath.",
     "bio": "i have been practising breathwork for 15 years and guiding people through breathing sessions and the cold. i am a certified wim hof method instructor and a friend of wim.",
-    "cap": "at wim's house · poland",
+    "cap": "with wim",
     "s1": "a few years ago, overwork and stress inflamed my joints. i could not move. i could not even get up from a chair.",
-    "s2": "i healed it all with the right food, with breath and with the cold.",
     "s3": "what i discovered, i want to give to everyone. i want to show people that it also works without medication.",
     "s4": "i am not against conventional medicine, not against medication. but we have to understand that we need to combine them: healing does not come from medication alone. you have to take your health into your own hands.",
-    "s5": "and how that works, i show you in my courses. i give you the key, i show you the door and how to walk through it. walking through is up to you. but the guidance, how it works, i show you."
+    "s5": "and how that works, i show you in my courses. i give you the key, i show you the door and how to walk through it. walking through is up to you. but the guidance, how it works, i show you.",
+    "fin": "with the right food, breath and cold i healed myself, freed myself from pain and got moving again. and you can too."
    },
    "de": {
     "tag": "über paul",
     "lead": "fünfzehn jahre atem.",
     "bio": "seit 15 jahren praktiziere ich atemarbeit und begleite menschen durch atemsessions und die kälte. ich bin zertifizierter wim hof methode instructor und mit wim befreundet.",
-    "cap": "bei wim zu hause · polen",
+    "cap": "mit wim",
     "s1": "vor ein paar jahren haben sich durch überarbeitung und stress meine gelenke entzündet. ich konnte mich nicht bewegen. ich konnte nicht einmal vom stuhl aufstehen.",
-    "s2": "das habe ich alles kuriert, mit der richtigen ernährung, mit atem und mit der kälte.",
     "s3": "was ich entdeckt habe, möchte ich allen menschen zur verfügung stellen. ich möchte zeigen, dass es auch ohne medikamente geht.",
     "s4": "ich bin nicht gegen die schulmedizin, nicht gegen medikamente. aber wir müssen verstehen, dass wir beides kombinieren müssen: heilung entsteht nicht nur durch medikamente. du musst deine gesundheit selbst in die hand nehmen.",
-    "s5": "und wie das geht, zeige ich dir in meinen kursen. ich gebe dir den schlüssel, ich zeige dir die tür und wie du hindurchgehst. hindurchgehen musst du selbst. aber die anleitung, wie es funktioniert, die zeige ich dir."
+    "s5": "und wie das geht, zeige ich dir in meinen kursen. ich gebe dir den schlüssel, ich zeige dir die tür und wie du hindurchgehst. hindurchgehen musst du selbst. aber die anleitung, wie es funktioniert, die zeige ich dir.",
+    "fin": "mit der richtigen ernährung, mit atem und kälte habe ich mich selbst kuriert, mich von schmerzen befreit und bin wieder in bewegung gekommen. und das kannst du auch."
    },
    "fr": {
     "tag": "à propos de paul",
     "lead": "quinze ans de souffle.",
     "bio": "je pratique le travail du souffle depuis 15 ans et j'accompagne des personnes dans des séances de respiration et dans le froid. je suis instructeur certifié de la méthode wim hof et un ami de wim.",
-    "cap": "chez wim · pologne",
+    "cap": "avec wim",
     "s1": "il y a quelques années, le surmenage et le stress ont enflammé mes articulations. je ne pouvais plus bouger. je ne pouvais même pas me lever d'une chaise.",
-    "s2": "j'ai tout guéri avec la bonne alimentation, avec la respiration et avec le froid.",
     "s3": "ce que j'ai découvert, je veux le mettre à la disposition de tous. je veux montrer que c'est possible aussi sans médicaments.",
     "s4": "je ne suis pas contre la médecine conventionnelle, ni contre les médicaments. mais nous devons comprendre qu'il faut les combiner : la guérison ne vient pas seulement des médicaments. tu dois prendre ta santé en main.",
-    "s5": "et comment faire, je te le montre dans mes cours. je te donne la clé, je te montre la porte et comment la franchir. la franchir, c'est à toi. mais le mode d'emploi, je te le montre."
+    "s5": "et comment faire, je te le montre dans mes cours. je te donne la clé, je te montre la porte et comment la franchir. la franchir, c'est à toi. mais le mode d'emploi, je te le montre.",
+    "fin": "avec la bonne alimentation, la respiration et le froid, je me suis guéri moi-même, libéré de la douleur et je me suis remis en mouvement. et tu peux le faire aussi."
    },
    "es": {
     "tag": "sobre paul",
     "lead": "quince años de respiración.",
     "bio": "practico el trabajo respiratorio desde hace 15 años y guío a personas en sesiones de respiración y en el frío. soy instructor certificado del método wim hof y amigo de wim.",
-    "cap": "en casa de wim · polonia",
+    "cap": "con wim",
     "s1": "hace unos años, el exceso de trabajo y el estrés inflamaron mis articulaciones. no podía moverme. ni siquiera podía levantarme de una silla.",
-    "s2": "lo curé todo con la alimentación adecuada, con la respiración y con el frío.",
     "s3": "lo que descubrí quiero ponerlo al alcance de todos. quiero mostrar que también es posible sin medicamentos.",
     "s4": "no estoy en contra de la medicina convencional ni de los medicamentos. pero tenemos que entender que hay que combinarlos: la curación no viene solo de los medicamentos. tienes que tomar tu salud en tus manos.",
-    "s5": "y cómo se hace, te lo muestro en mis cursos. te doy la llave, te muestro la puerta y cómo cruzarla. cruzarla te toca a ti. pero las instrucciones de cómo funciona, esas te las muestro."
+    "s5": "y cómo se hace, te lo muestro en mis cursos. te doy la llave, te muestro la puerta y cómo cruzarla. cruzarla te toca a ti. pero las instrucciones de cómo funciona, esas te las muestro.",
+    "fin": "con la alimentación adecuada, la respiración y el frío me curé a mí mismo, me liberé del dolor y volví a moverme. y tú también puedes."
    },
    "ar": {
     "tag": "عن paul",
     "lead": "خمسة عشر عامًا من النَّفَس.",
     "bio": "أمارس تمارين التنفس منذ 15 عامًا وأرافق الناس في جلسات التنفس وفي مواجهة البرد. أنا مدرّب معتمد لطريقة ويم هوف وصديق لويم.",
-    "cap": "في بيت ويم · بولندا",
+    "cap": "مع ويم",
     "s1": "قبل بضع سنوات، التهبت مفاصلي بسبب الإرهاق والضغط. لم أستطع الحركة. لم أستطع حتى النهوض من الكرسي.",
-    "s2": "وشُفيت من كل ذلك بالتغذية الصحيحة، وبالتنفّس، وبالبرد.",
     "s3": "ما اكتشفته أريد أن أضعه في متناول الجميع. أريد أن أُري الناس أن الأمر ممكن أيضًا من دون أدوية.",
     "s4": "لست ضد الطب التقليدي ولا ضد الأدوية. لكن علينا أن نفهم أننا نحتاج إلى الجمع بينهما: الشفاء لا يأتي من الأدوية وحدها. عليك أن تأخذ صحتك بيدك.",
-    "s5": "وكيف يكون ذلك، أريك إياه في دوراتي. أعطيك المفتاح، وأريك الباب وكيف تعبره. العبور عليك أنت. لكن الطريقة، كيف يعمل ذلك، أريك إياها."
+    "s5": "وكيف يكون ذلك، أريك إياه في دوراتي. أعطيك المفتاح، وأريك الباب وكيف تعبره. العبور عليك أنت. لكن الطريقة، كيف يعمل ذلك، أريك إياها.",
+    "fin": "بالتغذية الصحيحة والتنفّس والبرد شفيت نفسي، وتحرّرت من الألم، وعدت إلى الحركة. وأنت تستطيع ذلك أيضًا."
    },
    "ru": {
     "tag": "о paul",
     "lead": "пятнадцать лет дыхания.",
     "bio": "я занимаюсь дыхательными практиками 15 лет и провожу людей через дыхательные сессии и холод. я сертифицированный инструктор метода вима хофа и друг вима.",
-    "cap": "в доме вима · польша",
+    "cap": "с вимом",
     "s1": "несколько лет назад из-за переутомления и стресса у меня воспалились суставы. я не мог двигаться. я не мог даже встать со стула.",
-    "s2": "всё это я вылечил правильным питанием, дыханием и холодом.",
     "s3": "то, что я открыл, я хочу сделать доступным для всех. я хочу показать, что это возможно и без лекарств.",
     "s4": "я не против традиционной медицины и не против лекарств. но нужно понять, что их надо сочетать: исцеление приходит не только от лекарств. своё здоровье нужно взять в свои руки.",
-    "s5": "а как это сделать, я показываю на своих курсах. я даю тебе ключ, показываю дверь и как через неё пройти. пройти через неё можешь только ты. но инструкцию, как это работает, я тебе покажу."
+    "s5": "а как это сделать, я показываю на своих курсах. я даю тебе ключ, показываю дверь и как через неё пройти. пройти через неё можешь только ты. но инструкцию, как это работает, я тебе покажу.",
+    "fin": "правильным питанием, дыханием и холодом я вылечил себя сам, избавился от боли и снова начал двигаться. и ты тоже сможешь."
    }
   };
+
   const LANGS = Object.keys(T);
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
@@ -243,19 +244,23 @@
     if (!box) return;
     const a = ABOUT[st.lang] || ABOUT.en;
     const photo = (src, alt, cap) => el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src, alt, width: "720", height: "720", loading: "lazy", decoding: "async" })), cap ? el("figcaption", {}, cap) : null);
+    // one photo after each paragraph; the waterfall photo closes it
     box.replaceChildren(
       el("p", { class: "tag" }, a.tag),
       el("p", { class: "lead" }, a.lead),
+      photo("/photos/foyo-furhat.webp", "paul in the snow, bare-chested, making a heart with his hands"),
       el("p", {}, a.bio),
-      photo("/photos/photo-wim-hof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
+      photo("/photos/foyo-wim.webp", "paul brinkmann and wim hof by a river", a.cap),
       el("p", {}, a.s1),
-      photo("/photos/photo-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
-      el("p", {}, a.s2),
+      photo("/photos/foyo-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
       el("p", {}, a.s3),
-      photo("/photos/photo-climb.webp", "a line of people walking bare-chested through the snow on a mountain path"),
+      photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
       el("p", {}, a.s4),
+      photo("/photos/foyo-trail.webp", "paul leading a group bare-chested along a forest trail"),
       el("p", {}, a.s5),
-      photo("/photos/photo-group.webp", "a group, bare-chested, together in the snow on a mountain top"),
+      photo("/photos/foyo-instructor.webp", "paul from behind in a wim hof method instructor shirt, making a heart with his hands by a fire"),
+      el("p", { class: "lead fin" }, a.fin),
+      photo("/photos/foyo-flex.webp", "paul flexing in ice water under a waterfall"),
       el("p", { class: "sign" }, "paul brinkmann"));
   }
 
