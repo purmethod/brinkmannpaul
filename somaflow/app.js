@@ -84,95 +84,137 @@
       loading: "загружаем занятия…", test: "тестовое занятие",
     },
   };
-  // the wim hof method, before about paul: what the breath and the cold do, with the studies behind every number
+  // the wim hof method, before about paul: the three pillars and what they do, with the studies behind every number
   const WIM = {
     en: {
       tag: "the wim hof method",
       lead: "a breathing technique that changes your blood within minutes.",
-      what: "the wim hof method rests on three pillars: breath, cold and commitment. the breathing: 30 to 40 deep breaths, fully in, loosely out. then breathe out and hold, as long as it feels good. then one deep breath in and hold it for 15 seconds. three to four rounds. that is all, and the effect is measurable.",
-      facts: [["7.75", "blood ph (normal 7.35–7.45)"], ["~50 %", "oxygen while you hold your breath, ~10 s"], ["+194 %", "il-10, anti-inflammatory"], ["+250 %", "dopamine in the cold"]],
-      blocks: [
-        ["what it does to your blood", "with every deep breath you breathe out carbon dioxide. your blood becomes alkaline: in a study at radboud university the ph rose to as high as 7.75, normal is 7.35 to 7.45. while you hold your breath, oxygen saturation drops to around 50 % for about ten seconds, then it comes back. a short, controlled lack of oxygen. a few minutes after the breathing everything is back to normal.[1]"],
-        ["adrenaline, like a bungee jump", "this signal wakes up your sympathetic nervous system. the trained participants had more adrenaline in their blood than people measured during a bungee jump.[1][2] only you decide when, and you stay calm."],
-        ["adrenaline dampens inflammation", "adrenaline is one of the body's own anti-inflammatories: it slows the inflammatory messenger tnf-α and drives the anti-inflammatory il-10.[3] in the radboud study, 24 men received a bacterial toxin that normally causes fever and flu symptoms. those who had breathed had 194 % more il-10, 53 % less tnf-α, 57 % less il-6, 51 % less il-8 and clearly fewer symptoms.[1] a follow-up study shows: the breathing alone already works, combined with cold training it works strongest.[4]"],
-        ["the cold: dopamine", "one hour in 14 °c water raised dopamine by 250 %, noradrenaline by 530 % and metabolism by 350 %.[5] noradrenaline sharpens focus, dopamine lifts mood and drive. in a trial with 3,018 people, those who ended their shower with 30 to 90 seconds of cold water called in sick 29 % less often.[6]"],
-        ["hormesis: good stress", "breath and cold are short, dosed stress. the body answers with adaptation and comes back stronger, like a muscle after training. science calls this hormesis.[7] not chronic stress that wears you down, but a short stimulus followed by recovery."],
+      what: "the wim hof method rests on three pillars: breath, cold and commitment. together they work on your nervous system, your immune system and your mind.",
+      facts: [["7.75", "blood ph (normal 7.35–7.45)"], ["~50 %", "oxygen while you hold your breath, ~10 s"], ["+194 %", "il-10, anti-inflammatory"], ["+250 %", "dopamine in cold water"]],
+      pillars: [
+        ["1 · the breath", "30 to 40 deep breaths, fully in, loosely out. then breathe out and hold, as long as it feels good. then one deep breath in and hold it for 15 seconds. three to four rounds, sitting or lying down.", [
+          ["what it does to your blood", "with every deep breath you breathe out carbon dioxide. your blood becomes alkaline: in a study at radboud university the ph rose to as high as 7.75, normal is 7.35 to 7.45. while you hold your breath, oxygen saturation drops to around 50 % for about ten seconds, then it comes back. a short, controlled lack of oxygen. a few minutes after the breathing everything is back to normal.[1]"],
+          ["adrenaline, like a bungee jump", "this signal wakes up your sympathetic nervous system. the trained participants had more adrenaline in their blood than people measured during a bungee jump.[1][2] only you decide when, and you stay calm."],
+          ["adrenaline dampens inflammation", "adrenaline is one of the body's own anti-inflammatories: it slows the inflammatory messenger tnf-α and drives the anti-inflammatory il-10.[3] in the radboud study, 24 men received a bacterial toxin that normally causes fever and flu symptoms. those who had trained had 194 % more il-10, 53 % less tnf-α, 57 % less il-6, 51 % less il-8 and clearly fewer symptoms.[1] a follow-up study shows: the breathing alone already works, combined with cold training it works strongest.[4]"],
+        ]],
+        ["2 · the cold", "you start with cold showers: warm first, then 30 seconds cold, a little longer every week. then comes the ice bath. breathe calmly, do not fight the cold.", [
+          ["what the cold triggers", "in cold water dopamine rises by 250 %, noradrenaline by 530 % and metabolism by 350 %.[5] noradrenaline sharpens focus, dopamine lifts mood and drive. in a trial with 3,018 people, those who ended their shower with 30 to 90 seconds of cold water called in sick 29 % less often.[6]"],
+        ]],
+        ["3 · commitment", "the third pillar is the mind: focus, patience, practice every day. you learn to stay calm in the cold and to steer your body instead of being steered by it.", [
+          ["the mind steers the body", "wayne state university scanned wim hof's brain in the cold. he deliberately activated the periaqueductal gray, a region in the brainstem that dampens pain. the researchers assume that the body releases its own opioids and cannabinoids in the process.[8]"],
+        ]],
       ],
+      why: ["why it works: hormesis", "breath and cold are short, dosed stress. the body answers with adaptation and comes back stronger, like a muscle after training. science calls this hormesis.[7] not chronic stress that wears you down, but a short stimulus followed by recovery."],
       safe: "important: never practise the breathing in or near water, while driving or standing. sit or lie down. if you are pregnant, have epilepsy, heart problems or high blood pressure, talk to your doctor first.",
       src: "sources",
     },
     de: {
       tag: "die wim hof methode",
       lead: "eine atemtechnik, die dein blut in minuten verändert.",
-      what: "die wim hof methode steht auf drei säulen: atem, kälte und hingabe. die atmung: 30 bis 40 tiefe atemzüge, voll ein, locker aus. dann ausatmen und die luft anhalten, so lange es sich gut anfühlt. dann einmal tief einatmen und 15 sekunden halten. drei bis vier runden. mehr ist es nicht, und die wirkung ist messbar.",
-      facts: [["7,75", "blut-ph (normal 7,35–7,45)"], ["~50 %", "sauerstoff beim luftanhalten, ~10 s"], ["+194 %", "il-10, entzündungshemmend"], ["+250 %", "dopamin in der kälte"]],
-      blocks: [
-        ["was sie mit deinem blut macht", "mit jedem tiefen atemzug atmest du kohlendioxid ab. dein blut wird basisch: in einer studie der radboud universität stieg der ph-wert auf bis zu 7,75, normal sind 7,35 bis 7,45. während du die luft anhältst, sinkt die sauerstoffsättigung für etwa zehn sekunden auf rund 50 %, dann steigt sie wieder. ein kurzer, kontrollierter sauerstoffmangel. wenige minuten nach der atmung ist alles wieder normal.[1]"],
-        ["adrenalin wie beim bungee-sprung", "dieses signal weckt dein sympathisches nervensystem. die trainierten teilnehmer hatten mehr adrenalin im blut als menschen, die bei einem bungee-sprung gemessen wurden.[1][2] nur dass du entscheidest, wann, und dabei ruhig bleibst."],
-        ["adrenalin hemmt entzündungen", "adrenalin ist ein körpereigener entzündungshemmer: es bremst den entzündungsbotenstoff tnf-α und treibt das entzündungshemmende il-10 an.[3] in der radboud-studie bekamen 24 männer ein bakteriengift, das normalerweise fieber und grippesymptome auslöst. wer geatmet hatte, hatte 194 % mehr il-10, 53 % weniger tnf-α, 57 % weniger il-6, 51 % weniger il-8 und deutlich weniger symptome.[1] eine folgestudie zeigt: schon die atmung allein wirkt, zusammen mit kältetraining am stärksten.[4]"],
-        ["die kälte: dopamin", "eine stunde in 14 °c kaltem wasser steigerte dopamin um 250 %, noradrenalin um 530 % und den stoffwechsel um 350 %.[5] noradrenalin schärft den fokus, dopamin hebt stimmung und antrieb. in einer studie mit 3.018 menschen meldeten sich die, die ihre dusche mit 30 bis 90 sekunden kaltem wasser beendeten, 29 % seltener krank.[6]"],
-        ["hormesis: guter stress", "atem und kälte sind kurzer, dosierter stress. der körper antwortet mit anpassung und wird stärker, wie ein muskel nach dem training. die wissenschaft nennt das hormesis.[7] kein dauerstress, der dich zermürbt, sondern ein kurzer reiz und danach erholung."],
+      what: "die wim hof methode steht auf drei säulen: atmung, kälte und hingabe. zusammen wirken sie auf dein nervensystem, dein immunsystem und deinen kopf.",
+      facts: [["7,75", "blut-ph (normal 7,35–7,45)"], ["~50 %", "sauerstoff beim luftanhalten, ~10 s"], ["+194 %", "il-10, entzündungshemmend"], ["+250 %", "dopamin im kalten wasser"]],
+      pillars: [
+        ["1 · die atmung", "30 bis 40 tiefe atemzüge, voll ein, locker aus. dann ausatmen und die luft anhalten, so lange es sich gut anfühlt. dann einmal tief einatmen und 15 sekunden halten. drei bis vier runden, im sitzen oder liegen.", [
+          ["was sie mit deinem blut macht", "mit jedem tiefen atemzug atmest du kohlendioxid ab. dein blut wird basisch: in einer studie der radboud universität stieg der ph-wert auf bis zu 7,75, normal sind 7,35 bis 7,45. während du die luft anhältst, sinkt die sauerstoffsättigung für etwa zehn sekunden auf rund 50 %, dann steigt sie wieder. ein kurzer, kontrollierter sauerstoffmangel. wenige minuten nach der atmung ist alles wieder normal.[1]"],
+          ["adrenalin wie beim bungee-sprung", "dieses signal weckt dein sympathisches nervensystem. die trainierten teilnehmer hatten mehr adrenalin im blut als menschen, die bei einem bungee-sprung gemessen wurden.[1][2] nur dass du entscheidest, wann, und dabei ruhig bleibst."],
+          ["adrenalin hemmt entzündungen", "adrenalin ist ein körpereigener entzündungshemmer: es bremst den entzündungsbotenstoff tnf-α und treibt das entzündungshemmende il-10 an.[3] in der radboud-studie bekamen 24 männer ein bakteriengift, das normalerweise fieber und grippesymptome auslöst. wer trainiert hatte, hatte 194 % mehr il-10, 53 % weniger tnf-α, 57 % weniger il-6, 51 % weniger il-8 und deutlich weniger symptome.[1] eine folgestudie zeigt: schon die atmung allein wirkt, zusammen mit kältetraining am stärksten.[4]"],
+        ]],
+        ["2 · die kälte", "du beginnst mit kalten duschen: erst warm, dann 30 sekunden kalt, jede woche etwas länger. dann folgt das eisbad. ruhig atmen, nicht gegen die kälte kämpfen.", [
+          ["was die kälte auslöst", "im kalten wasser steigt dopamin um 250 %, noradrenalin um 530 % und der stoffwechsel um 350 %.[5] noradrenalin schärft den fokus, dopamin hebt stimmung und antrieb. in einer studie mit 3.018 menschen meldeten sich die, die ihre dusche mit 30 bis 90 sekunden kaltem wasser beendeten, 29 % seltener krank.[6]"],
+        ]],
+        ["3 · hingabe", "die dritte säule ist der kopf: fokus, geduld, jeden tag üben. du lernst, in der kälte ruhig zu bleiben und deinen körper zu lenken, statt von ihm gelenkt zu werden.", [
+          ["der kopf steuert den körper", "die wayne state university hat wim hofs gehirn in der kälte gescannt. er aktivierte gezielt das periaquäduktale grau, eine region im hirnstamm, die schmerz dämpft. die forscher vermuten, dass der körper dabei eigene opioide und cannabinoide freisetzt.[8]"],
+        ]],
       ],
+      why: ["warum es wirkt: hormesis", "atem und kälte sind kurzer, dosierter stress. der körper antwortet mit anpassung und wird stärker, wie ein muskel nach dem training. die wissenschaft nennt das hormesis.[7] kein dauerstress, der dich zermürbt, sondern ein kurzer reiz und danach erholung."],
       safe: "wichtig: die atmung nie im oder am wasser, beim autofahren oder im stehen üben. setz oder leg dich hin. wenn du schwanger bist, epilepsie, herzprobleme oder hohen blutdruck hast, sprich vorher mit deinem arzt.",
       src: "quellen",
     },
     fr: {
       tag: "la méthode wim hof",
       lead: "une technique de respiration qui change ton sang en quelques minutes.",
-      what: "la méthode wim hof repose sur trois piliers : la respiration, le froid et l'engagement. la respiration : 30 à 40 respirations profondes, inspirer pleinement, expirer sans forcer. puis expirer et retenir son souffle, aussi longtemps que c'est agréable. puis une grande inspiration, tenue 15 secondes. trois à quatre tours. c'est tout, et l'effet se mesure.",
-      facts: [["7,75", "ph du sang (normal 7,35–7,45)"], ["~50 %", "oxygène pendant la rétention, ~10 s"], ["+194 %", "il-10, anti-inflammatoire"], ["+250 %", "dopamine dans le froid"]],
-      blocks: [
-        ["ce qu'elle fait à ton sang", "à chaque respiration profonde, tu expires du dioxyde de carbone. ton sang devient alcalin : dans une étude de l'université radboud, le ph est monté jusqu'à 7,75, la normale est de 7,35 à 7,45. pendant la rétention, la saturation en oxygène descend à environ 50 % pendant une dizaine de secondes, puis remonte. un manque d'oxygène bref et contrôlé. quelques minutes après la respiration, tout est revenu à la normale.[1]"],
-        ["de l'adrénaline, comme un saut à l'élastique", "ce signal réveille ton système nerveux sympathique. les participants entraînés avaient plus d'adrénaline dans le sang que des personnes mesurées lors d'un saut à l'élastique.[1][2] sauf que c'est toi qui décides quand, et tu restes calme."],
-        ["l'adrénaline freine l'inflammation", "l'adrénaline est un anti-inflammatoire naturel du corps : elle freine le messager inflammatoire tnf-α et stimule l'il-10 anti-inflammatoire.[3] dans l'étude radboud, 24 hommes ont reçu une toxine bactérienne qui provoque normalement fièvre et symptômes grippaux. ceux qui avaient respiré avaient 194 % d'il-10 en plus, 53 % de tnf-α, 57 % d'il-6 et 51 % d'il-8 en moins, et nettement moins de symptômes.[1] une étude suivante le montre : la respiration seule agit déjà, combinée à l'entraînement au froid elle agit le plus fort.[4]"],
-        ["le froid : la dopamine", "une heure dans une eau à 14 °c a augmenté la dopamine de 250 %, la noradrénaline de 530 % et le métabolisme de 350 %.[5] la noradrénaline aiguise la concentration, la dopamine élève l'humeur et l'élan. dans un essai avec 3 018 personnes, celles qui finissaient leur douche par 30 à 90 secondes d'eau froide se sont absentées pour maladie 29 % moins souvent.[6]"],
-        ["l'hormèse : le bon stress", "la respiration et le froid sont un stress court et dosé. le corps répond en s'adaptant et devient plus fort, comme un muscle après l'entraînement. la science appelle cela l'hormèse.[7] pas un stress chronique qui t'use, mais un stimulus court suivi de récupération."],
+      what: "la méthode wim hof repose sur trois piliers : la respiration, le froid et l'engagement. ensemble, ils agissent sur ton système nerveux, ton système immunitaire et ton mental.",
+      facts: [["7,75", "ph du sang (normal 7,35–7,45)"], ["~50 %", "oxygène pendant la rétention, ~10 s"], ["+194 %", "il-10, anti-inflammatoire"], ["+250 %", "dopamine dans l'eau froide"]],
+      pillars: [
+        ["1 · la respiration", "30 à 40 respirations profondes, inspirer pleinement, expirer sans forcer. puis expirer et retenir son souffle, aussi longtemps que c'est agréable. puis une grande inspiration, tenue 15 secondes. trois à quatre tours, assis ou allongé.", [
+          ["ce qu'elle fait à ton sang", "à chaque respiration profonde, tu expires du dioxyde de carbone. ton sang devient alcalin : dans une étude de l'université radboud, le ph est monté jusqu'à 7,75, la normale est de 7,35 à 7,45. pendant la rétention, la saturation en oxygène descend à environ 50 % pendant une dizaine de secondes, puis remonte. un manque d'oxygène bref et contrôlé. quelques minutes après la respiration, tout est revenu à la normale.[1]"],
+          ["de l'adrénaline, comme un saut à l'élastique", "ce signal réveille ton système nerveux sympathique. les participants entraînés avaient plus d'adrénaline dans le sang que des personnes mesurées lors d'un saut à l'élastique.[1][2] sauf que c'est toi qui décides quand, et tu restes calme."],
+          ["l'adrénaline freine l'inflammation", "l'adrénaline est un anti-inflammatoire naturel du corps : elle freine le messager inflammatoire tnf-α et stimule l'il-10 anti-inflammatoire.[3] dans l'étude radboud, 24 hommes ont reçu une toxine bactérienne qui provoque normalement fièvre et symptômes grippaux. ceux qui s'étaient entraînés avaient 194 % d'il-10 en plus, 53 % de tnf-α, 57 % d'il-6 et 51 % d'il-8 en moins, et nettement moins de symptômes.[1] une étude suivante le montre : la respiration seule agit déjà, combinée à l'entraînement au froid elle agit le plus fort.[4]"],
+        ]],
+        ["2 · le froid", "tu commences par des douches froides : d'abord chaud, puis 30 secondes froid, un peu plus longtemps chaque semaine. ensuite vient le bain de glace. respirer calmement, ne pas lutter contre le froid.", [
+          ["ce que déclenche le froid", "dans l'eau froide, la dopamine augmente de 250 %, la noradrénaline de 530 % et le métabolisme de 350 %.[5] la noradrénaline aiguise la concentration, la dopamine élève l'humeur et l'élan. dans un essai avec 3 018 personnes, celles qui finissaient leur douche par 30 à 90 secondes d'eau froide se sont absentées pour maladie 29 % moins souvent.[6]"],
+        ]],
+        ["3 · l'engagement", "le troisième pilier, c'est le mental : concentration, patience, pratique chaque jour. tu apprends à rester calme dans le froid et à diriger ton corps au lieu d'être dirigé par lui.", [
+          ["le mental dirige le corps", "l'université wayne state a scanné le cerveau de wim hof dans le froid. il activait volontairement la substance grise périaqueducale, une région du tronc cérébral qui atténue la douleur. les chercheurs supposent que le corps libère alors ses propres opioïdes et cannabinoïdes.[8]"],
+        ]],
       ],
+      why: ["pourquoi ça marche : l'hormèse", "la respiration et le froid sont un stress court et dosé. le corps répond en s'adaptant et devient plus fort, comme un muscle après l'entraînement. la science appelle cela l'hormèse.[7] pas un stress chronique qui t'use, mais un stimulus court suivi de récupération."],
       safe: "important : ne pratique jamais la respiration dans l'eau ou près de l'eau, en conduisant ou debout. assieds-toi ou allonge-toi. si tu es enceinte, épileptique, si tu as des problèmes cardiaques ou une tension élevée, parles-en d'abord à ton médecin.",
       src: "sources",
     },
     es: {
       tag: "el método wim hof",
       lead: "una técnica de respiración que cambia tu sangre en minutos.",
-      what: "el método wim hof se basa en tres pilares: respiración, frío y compromiso. la respiración: de 30 a 40 respiraciones profundas, inspirar a fondo, soltar el aire sin esfuerzo. luego exhalar y retener el aire mientras te sientas bien. después una inspiración profunda, sostenida 15 segundos. tres o cuatro rondas. eso es todo, y el efecto se puede medir.",
-      facts: [["7,75", "ph de la sangre (normal 7,35–7,45)"], ["~50 %", "oxígeno al retener el aire, ~10 s"], ["+194 %", "il-10, antiinflamatoria"], ["+250 %", "dopamina en el frío"]],
-      blocks: [
-        ["lo que hace con tu sangre", "con cada respiración profunda exhalas dióxido de carbono. tu sangre se vuelve alcalina: en un estudio de la universidad radboud el ph subió hasta 7,75; lo normal es de 7,35 a 7,45. mientras retienes el aire, la saturación de oxígeno baja a alrededor del 50 % durante unos diez segundos y luego vuelve a subir. una falta de oxígeno breve y controlada. pocos minutos después de respirar, todo vuelve a la normalidad.[1]"],
-        ["adrenalina, como en un salto de puenting", "esta señal despierta tu sistema nervioso simpático. los participantes entrenados tenían más adrenalina en la sangre que personas medidas durante un salto de puenting.[1][2] solo que tú decides cuándo, y te mantienes en calma."],
-        ["la adrenalina frena la inflamación", "la adrenalina es un antiinflamatorio propio del cuerpo: frena el mensajero inflamatorio tnf-α e impulsa la il-10 antiinflamatoria.[3] en el estudio de radboud, 24 hombres recibieron una toxina bacteriana que normalmente provoca fiebre y síntomas de gripe. quienes habían respirado tenían un 194 % más de il-10, un 53 % menos de tnf-α, un 57 % menos de il-6, un 51 % menos de il-8 y muchos menos síntomas.[1] un estudio posterior lo muestra: la respiración sola ya funciona; combinada con entrenamiento en frío, funciona con más fuerza.[4]"],
-        ["el frío: dopamina", "una hora en agua a 14 °c aumentó la dopamina un 250 %, la noradrenalina un 530 % y el metabolismo un 350 %.[5] la noradrenalina agudiza la concentración, la dopamina eleva el ánimo y el impulso. en un ensayo con 3.018 personas, quienes terminaban la ducha con 30 a 90 segundos de agua fría faltaron al trabajo por enfermedad un 29 % menos.[6]"],
-        ["hormesis: el estrés bueno", "la respiración y el frío son un estrés breve y dosificado. el cuerpo responde adaptándose y se vuelve más fuerte, como un músculo después del entrenamiento. la ciencia lo llama hormesis.[7] no es el estrés crónico que te desgasta, sino un estímulo corto seguido de recuperación."],
+      what: "el método wim hof se basa en tres pilares: respiración, frío y compromiso. juntos actúan sobre tu sistema nervioso, tu sistema inmunitario y tu mente.",
+      facts: [["7,75", "ph de la sangre (normal 7,35–7,45)"], ["~50 %", "oxígeno al retener el aire, ~10 s"], ["+194 %", "il-10, antiinflamatoria"], ["+250 %", "dopamina en agua fría"]],
+      pillars: [
+        ["1 · la respiración", "de 30 a 40 respiraciones profundas, inspirar a fondo, soltar el aire sin esfuerzo. luego exhalar y retener el aire mientras te sientas bien. después una inspiración profunda, sostenida 15 segundos. tres o cuatro rondas, sentado o tumbado.", [
+          ["lo que hace con tu sangre", "con cada respiración profunda exhalas dióxido de carbono. tu sangre se vuelve alcalina: en un estudio de la universidad radboud el ph subió hasta 7,75; lo normal es de 7,35 a 7,45. mientras retienes el aire, la saturación de oxígeno baja a alrededor del 50 % durante unos diez segundos y luego vuelve a subir. una falta de oxígeno breve y controlada. pocos minutos después de respirar, todo vuelve a la normalidad.[1]"],
+          ["adrenalina, como en un salto de puenting", "esta señal despierta tu sistema nervioso simpático. los participantes entrenados tenían más adrenalina en la sangre que personas medidas durante un salto de puenting.[1][2] solo que tú decides cuándo, y te mantienes en calma."],
+          ["la adrenalina frena la inflamación", "la adrenalina es un antiinflamatorio propio del cuerpo: frena el mensajero inflamatorio tnf-α e impulsa la il-10 antiinflamatoria.[3] en el estudio de radboud, 24 hombres recibieron una toxina bacteriana que normalmente provoca fiebre y síntomas de gripe. quienes habían entrenado tenían un 194 % más de il-10, un 53 % menos de tnf-α, un 57 % menos de il-6, un 51 % menos de il-8 y muchos menos síntomas.[1] un estudio posterior lo muestra: la respiración sola ya funciona; combinada con entrenamiento en frío, funciona con más fuerza.[4]"],
+        ]],
+        ["2 · el frío", "empiezas con duchas frías: primero caliente, luego 30 segundos fría, cada semana un poco más. después llega el baño de hielo. respira con calma, no luches contra el frío.", [
+          ["lo que provoca el frío", "en agua fría la dopamina sube un 250 %, la noradrenalina un 530 % y el metabolismo un 350 %.[5] la noradrenalina agudiza la concentración, la dopamina eleva el ánimo y el impulso. en un ensayo con 3.018 personas, quienes terminaban la ducha con 30 a 90 segundos de agua fría faltaron al trabajo por enfermedad un 29 % menos.[6]"],
+        ]],
+        ["3 · compromiso", "el tercer pilar es la mente: enfoque, paciencia, práctica diaria. aprendes a mantener la calma en el frío y a dirigir tu cuerpo en lugar de que él te dirija.", [
+          ["la mente dirige el cuerpo", "la universidad wayne state escaneó el cerebro de wim hof en el frío. activaba de forma deliberada la sustancia gris periacueductal, una región del tronco cerebral que atenúa el dolor. los investigadores suponen que el cuerpo libera así sus propios opioides y cannabinoides.[8]"],
+        ]],
       ],
+      why: ["por qué funciona: hormesis", "la respiración y el frío son un estrés breve y dosificado. el cuerpo responde adaptándose y se vuelve más fuerte, como un músculo después del entrenamiento. la ciencia lo llama hormesis.[7] no es el estrés crónico que te desgasta, sino un estímulo corto seguido de recuperación."],
       safe: "importante: nunca practiques la respiración en el agua o cerca de ella, conduciendo o de pie. siéntate o túmbate. si estás embarazada, tienes epilepsia, problemas cardíacos o presión alta, habla antes con tu médico.",
       src: "fuentes",
     },
     ar: {
       tag: "طريقة ويم هوف",
       lead: "تقنية تنفّس تغيّر دمك في دقائق.",
-      what: "تقوم طريقة ويم هوف على ثلاث ركائز: التنفّس والبرد والالتزام. التنفّس: من 30 إلى 40 نفَسًا عميقًا، شهيق كامل وزفير مسترخٍ. ثم ازفر واحبس نفَسك ما دام ذلك مريحًا. ثم خذ نفَسًا عميقًا واحبسه 15 ثانية. ثلاث إلى أربع جولات. هذا كل شيء، وأثره قابل للقياس.",
-      facts: [["7.75", "ph الدم (الطبيعي 7.35–7.45)"], ["~50 %", "الأكسجين أثناء حبس النفَس، ~10 ث"], ["+194 %", "il-10، مضاد للالتهاب"], ["+250 %", "الدوبامين في البرد"]],
-      blocks: [
-        ["ماذا تفعل بدمك", "مع كل نفَس عميق تُخرج ثاني أكسيد الكربون. يصبح دمك قلويًا: في دراسة بجامعة رادباود ارتفع الرقم الهيدروجيني (ph) حتى 7.75، والطبيعي من 7.35 إلى 7.45. وأثناء حبس النفَس تنخفض نسبة تشبّع الأكسجين إلى نحو 50 % لمدة عشر ثوانٍ تقريبًا ثم تعود. نقص قصير ومضبوط في الأكسجين. وبعد التنفّس بدقائق قليلة يعود كل شيء إلى طبيعته.[1]"],
-        ["أدرينالين كما في القفز بالحبل المطاطي", "هذه الإشارة توقظ جهازك العصبي الودي. كان لدى المشاركين المدرَّبين أدرينالين في الدم أكثر مما قيس لدى أشخاص أثناء القفز بالحبل المطاطي.[1][2] لكنك أنت من يقرر متى، وتبقى هادئًا."],
-        ["الأدرينالين يكبح الالتهاب", "الأدرينالين مضاد التهاب ينتجه الجسم نفسه: يكبح الناقل الالتهابي tnf-α ويحفّز il-10 المضاد للالتهاب.[3] في دراسة رادباود تلقّى 24 رجلًا سمًّا بكتيريًا يسبب عادةً الحمّى وأعراض الإنفلونزا. من مارس التنفّس كان لديه il-10 أكثر بنسبة 194 %، وtnf-α أقل بنسبة 53 %، وil-6 أقل بنسبة 57 %، وil-8 أقل بنسبة 51 %، وأعراض أقل بوضوح.[1] وتُظهر دراسة لاحقة أن التنفّس وحده يؤثر، ومع التدريب على البرد يكون الأثر أقوى.[4]"],
-        ["البرد: الدوبامين", "ساعة في ماء بدرجة 14 °م رفعت الدوبامين بنسبة 250 %، والنورأدرينالين بنسبة 530 %، والأيض بنسبة 350 %.[5] النورأدرينالين يشحذ التركيز، والدوبامين يرفع المزاج والدافع. وفي تجربة شملت 3018 شخصًا، تغيّب من أنهوا استحمامهم بماء بارد لمدة 30 إلى 90 ثانية عن العمل بسبب المرض أقل بنسبة 29 %.[6]"],
-        ["الهورميسيس: الإجهاد الجيد", "التنفّس والبرد إجهاد قصير ومحسوب. يردّ الجسم بالتكيّف ويصبح أقوى، كالعضلة بعد التمرين. يسمّي العلم ذلك الهورميسيس.[7] ليس إجهادًا مزمنًا يستنزفك، بل محفّز قصير تليه راحة."],
+      what: "تقوم طريقة ويم هوف على ثلاث ركائز: التنفّس والبرد والالتزام. معًا تؤثر في جهازك العصبي وجهازك المناعي وذهنك.",
+      facts: [["7.75", "ph الدم (الطبيعي 7.35–7.45)"], ["~50 %", "الأكسجين أثناء حبس النفَس، ~10 ث"], ["+194 %", "il-10، مضاد للالتهاب"], ["+250 %", "الدوبامين في الماء البارد"]],
+      pillars: [
+        ["1 · التنفّس", "من 30 إلى 40 نفَسًا عميقًا، شهيق كامل وزفير مسترخٍ. ثم ازفر واحبس نفَسك ما دام ذلك مريحًا. ثم خذ نفَسًا عميقًا واحبسه 15 ثانية. ثلاث إلى أربع جولات، جالسًا أو مستلقيًا.", [
+          ["ماذا يفعل بدمك", "مع كل نفَس عميق تُخرج ثاني أكسيد الكربون. يصبح دمك قلويًا: في دراسة بجامعة رادباود ارتفع الرقم الهيدروجيني (ph) حتى 7.75، والطبيعي من 7.35 إلى 7.45. وأثناء حبس النفَس تنخفض نسبة تشبّع الأكسجين إلى نحو 50 % لمدة عشر ثوانٍ تقريبًا ثم تعود. نقص قصير ومضبوط في الأكسجين. وبعد التنفّس بدقائق قليلة يعود كل شيء إلى طبيعته.[1]"],
+          ["أدرينالين كما في القفز بالحبل المطاطي", "هذه الإشارة توقظ جهازك العصبي الودي. كان لدى المشاركين المدرَّبين أدرينالين في الدم أكثر مما قيس لدى أشخاص أثناء القفز بالحبل المطاطي.[1][2] لكنك أنت من يقرر متى، وتبقى هادئًا."],
+          ["الأدرينالين يكبح الالتهاب", "الأدرينالين مضاد التهاب ينتجه الجسم نفسه: يكبح الناقل الالتهابي tnf-α ويحفّز il-10 المضاد للالتهاب.[3] في دراسة رادباود تلقّى 24 رجلًا سمًّا بكتيريًا يسبب عادةً الحمّى وأعراض الإنفلونزا. من تدرّب كان لديه il-10 أكثر بنسبة 194 %، وtnf-α أقل بنسبة 53 %، وil-6 أقل بنسبة 57 %، وil-8 أقل بنسبة 51 %، وأعراض أقل بوضوح.[1] وتُظهر دراسة لاحقة أن التنفّس وحده يؤثر، ومع التدريب على البرد يكون الأثر أقوى.[4]"],
+        ]],
+        ["2 · البرد", "تبدأ بالاستحمام بالماء البارد: دافئ أولًا، ثم 30 ثانية بارد، وأطول قليلًا كل أسبوع. ثم يأتي حمّام الثلج. تنفّس بهدوء ولا تقاوم البرد.", [
+          ["ماذا يُطلق البرد", "في الماء البارد يرتفع الدوبامين بنسبة 250 %، والنورأدرينالين بنسبة 530 %، والأيض بنسبة 350 %.[5] النورأدرينالين يشحذ التركيز، والدوبامين يرفع المزاج والدافع. وفي تجربة شملت 3018 شخصًا، تغيّب من أنهوا استحمامهم بماء بارد لمدة 30 إلى 90 ثانية عن العمل بسبب المرض أقل بنسبة 29 %.[6]"],
+        ]],
+        ["3 · الالتزام", "الركيزة الثالثة هي الذهن: التركيز والصبر والممارسة كل يوم. تتعلّم أن تبقى هادئًا في البرد وأن توجّه جسدك بدل أن يوجّهك.", [
+          ["الذهن يقود الجسد", "صوّرت جامعة واين ستيت دماغ ويم هوف في البرد. كان ينشّط عمدًا المادة الرمادية حول المسال، وهي منطقة في جذع الدماغ تخفّف الألم. ويرجّح الباحثون أن الجسم يطلق عندها مواده الأفيونية والقنّبينية الذاتية.[8]"],
+        ]],
       ],
+      why: ["لماذا ينجح: الهورميسيس", "التنفّس والبرد إجهاد قصير ومحسوب. يردّ الجسم بالتكيّف ويصبح أقوى، كالعضلة بعد التمرين. يسمّي العلم ذلك الهورميسيس.[7] ليس إجهادًا مزمنًا يستنزفك، بل محفّز قصير تليه راحة."],
       safe: "مهم: لا تمارس التنفّس أبدًا في الماء أو بالقرب منه، أو أثناء القيادة، أو وأنت واقف. اجلس أو استلقِ. إذا كنتِ حاملًا أو لديك صرع أو مشكلات في القلب أو ارتفاع في ضغط الدم، فاستشر طبيبك أولًا.",
       src: "المصادر",
     },
     ru: {
       tag: "метод вима хофа",
       lead: "дыхательная техника, которая меняет твою кровь за минуты.",
-      what: "метод вима хофа стоит на трёх опорах: дыхание, холод и настрой. дыхание: 30–40 глубоких вдохов, полный вдох, свободный выдох. затем выдохни и задержи дыхание, пока это комфортно. потом один глубокий вдох и задержка на 15 секунд. три-четыре раунда. вот и всё, а эффект можно измерить.",
-      facts: [["7,75", "ph крови (норма 7,35–7,45)"], ["~50 %", "кислород при задержке дыхания, ~10 с"], ["+194 %", "il-10, противовоспалительный"], ["+250 %", "дофамин в холоде"]],
-      blocks: [
-        ["что она делает с твоей кровью", "с каждым глубоким вдохом ты выдыхаешь углекислый газ. кровь становится щелочной: в исследовании университета радбауд ph поднимался до 7,75, норма 7,35–7,45. пока ты задерживаешь дыхание, насыщение крови кислородом примерно на десять секунд падает до 50 %, затем восстанавливается. короткая, контролируемая нехватка кислорода. через несколько минут после дыхания всё возвращается к норме.[1]"],
-        ["адреналин, как при прыжке с тарзанки", "этот сигнал будит твою симпатическую нервную систему. у тренированных участников адреналина в крови было больше, чем у людей, которых измеряли при прыжке с тарзанки.[1][2] только ты сам решаешь когда и остаёшься спокойным."],
-        ["адреналин гасит воспаление", "адреналин: собственное противовоспалительное средство организма. он тормозит воспалительный сигнал tnf-α и усиливает противовоспалительный il-10.[3] в исследовании радбауда 24 мужчинам ввели бактериальный токсин, который обычно вызывает жар и симптомы гриппа. у тех, кто дышал, il-10 был на 194 % выше, tnf-α на 53 % ниже, il-6 на 57 % ниже, il-8 на 51 % ниже, а симптомов заметно меньше.[1] последующее исследование показывает: уже одно дыхание действует, а вместе с тренировкой холодом сильнее всего.[4]"],
-        ["холод: дофамин", "час в воде температурой 14 °c повысил дофамин на 250 %, норадреналин на 530 %, обмен веществ на 350 %.[5] норадреналин обостряет концентрацию, дофамин поднимает настроение и мотивацию. в исследовании с 3018 участниками те, кто заканчивал душ 30–90 секундами холодной воды, брали больничный на 29 % реже.[6]"],
-        ["гормезис: хороший стресс", "дыхание и холод: короткий, дозированный стресс. организм отвечает адаптацией и становится сильнее, как мышца после тренировки. наука называет это гормезисом.[7] не хронический стресс, который тебя изматывает, а короткий стимул и затем восстановление."],
+      what: "метод вима хофа стоит на трёх опорах: дыхание, холод и настрой. вместе они действуют на нервную систему, иммунитет и голову.",
+      facts: [["7,75", "ph крови (норма 7,35–7,45)"], ["~50 %", "кислород при задержке дыхания, ~10 с"], ["+194 %", "il-10, противовоспалительный"], ["+250 %", "дофамин в холодной воде"]],
+      pillars: [
+        ["1 · дыхание", "30–40 глубоких вдохов, полный вдох, свободный выдох. затем выдохни и задержи дыхание, пока это комфортно. потом один глубокий вдох и задержка на 15 секунд. три-четыре раунда, сидя или лёжа.", [
+          ["что оно делает с твоей кровью", "с каждым глубоким вдохом ты выдыхаешь углекислый газ. кровь становится щелочной: в исследовании университета радбауд ph поднимался до 7,75, норма 7,35–7,45. пока ты задерживаешь дыхание, насыщение крови кислородом примерно на десять секунд падает до 50 %, затем восстанавливается. короткая, контролируемая нехватка кислорода. через несколько минут после дыхания всё возвращается к норме.[1]"],
+          ["адреналин, как при прыжке с тарзанки", "этот сигнал будит твою симпатическую нервную систему. у тренированных участников адреналина в крови было больше, чем у людей, которых измеряли при прыжке с тарзанки.[1][2] только ты сам решаешь когда и остаёшься спокойным."],
+          ["адреналин гасит воспаление", "адреналин: собственное противовоспалительное средство организма. он тормозит воспалительный сигнал tnf-α и усиливает противовоспалительный il-10.[3] в исследовании радбауда 24 мужчинам ввели бактериальный токсин, который обычно вызывает жар и симптомы гриппа. у тех, кто тренировался, il-10 был на 194 % выше, tnf-α на 53 % ниже, il-6 на 57 % ниже, il-8 на 51 % ниже, а симптомов заметно меньше.[1] последующее исследование показывает: уже одно дыхание действует, а вместе с тренировкой холодом сильнее всего.[4]"],
+        ]],
+        ["2 · холод", "начинаешь с холодного душа: сначала тёплый, потом 30 секунд холодный, каждую неделю немного дольше. потом ледяная ванна. дыши спокойно, не борись с холодом.", [
+          ["что запускает холод", "в холодной воде дофамин растёт на 250 %, норадреналин на 530 %, обмен веществ на 350 %.[5] норадреналин обостряет концентрацию, дофамин поднимает настроение и мотивацию. в исследовании с 3018 участниками те, кто заканчивал душ 30–90 секундами холодной воды, брали больничный на 29 % реже.[6]"],
+        ]],
+        ["3 · настрой", "третья опора: голова. фокус, терпение, практика каждый день. ты учишься оставаться спокойным в холоде и управлять телом, а не позволять ему управлять тобой.", [
+          ["голова управляет телом", "университет уэйна сканировал мозг вима хофа в холоде. он намеренно активировал околоводопроводное серое вещество, область ствола мозга, которая приглушает боль. исследователи предполагают, что организм при этом выделяет собственные опиоиды и каннабиноиды.[8]"],
+        ]],
       ],
+      why: ["почему это работает: гормезис", "дыхание и холод: короткий, дозированный стресс. организм отвечает адаптацией и становится сильнее, как мышца после тренировки. наука называет это гормезисом.[7] не хронический стресс, который тебя изматывает, а короткий стимул и затем восстановление."],
       safe: "важно: никогда не практикуй дыхание в воде или рядом с ней, за рулём или стоя. сядь или ляг. если ты беременна, у тебя эпилепсия, проблемы с сердцем или высокое давление, сначала поговори с врачом.",
       src: "источники",
     },
@@ -186,6 +228,7 @@
     ["Šrámek P, et al. Human physiological responses to immersion into water of different temperatures. Eur J Appl Physiol 2000;81(5):436–42.", "https://pubmed.ncbi.nlm.nih.gov/10751106/"],
     ["Buijze GA, et al. The effect of cold showering on health and work: a randomized controlled trial. PLoS One 2016;11(9):e0161749.", "https://doi.org/10.1371/journal.pone.0161749"],
     ["Mattson MP. Hormesis defined. Ageing Res Rev 2008;7(1):1–7.", "https://doi.org/10.1016/j.arr.2007.08.007"],
+    ["Muzik O, Reilly KT, Diwadkar VA. \"Brain over body\": a study on the willful regulation of autonomic function during cold exposure. NeuroImage 2018;172:632–41.", "https://doi.org/10.1016/j.neuroimage.2018.01.067"],
   ];
   // about paul, under the sign-up: the wim hof texts of brinkmannpaul.com and paul's own story
   const ABOUT = {
@@ -370,10 +413,11 @@
       el("p", { class: "lead" }, w.lead),
       el("p", {}, w.what),
       el("dl", { class: "facts" }, w.facts.map(([n, label]) => el("div", {}, el("dt", { dir: "ltr" }, n), el("dd", {}, label)))),
-      w.blocks.map(([h, text]) => [el("h2", {}, h), el("p", {}, cite(text))]),
+      w.pillars.map(([h, how, parts]) => [el("h3", { class: "pillar" }, h), el("p", {}, how), parts.map(([ph, text]) => [el("h2", {}, ph), el("p", {}, cite(text))])]),
+      el("h2", { class: "why" }, w.why[0]), el("p", {}, cite(w.why[1])),
       el("p", { class: "fine safe" }, w.safe),
       el("h2", {}, w.src),
-      el("ol", { class: "src", dir: "ltr" }, SOURCES.map(([ref, url], i) => el("li", { id: "src-" + (i + 1) }, ref + " ", el("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, url.replace(/^https:\/\/(www\.)?/, "")))))].flat(2));
+      el("ol", { class: "src", dir: "ltr" }, SOURCES.map(([ref, url], i) => el("li", { id: "src-" + (i + 1) }, ref + " ", el("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, url.replace(/^https:\/\/(www\.)?/, "")))))].flat(4));
   }
 
   // ---------- about paul ----------
