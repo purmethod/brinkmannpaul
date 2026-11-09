@@ -33,6 +33,9 @@
     li .when { display: block; font-size: 12px; color: var(--ink3); }
     .empty { padding: 10px 0; color: var(--ink3); font-size: 14px; border-bottom: 1px solid var(--line); }
     .bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    li .bar { margin-top: 0; }
+    a.ghost { color: var(--ink); text-decoration: none; }
+    h3.wl { font-size: 12px; font-weight: 400; letter-spacing: .08em; color: var(--ink3); margin: 22px 0 8px; }
   </style>
 </head>
 <body>
@@ -91,10 +94,24 @@
           for (const p of s.people) list.append(el("li", {},
             el("span", {}, el("span", { class: "who" }, p.name), el("span", { class: "when" }, "angemeldet " + fmt(p.joined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) + (p.price ? " · " + p.price + " dinar" : ""))),
             el("button", { class: "ghost", type: "button", onclick: () => remove(p) }, "austragen")));
+          // the waiting list: whoever is first hears first, by whatsapp
+          const waiting = s.waiting || [];
+          const wl = el("ol");
+          for (const p of waiting) {
+            const digits = String(p.phone || "").replace(/\D/g, "");
+            const text = "hallo " + p.name + ", bei foyo club ist ein platz frei geworden. möchtest du kommen?";
+            wl.append(el("li", {},
+              el("span", {}, el("span", { class: "who" }, p.name), el("span", { class: "when" }, (p.phone || "") + " · eingetragen " + fmt(p.joined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }))),
+              el("span", { class: "bar" },
+                digits ? el("a", { class: "ghost", href: "https://wa.me/" + digits + "?text=" + encodeURIComponent(text), target: "_blank", rel: "noopener" }, "whatsapp") : null,
+                el("button", { class: "ghost", type: "button", onclick: () => remove(p) }, "austragen"))));
+          }
           box.append(el("section", { class: "session" },
             el("h2", {}, sessionTitle(s) + (s.test ? " · test" : "")),
-            el("p", { class: "count" }, (s.place ? s.place + " · " : "") + s.people.length + " von " + d.places + " plätzen belegt"),
-            list));
+            el("p", { class: "count" }, (s.place ? s.place + " · " : "") + s.people.length + " von " + d.places + " plätzen belegt" + (waiting.length ? " · " + waiting.length + " auf der warteliste" : "")),
+            list,
+            waiting.length ? el("h3", { class: "wl" }, "warteliste") : null,
+            waiting.length ? wl : null));
         }
       } catch (e) {
         if (e.code === 401) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "das passwort stimmt nicht."; $("lerr").hidden = false; return; }
@@ -102,7 +119,7 @@
       }
     }
     async function remove(p) {
-      if (!confirm(p.name + " austragen? der platz wird wieder frei.")) return;
+      if (!confirm(p.name + (p.wait ? " von der warteliste nehmen?" : " austragen? der platz wird wieder frei."))) return;
       try { await api("POST", { remove: p.id }); load(); } catch { $("err").textContent = "das hat nicht geklappt."; $("err").hidden = false; }
     }
     $("login").addEventListener("submit", (e) => {

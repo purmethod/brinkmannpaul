@@ -52,8 +52,9 @@ async function people() {
     const list = await stripe("GET", "customers", { limit: 100, starting_after: after, created: { gte: since } });
     for (const c of list.data || []) {
       const m = c.metadata || {};
-      if (!m.soma) continue;
-      (by[m.soma] = by[m.soma] || []).push({ id: c.id, name: c.name || "", price: m.price || "", joined: new Date(c.created * 1000).toISOString() });
+      const id = m.soma || m.soma_wait;
+      if (!id) continue;
+      (by[id] = by[id] || []).push({ id: c.id, name: c.name || "", price: m.price || "", wait: Boolean(m.soma_wait), phone: m.soma_wait ? m.phone || c.phone || "" : "", joined: new Date(c.created * 1000).toISOString() });
     }
     if (!list.has_more || !list.data.length) break;
     after = list.data[list.data.length - 1].id;
@@ -79,8 +80,8 @@ module.exports = async (req, res) => {
         const known = SESSIONS.map((s) => s.id);
         const ids = [...SESSIONS.map((s) => s.id), "next", ...Object.keys(by).filter((id) => !known.includes(id) && id !== "next")];
         const sessions = ids
-          .map((id) => { const s = SESSIONS.find((x) => x.id === id) || { id, when: "", place: "" }; return { id, when: s.when, place: s.place, test: Boolean(s.test), people: (by[id] || []).sort((x, y) => x.joined.localeCompare(y.joined)) }; })
-          .filter((s) => s.people.length || (!s.test && s.id !== "next" && SESSIONS.includes(SESSIONS.find((x) => x.id === s.id)) && (!s.when || ends(s) > now())));
+          .map((id) => { const s = SESSIONS.find((x) => x.id === id) || { id, when: "", place: "" }; return { id, when: s.when, place: s.place, test: Boolean(s.test), people: (by[id] || []).filter((p) => !p.wait).sort((x, y) => x.joined.localeCompare(y.joined)), waiting: (by[id] || []).filter((p) => p.wait).sort((x, y) => x.joined.localeCompare(y.joined)) }; })
+          .filter((s) => s.people.length || s.waiting.length || (!s.test && s.id !== "next" && SESSIONS.includes(SESSIONS.find((x) => x.id === s.id)) && (!s.when || ends(s) > now())));
         return res.status(200).json({ sessions, places: PLACES });
       }
       let body = req.body || {};
@@ -88,7 +89,7 @@ module.exports = async (req, res) => {
       const id = String(body.remove || "");
       if (!/^cus_[A-Za-z0-9]+$/.test(id)) return res.status(400).json({ error: "invalid" });
       const c = await stripe("GET", `customers/${id}`).catch(() => null);
-      if (c && !c.deleted && c.metadata && c.metadata.soma) await stripe("DELETE", `customers/${id}`);
+      if (c && !c.deleted && c.metadata && (c.metadata.soma || c.metadata.soma_wait)) await stripe("DELETE", `customers/${id}`);
       return res.status(200).json({ ok: true });
     } catch (err) {
       console.error("soma admin", err.status, err.message);
@@ -112,7 +113,7 @@ module.exports = async (req, res) => {
       const id = String(body.cancel);
       if (!/^cus_[A-Za-z0-9]+$/.test(id)) return res.status(400).json({ error: "invalid" });
       const c = await stripe("GET", `customers/${id}`).catch(() => null);
-      if (c && !c.deleted && c.metadata && c.metadata.soma) await stripe("DELETE", `customers/${id}`);
+      if (c && !c.deleted && c.metadata && (c.metadata.soma || c.metadata.soma_wait)) await stripe("DELETE", `customers/${id}`);
       return res.status(200).json({ ok: true });
     }
 
@@ -121,7 +122,19 @@ module.exports = async (req, res) => {
     const s = listed(true).find((x) => x.id === body.session);
     if (!s) return res.status(400).json({ error: "session" });
     const taken = (await counts())[s.id] || 0;
-    if (taken >= PLACES) return res.status(409).json({ error: "full" });
+    if (taken >= PLACES) {
+      // full: never a no. with a whatsapp number, a person goes on the waiting list and hears when a place frees up
+      if (!body.wait) return res.status(409).json({ error: "full" });
+      const phone = String(body.phone || "").replace(/[^\d+ ]/g, "").trim().slice(0, 24);
+      if (phone.replace(/\D/g, "").length < 6) return res.status(400).json({ error: "phone" });
+      const w = await stripe("POST", "customers", {
+        name,
+        phone,
+        description: `foyo club · waiting list · ${s.when || "next session"}`,
+        metadata: { soma_wait: s.id, when: s.when, phone, joined: new Date().toISOString().slice(0, 10), source: "myfoyo.com" },
+      });
+      return res.status(200).json({ ok: true, id: w.id, waitlist: true, session: s.id, when: s.when, place: s.place, map: s.map || "" });
+    }
     const price = priceFor(taken); // the price of this place, kept with the sign-up
     const c = await stripe("POST", "customers", {
       name,
