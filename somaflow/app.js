@@ -224,6 +224,13 @@
     document.getElementById("top").scrollIntoView({ behavior: still ? "auto" : "smooth" });
   });
 
+  // bring the start of the page (the thank-you, after signing up) right under the sticky header
+  function showBook() {
+    const nav = document.getElementById("top");
+    const y = app.getBoundingClientRect().top + window.scrollY - (nav ? nav.offsetHeight : 0);
+    window.scrollTo({ top: Math.max(0, y), behavior: still ? "auto" : "smooth" });
+  }
+
   // ---------- language ----------
   function setLang(l) {
     st.lang = l;
@@ -358,7 +365,7 @@
       store.set({ ...store.get(), booking: st.booking });
       render();
       app.focus({ preventScroll: true });
-      document.getElementById("top").scrollIntoView();
+      showBook();
     } catch { st.busy = false; st.error = t("errAny"); render(); }
   }
 
