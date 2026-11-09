@@ -94,7 +94,8 @@
     "s3": "what i discovered, i want to give to everyone. i want to show people that it also works without medication.",
     "s4": "i am not against conventional medicine, not against medication. but we have to understand that we need to combine them: healing does not come from medication alone. you have to take your health into your own hands.",
     "s5": "and how that works, i show you in my courses. i give you the key, i show you the door and how to walk through it. walking through is up to you. but the guidance, how it works, i show you.",
-    "fin": "with the right food, breath and cold i healed myself, freed myself from pain and got moving again. and you can too."
+    "fin": "with the right food, breath and cold i healed myself, freed myself from pain and got moving again. and you can too.",
+    "kefir": "in my breathing sessions i give you real kefir. we have breakfast together: oats, nuts, flaxseed, fruit of the season and kefir. it supports the microbiome. included: you can take the kefir home. if you want it, bring a new, unopened pack of whole milk."
    },
    "de": {
     "tag": "über paul",
@@ -105,7 +106,8 @@
     "s3": "was ich entdeckt habe, möchte ich allen menschen zur verfügung stellen. ich möchte zeigen, dass es auch ohne medikamente geht.",
     "s4": "ich bin nicht gegen die schulmedizin, nicht gegen medikamente. aber wir müssen verstehen, dass wir beides kombinieren müssen: heilung entsteht nicht nur durch medikamente. du musst deine gesundheit selbst in die hand nehmen.",
     "s5": "und wie das geht, zeige ich dir in meinen kursen. ich gebe dir den schlüssel, ich zeige dir die tür und wie du hindurchgehst. hindurchgehen musst du selbst. aber die anleitung, wie es funktioniert, die zeige ich dir.",
-    "fin": "mit der richtigen ernährung, mit atem und kälte habe ich mich selbst kuriert, mich von schmerzen befreit und bin wieder in bewegung gekommen. und das kannst du auch."
+    "fin": "mit der richtigen ernährung, mit atem und kälte habe ich mich selbst kuriert, mich von schmerzen befreit und bin wieder in bewegung gekommen. und das kannst du auch.",
+    "kefir": "in meinen breathing sessions gebe ich dir echten kefir mit. wir frühstücken gemeinsam: haferflocken, nüsse, leinsamen, früchte der saison und kefir. das unterstützt das mikrobiom. inklusive: du kannst den kefir mitnehmen. wenn du kefir möchtest, bring eine neue, ungeöffnete packung vollmilch mit."
    },
    "fr": {
     "tag": "à propos de paul",
@@ -116,7 +118,8 @@
     "s3": "ce que j'ai découvert, je veux le mettre à la disposition de tous. je veux montrer que c'est possible aussi sans médicaments.",
     "s4": "je ne suis pas contre la médecine conventionnelle, ni contre les médicaments. mais nous devons comprendre qu'il faut les combiner : la guérison ne vient pas seulement des médicaments. tu dois prendre ta santé en main.",
     "s5": "et comment faire, je te le montre dans mes cours. je te donne la clé, je te montre la porte et comment la franchir. la franchir, c'est à toi. mais le mode d'emploi, je te le montre.",
-    "fin": "avec la bonne alimentation, la respiration et le froid, je me suis guéri moi-même, libéré de la douleur et je me suis remis en mouvement. et tu peux le faire aussi."
+    "fin": "avec la bonne alimentation, la respiration et le froid, je me suis guéri moi-même, libéré de la douleur et je me suis remis en mouvement. et tu peux le faire aussi.",
+    "kefir": "dans mes séances de respiration, je te donne du vrai kéfir. nous prenons le petit-déjeuner ensemble : flocons d'avoine, noix, graines de lin, fruits de saison et kéfir. cela soutient le microbiome. inclus : tu peux emporter le kéfir. si tu en veux, apporte une brique de lait entier neuve et non ouverte."
    },
    "es": {
     "tag": "sobre paul",
@@ -127,7 +130,8 @@
     "s3": "lo que descubrí quiero ponerlo al alcance de todos. quiero mostrar que también es posible sin medicamentos.",
     "s4": "no estoy en contra de la medicina convencional ni de los medicamentos. pero tenemos que entender que hay que combinarlos: la curación no viene solo de los medicamentos. tienes que tomar tu salud en tus manos.",
     "s5": "y cómo se hace, te lo muestro en mis cursos. te doy la llave, te muestro la puerta y cómo cruzarla. cruzarla te toca a ti. pero las instrucciones de cómo funciona, esas te las muestro.",
-    "fin": "con la alimentación adecuada, la respiración y el frío me curé a mí mismo, me liberé del dolor y volví a moverme. y tú también puedes."
+    "fin": "con la alimentación adecuada, la respiración y el frío me curé a mí mismo, me liberé del dolor y volví a moverme. y tú también puedes.",
+    "kefir": "en mis sesiones de respiración te doy kéfir de verdad. desayunamos juntos: copos de avena, frutos secos, linaza, fruta de temporada y kéfir. eso apoya el microbioma. incluido: puedes llevarte el kéfir. si lo quieres, trae un brik de leche entera nuevo y sin abrir."
    },
    "ar": {
     "tag": "عن paul",
@@ -138,7 +142,8 @@
     "s3": "ما اكتشفته أريد أن أضعه في متناول الجميع. أريد أن أُري الناس أن الأمر ممكن أيضًا من دون أدوية.",
     "s4": "لست ضد الطب التقليدي ولا ضد الأدوية. لكن علينا أن نفهم أننا نحتاج إلى الجمع بينهما: الشفاء لا يأتي من الأدوية وحدها. عليك أن تأخذ صحتك بيدك.",
     "s5": "وكيف يكون ذلك، أريك إياه في دوراتي. أعطيك المفتاح، وأريك الباب وكيف تعبره. العبور عليك أنت. لكن الطريقة، كيف يعمل ذلك، أريك إياها.",
-    "fin": "بالتغذية الصحيحة والتنفّس والبرد شفيت نفسي، وتحرّرت من الألم، وعدت إلى الحركة. وأنت تستطيع ذلك أيضًا."
+    "fin": "بالتغذية الصحيحة والتنفّس والبرد شفيت نفسي، وتحرّرت من الألم، وعدت إلى الحركة. وأنت تستطيع ذلك أيضًا.",
+    "kefir": "في جلسات التنفّس أعطيك كفيرًا حقيقيًا. نتناول الفطور معًا: شوفان، مكسرات، بذور الكتان، فواكه الموسم والكفير. هذا يدعم الميكروبيوم. مشمول: يمكنك أن تأخذ الكفير معك. إذا أردته، أحضر علبة حليب كامل الدسم جديدة ومغلقة."
    },
    "ru": {
     "tag": "о paul",
@@ -149,9 +154,11 @@
     "s3": "то, что я открыл, я хочу сделать доступным для всех. я хочу показать, что это возможно и без лекарств.",
     "s4": "я не против традиционной медицины и не против лекарств. но нужно понять, что их надо сочетать: исцеление приходит не только от лекарств. своё здоровье нужно взять в свои руки.",
     "s5": "а как это сделать, я показываю на своих курсах. я даю тебе ключ, показываю дверь и как через неё пройти. пройти через неё можешь только ты. но инструкцию, как это работает, я тебе покажу.",
-    "fin": "правильным питанием, дыханием и холодом я вылечил себя сам, избавился от боли и снова начал двигаться. и ты тоже сможешь."
+    "fin": "правильным питанием, дыханием и холодом я вылечил себя сам, избавился от боли и снова начал двигаться. и ты тоже сможешь.",
+    "kefir": "на своих дыхательных сессиях я даю тебе настоящий кефир. мы завтракаем вместе: овсяные хлопья, орехи, льняное семя, сезонные фрукты и кефир. это поддерживает микробиом. включено: кефир можно забрать с собой. если хочешь, принеси новый, закрытый пакет цельного молока."
    }
   };
+
 
 
   const LANGS = Object.keys(T);
@@ -267,6 +274,8 @@
       el("p", {}, a.s5),
       photo("/photos/foyo-old-climb.webp?v=2", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", {}, a.fin),
+      photo("/photos/foyo-kefir.webp", "a bowl of homemade kefir with pomegranate above the sea of sidi bou said"),
+      el("p", {}, a.kefir),
       photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
 
@@ -285,8 +294,6 @@
       el("h2", {}, t("retreat")),
       el("p", {}, t("invite")),
       el("ul", { class: "rules offer" }, (T[st.lang].items || T.en.items).map((x) => el("li", {}, x.split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))))),
-      // the breakfast with real homemade kefir, above sidi bou said
-      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: "/photos/foyo-kefir.webp", alt: "a bowl of homemade kefir with pomegranate above the sea of sidi bou said", width: "720", height: "720", loading: "lazy", decoding: "async" }))),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
