@@ -258,7 +258,7 @@
       el("p", {}, a.s4),
       photo("/photos/foyo-trail.webp", "paul leading a group bare-chested along a forest trail"),
       el("p", {}, a.s5),
-      photo("/photos/foyo-old-climb.webp", "a line of people walking bare-chested through the snow on a mountain path"),
+      photo("/photos/foyo-old-climb.webp?v=2", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", { class: "lead fin" }, a.fin),
       photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
