@@ -5,6 +5,7 @@
 // back to. A product with "shipping": false (the weekend) is not shipped, so no
 // address is asked; a product with dates sells only the places a date has left.
 const { stripe } = require("./_stripe");
+const { limited, note, ipOf } = require("./_limit");
 const shop = require("../shop.json");
 const { placesLeft } = require("./_places");
 
@@ -15,6 +16,10 @@ module.exports = async (req, res) => {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
+  // a person orders or signs up a few times, a bot hundreds: 20 per address and hour
+  const ip = ipOf(req);
+  if (limited("checkout", ip, 20, 3600000)) return res.status(429).json({ error: "Too many requests" });
+  note("checkout", ip, 3600000);
   let body = req.body || {};
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { body = {}; }

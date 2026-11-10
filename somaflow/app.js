@@ -1,6 +1,6 @@
 // foyo club (forever young): the videos open the page, a tap or a scroll leads to the sessions,
 // a name reserves one place (max 15), the thank-you page holds the whatsapp group and the cancel button.
-// vanilla, no dependencies. sessions and places come from /api/soma.
+// vanilla, no dependencies. sessions and places come from brinkmannpaul.com/api/soma.
 (function () {
   "use strict";
   const FEW = 3; // from this many free places on, the page says "only n places left"
@@ -312,7 +312,8 @@
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
   const IG = "https://www.instagram.com/foyoclub/";
-  const API = "/api/soma" + (TEST ? "?test=1" : "");
+  // straight to brinkmannpaul.com (not through a myfoyo.com rewrite), so the sign-up limit sees each visitor
+  const API = "https://brinkmannpaul.com/api/soma" + (TEST ? "?test=1" : "");
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } },
     set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch { /* private mode */ } },

@@ -10,6 +10,13 @@
 const crypto = require("crypto");
 const { stripe } = require("./_stripe");
 const { SESSIONS, PLACES, GROUP, PRICES, priceFor } = require("./_soma");
+const { limited, note, clear, ipOf } = require("./_limit");
+
+// myfoyo.com calls this api directly, so the limits below see each visitor's own address
+const ORIGINS = ["https://myfoyo.com", "https://www.myfoyo.com"];
+const MIN = 60 * 1000;
+const LOCK = 15 * MIN; // after 5 wrong admin passwords, that address is locked for 15 minutes
+const HOUR = 60 * MIN;
 
 const now = () => new Date().toISOString().slice(0, 16);
 // a date without a time stays open through that day
@@ -72,8 +79,23 @@ function admin(req) {
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
+  const origin = req.headers.origin;
+  if (ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-soma-key");
+    res.setHeader("Access-Control-Max-Age", "600");
+  }
+  res.setHeader("Vary", "Origin");
+  if (req.method === "OPTIONS") return res.status(204).end();
+  const ip = ipOf(req);
   if (req.headers["x-soma-key"] !== undefined) {
-    if (!admin(req)) return res.status(401).json({ error: "key" });
+    if (limited("admin", ip, 5, LOCK)) return res.status(429).json({ error: "locked" });
+    if (!admin(req)) {
+      note("admin", ip, LOCK);
+      return res.status(401).json({ error: "key" });
+    }
+    clear("admin", ip);
     try {
       if (req.method === "GET") {
         const by = await people();
@@ -110,6 +132,8 @@ module.exports = async (req, res) => {
     if (body.company) return res.status(200).json({ ok: true }); // a field people never see: bots fill it in
 
     if (body.cancel) {
+      if (limited("cancel", ip, 20, HOUR)) return res.status(429).json({ error: "busy" });
+      note("cancel", ip, HOUR);
       const id = String(body.cancel);
       if (!/^cus_[A-Za-z0-9]+$/.test(id)) return res.status(400).json({ error: "invalid" });
       const c = await stripe("GET", `customers/${id}`).catch(() => null);
@@ -118,7 +142,10 @@ module.exports = async (req, res) => {
     }
 
     const name = String(body.name || "").replace(/\s+/g, " ").trim().slice(0, 60);
-    if (name.length < 2) return res.status(400).json({ error: "name" });
+    if (name.length < 2 || /https?:|www\.|[<>]/i.test(name)) return res.status(400).json({ error: "name" });
+    // a person signs up, maybe a friend too, not a bot filling every place: 5 per address and hour,
+    // and no more than 30 sign-ups in 10 minutes from anyone
+    if (limited("join", ip, 5, HOUR) || limited("join-all", "all", 30, 10 * MIN)) return res.status(429).json({ error: "busy" });
     const s = listed(true).find((x) => x.id === body.session);
     if (!s) return res.status(400).json({ error: "session" });
     const taken = (await counts())[s.id] || 0;
@@ -127,6 +154,7 @@ module.exports = async (req, res) => {
       if (!body.wait) return res.status(409).json({ error: "full" });
       const phone = String(body.phone || "").replace(/[^\d+ ]/g, "").trim().slice(0, 24);
       if (phone.replace(/\D/g, "").length < 6) return res.status(400).json({ error: "phone" });
+      note("join", ip, HOUR); note("join-all", "all", 10 * MIN);
       const w = await stripe("POST", "customers", {
         name,
         phone,
@@ -136,6 +164,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({ ok: true, id: w.id, waitlist: true, session: s.id, when: s.when, place: s.place, map: s.map || "" });
     }
     const price = priceFor(taken); // the price of this place, kept with the sign-up
+    note("join", ip, HOUR); note("join-all", "all", 10 * MIN);
     const c = await stripe("POST", "customers", {
       name,
       description: `foyo club · ${s.when || "next session"}${s.place ? " · " + s.place : ""}`,
