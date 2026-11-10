@@ -1004,3 +1004,9 @@ Paul: Beim Reinscrollen wiederholt sich die Synapse. Gewünscht ist ein immer ti
 
 - „cyclemaxing for women, men and couples.“ wird zur einzigen Einleitungsüberschrift der Cyclemax-Rubrik. Vorherige Überschrift entfällt; vorhandene Übersetzungen verwendet.
 - Nur sechs generierte Startseiten und Dokumentation geändert. Unabhängiger Quelltextreview und HTTP-Abgleich nach Veröffentlichung; keine zusätzlichen Browser-/Laufzeittests im Sparmodus.
+
+## Issue #279 — Blueprint: ein Gratis-Code, ein Buch, nirgends im Klartext (2026-11-10)
+
+- Pauls Gratis-Codes schreiben je genau ein Buch. Neu: `dist/api/blueprint-code.js` (`check` vor dem Schreiben, `claim` nach dem Buch; ein gescheitertes Buch zählt nicht). Vercel hält nur einen scrypt-Fingerabdruck (`BLUEPRINT_CODE_HASHES`), ein eingelöster Code wird auf einem archivierten Stripe-Produkt markiert. Kein Schreibrecht in Stripe heißt: kein Gratis-Buch. Zehn falsche Codes pro Adresse und Stunde, dann 429.
+- `scripts/blueprint-code-hash.js` macht den Fingerabdruck für neue Codes. Checkout-Beschreibung jetzt „about 190 to 200 pages“.
+- Prüfung: Endpunkt mit Stripe-Attrappe (falsch, prüfen, einlösen, verbraucht, kein Schreibrecht, Rateflut), Buchserver in `purmethod/pur` mit Attrappe, Bezahlschritt auf Handy- und Desktopbreite.

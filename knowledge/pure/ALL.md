@@ -2073,7 +2073,8 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 - Ziel: ein besseres Buch als vorher. Der Leser soll beim Lesen überwältigt werden und einen Aha-Effekt bekommen. Pauls Seele und Stimme brechen nicht weg.
 - **Design innen:** ruhig, minimalistisch, leicht, wie pure und pact auf der Website. Kästchen mit dünnen Linien, viel Weißraum, keine Gedankenstriche.
 - Paul will später aus vielen Blueprints Muster ziehen: was die meisten Männer ausmacht, was sie machen, in welcher Situation sie stehen. Das breiteste Muster wird ein eigenes Buch im selben Format.
-- Testen und Verschenken: Mit einem Gratis-Code schreibt der Blueprint das Buch ohne Bezahlung. Die Codes stehen nur in Vercel (Projekt `pur`, Variable `BLUEPRINT_FREE_CODES`) und werden nie in ein Repo geschrieben, auch nicht in diese Wissensbasis.
+- Testen und Verschenken: Mit einem Gratis-Code schreibt der Blueprint das Buch ohne Bezahlung. Paul: ein Code, ein Buch. Das Feld "du hast einen code?" steht offen direkt unter dem Bezahlknopf.
+- Kein Code steht irgendwo im Klartext: nicht im Repo, nicht in Commits, Issues oder PRs, nicht in dieser Wissensbasis, auch nicht in Vercel. Vercel (Projekt `brinkmannpaul`, Variable `BLUEPRINT_CODE_HASHES`) hält nur einen Fingerabdruck. Ein eingelöster Code wird in Stripe als archiviertes Produkt "pure blueprint · free code" markiert. Neuer Code: `scripts/blueprint-code-hash.js` (liest den Code von stdin), Ergebnis an `BLUEPRINT_CODE_HASHES` anhängen.
 - Technik: Repo `purmethod/pur`, Format in `blueprint/index.html` (`@page`), Wortmengen in `api/analyze.js`. Jedes geschriebene Buch meldet seine Wortzahl im Vercel-Log (`blueprint words`), damit die Länge nachjustiert werden kann.
 
 ## Text für Leser (EN)
