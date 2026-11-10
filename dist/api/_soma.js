@@ -11,7 +11,7 @@ const SESSIONS = [
   { id: "2026-11-11", when: "2026-11-15T10:00", place: "creative hub, sidi bou said", map: "https://www.google.com/maps/search/?api=1&query=Creative+Hub+Sidi+Bou+Said" },
   { id: "test", when: "2030-01-01T10:00", place: "test", test: true },
 ];
-const PLACES = 15;
+const PLACES = 7;
 // paul, 9.11.: the first 10 places cost 50 dinar, the last 5 places 100 dinar. paid on site.
 const PRICES = { early: 50, late: 100, earlyPlaces: 10 };
 const priceFor = (taken) => (taken < PRICES.earlyPlaces ? PRICES.early : PRICES.late);

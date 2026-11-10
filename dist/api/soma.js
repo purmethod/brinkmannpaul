@@ -1,4 +1,4 @@
-// /api/soma · soma flow club sign-ups, free, max 15 places per session.
+// /api/soma · soma flow club sign-ups, free, max 7 places per session.
 // GET                          → { sessions: [{ id, when, place, map, left }], places }   (no group link: that is for signed-up people only)
 // POST { session, name }        → { ok, id, session, when, place, map, group }   reserves one place
 // POST { cancel: id }           → { ok }                                    frees it again
