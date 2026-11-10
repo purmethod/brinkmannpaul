@@ -42,6 +42,6 @@
 | woman.md | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
+| Blueprint | live | Buch 12,7 × 20,3 cm, rund 170 Seiten; Länge nach den ersten echten Büchern nachjustieren |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |

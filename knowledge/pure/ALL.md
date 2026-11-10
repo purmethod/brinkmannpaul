@@ -247,7 +247,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | woman.md | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | Konzept | Quiz auf vier Säulen und ego umbauen |
+| Blueprint | live | Buch 12,7 × 20,3 cm, rund 170 Seiten; Länge nach den ersten echten Büchern nachjustieren |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |
 
@@ -2048,7 +2048,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 # Der PURE Blueprint
 
-> Status: **Konzept steht, Quiz existiert.** Auf purmethod.com läuft bereits ein Quiz mit 53 Fragen in sechs Sprachen (Claude API über Vercel Serverless Functions). Es läuft noch mit drei Säulen und muss auf PURE und die Säule ego angepasst werden, nicht neu erfunden.
+> Status: **live** unter brinkmannpaul.com/pure/blueprint (Repo `purmethod/pur`): Fragen in sechs Sprachen, vier Säulen, Bezahlung über Stripe, danach schreibt Claude das persönliche Buch.
 
 ## Kernaussagen (Paul)
 
@@ -2063,6 +2063,17 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
   3. **Die beantworteten Fragen des Lesers.**
 - Ergebnis: ein persönlicher Auszug aus dem Buch, gebaut für genau den Punkt, an dem der Leser heute steht.
 - Das ist das Hauptprodukt für die Online-Einnahmen. Geplanter Preis: etwa 9 $.
+
+## Das Buch: Format, Länge, Design (entschieden Nov 2026)
+
+- Paul: Es muss wertig sein wie ein Buch, darf aber nicht zu lang sein. 200 bis 300 Seiten waren zu lang.
+- **Format: 12,7 × 20,3 cm (5 × 8 Zoll)**, wie *The War of Art*. Von Anfang an so festgelegt, weil Paul das Buch später verlegen will. Der Druck aus dem Blueprint hat dieses Format.
+- **Länge: rund 170 Seiten**, wie ein typisches kleines Sachbuch.
+- Nichts wird weggekürzt, nur besser formuliert. Die Tiefe bleibt. Pauls Methodenkapitel bleiben vollständig, Wort für Wort. Der persönliche Teil behält jedes Element und sagt jeden Gedanken nur einmal, in seiner stärksten Form.
+- Ziel: ein besseres Buch als vorher. Der Leser soll beim Lesen überwältigt werden und einen Aha-Effekt bekommen. Pauls Seele und Stimme brechen nicht weg.
+- **Design innen:** ruhig, minimalistisch, leicht, wie pure und pact auf der Website. Kästchen mit dünnen Linien, viel Weißraum, keine Gedankenstriche.
+- Paul will später aus vielen Blueprints Muster ziehen: was die meisten Männer ausmacht, was sie machen, in welcher Situation sie stehen. Das breiteste Muster wird ein eigenes Buch im selben Format.
+- Technik: Repo `purmethod/pur`, Format in `blueprint/index.html` (`@page`), Wortmengen in `api/analyze.js`. Jedes geschriebene Buch meldet seine Wortzahl im Vercel-Log (`blueprint words`), damit die Länge nachjustiert werden kann.
 
 ## Text für Leser (EN)
 
