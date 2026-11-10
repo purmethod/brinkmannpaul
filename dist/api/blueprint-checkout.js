@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
             unit_amount: price.amount,
             product_data: {
               name: "pure blueprint · your personal book",
-              description: "100 to 200 pages, written from your answers by paul brinkmann's pure method",
+              description: "about 190 to 200 pages, written from your answers by paul brinkmann's pure method",
             },
           },
         },
