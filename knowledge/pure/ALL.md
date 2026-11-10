@@ -2073,7 +2073,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 - Ziel: ein besseres Buch als vorher. Der Leser soll beim Lesen überwältigt werden und einen Aha-Effekt bekommen. Pauls Seele und Stimme brechen nicht weg.
 - **Design innen:** ruhig, minimalistisch, leicht, wie pure und pact auf der Website. Kästchen mit dünnen Linien, viel Weißraum, keine Gedankenstriche.
 - Paul will später aus vielen Blueprints Muster ziehen: was die meisten Männer ausmacht, was sie machen, in welcher Situation sie stehen. Das breiteste Muster wird ein eigenes Buch im selben Format.
-- Testen und Verschenken: Mit dem Code PAUL100 schreibt der Blueprint das Buch ohne Bezahlung. Die Codes liegen nur in Vercel (`BLUEPRINT_FREE_CODES`), nie im öffentlichen Repo.
+- Testen und Verschenken: Mit einem Gratis-Code schreibt der Blueprint das Buch ohne Bezahlung. Die Codes stehen nur in Vercel (Projekt `pur`, Variable `BLUEPRINT_FREE_CODES`) und werden nie in ein Repo geschrieben, auch nicht in diese Wissensbasis.
 - Technik: Repo `purmethod/pur`, Format in `blueprint/index.html` (`@page`), Wortmengen in `api/analyze.js`. Jedes geschriebene Buch meldet seine Wortzahl im Vercel-Log (`blueprint words`), damit die Länge nachjustiert werden kann.
 
 ## Text für Leser (EN)
