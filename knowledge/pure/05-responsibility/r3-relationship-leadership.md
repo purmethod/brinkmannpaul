@@ -26,6 +26,18 @@
 - Das gilt symmetrisch: Die Frau darf genau dasselbe Auswahlverfahren fahren.
 - Viele heiraten, ohne die Person wirklich zu kennen. Als Mann ist es deine Verantwortung, dich zu erkennen zu geben und dir die Zeit zu nehmen, sie kennenzulernen.
 
+### PURE Dating: aus Optionen wählen (Paul, 10.11.2026)
+
+- Man muss in der Lage sein, so viele Frauen anzusprechen, wie nur geht, weil man diese Skills lernen muss. Jede Frau, wenn man auf der Suche nach einer festen Beziehung ist. Und das ist das Ziel: eine feste Beziehung, eine Familie sollte immer das Ziel sein.
+- Wenn nicht, sollte man klar kommunizieren: Jetzt ist nicht das Ziel Familie, sondern jetzt ist fuck around. Aber fuck around bedeutet nicht bedeutungsloser Sex, sondern fuck around bedeutet find out: Wer passt zu mir?
+- Frauen machen das auch. Sie probieren, sie gehen auf hunderte Dates. In ihren Chats schreiben 20, 30, 100 Männer, die DMs sind überflutet. Du denkst, du bist der Einzige, den sie datet. Du bist es nicht. Normalerweise daten Frauen in der Dating-Phase parallel.
+- Wir Männer werden normalerweise gewählt. Man spricht eine Frau an oder es ergibt sich eine Situation, man trifft sich, geht auf ein Date, verliebt sich, die Frau sagt: Lass zusammenkommen. Bumm. Ohne Optionen hat man eine Frau gewählt, die man vielleicht gar nicht möchte, weil man der Illusion verfallen ist, verliebt zu sein.
+- Verliebtsein ist ein chemischer Cocktail. Dieser Cocktail zwingt den Mann, etwas zu wählen, was er vielleicht gar nicht will, weil er aus Mangel an Optionen wählt.
+- In PURE Dating drücke ich dem Mann das Zepter in die Hand, das Social Media und Instagram ihm genommen haben. Durch Attention haben Frauen heute eine große Macht, sie können aus den besten Männern wählen, und die Männer laufen hinterher wie sabbernde Hunde. Deshalb fühlen sich Frauen als der Preis.
+- Mag sein, dass sie der Preis sind. Darum geht es nicht. Es geht darum, dass der Mann aus Optionen die bestmögliche Frau wählen kann, damit er eine gesunde Familie gründen kann.
+- Diese Frau muss korrekt kommunizieren können, eine gute Mutter sein können, einfach eine gute Frau sein können und mit Konflikten umgehen können. Konfliktfähigkeit ist das A und O.
+- Im Buch: r3, Abschnitte „PURE dating: choosing from options“ und „The sceptre back“. Belege: Verliebtsein als Belohnungschemie [Aron et al. 2005; Marazziti et al. 1999], Konflikt sagt Scheidung voraus [Gottman & Levenson 2000].
+
 ### Anziehung und Kommunikation
 
 1. **Die beste Seite zeigen.** Selbstregulation, nicht Täuschung. Wie in einem Vorstellungsgespräch.

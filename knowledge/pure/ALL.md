@@ -787,6 +787,15 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 - Einen Drang zu spüren heißt nicht, dass du ihm folgen musst.
 - Die Wurzel vieler Impulse: Druck, der nach außen entladen werden will.
 
+### Null Bedeutung (Paul, 10.11.2026)
+
+- Fliehen, Bibelverse, einen Krieg daraus machen: Das alles funktioniert nicht.
+- Erst wenn du diese Übersättigung erfahren hast, erst wenn du erfahren hast, dass das alles, was dich anzieht, von keinerlei Bedeutung ist, dass es nichts bedeutet, genauso wie ein Stein, der im Weg liegt. Erst wenn du es schaffst, dem Arsch einer Frau, den Titten einer Frau eine Zero, eine Null Bedeutung zuzuschreiben. Das ist das, wovon ich in meinem Buch rede: Dingen keinerlei Bedeutung mehr zu schenken.
+- Du wirst immer addicted sein zu Alkohol, wenn du sagst: Ich werde niemals Alkohol trinken. Ein trockener Alkoholiker, der das sagt, wird trotzdem vom Alkohol kontrolliert, weil er dieser Substanz eine Bedeutung gibt. Erst wenn Alkohol für ihn nichts mehr bedeutet, kann er vor dem Bier sitzen und es anschauen, als wäre es ein Stein. Noch nicht mal Scheiße, weil Scheiße eine negative Bedeutung hat, sondern eine neutrale, schöne Null. Nichts nach links, nichts nach rechts, einfach Bedeutungslosigkeit. Erst wenn man diesen State of Mind erreicht, ist man frei.
+- Diesen State of Mind erreichst du nur über Meditation, also über Atem, Breathwork, Fasten und Kälte. Den eigenen Körper spüren, den eigenen Körper so wertvoll schätzen, dass man diesen Dingen keinerlei Bedeutung mehr schenkt.
+- Und wenn man sie dann genießt, dann weil man sich bewusst dafür entscheidet.
+- Im Buch: u1, Abschnitt „Zero meaning“ / „Null Bedeutung“. Beleg: Achtsamkeit statt Kampf. [Brewer, Mallik et al. 2011]
+
 ## Buchtext (EN)
 
 Name it. Don't feed it. Every impulse is a wave: it rises, peaks and fades if you don't act on it. Notice it, name it, then ride the wave one minute longer next time. That is the work. Not perfection. Repetition.
@@ -1106,6 +1115,18 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 - Harte Frist: zwölf Monate. Danach entweder zusammen oder Ende. Kein Offenhalten.
 - Das gilt symmetrisch: Die Frau darf genau dasselbe Auswahlverfahren fahren.
 - Viele heiraten, ohne die Person wirklich zu kennen. Als Mann ist es deine Verantwortung, dich zu erkennen zu geben und dir die Zeit zu nehmen, sie kennenzulernen.
+
+### PURE Dating: aus Optionen wählen (Paul, 10.11.2026)
+
+- Man muss in der Lage sein, so viele Frauen anzusprechen, wie nur geht, weil man diese Skills lernen muss. Jede Frau, wenn man auf der Suche nach einer festen Beziehung ist. Und das ist das Ziel: eine feste Beziehung, eine Familie sollte immer das Ziel sein.
+- Wenn nicht, sollte man klar kommunizieren: Jetzt ist nicht das Ziel Familie, sondern jetzt ist fuck around. Aber fuck around bedeutet nicht bedeutungsloser Sex, sondern fuck around bedeutet find out: Wer passt zu mir?
+- Frauen machen das auch. Sie probieren, sie gehen auf hunderte Dates. In ihren Chats schreiben 20, 30, 100 Männer, die DMs sind überflutet. Du denkst, du bist der Einzige, den sie datet. Du bist es nicht. Normalerweise daten Frauen in der Dating-Phase parallel.
+- Wir Männer werden normalerweise gewählt. Man spricht eine Frau an oder es ergibt sich eine Situation, man trifft sich, geht auf ein Date, verliebt sich, die Frau sagt: Lass zusammenkommen. Bumm. Ohne Optionen hat man eine Frau gewählt, die man vielleicht gar nicht möchte, weil man der Illusion verfallen ist, verliebt zu sein.
+- Verliebtsein ist ein chemischer Cocktail. Dieser Cocktail zwingt den Mann, etwas zu wählen, was er vielleicht gar nicht will, weil er aus Mangel an Optionen wählt.
+- In PURE Dating drücke ich dem Mann das Zepter in die Hand, das Social Media und Instagram ihm genommen haben. Durch Attention haben Frauen heute eine große Macht, sie können aus den besten Männern wählen, und die Männer laufen hinterher wie sabbernde Hunde. Deshalb fühlen sich Frauen als der Preis.
+- Mag sein, dass sie der Preis sind. Darum geht es nicht. Es geht darum, dass der Mann aus Optionen die bestmögliche Frau wählen kann, damit er eine gesunde Familie gründen kann.
+- Diese Frau muss korrekt kommunizieren können, eine gute Mutter sein können, einfach eine gute Frau sein können und mit Konflikten umgehen können. Konfliktfähigkeit ist das A und O.
+- Im Buch: r3, Abschnitte „PURE dating: choosing from options“ und „The sceptre back“. Belege: Verliebtsein als Belohnungschemie [Aron et al. 2005; Marazziti et al. 1999], Konflikt sagt Scheidung voraus [Gottman & Levenson 2000].
 
 ### Anziehung und Kommunikation
 
@@ -2196,6 +2217,10 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 | Chia & Winn 1984 | Chia M, Winn M. *Taoist Secrets of Love: Cultivating Male Sexual Energy.* Aurora Press, 1984. Buch, Tradition, keine Studie. | P0 | [Goodreads](https://www.goodreads.com/book/show/816271) |
 | Chia & Abrams 1996 | Chia M, Abrams D. *The Multi-Orgasmic Man.* HarperOne, 1996. Buch, Tradition, keine Studie. | P0 | |
 | Chia & Wei 2013 | Chia M, Wei WU. *Chi Kung for Prostate Health and Sexual Vigor.* Destiny Books, 2013. Buch, Tradition, keine Studie. | P0 | [Simon & Schuster](https://www.simonandschuster.ca/books/Chi-Kung-for-Prostate-Health-and-Sexual-Vigor/Mantak-Chia/9781620552285) |
+| Brewer, Mallik et al. 2011 | Brewer JA, Mallik S, Babuscio TA, et al. Mindfulness training for smoking cessation: results from a randomized controlled trial. *Drug and Alcohol Dependence* 2011;119(1-2):72–80. 88 Raucher; nach 17 Wochen 31% vs. 6% rauchfrei. | U1 | [PMC3191261](https://pmc.ncbi.nlm.nih.gov/articles/PMC3191261) |
+| Aron et al. 2005 | Aron A, Fisher H, Mashek DJ, Strong G, Li H, Brown LL. Reward, motivation, and emotion systems associated with early-stage intense romantic love. *Journal of Neurophysiology* 2005;94(1):327–337. | R3 | [PubMed 15928068](https://pubmed.ncbi.nlm.nih.gov/15928068/) |
+| Marazziti et al. 1999 | Marazziti D, Akiskal HS, Rossi A, Cassano GB. Alteration of the platelet serotonin transporter in romantic love. *Psychological Medicine* 1999;29(3):741–745. | R3 | [Cambridge](https://www.cambridge.org/core/journals/psychological-medicine/article/alteration-of-the-platelet-serotonin-transporter-in-romantic-love/9599BA293019DFA6D05B315803B6D2A7) |
+| Gottman & Levenson 2000 | Gottman JM, Levenson RW. The timing of divorce: predicting when a couple will divorce over a 14-year period. *Journal of Marriage and the Family* 2000;62(3):737–745. 79 Paare. | R3 | [UW News](https://www.washington.edu/news/2000/09/11/marital-researchers-now-can-predict-not-only-which-couples-will-divorce-but-when-they-will-split/) |
 | Lally et al. 2010 | Lally P, van Jaarsveld CHM, Potts HWW, Wardle J. How are habits formed: Modelling habit formation in the real world. *European Journal of Social Psychology* 2010;40(6):998–1009. | trust, P2, U4 | [UCL](https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit) |
 | Lambert et al. 2022 | Lambert J, Barnstable G, Minter E, Cooper J, McEwan D. Taking a one-week break from social media improves well-being, depression, and anxiety: a randomized controlled trial. *Cyberpsychology, Behavior, and Social Networking* 2022;25(5):287–293. | U2 | [Uni Bath](https://researchportal.bath.ac.uk/en/publications/taking-a-one-week-break-from-social-media-improves-well-being-dep/) |
 | Leproult & Van Cauter 2011 | Leproult R, Van Cauter E. Effect of 1 week of sleep restriction on testosterone levels in young healthy men. *JAMA* 2011;305(21):2173–2174. | P1 | [ScienceDaily](https://www.sciencedaily.com/releases/2011/05/110531162142.htm) |
