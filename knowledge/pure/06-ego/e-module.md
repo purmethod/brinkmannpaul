@@ -1,17 +1,18 @@
-# E0 bis E5 · Die Module der Säule ego
+# E1 bis E5 · Die Module der Säule ego
 
-> Status: **E3, E4, E5 bestätigt. E0 bis E2 noch auszuarbeiten** (nur Paul legt sie fest). Paul will diese Gedanken später in die Kapitel einbauen. Pro Modul ist ein eigenes E-Book geplant.
+> Status: **steht** (Paul, 10.11.2026). Ego hat fünf Module, keine Grundlage 0. So stehen sie auf der Website (brinkmannpaul.com/pure, „the 23 levels“), auf der Blueprint-Startseite und im Buch. Pro Modul ist ein eigenes E-Book geplant.
 
-| ID | Modul | Status |
+| ID | Modul | Inhalt |
 |---|---|---|
-| E0 | noch offen | offen |
-| E1 | noch offen | offen |
-| E2 | noch offen | offen |
-| E3 | Annehmen ist nicht Zustimmen | bestätigt |
-| E4 | Für etwas Größeres leben, ohne sich selbst zu vergessen | bestätigt |
-| E5 | Anerkennen, dass etwas Höheres über einem steht | bestätigt |
+| E1 | Das Ego töten, ohne Drogen | Stille, Atem, Kälte, Ehrfurcht, drei Worte: Ich lag falsch |
+| E2 | Was das Ego ist | das Bild von dir; ein starkes Selbst ist kein Ego |
+| E3 | **Fuck around · die vier Arenen** | Geld, Sex, Beziehungen, Verlust: [four-arenas.md](four-arenas.md); die Kurve, 80% bleiben unten |
+| E4 | **Find out · Rock Bottom** | [rock-bottom.md](rock-bottom.md), die Fragen aus [the-gate.md](the-gate.md), wie du es herausfindest, create |
+| E5 | Der Endboss: etwas ist größer als du | das Dach; darin „Annehmen ist nicht Zustimmen“ und „Für etwas Größeres leben, ohne sich selbst zu vergessen“ |
 
-## E3 · Annehmen ist nicht Zustimmen
+Paul, 10.11.2026: „E3 und E4 ist fuck around, the four arenas, find out, rock bottom. Und das andere auf jeden Fall reinnehmen.“ Die beiden früher als E3 und E4 bestätigten Gedanken stehen jetzt in E5:
+
+## In E5 · Annehmen ist nicht Zustimmen
 
 ### Kernaussagen (Paul)
 
@@ -20,7 +21,7 @@
 - Ich kann andere nie überzeugen und will es auch nicht. Ich lasse Menschen, wie sie sind, und es tangiert mich nicht.
 - Akzeptanz heißt nicht Zustimmung. Und sie heißt nicht, andere deine Grenzen überschreiten zu lassen.
 
-## E4 · Für etwas Größeres leben, ohne sich selbst zu vergessen
+## In E5 · Für etwas Größeres leben, ohne sich selbst zu vergessen
 
 ### Kernaussagen (Paul)
 
@@ -37,5 +38,5 @@
 
 ## Belege
 
-- E3: Benennen statt Verteidigen dämpft die Alarmreaktion. [Lieberman et al. 2007]
+- E4 (und Annehmen in E5): Benennen statt Verteidigen dämpft die Alarmreaktion. [Lieberman et al. 2007]
 - E5: Ehrfurcht vor etwas Größerem erzeugt ein „kleines Selbst“. [Bai et al. 2017]

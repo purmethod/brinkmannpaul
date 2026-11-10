@@ -36,4 +36,4 @@ Take the assessment and get a personalized PURE Blueprint, built for exactly whe
 ## Für Agenten
 
 - Wissensgrundlage für den Blueprint ist dieses Repo: `knowledge/pure/`. Ein Blueprint zitiert die Kernaussagen und Buchtexte der passenden Module und hält sich an [sprache-und-stil.md](../00-system/sprache-und-stil.md).
-- Offene Module (P1, E0 bis E2, Leiter-Sprossen) dürfen im Blueprint nicht erfunden werden.
+- Offene Module (P1, Leiter-Sprossen) dürfen im Blueprint nicht erfunden werden. Ego hat seit 10.11.2026 alle fünf Module (E1 bis E5).

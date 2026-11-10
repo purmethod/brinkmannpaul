@@ -7,7 +7,7 @@
 - Immer Pauls eigene Worte, Ideen und Aussagen verwenden. Übersetzen und glätten ja, durch eigene Formulierungen ersetzen nein.
 - Kernaussagen bleiben unverändert in ihrer Bedeutung. Wer etwas „weicher“ macht, dreht sie um.
 - Aufbauend arbeiten, nie Rückschritte. Eine vorhandene, ausführlichere Fassung wird nie durch eine kürzere ersetzt.
-- Nichts erfinden. Was Paul noch nicht gesagt hat, bleibt als „offen“ markiert (z. B. die Sprossen der Leiter, E0 bis E2, P1 Sleep).
+- Nichts erfinden. Was Paul noch nicht gesagt hat, bleibt als „offen“ markiert (z. B. die Sprossen der Leiter, P1 Sleep).
 
 ## 2. Zeichen und Form
 

@@ -1,6 +1,6 @@
 # PURE · Status aller Teile
 
-> Stand: 02.11.2026. Wer einen Teil weiterbringt, aktualisiert diese Tabelle im selben Commit.
+> Stand: 10.11.2026. Wer einen Teil weiterbringt, aktualisiert diese Tabelle im selben Commit.
 
 **Legende:** final = auf der Website live · steht = Buchtext vorhanden · Kern = Erkenntnisse und Kernsatz da, Text dünn · offen = nur Paul kann es füllen
 
@@ -30,8 +30,9 @@
 | R4 Trust Economy | Kern | ausführlich im Sockel trust |
 | R5 Legacy Thinking | offen | |
 | ego (Säulentext) | final | |
-| E0, E1, E2 | offen | nur Paul legt sie fest |
-| E3, E4, E5 | Kern | in die Kapitel einbauen |
+| E1, E2 | steht | Website und Buch; E0 gibt es nicht (ego hat fünf Module) |
+| E3 fuck around · die vier Arenen, E4 find out · Rock Bottom | steht | von Paul festgelegt am 10.11.2026; Website, Blueprint und Buch |
+| E5 | steht | mit „Annehmen ist nicht Zustimmen“ und „Für etwas Größeres leben, ohne sich selbst zu vergessen“ |
 | The 1% · The Building · Boundary | steht | 4% und 3% ausbauen |
 | Four Arenas | steht | |
 | Rock Bottom | steht | |

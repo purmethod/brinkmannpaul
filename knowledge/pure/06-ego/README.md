@@ -1,6 +1,6 @@
 # e · ego · Die vierte Säule
 
-> Status: **Säulentext final** (Website, sechs Sprachen). Buchkapitel ausgearbeitet (früher unter dem Arbeitstitel „E · Elevation“). Module E0 bis E5: [e-module.md](e-module.md). Der Ego-Tod selbst steht im [Giebel](../02-giebel.md).
+> Status: **Säulentext final** (Website, sechs Sprachen). Buchkapitel ausgearbeitet (früher unter dem Arbeitstitel „E · Elevation“). Module E1 bis E5: [e-module.md](e-module.md). Der Ego-Tod selbst steht im [Giebel](../02-giebel.md).
 
 ## Kernaussagen (Paul)
 
@@ -26,7 +26,7 @@
 | [the-gate.md](the-gate.md) | The Gate, Be Your Own Hero, The Questions, There Is No Scale |
 | [feel-mortal.md](feel-mortal.md) | Feel That You Are Mortal |
 | [good-man.md](good-man.md) | What a Good Man Actually Is |
-| [e-module.md](e-module.md) | E0 bis E5 |
+| [e-module.md](e-module.md) | E1 bis E5: E3 fuck around · die vier Arenen, E4 find out · Rock Bottom |
 | [../02-giebel.md](../02-giebel.md) | Der Tod des Egos und God |
 
 ## Buchtext (EN, Website final)

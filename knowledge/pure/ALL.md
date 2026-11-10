@@ -159,7 +159,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 - Immer Pauls eigene Worte, Ideen und Aussagen verwenden. Übersetzen und glätten ja, durch eigene Formulierungen ersetzen nein.
 - Kernaussagen bleiben unverändert in ihrer Bedeutung. Wer etwas „weicher“ macht, dreht sie um.
 - Aufbauend arbeiten, nie Rückschritte. Eine vorhandene, ausführlichere Fassung wird nie durch eine kürzere ersetzt.
-- Nichts erfinden. Was Paul noch nicht gesagt hat, bleibt als „offen“ markiert (z. B. die Sprossen der Leiter, E0 bis E2, P1 Sleep).
+- Nichts erfinden. Was Paul noch nicht gesagt hat, bleibt als „offen“ markiert (z. B. die Sprossen der Leiter, P1 Sleep).
 
 ## 2. Zeichen und Form
 
@@ -205,7 +205,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 
 # PURE · Status aller Teile
 
-> Stand: 02.11.2026. Wer einen Teil weiterbringt, aktualisiert diese Tabelle im selben Commit.
+> Stand: 10.11.2026. Wer einen Teil weiterbringt, aktualisiert diese Tabelle im selben Commit.
 
 **Legende:** final = auf der Website live · steht = Buchtext vorhanden · Kern = Erkenntnisse und Kernsatz da, Text dünn · offen = nur Paul kann es füllen
 
@@ -235,8 +235,9 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | R4 Trust Economy | Kern | ausführlich im Sockel trust |
 | R5 Legacy Thinking | offen | |
 | ego (Säulentext) | final | |
-| E0, E1, E2 | offen | nur Paul legt sie fest |
-| E3, E4, E5 | Kern | in die Kapitel einbauen |
+| E1, E2 | steht | Website und Buch; E0 gibt es nicht (ego hat fünf Module) |
+| E3 fuck around · die vier Arenen, E4 find out · Rock Bottom | steht | von Paul festgelegt am 10.11.2026; Website, Blueprint und Buch |
+| E5 | steht | mit „Annehmen ist nicht Zustimmen“ und „Für etwas Größeres leben, ohne sich selbst zu vergessen“ |
 | The 1% · The Building · Boundary | steht | 4% und 3% ausbauen |
 | Four Arenas | steht | |
 | Rock Bottom | steht | |
@@ -460,7 +461,10 @@ Every man knows the moment: the hand reaches for the phone, the fridge, the rele
 - Graduell aufbauen. Nicht erzwingen. Der Körper lernt eine neue Trennung, gib ihm Zeit.
 - Pornos sind kein Genuss. Pornos sind reine Antizipation. Sie leeren dasselbe System, das deinen Ehrgeiz antreibt.
 - Genießen, ohne etwas zu wollen: Atem, Kälte und die richtige Ernährung führen dorthin. Verwöhnen nicht, um etwas zu bekommen. Ganzer Gedanke in [R3](../05-responsibility/r3-relationship-leadership.md), „Beschenken und genießen“.
-- Rindertalg für dein Testosteron und deine Männlichkeit. (Website, Nov 2026: „beef tallow: fat for your testosterone and your masculinity“; vorher „the beef tallow cream to grow your kok“.)
+- **Das Fett vom Bullen** (Paul, 10.11.2026): Wenn ich mir dieses Fett von diesem Bullen auf meine Haut schmiere, spüre ich den Stier in mir. Ich wache viel vitaler auf. Ich wache mit einem Ständer auf, durchblutet. Ich fühle mich geiler, maskuliner, präsenter. Ich habe es an Frauen gemerkt: Frauen reagieren anders. Mein Cock ist einfach mehr durchblutet. Er ist durchmassiert.
+- Vielleicht ist es wissenschaftlich nicht belegt. Aber ich habe es gespürt. Ich bin überzeugt, dass der Talg etwas enthält, das heute noch niemand gemessen hat.
+- **Das Schwert schleifen:** Man soll nicht ejakulieren, sondern das Schwert schleifen. Und das Schwert schleifen heißt, es zu massieren. Das geht zurück auf die alte chinesische Lehre, Jahrtausende alt. Mantak Chia sagt genau das Gleiche.
+- Website (P0, Nov 2026): „the fat of the bull on my skin: i feel it raise my testosterone and my masculinity“. Vorher: „the beef tallow cream to grow your kok“.
 
 ## Buchtext (EN)
 
@@ -470,7 +474,8 @@ Your sexual energy is fuel, not waste. Learn to separate orgasm from ejaculation
 
 - **Pornokonsum und Belohnungssystem.** Bei 64 Männern ging mehr wöchentlicher Pornokonsum mit einem kleineren Striatum (Teil des Belohnungssystems) und schwächerer Reaktion auf sexuelle Reize einher. Die Autoren vermuten, dass häufiger Konsum diese Veränderungen auslöst. Einschränkung: Querschnittsstudie, Ursache und Wirkung sind nicht bewiesen. [Kühn & Gallinat 2014]
 - **Orgasmus ohne Ejakulation.** Männer, die mehrere Orgasmen in einer Begegnung erleben, sind in der Fachliteratur beschrieben, oft ohne Ejakulation zwischen den Orgasmen. [Dunn & Trost 1989]
-- **Fett und Testosteron.** Fettarme Ernährung senkte in sechs Interventionsstudien (206 Männer) das Gesamttestosteron gegenüber fettreicher Ernährung (SMD −0,38). Am stärksten bei vegetarischer fettarmer Kost. [Whittaker & Wu 2021] Welches Fett, war bei 2.546 Männern nicht unabhängig mit dem Testosteron verknüpft. [Wynne-Ellis et al. 2024] Heißt: Genug Fett hält das Testosteron oben. Dass Talg selbst es steigert, zeigt keine Studie, und auf der Haut wirkt er nicht auf die Hormone.
+- **Fett und Testosteron.** Fettarme Ernährung senkte in sechs Interventionsstudien (206 Männer) das Gesamttestosteron gegenüber fettreicher Ernährung (SMD −0,38). [Whittaker & Wu 2021] Welches Fett, war bei 2.546 Männern nicht unabhängig mit dem Testosteron verknüpft. [Wynne-Ellis et al. 2024] Zu Talg auf der Haut und Hormonen gibt es keine Studie. Pauls Erfahrung steht deshalb als seine Erfahrung im Buch, nicht als Befund.
+- **Das Schwert schleifen, die Tradition.** Chinesische Texte zur sexuellen Kultivierung aus der Han-Zeit (Mawangdui, Grab versiegelt 168 v. Chr.) lehren, die Essenz zu halten statt sie zu verausgaben. Mantak Chia lehrt heute die Massage der Sexualenergie und das Halten des Samens. [Chia & Winn 1984; Chia & Abrams 1996; Chia & Wei 2013]
 - **Evidenzlage, ehrlich:** Für die Technik selbst gibt es Fallserien und Erfahrungsberichte, aber keine kontrollierten Studien zu Energie oder Leistung. Hier trägt Pauls eigene Erfahrung, nicht die Forschung.
 
 Volle Referenzen: [09-quellen.md](../09-quellen.md)
@@ -1212,7 +1217,7 @@ Find your legacy. What stays when you are gone?
 
 # e · ego · Die vierte Säule
 
-> Status: **Säulentext final** (Website, sechs Sprachen). Buchkapitel ausgearbeitet (früher unter dem Arbeitstitel „E · Elevation“). Module E0 bis E5: [e-module.md](e-module.md). Der Ego-Tod selbst steht im [Giebel](../02-giebel.md).
+> Status: **Säulentext final** (Website, sechs Sprachen). Buchkapitel ausgearbeitet (früher unter dem Arbeitstitel „E · Elevation“). Module E1 bis E5: [e-module.md](e-module.md). Der Ego-Tod selbst steht im [Giebel](../02-giebel.md).
 
 ## Kernaussagen (Paul)
 
@@ -1238,7 +1243,7 @@ Find your legacy. What stays when you are gone?
 | [the-gate.md](the-gate.md) | The Gate, Be Your Own Hero, The Questions, There Is No Scale |
 | [feel-mortal.md](feel-mortal.md) | Feel That You Are Mortal |
 | [good-man.md](good-man.md) | What a Good Man Actually Is |
-| [e-module.md](e-module.md) | E0 bis E5 |
+| [e-module.md](e-module.md) | E1 bis E5: E3 fuck around · die vier Arenen, E4 find out · Rock Bottom |
 | [../02-giebel.md](../02-giebel.md) | Der Tod des Egos und God |
 
 ## Buchtext (EN, Website final)
@@ -1343,20 +1348,21 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 <!-- Datei: knowledge/pure/06-ego/e-module.md -->
 
-# E0 bis E5 · Die Module der Säule ego
+# E1 bis E5 · Die Module der Säule ego
 
-> Status: **E3, E4, E5 bestätigt. E0 bis E2 noch auszuarbeiten** (nur Paul legt sie fest). Paul will diese Gedanken später in die Kapitel einbauen. Pro Modul ist ein eigenes E-Book geplant.
+> Status: **steht** (Paul, 10.11.2026). Ego hat fünf Module, keine Grundlage 0. So stehen sie auf der Website (brinkmannpaul.com/pure, „the 23 levels“), auf der Blueprint-Startseite und im Buch. Pro Modul ist ein eigenes E-Book geplant.
 
-| ID | Modul | Status |
+| ID | Modul | Inhalt |
 |---|---|---|
-| E0 | noch offen | offen |
-| E1 | noch offen | offen |
-| E2 | noch offen | offen |
-| E3 | Annehmen ist nicht Zustimmen | bestätigt |
-| E4 | Für etwas Größeres leben, ohne sich selbst zu vergessen | bestätigt |
-| E5 | Anerkennen, dass etwas Höheres über einem steht | bestätigt |
+| E1 | Das Ego töten, ohne Drogen | Stille, Atem, Kälte, Ehrfurcht, drei Worte: Ich lag falsch |
+| E2 | Was das Ego ist | das Bild von dir; ein starkes Selbst ist kein Ego |
+| E3 | **Fuck around · die vier Arenen** | Geld, Sex, Beziehungen, Verlust: [four-arenas.md](four-arenas.md); die Kurve, 80% bleiben unten |
+| E4 | **Find out · Rock Bottom** | [rock-bottom.md](rock-bottom.md), die Fragen aus [the-gate.md](the-gate.md), wie du es herausfindest, create |
+| E5 | Der Endboss: etwas ist größer als du | das Dach; darin „Annehmen ist nicht Zustimmen“ und „Für etwas Größeres leben, ohne sich selbst zu vergessen“ |
 
-## E3 · Annehmen ist nicht Zustimmen
+Paul, 10.11.2026: „E3 und E4 ist fuck around, the four arenas, find out, rock bottom. Und das andere auf jeden Fall reinnehmen.“ Die beiden früher als E3 und E4 bestätigten Gedanken stehen jetzt in E5:
+
+## In E5 · Annehmen ist nicht Zustimmen
 
 ### Kernaussagen (Paul)
 
@@ -1365,7 +1371,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 - Ich kann andere nie überzeugen und will es auch nicht. Ich lasse Menschen, wie sie sind, und es tangiert mich nicht.
 - Akzeptanz heißt nicht Zustimmung. Und sie heißt nicht, andere deine Grenzen überschreiten zu lassen.
 
-## E4 · Für etwas Größeres leben, ohne sich selbst zu vergessen
+## In E5 · Für etwas Größeres leben, ohne sich selbst zu vergessen
 
 ### Kernaussagen (Paul)
 
@@ -1382,7 +1388,7 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 ## Belege
 
-- E3: Benennen statt Verteidigen dämpft die Alarmreaktion. [Lieberman et al. 2007]
+- E4 (und Annehmen in E5): Benennen statt Verteidigen dämpft die Alarmreaktion. [Lieberman et al. 2007]
 - E5: Ehrfurcht vor etwas Größerem erzeugt ein „kleines Selbst“. [Bai et al. 2017]
 
 
@@ -2086,7 +2092,7 @@ Take the assessment and get a personalized PURE Blueprint, built for exactly whe
 ## Für Agenten
 
 - Wissensgrundlage für den Blueprint ist dieses Repo: `knowledge/pure/`. Ein Blueprint zitiert die Kernaussagen und Buchtexte der passenden Module und hält sich an [sprache-und-stil.md](../00-system/sprache-und-stil.md).
-- Offene Module (P1, E0 bis E2, Leiter-Sprossen) dürfen im Blueprint nicht erfunden werden.
+- Offene Module (P1, Leiter-Sprossen) dürfen im Blueprint nicht erfunden werden. Ego hat seit 10.11.2026 alle fünf Module (E1 bis E5).
 
 
 ---
@@ -2184,6 +2190,9 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 | Kühn & Gallinat 2014 | Kühn S, Gallinat J. Brain structure and functional connectivity associated with pornography consumption: the brain on porn. *JAMA Psychiatry* 2014;71(7):827–834. | P0, U2 | [PubMed 24871202](https://pubmed.ncbi.nlm.nih.gov/24871202/) |
 | Whittaker & Wu 2021 | Whittaker J, Wu K. Low-fat diets and testosterone in men: systematic review and meta-analysis of intervention studies. *Journal of Steroid Biochemistry and Molecular Biology* 2021;210:105878. | P0, P3 | [arXiv 2204.00007](https://arxiv.org/abs/2204.00007) |
 | Wynne-Ellis et al. 2024 | Wynne-Ellis MM, Mursu JJ, Tuomainen TP, Bertone-Johnson E, Salonen JT, Virtanen JK. Dietary fat quality and serum androgen concentrations in middle-aged men. *European Journal of Clinical Nutrition* 2024;78(2):99–106. | P0, P3 | [PubMed 37891228](https://pubmed.ncbi.nlm.nih.gov/37891228/) |
+| Chia & Winn 1984 | Chia M, Winn M. *Taoist Secrets of Love: Cultivating Male Sexual Energy.* Aurora Press, 1984. Buch, Tradition, keine Studie. | P0 | [Goodreads](https://www.goodreads.com/book/show/816271) |
+| Chia & Abrams 1996 | Chia M, Abrams D. *The Multi-Orgasmic Man.* HarperOne, 1996. Buch, Tradition, keine Studie. | P0 | |
+| Chia & Wei 2013 | Chia M, Wei WU. *Chi Kung for Prostate Health and Sexual Vigor.* Destiny Books, 2013. Buch, Tradition, keine Studie. | P0 | [Simon & Schuster](https://www.simonandschuster.ca/books/Chi-Kung-for-Prostate-Health-and-Sexual-Vigor/Mantak-Chia/9781620552285) |
 | Lally et al. 2010 | Lally P, van Jaarsveld CHM, Potts HWW, Wardle J. How are habits formed: Modelling habit formation in the real world. *European Journal of Social Psychology* 2010;40(6):998–1009. | trust, P2, U4 | [UCL](https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit) |
 | Lambert et al. 2022 | Lambert J, Barnstable G, Minter E, Cooper J, McEwan D. Taking a one-week break from social media improves well-being, depression, and anxiety: a randomized controlled trial. *Cyberpsychology, Behavior, and Social Networking* 2022;25(5):287–293. | U2 | [Uni Bath](https://researchportal.bath.ac.uk/en/publications/taking-a-one-week-break-from-social-media-improves-well-being-dep/) |
 | Leproult & Van Cauter 2011 | Leproult R, Van Cauter E. Effect of 1 week of sleep restriction on testosterone levels in young healthy men. *JAMA* 2011;305(21):2173–2174. | P1 | [ScienceDaily](https://www.sciencedaily.com/releases/2011/05/110531162142.htm) |
