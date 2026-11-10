@@ -460,6 +460,7 @@ Every man knows the moment: the hand reaches for the phone, the fridge, the rele
 - Graduell aufbauen. Nicht erzwingen. Der Körper lernt eine neue Trennung, gib ihm Zeit.
 - Pornos sind kein Genuss. Pornos sind reine Antizipation. Sie leeren dasselbe System, das deinen Ehrgeiz antreibt.
 - Genießen, ohne etwas zu wollen: Atem, Kälte und die richtige Ernährung führen dorthin. Verwöhnen nicht, um etwas zu bekommen. Ganzer Gedanke in [R3](../05-responsibility/r3-relationship-leadership.md), „Beschenken und genießen“.
+- Rindertalg für dein Testosteron und deine Männlichkeit. (Website, Nov 2026: „beef tallow: fat for your testosterone and your masculinity“; vorher „the beef tallow cream to grow your kok“.)
 
 ## Buchtext (EN)
 
@@ -469,6 +470,7 @@ Your sexual energy is fuel, not waste. Learn to separate orgasm from ejaculation
 
 - **Pornokonsum und Belohnungssystem.** Bei 64 Männern ging mehr wöchentlicher Pornokonsum mit einem kleineren Striatum (Teil des Belohnungssystems) und schwächerer Reaktion auf sexuelle Reize einher. Die Autoren vermuten, dass häufiger Konsum diese Veränderungen auslöst. Einschränkung: Querschnittsstudie, Ursache und Wirkung sind nicht bewiesen. [Kühn & Gallinat 2014]
 - **Orgasmus ohne Ejakulation.** Männer, die mehrere Orgasmen in einer Begegnung erleben, sind in der Fachliteratur beschrieben, oft ohne Ejakulation zwischen den Orgasmen. [Dunn & Trost 1989]
+- **Fett und Testosteron.** Fettarme Ernährung senkte in sechs Interventionsstudien (206 Männer) das Gesamttestosteron gegenüber fettreicher Ernährung (SMD −0,38). Am stärksten bei vegetarischer fettarmer Kost. [Whittaker & Wu 2021] Welches Fett, war bei 2.546 Männern nicht unabhängig mit dem Testosteron verknüpft. [Wynne-Ellis et al. 2024] Heißt: Genug Fett hält das Testosteron oben. Dass Talg selbst es steigert, zeigt keine Studie, und auf der Haut wirkt er nicht auf die Hormone.
 - **Evidenzlage, ehrlich:** Für die Technik selbst gibt es Fallserien und Erfahrungsberichte, aber keine kontrollierten Studien zu Energie oder Leistung. Hier trägt Pauls eigene Erfahrung, nicht die Forschung.
 
 Volle Referenzen: [09-quellen.md](../09-quellen.md)
@@ -2180,6 +2182,8 @@ Die Website ist nicht das Hauptwerkzeug für die Conversion. Sie baut Vertrauen 
 | Kjeldsen-Kragh et al. 1991 | Kjeldsen-Kragh J, Haugen M, Borchgrevink CF, et al. Controlled trial of fasting and one-year vegetarian diet in rheumatoid arthritis. *Lancet* 1991;338(8772):899–902. | P3, Fastenbuch | [PubMed 1681264](https://pubmed.ncbi.nlm.nih.gov/1681264/) |
 | Kox et al. 2014 | Kox M, van Eijk LT, Zwaag J, et al. Voluntary activation of the sympathetic nervous system and attenuation of the innate immune response in humans. *PNAS* 2014;111(20):7379–7384. | P4, P5 | [PubMed 24799686](https://pubmed.ncbi.nlm.nih.gov/24799686/) |
 | Kühn & Gallinat 2014 | Kühn S, Gallinat J. Brain structure and functional connectivity associated with pornography consumption: the brain on porn. *JAMA Psychiatry* 2014;71(7):827–834. | P0, U2 | [PubMed 24871202](https://pubmed.ncbi.nlm.nih.gov/24871202/) |
+| Whittaker & Wu 2021 | Whittaker J, Wu K. Low-fat diets and testosterone in men: systematic review and meta-analysis of intervention studies. *Journal of Steroid Biochemistry and Molecular Biology* 2021;210:105878. | P0, P3 | [arXiv 2204.00007](https://arxiv.org/abs/2204.00007) |
+| Wynne-Ellis et al. 2024 | Wynne-Ellis MM, Mursu JJ, Tuomainen TP, Bertone-Johnson E, Salonen JT, Virtanen JK. Dietary fat quality and serum androgen concentrations in middle-aged men. *European Journal of Clinical Nutrition* 2024;78(2):99–106. | P0, P3 | [PubMed 37891228](https://pubmed.ncbi.nlm.nih.gov/37891228/) |
 | Lally et al. 2010 | Lally P, van Jaarsveld CHM, Potts HWW, Wardle J. How are habits formed: Modelling habit formation in the real world. *European Journal of Social Psychology* 2010;40(6):998–1009. | trust, P2, U4 | [UCL](https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit) |
 | Lambert et al. 2022 | Lambert J, Barnstable G, Minter E, Cooper J, McEwan D. Taking a one-week break from social media improves well-being, depression, and anxiety: a randomized controlled trial. *Cyberpsychology, Behavior, and Social Networking* 2022;25(5):287–293. | U2 | [Uni Bath](https://researchportal.bath.ac.uk/en/publications/taking-a-one-week-break-from-social-media-improves-well-being-dep/) |
 | Leproult & Van Cauter 2011 | Leproult R, Van Cauter E. Effect of 1 week of sleep restriction on testosterone levels in young healthy men. *JAMA* 2011;305(21):2173–2174. | P1 | [ScienceDaily](https://www.sciencedaily.com/releases/2011/05/110531162142.htm) |
