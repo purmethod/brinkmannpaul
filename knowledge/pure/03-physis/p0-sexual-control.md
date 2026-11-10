@@ -14,7 +14,7 @@
 - **Das Fett vom Bullen** (Paul, 10.11.2026): Wenn ich mir dieses Fett von diesem Bullen auf meine Haut schmiere, spüre ich den Stier in mir. Ich wache viel vitaler auf. Ich wache mit einem Ständer auf, durchblutet. Ich fühle mich geiler, maskuliner, präsenter. Ich habe es an Frauen gemerkt: Frauen reagieren anders. Mein Cock ist einfach mehr durchblutet. Er ist durchmassiert.
 - Vielleicht ist es wissenschaftlich nicht belegt. Aber ich habe es gespürt. Ich bin überzeugt, dass der Talg etwas enthält, das heute noch niemand gemessen hat.
 - **Das Schwert schleifen:** Man soll nicht ejakulieren, sondern das Schwert schleifen. Und das Schwert schleifen heißt, es zu massieren. Das geht zurück auf die alte chinesische Lehre, Jahrtausende alt. Mantak Chia sagt genau das Gleiche.
-- Website (P0, Nov 2026): „the fat of the bull on my skin: i feel it raise my testosterone and my masculinity“. Vorher: „the beef tallow cream to grow your kok“.
+- Website (P0, Paul, 10.11.2026): „beef tallow on your skin: increase testosterone and masculinity“. Die Leute sollen lesen und entdecken; die Erfahrung steht im Buchkapitel. Vorher: „the beef tallow cream to grow your kok“.
 
 ## Buchtext (EN)
 
