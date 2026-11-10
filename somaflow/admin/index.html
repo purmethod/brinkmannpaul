@@ -75,8 +75,9 @@
     const fmt = (iso, opts) => { try { return new Intl.DateTimeFormat("de-DE", opts).format(new Date(iso)); } catch { return iso; } };
     const sessionTitle = (s) => s.when ? fmt((s.when.length === 10 ? s.when + "T12:00" : s.when) + ":00Z", s.when.length === 10 ? { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" } : { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + (s.when.length === 10 ? " · uhrzeit in der gruppe" : "") : (s.id === "next" ? "nächster termin (ohne datum)" : "nächster termin · datum und uhrzeit in der gruppe");
     async function api(method, body) {
-      const r = await fetch("/api/soma" + (method === "GET" ? "?admin=1" : ""), { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+      const r = await fetch("https://brinkmannpaul.com/api/soma" + (method === "GET" ? "?admin=1" : ""), { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
       if (r.status === 401) throw Object.assign(new Error("key"), { code: 401 });
+      if (r.status === 429) throw Object.assign(new Error("locked"), { code: 429 });
       if (!r.ok) throw new Error("server");
       return r.json();
     }
@@ -114,6 +115,7 @@
             waiting.length ? wl : null));
         }
       } catch (e) {
+        if (e.code === 429) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "zu viele falsche versuche. in 15 minuten geht es wieder."; $("lerr").hidden = false; return; }
         if (e.code === 401) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "das passwort stimmt nicht."; $("lerr").hidden = false; return; }
         show("list"); $("err").textContent = "die liste konnte nicht geladen werden. bitte neu laden."; $("err").hidden = false;
       }

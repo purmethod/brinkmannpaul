@@ -4,6 +4,7 @@
 // key this project writes there itself; until then it hands the sign-up to
 // souralf.com, which holds the same account's key and keeps it the same way.
 const { stripe } = require("./_stripe");
+const { limited, note, ipOf } = require("./_limit");
 
 const LISTS = ["cyclemax", "cutcake", "compaz"];
 const LANGS = ["en", "de", "fr", "es", "ar", "ru"];
@@ -16,6 +17,10 @@ module.exports = async (req, res) => {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
+  // a person orders or signs up a few times, a bot hundreds: 10 per address and hour
+  const ip = ipOf(req);
+  if (limited("waitlist", ip, 10, 3600000)) return res.status(429).json({ error: "Too many requests" });
+  note("waitlist", ip, 3600000);
   let body = req.body || {};
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { body = {}; }

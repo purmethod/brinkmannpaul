@@ -2,6 +2,7 @@
 // POST /api/blueprint-checkout → a Stripe Checkout page for the pure blueprint (Apple Pay, cards).
 // The answers never go to Stripe: they stay in the browser until the paid book is written.
 const { stripe } = require("./_stripe");
+const { limited, note, ipOf } = require("./_limit");
 const { priceFor } = require("./_blueprint");
 
 module.exports = async (req, res) => {
@@ -13,6 +14,10 @@ module.exports = async (req, res) => {
     res.setHeader("Allow", "GET, POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
+  // a person orders or signs up a few times, a bot hundreds: 20 per address and hour
+  const ip = ipOf(req);
+  if (limited("blueprint-checkout", ip, 20, 3600000)) return res.status(429).json({ error: "Too many requests" });
+  note("blueprint-checkout", ip, 3600000);
   const origin = `https://${req.headers["x-forwarded-host"] || req.headers.host}`;
   try {
     const session = await stripe("POST", "checkout/sessions", {
