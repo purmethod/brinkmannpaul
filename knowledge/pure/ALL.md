@@ -247,7 +247,7 @@ Hinter dem System stehen: Master of Science in Architektur (Universität Stuttga
 | woman.md | angelegt | Pauls Wissen für Frauen (nur Paul); bis dahin Arbeitsstand von Claude |
 | What a Good Man Is | steht | |
 | Fastenbuch | Kern | Gliederung und Kapiteltext |
-| Blueprint | live | Buch 12,7 × 20,3 cm, rund 170 Seiten; Länge nach den ersten echten Büchern nachjustieren |
+| Blueprint | live | Buch 12,7 × 20,3 cm, rund 190 bis 200 Seiten; Länge nach den ersten echten Büchern nachjustieren |
 | PURE Pact | final | |
 | Seite brinkmannpaul.com/pure | final | live, ausgeliefert von purmethod.com/pure über `dist/vercel.json` |
 
@@ -2068,11 +2068,12 @@ Volle Referenzen: [09-quellen.md](../09-quellen.md)
 
 - Paul: Es muss wertig sein wie ein Buch, darf aber nicht zu lang sein. 200 bis 300 Seiten waren zu lang.
 - **Format: 12,7 × 20,3 cm (5 × 8 Zoll)**, wie *The War of Art*. Von Anfang an so festgelegt, weil Paul das Buch später verlegen will. Der Druck aus dem Blueprint hat dieses Format.
-- **Länge: rund 170 Seiten**, wie ein typisches kleines Sachbuch.
+- **Länge: rund 190 bis 200 Seiten.** Zuerst waren 170 angedacht. Entschieden: Die natürliche Länge ist 190 bis 200, weil Pauls Methodenkapitel allein schon rund 146 Seiten füllen und der persönliche Teil knapp zwei Seiten pro Stufe braucht, damit er wirklich trifft.
 - Nichts wird weggekürzt, nur besser formuliert. Die Tiefe bleibt. Pauls Methodenkapitel bleiben vollständig, Wort für Wort. Der persönliche Teil behält jedes Element und sagt jeden Gedanken nur einmal, in seiner stärksten Form.
 - Ziel: ein besseres Buch als vorher. Der Leser soll beim Lesen überwältigt werden und einen Aha-Effekt bekommen. Pauls Seele und Stimme brechen nicht weg.
 - **Design innen:** ruhig, minimalistisch, leicht, wie pure und pact auf der Website. Kästchen mit dünnen Linien, viel Weißraum, keine Gedankenstriche.
 - Paul will später aus vielen Blueprints Muster ziehen: was die meisten Männer ausmacht, was sie machen, in welcher Situation sie stehen. Das breiteste Muster wird ein eigenes Buch im selben Format.
+- Testen und Verschenken: Mit dem Code PAUL100 schreibt der Blueprint das Buch ohne Bezahlung. Die Codes liegen nur in Vercel (`BLUEPRINT_FREE_CODES`), nie im öffentlichen Repo.
 - Technik: Repo `purmethod/pur`, Format in `blueprint/index.html` (`@page`), Wortmengen in `api/analyze.js`. Jedes geschriebene Buch meldet seine Wortzahl im Vercel-Log (`blueprint words`), damit die Länge nachjustiert werden kann.
 
 ## Text für Leser (EN)
