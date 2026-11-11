@@ -31,7 +31,9 @@
     .flow:after { content: ""; position: absolute; inset: auto 0 0; height: 22%; z-index: 1; background: linear-gradient(rgba(25, 22, 18, 0), rgba(25, 22, 18, .28)); }
     .mark { position: absolute; z-index: 2; left: 50%; top: max(8vh, calc(env(safe-area-inset-top) + 34px)); width: min(42vw, 280px); transform: translateX(-50%); display: grid; justify-items: center; gap: 14px; filter: drop-shadow(0 1px 14px rgba(0, 0, 0, .22)); }
     .mark img { width: 100%; height: auto; display: block; }
-    .motto { color: #fff; font-size: 11px; letter-spacing: .42em; padding-inline-start: .42em; white-space: nowrap; }
+    /* the line under the logo may be wider than the logo: it never changes the logo's size, it stays centred */
+    .mark { grid-template-columns: minmax(0, 1fr); }
+    .motto { color: #fff; font-size: 11px; letter-spacing: .3em; padding-inline-start: .3em; white-space: nowrap; justify-self: center; width: max-content; }
     .cue { position: absolute; z-index: 2; left: 0; right: 0; bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px)); display: grid; justify-items: center; gap: 8px; color: #fff; font-size: 12px; letter-spacing: .12em; text-shadow: 0 0 10px rgba(0, 0, 0, .35); }
     .cue i { width: 1px; height: 34px; background: rgba(255, 255, 255, .85); animation: drift 2.6s ease-in-out infinite; transform-origin: top; }
     @keyframes drift { 0%, 100% { transform: scaleY(.35); opacity: .5; } 50% { transform: scaleY(1); opacity: 1; } }
@@ -119,7 +121,7 @@
     <video id="clip" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" poster="/poster.webp?v=7" aria-hidden="true">
       <source src="/flow.mp4?v=8" type="video/mp4" />
     </video>
-    <div class="mark"><img src="/foyo-club-ring-white.webp?v=2" alt="foyo club" width="800" height="800" /><span class="motto">forever young</span></div>
+    <div class="mark"><img src="/foyo-club-ring-white.webp?v=2" alt="foyo club" width="800" height="800" /><span class="motto">breathing and breakfast</span></div>
     <p class="cue" aria-hidden="true"><span id="cue">tap or scroll</span><i></i></p>
   </section>
   <nav class="top" id="top">
