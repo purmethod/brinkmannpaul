@@ -2681,6 +2681,155 @@
           ]
         }
       }
+    },
+    {
+      "slug": "can-wood-finished-rooms-improve-thinking",
+      "published": "2026-11-11",
+      "modified": "2026-11-11",
+      "doi": "10.1038/s41598-025-18629-z",
+      "cite_authors": "Kim (2025)",
+      "cite_title": "Cognitive efficiency in VR simulated natural indoor environments examined through EEG and affective responses.",
+      "cite_journal": "Scientific Reports, 15, 33398.",
+      "text": {
+        "en": {
+          "title": "Can wood-look interiors help us think more clearly?",
+          "dek": "A VR experiment with 36 people found higher cognitive task scores and altered EEG patterns in a wood-finished room.",
+          "intro": "Not every nature-inspired room worked equally well. A 2025 experiment compared wood finishes, curved forms, nature views and a neutral interior.",
+          "sections": [
+            [
+              "Four virtual interiors",
+              "Sieun Kim studied 36 participants in a within-subject VR experiment: a neutral control (C), curved forms (CL), a nature view (N) and wooden interior finishes (W). EEG frequency ratios, self-reported relaxation and emotional valence, and standardized cognitive tasks were measured."
+            ],
+            [
+              "The measured differences",
+              "Cognitive scores differed by condition: F(3,105)=31.6, p<0.001, partial η²=0.475. The wooden interior outperformed the control (t(35)=8.137, p<0.001), curved forms and nature views; the latter two did not significantly outperform the control. Relaxation differed across conditions: F(3,105)=7.94, p<0.001, partial η²=0.185. In a regression model, alpha/theta EEG ratio (β=0.206, p=0.01) and relaxation (β=0.173, p=0.041) were associated with task scores; the model explained 14.8% of their variance."
+            ],
+            [
+              "What architecture can learn",
+              "A wood-finished virtual room coincided with better task performance and a more relaxed reported state. This is a testable hypothesis for real interiors, not proof that wood itself causes better cognition. Visual texture, brightness, color, familiarity and expectations should be controlled in follow-up experiments."
+            ],
+            [
+              "What remains unknown",
+              "The sample was small and the exposure virtual and short-term. EEG ratios are indirect functional markers, not measurements of synapses or neuroplasticity. The experiment does not establish effects on brain anatomy, gene sequence, gene expression, epigenetics or long-term health."
+            ]
+          ]
+        },
+        "de": {
+          "title": "Denken wir in Räumen mit Holzoberflächen besser?",
+          "dek": "Ein VR-Experiment mit 36 Personen fand höhere kognitive Testwerte und veränderte EEG-Muster in einem holzgestalteten Raum.",
+          "intro": "Nicht jede naturnahe Raumgestaltung wirkt gleich. Eine Studie von 2025 verglich Holzoberflächen, geschwungene Formen, Naturausblicke und einen neutralen Innenraum.",
+          "sections": [
+            [
+              "Vier virtuelle Innenräume",
+              "Sieun Kim untersuchte 36 Personen in einem VR-Experiment mit Messwiederholung: neutraler Kontrollraum (C), geschwungene Formen (CL), Naturausblick (N) und Holzoberflächen (W). Erfasst wurden EEG-Frequenzverhältnisse, selbstberichtete Entspannung und emotionale Bewertung sowie standardisierte kognitive Aufgaben."
+            ],
+            [
+              "Die gemessenen Unterschiede",
+              "Die kognitiven Testwerte unterschieden sich zwischen den Bedingungen: F(3,105)=31,6; p<0,001; partielles η²=0,475. Der Holzraum übertraf die Kontrolle (t(35)=8,137; p<0,001) sowie Kurven- und Ausblickbedingung; diese beiden waren nicht signifikant besser als die Kontrolle. Auch Entspannung unterschied sich: F(3,105)=7,94; p<0,001; partielles η²=0,185. Im Regressionsmodell waren das EEG-Alpha/Theta-Verhältnis (β=0,206; p=0,01) und Entspannung (β=0,173; p=0,041) mit der Leistung assoziiert; das Modell erklärte 14,8 % der Varianz."
+            ],
+            [
+              "Bedeutung für Architektur und PhD",
+              "Der virtuell holzgestaltete Raum ging mit besserer Aufgabenleistung und höherer berichteter Entspannung einher. Das ist eine prüfbare Hypothese für reale Innenräume, kein Beweis, dass Holz als Material die Kognition verbessert. Folgestudien sollten Textur, Helligkeit, Farbe, Vertrautheit und Erwartung kontrollieren."
+            ],
+            [
+              "Grenzen der Aussage",
+              "Kleine Stichprobe, kurze virtuelle Exposition und mögliche visuelle Störvariablen begrenzen die Übertragbarkeit. EEG-Verhältnisse sind indirekte Funktionsindikatoren, keine Messung neuer Synapsen oder von Neuroplastizität. Weder Hirnanatomie noch DNA-Sequenz, Genexpression, Epigenetik oder langfristige Gesundheit wurden untersucht."
+            ]
+          ]
+        },
+        "fr": {
+          "title": "Les intérieurs en bois favorisent-ils la concentration ?",
+          "dek": "Une expérience en réalité virtuelle auprès de 36 personnes a observé de meilleurs scores cognitifs et des différences EEG dans un intérieur boisé.",
+          "intro": "Les aménagements inspirés de la nature ne produisent pas tous le même effet. Cette étude compare bois, courbes, vue sur la nature et intérieur neutre.",
+          "sections": [
+            [
+              "Quatre espaces virtuels",
+              "Sieun Kim a étudié 36 participants dans quatre conditions VR répétées : intérieur neutre, formes courbes, vue sur la nature et finitions en bois. L'étude mesurait des rapports de fréquences EEG, la détente ressentie, l'affect et des tâches cognitives standardisées."
+            ],
+            [
+              "Résultats chiffrés",
+              "Les scores cognitifs variaient selon la condition : F(3,105)=31,6 ; p<0,001 ; η² partiel=0,475. L'intérieur boisé dépassait le contrôle (t(35)=8,137 ; p<0,001), contrairement aux courbes et à la vue naturelle. La détente variait également : F(3,105)=7,94 ; p<0,001 ; η² partiel=0,185. Le rapport EEG alpha/thêta (β=0,206 ; p=0,01) et la détente (β=0,173 ; p=0,041) étaient associés aux scores ; R²=0,148."
+            ],
+            [
+              "Implications architecturales",
+              "Dans cette simulation, les finitions en bois accompagnaient une meilleure performance et davantage de détente. Il faut tester cet effet dans des bâtiments réels en contrôlant texture, luminosité, couleur et attentes : la causalité propre au matériau n'est pas démontrée."
+            ],
+            [
+              "Limites",
+              "Échantillon réduit et exposition virtuelle brève. Les rapports EEG ne mesurent ni synapses ni neuroplasticité. Aucune modification anatomique, génétique, épigénétique ou de santé à long terme n'a été établie."
+            ]
+          ]
+        },
+        "es": {
+          "title": "¿Pensamos mejor en interiores con madera?",
+          "dek": "Un experimento de realidad virtual con 36 personas halló mejores resultados cognitivos y diferencias en el EEG en un interior con madera.",
+          "intro": "No todos los diseños inspirados en la naturaleza producen el mismo efecto. El estudio comparó madera, formas curvas, vistas naturales y un interior neutro.",
+          "sections": [
+            [
+              "Cuatro interiores virtuales",
+              "Sieun Kim estudió a 36 personas en cuatro condiciones repetidas de realidad virtual: control neutro, formas curvas, vista natural y acabados de madera. Se midieron índices EEG, relajación, emociones y tareas cognitivas estandarizadas."
+            ],
+            [
+              "Resultados cuantitativos",
+              "El rendimiento cognitivo varió entre condiciones: F(3,105)=31,6; p<0,001; η² parcial=0,475. El interior de madera superó al control (t(35)=8,137; p<0,001); ni las curvas ni las vistas naturales lo superaron significativamente. La relajación también varió: F(3,105)=7,94; p<0,001; η² parcial=0,185. El índice EEG alfa/theta (β=0,206; p=0,01) y la relajación (β=0,173; p=0,041) se asociaron al rendimiento; R²=0,148."
+            ],
+            [
+              "Relevancia arquitectónica",
+              "La habitación virtual con madera se asoció con mejores tareas y mayor relajación. No demuestra que la madera por sí sola mejore la cognición. Es necesario controlar textura, luz, color y expectativas en edificios reales."
+            ],
+            [
+              "Límites",
+              "Muestra pequeña y exposición virtual breve. Los índices EEG no miden sinapsis ni neuroplasticidad. No se investigaron cambios cerebrales estructurales, genéticos, epigenéticos ni efectos sanitarios duraderos."
+            ]
+          ]
+        },
+        "ar": {
+          "title": "هل نفكر بصورة أفضل في المساحات ذات التشطيبات الخشبية؟",
+          "dek": "وجدت تجربة واقع افتراضي شملت 36 شخصًا درجات أعلى في اختبارات الإدراك وأنماط مختلفة في تخطيط كهربائية الدماغ داخل مساحة بتشطيبات خشبية.",
+          "intro": "ليست كل التصاميم المستوحاة من الطبيعة متساوية في تأثيرها. قارنت الدراسة الخشب والأشكال المنحنية والإطلالات الطبيعية بمساحة داخلية محايدة.",
+          "sections": [
+            [
+              "أربع مساحات افتراضية",
+              "درست سيون كيم 36 مشاركًا في أربع حالات واقع افتراضي متكررة: مساحة محايدة، وأشكال منحنية، وإطلالة طبيعية، وتشطيبات خشبية. شملت القياسات نسب ترددات تخطيط الدماغ والاسترخاء المبلغ عنه والمشاعر واختبارات إدراكية معيارية."
+            ],
+            [
+              "النتائج الكمية",
+              "اختلف الأداء الإدراكي بين الحالات: F(3,105)=31.6؛ p<0.001؛ η² الجزئي=0.475. تفوقت المساحة الخشبية على الضابطة (t(35)=8.137؛ p<0.001)، بينما لم تتفوق الأشكال المنحنية أو الإطلالة الطبيعية عليها بصورة دالة. واختلف الاسترخاء أيضًا: F(3,105)=7.94؛ p<0.001؛ η² الجزئي=0.185. ارتبطت نسبة ألفا/ثيتا في EEG (β=0.206؛ p=0.01) والاسترخاء (β=0.173؛ p=0.041) بالأداء؛ وفسر النموذج 14.8% من تباينه."
+            ],
+            [
+              "الدلالة المعمارية",
+              "ارتبطت التشطيبات الخشبية الافتراضية بأداء أفضل واسترخاء أعلى. لكن ذلك لا يثبت أن الخشب نفسه يحسن الإدراك. يجب اختبار الفرضية في مبانٍ حقيقية مع ضبط الملمس والإضاءة واللون والتوقعات."
+            ],
+            [
+              "الحدود العلمية",
+              "العينة صغيرة والتعرض افتراضي وقصير. مؤشرات EEG غير مباشرة ولا تقيس المشابك العصبية أو اللدونة العصبية. لم تُدرس تغيرات بنية الدماغ أو تسلسل الحمض النووي أو التعبير الجيني أو التغيرات فوق الجينية أو الصحة طويلة الأمد."
+            ]
+          ]
+        },
+        "ru": {
+          "title": "Помогает ли деревянная отделка лучше думать?",
+          "dek": "В VR-эксперименте с 36 участниками интерьер с деревянной отделкой сопровождался более высокими когнитивными показателями и изменениями ЭЭГ.",
+          "intro": "Не всякий интерьер с природными элементами действует одинаково. Исследование сравнило дерево, изогнутые формы, вид на природу и нейтральную комнату.",
+          "sections": [
+            [
+              "Четыре виртуальных интерьера",
+              "Сиын Ким исследовала 36 участников в четырёх повторных VR-условиях: нейтральный интерьер, изогнутые формы, вид на природу и деревянная отделка. Измерялись частотные отношения ЭЭГ, субъективное расслабление, эмоции и результаты когнитивных заданий."
+            ],
+            [
+              "Численные результаты",
+              "Когнитивные показатели различались: F(3,105)=31,6; p<0,001; частичная η²=0,475. Деревянный интерьер превосходил контроль (t(35)=8,137; p<0,001); изгибы и природный вид значимого преимущества не дали. Расслабление также различалось: F(3,105)=7,94; p<0,001; частичная η²=0,185. Отношение ЭЭГ альфа/тета (β=0,206; p=0,01) и расслабление (β=0,173; p=0,041) коррелировали с результатами; R²=0,148."
+            ],
+            [
+              "Для архитектуры и диссертации",
+              "Виртуальный интерьер с деревом сопровождался лучшими результатами и расслаблением. Это не доказывает, что само дерево улучшает мышление. В реальных помещениях нужно контролировать текстуру, освещение, цвет и ожидания."
+            ],
+            [
+              "Ограничения",
+              "Небольшая выборка и короткое виртуальное воздействие. Индексы ЭЭГ не измеряют синапсы или нейропластичность. Структурные изменения мозга, последовательности ДНК, экспрессия генов, эпигенетика и долгосрочное здоровье не исследовались."
+            ]
+          ]
+        }
+      }
     }
   ]
 }
