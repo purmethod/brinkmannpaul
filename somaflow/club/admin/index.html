@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>soma flow club · anmeldungen</title>
+  <link rel="icon" href="/club/favicon.png" type="image/png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink: #5c5c56; --ink3: #7b7b75; --line: #cfcfca; --warn: #8a3b2e; }
+    body { background: #fff; color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; text-transform: lowercase; }
+    button, input { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px; border-top: 2px solid var(--ink); }
+    nav img { height: 30px; width: auto; display: block; }
+    main { max-width: 640px; margin: 0 auto; padding: 34px 20px 80px; }
+    h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; margin-bottom: 18px; }
+    .tag { font-size: 12px; letter-spacing: .04em; color: var(--ink3); margin-bottom: 12px; }
+    .fine { font-size: 13px; color: var(--ink3); }
+    input[type=password] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; font-size: 16px; text-transform: none; margin: 8px 0 14px; }
+    .btn { padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; }
+    .ghost { padding: 7px 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-size: 13px; }
+    .err { color: var(--warn); font-size: 14px; margin-top: 10px; }
+    .session { margin-top: 34px; border-top: 2px solid var(--ink); padding-top: 14px; }
+    .session h2 { font-size: 20px; font-weight: 400; letter-spacing: -.02em; }
+    .count { font-size: 13px; color: var(--ink3); margin: 2px 0 10px; }
+    ol { list-style: none; border-top: 1px solid var(--line); counter-reset: n; }
+    li { counter-increment: n; display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    li:before { content: counter(n); color: var(--ink3); font-size: 13px; }
+    li .who { text-transform: none; }
+    li .when { display: block; font-size: 12px; color: var(--ink3); }
+    .empty { padding: 10px 0; color: var(--ink3); font-size: 14px; border-bottom: 1px solid var(--line); }
+    .bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav><a href="/club/"><img src="/club/logo-black.webp" alt="soma flow club" width="1056" height="368" /></a><span class="fine">anmeldungen</span></nav>
+  <main>
+    <form id="login" hidden>
+      <p class="tag">soma flow club · admin</p>
+      <h1>anmeldungen</h1>
+      <label class="fine" for="key">passwort</label>
+      <input type="password" id="key" autocomplete="current-password" />
+      <button class="btn" type="submit">öffnen</button>
+      <p class="err" id="lerr" hidden></p>
+    </form>
+    <section id="list" hidden>
+      <p class="tag">soma flow club · admin</p>
+      <h1>anmeldungen</h1>
+      <div class="bar"><button class="ghost" type="button" id="reload">neu laden</button><button class="ghost" type="button" id="out">abmelden</button></div>
+      <p class="err" id="err" hidden></p>
+      <div id="sessions"></div>
+    </section>
+  </main>
+  <script>
+  // the list of sign-ups for raouf and paul. the password is checked on the server (SOMA_ADMIN_KEY);
+  // it is kept in this tab only, for this visit.
+  (function () {
+    "use strict";
+    const K = "soma-admin";
+    const $ = (id) => document.getElementById(id);
+    let key = "";
+    try { key = sessionStorage.getItem(K) || ""; } catch { /* private mode */ }
+    function el(tag, attrs, ...kids) {
+      const n = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v); }
+      for (const k of kids.flat()) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+      return n;
+    }
+    const fmt = (iso, opts) => { try { return new Intl.DateTimeFormat("de-DE", opts).format(new Date(iso)); } catch { return iso; } };
+    const sessionTitle = (s) => s.when ? fmt((s.when.length === 10 ? s.when + "T12:00" : s.when) + ":00Z", s.when.length === 10 ? { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" } : { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + (s.when.length === 10 ? " · uhrzeit in der gruppe" : "") : (s.id === "next" ? "nächster termin (ohne datum)" : "nächster termin · datum und uhrzeit in der gruppe");
+    async function api(method, body) {
+      const r = await fetch("https://brinkmannpaul.com/api/sfc" + (method === "GET" ? "?admin=1" : ""), { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+      if (r.status === 401) throw Object.assign(new Error("key"), { code: 401 });
+      if (!r.ok) throw new Error("server");
+      return r.json();
+    }
+    function show(which) { $("login").hidden = which !== "login"; $("list").hidden = which !== "list"; }
+    async function load() {
+      $("err").hidden = true;
+      try {
+        const d = await api("GET");
+        show("list");
+        const box = $("sessions"); box.replaceChildren();
+        if (!d.sessions.length) box.append(el("p", { class: "empty" }, "noch keine termine und keine anmeldungen."));
+        for (const s of d.sessions) {
+          const list = el("ol");
+          if (!s.people.length) list.append(el("p", { class: "empty" }, "noch niemand angemeldet."));
+          for (const p of s.people) list.append(el("li", {},
+            el("span", {}, el("span", { class: "who" }, p.name), el("span", { class: "when" }, "angemeldet " + fmt(p.joined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }))),
+            el("button", { class: "ghost", type: "button", onclick: () => remove(p) }, "austragen")));
+          box.append(el("section", { class: "session" },
+            el("h2", {}, sessionTitle(s) + (s.test ? " · test" : "")),
+            el("p", { class: "count" }, (s.place ? s.place + " · " : "") + s.people.length + " von " + d.places + " plätzen belegt"),
+            list));
+        }
+      } catch (e) {
+        if (e.code === 401) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "das passwort stimmt nicht."; $("lerr").hidden = false; return; }
+        show("list"); $("err").textContent = "die liste konnte nicht geladen werden. bitte neu laden."; $("err").hidden = false;
+      }
+    }
+    async function remove(p) {
+      if (!confirm(p.name + " austragen? der platz wird wieder frei.")) return;
+      try { await api("POST", { remove: p.id }); load(); } catch { $("err").textContent = "das hat nicht geklappt."; $("err").hidden = false; }
+    }
+    $("login").addEventListener("submit", (e) => {
+      e.preventDefault();
+      key = $("key").value.trim();
+      if (!key) return;
+      try { sessionStorage.setItem(K, key); } catch {}
+      $("lerr").hidden = true;
+      load();
+    });
+    $("reload").addEventListener("click", load);
+    $("out").addEventListener("click", () => { key = ""; try { sessionStorage.removeItem(K); } catch {} $("key").value = ""; show("login"); });
+    if (key) load(); else show("login");
+  })();
+  </script>
+</body>
+</html>
