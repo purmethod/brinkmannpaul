@@ -2536,7 +2536,7 @@
     {
       "slug": "can-blue-enriched-office-light-improve-focus",
       "published": "2026-11-10",
-      "modified": "2026-11-10",
+      "modified": "2026-11-11",
       "doi": "10.3389/fpubh.2024.1390614",
       "cite_authors": "Gagné, Turgeon, Jomphe, Demers & Hébert (2024)",
       "cite_title": "Evaluation of the effects of blue-enriched white light on cognitive performance, arousal, and overall appreciation of lighting.",
@@ -2545,19 +2545,19 @@
         "en": {
           "title": "Can blue-enriched office lighting improve focus?",
           "dek": "A controlled crossover experiment found less subjective sleepiness under blue-enriched light, but no extra concentration benefit.",
-          "intro": "More stimulating light does not necessarily mean better thinking. An experiment in two windowless office rooms tested what actually changes.",
+          "intro": "Many offices are lit to keep you awake. Cooler, bluer light is often sold as the answer. I wanted to know whether it helps you think, or only makes you feel sharper. A small experiment in two windowless office rooms tested exactly this.",
           "sections": [
             [
               "The experiment",
-              "Gagné and colleagues studied 30 healthy adults (19 women; mean age 23.4) in a counterbalanced crossover experiment. Each person spent 50 minutes under conventional 3,500 K fluorescent light (159 melanopic EDI lux) and blue-enriched 5,000 K LED light (263 melanopic EDI lux), on different days at similar times. Vertical photopic illuminance was comparable: 335 versus 344 lux. Researchers measured subjective sleepiness (KSS), concentration (d2-R), contrast sensitivity, and lighting preference."
+              "Gagné and colleagues studied 30 healthy adults (19 women; mean age 23.4) in a counterbalanced crossover experiment in two adjacent windowless rooms. After 20 minutes in dim light, each person spent 50 minutes under conventional 3,500 K fluorescent light (159 melanopic EDI lux) and, in the other session, under blue-enriched 5,000 K LED light (263 melanopic EDI lux). Vertical photopic illuminance was comparable: 335 versus 344 lux. The researchers measured subjective sleepiness (KSS), concentration (d2-R), contrast sensitivity and the appreciation of the lighting."
             ],
             [
               "The numbers",
-              "Subjective sleepiness decreased significantly over time only in the blue-enriched condition (p = 0.03; Cohen's d = 0.42); this within-condition finding is not proof of a significant between-condition advantage. Concentration improved under both lights (p < 0.0001), without a significant difference between lighting conditions (p = 0.79). Contrast sensitivity was worse under blue-enriched light (p = 0.01; d = 0.50). Participants preferred conventional light (p = 0.004; d = 0.56)."
+              "Subjective sleepiness decreased significantly over time only in the blue-enriched condition (p = 0.03; Cohen's d = 0.42); this within-condition finding is not proof of a significant advantage over the conventional light. Concentration improved under both lights (p < 0.0001), with no significant difference between them (p = 0.79). Contrast sensitivity was lower under blue-enriched light (p = 0.01; d = 0.50). Participants preferred the conventional light (p = 0.004; d = 0.56) and rated it more comfortable, cheerful and pleasant; the blue-enriched light was rated brighter."
             ],
             [
-              "Architecture and doctoral research",
-              "Light spectra should be designed for both alertness and visual comfort, not reduced to a single 'optimal' Kelvin value. A useful next study would manipulate melanopic exposure independently of room appearance and lamp type, and test cognitive outcomes over weeks."
+              "What this means for architecture",
+              "As an architect, I choose the light before anyone sits in the room. Here the cooler light made people feel less sleepy, but they did not concentrate better, they saw contrast less well and they liked the warmer light more. Feeling awake and thinking well are not the same. For me, light is not one Kelvin number. It has to serve alertness and the eye at once. The next step would be to change the melanopic dose without changing the room or the lamp, and to follow people over weeks."
             ],
             [
               "What the study cannot show",
@@ -2568,19 +2568,19 @@
         "de": {
           "title": "Macht blauangereichertes Bürolicht konzentrierter?",
           "dek": "Ein kontrolliertes Crossover-Experiment fand weniger subjektive Müdigkeit, aber keinen zusätzlichen Konzentrationsgewinn.",
-          "intro": "Licht kann uns wacher fühlen lassen, ohne dass wir besser denken. Ein Experiment in zwei fensterlosen Büroräumen prüfte genau diesen Unterschied.",
+          "intro": "Viele Büros werden beleuchtet, damit du wach bleibst. Kühleres, blaueres Licht gilt oft als Lösung. Ich wollte wissen, ob es dir beim Denken hilft oder dich nur wacher fühlen lässt. Ein kleines Experiment in zwei fensterlosen Büroräumen hat genau das geprüft.",
           "sections": [
             [
               "Das Experiment",
-              "Gagné und Kollegen untersuchten 30 gesunde Erwachsene (19 Frauen; Durchschnittsalter 23,4 Jahre) im ausbalancierten Crossover-Design. Alle verbrachten an verschiedenen Tagen jeweils 50 Minuten unter konventionellem Leuchtstofflicht mit 3.500 K (159 melanopische EDI-Lux) und blauangereichertem LED-Licht mit 5.000 K (263 melanopische EDI-Lux). Die vertikale photopische Beleuchtungsstärke war vergleichbar: 335 gegenüber 344 Lux. Gemessen wurden Müdigkeit (KSS), Konzentration (d2-R), Kontrastempfindlichkeit und Lichtpräferenz."
+              "Gagné und Kollegen untersuchten 30 gesunde Erwachsene (19 Frauen; Durchschnittsalter 23,4 Jahre) im ausbalancierten Crossover-Design in zwei benachbarten fensterlosen Räumen. Nach 20 Minuten in gedämpftem Licht verbrachte jede Person 50 Minuten unter konventionellem Leuchtstofflicht mit 3.500 K (159 melanopische EDI-Lux) und in der anderen Sitzung unter blauangereichertem LED-Licht mit 5.000 K (263 melanopische EDI-Lux). Die vertikale photopische Beleuchtungsstärke war vergleichbar: 335 gegenüber 344 Lux. Gemessen wurden subjektive Müdigkeit (KSS), Konzentration (d2-R), Kontrastempfindlichkeit und die Bewertung der Beleuchtung."
             ],
             [
               "Die Zahlen",
-              "Die subjektive Müdigkeit sank innerhalb der blauangereicherten Bedingung signifikant (p = 0,03; Cohen's d = 0,42). Das beweist keinen signifikanten Vorteil gegenüber der Kontrollbedingung. Die Konzentrationsleistung verbesserte sich unter beiden Lichtarten (p < 0,0001), ohne signifikanten Unterschied zwischen den Bedingungen (p = 0,79). Die Kontrastempfindlichkeit war unter blauangereichertem Licht schlechter (p = 0,01; d = 0,50). Bevorzugt wurde das konventionelle Licht (p = 0,004; d = 0,56)."
+              "Die subjektive Müdigkeit sank im Verlauf nur unter blauangereichertem Licht signifikant (p = 0,03; Cohen's d = 0,42). Dieser Befund innerhalb einer Bedingung beweist keinen signifikanten Vorteil gegenüber dem konventionellen Licht. Die Konzentrationsleistung verbesserte sich unter beiden Lichtarten (p < 0,0001), ohne signifikanten Unterschied zwischen ihnen (p = 0,79). Die Kontrastempfindlichkeit war unter blauangereichertem Licht geringer (p = 0,01; d = 0,50). Die Teilnehmenden bevorzugten das konventionelle Licht (p = 0,004; d = 0,56) und bewerteten es als angenehmer, freundlicher und komfortabler; das blauangereicherte Licht wurde als heller bewertet."
             ],
             [
-              "Architektur und Dissertation",
-              "Beleuchtung sollte Wachheit und Sehkomfort gemeinsam berücksichtigen. Eine anschließende Studie könnte die melanopische Lichtwirkung unabhängig von Raumerscheinung und Lampentechnologie variieren und kognitive Leistungen über Wochen prüfen."
+              "Was das für die Architektur bedeutet",
+              "Als Architekt wähle ich das Licht, bevor jemand im Raum sitzt. Hier fühlten sich Menschen unter kühlerem Licht weniger müde, aber sie konzentrierten sich nicht besser, sahen Kontraste schlechter und mochten das wärmere Licht lieber. Sich wach fühlen und gut denken ist nicht dasselbe. Für mich ist Licht keine einzelne Kelvinzahl. Es muss der Wachheit und dem Auge zugleich dienen. Der nächste Schritt wäre, die melanopische Dosis zu verändern, ohne Raum oder Lampe zu wechseln, und Menschen über Wochen zu begleiten."
             ],
             [
               "Grenzen",
@@ -2591,92 +2591,92 @@
         "fr": {
           "title": "Une lumière de bureau enrichie en bleu améliore-t-elle la concentration ?",
           "dek": "Une expérience croisée contrôlée a réduit la somnolence ressentie, sans améliorer davantage la concentration.",
-          "intro": "Se sentir plus éveillé ne signifie pas forcément mieux réfléchir. Une expérience menée dans deux bureaux sans fenêtres a testé cette différence.",
+          "intro": "Beaucoup de bureaux sont éclairés pour te garder éveillé. Une lumière plus froide, plus bleue, est souvent présentée comme la solution. Je voulais savoir si elle t'aide à penser ou si elle te donne seulement l'impression d'être plus vif. Une petite expérience dans deux bureaux sans fenêtres a testé exactement cela.",
           "sections": [
             [
               "L'expérience",
-              "Gagné et ses collègues ont étudié 30 adultes en bonne santé (19 femmes ; âge moyen : 23,4 ans) dans un protocole croisé à ordre équilibré. Chaque personne a passé 50 minutes sous un éclairage fluorescent de 3 500 K (159 lux EDI mélanopiques) et sous des LED enrichies en bleu de 5 000 K (263 lux EDI mélanopiques), lors de journées distinctes. L'éclairement photopique vertical était comparable : 335 contre 344 lux. Les chercheurs ont évalué la somnolence, la concentration, la sensibilité au contraste et les préférences."
+              "Gagné et ses collègues ont étudié 30 adultes en bonne santé (19 femmes ; âge moyen : 23,4 ans) dans un protocole croisé à ordre équilibré, dans deux pièces voisines sans fenêtres. Après 20 minutes sous une lumière tamisée, chaque personne a passé 50 minutes sous un éclairage fluorescent conventionnel de 3 500 K (159 lux EDI mélanopiques) et, lors de l'autre séance, sous des LED enrichies en bleu de 5 000 K (263 lux EDI mélanopiques). L'éclairement photopique vertical était comparable : 335 contre 344 lux. Les chercheurs ont mesuré la somnolence subjective (KSS), la concentration (d2-R), la sensibilité au contraste et l'appréciation de l'éclairage."
             ],
             [
               "Les résultats",
-              "La somnolence subjective a diminué significativement au fil du temps uniquement sous la lumière enrichie en bleu (p = 0,03 ; d de Cohen = 0,42), sans démontrer un avantage significatif entre conditions. La concentration a progressé dans les deux conditions (p < 0,0001), sans différence entre elles (p = 0,79). La sensibilité au contraste était plus faible sous LED enrichies en bleu (p = 0,01 ; d = 0,50). L'éclairage conventionnel était préféré (p = 0,004 ; d = 0,56)."
+              "La somnolence subjective a diminué significativement au fil du temps uniquement sous la lumière enrichie en bleu (p = 0,03 ; d de Cohen = 0,42) ; ce résultat interne à une condition ne prouve pas un avantage significatif sur l'éclairage conventionnel. La concentration a progressé sous les deux lumières (p < 0,0001), sans différence significative entre elles (p = 0,79). La sensibilité au contraste était plus faible sous la lumière enrichie en bleu (p = 0,01 ; d = 0,50). Les participants ont préféré l'éclairage conventionnel (p = 0,004 ; d = 0,56) et l'ont jugé plus confortable, plus gai et plus agréable ; la lumière enrichie en bleu a été jugée plus lumineuse."
             ],
             [
-              "Architecture et doctorat",
-              "L'éclairage doit concilier vigilance et confort visuel. Une étude ultérieure pourrait isoler l'exposition mélanopique de l'apparence de la pièce et du type de lampe, puis suivre les performances pendant plusieurs semaines."
+              "Ce que cela signifie pour l'architecture",
+              "En tant qu'architecte, je choisis la lumière avant que quiconque ne s'assoie dans la pièce. Ici, la lumière plus froide a rendu les gens moins somnolents, mais ils ne se sont pas mieux concentrés, ils ont moins bien perçu les contrastes et ils ont préféré la lumière plus chaude. Se sentir éveillé et bien penser ne sont pas la même chose. Pour moi, la lumière n'est pas un seul chiffre en kelvins. Elle doit servir à la fois la vigilance et l'œil. La prochaine étape serait de modifier la dose mélanopique sans changer la pièce ni la lampe, et de suivre les personnes pendant des semaines."
             ],
             [
               "Limites",
-              "L'échantillon jeune et restreint, les 50 minutes d'exposition, les deux pièces et technologies distinctes, les tests répétés et les comparaisons multiples limitent la portée des résultats. Ni EEG, ni IRM, ni synapses, ni expression génique ou épigénétique n'ont été mesurés."
+              "L'échantillon jeune et restreint, les 50 minutes d'exposition, les deux pièces et technologies distinctes, les tests répétés et les comparaisons multiples limitent la portée des résultats. Ni EEG, ni IRM, ni synapses, ni expression génique ou épigénétique n'ont été mesurés. L'expérience porte sur la perception et la performance à court terme, pas sur la neuroplasticité."
             ]
           ]
         },
         "es": {
           "title": "¿Mejora la concentración la luz de oficina enriquecida con azul?",
           "dek": "Un experimento cruzado controlado redujo la somnolencia subjetiva, pero no mejoró más la concentración.",
-          "intro": "Sentirse más despierto no significa pensar mejor. Un experimento en dos oficinas sin ventanas puso a prueba esa diferencia.",
+          "intro": "Muchas oficinas se iluminan para mantenerte despierto. La luz más fría y más azul se vende a menudo como la solución. Quería saber si te ayuda a pensar o solo hace que te sientas más despierto. Un pequeño experimento en dos oficinas sin ventanas puso a prueba exactamente eso.",
           "sections": [
             [
               "El experimento",
-              "Gagné y sus colegas estudiaron a 30 adultos sanos (19 mujeres; edad media de 23,4 años) mediante un diseño cruzado con orden equilibrado. Cada persona pasó 50 minutos bajo luz fluorescente convencional de 3500 K (159 lux EDI melanópicos) y LED enriquecidos con azul de 5000 K (263 lux EDI melanópicos), en días distintos. La iluminancia fotópica vertical fue similar: 335 frente a 344 lux. Se midieron somnolencia, concentración, sensibilidad al contraste y preferencias."
+              "Gagné y sus colegas estudiaron a 30 adultos sanos (19 mujeres; edad media de 23,4 años) mediante un diseño cruzado con orden equilibrado, en dos salas contiguas sin ventanas. Tras 20 minutos con luz tenue, cada persona pasó 50 minutos bajo luz fluorescente convencional de 3500 K (159 lux EDI melanópicos) y, en la otra sesión, bajo LED enriquecidos con azul de 5000 K (263 lux EDI melanópicos). La iluminancia fotópica vertical fue similar: 335 frente a 344 lux. Se midieron la somnolencia subjetiva (KSS), la concentración (d2-R), la sensibilidad al contraste y la valoración de la iluminación."
             ],
             [
               "Los resultados",
-              "La somnolencia subjetiva disminuyó significativamente con el tiempo solo bajo la luz enriquecida con azul (p = 0,03; d de Cohen = 0,42), sin demostrar una ventaja significativa entre condiciones. La concentración mejoró con ambas luces (p < 0,0001), sin diferencias entre ellas (p = 0,79). La sensibilidad al contraste fue peor con la luz enriquecida (p = 0,01; d = 0,50). Se prefirió la iluminación convencional (p = 0,004; d = 0,56)."
+              "La somnolencia subjetiva disminuyó significativamente con el tiempo solo bajo la luz enriquecida con azul (p = 0,03; d de Cohen = 0,42); este resultado dentro de una sola condición no demuestra una ventaja significativa frente a la luz convencional. La concentración mejoró con ambas luces (p < 0,0001), sin diferencia significativa entre ellas (p = 0,79). La sensibilidad al contraste fue menor con la luz enriquecida con azul (p = 0,01; d = 0,50). Los participantes prefirieron la iluminación convencional (p = 0,004; d = 0,56) y la valoraron como más cómoda, alegre y agradable; la luz enriquecida con azul se valoró como más brillante."
             ],
             [
-              "Arquitectura y doctorado",
-              "El diseño lumínico debe equilibrar alerta y comodidad visual. Un estudio futuro podría separar la exposición melanópica del aspecto de la habitación y de la tecnología de lámparas, y medir el rendimiento durante semanas."
+              "Qué significa para la arquitectura",
+              "Como arquitecto, elijo la luz antes de que nadie se siente en la sala. Aquí la luz más fría hizo que las personas se sintieran menos somnolientas, pero no se concentraron mejor, percibieron peor el contraste y prefirieron la luz más cálida. Sentirse despierto y pensar bien no son lo mismo. Para mí, la luz no es un solo número de kelvin. Tiene que servir a la vez a la alerta y al ojo. El siguiente paso sería cambiar la dosis melanópica sin cambiar la sala ni la lámpara, y seguir a las personas durante semanas."
             ],
             [
               "Limitaciones",
-              "La muestra pequeña y joven, la exposición de 50 minutos, las dos salas y tecnologías distintas, las pruebas repetidas y las múltiples comparaciones limitan la generalización. No se midieron EEG, resonancia magnética, sinapsis, expresión génica ni epigenética."
+              "La muestra pequeña y joven, la exposición de 50 minutos, las dos salas y tecnologías distintas, las pruebas repetidas y las múltiples comparaciones limitan la generalización. No se midieron EEG, resonancia magnética, sinapsis, expresión génica ni epigenética. El experimento estudia la percepción y el rendimiento a corto plazo, no la neuroplasticidad."
             ]
           ]
         },
         "ar": {
           "title": "هل تحسّن إضاءة المكاتب الغنية بالأزرق التركيز؟",
           "dek": "أظهرت تجربة تبادلية مضبوطة انخفاضاً في النعاس المُبلّغ عنه، دون تحسن إضافي في أداء التركيز.",
-          "intro": "الشعور بمزيد من اليقظة لا يعني بالضرورة التفكير بصورة أفضل. اختبرت تجربة في مكتبين بلا نوافذ هذا الفرق.",
+          "intro": "كثير من المكاتب تُضاء لتبقيك يقظاً. وكثيراً ما يُقدَّم الضوء الأبرد والأكثر زرقة على أنه الحل. أردت أن أعرف هل يساعدك على التفكير، أم يجعلك فقط تشعر بأنك أكثر يقظة. تجربة صغيرة في مكتبين بلا نوافذ اختبرت هذا بالضبط.",
           "sections": [
             [
               "التجربة",
-              "درس غانيه وزملاؤه 30 بالغاً بصحة جيدة (منهم 19 امرأة؛ متوسط العمر 23.4 سنة) بتصميم تبادلي متوازن. تعرض كل مشارك لمدة 50 دقيقة في يومين مختلفين لإضاءة فلورية تقليدية بدرجة 3500 كلفن (159 لوكس مكافئ نهاري ميلانوبسي) وإضاءة LED غنية بالأزرق بدرجة 5000 كلفن (263 لوكس). وكانت شدة الإضاءة البصرية الرأسية متقاربة: 335 مقابل 344 لوكس. قاس الباحثون النعاس والتركيز وحساسية التباين وتفضيلات الإضاءة."
+              "درس غانيه وزملاؤه 30 بالغاً بصحة جيدة (منهم 19 امرأة؛ متوسط العمر 23.4 سنة) بتصميم تبادلي متوازن الترتيب في غرفتين متجاورتين بلا نوافذ. بعد 20 دقيقة في ضوء خافت، أمضى كل مشارك 50 دقيقة تحت إضاءة فلورية تقليدية بدرجة 3500 كلفن (159 لوكس مكافئ نهاري ميلانوبسي)، وفي الجلسة الأخرى تحت إضاءة LED غنية بالأزرق بدرجة 5000 كلفن (263 لوكس مكافئ نهاري ميلانوبسي). وكانت شدة الإضاءة البصرية الرأسية متقاربة: 335 مقابل 344 لوكس. قاس الباحثون النعاس الذاتي (KSS) والتركيز (d2-R) وحساسية التباين وتقييم الإضاءة."
             ],
             [
               "النتائج الرقمية",
-              "انخفض النعاس الذاتي مع مرور الوقت بشكل دال فقط في حالة الضوء الغني بالأزرق (p = 0.03؛ حجم الأثر d = 0.42)، لكن ذلك لا يثبت تفوقاً دالاً بين الحالتين. تحسن التركيز في الحالتين (p < 0.0001) دون فرق دال بينهما (p = 0.79). كانت حساسية التباين أسوأ تحت الضوء الغني بالأزرق (p = 0.01؛ d = 0.50)، وفُضّلت الإضاءة التقليدية (p = 0.004؛ d = 0.56)."
+              "انخفض النعاس الذاتي مع مرور الوقت بشكل دال فقط تحت الضوء الغني بالأزرق (p = 0.03؛ حجم الأثر d = 0.42)، وهذه النتيجة داخل حالة واحدة لا تثبت تفوقاً دالاً على الإضاءة التقليدية. تحسن التركيز تحت الإضاءتين (p < 0.0001) دون فرق دال بينهما (p = 0.79). كانت حساسية التباين أقل تحت الضوء الغني بالأزرق (p = 0.01؛ d = 0.50). فضّل المشاركون الإضاءة التقليدية (p = 0.004؛ d = 0.56) وقيّموها بأنها أكثر راحة وبهجة ولطفاً، بينما قُيّم الضوء الغني بالأزرق بأنه أكثر سطوعاً."
             ],
             [
-              "العمارة والدكتوراه",
-              "ينبغي أن يوازن تصميم الإضاءة بين اليقظة والراحة البصرية. يمكن لدراسة لاحقة عزل التأثير الميلانوبسي عن مظهر الغرفة ونوع المصباح وقياس الأداء المعرفي على مدى أسابيع."
+              "ماذا يعني هذا للعمارة",
+              "بصفتي معمارياً، أختار الضوء قبل أن يجلس أحد في الغرفة. هنا جعل الضوء الأبرد الناس أقل نعاساً، لكنهم لم يركزوا بشكل أفضل، ورأوا التباين بشكل أضعف، وفضلوا الضوء الأدفأ. الشعور باليقظة والتفكير الجيد ليسا الشيء نفسه. بالنسبة لي، الضوء ليس رقماً واحداً بالكلفن. عليه أن يخدم اليقظة والعين معاً. الخطوة التالية هي تغيير الجرعة الميلانوبسية دون تغيير الغرفة أو المصباح، ومتابعة الناس على مدى أسابيع."
             ],
             [
               "الحدود",
-              "تحد العينة الصغيرة والشابة ومدة التعرض القصيرة واختلاف الغرفتين وتقنيات الإضاءة وتكرار الاختبارات والمقارنات المتعددة من التعميم. لم تُقَس إشارات EEG أو صور الرنين أو المشابك العصبية أو التعبير الجيني أو التغيرات فوق الجينية."
+              "تحد العينة الصغيرة والشابة ومدة التعرض القصيرة واختلاف الغرفتين وتقنيات الإضاءة وتكرار الاختبارات والمقارنات المتعددة من التعميم. لم تُقَس إشارات EEG أو صور الرنين أو المشابك العصبية أو التعبير الجيني أو التغيرات فوق الجينية. تختبر التجربة الإدراك والأداء على المدى القصير، لا اللدونة العصبية."
             ]
           ]
         },
         "ru": {
           "title": "Улучшает ли обогащённый синим свет в офисе концентрацию?",
           "dek": "Контролируемый перекрёстный эксперимент показал снижение субъективной сонливости, но не дополнительное улучшение концентрации.",
-          "intro": "Чувствовать себя бодрее — не значит думать лучше. Эксперимент в двух офисах без окон проверил эту разницу.",
+          "intro": "Многие офисы освещают так, чтобы ты не засыпал. Более холодный, более синий свет часто подают как решение. Я хотел понять, помогает ли он думать или только даёт ощущение бодрости. Небольшой эксперимент в двух офисных помещениях без окон проверил именно это.",
           "sections": [
             [
               "Эксперимент",
-              "Ганье и коллеги исследовали 30 здоровых взрослых (19 женщин; средний возраст 23,4 года) в перекрёстном эксперименте со сбалансированным порядком условий. Каждый участник проводил по 50 минут при обычном люминесцентном свете 3500 К (159 меланопических EDI-люкс) и обогащённом синим светодиодном освещении 5000 К (263 EDI-люкс) в разные дни. Вертикальная фотопическая освещённость была сходной: 335 и 344 люкс. Измерялись сонливость, концентрация, контрастная чувствительность и предпочтения."
+              "Ганье и коллеги исследовали 30 здоровых взрослых (19 женщин; средний возраст 23,4 года) в перекрёстном эксперименте со сбалансированным порядком условий в двух соседних помещениях без окон. После 20 минут при приглушённом свете каждый участник проводил 50 минут при обычном люминесцентном свете 3500 К (159 меланопических EDI-люкс), а на другой сессии при обогащённом синим светодиодном свете 5000 К (263 меланопических EDI-люкс). Вертикальная фотопическая освещённость была сходной: 335 и 344 люкс. Измерялись субъективная сонливость (KSS), концентрация (d2-R), контрастная чувствительность и оценка освещения."
             ],
             [
               "Численные результаты",
-              "Субъективная сонливость значимо снизилась со временем только при обогащённом синим освещении (p = 0,03; d Коэна = 0,42), но это не доказывает значимого преимущества между условиями. Концентрация улучшилась в обоих условиях (p < 0,0001), без различия между ними (p = 0,79). Контрастная чувствительность была хуже при обогащённом свете (p = 0,01; d = 0,50). Участники предпочитали обычный свет (p = 0,004; d = 0,56)."
+              "Субъективная сонливость значимо снизилась со временем только при обогащённом синим свете (p = 0,03; d Коэна = 0,42); этот результат внутри одного условия не доказывает значимого преимущества перед обычным светом. Концентрация улучшилась при обоих видах света (p < 0,0001), без значимого различия между ними (p = 0,79). Контрастная чувствительность была ниже при обогащённом синим свете (p = 0,01; d = 0,50). Участники предпочли обычный свет (p = 0,004; d = 0,56) и оценили его как более комфортный, бодрящий настроение и приятный; обогащённый синим свет оценили как более яркий."
             ],
             [
-              "Архитектура и диссертация",
-              "Освещение следует проектировать с учётом и бодрости, и зрительного комфорта. Следующий эксперимент мог бы отделить меланопическое воздействие от внешнего вида комнаты и типа ламп, проверяя когнитивные показатели в течение недель."
+              "Что это значит для архитектуры",
+              "Как архитектор, я выбираю свет до того, как кто-то сядет в комнате. Здесь более холодный свет снизил сонливость, но люди не стали лучше концентрироваться, хуже различали контраст и предпочли более тёплый свет. Чувствовать себя бодрым и хорошо думать не одно и то же. Для меня свет не сводится к одному числу в кельвинах. Он должен служить и бодрости, и глазу одновременно. Следующий шаг: менять меланопическую дозу, не меняя комнату или лампу, и наблюдать за людьми неделями."
             ],
             [
               "Ограничения",
-              "Небольшая молодая выборка, 50-минутное воздействие, разные комнаты и технологии, повторные тесты и множественные сравнения ограничивают выводы. ЭЭГ, МРТ, синапсы, экспрессия генов и эпигенетика не измерялись."
+              "Небольшая молодая выборка, 50-минутное воздействие, разные комнаты и технологии, повторные тесты и множественные сравнения ограничивают выводы. ЭЭГ, МРТ, синапсы, экспрессия генов и эпигенетика не измерялись. Эксперимент изучает кратковременное восприятие и работоспособность, а не нейропластичность."
             ]
           ]
         }
@@ -2694,7 +2694,7 @@
         "en": {
           "title": "Can wood-look interiors help us think more clearly?",
           "dek": "A VR experiment with 36 people found higher cognitive task scores and altered EEG patterns in a wood-finished room.",
-          "intro": "Not every nature-inspired room worked equally well. A 2025 experiment compared wood finishes, curved forms, nature views and a neutral interior.",
+          "intro": "When a room feels warm, it is often the wood. I have long asked whether that warmth reaches the way we think, not only how we feel. A virtual reality experiment compared four rooms: a neutral one, one with curved forms, one with a view of nature and one finished in wood.",
           "sections": [
             [
               "Four virtual interiors",
@@ -2705,8 +2705,8 @@
               "Cognitive scores differed by condition: F(3,105)=31.6, p<0.001, partial η²=0.475. The wooden interior outperformed the control (t(35)=8.137, p<0.001), curved forms and nature views; the latter two did not significantly outperform the control. Relaxation differed across conditions: F(3,105)=7.94, p<0.001, partial η²=0.185. In a regression model, alpha/theta EEG ratio (β=0.206, p=0.01) and relaxation (β=0.173, p=0.041) were associated with task scores; the model explained 14.8% of their variance."
             ],
             [
-              "What architecture can learn",
-              "A wood-finished virtual room coincided with better task performance and a more relaxed reported state. This is a testable hypothesis for real interiors, not proof that wood itself causes better cognition. Visual texture, brightness, color, familiarity and expectations should be controlled in follow-up experiments."
+              "What this means for architecture",
+              "As an architect, I choose materials for how they feel, not only how they look. In this virtual room, wood went together with better task scores and a more relaxed state, while the curves and the nature view did not clearly help. But a virtual room is an image of wood, not wood. Texture, brightness, color, familiarity and expectation travel with it. For me, this is a question to test in real rooms, not proof that wood itself makes us think better."
             ],
             [
               "What remains unknown",
@@ -2717,7 +2717,7 @@
         "de": {
           "title": "Denken wir in Räumen mit Holzoberflächen besser?",
           "dek": "Ein VR-Experiment mit 36 Personen fand höhere kognitive Testwerte und veränderte EEG-Muster in einem holzgestalteten Raum.",
-          "intro": "Nicht jede naturnahe Raumgestaltung wirkt gleich. Eine Studie von 2025 verglich Holzoberflächen, geschwungene Formen, Naturausblicke und einen neutralen Innenraum.",
+          "intro": "Wenn sich ein Raum warm anfühlt, ist es oft das Holz. Ich frage mich seit Langem, ob diese Wärme auch unser Denken erreicht, nicht nur unser Gefühl. Ein Experiment in virtueller Realität verglich vier Räume: einen neutralen, einen mit geschwungenen Formen, einen mit Blick in die Natur und einen mit Holzoberflächen.",
           "sections": [
             [
               "Vier virtuelle Innenräume",
@@ -2728,8 +2728,8 @@
               "Die kognitiven Testwerte unterschieden sich zwischen den Bedingungen: F(3,105)=31,6; p<0,001; partielles η²=0,475. Der Holzraum übertraf die Kontrolle (t(35)=8,137; p<0,001) sowie Kurven- und Ausblickbedingung; diese beiden waren nicht signifikant besser als die Kontrolle. Auch Entspannung unterschied sich: F(3,105)=7,94; p<0,001; partielles η²=0,185. Im Regressionsmodell waren das EEG-Alpha/Theta-Verhältnis (β=0,206; p=0,01) und Entspannung (β=0,173; p=0,041) mit der Leistung assoziiert; das Modell erklärte 14,8 % der Varianz."
             ],
             [
-              "Bedeutung für Architektur und PhD",
-              "Der virtuell holzgestaltete Raum ging mit besserer Aufgabenleistung und höherer berichteter Entspannung einher. Das ist eine prüfbare Hypothese für reale Innenräume, kein Beweis, dass Holz als Material die Kognition verbessert. Folgestudien sollten Textur, Helligkeit, Farbe, Vertrautheit und Erwartung kontrollieren."
+              "Was das für die Architektur bedeutet",
+              "Als Architekt wähle ich Materialien danach, wie sie sich anfühlen, nicht nur danach, wie sie aussehen. In diesem virtuellen Raum ging Holz mit besseren Testwerten und einem entspannteren Zustand einher, während Kurven und Naturblick nicht klar halfen. Doch ein virtueller Raum ist ein Bild von Holz, kein Holz. Textur, Helligkeit, Farbe, Vertrautheit und Erwartung reisen mit. Für mich ist das eine Frage, die wir in echten Räumen prüfen sollten, kein Beweis, dass Holz selbst uns besser denken lässt."
             ],
             [
               "Grenzen der Aussage",
@@ -2740,19 +2740,19 @@
         "fr": {
           "title": "Les intérieurs en bois favorisent-ils la concentration ?",
           "dek": "Une expérience en réalité virtuelle auprès de 36 personnes a observé de meilleurs scores cognitifs et des différences EEG dans un intérieur boisé.",
-          "intro": "Les aménagements inspirés de la nature ne produisent pas tous le même effet. Cette étude compare bois, courbes, vue sur la nature et intérieur neutre.",
+          "intro": "Quand une pièce paraît chaleureuse, c'est souvent le bois. Je me demande depuis longtemps si cette chaleur atteint notre façon de penser, pas seulement ce que nous ressentons. Une expérience en réalité virtuelle a comparé quatre pièces : une neutre, une aux formes courbes, une avec vue sur la nature et une habillée de bois.",
           "sections": [
             [
               "Quatre espaces virtuels",
-              "Sieun Kim a étudié 36 participants dans quatre conditions VR répétées : intérieur neutre, formes courbes, vue sur la nature et finitions en bois. L'étude mesurait des rapports de fréquences EEG, la détente ressentie, l'affect et des tâches cognitives standardisées."
+              "Sieun Kim a étudié 36 participants dans une expérience VR à mesures répétées : contrôle neutre (C), formes courbes (CL), vue sur la nature (N) et finitions en bois (W). L'étude mesurait des rapports de fréquences EEG, la détente et la valence émotionnelle déclarées, ainsi que des tâches cognitives standardisées."
             ],
             [
               "Résultats chiffrés",
-              "Les scores cognitifs variaient selon la condition : F(3,105)=31,6 ; p<0,001 ; η² partiel=0,475. L'intérieur boisé dépassait le contrôle (t(35)=8,137 ; p<0,001), contrairement aux courbes et à la vue naturelle. La détente variait également : F(3,105)=7,94 ; p<0,001 ; η² partiel=0,185. Le rapport EEG alpha/thêta (β=0,206 ; p=0,01) et la détente (β=0,173 ; p=0,041) étaient associés aux scores ; R²=0,148."
+              "Les scores cognitifs variaient selon la condition : F(3,105)=31,6 ; p<0,001 ; η² partiel=0,475. L'intérieur boisé dépassait le contrôle (t(35)=8,137 ; p<0,001), les formes courbes et la vue sur la nature ; ces deux dernières ne dépassaient pas significativement le contrôle. La détente variait également : F(3,105)=7,94 ; p<0,001 ; η² partiel=0,185. Dans un modèle de régression, le rapport EEG alpha/thêta (β=0,206 ; p=0,01) et la détente (β=0,173 ; p=0,041) étaient associés aux scores ; le modèle expliquait 14,8 % de leur variance."
             ],
             [
-              "Implications architecturales",
-              "Dans cette simulation, les finitions en bois accompagnaient une meilleure performance et davantage de détente. Il faut tester cet effet dans des bâtiments réels en contrôlant texture, luminosité, couleur et attentes : la causalité propre au matériau n'est pas démontrée."
+              "Ce que cela signifie pour l'architecture",
+              "En tant qu'architecte, je choisis les matériaux pour ce qu'ils font ressentir, pas seulement pour leur apparence. Dans cette pièce virtuelle, le bois allait de pair avec de meilleurs scores et un état plus détendu, alors que les courbes et la vue sur la nature n'aidaient pas clairement. Mais une pièce virtuelle est une image du bois, pas du bois. Texture, luminosité, couleur, familiarité et attentes l'accompagnent. Pour moi, c'est une question à tester dans de vraies pièces, pas la preuve que le bois lui-même nous fait mieux penser."
             ],
             [
               "Limites",
@@ -2763,19 +2763,19 @@
         "es": {
           "title": "¿Pensamos mejor en interiores con madera?",
           "dek": "Un experimento de realidad virtual con 36 personas halló mejores resultados cognitivos y diferencias en el EEG en un interior con madera.",
-          "intro": "No todos los diseños inspirados en la naturaleza producen el mismo efecto. El estudio comparó madera, formas curvas, vistas naturales y un interior neutro.",
+          "intro": "Cuando una sala se siente cálida, a menudo es la madera. Hace tiempo que me pregunto si esa calidez llega a nuestra forma de pensar, no solo a lo que sentimos. Un experimento de realidad virtual comparó cuatro salas: una neutra, una con formas curvas, una con vista a la naturaleza y una revestida de madera.",
           "sections": [
             [
               "Cuatro interiores virtuales",
-              "Sieun Kim estudió a 36 personas en cuatro condiciones repetidas de realidad virtual: control neutro, formas curvas, vista natural y acabados de madera. Se midieron índices EEG, relajación, emociones y tareas cognitivas estandarizadas."
+              "Sieun Kim estudió a 36 participantes en un experimento de realidad virtual con medidas repetidas: control neutro (C), formas curvas (CL), vista natural (N) y acabados de madera (W). Se midieron índices de frecuencia del EEG, la relajación y la valencia emocional declaradas y tareas cognitivas estandarizadas."
             ],
             [
               "Resultados cuantitativos",
-              "El rendimiento cognitivo varió entre condiciones: F(3,105)=31,6; p<0,001; η² parcial=0,475. El interior de madera superó al control (t(35)=8,137; p<0,001); ni las curvas ni las vistas naturales lo superaron significativamente. La relajación también varió: F(3,105)=7,94; p<0,001; η² parcial=0,185. El índice EEG alfa/theta (β=0,206; p=0,01) y la relajación (β=0,173; p=0,041) se asociaron al rendimiento; R²=0,148."
+              "El rendimiento cognitivo varió entre condiciones: F(3,105)=31,6; p<0,001; η² parcial=0,475. El interior de madera superó al control (t(35)=8,137; p<0,001), a las formas curvas y a la vista natural; estas dos no superaron significativamente al control. La relajación también varió: F(3,105)=7,94; p<0,001; η² parcial=0,185. En un modelo de regresión, el índice EEG alfa/theta (β=0,206; p=0,01) y la relajación (β=0,173; p=0,041) se asociaron al rendimiento; el modelo explicó el 14,8 % de su varianza."
             ],
             [
-              "Relevancia arquitectónica",
-              "La habitación virtual con madera se asoció con mejores tareas y mayor relajación. No demuestra que la madera por sí sola mejore la cognición. Es necesario controlar textura, luz, color y expectativas en edificios reales."
+              "Qué significa para la arquitectura",
+              "Como arquitecto, elijo los materiales por cómo se sienten, no solo por cómo se ven. En esta sala virtual, la madera fue de la mano de mejores resultados y un estado más relajado, mientras que las curvas y la vista natural no ayudaron con claridad. Pero una sala virtual es una imagen de madera, no madera. Textura, brillo, color, familiaridad y expectativas viajan con ella. Para mí, es una pregunta que hay que probar en salas reales, no la prueba de que la madera por sí misma nos haga pensar mejor."
             ],
             [
               "Límites",
@@ -2786,19 +2786,19 @@
         "ar": {
           "title": "هل نفكر بصورة أفضل في المساحات ذات التشطيبات الخشبية؟",
           "dek": "وجدت تجربة واقع افتراضي شملت 36 شخصًا درجات أعلى في اختبارات الإدراك وأنماط مختلفة في تخطيط كهربائية الدماغ داخل مساحة بتشطيبات خشبية.",
-          "intro": "ليست كل التصاميم المستوحاة من الطبيعة متساوية في تأثيرها. قارنت الدراسة الخشب والأشكال المنحنية والإطلالات الطبيعية بمساحة داخلية محايدة.",
+          "intro": "حين تبدو الغرفة دافئة، فغالباً ما يكون السبب هو الخشب. أتساءل منذ زمن هل يصل هذا الدفء إلى طريقة تفكيرنا، لا إلى شعورنا فقط. قارنت تجربة في الواقع الافتراضي أربع غرف: غرفة محايدة، وأخرى بأشكال منحنية، وثالثة بإطلالة على الطبيعة، ورابعة بتشطيبات خشبية.",
           "sections": [
             [
               "أربع مساحات افتراضية",
-              "درست سيون كيم 36 مشاركًا في أربع حالات واقع افتراضي متكررة: مساحة محايدة، وأشكال منحنية، وإطلالة طبيعية، وتشطيبات خشبية. شملت القياسات نسب ترددات تخطيط الدماغ والاسترخاء المبلغ عنه والمشاعر واختبارات إدراكية معيارية."
+              "درست سيون كيم 36 مشاركًا في تجربة واقع افتراضي بقياسات متكررة: مساحة ضابطة محايدة (C)، وأشكال منحنية (CL)، وإطلالة طبيعية (N)، وتشطيبات خشبية (W). شملت القياسات نسب ترددات تخطيط كهربائية الدماغ والاسترخاء والتكافؤ العاطفي المبلغ عنهما واختبارات إدراكية معيارية."
             ],
             [
               "النتائج الكمية",
-              "اختلف الأداء الإدراكي بين الحالات: F(3,105)=31.6؛ p<0.001؛ η² الجزئي=0.475. تفوقت المساحة الخشبية على الضابطة (t(35)=8.137؛ p<0.001)، بينما لم تتفوق الأشكال المنحنية أو الإطلالة الطبيعية عليها بصورة دالة. واختلف الاسترخاء أيضًا: F(3,105)=7.94؛ p<0.001؛ η² الجزئي=0.185. ارتبطت نسبة ألفا/ثيتا في EEG (β=0.206؛ p=0.01) والاسترخاء (β=0.173؛ p=0.041) بالأداء؛ وفسر النموذج 14.8% من تباينه."
+              "اختلف الأداء الإدراكي بين الحالات: F(3,105)=31.6؛ p<0.001؛ η² الجزئي=0.475. تفوقت المساحة الخشبية على الضابطة (t(35)=8.137؛ p<0.001) وعلى الأشكال المنحنية والإطلالة الطبيعية، بينما لم تتفوق هاتان الحالتان على الضابطة بصورة دالة. واختلف الاسترخاء أيضًا: F(3,105)=7.94؛ p<0.001؛ η² الجزئي=0.185. في نموذج انحدار، ارتبطت نسبة ألفا/ثيتا في EEG (β=0.206؛ p=0.01) والاسترخاء (β=0.173؛ p=0.041) بالأداء؛ وفسر النموذج 14.8% من تباينه."
             ],
             [
-              "الدلالة المعمارية",
-              "ارتبطت التشطيبات الخشبية الافتراضية بأداء أفضل واسترخاء أعلى. لكن ذلك لا يثبت أن الخشب نفسه يحسن الإدراك. يجب اختبار الفرضية في مبانٍ حقيقية مع ضبط الملمس والإضاءة واللون والتوقعات."
+              "ماذا يعني هذا للعمارة",
+              "بصفتي معمارياً، أختار المواد لما تمنحه من إحساس، لا لمظهرها فقط. في هذه الغرفة الافتراضية اقترن الخشب بدرجات أفضل وحالة أكثر استرخاءً، بينما لم تساعد المنحنيات والإطلالة الطبيعية بشكل واضح. لكن الغرفة الافتراضية صورة للخشب، لا خشب حقيقي. الملمس والسطوع واللون والألفة والتوقعات تنتقل معه. بالنسبة لي، هذا سؤال يجب اختباره في غرف حقيقية، لا دليل على أن الخشب وحده يجعلنا نفكر بشكل أفضل."
             ],
             [
               "الحدود العلمية",
@@ -2809,19 +2809,19 @@
         "ru": {
           "title": "Помогает ли деревянная отделка лучше думать?",
           "dek": "В VR-эксперименте с 36 участниками интерьер с деревянной отделкой сопровождался более высокими когнитивными показателями и изменениями ЭЭГ.",
-          "intro": "Не всякий интерьер с природными элементами действует одинаково. Исследование сравнило дерево, изогнутые формы, вид на природу и нейтральную комнату.",
+          "intro": "Когда комната кажется тёплой, часто дело в дереве. Я давно спрашиваю себя, доходит ли это тепло до того, как мы думаем, а не только до того, что мы чувствуем. Эксперимент в виртуальной реальности сравнил четыре комнаты: нейтральную, с изогнутыми формами, с видом на природу и с деревянной отделкой.",
           "sections": [
             [
               "Четыре виртуальных интерьера",
-              "Сиын Ким исследовала 36 участников в четырёх повторных VR-условиях: нейтральный интерьер, изогнутые формы, вид на природу и деревянная отделка. Измерялись частотные отношения ЭЭГ, субъективное расслабление, эмоции и результаты когнитивных заданий."
+              "Сиын Ким исследовала 36 участников в VR-эксперименте с повторными измерениями: нейтральный контроль (C), изогнутые формы (CL), вид на природу (N) и деревянная отделка (W). Измерялись частотные отношения ЭЭГ, субъективное расслабление и эмоциональная валентность, а также результаты стандартизированных когнитивных заданий."
             ],
             [
               "Численные результаты",
-              "Когнитивные показатели различались: F(3,105)=31,6; p<0,001; частичная η²=0,475. Деревянный интерьер превосходил контроль (t(35)=8,137; p<0,001); изгибы и природный вид значимого преимущества не дали. Расслабление также различалось: F(3,105)=7,94; p<0,001; частичная η²=0,185. Отношение ЭЭГ альфа/тета (β=0,206; p=0,01) и расслабление (β=0,173; p=0,041) коррелировали с результатами; R²=0,148."
+              "Когнитивные показатели различались между условиями: F(3,105)=31,6; p<0,001; частичная η²=0,475. Деревянный интерьер превосходил контроль (t(35)=8,137; p<0,001), изогнутые формы и вид на природу; эти два условия значимо не превосходили контроль. Расслабление также различалось: F(3,105)=7,94; p<0,001; частичная η²=0,185. В регрессионной модели отношение ЭЭГ альфа/тета (β=0,206; p=0,01) и расслабление (β=0,173; p=0,041) были связаны с результатами; модель объясняла 14,8 % их дисперсии."
             ],
             [
-              "Для архитектуры и диссертации",
-              "Виртуальный интерьер с деревом сопровождался лучшими результатами и расслаблением. Это не доказывает, что само дерево улучшает мышление. В реальных помещениях нужно контролировать текстуру, освещение, цвет и ожидания."
+              "Что это значит для архитектуры",
+              "Как архитектор, я выбираю материалы по тому, как они ощущаются, а не только по тому, как они выглядят. В этой виртуальной комнате дерево сопровождалось лучшими результатами и более спокойным состоянием, а изгибы и вид на природу явно не помогли. Но виртуальная комната лишь изображение дерева, а не дерево. Вместе с ним приходят фактура, яркость, цвет, привычность и ожидания. Для меня это вопрос, который нужно проверить в настоящих комнатах, а не доказательство того, что само дерево помогает нам лучше думать."
             ],
             [
               "Ограничения",

@@ -1,6 +1,6 @@
 {
-  "checked": "2026-11-09",
-  "scope": "Seventeen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "checked": "2026-11-11",
+  "scope": "Nineteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
       "doi": "10.1016/j.envres.2026.124671",
@@ -180,6 +180,33 @@
         7102
       ],
       "review": "Relevant: residential greenery (built and designed environment) linked to brain structure, mental health and academic performance. Confirmed from abstract: authors Li, Whittle, Rakesh; preregistered; ABCD n = 7102; greenspace at 9 to 10 years; brain structure two years later and change over time; greater total surface area and cortical volume; regional thickness and surface area differences; greater caudate, putamen and accumbens volume; greater total SA growth and reduced total CV growth; significant indirect effects through cortical structure for academic performance and mental health. Added the omitted subcortical, longitudinal and mental-health mediation findings. Removed a dash from the German dek. NOT yet verified against full text: NDVI as metric, covariates, B/SE/p values (0.046/0.049, SE 0.012), indirect effect 0.004 (CI 0.002 to 0.007), total effect p = 0.985, weakening after site adjustment, volume 99(4) and pages 286 to 298. 2026-11-09: publisher page, Crossref and Semantic Scholar again not retrievable; the listed values remain NOT yet verified against full text."
+    },
+    {
+      "doi": "10.3389/fpubh.2024.1390614",
+      "primary_url": "https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2024.1390614/full",
+      "secondary_url": "https://doaj.org/article/fce6ad1128874efa8e25064f5614261a",
+      "access": "Full abstract (DOAJ record) and publisher JATS XML; first part of the full text (introduction, methods, Table 1) read verbatim on 2026-11-11, later results and discussion sections read only as an extracted summary. Publisher HTML page and PubMed not retrievable in this run.",
+      "key_counts": [
+        30,
+        19,
+        50,
+        159,
+        263,
+        335,
+        344
+      ],
+      "review": "Relevant: office lighting spectrum (built environment) linked to sleepiness, concentration, contrast sensitivity and lighting appreciation. Confirmed verbatim: authors Gagné, Turgeon, Jomphe, Demers, Hébert; Frontiers in Public Health 12, 1390614 (15 May 2024); 30 healthy adults, 19 women, mean age 23.4 (range 19 to 33); counterbalanced crossover; 20 min dim pre-condition then 50 min exposure; 3,500 K fluorescent tubes vs 5,000 K LED retrofit tubes; vertical melanopic EDI 158.8 vs 263.0, vertical photopic 335 vs 344 lux (text says 345); two adjacent rooms, none with windows. Abstract: sleepiness reduced under experimental light p = 0.03, d = 0.42; concentration equally improved in both conditions; contrast sensitivity decreased p = 0.01, d = 0.50; preference for conventional light p = 0.004, d = 0.56; conventional rated more comfortable, cheerful, pleasant, experimental brighter. Changes 2026-11-11: added the 20 min dim pre-condition, adjacent windowless rooms and the comfort, cheerful, pleasant and brighter ratings; removed the unverified 'different days at similar times'; completed the missing last limitation sentence in fr, es, ar, ru; Arabic now labels 263 as melanopic EDI; intro and architecture section in Paul's voice in all six languages. From extracted summary only, NOT yet verified verbatim: d2-R time effect p < 0.0001 and condition effect p = 0.79, the absence of a significant change in the control condition and of a condition by time interaction for KSS, authors' limitations list."
+    },
+    {
+      "doi": "10.1038/s41598-025-18629-z",
+      "primary_url": "https://www.nature.com/articles/s41598-025-18629-z",
+      "access": "Existence, title and journal confirmed via web search index on 2026-11-11. Publisher page, PubMed/PMC and ResearchGate not retrievable in this run (fetch blocked); abstract and full text not read.",
+      "key_counts": [
+        36,
+        35,
+        14.8
+      ],
+      "review": "Relevant: interior material and form (wood finishes, curved forms, nature view) linked to EEG, affect and cognitive performance. Title and Scientific Reports confirmed. NOT yet verified against abstract or full text: author (Sieun Kim, single author), volume 15 and article number 33398, n = 36, within-subject design, condition labels, all statistics (F(3,105)=31.6, partial eta squared 0.475, t(35)=8.137, relaxation F(3,105)=7.94, partial eta squared 0.185, betas 0.206 and 0.173, 14.8% variance), the claim that wood outperformed curved and nature conditions and that these did not outperform control. Changes 2026-11-11: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature comparison, regression model wording); intro and architecture section in Paul's voice in all six languages; no numbers changed."
     }
   ]
 }

@@ -11,6 +11,8 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | can-neighborhood-greenery-shape-the-developing-brain | done 2026-11-08 |
 | does-the-city-shape-how-our-brain-handles-stress | done 2026-11-09 |
 | why-do-curved-rooms-feel-more-beautiful | done 2026-11-09 |
+| can-blue-enriched-office-light-improve-focus | done 2026-11-11 |
+| can-wood-finished-rooms-improve-thinking | done 2026-11-11 |
 | all other articles | open |
 
 ## 2026-11-07
@@ -31,3 +33,10 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 016 do-office-plants-improve-thinking-or-only-stress and 017 can-neighborhood-greenery-shape-the-developing-brain: second verification attempt. ScienceDirect, Crossref and Semantic Scholar were not retrievable. No content change; the open points stay marked NOT yet verified in the source audit.
 - 003 does-the-city-shape-how-our-brain-handles-stress: voice revision of intro and architecture section in all six languages. Intro no longer names the authors in running text. Study, numbers and limits unchanged (already verified against the full paper).
 - 004 why-do-curved-rooms-feel-more-beautiful: voice revision of intro and architecture section in all six languages. The architecture section now states the null result for enter or leave decisions in plain words. Study, numbers and limits unchanged.
+
+## 2026-11-11
+
+- New on main since the 2026-11-09 run: 018 can-blue-enriched-office-light-improve-focus (2026-11-10) and 019 can-wood-finished-rooms-improve-thinking (2026-11-11), both published without a source audit entry, so the audit test was red on main. Both relevant (lighting spectrum and interior material linked to cognition, arousal, EEG). Audit entries added.
+- 018: checked against the DOAJ abstract and the publisher JATS XML (methods and Table 1 verbatim). Numbers and directions correct. Changes: added the 20 minute dim pre-condition, the two adjacent windowless rooms and the comfort, cheerful, pleasant and brighter ratings; removed the unverified "different days at similar times"; completed the missing last limitation sentence in fr, es, ar, ru; Arabic now labels 263 lux as melanopic EDI; intro and architecture section rewritten in Paul's voice in all six languages. Open: d2-R p values, KSS condition by time interaction and the authors' limitation list only seen as extracted summary.
+- 019: publisher page, PubMed/PMC and ResearchGate not retrievable (fetch blocked); only title and journal confirmed. No numbers changed. Changes: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature, 14.8 % variance), intro and architecture section rewritten in Paul's voice in all six languages. Open: author, volume, n, design and all statistics NOT yet verified.
+- Voice revision of the two oldest open articles postponed: verification of the new articles took the run.
