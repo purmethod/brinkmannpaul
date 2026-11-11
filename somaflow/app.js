@@ -459,7 +459,9 @@
       el("p", { class: "lead" }, t("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("h2", {}, t("retreat")),
       el("p", {}, t("invite")),
-      included(),
+      wide("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees", 1200, 900),
+      wide("/photos/foyo-session-rest.webp", "the group lying on mats after the breathing, the sea behind the curtains", 1200, 900),
+      included(true),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
@@ -499,11 +501,14 @@
 
   // the price never breaks apart: "50 dinar" stays on one line (no-break spaces in priceFmt)
   // what the session holds: on the start page and again on the thank-you page
-  const included = () => [
+  // a photo in its full frame, nothing cut off (the circles are for about paul)
+  const wide = (src, alt, w, h) => el("figure", { class: "wide" }, el("img", { src, alt, width: String(w), height: String(h), loading: "lazy", decoding: "async" }));
+  const included = (pics) => [
     el("h2", {}, t("incl")),
     el("ul", { class: "rules offer" }, (T[st.lang].items || T.en.items).map((x) => el("li", {}, x.split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))))),
     // the breakfast paul eats every day
     el("p", {}, t("fuel")),
+    pics ? wide("/photos/foyo-breakfast.webp", "the breakfast: kefir with pomegranate, flaxseed and dates above the sea of sidi bou said", 1200, 1600) : null,
     el("p", { class: "fine" }, t("only")),
   ];
 
