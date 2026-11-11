@@ -2,25 +2,25 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
-      "source": "/((?!soon/|favicon\\.png|apple-touch-icon\\.png).*)",
+      "source": "/((?!club/).*)",
       "has": [
         {
           "type": "host",
           "value": "somaflowclub.com"
         }
       ],
-      "destination": "https://somaflowclub.com/soon/",
+      "destination": "https://somaflowclub.com/club/",
       "permanent": false
     },
     {
-      "source": "/((?!soon/|favicon\\.png|apple-touch-icon\\.png).*)",
+      "source": "/((?!club/).*)",
       "has": [
         {
           "type": "host",
           "value": "www.somaflowclub.com"
         }
       ],
-      "destination": "https://somaflowclub.com/soon/",
+      "destination": "https://somaflowclub.com/club/",
       "permanent": false
     },
     {
@@ -76,6 +76,15 @@
     },
     {
       "source": "/admin",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/club/admin(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
