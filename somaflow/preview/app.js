@@ -366,7 +366,7 @@
     { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
       proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
-      proof: "/photos/foyo-nafisa-full.webp", proofAlt: "nafisa holding her leg in a standing split against the sky", proofW: "900", proofH: "1599",
+      detail: "/photos/foyo-nafisa-reach.webp", detailAlt: "nafisa's hand and foot reaching into the sky",
       ig: "https://www.instagram.com/yogawithnafisa/", bio: NAFISA },
     { soon: true },
   ];
@@ -536,7 +536,7 @@
       el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
-      m.proof ? el("figure", { class: "proof" }, el("img", { src: m.proof, alt: m.proofAlt, width: m.proofW || "720", height: m.proofH || "720", decoding: "async" }), m.id === "paul" ? el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap) : null) : null,
+      m.proof ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", loading: "lazy", decoding: "async" })), m.id === "paul" ? el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap) : null) : null,
       el("div", { class: "acts" }, m.ig
         ? el("a", { class: "btn", href: m.ig, target: "_blank", rel: "noopener noreferrer" }, c("ig" + m.id[0].toUpperCase() + m.id.slice(1)))
         : el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
@@ -551,6 +551,7 @@
       el("p", { class: "tag" }, b.tag),
       el("p", { class: "lead" }, b.lead),
       el("p", {}, b.bio),
+      m.detail ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.detail, alt: m.detailAlt, width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null,
       el("p", {}, b.train),
       el("p", {}, b.help),
       el("h2", {}, b.teachesH), el("p", {}, b.teaches),
