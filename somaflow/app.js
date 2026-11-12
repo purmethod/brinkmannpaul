@@ -310,12 +310,12 @@
   // the club: different teachers, one goal. the team shows one circle per teacher; a teacher not yet
   // announced is an empty circle. a teacher's page lives at /<id>
   const CLUB = {
-    en: { h1: "different teachers. one goal.", lead: "foyo is a club of teachers from around the world: yoga, wim hof, breathwork.\nwe connect yoga, cold, breath and microbiome, for one goal: that you feel better. without expensive programs, without pills.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
-    de: { h1: "verschiedene lehrer. ein ziel.", lead: "foyo ist ein club von lehrern aus der ganzen welt: yoga, wim hof, atemarbeit.\nwir verbinden yoga, kälte, atem und mikrobiom, für ein ziel: dass du dich besser fühlst. ohne teure programme, ohne pillen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
-    fr: { h1: "des professeurs différents. un seul but.", lead: "foyo est un club de professeurs du monde entier : yoga, wim hof, respiration.\nnous relions le yoga, le froid, le souffle et le microbiome, pour un seul but : que tu te sentes mieux. sans programmes coûteux, sans pilules.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
-    es: { h1: "distintos profesores. un solo objetivo.", lead: "foyo es un club de profesores de todo el mundo: yoga, wim hof, respiración.\nunimos yoga, frío, respiración y microbioma, con un solo objetivo: que te sientas mejor. sin programas caros, sin pastillas.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
-    ar: { h1: "معلّمون مختلفون. هدف واحد.", lead: "foyo نادٍ لمعلّمين من كل أنحاء العالم: يوغا، ويم هوف، تمارين التنفّس.\nنجمع بين اليوغا والبرد والتنفّس والميكروبيوم لهدف واحد: أن تشعر بتحسّن. بلا برامج باهظة، بلا حبوب.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
-    ru: { h1: "разные учителя. одна цель.", lead: "foyo — это клуб учителей со всего мира: йога, метод вима хофа, дыхательные практики.\nмы соединяем йогу, холод, дыхание и микробиом ради одной цели: чтобы тебе стало лучше. без дорогих программ, без таблеток.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
+    en: { h1: "healthy, strong and happy. the rest is bullshit.", lead: "breathing, cold, yoga and real food. small steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
+    de: { h1: "gesund, stark und glücklich. der rest ist bullshit.", lead: "atmen, kälte, yoga und echtes essen. kleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
+    fr: { h1: "en bonne santé, fort et heureux. le reste, c’est du bullshit.", lead: "respiration, froid, yoga et vraie nourriture. de petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
+    es: { h1: "sano, fuerte y feliz. lo demás es bullshit.", lead: "respiración, frío, yoga y comida de verdad. pasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
+    ar: { h1: "صحّة وقوّة وسعادة. والباقي bullshit.", lead: "تنفّس، برد، يوغا وأكل حقيقي. خطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
+    ru: { h1: "здоровье, сила и счастье. всё остальное — bullshit.", lead: "дыхание, холод, йога и настоящая еда. маленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
   };
   const TEAM = [
     { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow" },
@@ -497,7 +497,9 @@
     put(
       // no "foyo club" line here: the logo above already says it
       el("h1", {}, c("h1")),
-      // the club line by line: who we are, then what for
+      // wim hof said it first (x, 2017): the goal is to become healthy, strong and happy
+      el("p", { class: "fine by" }, "— wim hof"),
+      // what you get, then how it feels
       el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("h2", {}, c("team")),
       team(),
