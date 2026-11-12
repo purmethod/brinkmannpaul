@@ -514,11 +514,13 @@
   }
 
   // ---------- the team ----------
+  // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
+  const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
   const team = () => el("div", { class: "team" }, TEAM.map((m) => m.soon
     ? el("div", { class: "member soon", "aria-hidden": "true" }, el("span", { class: "ring" }), el("span", { class: "nm" }, c("soon")))
     : el("a", { class: "member", href: "/" + m.id },
       el("span", { class: "ring" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" })),
-      el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, c(m.role))))));
+      el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, roleLines(c(m.role)))))));
   // who leads the session
   const host = (m) => el("a", { class: "with", href: "/" + m.id }, el("img", { src: m.img, alt: "", width: "68", height: "68", loading: "lazy", decoding: "async" }), c("with"));
   // a teacher's own page: the circle, the name, what they teach, the way to their sessions
