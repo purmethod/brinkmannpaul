@@ -15,7 +15,7 @@
       r1: "places are limited: max 7 people.", r2: "if you cannot come, cancel in time, so someone else can take part.",
       group: "join our whatsapp group", follow: "follow on instagram", dateLater: "date and time are announced in the whatsapp group", joinHintDate: "sign up and join our whatsapp group. we announce the date and time there.", reservedNoDate: "your place is reserved. join our whatsapp group: we announce the date and time there.", timeLater: "the time is announced in the whatsapp group", joinHint: "sign up and join our whatsapp group. we announce the time there.", reservedNoTime: "your place is reserved. join our whatsapp group: we announce the time there.", placeIs: "the place:", cancel: "i cannot come, cancel my place", sure: "cancel your place?",
       cancelled: "your place is free again. thank you for letting us know.", again: "choose another session",
-      loading: "loading the sessions…", test: "test session",
+      loading: "loading the sessions…", test: "test session", mine: "your place is reserved", showMine: "show my reservation", toPage: "back to the page",
     },
     de: {
       cue: "tippen oder scrollen", tag: "foyo club", h1: "sich jung zu fühlen ist keine frage des alters.",
@@ -28,7 +28,7 @@
       r1: "die plätze sind begrenzt: maximal 7 personen.", r2: "wenn du nicht kommen kannst, sag rechtzeitig ab, damit andere teilnehmen können.",
       group: "tritt unserer whatsapp-gruppe bei", follow: "folge uns auf instagram", dateLater: "datum und uhrzeit geben wir in der whatsapp-gruppe bekannt", joinHintDate: "trag dich ein und tritt unserer whatsapp-gruppe bei. dort geben wir datum und uhrzeit bekannt.", reservedNoDate: "dein platz ist reserviert. tritt unserer whatsapp-gruppe bei: dort geben wir datum und uhrzeit bekannt.", timeLater: "die uhrzeit geben wir in der whatsapp-gruppe bekannt", joinHint: "trag dich ein und tritt unserer whatsapp-gruppe bei. dort geben wir die uhrzeit bekannt.", reservedNoTime: "dein platz ist reserviert. tritt unserer whatsapp-gruppe bei: dort geben wir die uhrzeit bekannt.", placeIs: "der ort:", cancel: "ich kann nicht kommen, platz absagen", sure: "deinen platz absagen?",
       cancelled: "dein platz ist wieder frei. danke, dass du abgesagt hast.", again: "anderen termin wählen",
-      loading: "termine werden geladen…", test: "testtermin",
+      loading: "termine werden geladen…", test: "testtermin", mine: "dein platz ist reserviert", showMine: "meine reservierung zeigen", toPage: "zurück zur seite",
     },
     fr: {
       cue: "touche ou fais défiler", tag: "foyo club", h1: "se sentir jeune n'est pas une question d'âge.",
@@ -41,7 +41,7 @@
       r1: "les places sont limitées : 7 personnes maximum.", r2: "si tu ne peux pas venir, annule à temps pour que quelqu'un d'autre puisse participer.",
       group: "rejoins notre groupe whatsapp", follow: "suis-nous sur instagram", dateLater: "la date et l'heure sont annoncées dans le groupe whatsapp", joinHintDate: "inscris-toi et rejoins notre groupe whatsapp. nous y annonçons la date et l'heure.", reservedNoDate: "ta place est réservée. rejoins notre groupe whatsapp : nous y annonçons la date et l'heure.", timeLater: "l'heure est annoncée dans le groupe whatsapp", joinHint: "inscris-toi et rejoins notre groupe whatsapp. nous y annonçons l'heure.", reservedNoTime: "ta place est réservée. rejoins notre groupe whatsapp : nous y annonçons l'heure.", placeIs: "le lieu :", cancel: "je ne peux pas venir, annuler ma place", sure: "annuler ta place ?",
       cancelled: "ta place est de nouveau libre. merci de nous avoir prévenus.", again: "choisir une autre séance",
-      loading: "chargement des séances…", test: "séance test",
+      loading: "chargement des séances…", test: "séance test", mine: "ta place est réservée", showMine: "voir ma réservation", toPage: "retour à la page",
     },
     es: {
       cue: "toca o desliza", tag: "foyo club", h1: "sentirse joven no es cuestión de edad.",
@@ -54,7 +54,7 @@
       r1: "las plazas son limitadas: máximo 7 personas.", r2: "si no puedes venir, cancela a tiempo para que otra persona pueda participar.",
       group: "únete a nuestro grupo de whatsapp", follow: "síguenos en instagram", dateLater: "la fecha y la hora las anunciamos en el grupo de whatsapp", joinHintDate: "apúntate y únete a nuestro grupo de whatsapp. allí anunciamos la fecha y la hora.", reservedNoDate: "tu plaza está reservada. únete a nuestro grupo de whatsapp: allí anunciamos la fecha y la hora.", timeLater: "la hora la anunciamos en el grupo de whatsapp", joinHint: "apúntate y únete a nuestro grupo de whatsapp. allí anunciamos la hora.", reservedNoTime: "tu plaza está reservada. únete a nuestro grupo de whatsapp: allí anunciamos la hora.", placeIs: "el lugar:", cancel: "no puedo ir, cancelar mi plaza", sure: "¿cancelar tu plaza?",
       cancelled: "tu plaza vuelve a estar libre. gracias por avisar.", again: "elegir otra sesión",
-      loading: "cargando las sesiones…", test: "sesión de prueba",
+      loading: "cargando las sesiones…", test: "sesión de prueba", mine: "tu plaza está reservada", showMine: "ver mi reserva", toPage: "volver a la página",
     },
     ar: {
       cue: "المس أو مرّر", tag: "foyo club", h1: "الشعور بالشباب ليس مسألة عمر.",
@@ -67,7 +67,7 @@
       r1: "الأماكن محدودة: 7 أشخاص كحد أقصى.", r2: "إذا لم تستطع الحضور، ألغِ في الوقت المناسب ليتمكن شخص آخر من المشاركة.",
       group: "انضم إلى مجموعة واتساب الخاصة بنا", follow: "تابعنا على إنستغرام", dateLater: "نعلن عن التاريخ والوقت في مجموعة واتساب", joinHintDate: "سجّل وانضم إلى مجموعة واتساب الخاصة بنا. هناك نعلن عن التاريخ والوقت.", reservedNoDate: "مكانك محجوز. انضم إلى مجموعة واتساب الخاصة بنا: هناك نعلن عن التاريخ والوقت.", timeLater: "نعلن عن الوقت في مجموعة واتساب", joinHint: "سجّل وانضم إلى مجموعة واتساب الخاصة بنا. هناك نعلن عن الوقت.", reservedNoTime: "مكانك محجوز. انضم إلى مجموعة واتساب الخاصة بنا: هناك نعلن عن الوقت.", placeIs: "المكان:", cancel: "لا أستطيع الحضور، ألغِ مكاني", sure: "إلغاء مكانك؟",
       cancelled: "مكانك متاح من جديد. شكرًا لأنك أخبرتنا.", again: "اختر موعدًا آخر",
-      loading: "جارٍ تحميل المواعيد…", test: "موعد تجريبي",
+      loading: "جارٍ تحميل المواعيد…", test: "موعد تجريبي", mine: "مكانك محجوز", showMine: "عرض حجزي", toPage: "العودة إلى الصفحة",
     },
     ru: {
       cue: "коснись или прокрути", tag: "foyo club", h1: "ощущение молодости не зависит от возраста.",
@@ -80,7 +80,7 @@
       r1: "мест мало: максимум 7 человек.", r2: "если не сможешь прийти, отмени заранее, чтобы пришёл кто-то другой.",
       group: "вступи в нашу группу whatsapp", follow: "подписывайся в instagram", dateLater: "дату и время сообщим в группе whatsapp", joinHintDate: "запишись и вступи в нашу группу whatsapp. там мы сообщим дату и время.", reservedNoDate: "твоё место забронировано. вступи в нашу группу whatsapp: там мы сообщим дату и время.", timeLater: "время сообщим в группе whatsapp", joinHint: "запишись и вступи в нашу группу whatsapp. там мы сообщим время.", reservedNoTime: "твоё место забронировано. вступи в нашу группу whatsapp: там мы сообщим время.", placeIs: "место:", cancel: "не смогу прийти, отменить место", sure: "отменить твоё место?",
       cancelled: "твоё место снова свободно. спасибо, что предупредил.", again: "выбрать другое занятие",
-      loading: "загружаем занятия…", test: "тестовое занятие",
+      loading: "загружаем занятия…", test: "тестовое занятие", mine: "твоё место забронировано", showMine: "показать мою бронь", toPage: "вернуться на страницу",
     },
   };
   // the wim hof method, before about paul: the three pillars and what they do, with the studies behind every number
@@ -396,7 +396,7 @@
   const st = {
     lang: LANGS.includes(chosen) ? chosen : device(),
     sessions: null, max: 7, pick: null, name: "", busy: false, error: "",
-    booking: saved.booking || null, cancelled: false,
+    booking: saved.booking || null, cancelled: false, showDone: false,
   };
   const app = document.getElementById("book");
   const c = (k) => (CLUB[st.lang] || CLUB.en)[k] || CLUB.en[k];
@@ -559,7 +559,7 @@
   const put = (...kids) => app.append(...kids.flat().filter((k) => k != null && k !== false));
   function render() {
     app.replaceChildren();
-    if (st.booking) return renderDone();
+    if (st.booking && st.showDone) return renderDone();
     put(
       // no "foyo club" line here: the logo above already says it
       // foyo's line in two lines, calm, not shouting
@@ -579,6 +579,8 @@
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
+    // already signed up: the reservation in one line instead of the form
+    if (st.booking) return put(mine());
     if (!st.sessions) return put(el("p", { class: "fine" }, t("loading")));
     if (!st.sessions.length) return put(el("p", {}, t("none")));
     const rows = el("div", { class: "rows", role: "radiogroup", "aria-label": t("next") });
@@ -626,6 +628,10 @@
     el("p", { class: "fine" }, t("only")),
   ];
 
+  const mine = () => el("div", { class: "mine" },
+    el("p", {}, (st.booking.wait ? t("waitThanks", { name: st.booking.name }) : t("mine")) + (st.booking.when ? " · " + when(st.booking) : "")),
+    el("button", { class: "ghost", type: "button", onclick: () => { st.showDone = true; render(); showBook(); } }, t("showMine")));
+  const toPage = () => el("div", { class: "acts" }, el("button", { class: "ghost", type: "button", onclick: () => { st.showDone = false; render(); window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" }); } }, t("toPage")));
   function renderDone() {
     const b = st.booking;
     if (b.wait) {
@@ -634,6 +640,7 @@
         el("h1", {}, t("waitThanks", { name: b.name })),
         el("p", { class: "when" }, when(b)),
         el("p", { class: "lead" }, t("waitBody")),
+        toPage(),
         el("div", { class: "acts leave" }, el("button", { class: "ghost", type: "button", onclick: cancel }, t("leaveWait"))),
         st.error ? el("p", { class: "err", role: "alert" }, st.error) : null));
     }
@@ -652,6 +659,7 @@
       included(),
       el("ul", { class: "rules" }, ["r1", "r2"].map((k) => el("li", {}, t(k)))),
       acts,
+      toPage(),
       leave,
       st.error ? el("p", { class: "err", role: "alert" }, st.error) : null));
   }
@@ -689,6 +697,7 @@
       if (!r.ok || !d.id) { st.error = t("errAny"); return render(); }
       st.booking = { id: d.id, name, when: d.when, place: d.place, map: d.map || "", price: d.price || 0, group: d.group || "", wait: Boolean(d.waitlist) };
       st.cancelled = false;
+      st.showDone = true;
       store.set({ ...store.get(), booking: st.booking });
       render();
       app.focus({ preventScroll: true });
