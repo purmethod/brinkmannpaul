@@ -363,10 +363,10 @@
       quote: "здоровье — это не стать кем-то другим. это понять себя, найти баланс, стать сильнее и создать жизнь, в которой тебе хорошо в своём теле." },
   };
   const TEAM = [
-    { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
+    { id: "paul", name: "paul", role: "paul", igs: ["brinkbuild"], book: true, img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
 },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
-      pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"]],
+      pics: [["/photos/foyo-nafisa-namaste.webp?v=2", "nafisa by the sea, hands together at her chin, one leg drawn up across her arms"]],
       igs: ["kohtao_yoga", "yogawithnafisa"],
       bio: NAFISA },
     { soon: true },
@@ -532,14 +532,15 @@
     if (!box) return;
     const m = TEAM.find((x) => x.id === box.dataset.teacher);
     if (!m) return;
-    box.replaceChildren(
+    box.replaceChildren(...[
       el("a", { class: "back", href: "/preview/" }, "← " + c("back")),
       el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
       // instagram: a small mark and the handle, never a big button
-      m.igs ? el("p", { class: "igs" }, igMark(), m.igs.map((h, i) => [i ? el("span", { "aria-hidden": "true" }, "·") : null, el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, "@" + h)]))
-        : el("p", { class: "igs" }, el("a", { href: "/preview/#book" }, c("sessions") + " →")));
+      m.igs ? el("p", { class: "igs" }, igMark(), m.igs.flatMap((h, i) => [i ? el("span", { "aria-hidden": "true" }, "·") : null, el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, "@" + h)]))
+        : null,
+      m.book ? el("p", { class: "igs" }, el("a", { href: "/preview/#book" }, c("sessions") + " →")) : null].filter(Boolean));
     renderBio(m);
   }
   // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
@@ -550,7 +551,7 @@
     const box = document.getElementById("bio");
     if (!box || !m.bio) return;
     const b = m.bio[st.lang] || m.bio.en;
-    box.replaceChildren(
+    box.replaceChildren(...[
       el("p", { class: "tag" }, b.tag),
       el("p", { class: "lead" }, b.lead),
       el("p", {}, b.bio),
@@ -561,7 +562,7 @@
       circ(m.pics[2]),
       el("h2", {}, b.teachesH), el("p", {}, b.teaches),
       el("h2", {}, b.wayH), el("p", {}, b.way),
-      el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name)));
+      el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name))].filter(Boolean));
   }
 
   // ---------- the page ----------
