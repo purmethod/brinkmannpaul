@@ -310,17 +310,64 @@
   // the club: different teachers, one goal. the team shows one circle per teacher; a teacher not yet
   // announced is an empty circle. a teacher's page lives at /<id>
   const CLUB = {
-    en: { h1: "stay young and chilled.\nthe rest is bs.", quote: "the goal is to become healthy, strong and happy. the rest is bullshit.", lead: "breathing, cold, yoga and real food.\nsmall steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
-    de: { h1: "bleib jung und entspannt.\nder rest ist bullshit.", quote: "das ziel ist, gesund, stark und glücklich zu werden. der rest ist bullshit.", lead: "atmen, kälte, yoga und echtes essen.\nkleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
-    fr: { h1: "reste jeune et détendu.\nle reste, c’est du bullshit.", quote: "le but, c’est d’être en bonne santé, fort et heureux. le reste, c’est du bullshit.", lead: "respiration, froid, yoga et vraie nourriture.\nde petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
-    es: { h1: "mantente joven y relajado.\nlo demás es bullshit.", quote: "el objetivo es estar sano, fuerte y feliz. lo demás es bullshit.", lead: "respiración, frío, yoga y comida de verdad.\npasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
-    ar: { h1: "ابقَ شابًا ومرتاحًا.\nوالباقي كلام فارغ.", quote: "الهدف أن تصبح بصحة جيدة، قويًا وسعيدًا. والباقي كلام فارغ.", lead: "تنفّس، برد، يوغا وأكل حقيقي.\nخطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
-    ru: { h1: "оставайся молодым и спокойным.\nвсё остальное — фигня.", quote: "цель — стать здоровым, сильным и счастливым. всё остальное — фигня.", lead: "дыхание, холод, йога и настоящая еда.\nмаленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
+    en: { nafisa: "yoga · breath · mobility", igNafisa: "nafisa on instagram", h1: "stay young and chilled.\nthe rest is bs.", quote: "the goal is to become healthy, strong and happy. the rest is bullshit.", lead: "breathing, cold, yoga and real food.\nsmall steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
+    de: { nafisa: "yoga · atem · mobilität", igNafisa: "nafisa auf instagram", h1: "bleib jung und entspannt.\nder rest ist bullshit.", quote: "das ziel ist, gesund, stark und glücklich zu werden. der rest ist bullshit.", lead: "atmen, kälte, yoga und echtes essen.\nkleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
+    fr: { nafisa: "yoga · souffle · mobilité", igNafisa: "nafisa sur instagram", h1: "reste jeune et détendu.\nle reste, c’est du bullshit.", quote: "le but, c’est d’être en bonne santé, fort et heureux. le reste, c’est du bullshit.", lead: "respiration, froid, yoga et vraie nourriture.\nde petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
+    es: { nafisa: "yoga · respiración · movilidad", igNafisa: "nafisa en instagram", h1: "mantente joven y relajado.\nlo demás es bullshit.", quote: "el objetivo es estar sano, fuerte y feliz. lo demás es bullshit.", lead: "respiración, frío, yoga y comida de verdad.\npasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
+    ar: { nafisa: "يوغا · تنفّس · حركة", igNafisa: "nafisa على إنستغرام", h1: "ابقَ شابًا ومرتاحًا.\nوالباقي كلام فارغ.", quote: "الهدف أن تصبح بصحة جيدة، قويًا وسعيدًا. والباقي كلام فارغ.", lead: "تنفّس، برد، يوغا وأكل حقيقي.\nخطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
+    ru: { nafisa: "йога · дыхание · мобильность", igNafisa: "nafisa в instagram", h1: "оставайся молодым и спокойным.\nвсё остальное — фигня.", quote: "цель — стать здоровым, сильным и счастливым. всё остальное — фигня.", lead: "дыхание, холод, йога и настоящая еда.\nмаленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
+  };
+  // nafisa, from her own profile: who she is, her training, what she teaches, her five elements, her words
+  const NAFISA = {
+    en: { tag: "about nafisa", lead: "move better. breathe deeper. feel at home in your body.",
+      bio: "nafisa is a registered advanced yoga teacher (ryt 500), movement practitioner and breathwork facilitator. she brings together yoga, breath, mobility, flexibility, strength and recovery.",
+      train: "she trained 500 hours in india: 300 hours advanced at samyukta yoga institute in mysore, 200 hours at the yoga institute in mumbai. she also teaches aerial yoga and has trained in massage, cupping and acupressure. she has taught in india and thailand.",
+      help: "she works with people who feel stiff or limited in how they move, and helps them find ease, mobility and confidence in their body. no comparison, no perfection: feel stronger, move better, enjoy the process.",
+      teachesH: "what she teaches", teaches: "hatha · ashtanga · vinyasa · aerial yoga · yin & restorative · breathwork & meditation · mobility & flexibility · strength",
+      wayH: "her way", way: "move · breathe · restore · connect · grow",
+      quote: "wellness isn’t about becoming someone else. it’s about understanding yourself, finding balance, becoming stronger and creating a life in which you feel good in your own body." },
+    de: { tag: "über nafisa", lead: "besser bewegen. tiefer atmen. dich in deinem körper zu hause fühlen.",
+      bio: "nafisa ist registrierte advanced yoga teacher (ryt 500), bewegungs-praktikerin und begleitet atemarbeit. sie verbindet yoga, atem, mobilität, beweglichkeit, kraft und regeneration.",
+      train: "sie hat 500 stunden in indien gelernt: 300 stunden advanced am samyukta yoga institute in mysore, 200 stunden am yoga institute in mumbai. dazu unterrichtet sie aerial yoga und ist in massage, schröpfen und akupressur ausgebildet. sie hat in indien und thailand unterrichtet.",
+      help: "sie arbeitet mit menschen, die sich steif oder eingeschränkt fühlen, und hilft ihnen, leichtigkeit, beweglichkeit und vertrauen in ihren körper zu finden. kein vergleichen, kein perfektionismus: stärker fühlen, besser bewegen, den weg genießen.",
+      teachesH: "was sie unterrichtet", teaches: "hatha · ashtanga · vinyasa · aerial yoga · yin & restorative · atemarbeit & meditation · mobilität & beweglichkeit · kraft",
+      wayH: "ihr weg", way: "bewegen · atmen · erholen · verbinden · wachsen",
+      quote: "bei wellness geht es nicht darum, jemand anderes zu werden. es geht darum, dich selbst zu verstehen, balance zu finden, stärker zu werden und ein leben zu schaffen, in dem du dich in deinem körper wohlfühlst." },
+    fr: { tag: "à propos de nafisa", lead: "mieux bouger. respirer plus profondément. te sentir chez toi dans ton corps.",
+      bio: "nafisa est professeure de yoga avancée certifiée (ryt 500), praticienne du mouvement et facilitatrice de respiration. elle relie le yoga, le souffle, la mobilité, la souplesse, la force et la récupération.",
+      train: "elle s’est formée 500 heures en inde : 300 heures avancées au samyukta yoga institute de mysore, 200 heures au yoga institute de mumbai. elle enseigne aussi le yoga aérien et s’est formée au massage, aux ventouses et à l’acupression. elle a enseigné en inde et en thaïlande.",
+      help: "elle travaille avec des personnes qui se sentent raides ou limitées dans leurs mouvements, et les aide à trouver aisance, mobilité et confiance dans leur corps. pas de comparaison, pas de perfection : se sentir plus fort, mieux bouger, profiter du chemin.",
+      teachesH: "ce qu’elle enseigne", teaches: "hatha · ashtanga · vinyasa · yoga aérien · yin & restauratif · respiration & méditation · mobilité & souplesse · force",
+      wayH: "sa voie", way: "bouger · respirer · récupérer · relier · grandir",
+      quote: "le bien-être, ce n’est pas devenir quelqu’un d’autre. c’est te comprendre, trouver l’équilibre, devenir plus fort et créer une vie dans laquelle tu te sens bien dans ton corps." },
+    es: { tag: "sobre nafisa", lead: "moverte mejor. respirar más hondo. sentirte en casa en tu cuerpo.",
+      bio: "nafisa es profesora de yoga avanzada registrada (ryt 500), practicante de movimiento y facilitadora de respiración. une yoga, respiración, movilidad, flexibilidad, fuerza y recuperación.",
+      train: "se formó 500 horas en india: 300 horas avanzadas en el samyukta yoga institute de mysore y 200 horas en the yoga institute de mumbai. además enseña yoga aéreo y se formó en masaje, ventosas y acupresión. ha enseñado en india y tailandia.",
+      help: "trabaja con personas que se sienten rígidas o limitadas al moverse y las ayuda a encontrar soltura, movilidad y confianza en su cuerpo. sin comparaciones, sin perfección: sentirte más fuerte, moverte mejor, disfrutar el proceso.",
+      teachesH: "lo que enseña", teaches: "hatha · ashtanga · vinyasa · yoga aéreo · yin y restaurativo · respiración y meditación · movilidad y flexibilidad · fuerza",
+      wayH: "su camino", way: "moverse · respirar · recuperarse · conectar · crecer",
+      quote: "el bienestar no consiste en convertirte en otra persona. consiste en entenderte, encontrar el equilibrio, hacerte más fuerte y crear una vida en la que te sientas bien en tu propio cuerpo." },
+    ar: { tag: "عن nafisa", lead: "تحرّك أفضل. تنفّس أعمق. اشعر أنك في بيتك داخل جسدك.",
+      bio: "nafisa معلّمة يوغا متقدّمة معتمدة (ryt 500)، وممارِسة للحركة وميسِّرة لتمارين التنفّس. تجمع بين اليوغا والتنفّس والحركة والمرونة والقوة والتعافي.",
+      train: "تدرّبت 500 ساعة في الهند: 300 ساعة متقدّمة في معهد samyukta لليوغا في ميسور، و200 ساعة في the yoga institute في مومباي. وتدرّس أيضًا اليوغا الهوائية، وتدرّبت على التدليك والحجامة والضغط الإبري. درّست في الهند وتايلاند.",
+      help: "تعمل مع من يشعرون بتيبّس أو محدودية في الحركة، وتساعدهم على إيجاد السهولة والمرونة والثقة في أجسادهم. بلا مقارنة، بلا كمال: أن تشعر بقوة أكبر، وتتحرّك أفضل، وتستمتع بالطريق.",
+      teachesH: "ما تدرّسه", teaches: "هاثا · أشتانغا · فينياسا · اليوغا الهوائية · يين واسترخاء · التنفّس والتأمّل · الحركة والمرونة · القوة",
+      wayH: "طريقتها", way: "تحرّك · تنفّس · استرح · تواصل · انمُ",
+      quote: "العافية لا تعني أن تصبح شخصًا آخر. إنها أن تفهم نفسك، وتجد توازنك، وتصبح أقوى، وتصنع حياة تشعر فيها بالراحة في جسدك." },
+    ru: { tag: "о nafisa", lead: "двигаться лучше. дышать глубже. чувствовать себя дома в своём теле.",
+      bio: "nafisa — сертифицированный преподаватель йоги продвинутого уровня (ryt 500), практик движения и ведущая дыхательных практик. она соединяет йогу, дыхание, мобильность, гибкость, силу и восстановление.",
+      train: "она обучалась 500 часов в индии: 300 часов продвинутого курса в samyukta yoga institute в майсуре и 200 часов в the yoga institute в мумбаи. также преподаёт воздушную йогу, обучалась массажу, баночному массажу и акупрессуре. преподавала в индии и таиланде.",
+      help: "она работает с людьми, которые чувствуют скованность или ограничения в движении, и помогает им обрести лёгкость, подвижность и уверенность в своём теле. без сравнений, без перфекционизма: чувствовать себя сильнее, двигаться лучше, получать удовольствие от процесса.",
+      teachesH: "что она преподаёт", teaches: "хатха · аштанга · виньяса · воздушная йога · инь и восстановительная · дыхание и медитация · мобильность и гибкость · сила",
+      wayH: "её путь", way: "двигаться · дышать · восстанавливаться · соединяться · расти",
+      quote: "здоровье — это не стать кем-то другим. это понять себя, найти баланс, стать сильнее и создать жизнь, в которой тебе хорошо в своём теле." },
   };
   const TEAM = [
     { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
       proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
-    { soon: true },
+    { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp", alt: "nafisa in a standing split, eyes closed, by the sea",
+      proof: "/photos/foyo-nafisa-full.webp", proofAlt: "nafisa holding her leg in a standing split against the sky", proofW: "900", proofH: "1599",
+      ig: "https://www.instagram.com/yogawithnafisa/", bio: NAFISA },
     { soon: true },
   ];
 
@@ -485,8 +532,26 @@
       el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
-      m.proof ? el("figure", { class: "proof" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", decoding: "async" }), el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap)) : null,
-      el("div", { class: "acts" }, el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
+      m.proof ? el("figure", { class: "proof" }, el("img", { src: m.proof, alt: m.proofAlt, width: m.proofW || "720", height: m.proofH || "720", decoding: "async" }), m.id === "paul" ? el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap) : null) : null,
+      el("div", { class: "acts" }, m.ig
+        ? el("a", { class: "btn", href: m.ig, target: "_blank", rel: "noopener noreferrer" }, c("ig" + m.id[0].toUpperCase() + m.id.slice(1)))
+        : el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
+    renderBio(m);
+  }
+  // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
+  function renderBio(m) {
+    const box = document.getElementById("bio");
+    if (!box || !m.bio) return;
+    const b = m.bio[st.lang] || m.bio.en;
+    box.replaceChildren(
+      el("p", { class: "tag" }, b.tag),
+      el("p", { class: "lead" }, b.lead),
+      el("p", {}, b.bio),
+      el("p", {}, b.train),
+      el("p", {}, b.help),
+      el("h2", {}, b.teachesH), el("p", {}, b.teaches),
+      el("h2", {}, b.wayH), el("p", {}, b.way),
+      el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name)));
   }
 
   // ---------- the page ----------
