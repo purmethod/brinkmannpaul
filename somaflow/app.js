@@ -318,7 +318,8 @@
     ru: { h1: "stay young and chilled. the rest is bs.", lead: "дыхание, холод, йога и настоящая еда. маленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
   };
   const TEAM = [
-    { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow" },
+    { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
+      proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
     { soon: true },
     { soon: true },
   ];
@@ -453,7 +454,6 @@
       el("p", {}, a.bio),
       photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
       el("p", {}, a.s1),
-      photo("/photos/foyo-old-wimhof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
       el("p", {}, a.s3),
       photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
       el("p", {}, a.s4),
@@ -485,6 +485,7 @@
       el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
+      m.proof ? el("figure", { class: "proof" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", decoding: "async" }), el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap)) : null,
       el("div", { class: "acts" }, el("a", { class: "btn", href: "/#book" }, c("sessions"))));
   }
 
@@ -499,6 +500,8 @@
       el("h1", {}, c("h1")),
       // what you get, then how it feels
       el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      // wim hof on x, 2017: the line foyo's own line echoes; it stays in his words
+      el("blockquote", { class: "quote", lang: "en", dir: "ltr" }, el("p", {}, "the goal is to become healthy, strong and happy. the rest is bullshit."), el("cite", {}, "— wim hof")),
       el("h2", {}, c("team")),
       team(),
       el("h2", {}, t("retreat")),
