@@ -307,6 +307,22 @@
 
 
 
+  // the club: different teachers, one goal. the team shows one circle per teacher; a teacher not yet
+  // announced is an empty circle. a teacher's page lives at /<id>
+  const CLUB = {
+    en: { h1: "different teachers. one goal.", lead: "foyo is a club of teachers from around the world: yoga, wim hof, breathwork.\nwe connect yoga, cold, breath and microbiome, for one goal: that you feel better. without expensive programs, without pills.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
+    de: { h1: "verschiedene lehrer. ein ziel.", lead: "foyo ist ein club von lehrern aus der ganzen welt: yoga, wim hof, atemarbeit.\nwir verbinden yoga, kälte, atem und mikrobiom, für ein ziel: dass du dich besser fühlst. ohne teure programme, ohne pillen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
+    fr: { h1: "des professeurs différents. un seul but.", lead: "foyo est un club de professeurs du monde entier : yoga, wim hof, respiration.\nnous relions le yoga, le froid, le souffle et le microbiome, pour un seul but : que tu te sentes mieux. sans programmes coûteux, sans pilules.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
+    es: { h1: "distintos profesores. un solo objetivo.", lead: "foyo es un club de profesores de todo el mundo: yoga, wim hof, respiración.\nunimos yoga, frío, respiración y microbioma, con un solo objetivo: que te sientas mejor. sin programas caros, sin pastillas.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
+    ar: { h1: "معلّمون مختلفون. هدف واحد.", lead: "foyo نادٍ لمعلّمين من كل أنحاء العالم: يوغا، ويم هوف، تمارين التنفّس.\nنجمع بين اليوغا والبرد والتنفّس والميكروبيوم لهدف واحد: أن تشعر بتحسّن. بلا برامج باهظة، بلا حبوب.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
+    ru: { h1: "разные учителя. одна цель.", lead: "foyo — это клуб учителей со всего мира: йога, метод вима хофа, дыхательные практики.\nмы соединяем йогу, холод, дыхание и микробиом ради одной цели: чтобы тебе стало лучше. без дорогих программ, без таблеток.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
+  };
+  const TEAM = [
+    { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow" },
+    { soon: true },
+    { soon: true },
+  ];
+
   const LANGS = Object.keys(T);
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
@@ -335,6 +351,7 @@
     booking: saved.booking || null, cancelled: false,
   };
   const app = document.getElementById("book");
+  const c = (k) => (CLUB[st.lang] || CLUB.en)[k] || CLUB.en[k];
   const t = (k, v) => String(T[st.lang][k] || T.en[k]).replace(/\{(\w+)\}/g, (_, x) => (v && v[x] != null ? v[x] : ""));
   function el(tag, attrs, ...kids) {
     const n = document.createElement(tag);
@@ -366,7 +383,8 @@
   const flow = document.getElementById("flow");
   const clip = document.getElementById("clip");
   const still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (still) { clip.removeAttribute("autoplay"); clip.pause(); }
+  if (!clip) { /* a teacher's page has no opening video */ }
+  else if (still) { clip.removeAttribute("autoplay"); clip.pause(); }
   else {
     const play = () => clip.play().catch(() => {});
     play();
@@ -374,7 +392,7 @@
     document.addEventListener("touchstart", play, { once: true, passive: true });
     document.addEventListener("visibilitychange", () => { if (!document.hidden) play(); });
   }
-  flow.addEventListener("click", () => {
+  if (flow) flow.addEventListener("click", () => {
     document.getElementById("top").scrollIntoView({ behavior: still ? "auto" : "smooth" });
   });
 
@@ -391,10 +409,12 @@
     document.documentElement.lang = l;
     document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
     document.querySelectorAll(".lb").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
-    document.getElementById("cue").textContent = t("cue");
+    const cue = document.getElementById("cue");
+    if (cue) cue.textContent = t("cue");
     renderWim();
     renderAbout();
-    render();
+    renderTeacher();
+    if (app) render();
   }
   document.querySelectorAll(".lb").forEach((b) => b.addEventListener("click", () => {
     try { sessionStorage.setItem(KEY + "-lang", b.dataset.lang); } catch { /* private mode */ }
@@ -446,6 +466,28 @@
       photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
 
+  // ---------- the team ----------
+  const team = () => el("div", { class: "team" }, TEAM.map((m) => m.soon
+    ? el("div", { class: "member soon", "aria-hidden": "true" }, el("span", { class: "ring" }), el("span", { class: "nm" }, c("soon")))
+    : el("a", { class: "member", href: "/" + m.id },
+      el("span", { class: "ring" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" })),
+      el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, c(m.role))))));
+  // who leads the session
+  const host = (m) => el("a", { class: "with", href: "/" + m.id }, el("img", { src: m.img, alt: "", width: "68", height: "68", loading: "lazy", decoding: "async" }), c("with"));
+  // a teacher's own page: the circle, the name, what they teach, the way to their sessions
+  function renderTeacher() {
+    const box = document.getElementById("teacher");
+    if (!box) return;
+    const m = TEAM.find((x) => x.id === box.dataset.teacher);
+    if (!m) return;
+    box.replaceChildren(
+      el("a", { class: "back", href: "/" }, "← " + c("back")),
+      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
+      el("h1", {}, m.name),
+      el("p", { class: "rl" }, c(m.role)),
+      el("div", { class: "acts" }, el("a", { class: "btn", href: "/#book" }, c("sessions"))));
+  }
+
   // ---------- the page ----------
   // append, skipping the parts that are not there (a bare null would show as the word "null")
   const put = (...kids) => app.append(...kids.flat().filter((k) => k != null && k !== false));
@@ -454,10 +496,13 @@
     if (st.booking) return renderDone();
     put(
       // no "foyo club" line here: the logo above already says it
-      el("h1", {}, t("h1")),
-      // the lead line by line: young at any age, then the discovery
-      el("p", { class: "lead" }, t("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      el("h1", {}, c("h1")),
+      // the club line by line: who we are, then what for
+      el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      el("h2", {}, c("team")),
+      team(),
       el("h2", {}, t("retreat")),
+      host(TEAM[0]),
       el("p", {}, t("invite")),
       wide("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees", 1200, 900),
       wide("/photos/foyo-session-rest.webp", "the group lying on mats after the breathing, the sea behind the curtains", 1200, 900),
@@ -594,5 +639,5 @@
   }
 
   setLang(st.lang);
-  load();
+  if (app) load();
 })();
