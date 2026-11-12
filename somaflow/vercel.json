@@ -2,6 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/preview",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/preview/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/((?!club/).*)",
       "has": [
         {

@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>foyo club · forever young</title>
-  <meta name="description" content="foyo club, forever young: a retreat with paul brinkmann, certified wim hof instructor. breathing, a breakfast with real homemade kefir, max 7 people." />
+  <meta name="description" content="foyo club, forever young: a club of teachers from around the world. yoga, cold, breath and microbiome, without expensive programs, without pills." />
   <link rel="canonical" href="https://myfoyo.com/" />
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="foyo club · forever young" />
-  <meta property="og:description" content="feeling young is not a question of age. a breathing session with paul brinkmann, certified wim hof instructor, and a breakfast with real homemade kefir. max 7 people." />
+  <meta property="og:description" content="different teachers, one goal: that you feel better. yoga, cold, breath and microbiome. without expensive programs, without pills." />
   <meta property="og:url" content="https://myfoyo.com/" />
-  <meta property="og:image" content="https://myfoyo.com/poster.webp?v=8" />
+  <meta property="og:image" content="https://myfoyo.com/poster2.webp?v=3" />
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="preload" as="image" href="/poster.webp?v=8" />
+  <link rel="preload" as="image" href="/poster2.webp?v=3" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --ink: #5c5c56; --ink3: #7b7b75; --line: #cfcfca; --line2: #e4e4e0; --warn: #8a3b2e; }
@@ -25,7 +25,7 @@
     [hidden] { display: none !important; }
 
     /* the opening: the videos, full screen, the logo as a white watermark */
-    .flow { position: relative; height: 100vh; height: 100svh; overflow: hidden; cursor: pointer; background: #e9e3d8 url(/poster.webp?v=8) center 40% / cover no-repeat; }
+    .flow { position: relative; height: 100vh; height: 100svh; overflow: hidden; cursor: pointer; background: #e9e3d8 url(/poster2.webp?v=3) center 40% / cover no-repeat; }
     .flow video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; pointer-events: none; }
     .flow:before { content: ""; position: absolute; inset: 0 0 auto; height: 48%; z-index: 1; background: linear-gradient(rgba(25, 22, 18, .42), rgba(25, 22, 18, 0)); }
     .flow:after { content: ""; position: absolute; inset: auto 0 0; height: 22%; z-index: 1; background: linear-gradient(rgba(25, 22, 18, 0), rgba(25, 22, 18, .28)); }
@@ -61,7 +61,7 @@
     .form { display: grid; gap: 8px; margin: 26px 0 18px; }
     .form label { font-size: 13px; color: var(--ink3); }
     .form .hint { font-size: 15px; margin-bottom: 8px; }
-    input[type=text], input[type=tel] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; }
+    input[type=text], input[type=tel], input[type=email] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; }
     .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; pointer-events: none; }
     .btn { display: inline-block; padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; text-decoration: none; text-align: center; }
     .btn:disabled { opacity: .35; cursor: default; }
@@ -110,6 +110,49 @@
     .src li { margin-bottom: 8px; scroll-margin-top: 80px; }
     .src a { color: var(--ink3); word-break: break-all; }
     .about .sign { margin-top: 26px; color: var(--ink3); letter-spacing: .04em; }
+    /* the team: one circle per teacher, three in a row, each opens the teacher's own page */
+    .team { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 14px; margin: 30px 0 10px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .member { display: grid; justify-items: center; align-content: start; gap: 12px; text-align: center; text-decoration: none; color: var(--ink); }
+    .member .ring { position: relative; display: block; width: 100%; max-width: 150px; aspect-ratio: 1; border-radius: 50%; background: var(--line2); }
+    .member .ring img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .member .ring:after { content: ""; position: absolute; inset: -5px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); }
+    .member .nm { font-size: 14px; line-height: 1.3; }
+    .member .rl { display: block; font-size: 12px; color: var(--ink3); margin-top: 2px; }
+    .member.soon { color: var(--ink3); }
+    a.member:hover .nm { text-decoration: underline; text-underline-offset: 3px; }
+    /* who leads the session: a small circle and the name */
+    .with { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 14px; margin: 2px 0 12px; }
+    .with img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+    /* a teacher's own page */
+    .teacher { display: grid; justify-items: center; text-align: center; gap: 6px; }
+    .teacher .photo { margin: 6px 0 10px; }
+    .teacher h1 { margin: 0; }
+    .teacher .rl { color: var(--ink3); font-size: 14px; letter-spacing: .04em; }
+    .teacher .acts { width: 100%; margin-top: 26px; }
+    .fine.by { margin: -10px 0 22px; letter-spacing: .04em; }
+    h1.claim { font-size: clamp(24px, 5.4vw, 32px); line-height: 1.2; letter-spacing: -.02em; }
+    .quote { margin: 34px 0 6px; padding-top: 24px; border-top: 1px solid var(--ink); }
+    .quote p { font-size: clamp(20px, 4.6vw, 26px); line-height: 1.25; letter-spacing: -.02em; }
+    .quote cite { display: block; margin-top: 10px; font-size: 12px; font-style: normal; letter-spacing: .04em; color: var(--ink3); }
+    .proof { width: 100%; margin: 22px 0 4px; }
+    .proof img { display: block; width: 100%; height: auto; }
+    .proof figcaption { margin-top: 10px; font-size: 12px; letter-spacing: .035em; color: var(--ink3); }
+    .igs { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 8px; margin-top: 16px; color: var(--ink3); font-size: 14px; }
+    .igs a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink3); font-size: 14px; text-decoration: none; text-transform: none; }
+    /* the empty place in the team and the application: a calm grey figure in lotus */
+    .lotus { width: 62%; height: auto; fill: #c6c6c0; stroke: #c6c6c0; }
+    .member .ring:has(.lotus), .soon-ring { display: grid; place-items: center; background: var(--line2); }
+    .apply .form { width: 100%; text-align: start; }
+    .apply .lead { margin-top: 6px; }
+    textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font: inherit; font-size: 16px; text-transform: none; resize: vertical; }
+    .voice { display: grid; justify-items: start; gap: 6px; margin-bottom: 14px; }
+    .voice .fine { margin: 0; }
+    .voice audio { width: 100%; }
+    .mic { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+    .mic.on { border-color: var(--warn); color: var(--warn); box-shadow: 0 0 0 6px rgba(138, 59, 46, .08); }
+    .vacts { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--ink3); }
+    .linkish { background: none; border: 0; padding: 0; color: var(--ink3); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-transform: lowercase; }
+    .back { font-size: 13px; color: var(--ink3); text-decoration: none; }
     .mine { display: grid; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .mine .ghost { width: 100%; }
     footer { max-width: 640px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
@@ -120,10 +163,10 @@
 </head>
 <body>
   <section class="flow" id="flow" aria-label="foyo club">
-    <video id="clip" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" poster="/poster.webp?v=8" aria-hidden="true">
-      <source src="/flow.mp4?v=9" type="video/mp4" />
+    <video id="clip" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" poster="/poster2.webp?v=3" aria-hidden="true">
+      <source src="/flow2.mp4?v=4" type="video/mp4" />
     </video>
-    <div class="mark"><img src="/foyo-club-ring-white.webp?v=2" alt="foyo club" width="800" height="800" /><span class="motto">breathing and breakfast</span></div>
+    <div class="mark"><img src="/foyo-club-ring-white.webp?v=2" alt="foyo club" width="800" height="800" /><span class="motto">forever young club</span></div>
     <p class="cue" aria-hidden="true"><span id="cue">tap or scroll</span><i></i></p>
   </section>
   <nav class="top" id="top">
@@ -140,12 +183,10 @@
   <main id="book" tabindex="-1">
     <noscript><p class="lead">foyo club needs javascript to reserve a place. please turn it on and reload.</p></noscript>
   </main>
-  <section class="about wim" id="wim" aria-label="the wim hof method"></section>
-  <section class="about" id="about" aria-label="about paul"></section>
   <footer>
     <span class="by">© paul brinkmann</span>
     <a class="ig" href="https://www.instagram.com/foyoclub/" target="_blank" rel="noopener noreferrer" aria-label="instagram · foyo club"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a>
   </footer>
-  <script src="/app.js?v=42"></script>
+  <script src="/app.js?v=70"></script>
 </body>
 </html>
