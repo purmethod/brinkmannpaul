@@ -8,6 +8,6 @@ foyo club (forever young), formerly soma flow club. Paul Brinkmann. myfoyo.com s
 
 ## the club (live since 12 nov 2026)
 
-- start page: foyo's line, the team as circles (paul, nafisa, the lotus place that opens `/apply`), the session and the sign-up, wim hof's line under it. opening film `flow2.mp4` (poster `poster2.webp`).
+- start page: foyo's line, the team as circles (paul, nafisa, the lotus place ("join the circle") that opens `/apply`), the session and the sign-up, wim hof's line under it. opening film `flow2.mp4` (poster `poster2.webp`).
 - teacher pages `/paul`, `/nafisa`: the same head for everyone (circle, name, what they teach, instagram), then circle, words, circle, words. a new teacher: an entry in `TEAM` in `app.js` and a copy of `nafisa/index.html`.
 - `/apply`: teachers apply with name, email, a few words and a voice note; it goes to `brinkmannpaul.com/api/teach` (stripe customers with metadata foyo_teacher, the voice in the vercel blob store foyo-teachers).
