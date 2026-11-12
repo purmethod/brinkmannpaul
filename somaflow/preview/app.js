@@ -367,7 +367,7 @@
 },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
       pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"]],
-      igs: ["yogawithnafisa", "kohtao_yoga"],
+      igs: ["kohtao_yoga", "yogawithnafisa"],
       bio: NAFISA },
     { soon: true },
   ];
@@ -538,7 +538,7 @@
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
       // instagram: a small mark and the handle, never a big button
-      m.igs ? el("p", { class: "igs" }, m.igs.map((h) => el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, igMark(), "@" + h)))
+      m.igs ? el("p", { class: "igs" }, igMark(), m.igs.map((h, i) => [i ? el("span", { "aria-hidden": "true" }, "·") : null, el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, "@" + h)]))
         : el("p", { class: "igs" }, el("a", { href: "/preview/#book" }, c("sessions") + " →")));
     renderBio(m);
   }
