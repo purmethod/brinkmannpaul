@@ -364,7 +364,7 @@
   };
   const TEAM = [
     { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
-      proof: "/photos/foyo-paul-wim-guitar.webp", proofAlt: "wim hof playing the guitar, paul laughing next to him at wim's house in poland" },
+},
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
       pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"]],
       igs: ["yogawithnafisa", "kohtao_yoga"],
@@ -495,12 +495,12 @@
     if (!box) return;
     const a = ABOUT[st.lang] || ABOUT.en;
     const photo = (src, alt, cap) => el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src, alt, width: "720", height: "720", loading: "lazy", decoding: "async" })), cap ? el("figcaption", {}, cap) : null);
-    // six photos, one after each paragraph; only wim's house has a caption
+    // the rhythm everywhere: one circle, then words, never two pictures in a row
     box.replaceChildren(
       el("p", { class: "tag" }, a.tag),
       el("p", { class: "lead" }, a.lead),
       el("p", {}, a.bio),
-      photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
+      photo("/photos/foyo-paul-wim-guitar.webp?v=2", "wim hof playing the guitar, paul laughing next to him at wim's house in poland", a.cap),
       el("p", {}, a.s1),
       photo("/photos/foyo-paul-mountain.webp", "paul bare-chested and barefoot in the snow on a mountain ridge, trekking poles in his hands"),
       el("p", {}, a.s3),
@@ -511,8 +511,7 @@
       photo("/photos/foyo-old-climb.webp?v=2", "a line of people walking bare-chested through the snow on a mountain path"),
       el("p", {}, a.fin),
       photo("/photos/foyo-kefir.webp", "a bowl of homemade kefir with pomegranate above the sea of sidi bou said"),
-      el("p", {}, a.kefir),
-      photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
+      el("p", {}, a.kefir));
   }
 
   // wim hof on x, 2017: the line foyo's own line echoes, under the sign-up
@@ -538,10 +537,9 @@
       el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
-      m.proof ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", loading: "lazy", decoding: "async" })), m.id === "paul" ? el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap) : null) : null,
       // instagram: a small mark and the handle, never a big button
       m.igs ? el("p", { class: "igs" }, m.igs.map((h) => el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, igMark(), "@" + h)))
-        : el("div", { class: "acts" }, el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
+        : el("p", { class: "igs" }, el("a", { href: "/preview/#book" }, c("sessions") + " →")));
     renderBio(m);
   }
   // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
@@ -583,8 +581,7 @@
       el("h2", {}, t("retreat")),
       host(TEAM[0]),
       el("p", {}, t("invite")),
-      wide("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees", 1200, 900),
-      wide("/photos/foyo-session-rest.webp", "the group lying on mats after the breathing, the sea behind the curtains", 1200, 900),
+      ring("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees"),
       included(true),
       el("p", { class: "fine" }, t("limit")),
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
@@ -628,13 +625,14 @@
   // the price never breaks apart: "50 dinar" stays on one line (no-break spaces in priceFmt)
   // what the session holds: on the start page and again on the thank-you page
   // a photo in its full frame, nothing cut off (the circles are for about paul)
+  const ring = (src, alt) => el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src, alt, width: "720", height: "720", loading: "lazy", decoding: "async" })));
   const wide = (src, alt, w, h) => el("figure", { class: "wide" }, el("img", { src, alt, width: String(w), height: String(h), loading: "lazy", decoding: "async" }));
   const included = (pics) => [
     el("h2", {}, t("incl")),
     el("ul", { class: "rules offer" }, (T[st.lang].items || T.en.items).map((x) => el("li", {}, x.split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))))),
     // the breakfast paul eats every day
     el("p", {}, t("fuel")),
-    pics ? wide("/photos/foyo-breakfast.webp", "the breakfast: kefir with pomegranate, flaxseed and dates above the sea of sidi bou said", 1200, 1600) : null,
+    pics ? ring("/photos/foyo-breakfast.webp", "the breakfast: kefir with pomegranate, flaxseed and dates above the sea of sidi bou said") : null,
     el("p", { class: "fine" }, t("only")),
   ];
 
