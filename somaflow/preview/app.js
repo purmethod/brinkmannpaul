@@ -366,10 +366,9 @@
     { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
       proof: "/photos/foyo-paul-wim-guitar.webp", proofAlt: "wim hof playing the guitar, paul laughing next to him at wim's house in poland" },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
-      pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"],
-        ["/photos/foyo-nafisa-crow.webp", "nafisa in crow pose on her mat, warm evening light on the wall"],
-        ["/photos/foyo-nafisa-reach.webp", "nafisa's hand and foot reaching into the sky"]],
-      ig: "https://www.instagram.com/yogawithnafisa/", bio: NAFISA },
+      pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"]],
+      igs: ["yogawithnafisa", "kohtao_yoga"],
+      bio: NAFISA },
     { soon: true },
   ];
 
@@ -540,12 +539,14 @@
       el("h1", {}, m.name),
       el("p", { class: "rl" }, c(m.role)),
       m.proof ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", loading: "lazy", decoding: "async" })), m.id === "paul" ? el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap) : null) : null,
-      el("div", { class: "acts" }, m.ig
-        ? el("a", { class: "btn", href: m.ig, target: "_blank", rel: "noopener noreferrer" }, c("ig" + m.id[0].toUpperCase() + m.id.slice(1)))
-        : el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
+      // instagram: a small mark and the handle, never a big button
+      m.igs ? el("p", { class: "igs" }, m.igs.map((h) => el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, igMark(), "@" + h)))
+        : el("div", { class: "acts" }, el("a", { class: "btn", href: "/preview/#book" }, c("sessions"))));
     renderBio(m);
   }
   // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
+  const igMark = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "15"); svg.setAttribute("height", "15"); svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = '<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/>'; return svg; };
   const circ = (p) => (p ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: p[0], alt: p[1], width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null);
   function renderBio(m) {
     const box = document.getElementById("bio");
