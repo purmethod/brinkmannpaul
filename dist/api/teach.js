@@ -45,11 +45,6 @@ module.exports = async (req, res) => {
   }
   res.setHeader("Vary", "Origin");
   if (req.method === "OPTIONS") return res.status(204).end();
-  // TEMPORARY: proves the blob store answers; removed once checked
-  if (req.method === "GET" && req.query && req.query.check === "9975f447dbc516faae3fdfd7") {
-    try { return res.status(200).json({ ok: true, url: await putBlob("check/hello.txt", Buffer.from("foyo"), "text/plain") }); }
-    catch (err) { return res.status(200).json({ ok: false, error: err.message }); }
-  }
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); return res.status(405).json({ error: "Method not allowed" }); }
   let body = req.body || {};
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { body = {}; } }

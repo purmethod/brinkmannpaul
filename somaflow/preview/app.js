@@ -310,12 +310,12 @@
   // the club: different teachers, one goal. the team shows one circle per teacher; a teacher not yet
   // announced is an empty circle. a teacher's page lives at /<id>
   const CLUB = {
-    en: { nafisa: "yoga · breath · mobility", igNafisa: "nafisa on instagram", h1: "stay young and chilled.\nthe rest is bullshit.", quote: "the goal is to become healthy, strong and happy. the rest is bullshit.", lead: "breathing, cold, yoga and real food.\nsmall steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul", sessions: "sessions with paul", back: "all teachers" },
-    de: { nafisa: "yoga · atem · mobilität", igNafisa: "nafisa auf instagram", h1: "bleib jung und entspannt.\nder rest ist bullshit.", quote: "das ziel ist, gesund, stark und glücklich zu werden. der rest ist bullshit.", lead: "atmen, kälte, yoga und echtes essen.\nkleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul", sessions: "sessions mit paul", back: "alle lehrer" },
-    fr: { nafisa: "yoga · souffle · mobilité", igNafisa: "nafisa sur instagram", h1: "reste jeune et détendu.\nle reste, c’est du bullshit.", quote: "le but, c’est d’être en bonne santé, fort et heureux. le reste, c’est du bullshit.", lead: "respiration, froid, yoga et vraie nourriture.\nde petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul", sessions: "les sessions avec paul", back: "tous les professeurs" },
-    es: { nafisa: "yoga · respiración · movilidad", igNafisa: "nafisa en instagram", h1: "mantente joven y relajado.\nlo demás es bullshit.", quote: "el objetivo es estar sano, fuerte y feliz. lo demás es bullshit.", lead: "respiración, frío, yoga y comida de verdad.\npasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul", sessions: "sesiones con paul", back: "todos los profesores" },
-    ar: { nafisa: "يوغا · تنفّس · حركة", igNafisa: "nafisa على إنستغرام", h1: "ابقَ شابًا ومرتاحًا.\nوالباقي كلام فارغ.", quote: "الهدف أن تصبح بصحة جيدة، قويًا وسعيدًا. والباقي كلام فارغ.", lead: "تنفّس، برد، يوغا وأكل حقيقي.\nخطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
-    ru: { nafisa: "йога · дыхание · мобильность", igNafisa: "nafisa в instagram", h1: "оставайся молодым и спокойным.\nвсё остальное — фигня.", quote: "цель — стать здоровым, сильным и счастливым. всё остальное — фигня.", lead: "дыхание, холод, йога и настоящая еда.\nмаленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем", sessions: "сессии с паулем", back: "все учителя" },
+    en: { join: "become a teacher", applyShort: "apply", nafisa: "yoga · breath · mobility", igNafisa: "nafisa on instagram", h1: "stay young and chilled.\nthe rest is bullshit.", quote: "the goal is to become healthy, strong and happy. the rest is bullshit.", lead: "breathing, cold, yoga and real food.\nsmall steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul", sessions: "sessions with paul", back: "all teachers" },
+    de: { join: "werde lehrer", applyShort: "bewirb dich", nafisa: "yoga · atem · mobilität", igNafisa: "nafisa auf instagram", h1: "bleib jung und entspannt.\nder rest ist bullshit.", quote: "das ziel ist, gesund, stark und glücklich zu werden. der rest ist bullshit.", lead: "atmen, kälte, yoga und echtes essen.\nkleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul", sessions: "sessions mit paul", back: "alle lehrer" },
+    fr: { join: "deviens professeur", applyShort: "postule", nafisa: "yoga · souffle · mobilité", igNafisa: "nafisa sur instagram", h1: "reste jeune et détendu.\nle reste, c’est du bullshit.", quote: "le but, c’est d’être en bonne santé, fort et heureux. le reste, c’est du bullshit.", lead: "respiration, froid, yoga et vraie nourriture.\nde petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul", sessions: "les sessions avec paul", back: "tous les professeurs" },
+    es: { join: "hazte profesor", applyShort: "postúlate", nafisa: "yoga · respiración · movilidad", igNafisa: "nafisa en instagram", h1: "mantente joven y relajado.\nlo demás es bullshit.", quote: "el objetivo es estar sano, fuerte y feliz. lo demás es bullshit.", lead: "respiración, frío, yoga y comida de verdad.\npasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul", sessions: "sesiones con paul", back: "todos los profesores" },
+    ar: { join: "كن معلّمًا", applyShort: "قدّم طلبك", nafisa: "يوغا · تنفّس · حركة", igNafisa: "nafisa على إنستغرام", h1: "ابقَ شابًا ومرتاحًا.\nوالباقي كلام فارغ.", quote: "الهدف أن تصبح بصحة جيدة، قويًا وسعيدًا. والباقي كلام فارغ.", lead: "تنفّس، برد، يوغا وأكل حقيقي.\nخطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
+    ru: { join: "стань преподавателем", applyShort: "подай заявку", nafisa: "йога · дыхание · мобильность", igNafisa: "nafisa в instagram", h1: "оставайся молодым и спокойным.\nвсё остальное — фигня.", quote: "цель — стать здоровым, сильным и счастливым. всё остальное — фигня.", lead: "дыхание, холод, йога и настоящая еда.\nмаленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем", sessions: "сессии с паулем", back: "все учителя" },
   };
   // nafisa, from her own profile: who she is, her training, what she teaches, her five elements, her words
   const NAFISA = {
@@ -463,6 +463,7 @@
     renderWim();
     renderAbout();
     renderTeacher();
+    renderApply();
     if (app) render();
   }
   document.querySelectorAll(".lb").forEach((b) => b.addEventListener("click", () => {
@@ -520,7 +521,7 @@
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
   const team = () => el("div", { class: "team" }, TEAM.map((m) => m.soon
-    ? el("div", { class: "member soon", "aria-hidden": "true" }, el("span", { class: "ring" }), el("span", { class: "nm" }, c("soon")))
+    ? el("a", { class: "member soon", href: "/apply" }, el("span", { class: "ring" }, lotus()), el("span", { class: "nm" }, c("join"), el("span", { class: "rl" }, c("applyShort"))))
     : el("a", { class: "member", href: "/" + m.id },
       el("span", { class: "ring" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" })),
       el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, roleLines(c(m.role)))))));
@@ -563,6 +564,105 @@
       el("h2", {}, b.teachesH), el("p", {}, b.teaches),
       el("h2", {}, b.wayH), el("p", {}, b.way),
       el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name))].filter(Boolean));
+  }
+
+  // ---------- become a teacher: name, email, a few words, a voice note ----------
+  const APPLY = {
+    en: { h1: "become a teacher.", lead: "you teach yoga, breathwork, cold or movement and live what foyo stands for? tell us who you are.", name: "your name", email: "your email", about: "tell us about yourself", aboutHint: "what you teach, where, how long. and why foyo.", voice: "or just say it", rec: "tap to record", stop: "tap to stop", again: "record again", del: "delete", send: "send application", wait: "one moment…", thanks: "thank you, {name}. we’ll get back to you.", errName: "please write your name.", errEmail: "please write your email.", errAbout: "write a few words about yourself or record a voice note.", errMic: "the microphone is not allowed. you can still write.", errAny: "that did not work. please try again.", long: "the voice note is too long. two minutes at most.", back: "back to the start page" },
+    de: { h1: "werde lehrer.", lead: "du unterrichtest yoga, atemarbeit, kälte oder bewegung und lebst, wofür foyo steht? erzähl uns, wer du bist.", name: "dein name", email: "deine e-mail", about: "erzähl uns von dir", aboutHint: "was du unterrichtest, wo, seit wann. und warum foyo.", voice: "oder sprich es einfach ein", rec: "tippen zum aufnehmen", stop: "tippen zum beenden", again: "neu aufnehmen", del: "löschen", send: "bewerbung senden", wait: "einen moment…", thanks: "danke, {name}. wir melden uns bei dir.", errName: "bitte schreib deinen namen.", errEmail: "bitte schreib deine e-mail.", errAbout: "schreib ein paar worte über dich oder nimm eine sprachnachricht auf.", errMic: "das mikrofon ist nicht erlaubt. du kannst trotzdem schreiben.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal.", long: "die sprachnachricht ist zu lang. höchstens zwei minuten.", back: "zurück zur startseite" },
+    fr: { h1: "deviens professeur.", lead: "tu enseignes le yoga, la respiration, le froid ou le mouvement et tu vis ce que foyo représente ? dis-nous qui tu es.", name: "ton prénom", email: "ton e-mail", about: "parle-nous de toi", aboutHint: "ce que tu enseignes, où, depuis quand. et pourquoi foyo.", voice: "ou dis-le simplement", rec: "touche pour enregistrer", stop: "touche pour arrêter", again: "réenregistrer", del: "supprimer", send: "envoyer ma candidature", wait: "un instant…", thanks: "merci, {name}. nous revenons vers toi.", errName: "écris ton prénom, s’il te plaît.", errEmail: "écris ton e-mail, s’il te plaît.", errAbout: "écris quelques mots sur toi ou enregistre un message vocal.", errMic: "le micro n’est pas autorisé. tu peux quand même écrire.", errAny: "ça n’a pas marché. réessaie.", long: "le message vocal est trop long. deux minutes maximum.", back: "retour à l’accueil" },
+    es: { h1: "hazte profesor.", lead: "¿enseñas yoga, respiración, frío o movimiento y vives lo que representa foyo? cuéntanos quién eres.", name: "tu nombre", email: "tu e-mail", about: "cuéntanos sobre ti", aboutHint: "qué enseñas, dónde, desde cuándo. y por qué foyo.", voice: "o simplemente dilo", rec: "toca para grabar", stop: "toca para parar", again: "grabar de nuevo", del: "borrar", send: "enviar solicitud", wait: "un momento…", thanks: "gracias, {name}. te escribiremos.", errName: "escribe tu nombre, por favor.", errEmail: "escribe tu e-mail, por favor.", errAbout: "escribe unas palabras sobre ti o graba una nota de voz.", errMic: "el micrófono no está permitido. puedes escribir igualmente.", errAny: "no ha funcionado. inténtalo de nuevo.", long: "la nota de voz es demasiado larga. dos minutos como máximo.", back: "volver al inicio" },
+    ar: { h1: "كن معلّمًا.", lead: "تدرّس اليوغا أو التنفّس أو البرد أو الحركة وتعيش ما يمثّله foyo؟ أخبرنا من أنت.", name: "اسمك", email: "بريدك الإلكتروني", about: "حدّثنا عن نفسك", aboutHint: "ماذا تدرّس، وأين، ومنذ متى. ولماذا foyo.", voice: "أو قلها بصوتك", rec: "المس للتسجيل", stop: "المس للإيقاف", again: "سجّل من جديد", del: "احذف", send: "أرسل طلبك", wait: "لحظة…", thanks: "شكرًا، {name}. سنتواصل معك.", errName: "اكتب اسمك من فضلك.", errEmail: "اكتب بريدك الإلكتروني من فضلك.", errAbout: "اكتب بضع كلمات عن نفسك أو سجّل رسالة صوتية.", errMic: "الميكروفون غير مسموح. يمكنك الكتابة رغم ذلك.", errAny: "لم ينجح ذلك. حاول مرة أخرى.", long: "الرسالة الصوتية طويلة جدًا. دقيقتان كحد أقصى.", back: "العودة إلى الصفحة الرئيسية" },
+    ru: { h1: "стань преподавателем.", lead: "ты преподаёшь йогу, дыхание, холод или движение и живёшь тем, за что стоит foyo? расскажи нам, кто ты.", name: "твоё имя", email: "твой e-mail", about: "расскажи о себе", aboutHint: "что ты преподаёшь, где, как давно. и почему foyo.", voice: "или просто скажи это голосом", rec: "нажми, чтобы записать", stop: "нажми, чтобы остановить", again: "записать заново", del: "удалить", send: "отправить заявку", wait: "минуту…", thanks: "спасибо, {name}. мы свяжемся с тобой.", errName: "пожалуйста, напиши своё имя.", errEmail: "пожалуйста, напиши свой e-mail.", errAbout: "напиши пару слов о себе или запиши голосовое сообщение.", errMic: "доступ к микрофону запрещён. ты всё равно можешь написать.", errAny: "не получилось. попробуй ещё раз.", long: "голосовое сообщение слишком длинное. максимум две минуты.", back: "вернуться на главную" },
+  };
+  const ap = (k, v) => String((APPLY[st.lang] || APPLY.en)[k] || APPLY.en[k]).replace(/\{(\w+)\}/g, (_, x) => (v && v[x] != null ? v[x] : ""));
+  const TEACH = "https://brinkmannpaul.com/api/teach";
+  const MAXREC = 120; // seconds
+  const ap_st = { name: "", email: "", about: "", blob: null, type: "", url: "", rec: null, secs: 0, timer: 0, busy: false, error: "", done: "" };
+  // the lotus figure: a calm grey person, sitting; the empty place in the team
+  const lotus = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("aria-hidden", "true"); svg.setAttribute("class", "lotus");
+    svg.innerHTML = '<circle cx="50" cy="31" r="8.5"/><path d="M50 42c-8.5 0-12.5 5.5-13.5 14l-1.6 13h30.2l-1.6-13C62.5 47.5 58.5 42 50 42z"/><path d="M39 49c-5 6-8.5 12.5-11.5 19.5M61 49c5 6 8.5 12.5 11.5 19.5" fill="none" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="50" cy="73.5" rx="29" ry="7.5"/>'; return svg; };
+  function renderApply() {
+    const box = document.getElementById("apply");
+    if (!box) return;
+    if (ap_st.done) return box.replaceChildren(
+      el("figure", { class: "photo" }, el("span", { class: "photo-circle soon-ring" }, lotus())),
+      el("h1", {}, ap("thanks", { name: ap_st.done })),
+      el("div", { class: "acts" }, el("a", { class: "btn", href: "/preview/" }, ap("back"))));
+    const nm = el("input", { type: "text", id: "an", autocomplete: "name", maxlength: "60", value: ap_st.name });
+    nm.addEventListener("input", () => { ap_st.name = nm.value; });
+    const em = el("input", { type: "email", id: "ae", autocomplete: "email", maxlength: "120", inputmode: "email", value: ap_st.email });
+    em.addEventListener("input", () => { ap_st.email = em.value; });
+    const ab = el("textarea", { id: "aa", rows: "5", maxlength: "1500", placeholder: ap("aboutHint") });
+    ab.value = ap_st.about;
+    ab.addEventListener("input", () => { ap_st.about = ab.value; });
+    const mm = (s) => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+    // the voice note: one round button, tap to start, tap to stop; then listen, record again or delete
+    const voice = ap_st.url
+      ? el("div", { class: "voice" }, el("audio", { controls: true, src: ap_st.url, preload: "metadata" }),
+        el("p", { class: "vacts" }, el("button", { type: "button", class: "linkish", onclick: () => { dropVoice(); startRec(); } }, ap("again")), el("span", { "aria-hidden": "true" }, "·"), el("button", { type: "button", class: "linkish", onclick: () => { dropVoice(); renderApply(); } }, ap("del"))))
+      : el("div", { class: "voice" }, el("button", { type: "button", class: "mic" + (ap_st.rec ? " on" : ""), "aria-pressed": String(Boolean(ap_st.rec)), onclick: () => (ap_st.rec ? stopRec() : startRec()) }, micMark()),
+        el("p", { class: "fine" }, ap_st.rec ? ap("stop") + " · " + mm(ap_st.secs) : ap("rec")));
+    const form = el("form", { class: "form", novalidate: true, onsubmit: (e) => { e.preventDefault(); sendApply(form); } },
+      el("label", { for: "an" }, ap("name")), nm,
+      el("label", { for: "ae" }, ap("email")), em,
+      el("label", { for: "aa" }, ap("about")), ab,
+      el("label", {}, ap("voice")), voice,
+      el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
+      el("div", {}, el("button", { class: "btn", type: "submit", disabled: ap_st.busy || Boolean(ap_st.rec) }, ap_st.busy ? ap("wait") : ap("send"))),
+      ap_st.error ? el("p", { class: "err", role: "alert" }, ap_st.error) : null);
+    box.replaceChildren(
+      el("a", { class: "back", href: "/preview/" }, "← " + ap("back")),
+      el("figure", { class: "photo" }, el("span", { class: "photo-circle soon-ring" }, lotus())),
+      el("h1", {}, ap("h1")),
+      el("p", { class: "lead" }, ap("lead")),
+      form);
+  }
+  const micMark = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "26"); svg.setAttribute("height", "26"); svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = '<rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'; return svg; };
+  function dropVoice() { if (ap_st.url) URL.revokeObjectURL(ap_st.url); ap_st.blob = null; ap_st.url = ""; ap_st.type = ""; }
+  async function startRec() {
+    ap_st.error = "";
+    if (!navigator.mediaDevices || !window.MediaRecorder) { ap_st.error = ap("errMic"); return renderApply(); }
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { ap_st.error = ap("errMic"); return renderApply(); }
+    // iphones record mp4, the others webm: whichever this browser can do
+    const type = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find((x) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(x)) || "";
+    const rec = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 64000 } : undefined);
+    const chunks = [];
+    rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    rec.onstop = () => {
+      stream.getTracks().forEach((tr) => tr.stop());
+      clearInterval(ap_st.timer);
+      ap_st.type = (rec.mimeType || type || "audio/webm").split(";")[0];
+      ap_st.blob = new Blob(chunks, { type: ap_st.type });
+      ap_st.url = URL.createObjectURL(ap_st.blob);
+      ap_st.rec = null;
+      renderApply();
+    };
+    ap_st.rec = rec; ap_st.secs = 0;
+    rec.start();
+    ap_st.timer = setInterval(() => { ap_st.secs++; if (ap_st.secs >= MAXREC) stopRec(); else renderApply(); }, 1000);
+    renderApply();
+  }
+  function stopRec() { if (ap_st.rec && ap_st.rec.state !== "inactive") ap_st.rec.stop(); }
+  const toBase64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(",")[1] || ""); r.onerror = no; r.readAsDataURL(blob); });
+  async function sendApply(form) {
+    if (ap_st.busy) return;
+    ap_st.error = "";
+    const name = ap_st.name.trim(), email = ap_st.email.trim(), about = ap_st.about.trim();
+    if (name.length < 2) { ap_st.error = ap("errName"); return renderApply(); }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { ap_st.error = ap("errEmail"); return renderApply(); }
+    if (about.length < 10 && !ap_st.blob) { ap_st.error = ap("errAbout"); return renderApply(); }
+    if (ap_st.blob && ap_st.blob.size > 3 * 1024 * 1024) { ap_st.error = ap("long"); return renderApply(); }
+    ap_st.busy = true; renderApply();
+    try {
+      const audio = ap_st.blob ? await toBase64(ap_st.blob) : undefined;
+      const r = await fetch(TEACH, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, about, audio, type: ap_st.type || undefined, company: form.company ? form.company.value : "" }) });
+      ap_st.busy = false;
+      if (!r.ok) { ap_st.error = ap(r.status === 413 ? "long" : "errAny"); return renderApply(); }
+      dropVoice(); ap_st.done = name; renderApply(); window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch { ap_st.busy = false; ap_st.error = ap("errAny"); renderApply(); }
   }
 
   // ---------- the page ----------
