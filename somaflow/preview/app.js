@@ -513,6 +513,8 @@
       photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
 
+  // wim hof on x, 2017: the line foyo's own line echoes, under the sign-up
+  const wimLine = () => el("blockquote", { class: "quote" }, el("p", {}, c("quote")), el("cite", {}, "— wim hof"));
   // ---------- the team ----------
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
@@ -568,8 +570,6 @@
       el("h1", { class: "claim" }, c("h1").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       // what you get, then how it feels
       el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
-      // wim hof on x, 2017: the line foyo's own line echoes; it stays in his words
-      el("blockquote", { class: "quote" }, el("p", {}, c("quote")), el("cite", {}, "— wim hof")),
       el("h2", {}, c("team")),
       team(),
       el("h2", {}, t("retreat")),
@@ -582,7 +582,7 @@
       st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
       el("h2", {}, t("next")));
     // already signed up: the reservation in one line instead of the form
-    if (st.booking) return put(mine());
+    if (st.booking) return put(mine(), wimLine());
     if (!st.sessions) return put(el("p", { class: "fine" }, t("loading")));
     if (!st.sessions.length) return put(el("p", {}, t("none")));
     const rows = el("div", { class: "rows", role: "radiogroup", "aria-label": t("next") });
@@ -614,7 +614,7 @@
       el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
       el("div", {}, el("button", { class: "btn", type: "submit", disabled: st.busy }, st.busy ? t("wait") : waiting ? t("joinWait") : t("reserve"))),
       st.error ? el("p", { class: "err", role: "alert" }, st.error) : null);
-    put(rows, form);
+    put(rows, form, wimLine());
   }
 
   // the price never breaks apart: "50 dinar" stays on one line (no-break spaces in priceFmt)
