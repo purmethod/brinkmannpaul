@@ -364,9 +364,11 @@
   };
   const TEAM = [
     { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
-      proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
+      proof: "/photos/foyo-paul-wim-guitar.webp", proofAlt: "wim hof playing the guitar, paul laughing next to him at wim's house in poland" },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
-      detail: "/photos/foyo-nafisa-reach.webp", detailAlt: "nafisa's hand and foot reaching into the sky",
+      pics: [["/photos/foyo-nafisa-namaste.webp", "nafisa by the sea, hands together, one leg drawn up in her arms"],
+        ["/photos/foyo-nafisa-crow.webp", "nafisa in crow pose on her mat, warm evening light on the wall"],
+        ["/photos/foyo-nafisa-reach.webp", "nafisa's hand and foot reaching into the sky"]],
       ig: "https://www.instagram.com/yogawithnafisa/", bio: NAFISA },
     { soon: true },
   ];
@@ -501,6 +503,7 @@
       el("p", {}, a.bio),
       photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
       el("p", {}, a.s1),
+      photo("/photos/foyo-paul-mountain.webp", "paul bare-chested and barefoot in the snow on a mountain ridge, trekking poles in his hands"),
       el("p", {}, a.s3),
       photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
       el("p", {}, a.s4),
@@ -543,6 +546,7 @@
     renderBio(m);
   }
   // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
+  const circ = (p) => (p ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: p[0], alt: p[1], width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null);
   function renderBio(m) {
     const box = document.getElementById("bio");
     if (!box || !m.bio) return;
@@ -551,9 +555,11 @@
       el("p", { class: "tag" }, b.tag),
       el("p", { class: "lead" }, b.lead),
       el("p", {}, b.bio),
-      m.detail ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.detail, alt: m.detailAlt, width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null,
+      circ(m.pics[0]),
       el("p", {}, b.train),
+      circ(m.pics[1]),
       el("p", {}, b.help),
+      circ(m.pics[2]),
       el("h2", {}, b.teachesH), el("p", {}, b.teaches),
       el("h2", {}, b.wayH), el("p", {}, b.way),
       el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name)));
