@@ -363,7 +363,7 @@
       quote: "здоровье — это не стать кем-то другим. это понять себя, найти баланс, стать сильнее и создать жизнь, в которой тебе хорошо в своём теле." },
   };
   const TEAM = [
-    { id: "paul", name: "paul", role: "paul", igs: ["brinkbuild"], book: true, img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
+    { id: "paul", name: "paul", role: "paul", igs: ["buildpaul"], book: true, img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
 },
     { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
       pics: [["/photos/foyo-nafisa-namaste.webp?v=2", "nafisa by the sea, hands together at her chin, one leg drawn up across her arms"]],
