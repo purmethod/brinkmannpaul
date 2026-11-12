@@ -13,6 +13,8 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | why-do-curved-rooms-feel-more-beautiful | done 2026-11-09 |
 | can-blue-enriched-office-light-improve-focus | done 2026-11-11 |
 | can-wood-finished-rooms-improve-thinking | done 2026-11-11 |
+| does-a-forest-near-your-home-protect-your-brain | done 2026-11-12 |
+| what-does-one-hour-in-the-forest-do-to-the-brain | done 2026-11-12 |
 | all other articles | open |
 
 ## 2026-11-07
@@ -40,3 +42,10 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 018: checked against the DOAJ abstract and the publisher JATS XML (methods and Table 1 verbatim). Numbers and directions correct. Changes: added the 20 minute dim pre-condition, the two adjacent windowless rooms and the comfort, cheerful, pleasant and brighter ratings; removed the unverified "different days at similar times"; completed the missing last limitation sentence in fr, es, ar, ru; Arabic now labels 263 lux as melanopic EDI; intro and architecture section rewritten in Paul's voice in all six languages. Open: d2-R p values, KSS condition by time interaction and the authors' limitation list only seen as extracted summary.
 - 019: publisher page, PubMed/PMC and ResearchGate not retrievable (fetch blocked); only title and journal confirmed. No numbers changed. Changes: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature, 14.8 % variance), intro and architecture section rewritten in Paul's voice in all six languages. Open: author, volume, n, design and all statistics NOT yet verified.
 - Voice revision of the two oldest open articles postponed: verification of the new articles took the run.
+
+## 2026-11-12
+
+- No new or changed articles on main since the 2026-11-11 run.
+- 016, 017 and 019 (open verification points): publisher pages, PubMed, Europe PMC, Crossref and OpenAlex could not be fetched in this unattended run (fetch permission not granted). For 019 the search index lists a PubMed record (PMID 41023212). No content change; open points stay marked NOT yet verified.
+- 005 does-a-forest-near-your-home-protect-your-brain: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states that only forest cover showed the association. Study, numbers and limits unchanged (verified against the full paper).
+- 006 what-does-one-hour-in-the-forest-do-to-the-brain: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section keeps the point that the unchanged urban response is no proof of harm. Study, numbers and limits unchanged (verified against the full paper).

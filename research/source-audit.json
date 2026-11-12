@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-11",
+  "checked": "2026-11-12",
   "scope": "Nineteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
@@ -51,7 +51,7 @@
       "key_counts": [
         341
       ],
-      "review": "341 older adults, land use within 1 km. Forest association with latent MRI amygdala integrity; other land-use associations nonsignificant. Cross-sectional, not proof of protection or direct health score. Balanced title retains original URL."
+      "review": "341 older adults, land use within 1 km. Forest association with latent MRI amygdala integrity; other land-use associations nonsignificant. Cross-sectional, not proof of protection or direct health score. Balanced title retains original URL. 2026-11-12: intro and architecture section rewritten in Paul's voice in all six languages; intro no longer names the authors; study, numbers and limits unchanged."
     },
     {
       "doi": "10.1038/s41380-022-01720-6",
@@ -60,7 +60,7 @@
       "key_counts": [
         63
       ],
-      "review": "63 healthy adults, randomized one-hour walks. Faces-task amygdala decrease after forest and stable urban response. MIST interaction significant but forest-only post hoc p=.070. Self-report, cognitive and physiological group-by-time interactions nonsignificant. Correct citation 27(11),4446-4452."
+      "review": "63 healthy adults, randomized one-hour walks. Faces-task amygdala decrease after forest and stable urban response. MIST interaction significant but forest-only post hoc p=.070. Self-report, cognitive and physiological group-by-time interactions nonsignificant. Correct citation 27(11),4446-4452. 2026-11-12: intro and architecture section rewritten in Paul's voice in all six languages; intro no longer names the authors; study, numbers and limits unchanged."
     },
     {
       "doi": "10.1371/journal.pone.0347162",
@@ -168,7 +168,7 @@
       "key_counts": [
         488
       ],
-      "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'. 2026-11-08: authors and volume 114 confirmed from the author institution listing; volume added to the citation. Per-experiment counts, VR setting, randomization and all outcome directions remain NOT yet verified. 2026-11-09: publisher page, Crossref and Semantic Scholar again not retrievable; status unchanged, counts and outcome directions remain NOT yet verified.",
+      "review": "Title and journal confirmed. Participant counts per experiment (132/126/134/96, sum 488) and outcome directions NOT yet verified against the abstract or full text. Title corrected to 'improve thinking, or only stress recovery'; dek softened from 'benefits' to short-term effects and from 'measurable' to 'significant'. 2026-11-08: authors and volume 114 confirmed from the author institution listing; volume added to the citation. Per-experiment counts, VR setting, randomization and all outcome directions remain NOT yet verified. 2026-11-09: publisher page, Crossref and Semantic Scholar again not retrievable; status unchanged, counts and outcome directions remain NOT yet verified. 2026-11-12: third attempt; publisher, PubMed, Europe PMC, Crossref and OpenAlex fetches were blocked in this unattended run (permission not granted). No content change; status unchanged.",
       "author_record_url": "https://www.liverpool.ac.uk/people/jiangtao-du/research-outputs"
     },
     {
@@ -179,7 +179,7 @@
       "key_counts": [
         7102
       ],
-      "review": "Relevant: residential greenery (built and designed environment) linked to brain structure, mental health and academic performance. Confirmed from abstract: authors Li, Whittle, Rakesh; preregistered; ABCD n = 7102; greenspace at 9 to 10 years; brain structure two years later and change over time; greater total surface area and cortical volume; regional thickness and surface area differences; greater caudate, putamen and accumbens volume; greater total SA growth and reduced total CV growth; significant indirect effects through cortical structure for academic performance and mental health. Added the omitted subcortical, longitudinal and mental-health mediation findings. Removed a dash from the German dek. NOT yet verified against full text: NDVI as metric, covariates, B/SE/p values (0.046/0.049, SE 0.012), indirect effect 0.004 (CI 0.002 to 0.007), total effect p = 0.985, weakening after site adjustment, volume 99(4) and pages 286 to 298. 2026-11-09: publisher page, Crossref and Semantic Scholar again not retrievable; the listed values remain NOT yet verified against full text."
+      "review": "Relevant: residential greenery (built and designed environment) linked to brain structure, mental health and academic performance. Confirmed from abstract: authors Li, Whittle, Rakesh; preregistered; ABCD n = 7102; greenspace at 9 to 10 years; brain structure two years later and change over time; greater total surface area and cortical volume; regional thickness and surface area differences; greater caudate, putamen and accumbens volume; greater total SA growth and reduced total CV growth; significant indirect effects through cortical structure for academic performance and mental health. Added the omitted subcortical, longitudinal and mental-health mediation findings. Removed a dash from the German dek. NOT yet verified against full text: NDVI as metric, covariates, B/SE/p values (0.046/0.049, SE 0.012), indirect effect 0.004 (CI 0.002 to 0.007), total effect p = 0.985, weakening after site adjustment, volume 99(4) and pages 286 to 298. 2026-11-09: publisher page, Crossref and Semantic Scholar again not retrievable; the listed values remain NOT yet verified against full text. 2026-11-12: third attempt; publisher, PubMed, Europe PMC, Crossref and OpenAlex fetches were blocked in this unattended run (permission not granted). No content change; status unchanged."
     },
     {
       "doi": "10.3389/fpubh.2024.1390614",
@@ -206,7 +206,7 @@
         35,
         14.8
       ],
-      "review": "Relevant: interior material and form (wood finishes, curved forms, nature view) linked to EEG, affect and cognitive performance. Title and Scientific Reports confirmed. NOT yet verified against abstract or full text: author (Sieun Kim, single author), volume 15 and article number 33398, n = 36, within-subject design, condition labels, all statistics (F(3,105)=31.6, partial eta squared 0.475, t(35)=8.137, relaxation F(3,105)=7.94, partial eta squared 0.185, betas 0.206 and 0.173, 14.8% variance), the claim that wood outperformed curved and nature conditions and that these did not outperform control. Changes 2026-11-11: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature comparison, regression model wording); intro and architecture section in Paul's voice in all six languages; no numbers changed."
+      "review": "Relevant: interior material and form (wood finishes, curved forms, nature view) linked to EEG, affect and cognitive performance. Title and Scientific Reports confirmed. NOT yet verified against abstract or full text: author (Sieun Kim, single author), volume 15 and article number 33398, n = 36, within-subject design, condition labels, all statistics (F(3,105)=31.6, partial eta squared 0.475, t(35)=8.137, relaxation F(3,105)=7.94, partial eta squared 0.185, betas 0.206 and 0.173, 14.8% variance), the claim that wood outperformed curved and nature conditions and that these did not outperform control. Changes 2026-11-11: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature comparison, regression model wording); intro and architecture section in Paul's voice in all six languages; no numbers changed. 2026-11-12: PubMed record PMID 41023212 found in the search index (title match); publisher, PubMed and Europe PMC fetches blocked in this unattended run. No content change; all listed values remain NOT yet verified."
     }
   ]
 }
