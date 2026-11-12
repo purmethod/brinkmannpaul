@@ -307,23 +307,6 @@
 
 
 
-  // the club: different teachers, one goal. the team shows one circle per teacher; a teacher not yet
-  // announced is an empty circle. a teacher's page lives at /<id>
-  const CLUB = {
-    en: { h1: "stay young and chilled. the rest is bs.", lead: "breathing, cold, yoga and real food. small steps, every day.\nno overthinking, no overoptimizing, no pills, no expensive programs. just enjoy your life.", team: "the team", soon: "soon", paul: "breath · cold · microbiome", with: "with paul brinkmann", sessions: "sessions with paul", back: "all teachers" },
-    de: { h1: "stay young and chilled. the rest is bs.", lead: "atmen, kälte, yoga und echtes essen. kleine schritte, jeden tag.\nkein overthinking, keine überoptimierung, keine pillen, keine teuren programme. einfach das leben genießen.", team: "das team", soon: "bald", paul: "atem · kälte · mikrobiom", with: "mit paul brinkmann", sessions: "sessions mit paul", back: "alle lehrer" },
-    fr: { h1: "stay young and chilled. the rest is bs.", lead: "respiration, froid, yoga et vraie nourriture. de petits pas, chaque jour.\npas de prise de tête, pas de suroptimisation, pas de pilules, pas de programmes coûteux. juste profiter de la vie.", team: "l’équipe", soon: "bientôt", paul: "souffle · froid · microbiome", with: "avec paul brinkmann", sessions: "les sessions avec paul", back: "tous les professeurs" },
-    es: { h1: "stay young and chilled. the rest is bs.", lead: "respiración, frío, yoga y comida de verdad. pasos pequeños, cada día.\nsin pensar de más, sin sobreoptimizar, sin pastillas, sin programas caros. solo disfrutar la vida.", team: "el equipo", soon: "pronto", paul: "respiración · frío · microbioma", with: "con paul brinkmann", sessions: "sesiones con paul", back: "todos los profesores" },
-    ar: { h1: "stay young and chilled. the rest is bs.", lead: "تنفّس، برد، يوغا وأكل حقيقي. خطوات صغيرة، كل يوم.\nبلا تفكير زائد، بلا مبالغة في التحسين، بلا حبوب، بلا برامج باهظة. فقط استمتع بحياتك.", team: "الفريق", soon: "قريبًا", paul: "التنفّس · البرد · الميكروبيوم", with: "مع paul brinkmann", sessions: "الجلسات مع paul", back: "كل المعلّمين" },
-    ru: { h1: "stay young and chilled. the rest is bs.", lead: "дыхание, холод, йога и настоящая еда. маленькие шаги, каждый день.\nбез лишних мыслей, без сверхоптимизации, без таблеток, без дорогих программ. просто наслаждайся жизнью.", team: "команда", soon: "скоро", paul: "дыхание · холод · микробиом", with: "с паулем бринкманом", sessions: "сессии с паулем", back: "все учителя" },
-  };
-  const TEAM = [
-    { id: "paul", name: "paul brinkmann", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
-      proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
-    { soon: true },
-    { soon: true },
-  ];
-
   const LANGS = Object.keys(T);
   const KEY = "soma-flow-club";
   const TEST = new URLSearchParams(location.search).get("test") === "1";
@@ -352,7 +335,6 @@
     booking: saved.booking || null, cancelled: false,
   };
   const app = document.getElementById("book");
-  const c = (k) => (CLUB[st.lang] || CLUB.en)[k] || CLUB.en[k];
   const t = (k, v) => String(T[st.lang][k] || T.en[k]).replace(/\{(\w+)\}/g, (_, x) => (v && v[x] != null ? v[x] : ""));
   function el(tag, attrs, ...kids) {
     const n = document.createElement(tag);
@@ -384,8 +366,7 @@
   const flow = document.getElementById("flow");
   const clip = document.getElementById("clip");
   const still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!clip) { /* a teacher's page has no opening video */ }
-  else if (still) { clip.removeAttribute("autoplay"); clip.pause(); }
+  if (still) { clip.removeAttribute("autoplay"); clip.pause(); }
   else {
     const play = () => clip.play().catch(() => {});
     play();
@@ -393,7 +374,7 @@
     document.addEventListener("touchstart", play, { once: true, passive: true });
     document.addEventListener("visibilitychange", () => { if (!document.hidden) play(); });
   }
-  if (flow) flow.addEventListener("click", () => {
+  flow.addEventListener("click", () => {
     document.getElementById("top").scrollIntoView({ behavior: still ? "auto" : "smooth" });
   });
 
@@ -410,12 +391,10 @@
     document.documentElement.lang = l;
     document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
     document.querySelectorAll(".lb").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
-    const cue = document.getElementById("cue");
-    if (cue) cue.textContent = t("cue");
+    document.getElementById("cue").textContent = t("cue");
     renderWim();
     renderAbout();
-    renderTeacher();
-    if (app) render();
+    render();
   }
   document.querySelectorAll(".lb").forEach((b) => b.addEventListener("click", () => {
     try { sessionStorage.setItem(KEY + "-lang", b.dataset.lang); } catch { /* private mode */ }
@@ -454,6 +433,7 @@
       el("p", {}, a.bio),
       photo("/photos/foyo-old-snow.webp", "paul brinkmann meditating bare-chested in the snow above the mountains"),
       el("p", {}, a.s1),
+      photo("/photos/foyo-old-wimhof.webp", "paul brinkmann and wim hof shaking hands in poland", a.cap),
       el("p", {}, a.s3),
       photo("/photos/foyo-icebath.webp", "paul guiding someone through an ice bath in a forest"),
       el("p", {}, a.s4),
@@ -466,29 +446,6 @@
       photo("/photos/foyo-old-group.webp", "a group, bare-chested, together in the snow on a mountain top"));
   }
 
-  // ---------- the team ----------
-  const team = () => el("div", { class: "team" }, TEAM.map((m) => m.soon
-    ? el("div", { class: "member soon", "aria-hidden": "true" }, el("span", { class: "ring" }), el("span", { class: "nm" }, c("soon")))
-    : el("a", { class: "member", href: "/" + m.id },
-      el("span", { class: "ring" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" })),
-      el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, c(m.role))))));
-  // who leads the session
-  const host = (m) => el("a", { class: "with", href: "/" + m.id }, el("img", { src: m.img, alt: "", width: "68", height: "68", loading: "lazy", decoding: "async" }), c("with"));
-  // a teacher's own page: the circle, the name, what they teach, the way to their sessions
-  function renderTeacher() {
-    const box = document.getElementById("teacher");
-    if (!box) return;
-    const m = TEAM.find((x) => x.id === box.dataset.teacher);
-    if (!m) return;
-    box.replaceChildren(
-      el("a", { class: "back", href: "/" }, "← " + c("back")),
-      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
-      el("h1", {}, m.name),
-      el("p", { class: "rl" }, c(m.role)),
-      m.proof ? el("figure", { class: "proof" }, el("img", { src: m.proof, alt: m.proofAlt, width: "720", height: "720", decoding: "async" }), el("figcaption", {}, (ABOUT[st.lang] || ABOUT.en).cap)) : null,
-      el("div", { class: "acts" }, el("a", { class: "btn", href: "/#book" }, c("sessions"))));
-  }
-
   // ---------- the page ----------
   // append, skipping the parts that are not there (a bare null would show as the word "null")
   const put = (...kids) => app.append(...kids.flat().filter((k) => k != null && k !== false));
@@ -497,15 +454,10 @@
     if (st.booking) return renderDone();
     put(
       // no "foyo club" line here: the logo above already says it
-      el("h1", {}, c("h1")),
-      // what you get, then how it feels
-      el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
-      // wim hof on x, 2017: the line foyo's own line echoes; it stays in his words
-      el("blockquote", { class: "quote", lang: "en", dir: "ltr" }, el("p", {}, "the goal is to become healthy, strong and happy. the rest is bullshit."), el("cite", {}, "— wim hof")),
-      el("h2", {}, c("team")),
-      team(),
+      el("h1", {}, t("h1")),
+      // the lead line by line: young at any age, then the discovery
+      el("p", { class: "lead" }, t("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("h2", {}, t("retreat")),
-      host(TEAM[0]),
       el("p", {}, t("invite")),
       wide("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees", 1200, 900),
       wide("/photos/foyo-session-rest.webp", "the group lying on mats after the breathing, the sea behind the curtains", 1200, 900),
@@ -642,5 +594,5 @@
   }
 
   setLang(st.lang);
-  if (app) load();
+  load();
 })();
