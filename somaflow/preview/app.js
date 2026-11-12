@@ -365,7 +365,7 @@
   const TEAM = [
     { id: "paul", name: "paul", role: "paul", img: "/photos/foyo-old-snow.webp", alt: "paul brinkmann meditating bare-chested in the snow",
       proof: "/photos/foyo-old-wimhof.webp", proofAlt: "paul brinkmann and wim hof shaking hands in poland" },
-    { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp", alt: "nafisa in a standing split, eyes closed, by the sea",
+    { id: "nafisa", name: "nafisa", role: "nafisa", img: "/photos/foyo-nafisa.webp?v=2", alt: "nafisa in a standing split, eyes closed, by the sea",
       proof: "/photos/foyo-nafisa-full.webp", proofAlt: "nafisa holding her leg in a standing split against the sky", proofW: "900", proofH: "1599",
       ig: "https://www.instagram.com/yogawithnafisa/", bio: NAFISA },
     { soon: true },
