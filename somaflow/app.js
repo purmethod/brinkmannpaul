@@ -527,7 +527,7 @@
   // wim hof on x, 2017: the line foyo's own line echoes, under the sign-up
   const wimLine = () => el("blockquote", { class: "quote" }, el("p", {}, c("quote")), el("cite", {}, "— wim hof"));
   // ---------- what foyo club is, after the team ----------
-  const whatIs = () => { const w = WHAT[st.lang] || WHAT.en; return el("section", { class: "what" }, el("h2", {}, w.h), el("p", { class: "lead" }, w.lead), w.p.map((x) => el("p", {}, x))); };
+  const whatIs = () => { const w = WHAT[st.lang] || WHAT.en; return el("section", { class: "what" }, el("h2", {}, w.h), w.p.map((x) => el("p", {}, x))); };
   // ---------- the team ----------
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
@@ -687,9 +687,10 @@
     put(
       // no "foyo club" line here: the logo above already says it
       // foyo's line in two lines, calm, not shouting
-      el("h1", { class: "claim" }, c("h1").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
-      // what you get, then how it feels
+      // the opening line of brinkmannpaul.com, then what you get, then foyo's line, small
+      el("h1", { class: "claim" }, (WHAT[st.lang] || WHAT.en).lead),
       el("p", { class: "lead" }, c("lead").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
+      el("p", { class: "tagline" }, c("h1").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("h2", {}, c("team")),
       team(),
       whatIs(),
