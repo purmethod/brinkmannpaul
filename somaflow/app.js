@@ -527,7 +527,7 @@
   // wim hof on x, 2017: the line foyo's own line echoes, under the sign-up
   const wimLine = () => el("blockquote", { class: "quote" }, el("p", {}, c("quote")), el("cite", {}, "— wim hof"));
   // ---------- what foyo club is, after the team ----------
-  const whatIs = () => { const w = WHAT[st.lang] || WHAT.en; return el("section", { class: "what" }, el("h2", {}, w.h), w.p.map((x) => el("p", {}, x))); };
+  const whatIs = () => { const w = WHAT[st.lang] || WHAT.en; return el("section", { class: "what" }, el("h2", {}, w.h), w.p.map((x) => el("p", {}, x)), el("p", { class: "lead close" }, w.lead)); };
   // ---------- the team ----------
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
