@@ -7,7 +7,7 @@
     en: {
       cue: "tap or scroll", tag: "foyo club", h1: "feeling young is not a question of age.",
       lead: "at any age you should feel fit. at any age you should feel young.\ni found out how. just breath, cold and microbiome.", retreat: "the retreat", invite: "i am a certified wim hof instructor. i am in tunis for a short time and warmly invite you to a breathing session.", incl: "included", fuel: "this breakfast is what i eat myself every day. i show you what to eat daily so your body works better and you feel better, physically and mentally.", items: ["a guided breathing session with the wim hof method", "a simple breakfast: oats, nuts, flaxseed, pomegranate and homemade kefir. it supports your microbiome.", "your kefir grains to take home\nmake your own real kefir at home"], priceFmt: "{p}\u00a0dinar", fullNotice: "the maximum number of participants has been reached. leave your name and whatsapp number: we'll let you know if someone cannot come.", phone: "your whatsapp number", joinWait: "join the waiting list", errPhone: "please write your whatsapp number.", waitThanks: "thank you, {name}. you are on the waiting list.", waitBody: "if someone cannot come, we'll let you know on whatsapp.", leaveWait: "leave the waiting list", only: "in this session: no ice baths, just breathing and breakfast.", limit: "places are limited: max 7 people.", nextName: "next session", nextPlace: "date and place follow in the whatsapp group", placeLater: "the place follows in the whatsapp group", nextReserved: "your place for the next session is reserved. date and place follow in the whatsapp group.",
-      next: "choose your session", none: "the sessions could not be loaded. please reload the page.",
+      next: "next event", none: "the sessions could not be loaded. please reload the page.",
       full: "waiting list",
       name: "your name", reserve: "reserve my place", wait: "one moment…",
       errName: "please write your name.", errSession: "please choose a session.", errFull: "this session is full. please choose another one.", errAny: "that did not work. please try again.",
@@ -20,7 +20,7 @@
     de: {
       cue: "tippen oder scrollen", tag: "foyo club", h1: "sich jung zu fühlen ist keine frage des alters.",
       lead: "in jedem alter solltest du dich fit fühlen. in jedem alter solltest du dich jung fühlen.\nich habe herausgefunden, wie das geht. nur atem, kälte und mikrobiom.", retreat: "das retreat", invite: "ich bin zertifizierter wim hof instructor. ich bin gerade für kurze zeit in tunis und lade dich herzlich zu einer breathing session ein.", incl: "inklusive", fuel: "dieses frühstück esse ich selbst jeden tag. ich zeige dir, was du täglich essen solltest, damit dein körper besser funktioniert und du dich körperlich und mental besser fühlst.", items: ["eine geführte breathing session nach der wim hof methode", "ein einfaches frühstück: haferflocken, nüsse, leinsamen, granatapfel und hausgemachter kefir. es unterstützt dein mikrobiom.", "deine kefirkörner zum mitnehmen\nmach deinen echten kefir zu hause selbst"], priceFmt: "{p}\u00a0dinar", fullNotice: "die maximale teilnehmerzahl ist erreicht. hinterlass deinen namen und deine whatsapp-nummer: wir sagen dir bescheid, falls jemand nicht kommen kann.", phone: "deine whatsapp-nummer", joinWait: "auf die warteliste", errPhone: "bitte schreib deine whatsapp-nummer.", waitThanks: "danke, {name}. du stehst auf der warteliste.", waitBody: "falls jemand nicht kommen kann, sagen wir dir per whatsapp bescheid.", leaveWait: "von der warteliste nehmen", only: "in dieser session: keine eisbäder, nur atmen und frühstück.", limit: "die plätze sind begrenzt: maximal 7 personen.", nextName: "nächster termin", nextPlace: "datum und ort kommen in der whatsapp-gruppe", placeLater: "der ort kommt in der whatsapp-gruppe", nextReserved: "dein platz für den nächsten termin ist reserviert. datum und ort bekommst du in der whatsapp-gruppe.",
-      next: "wähle deinen termin", none: "die termine konnten nicht geladen werden. bitte lade die seite neu.",
+      next: "nächster termin", none: "die termine konnten nicht geladen werden. bitte lade die seite neu.",
       full: "warteliste",
       name: "dein name", reserve: "platz reservieren", wait: "einen moment…",
       errName: "bitte schreib deinen namen.", errSession: "bitte wähle einen termin.", errFull: "dieser termin ist voll. bitte wähle einen anderen.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal.",
@@ -33,7 +33,7 @@
     fr: {
       cue: "touche ou fais défiler", tag: "foyo club", h1: "se sentir jeune n'est pas une question d'âge.",
       lead: "à tout âge, tu devrais te sentir en forme. à tout âge, tu devrais te sentir jeune.\nj'ai trouvé comment. juste la respiration, le froid et le microbiome.", retreat: "la retraite", invite: "je suis instructeur certifié de la méthode wim hof. je suis à tunis pour peu de temps et je t'invite chaleureusement à une séance de respiration.", incl: "inclus", fuel: "ce petit-déjeuner, je le mange moi-même chaque jour. je te montre quoi manger chaque jour pour que ton corps fonctionne mieux et que tu te sentes mieux, physiquement et mentalement.", items: ["une séance de respiration guidée selon la méthode wim hof", "un petit-déjeuner simple : flocons d'avoine, noix, graines de lin, grenade et kéfir fait maison. il soutient ton microbiome.", "tes grains de kéfir à emporter\nfais ton vrai kéfir chez toi"], priceFmt: "{p}\u00a0dinars", fullNotice: "le nombre maximum de participants est atteint. laisse ton prénom et ton numéro whatsapp : nous te prévenons si quelqu'un ne peut pas venir.", phone: "ton numéro whatsapp", joinWait: "rejoindre la liste d'attente", errPhone: "écris ton numéro whatsapp, s'il te plaît.", waitThanks: "merci, {name}. tu es sur la liste d'attente.", waitBody: "si quelqu'un ne peut pas venir, nous te prévenons sur whatsapp.", leaveWait: "quitter la liste d'attente", only: "dans cette séance : pas de bain de glace, juste la respiration et le petit-déjeuner.", limit: "les places sont limitées : 7 personnes maximum.", nextName: "prochaine séance", nextPlace: "la date et le lieu arrivent dans le groupe whatsapp", placeLater: "le lieu arrive dans le groupe whatsapp", nextReserved: "ta place pour la prochaine séance est réservée. la date et le lieu arrivent dans le groupe whatsapp.",
-      next: "choisis ta séance", none: "les séances n'ont pas pu être chargées. recharge la page.",
+      next: "prochain événement", none: "les séances n'ont pas pu être chargées. recharge la page.",
       full: "liste d'attente",
       name: "ton prénom", reserve: "réserver ma place", wait: "un instant…",
       errName: "écris ton prénom, s'il te plaît.", errSession: "choisis une séance, s'il te plaît.", errFull: "cette séance est complète. choisis-en une autre.", errAny: "ça n'a pas marché. réessaie.",
@@ -46,7 +46,7 @@
     es: {
       cue: "toca o desliza", tag: "foyo club", h1: "sentirse joven no es cuestión de edad.",
       lead: "a cualquier edad deberías sentirte en forma. a cualquier edad deberías sentirte joven.\ndescubrí cómo. solo respiración, frío y microbioma.", retreat: "el retiro", invite: "soy instructor certificado del método wim hof. estoy en túnez por poco tiempo y te invito de corazón a una sesión de respiración.", incl: "incluido", fuel: "este desayuno lo como yo mismo cada día. te muestro qué comer a diario para que tu cuerpo funcione mejor y te sientas mejor, física y mentalmente.", items: ["una sesión de respiración guiada con el método wim hof", "un desayuno sencillo: avena, frutos secos, semillas de lino, granada y kéfir casero. apoya tu microbioma.", "tus granos de kéfir para llevar\nhaz tu propio kéfir de verdad en casa"], priceFmt: "{p}\u00a0dinares", fullNotice: "se ha alcanzado el número máximo de participantes. deja tu nombre y tu número de whatsapp: te avisamos si alguien no puede venir.", phone: "tu número de whatsapp", joinWait: "apuntarme a la lista de espera", errPhone: "escribe tu número de whatsapp, por favor.", waitThanks: "gracias, {name}. estás en la lista de espera.", waitBody: "si alguien no puede venir, te avisamos por whatsapp.", leaveWait: "salir de la lista de espera", only: "en esta sesión: sin baños de hielo, solo respiración y desayuno.", limit: "las plazas son limitadas: máximo 7 personas.", nextName: "próxima sesión", nextPlace: "la fecha y el lugar llegan en el grupo de whatsapp", placeLater: "el lugar llega en el grupo de whatsapp", nextReserved: "tu plaza para la próxima sesión está reservada. la fecha y el lugar llegan en el grupo de whatsapp.",
-      next: "elige tu sesión", none: "no se pudieron cargar las sesiones. vuelve a cargar la página.",
+      next: "próximo evento", none: "no se pudieron cargar las sesiones. vuelve a cargar la página.",
       full: "lista de espera",
       name: "tu nombre", reserve: "reservar mi plaza", wait: "un momento…",
       errName: "escribe tu nombre, por favor.", errSession: "elige una sesión, por favor.", errFull: "esta sesión está completa. elige otra.", errAny: "no ha funcionado. inténtalo de nuevo.",
@@ -59,7 +59,7 @@
     ar: {
       cue: "المس أو مرّر", tag: "foyo club", h1: "الشعور بالشباب ليس مسألة عمر.",
       lead: "في كل عمر يجب أن تشعر باللياقة. في كل عمر يجب أن تشعر بالشباب.\nاكتشفت كيف. فقط التنفّس والبرد والميكروبيوم.", retreat: "الخلوة", invite: "أنا مدرّب معتمد لطريقة ويم هوف. أنا في تونس لفترة قصيرة، وأدعوك بكل سرور إلى جلسة تنفّس.", incl: "يشمل", fuel: "هذا الفطور أتناوله بنفسي كل يوم. أريك ما تأكله يوميًا ليعمل جسمك بشكل أفضل وتشعر بتحسّن جسديًا وذهنيًا.", items: ["جلسة تنفّس موجَّهة بطريقة ويم هوف", "فطور بسيط: شوفان ومكسرات وبذور كتان ورمّان وكفير محضّر في البيت. يدعم الميكروبيوم لديك.", "حبوب الكفير لتأخذها معك\nحضّر كفيرك الحقيقي في البيت"], priceFmt: "{p}\u00a0دينار", fullNotice: "تم بلوغ الحد الأقصى لعدد المشاركين. اترك اسمك ورقم واتساب الخاص بك: سنخبرك إذا لم يستطع أحد الحضور.", phone: "رقم واتساب الخاص بك", joinWait: "الانضمام إلى قائمة الانتظار", errPhone: "اكتب رقم واتساب الخاص بك من فضلك.", waitThanks: "شكرًا، {name}. أنت على قائمة الانتظار.", waitBody: "إذا لم يستطع أحد الحضور، سنخبرك عبر واتساب.", leaveWait: "الخروج من قائمة الانتظار", only: "في هذه الجلسة: لا حمّامات ثلج، فقط التنفّس والفطور.", limit: "الأماكن محدودة: 7 أشخاص كحد أقصى.", nextName: "الموعد القادم", nextPlace: "التاريخ والمكان في مجموعة واتساب", placeLater: "المكان في مجموعة واتساب", nextReserved: "مكانك في الموعد القادم محجوز. يصلك التاريخ والمكان في مجموعة واتساب.",
-      next: "اختر موعدك", none: "تعذّر تحميل المواعيد. أعد تحميل الصفحة.",
+      next: "الحدث القادم", none: "تعذّر تحميل المواعيد. أعد تحميل الصفحة.",
       full: "قائمة الانتظار",
       name: "اسمك", reserve: "احجز مكاني", wait: "لحظة…",
       errName: "اكتب اسمك من فضلك.", errSession: "اختر موعدًا من فضلك.", errFull: "هذا الموعد مكتمل. اختر موعدًا آخر.", errAny: "لم ينجح ذلك. حاول مرة أخرى.",
@@ -72,7 +72,7 @@
     ru: {
       cue: "коснись или прокрути", tag: "foyo club", h1: "ощущение молодости не зависит от возраста.",
       lead: "в любом возрасте стоит чувствовать себя бодрым. в любом возрасте стоит чувствовать себя молодым.\nя нашёл, как это сделать. только дыхание, холод и микробиом.", retreat: "ретрит", invite: "я сертифицированный инструктор метода вима хофа. я ненадолго в тунисе и сердечно приглашаю тебя на дыхательную сессию.", incl: "что включено", fuel: "этот завтрак я сам ем каждый день. я покажу, что есть ежедневно, чтобы тело работало лучше, а ты чувствовал себя лучше физически и ментально.", items: ["дыхательная сессия с инструктором по методу вима хофа", "простой завтрак: овсянка, орехи, семена льна, гранат и домашний кефир. он поддерживает твой микробиом.", "кефирные зёрна с собой\nготовь настоящий кефир дома"], priceFmt: "{p}\u00a0динаров", fullNotice: "достигнуто максимальное число участников. оставь имя и номер whatsapp: мы сообщим, если кто-то не сможет прийти.", phone: "твой номер whatsapp", joinWait: "в лист ожидания", errPhone: "пожалуйста, напиши свой номер whatsapp.", waitThanks: "спасибо, {name}. ты в листе ожидания.", waitBody: "если кто-то не сможет прийти, мы сообщим тебе в whatsapp.", leaveWait: "уйти из листа ожидания", only: "на этой сессии: без ледяных ванн, только дыхание и завтрак.", limit: "мест мало: максимум 7 человек.", nextName: "следующее занятие", nextPlace: "дата и место будут в группе whatsapp", placeLater: "место будет в группе whatsapp", nextReserved: "твоё место на следующем занятии забронировано. дату и место узнаешь в группе whatsapp.",
-      next: "выбери занятие", none: "не удалось загрузить занятия. обнови страницу.",
+      next: "следующее событие", none: "не удалось загрузить занятия. обнови страницу.",
       full: "лист ожидания",
       name: "твоё имя", reserve: "забронировать место", wait: "минуту…",
       errName: "пожалуйста, напиши своё имя.", errSession: "пожалуйста, выбери занятие.", errFull: "на это занятие мест нет. выбери другое.", errAny: "не получилось. попробуй ещё раз.",
@@ -717,19 +717,13 @@
       el("p", { class: "tagline" }, c("h1").split("\n").flatMap((line, i) => (i ? [el("br"), line] : [line]))),
       el("h2", {}, c("team")),
       team(),
-      whatIs(),
-      el("h2", {}, t("retreat")),
-      host(TEAM[0]),
-      el("p", {}, t("invite")),
-      ring("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees"),
-      included(true),
-      el("p", { class: "fine" }, t("limit")),
-      st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null,
-      el("h2", {}, t("next")));
+      // the next event right after the team; what foyo is and what the session holds follow
+      el("h2", {}, t("next")),
+      st.cancelled ? el("p", { class: "fine", role: "status" }, t("cancelled")) : null);
     // already signed up: the reservation in one line instead of the form
-    if (st.booking) return put(mine(), wimLine());
-    if (!st.sessions) return put(el("p", { class: "fine" }, t("loading")));
-    if (!st.sessions.length) return put(el("p", {}, t("none")));
+    if (st.booking) return put(mine(), after());
+    if (!st.sessions) return put(el("p", { class: "fine" }, t("loading")), after());
+    if (!st.sessions.length) return put(el("p", {}, t("none")), after());
     const rows = el("div", { class: "rows", role: "radiogroup", "aria-label": t("next") });
     for (const s of st.sessions) {
       const full = s.left <= 0;
@@ -759,8 +753,18 @@
       el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
       el("div", {}, el("button", { class: "btn", type: "submit", disabled: st.busy }, st.busy ? t("wait") : waiting ? t("joinWait") : t("reserve"))),
       st.error ? el("p", { class: "err", role: "alert" }, st.error) : null);
-    put(rows, form, wimLine());
+    put(rows, form, el("p", { class: "fine" }, t("limit")), after());
   }
+  // under the sign-up: what foyo club is, the session in detail, wim's line
+  const after = () => [
+    whatIs(),
+    el("h2", {}, t("retreat")),
+    host(TEAM[0]),
+    el("p", {}, t("invite")),
+    ring("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees"),
+    included(true),
+    wimLine(),
+  ];
 
   // the price never breaks apart: "50 dinar" stays on one line (no-break spaces in priceFmt)
   // what the session holds: on the start page and again on the thank-you page
