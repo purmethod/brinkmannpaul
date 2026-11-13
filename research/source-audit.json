@@ -1,6 +1,6 @@
 {
-  "checked": "2026-11-12",
-  "scope": "Nineteen published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "checked": "2026-11-13",
+  "scope": "Twenty published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
       "doi": "10.1016/j.envres.2026.124671",
@@ -70,7 +70,7 @@
         282,
         10
       ],
-      "review": "282 students, ten randomized VR arms. SCL and perceived restorativeness differed; HR and RMSSD did not. Coherence/complexity main effects on perceived restorativeness; physiological interaction rather than significant physiological main effects. Five-minute recovery is not long-term health evidence."
+      "review": "282 students, ten randomized VR arms. SCL and perceived restorativeness differed; HR and RMSSD did not. Coherence/complexity main effects on perceived restorativeness; physiological interaction rather than significant physiological main effects. Five-minute recovery is not long-term health evidence. 2026-11-13: intro and architecture section in Paul's voice in all six languages, author names removed from the intro. No numbers changed."
     },
     {
       "doi": "10.1080/13607863.2026.2678989",
@@ -83,7 +83,7 @@
         3513,
         864
       ],
-      "review": "426,220 dementia-free baseline, median 13.6 years, 3,513 AD and 864 MCI cases. Per-IQR green associations: AD relative risk 5.8% lower at 300m, 6.7% at 1000m; green/natural MCI 14.9-22.2% lower. Blue-space MCI nonsignificant. No invented model covariates, confidence intervals or causal prevention."
+      "review": "426,220 dementia-free baseline, median 13.6 years, 3,513 AD and 864 MCI cases. Per-IQR green associations: AD relative risk 5.8% lower at 300m, 6.7% at 1000m; green/natural MCI 14.9-22.2% lower. Blue-space MCI nonsignificant. No invented model covariates, confidence intervals or causal prevention. 2026-11-13: intro and architecture section in Paul's voice in all six languages; Russian range dash corrected. No numbers changed."
     },
     {
       "doi": "10.1186/s40168-026-02352-6",
@@ -207,6 +207,16 @@
         14.8
       ],
       "review": "Relevant: interior material and form (wood finishes, curved forms, nature view) linked to EEG, affect and cognitive performance. Title and Scientific Reports confirmed. NOT yet verified against abstract or full text: author (Sieun Kim, single author), volume 15 and article number 33398, n = 36, within-subject design, condition labels, all statistics (F(3,105)=31.6, partial eta squared 0.475, t(35)=8.137, relaxation F(3,105)=7.94, partial eta squared 0.185, betas 0.206 and 0.173, 14.8% variance), the claim that wood outperformed curved and nature conditions and that these did not outperform control. Changes 2026-11-11: fr, es, ar, ru sections harmonized with English (condition labels, wood vs curved and nature comparison, regression model wording); intro and architecture section in Paul's voice in all six languages; no numbers changed. 2026-11-12: PubMed record PMID 41023212 found in the search index (title match); publisher, PubMed and Europe PMC fetches blocked in this unattended run. No content change; all listed values remain NOT yet verified."
+    },
+    {
+      "doi": "10.1038/s41598-022-20649-y",
+      "primary_url": "https://www.nature.com/articles/s41598-022-20649-y",
+      "secondary_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9628500/",
+      "access": "Existence, title, journal (Scientific Reports, open access), PMC record PMC9628500 and HAL record hal-04029599 confirmed via web search index on 2026-11-13. Publisher page and PMC full text not retrievable in this unattended run (fetch permission not granted); abstract and full text not read.",
+      "key_counts": [
+        42
+      ],
+      "review": "Relevant: urban crowding (pedestrian density) and indoor versus outdoor urban settings linked to self-reported affect, EEG and skin conductance. Title, DOI and journal confirmed. NOT yet verified against abstract or full text: author list beyond Mavros, volume 12 and article number 18476, n = 42, six one-minute videos, environment categories and which were crowded, standing versus treadmill walking, direction of valence and arousal ratings, theta/beta ratio and frontal alpha asymmetry findings, skin conductance estimate 0.337 (95% credible interval 0.169 to 0.503) and what it refers to. Changes 2026-11-13: title no longer claims an attention effect (no attention outcome reported in the article); dek no longer attributes physiological arousal to crowding, since the only reported skin conductance result concerns walking versus standing; theta/beta wording harmonized to 'tended to be higher' in de, fr, ar, ru; Russian credible interval no longer called a confidence interval; es, ar, ru intros completed; intro and architecture section in Paul's voice in all six languages. No numbers changed. Pages had been hand written and failed the research tests; rebuilt with research.py."
     }
   ]
 }
