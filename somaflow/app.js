@@ -442,7 +442,7 @@
       else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
       else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
     }
-    for (const k of kids.flat()) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+    for (const k of kids.flat(Infinity)) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
     return n;
   }
   // the session time is the local time at the place, so it is shown exactly as written
@@ -705,7 +705,7 @@
 
   // ---------- the page ----------
   // append, skipping the parts that are not there (a bare null would show as the word "null")
-  const put = (...kids) => app.append(...kids.flat().filter((k) => k != null && k !== false));
+  const put = (...kids) => app.append(...kids.flat(Infinity).filter((k) => k != null && k !== false));
   function render() {
     app.replaceChildren();
     if (st.booking && st.showDone) return renderDone();
