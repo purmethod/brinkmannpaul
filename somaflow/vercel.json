@@ -12,25 +12,25 @@
       "permanent": false
     },
     {
-      "source": "/((?!club/).*)",
+      "source": "/((?!soon/).*)",
       "has": [
         {
           "type": "host",
           "value": "somaflowclub.com"
         }
       ],
-      "destination": "https://somaflowclub.com/club/",
+      "destination": "https://somaflowclub.com/soon/",
       "permanent": false
     },
     {
-      "source": "/((?!club/).*)",
+      "source": "/((?!soon/).*)",
       "has": [
         {
           "type": "host",
           "value": "www.somaflowclub.com"
         }
       ],
-      "destination": "https://somaflowclub.com/club/",
+      "destination": "https://somaflowclub.com/soon/",
       "permanent": false
     },
     {
