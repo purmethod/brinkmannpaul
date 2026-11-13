@@ -2830,6 +2830,155 @@
           ]
         }
       }
+    },
+    {
+      "slug": "do-urban-crowds-change-how-we-feel",
+      "published": "2026-11-13",
+      "modified": "2026-11-13",
+      "doi": "10.1038/s41598-022-20649-y",
+      "cite_authors": "Mavros et al. (2022)",
+      "cite_title": "A mobile EEG study on the psychophysiological effects of walking and crowding in indoor and outdoor urban environments.",
+      "cite_journal": "Scientific Reports, 12, 18476.",
+      "text": {
+        "en": {
+          "title": "Do crowded urban spaces change how we feel and attend?",
+          "dek": "An experiment with 42 adults found that crowded urban scenes felt less pleasant and were linked to altered EEG and physiological arousal.",
+          "intro": "How we experience a city depends not only on buildings, but also on how many people occupy the space. This experiment compared visual journeys through green, indoor and outdoor urban settings.",
+          "sections": [
+            [
+              "A controlled video experiment",
+              "42 participants watched six one-minute video walks showing green, indoor and outdoor urban spaces with different crowding levels. They stood or walked on a treadmill while EEG, skin conductance and emotion ratings were recorded."
+            ],
+            [
+              "What the measurements showed",
+              "Crowded scenes were rated as less pleasant and more arousing than uncrowded scenes. Green scenes were rated calmer and more positive than urban scenes. The EEG theta/beta ratio tended to be higher in crowded settings, but frontal alpha asymmetry sometimes suggested more positive approach responses when participants walked. Walking increased skin conductance relative to standing (model estimate 0.337, 95% credible interval 0.169 to 0.503)."
+            ],
+            [
+              "What this means for architecture",
+              "Enclosure and pedestrian density should be studied together. The same crowd can feel different in a street and an indoor passage, especially during movement."
+            ],
+            [
+              "What the study cannot prove",
+              "The 42 participants watched only six one-minute videos in a laboratory, not real streets. Green scenes were not tested with crowds. No objective improvement in cognitive performance, new synapses, brain structural change, gene expression or epigenetic effects were demonstrated. EEG markers do not measure these processes."
+            ]
+          ]
+        },
+        "de": {
+          "title": "Verändern Menschenmengen in Stadträumen unser Fühlen und unsere Aufmerksamkeit?",
+          "dek": "42 Erwachsene bewerteten belebte Stadtszenen negativer; zugleich veränderten sich EEG- und Hautleitfähigkeitswerte.",
+          "intro": "Eine Stadt besteht nicht nur aus Gebäuden. Auch die Zahl der Menschen im Raum verändert, wie wir ihn erleben. Ein Experiment verglich grüne, innerstädtische Außen- und Innenräume.",
+          "sections": [
+            [
+              "Kontrolliertes Videoexperiment",
+              "42 Personen sahen sechs jeweils einminütige Videos von grünen und urbanen Innen- und Außenräumen mit unterschiedlicher Personendichte. Dabei standen sie oder gingen auf einem Laufband. Erfasst wurden EEG, Hautleitfähigkeit und emotionale Bewertungen."
+            ],
+            [
+              "Die gemessenen Unterschiede",
+              "Dicht bevölkerte Szenen wurden als weniger angenehm und stärker aktivierend bewertet. Grünräume wirkten subjektiv ruhiger und positiver. Das EEG-Theta/Beta-Verhältnis war bei Gedränge oft erhöht; die frontale Alpha-Asymmetrie deutete beim Gehen teilweise in eine andere Richtung. Beim Gehen war die Hautleitfähigkeit höher als beim Stehen (Modellschätzer 0,337; 95-%-Kredibilitätsintervall 0,169 bis 0,503)."
+            ],
+            [
+              "Bedeutung für Architektur",
+              "Räumliche Enge und Personendichte sollten gemeinsam untersucht werden. Eine Menschenmenge kann in einer offenen Straße anders erlebt werden als in einer geschlossenen Passage."
+            ],
+            [
+              "Grenzen",
+              "Nur 42 Personen und sechs einminütige Videos im Labor, keine echten Stadträume. Die grünen Szenen enthielten keine Menschenmengen. Eine Verbesserung objektiver Kognition, neue Synapsen, strukturelle Hirnveränderungen, Genexpression oder Epigenetik wurden nicht nachgewiesen. EEG-Indikatoren messen diese Prozesse nicht."
+            ]
+          ]
+        },
+        "fr": {
+          "title": "La foule dans les espaces urbains modifie-t-elle nos émotions ?",
+          "dek": "Une expérience menée auprès de 42 adultes associe les scènes bondées à des évaluations plus négatives et à des différences EEG et physiologiques.",
+          "intro": "L'expérience urbaine dépend autant de l'espace bâti que de la densité humaine. Une étude a comparé des scènes végétalisées, des rues et des passages intérieurs.",
+          "sections": [
+            [
+              "Une expérience contrôlée",
+              "Quarante-deux personnes ont regardé six vidéos d'une minute représentant des espaces verts, des rues et des passages intérieurs avec différentes densités de foule. Elles marchaient ou restaient debout sur un tapis roulant. EEG, conductance cutanée et émotions déclarées ont été mesurés."
+            ],
+            [
+              "Résultats",
+              "Les scènes bondées étaient jugées moins agréables et plus stimulantes. Les scènes vertes paraissaient plus calmes et positives. Le rapport EEG thêta/bêta était souvent plus élevé dans la foule, tandis que l'asymétrie alpha frontale suggérait parfois une réponse différente pendant la marche. La marche augmentait la conductance cutanée (estimation 0,337 ; intervalle crédible à 95 % : 0,169 à 0,503)."
+            ],
+            [
+              "Architecture",
+              "La densité humaine et le degré d'enfermement doivent être étudiés conjointement. Une foule n'est pas ressentie de la même manière dans une rue ouverte et un passage fermé."
+            ],
+            [
+              "Limites",
+              "Seulement 42 participants et six vidéos courtes en laboratoire. Les scènes vertes ne comportaient pas de foule. Aucun gain cognitif objectif ni changement des synapses, de la structure cérébrale, de l'expression génique ou de l'épigénétique n'a été démontré."
+            ]
+          ]
+        },
+        "es": {
+          "title": "¿Cambian las multitudes urbanas nuestras emociones y atención?",
+          "dek": "Un experimento con 42 adultos relacionó las escenas concurridas con valoraciones más negativas y diferencias en EEG y activación fisiológica.",
+          "intro": "La experiencia de la ciudad depende tanto de los edificios como de la cantidad de personas que ocupan sus espacios.",
+          "sections": [
+            [
+              "Experimento controlado",
+              "42 participantes vieron seis vídeos de un minuto de espacios verdes, calles y pasajes interiores con distintos niveles de aglomeración. Permanecían de pie o caminaban sobre una cinta. Se midieron EEG, conductancia cutánea y emociones declaradas."
+            ],
+            [
+              "Resultados",
+              "Las escenas concurridas se valoraron como menos agradables y más estimulantes. Los espacios verdes se percibieron más tranquilos y positivos. La relación theta/beta del EEG tendió a ser mayor con aglomeraciones, mientras que la asimetría alfa frontal mostró respuestas distintas al caminar. Caminar elevó la conductancia cutánea (estimación 0,337; intervalo creíble del 95 %: 0,169 a 0,503)."
+            ],
+            [
+              "Arquitectura",
+              "La densidad de personas y el cerramiento espacial deben estudiarse conjuntamente. Una multitud puede percibirse de manera distinta en una calle abierta y en un pasaje interior."
+            ],
+            [
+              "Límites",
+              "Solo 42 personas y seis vídeos breves en laboratorio. Las escenas verdes no incluían multitudes. No se demostraron mejoras cognitivas objetivas ni cambios en sinapsis, estructura cerebral, expresión génica o epigenética."
+            ]
+          ]
+        },
+        "ar": {
+          "title": "هل تؤثر الحشود في الفضاءات الحضرية على مشاعرنا وانتباهنا؟",
+          "dek": "تجربة شملت 42 بالغًا ربطت المشاهد المزدحمة بتقييمات عاطفية أكثر سلبية واختلافات في تخطيط الدماغ والاستثارة الفسيولوجية.",
+          "intro": "لا تتحدد تجربتنا للمدينة بالمباني وحدها؛ فكثافة الناس داخل الفضاء تؤثر أيضًا في شعورنا به.",
+          "sections": [
+            [
+              "تجربة مضبوطة",
+              "شاهد 42 مشاركًا ستة مقاطع فيديو مدة كل منها دقيقة واحدة لمساحات خضراء وشوارع وممرات داخلية بمستويات مختلفة من الازدحام. وقف المشاركون أو مشوا على جهاز مشي، وسُجّل نشاط الدماغ الكهربائي وتوصيل الجلد والتقييم العاطفي."
+            ],
+            [
+              "النتائج",
+              "وُصفت المشاهد المزدحمة بأنها أقل راحة وأكثر إثارة، بينما بدت المساحات الخضراء أهدأ وأكثر إيجابية. ارتفعت نسبة ثيتا إلى بيتا في تخطيط الدماغ غالبًا مع الازدحام، لكن عدم تماثل ألفا الجبهي أظهر أحيانًا استجابة مختلفة أثناء المشي. زاد المشي توصيل الجلد مقارنة بالوقوف (التقدير 0.337؛ فترة المصداقية 95٪ من 0.169 إلى 0.503)."
+            ],
+            [
+              "الأهمية المعمارية",
+              "ينبغي دراسة كثافة الأشخاص والانغلاق المكاني معًا؛ فقد يختلف الإحساس بالحشد بين شارع مفتوح وممر داخلي."
+            ],
+            [
+              "الحدود",
+              "شملت الدراسة 42 شخصًا وستة مقاطع قصيرة داخل المختبر، ولم تتضمن المشاهد الخضراء حشودًا. لم تثبت تحسنًا معرفيًا موضوعيًا أو تغيرًا في المشابك العصبية أو بنية الدماغ أو التعبير الجيني أو التغيرات فوق الجينية."
+            ]
+          ]
+        },
+        "ru": {
+          "title": "Меняют ли городские толпы наши эмоции и внимание?",
+          "dek": "В эксперименте с 42 взрослыми многолюдные сцены оценивались негативнее и сопровождались изменениями ЭЭГ и физиологического возбуждения.",
+          "intro": "Восприятие города зависит не только от зданий, но и от количества людей в пространстве.",
+          "sections": [
+            [
+              "Контролируемый эксперимент",
+              "42 участника смотрели шесть минутных видеороликов с зелёными зонами, улицами и крытыми переходами разной плотности людей. Они стояли или шли по беговой дорожке. Измерялись ЭЭГ, кожная проводимость и эмоциональные оценки."
+            ],
+            [
+              "Результаты",
+              "Многолюдные сцены воспринимались как менее приятные и более возбуждающие. Зелёные пространства оценивались как более спокойные и позитивные. Отношение тета/бета на ЭЭГ часто было выше при скоплении людей, однако фронтальная альфа-асимметрия при ходьбе иногда указывала на иную реакцию. Ходьба повышала кожную проводимость (оценка 0,337; 95%-й байесовский доверительный интервал 0,169–0,503)."
+            ],
+            [
+              "Для архитектуры",
+              "Плотность людей и пространственную замкнутость следует изучать совместно. Одна и та же толпа может восприниматься по-разному на открытой улице и в закрытом переходе."
+            ],
+            [
+              "Ограничения",
+              "Всего 42 человека и шесть коротких видео в лаборатории. Зелёные сцены не содержали толп. Не доказаны улучшения объективной когнитивной деятельности, изменения синапсов, структуры мозга, экспрессии генов или эпигенетики."
+            ]
+          ]
+        }
+      }
     }
   ]
 }
