@@ -18,6 +18,8 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | do-urban-crowds-change-how-we-feel | done 2026-11-13 |
 | can-campus-courtyards-calm-the-body | done 2026-11-13 |
 | does-neighborhood-nature-relate-to-dementia | done 2026-11-13 |
+| can-forest-microbes-enter-our-homes | done 2026-11-14 |
+| can-a-living-wall-reduce-stress | done 2026-11-14 |
 | all other articles | open |
 
 ## 2026-11-07
@@ -59,3 +61,10 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 020: publisher page and PMC full text could not be fetched in this unattended run (fetch permission not granted); only title, DOI, journal and the PMC and HAL records confirmed via search index. No numbers changed. Changes: title no longer promises an attention effect; dek no longer links crowding to physiological arousal (the only skin conductance result reported is walking versus standing); theta/beta wording harmonized to "tended to be higher" in de, fr, ar, ru; Russian credible interval no longer called a confidence interval; es, ar, ru intros completed; intro and architecture section rewritten in Paul's voice in all six languages; pages rebuilt with research.py. Open: n = 42, six one-minute videos, design, all directions and the estimate 0.337 (0.169 to 0.503) NOT yet verified.
 - 007 can-campus-courtyards-calm-the-body: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. Study, numbers and limits unchanged.
 - 008 does-neighborhood-nature-relate-to-dementia: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. Russian range dash corrected. Study, numbers and limits unchanged.
+
+## 2026-11-14
+
+- No new or changed articles on main since the 2026-11-13 run.
+- 019 can-wood-finished-rooms-improve-thinking and 020 do-urban-crowds-change-how-we-feel (open verification points): nature.com and PubMed could not be fetched in this unattended run (fetch permission not answered). Search index confirms title, DOI, journal and the PubMed (41023212) and PMC (PMC9628500) records only. No content change; open points stay marked NOT yet verified. 016 and 017 unchanged.
+- 009 can-forest-microbes-enter-our-homes: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states that no health or brain effect was measured and that the study gives no advice to bring soil indoors. Study, numbers and limits unchanged (verified against the PMC full text).
+- 010 can-a-living-wall-reduce-stress: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states the null results for memory and rest in plain words. Study, numbers and limits unchanged.
