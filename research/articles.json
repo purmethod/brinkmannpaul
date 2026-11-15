@@ -2979,6 +2979,154 @@
           ]
         }
       }
+    },
+    {
+      "slug": "does-a-nature-walk-change-resting-brain-activity",
+      "published": "2026-11-15",
+      "doi": "10.1038/s41598-024-78508-x",
+      "cite_authors": "McDonnell & Strayer (2024)",
+      "cite_title": "The influence of a walk in nature on human resting brain activity: a randomized controlled trial.",
+      "cite_journal": "Scientific Reports, 14, 27253.",
+      "text": {
+        "en": {
+          "title": "Does a walk in nature change how the brain rests?",
+          "dek": "A randomized study of 92 adults finds different mood and resting EEG responses after nature and urban walks.",
+          "intro": "A street and a green trail can demand different things from our attention. What happens after we return? A randomized field experiment measured mood and brain activity before and after forty-minute walks.",
+          "sections": [
+            [
+              "The experiment",
+              "McDonnell and Strayer randomly assigned 92 adults to a 40-minute walk in a natural or urban environment (46 per group). Participants completed a mentally demanding task beforehand. Researchers measured positive and negative affect with PANAS and frontal midline theta (FMθ) using EEG. Walking duration, pace, distance, elevation, heart rate, temperature and humidity were matched or assessed."
+            ],
+            [
+              "What changed",
+              "Positive affect rose from 24.26 to 32.98 after the nature walk and from 23.07 to 28.80 after the urban walk. The time-by-environment interaction was significant (χ²(2)=9.11, p<0.05). Resting FMθ changed from 2.41 to 2.26 μV²/Hz in nature and from 2.34 to 2.99 in the urban group; the interaction was significant (χ²(3)=18.94, p<0.001). Negative affect decreased after both walks without a significant group-by-time interaction (p=0.850)."
+            ],
+            [
+              "What it means for architecture",
+              "Green access is not only an aesthetic question. The findings suggest that the design of everyday walking routes may influence short-term mood and EEG activity. Yet the experiment compared entire environments, not individual architectural elements. It cannot isolate vegetation from traffic, noise, visual complexity or perceived safety."
+            ],
+            [
+              "Limits and conclusion",
+              "The study measured resting EEG after walking, not actual post-walk cognitive performance. FMθ is an indirect neural marker, not a count of synapses or evidence of neuroplasticity. There were no measures of brain structure, gene expression, epigenetics or DNA sequence. The sample was demographically limited and long-term outcomes are unknown. A future controlled study should independently vary greenery, traffic and sound while measuring EEG, stress and objective attention."
+            ]
+          ]
+        },
+        "de": {
+          "title": "Verändert ein Spaziergang im Grünen die Ruheaktivität unseres Gehirns?",
+          "dek": "Eine randomisierte Studie mit 92 Erwachsenen zeigt unterschiedliche Stimmungs- und EEG-Reaktionen nach Natur- und Stadtspaziergängen.",
+          "intro": "Eine Straße und ein grüner Weg stellen unterschiedliche Anforderungen an unsere Aufmerksamkeit. Was bleibt davon übrig, wenn wir zurückkommen? Ein Feldexperiment untersuchte Stimmung und Gehirnaktivität vor und nach einem vierzigminütigen Spaziergang.",
+          "sections": [
+            [
+              "Das Experiment",
+              "McDonnell und Strayer teilten 92 Erwachsene zufällig einem 40-minütigen Natur- oder Stadtspaziergang zu (je 46). Zuvor absolvierten sie eine mental beanspruchende Aufgabe. Erfasst wurden positive und negative Stimmung mit dem PANAS sowie frontale Mittellinien-Theta-Aktivität (FMθ) mittels EEG. Gehzeit, Tempo, Distanz, Höhenprofil, Herzfrequenz und Wetterbedingungen wurden verglichen beziehungsweise kontrolliert."
+            ],
+            [
+              "Die Ergebnisse",
+              "Positive Stimmung stieg in der Naturgruppe von 24,26 auf 32,98 Punkte und in der Stadtgruppe von 23,07 auf 28,80 Punkte. Die Interaktion zwischen Zeitpunkt und Umgebung war signifikant (χ²(2)=9,11; p<0,05). Die FMθ-Ruheaktivität veränderte sich in der Naturgruppe von 2,41 auf 2,26 μV²/Hz, in der Stadtgruppe von 2,34 auf 2,99; Interaktion χ²(3)=18,94; p<0,001. Negative Stimmung sank in beiden Gruppen, ohne signifikante Interaktion (p=0,850)."
+            ],
+            [
+              "Bedeutung für die Architektur",
+              "Zugängliches Stadtgrün ist nicht nur eine ästhetische Frage. Die Ergebnisse legen nahe, dass die Gestaltung alltäglicher Wege kurzfristige Stimmung und EEG-Aktivität beeinflussen kann. Untersucht wurden jedoch ganze Umgebungen. Vegetation, Verkehr, Lärm, visuelle Komplexität und Sicherheitsgefühl lassen sich nicht voneinander trennen."
+            ],
+            [
+              "Grenzen und Fazit",
+              "Nach dem Spaziergang wurde keine objektive kognitive Leistungsverbesserung nachgewiesen. FMθ ist ein indirekter neuronaler Marker, kein Nachweis neuer Synapsen oder Neuroplastizität. Gehirnstruktur, Genexpression, Epigenetik und DNA-Sequenz wurden nicht untersucht. Die Stichprobe war demografisch begrenzt, Langzeitfolgen sind offen. Ein Folgeexperiment sollte Grünanteil, Verkehr und Akustik unabhängig variieren und EEG, Stress sowie objektive Aufmerksamkeit messen."
+            ]
+          ]
+        },
+        "fr": {
+          "title": "Une promenade dans la nature modifie-t-elle l'activité cérébrale au repos ?",
+          "dek": "Une étude randomisée auprès de 92 adultes révèle des différences d'humeur et d'EEG après une marche dans la nature ou en ville.",
+          "intro": "Une rue et un sentier verdoyant ne sollicitent pas l'attention de la même façon. Que reste-t-il après la promenade ? Une expérience de terrain a mesuré l'humeur et l'activité cérébrale avant et après quarante minutes de marche.",
+          "sections": [
+            [
+              "L'expérience",
+              "McDonnell et Strayer ont réparti aléatoirement 92 adultes entre une marche de 40 minutes dans la nature et une marche urbaine (46 par groupe). Après une tâche mentalement exigeante, l'humeur a été évaluée par PANAS et l'activité thêta frontale médiane (FMθ) par EEG. La durée, le rythme, la distance, le dénivelé et plusieurs paramètres physiologiques et météorologiques ont été pris en compte."
+            ],
+            [
+              "Les résultats",
+              "L'affect positif est passé de 24,26 à 32,98 points dans le groupe nature et de 23,07 à 28,80 en ville. L'interaction temps-environnement était significative (χ²(2)=9,11 ; p<0,05). La puissance FMθ au repos est passée de 2,41 à 2,26 μV²/Hz dans la nature, contre 2,34 à 2,99 en ville ; interaction χ²(3)=18,94 ; p<0,001. L'affect négatif a diminué dans les deux groupes, sans interaction significative (p=0,850)."
+            ],
+            [
+              "Pour l'architecture",
+              "L'accès à la verdure peut compter pour l'humeur et l'activité cérébrale à court terme. Mais les itinéraires différaient sur de nombreux aspects : végétation, circulation, bruit et complexité visuelle. Aucun élément architectural isolé ne peut être désigné comme cause."
+            ],
+            [
+              "Limites et conclusion",
+              "Aucun gain objectif de performance cognitive après la marche n'a été démontré. Le FMθ est un indicateur EEG indirect, pas une mesure des synapses ou de la neuroplasticité. La structure cérébrale, l'expression génique, l'épigénétique et la séquence ADN n'ont pas été mesurées. Il faut des expériences isolant végétation, bruit et circulation et évaluant l'attention réelle."
+            ]
+          ]
+        },
+        "es": {
+          "title": "¿Cambia un paseo por la naturaleza la actividad cerebral en reposo?",
+          "dek": "Un ensayo aleatorizado con 92 adultos encontró distintas respuestas emocionales y de EEG tras caminar por la naturaleza o la ciudad.",
+          "intro": "Una calle y un sendero verde pueden exigir diferentes niveles de atención. ¿Qué sucede después de caminar? Un experimento de campo midió el estado de ánimo y la actividad cerebral antes y después de cuarenta minutos de paseo.",
+          "sections": [
+            [
+              "El experimento",
+              "McDonnell y Strayer asignaron aleatoriamente a 92 adultos a un paseo de 40 minutos por un entorno natural o urbano (46 por grupo). Tras una tarea mental exigente, midieron el afecto con PANAS y la actividad theta frontal media (FMθ) mediante EEG. Compararon duración, ritmo, distancia, desnivel y condiciones fisiológicas y meteorológicas."
+            ],
+            [
+              "Los resultados",
+              "El afecto positivo pasó de 24,26 a 32,98 puntos en el grupo natural y de 23,07 a 28,80 en el urbano. La interacción entre tiempo y entorno fue significativa (χ²(2)=9,11; p<0,05). La potencia FMθ en reposo pasó de 2,41 a 2,26 μV²/Hz en naturaleza y de 2,34 a 2,99 en ciudad; interacción χ²(3)=18,94; p<0,001. El afecto negativo disminuyó en ambos grupos sin interacción significativa (p=0,850)."
+            ],
+            [
+              "Implicaciones arquitectónicas",
+              "El acceso a rutas verdes puede influir en el ánimo y en la actividad EEG a corto plazo. Sin embargo, las rutas diferían en vegetación, tráfico, ruido y complejidad visual. No es posible atribuir el efecto a un único elemento de diseño."
+            ],
+            [
+              "Límites y conclusión",
+              "No se demostró una mejora objetiva de la cognición después del paseo. FMθ es un marcador EEG indirecto, no evidencia de nuevas sinapsis o neuroplasticidad. No se midieron estructura cerebral, expresión génica, epigenética ni secuencia de ADN. Se necesitan experimentos que separen vegetación, tráfico y sonido y midan atención objetiva."
+            ]
+          ]
+        },
+        "ar": {
+          "title": "هل تغيّر نزهة في الطبيعة نشاط الدماغ أثناء الراحة؟",
+          "dek": "تجربة عشوائية شملت 92 بالغًا رصدت اختلافات في المزاج وتخطيط الدماغ بعد المشي في الطبيعة أو المدينة.",
+          "intro": "قد يتطلب شارع مزدحم وممر أخضر مستويات مختلفة من الانتباه. ماذا يحدث بعد العودة؟ قاست تجربة ميدانية المزاج والنشاط الكهربائي للدماغ قبل المشي لمدة أربعين دقيقة وبعده.",
+          "sections": [
+            [
+              "التجربة",
+              "وزّع ماكدونيل وستراير 92 بالغًا عشوائيًا على مجموعتين للمشي لمدة 40 دقيقة في الطبيعة أو في المدينة، بواقع 46 شخصًا في كل مجموعة. بعد مهمة ذهنية مرهقة، قيس المزاج بمقياس PANAS ونشاط موجات ثيتا الجبهية الوسطى (FMθ) بتخطيط EEG، مع مراعاة مدة المشي وسرعته والمسافة والارتفاع والظروف الجوية والفسيولوجية."
+            ],
+            [
+              "النتائج",
+              "ارتفع متوسط المزاج الإيجابي من 24.26 إلى 32.98 نقطة في مجموعة الطبيعة، ومن 23.07 إلى 28.80 في مجموعة المدينة. وكان التفاعل بين الزمن والبيئة ذا دلالة إحصائية (χ²(2)=9.11؛ p<0.05). وتغيرت قدرة FMθ أثناء الراحة من 2.41 إلى 2.26 μV²/Hz في الطبيعة، ومن 2.34 إلى 2.99 في المدينة؛ وكان التفاعل دالًا (χ²(3)=18.94؛ p<0.001). انخفض المزاج السلبي في المجموعتين دون تفاعل دال (p=0.850)."
+            ],
+            [
+              "المعنى المعماري",
+              "قد يؤثر الوصول إلى المسارات الخضراء في المزاج ونشاط الدماغ الكهربائي على المدى القصير. لكن المسارين اختلفا في الغطاء النباتي والمرور والضوضاء والتعقيد البصري، ولذلك لا يمكن عزو التأثير إلى عنصر معماري واحد."
+            ],
+            [
+              "الحدود والخلاصة",
+              "لم تُثبت الدراسة تحسنًا موضوعيًا في الأداء المعرفي بعد المشي. ومؤشر FMθ قياس كهربائي غير مباشر، وليس دليلًا على تكوّن مشابك عصبية أو حدوث لدونة عصبية. لم تُقَس بنية الدماغ أو التعبير الجيني أو التغيرات فوق الجينية أو تسلسل الحمض النووي. هناك حاجة إلى تجارب تفصل تأثير الخضرة عن المرور والضوضاء وتقيس الانتباه الفعلي."
+            ]
+          ]
+        },
+        "ru": {
+          "title": "Меняет ли прогулка на природе активность мозга в состоянии покоя?",
+          "dek": "Рандомизированное исследование 92 взрослых выявило различия в настроении и ЭЭГ после прогулок на природе и в городе.",
+          "intro": "Городская улица и зелёная тропа по-разному нагружают внимание. Что происходит после прогулки? В полевом эксперименте измеряли настроение и активность мозга до и после сорока минут ходьбы.",
+          "sections": [
+            [
+              "Эксперимент",
+              "Макдоннелл и Стрейер случайным образом распределили 92 взрослых на прогулку в природной или городской среде по 40 минут (46 в каждой группе). После сложной умственной задачи оценивали настроение по PANAS и фронтальную срединную тета-активность (FMθ) с помощью ЭЭГ. Учитывались время, темп, расстояние, перепад высот и физиологические и погодные параметры."
+            ],
+            [
+              "Результаты",
+              "Положительный аффект вырос с 24,26 до 32,98 балла в природной группе и с 23,07 до 28,80 в городской. Взаимодействие времени и среды было значимым (χ²(2)=9,11; p<0,05). Мощность FMθ в покое изменилась с 2,41 до 2,26 μV²/Hz после природы и с 2,34 до 2,99 после города; взаимодействие χ²(3)=18,94; p<0,001. Отрицательный аффект снизился в обеих группах без значимого взаимодействия (p=0,850)."
+            ],
+            [
+              "Значение для архитектуры",
+              "Доступность зелёных маршрутов может влиять на настроение и ЭЭГ в краткосрочной перспективе. Но маршруты отличались растительностью, транспортом, шумом и визуальной сложностью. Выделить эффект одного элемента дизайна нельзя."
+            ],
+            [
+              "Ограничения и вывод",
+              "Объективного улучшения когнитивных результатов после прогулки не доказано. FMθ является косвенным показателем ЭЭГ, а не измерением синапсов или нейропластичности. Структура мозга, экспрессия генов, эпигенетика и последовательность ДНК не исследовались. Нужны эксперименты с независимым изменением зелени, движения и шума и объективными тестами внимания."
+            ]
+          ]
+        }
+      }
     }
   ]
 }
