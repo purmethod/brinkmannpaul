@@ -1,6 +1,6 @@
 {
-  "checked": "2026-11-13",
-  "scope": "Twenty published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
+  "checked": "2026-11-15",
+  "scope": "Twenty-one published study summaries. Access level is recorded so an abstract-based check is not represented as a full-text review. This is an editorial audit, not a guarantee that the original studies are error-free.",
   "studies": [
     {
       "doi": "10.1016/j.envres.2026.124671",
@@ -117,7 +117,7 @@
         30,
         23
       ],
-      "review": "30 recruited, 23 analyzed; five one-minute VR scenes across days. Results section: frontal/central/parietal alpha differences; paper conclusion inconsistently names regions, so summary follows Results. Systolic BP/PRS effects; HR and diastolic BP null. Nonsignificance vs natural view/wall is not equivalence. Control is the same furnished office with blank foreground, not an empty room; architectural window view is the other built comparator."
+      "review": "30 recruited, 23 analyzed; five one-minute VR scenes across days. Results section: frontal/central/parietal alpha differences; paper conclusion inconsistently names regions, so summary follows Results. Systolic BP/PRS effects; HR and diastolic BP null. Nonsignificance vs natural view/wall is not equivalence. Control is the same furnished office with blank foreground, not an empty room; architectural window view is the other built comparator. 2026-11-15: intro and architecture section rewritten in Paul's voice in all six languages; intro no longer names the authors; study, numbers and limits unchanged."
     },
     {
       "doi": "10.1126/sciadv.aba2578",
@@ -131,7 +131,7 @@
         23,
         28
       ],
-      "review": "75 children3-5, ten centers with group sizes36/16/23, 28days, no individual randomization. IL10:IL17A .86 to1.15, adjusted p=.04 intervention only. Skin Gammaproteobacterial diversity associations with TGF-beta1/Treg. Outcome-specific sample sizes smaller; no demonstrated disease prevention or brain effect."
+      "review": "75 children3-5, ten centers with group sizes36/16/23, 28days, no individual randomization. IL10:IL17A .86 to1.15, adjusted p=.04 intervention only. Skin Gammaproteobacterial diversity associations with TGF-beta1/Treg. Outcome-specific sample sizes smaller; no demonstrated disease prevention or brain effect. 2026-11-15: intro and architecture section rewritten in Paul's voice in all six languages; intro no longer names the authors; architecture section states non-individual randomization, short follow-up and absence of disease or brain effect; study, numbers and limits unchanged."
     },
     {
       "doi": "10.1016/j.buildenv.2024.112014",
@@ -217,6 +217,16 @@
         42
       ],
       "review": "Relevant: urban crowding (pedestrian density) and indoor versus outdoor urban settings linked to self-reported affect, EEG and skin conductance. Title, DOI and journal confirmed. NOT yet verified against abstract or full text: author list beyond Mavros, volume 12 and article number 18476, n = 42, six one-minute videos, environment categories and which were crowded, standing versus treadmill walking, direction of valence and arousal ratings, theta/beta ratio and frontal alpha asymmetry findings, skin conductance estimate 0.337 (95% credible interval 0.169 to 0.503) and what it refers to. Changes 2026-11-13: title no longer claims an attention effect (no attention outcome reported in the article); dek no longer attributes physiological arousal to crowding, since the only reported skin conductance result concerns walking versus standing; theta/beta wording harmonized to 'tended to be higher' in de, fr, ar, ru; Russian credible interval no longer called a confidence interval; es, ar, ru intros completed; intro and architecture section in Paul's voice in all six languages. No numbers changed. Pages had been hand written and failed the research tests; rebuilt with research.py."
+    },
+    {
+      "doi": "10.1038/s41598-024-78508-x",
+      "primary_url": "https://www.nature.com/articles/s41598-024-78508-x",
+      "secondary_url": "https://amymcdonnell.github.io/Documents/McDonnell%20&%20Strayer%20(2024b).pdf",
+      "access": "Existence, exact title, DOI, journal (Scientific Reports) and authorship (McDonnell & Strayer, author-hosted PDF and ResearchGate record) confirmed via web search index on 2026-11-15. Publisher page could not be fetched in this unattended run (fetch permission not answered); abstract and full text not read.",
+      "key_counts": [
+        92
+      ],
+      "review": "Relevant: walking environment (natural versus urban route) linked to affect (PANAS) and resting EEG (frontal midline theta). Randomized design, so the environment as a whole may be treated as the manipulated factor; individual features (vegetation, traffic, noise, visual complexity) are confounded. NOT yet verified against abstract or full text: volume 14 and article number 27253, n = 92 (46 per group), 40 minute walks, the demanding pre-walk task, matched or measured covariates (duration, pace, distance, elevation, heart rate, temperature, humidity), PANAS means 24.26 to 32.98 (nature) and 23.07 to 28.80 (urban), FMθ 2.41 to 2.26 and 2.34 to 2.99 μV²/Hz, interaction statistics χ²(2)=9.11 p<0.05 and χ²(3)=18.94 p<0.001 (differing degrees of freedom to be checked), negative affect interaction p=0.850, absence of a post-walk cognitive test, demographic limits of the sample. Changes 2026-11-15: missing modified date added (research tests were red on main, pages not generated); fr, es, ar, ru experiment sections harmonized with English list of matched or measured variables; limits section harmonized in all six languages (de, fr, es, ar, ru previously claimed no cognitive improvement was shown, English said cognition was not measured; now states only that mood and resting EEG were measured after the walk and neither is a direct cognitive test; fr, es, ar, ru gained the missing sample and long-term sentence); intro and architecture section rewritten in Paul's voice in all six languages; intro no longer names the authors. No numbers changed."
     }
   ]
 }

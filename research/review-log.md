@@ -20,6 +20,9 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | does-neighborhood-nature-relate-to-dementia | done 2026-11-13 |
 | can-forest-microbes-enter-our-homes | done 2026-11-14 |
 | can-a-living-wall-reduce-stress | done 2026-11-14 |
+| does-a-nature-walk-change-resting-brain-activity | done 2026-11-15 |
+| can-nature-art-change-our-brain-response | done 2026-11-15 |
+| can-biodiverse-playgrounds-change-immunity | done 2026-11-15 |
 | all other articles | open |
 
 ## 2026-11-07
@@ -68,3 +71,11 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 019 can-wood-finished-rooms-improve-thinking and 020 do-urban-crowds-change-how-we-feel (open verification points): nature.com and PubMed could not be fetched in this unattended run (fetch permission not answered). Search index confirms title, DOI, journal and the PubMed (41023212) and PMC (PMC9628500) records only. No content change; open points stay marked NOT yet verified. 016 and 017 unchanged.
 - 009 can-forest-microbes-enter-our-homes: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states that no health or brain effect was measured and that the study gives no advice to bring soil indoors. Study, numbers and limits unchanged (verified against the PMC full text).
 - 010 can-a-living-wall-reduce-stress: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states the null results for memory and rest in plain words. Study, numbers and limits unchanged.
+
+## 2026-11-15
+
+- New on main since the 2026-11-14 run: 021 does-a-nature-walk-change-resting-brain-activity (McDonnell & Strayer 2024, Scientific Reports), published by ChatGPT without a modified date, without a source audit entry and without generated pages, so the research tests were red on main. Relevant (natural versus urban walking route linked to affect and resting EEG). Audit entry added.
+- 021: publisher page could not be fetched in this unattended run (fetch permission not answered). Title, DOI, journal and authorship confirmed via search index (author PDF, ResearchGate). No numbers changed. Changes: modified date added; fr, es, ar, ru experiment sections now list the same matched or measured variables as English; limits harmonized (de, fr, es, ar, ru said no cognitive improvement was shown, English said cognition was not measured; all now state that mood and resting EEG were measured after the walk and neither is a direct cognitive test); fr, es, ar, ru gained the missing sample and long term sentence; intro and architecture section in Paul's voice in all six languages; pages built with research.py. Open: n = 92, group sizes, task, covariates, all PANAS and FMθ values, both interaction statistics (df 2 versus 3) and p = 0.850 NOT yet verified.
+- 011 can-nature-art-change-our-brain-response: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. Study, numbers and limits unchanged (verified against the full text).
+- 012 can-biodiverse-playgrounds-change-immunity: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states non individual randomization, the short follow up and that no disease prevention or brain effect was shown. Study, numbers and limits unchanged (verified against the PMC full text).
+- Open verification points of 016, 017, 019 and 020 unchanged (no fetch access in this run).
