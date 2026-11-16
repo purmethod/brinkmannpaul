@@ -556,12 +556,12 @@
   // where they are now, their whatsapp group, prices, payment, the next retreat; and for a teacher who
   // registered on their own, the whole profile: photos and their own words
   const PROF = {
-    en: { now: "currently in", wa: "whatsapp group", cls: "class", ret: "retreat", next: "next retreat", pay: "payment", cash: "cash", card: "card", about: "about", gone: "this page does not exist." },
-    de: { now: "gerade in", wa: "whatsapp-gruppe", cls: "stunde", ret: "retreat", next: "nächstes retreat", pay: "bezahlung", cash: "bar", card: "karte", about: "über", gone: "diese seite gibt es nicht." },
-    fr: { now: "en ce moment à", wa: "groupe whatsapp", cls: "cours", ret: "retraite", next: "prochaine retraite", pay: "paiement", cash: "espèces", card: "carte", about: "à propos de", gone: "cette page n’existe pas." },
-    es: { now: "ahora en", wa: "grupo de whatsapp", cls: "clase", ret: "retiro", next: "próximo retiro", pay: "pago", cash: "efectivo", card: "tarjeta", about: "sobre", gone: "esta página no existe." },
-    ar: { now: "حاليًا في", wa: "مجموعة واتساب", cls: "حصة", ret: "خلوة", next: "الخلوة القادمة", pay: "الدفع", cash: "نقدًا", card: "بطاقة", about: "عن", gone: "هذه الصفحة غير موجودة." },
-    ru: { now: "сейчас:", wa: "группа в whatsapp", cls: "занятие", ret: "ретрит", next: "ближайший ретрит", pay: "оплата", cash: "наличные", card: "карта", about: "о", gone: "такой страницы нет." },
+    en: { now: "currently in", wa: "whatsapp group", cls: "class", ret: "retreat", next: "next retreat", nexts: "next retreats", pay: "payment", cash: "cash", card: "card", about: "about", gone: "this page does not exist." },
+    de: { now: "gerade in", wa: "whatsapp-gruppe", cls: "stunde", ret: "retreat", next: "nächstes retreat", nexts: "nächste retreats", pay: "bezahlung", cash: "bar", card: "karte", about: "über", gone: "diese seite gibt es nicht." },
+    fr: { now: "en ce moment à", wa: "groupe whatsapp", cls: "cours", ret: "retraite", next: "prochaine retraite", nexts: "prochaines retraites", pay: "paiement", cash: "espèces", card: "carte", about: "à propos de", gone: "cette page n’existe pas." },
+    es: { now: "ahora en", wa: "grupo de whatsapp", cls: "clase", ret: "retiro", next: "próximo retiro", nexts: "próximos retiros", pay: "pago", cash: "efectivo", card: "tarjeta", about: "sobre", gone: "esta página no existe." },
+    ar: { now: "حاليًا في", wa: "مجموعة واتساب", cls: "حصة", ret: "خلوة", next: "الخلوة القادمة", nexts: "الخلوات القادمة", pay: "الدفع", cash: "نقدًا", card: "بطاقة", about: "عن", gone: "هذه الصفحة غير موجودة." },
+    ru: { now: "сейчас:", wa: "группа в whatsapp", cls: "занятие", ret: "ретрит", next: "ближайший ретрит", nexts: "ближайшие ретриты", pay: "оплата", cash: "наличные", card: "карта", about: "о", gone: "такой страницы нет." },
   };
   const pf = (k) => (PROF[st.lang] || PROF.en)[k];
   let profiles = null; // null until the answer is here
@@ -569,10 +569,12 @@
   // the team as shown: the pages built by hand, then the teachers who made their own, then the free place
   const members = () => {
     const own = (profiles || []).filter((p) => !TEAM.some((m) => m.id === p.slug))
-      .map((p) => ({ id: p.slug, name: p.name, roleText: p.role, img: p.photos[0] || "", alt: p.name, pics: p.photos.slice(1).filter(Boolean).map((u) => [u, p.name]), igs: p.ig ? [p.ig] : null, own: p }));
+      .map((p) => ({ id: p.slug, name: p.name, roleText: p.role, img: p.photos[0] || "", alt: p.name, pics: p.photos.slice(1).filter(Boolean).map((u) => [u, p.name]), igs: p.ig ? [p.ig] : null, own: p,
+        // the profile written from their words, in the six languages; until it is there, their own words
+        bio: p.bio && p.bio.bio && p.bio.bio.en ? p.bio.bio : null }));
     return [...TEAM.filter((m) => !m.soon), ...own, ...TEAM.filter((m) => m.soon)];
   };
-  const roleOf = (m) => (m.own ? m.roleText : c(m.role));
+  const roleOf = (m) => (m.own ? (m.own.bio && m.own.bio.role && (m.own.bio.role[st.lang] || m.own.bio.role.en)) || m.roleText : c(m.role));
   const whereOf = (p, long) => (p && (p.city || p.country) ? "📍 " + (long ? pf("now") + " " + [p.city, p.country].filter(Boolean).join(", ") : p.city || p.country) : "");
   async function loadProfiles() {
     try {
@@ -610,7 +612,7 @@
     }
     if (m.own) document.title = m.name + " · foyo club";
     const p = m.own || profileOf(m.id); // what this teacher filled in, if anything
-    const prices = p ? [p.priceClass ? pf("cls") + " " + p.priceClass : "", p.priceRetreat ? pf("ret") + " " + p.priceRetreat : ""].filter(Boolean).join(" · ") : "";
+    const prices = p && p.priceClass ? pf("cls") + " " + p.priceClass : "";
     const pay = p && p.pay.length ? pf("pay") + ": " + p.pay.map((x) => pf(x)).join(" · ") : "";
     box.replaceChildren(...[
       el("a", { class: "back", href: "/" }, "← " + c("back")),
@@ -627,24 +629,26 @@
       p && p.wa ? el("p", { class: "igs" }, el("a", { href: p.wa, target: "_blank", rel: "noopener noreferrer" }, waMark(), pf("wa"))) : null,
       prices ? el("p", { class: "rl", dir: "auto" }, prices) : null,
       pay ? el("p", { class: "rl" }, pay) : null,
-      nextRetreat(p)].flat().filter(Boolean));
+      nextRetreat(p)].flat(Infinity).filter(Boolean));
     renderBio(m);
   }
   const waMark = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "15"); svg.setAttribute("height", "15"); svg.setAttribute("aria-hidden", "true");
     svg.innerHTML = '<path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>'; return svg; };
-  // the next retreat, until its last day has passed
+  // the retreats to come, the next one first; one that has ended is no longer shown
   function nextRetreat(p) {
-    const r = p && p.retreat;
-    if (!r || !(r.title || r.from)) return null;
     const today = new Date().toISOString().slice(0, 10);
-    if ((r.to || r.from) && (r.to || r.from) < today) return null;
-    let days = "";
-    if (r.from) {
-      const f = new Intl.DateTimeFormat(st.lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
-      const a = new Date(r.from + "T12:00:00Z"), b = r.to && r.to !== r.from ? new Date(r.to + "T12:00:00Z") : null;
-      try { days = b ? (f.formatRange ? f.formatRange(a, b) : f.format(a) + " – " + f.format(b)) : f.format(a); } catch { days = r.from + (b ? " – " + r.to : ""); }
-    }
-    return [el("h2", {}, pf("next")), r.title ? el("p", { dir: "auto" }, r.title) : null, el("p", { class: "rl", dir: "auto" }, [days, r.place, r.price].filter(Boolean).join(" · "))];
+    const list = ((p && (p.retreats || (p.retreat ? [p.retreat] : []))) || [])
+      .filter((r) => r && (r.title || r.from) && !((r.to || r.from) && (r.to || r.from) < today));
+    if (!list.length) return null;
+    const f = new Intl.DateTimeFormat(st.lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+    return [el("h2", {}, pf(list.length > 1 ? "nexts" : "next")), list.map((r) => {
+      let days = "";
+      if (r.from) {
+        const a = new Date(r.from + "T12:00:00Z"), b = r.to && r.to !== r.from ? new Date(r.to + "T12:00:00Z") : null;
+        try { days = b ? (f.formatRange ? f.formatRange(a, b) : f.format(a) + " – " + f.format(b)) : f.format(a); } catch { days = r.from + (b ? " – " + r.to : ""); }
+      }
+      return [r.title ? el("p", { dir: "auto" }, r.title) : null, el("p", { class: "rl", dir: "auto", style: "margin-bottom:12px" }, [days, r.place, r.price].filter(Boolean).join(" · "))];
+    })];
   }
   // a teacher's own words become the page: the first sentence stands large, the paragraphs follow,
   // a circle between two of them, never two circles in a row
@@ -669,21 +673,21 @@
   const circ = (p) => (p ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: p[0], alt: p[1], width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null);
   function renderBio(m) {
     const box = document.getElementById("bio");
-    if (box && m.own) return box.replaceChildren(...ownBio(m).filter(Boolean));
+    if (box && m.own && !m.bio) return box.replaceChildren(...ownBio(m).filter(Boolean));
     if (!box || !m.bio) return;
     const b = m.bio[st.lang] || m.bio.en;
-    box.replaceChildren(...[
-      el("p", { class: "tag" }, b.tag),
-      el("p", { class: "lead" }, b.lead),
-      el("p", {}, b.bio),
-      circ((m.pics || [])[0]),
-      el("p", {}, b.train),
-      circ((m.pics || [])[1]),
-      b.help ? el("p", {}, b.help) : null,
-      circ((m.pics || [])[2]),
-      el("h2", {}, b.teachesH), el("p", {}, b.teaches),
-      b.wayH ? el("h2", {}, b.wayH) : null, b.way ? el("p", {}, b.way) : null,
-      b.quote ? el("blockquote", { class: "quote" }, el("p", {}, b.quote), el("cite", {}, "— " + m.name)) : null].filter(Boolean));
+    // the parts that are filled, in their fixed order; a circle follows a part while there are circles left
+    const parts = [
+      b.bio ? [el("p", { dir: "auto" }, b.bio)] : null,
+      b.train ? [el("p", { dir: "auto" }, b.train)] : null,
+      b.help ? [el("p", { dir: "auto" }, b.help)] : null,
+      b.teaches ? [b.teachesH ? el("h2", {}, b.teachesH) : null, el("p", { dir: "auto" }, b.teaches)] : null,
+      b.way ? [b.wayH ? el("h2", {}, b.wayH) : null, el("p", { dir: "auto" }, b.way)] : null,
+      b.quote ? [el("blockquote", { class: "quote" }, el("p", { dir: "auto" }, b.quote), el("cite", {}, "— " + m.name))] : null].filter(Boolean);
+    const pics = (m.pics || []).slice(0, 3);
+    const out = [el("p", { class: "tag" }, b.tag || pf("about") + " " + m.name), b.lead ? el("p", { class: "lead", dir: "auto" }, b.lead) : null];
+    parts.forEach((part, i) => { out.push(...part); if (pics.length && i < 3) out.push(circ(pics.shift())); });
+    box.replaceChildren(...out.filter(Boolean));
   }
 
   // ---------- become a teacher: name, email, a few words, a voice note ----------

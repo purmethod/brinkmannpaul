@@ -89,7 +89,7 @@
     function el(tag, attrs, ...kids) {
       const n = document.createElement(tag);
       for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v); }
-      for (const k of kids.flat()) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+      for (const k of kids.flat(Infinity)) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
       return n;
     }
     const fmt = (iso, opts) => { try { return new Intl.DateTimeFormat("de-DE", opts).format(new Date(iso)); } catch { return iso; } };
@@ -160,11 +160,13 @@
       for (const a of d.accounts) {
         const live = a.status === "active";
         const slug = el("input", { type: "text", value: a.slug, "aria-label": "adresse der seite", autocapitalize: "none", spellcheck: "false" });
-        const r = a.retreat || {};
         const facts = [
           a.role, [a.city, a.country].filter(Boolean).join(", "), a.ig ? "instagram @" + a.ig : "", a.wa ? "whatsapp " + a.wa : "",
-          a.priceClass ? "stunde " + a.priceClass : "", a.priceRetreat ? "retreat " + a.priceRetreat : "", a.pay && a.pay.length ? "bezahlung " + a.pay.join(" + ") : "",
-          r.title || r.from ? "nächstes retreat: " + [r.title, [r.from, r.to].filter(Boolean).join(" bis "), r.place, r.price].filter(Boolean).join(" · ") : ""].filter(Boolean);
+          a.priceClass ? "stunde " + a.priceClass : "", a.pay && a.pay.length ? "bezahlung " + a.pay.join(" + ") : "",
+          ...(a.retreats || []).map((r) => "retreat: " + [r.title, [r.from, r.to].filter(Boolean).join(" bis "), r.place, r.price].filter(Boolean).join(" · "))].filter(Boolean);
+        // the written profile, in german, as the page shows it; under it the teacher's own words
+        const b = a.bio && a.bio.bio && (a.bio.bio.de || a.bio.bio.en);
+        const state = a.written === "ready" ? "steckbrief geschrieben" : a.written === "stale" ? "steckbrief noch nicht geschrieben oder veraltet" : "noch zu wenig text für einen steckbrief";
         const photos = (a.photos || []).filter(Boolean);
         box.append(el("div", { class: "acc" },
           el("span", { class: "who" }, a.name), " ", el("span", { class: "st" + (live ? "" : " wait") }, live ? "· online" : "· wartet auf freigabe"),
@@ -173,19 +175,22 @@
             el("div", { class: "prof" },
               photos.length ? el("div", { class: "dots" }, photos.map((u) => el("img", { src: u, alt: "", loading: "lazy" }))) : el("p", { class: "fine" }, "noch keine fotos."),
               facts.map((f) => el("p", {}, f)),
-              a.about ? el("p", {}, a.about) : el("p", { class: "fine" }, "noch kein text."))),
+              el("p", { class: "fine" }, state),
+              b ? [b.lead, b.bio, b.train, b.help, b.teaches ? b.teachesH + ": " + b.teaches : "", b.way ? b.wayH + ": " + b.way : "", b.quote ? "„" + b.quote + "“" : ""].filter(Boolean).map((x) => el("p", {}, x)) : null,
+              a.about ? [el("p", { class: "fine" }, "eigene worte des lehrers:"), el("p", {}, a.about)] : el("p", { class: "fine" }, "noch kein text."))),
           el("div", { class: "bar" },
             el("span", { class: "fine" }, "myfoyo.com/"), slug,
             el("button", { class: "ghost", type: "button", onclick: () => tdo({ approve: a.id, slug: slug.value.trim() }) }, live ? "adresse ändern" : "freigeben"),
             live ? el("a", { class: "ghost", href: "/" + a.slug, target: "_blank", rel: "noopener" }, "seite öffnen") : null,
             live ? el("button", { class: "ghost", type: "button", onclick: () => tdo({ block: a.id }) }, "von der seite nehmen") : null,
+            a.written !== "none" ? el("button", { class: "ghost", type: "button", onclick: (e) => { e.target.textContent = "wird geschrieben … (halbe minute)"; e.target.disabled = true; tdo({ build: a.id }); } }, "steckbrief neu schreiben") : null,
             el("button", { class: "ghost", type: "button", onclick: () => reset(a) }, "neues passwort"),
             el("button", { class: "ghost", type: "button", onclick: () => { if (confirm(a.name + " löschen? das konto und das profil sind dann weg.")) tdo({ remove: a.id }); } }, "löschen"))));
       }
     }
-    const TMSG = { slug: "diese adresse geht nicht. nur kleine buchstaben, zahlen und bindestriche, und kein name einer eigenen seite wie admin oder login.", taken: "diese adresse hat schon ein anderer lehrer." };
+    const TMSG = { write: "der steckbrief konnte gerade nicht geschrieben werden. bitte versuch es gleich noch einmal.", about: "der lehrer hat noch zu wenig über sich geschrieben.", slug: "diese adresse geht nicht. nur kleine buchstaben, zahlen und bindestriche, und kein name einer eigenen seite wie admin oder login.", taken: "diese adresse hat schon ein anderer lehrer." };
     async function tdo(body) {
-      try { await tapi("POST", body); terr(""); } catch (e) { terr(TMSG[e.code] || "das hat nicht geklappt."); return; }
+      try { await tapi("POST", body); terr(""); } catch (e) { terr(TMSG[e.code] || "das hat nicht geklappt."); if (body.build) teachers(); return; }
       // the list comes from stripe's search, which sees a change after a moment
       setTimeout(teachers, 2500);
     }

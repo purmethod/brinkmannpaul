@@ -59,6 +59,16 @@
     .checks label { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; color: var(--ink); }
     .checks input { width: 20px; height: 20px; accent-color: var(--ink); }
     .where { font-size: 18px; margin: 4px 0 2px; text-transform: none; }
+    /* one retreat: its own block, a thin line between two */
+    .retreat + .retreat { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line2); }
+    .rhead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .rhead .fine { margin: 0; }
+    /* the written profile, as the page will show it */
+    .read { margin: 18px 0 6px; padding: 4px 0; border-inline-start: 2px solid var(--ink); padding-inline-start: 16px; }
+    .read.old { opacity: .55; }
+    .read p { margin-bottom: .8em; }
+    .read .fine { margin: 0 0 6px; }
+    .read .q { font-size: 18px; line-height: 1.3; }
     footer { max-width: 640px; margin: 0 auto; padding: 20px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
   </style>
 </head>
@@ -100,9 +110,10 @@
         pay: "payment", cash: "cash", card: "card",
         hWhere: "where you are now", locate: "find my location", locating: "locating…", city: "town", country: "country",
         locNote: "only town and country are shown on the site. your exact position is not saved.", noWhere: "no place yet",
-        hRetreat: "your next retreat", rTitle: "title", rFrom: "from", rTo: "to", rPlace: "place", rPrice: "price",
+        rTitle: "title", rFrom: "from", rTo: "to", rPlace: "place", rPrice: "price",
         save: "save", saved: "saved. your page shows it within a minute.", out: "log out",
         hPw: "password", pwOld: "current password", pwNew: "new password", pwDo: "change password", pwDone: "your password is changed.",
+        hRetreat: "your retreats", addRetreat: "add retreat", retreatN: "retreat", hRead: "how it reads on your page", writing: "saved. your profile is now being written and put into six languages. this takes about half a minute.", written: "your profile is written. read it below: if something is not right, change your words and save again.", writeFail: "saved, but your profile could not be written right now. please try again in a moment.", writeDo: "write my profile", del: "delete my account", delHint: "this removes your account and your page for good. enter your password to confirm.", delDo: "delete for good",
         errLogin: "email or password is not right.", errLocked: "too many tries. please try again in 15 minutes.", errExists: "this email is already registered. please log in.",
         errName: "please write your name.", errEmail: "please check your email address.", errPw: "the password needs at least 8 characters.", errOld: "the current password is not right.",
         errWa: "that is not a whatsapp invite link. it starts with https://chat.whatsapp.com/", errIg: "that is not an instagram name.", errText: "please no links and no < > in the text.",
@@ -124,9 +135,10 @@
         pay: "bezahlung", cash: "bar", card: "karte",
         hWhere: "wo du gerade bist", locate: "meinen standort finden", locating: "wird geortet…", city: "ort", country: "land",
         locNote: "auf der seite stehen nur ort und land. dein genauer standort wird nicht gespeichert.", noWhere: "noch kein ort",
-        hRetreat: "dein nächstes retreat", rTitle: "titel", rFrom: "von", rTo: "bis", rPlace: "ort", rPrice: "preis",
+        rTitle: "titel", rFrom: "von", rTo: "bis", rPlace: "ort", rPrice: "preis",
         save: "speichern", saved: "gespeichert. deine seite zeigt es innerhalb einer minute.", out: "abmelden",
         hPw: "passwort", pwOld: "aktuelles passwort", pwNew: "neues passwort", pwDo: "passwort ändern", pwDone: "dein passwort ist geändert.",
+        hRetreat: "deine retreats", addRetreat: "retreat hinzufügen", retreatN: "retreat", hRead: "so liest es sich auf deiner seite", writing: "gespeichert. dein profil wird jetzt geschrieben und in sechs sprachen gesetzt. das dauert etwa eine halbe minute.", written: "dein profil ist geschrieben. lies es unten: wenn etwas nicht stimmt, ändere deine worte und speichere noch einmal.", writeFail: "gespeichert, aber dein profil konnte gerade nicht geschrieben werden. bitte versuch es gleich noch einmal.", writeDo: "mein profil schreiben", del: "mein konto löschen", delHint: "das entfernt dein konto und deine seite endgültig. gib zur bestätigung dein passwort ein.", delDo: "endgültig löschen",
         errLogin: "e-mail oder passwort stimmt nicht.", errLocked: "zu viele versuche. bitte versuch es in 15 minuten wieder.", errExists: "diese e-mail ist schon registriert. bitte melde dich an.",
         errName: "bitte schreib deinen namen.", errEmail: "bitte prüf deine e-mail-adresse.", errPw: "das passwort braucht mindestens 8 zeichen.", errOld: "das aktuelle passwort stimmt nicht.",
         errWa: "das ist kein whatsapp-einladungslink. er beginnt mit https://chat.whatsapp.com/", errIg: "das ist kein instagram-name.", errText: "bitte keine links und keine < > im text.",
@@ -148,9 +160,10 @@
         pay: "paiement", cash: "espèces", card: "carte",
         hWhere: "où tu es en ce moment", locate: "trouver ma position", locating: "localisation…", city: "ville", country: "pays",
         locNote: "seuls la ville et le pays sont affichés. ta position exacte n'est pas enregistrée.", noWhere: "pas encore de lieu",
-        hRetreat: "ta prochaine retraite", rTitle: "titre", rFrom: "du", rTo: "au", rPlace: "lieu", rPrice: "prix",
+        rTitle: "titre", rFrom: "du", rTo: "au", rPlace: "lieu", rPrice: "prix",
         save: "enregistrer", saved: "enregistré. ta page l'affiche en moins d'une minute.", out: "se déconnecter",
         hPw: "mot de passe", pwOld: "mot de passe actuel", pwNew: "nouveau mot de passe", pwDo: "changer le mot de passe", pwDone: "ton mot de passe est changé.",
+        hRetreat: "tes retraites", addRetreat: "ajouter une retraite", retreatN: "retraite", hRead: "voici comment on le lit sur ta page", writing: "enregistré. ton profil est en cours de rédaction, en six langues. cela prend environ une demi-minute.", written: "ton profil est rédigé. lis-le ci-dessous : si quelque chose ne va pas, change tes mots et enregistre à nouveau.", writeFail: "enregistré, mais ton profil n'a pas pu être rédigé pour l'instant. réessaie dans un instant.", writeDo: "rédiger mon profil", del: "supprimer mon compte", delHint: "cela supprime définitivement ton compte et ta page. saisis ton mot de passe pour confirmer.", delDo: "supprimer définitivement",
         errLogin: "l'e-mail ou le mot de passe n'est pas correct.", errLocked: "trop d'essais. réessaie dans 15 minutes.", errExists: "cet e-mail est déjà inscrit. connecte-toi.",
         errName: "écris ton nom, s'il te plaît.", errEmail: "vérifie ton adresse e-mail.", errPw: "le mot de passe doit avoir au moins 8 caractères.", errOld: "le mot de passe actuel n'est pas correct.",
         errWa: "ce n'est pas un lien d'invitation whatsapp. il commence par https://chat.whatsapp.com/", errIg: "ce n'est pas un nom instagram.", errText: "pas de liens ni de < > dans le texte, s'il te plaît.",
@@ -172,9 +185,10 @@
         pay: "pago", cash: "efectivo", card: "tarjeta",
         hWhere: "dónde estás ahora", locate: "encontrar mi ubicación", locating: "localizando…", city: "ciudad", country: "país",
         locNote: "en la web solo se muestran ciudad y país. tu posición exacta no se guarda.", noWhere: "aún sin lugar",
-        hRetreat: "tu próximo retiro", rTitle: "título", rFrom: "desde", rTo: "hasta", rPlace: "lugar", rPrice: "precio",
+        rTitle: "título", rFrom: "desde", rTo: "hasta", rPlace: "lugar", rPrice: "precio",
         save: "guardar", saved: "guardado. tu página lo muestra en menos de un minuto.", out: "salir",
         hPw: "contraseña", pwOld: "contraseña actual", pwNew: "contraseña nueva", pwDo: "cambiar contraseña", pwDone: "tu contraseña está cambiada.",
+        hRetreat: "tus retiros", addRetreat: "añadir retiro", retreatN: "retiro", hRead: "así se lee en tu página", writing: "guardado. ahora se está escribiendo tu perfil, en seis idiomas. tarda más o menos medio minuto.", written: "tu perfil está escrito. léelo abajo: si algo no está bien, cambia tus palabras y guarda otra vez.", writeFail: "guardado, pero ahora no se pudo escribir tu perfil. inténtalo de nuevo en un momento.", writeDo: "escribir mi perfil", del: "eliminar mi cuenta", delHint: "esto elimina tu cuenta y tu página para siempre. escribe tu contraseña para confirmar.", delDo: "eliminar para siempre",
         errLogin: "el correo o la contraseña no es correcto.", errLocked: "demasiados intentos. vuelve a intentarlo en 15 minutos.", errExists: "este correo ya está registrado. entra, por favor.",
         errName: "escribe tu nombre, por favor.", errEmail: "revisa tu correo, por favor.", errPw: "la contraseña necesita al menos 8 caracteres.", errOld: "la contraseña actual no es correcta.",
         errWa: "eso no es un enlace de invitación de whatsapp. empieza por https://chat.whatsapp.com/", errIg: "eso no es un nombre de instagram.", errText: "sin enlaces y sin < > en el texto, por favor.",
@@ -196,9 +210,10 @@
         pay: "الدفع", cash: "نقدًا", card: "بطاقة",
         hWhere: "أين أنت الآن", locate: "حدّد موقعي", locating: "جارٍ التحديد…", city: "المدينة", country: "البلد",
         locNote: "يظهر في الموقع المدينة والبلد فقط. موقعك الدقيق لا يُحفظ.", noWhere: "لا مكان بعد",
-        hRetreat: "خلوتك القادمة", rTitle: "العنوان", rFrom: "من", rTo: "إلى", rPlace: "المكان", rPrice: "السعر",
+        rTitle: "العنوان", rFrom: "من", rTo: "إلى", rPlace: "المكان", rPrice: "السعر",
         save: "حفظ", saved: "تم الحفظ. تظهر التغييرات في صفحتك خلال دقيقة.", out: "خروج",
         hPw: "كلمة المرور", pwOld: "كلمة المرور الحالية", pwNew: "كلمة المرور الجديدة", pwDo: "تغيير كلمة المرور", pwDone: "تم تغيير كلمة المرور.",
+        hRetreat: "خلواتك", addRetreat: "أضف خلوة", retreatN: "خلوة", hRead: "هكذا يُقرأ في صفحتك", writing: "تم الحفظ. يُكتب ملفك الآن بست لغات. يستغرق ذلك نحو نصف دقيقة.", written: "كُتب ملفك. اقرأه في الأسفل: إن كان فيه ما ليس صحيحًا، غيّر كلماتك واحفظ من جديد.", writeFail: "تم الحفظ، لكن تعذّرت كتابة ملفك الآن. حاول مجددًا بعد قليل.", writeDo: "اكتب ملفي", del: "احذف حسابي", delHint: "هذا يحذف حسابك وصفحتك نهائيًا. أدخل كلمة المرور للتأكيد.", delDo: "حذف نهائي",
         errLogin: "البريد أو كلمة المرور غير صحيحة.", errLocked: "محاولات كثيرة. حاول مجددًا بعد 15 دقيقة.", errExists: "هذا البريد مسجّل من قبل. سجّل الدخول من فضلك.",
         errName: "اكتب اسمك من فضلك.", errEmail: "تحقّق من بريدك الإلكتروني.", errPw: "كلمة المرور تحتاج 8 أحرف على الأقل.", errOld: "كلمة المرور الحالية غير صحيحة.",
         errWa: "هذا ليس رابط دعوة واتساب. يبدأ بـ https://chat.whatsapp.com/", errIg: "هذا ليس اسم إنستغرام.", errText: "من فضلك بلا روابط وبلا < > في النص.",
@@ -220,9 +235,10 @@
         pay: "оплата", cash: "наличные", card: "карта",
         hWhere: "где ты сейчас", locate: "определить моё место", locating: "определяю…", city: "город", country: "страна",
         locNote: "на сайте видны только город и страна. точное место не сохраняется.", noWhere: "место ещё не указано",
-        hRetreat: "твой ближайший ретрит", rTitle: "название", rFrom: "с", rTo: "по", rPlace: "место", rPrice: "цена",
+        rTitle: "название", rFrom: "с", rTo: "по", rPlace: "место", rPrice: "цена",
         save: "сохранить", saved: "сохранено. страница покажет это в течение минуты.", out: "выйти",
         hPw: "пароль", pwOld: "текущий пароль", pwNew: "новый пароль", pwDo: "сменить пароль", pwDone: "пароль изменён.",
+        hRetreat: "твои ретриты", addRetreat: "добавить ретрит", retreatN: "ретрит", hRead: "так это читается на твоей странице", writing: "сохранено. сейчас твой профиль пишется на шести языках. это занимает около полминуты.", written: "твой профиль написан. прочитай его ниже: если что-то не так, измени свои слова и сохрани ещё раз.", writeFail: "сохранено, но профиль сейчас не удалось написать. попробуй ещё раз чуть позже.", writeDo: "написать мой профиль", del: "удалить мой аккаунт", delHint: "это навсегда удалит твой аккаунт и твою страницу. введи пароль для подтверждения.", delDo: "удалить навсегда",
         errLogin: "e-mail или пароль неверны.", errLocked: "слишком много попыток. попробуй снова через 15 минут.", errExists: "этот e-mail уже зарегистрирован. войди, пожалуйста.",
         errName: "напиши своё имя, пожалуйста.", errEmail: "проверь адрес e-mail.", errPw: "в пароле должно быть не меньше 8 символов.", errOld: "текущий пароль неверен.",
         errWa: "это не ссылка-приглашение whatsapp. она начинается с https://chat.whatsapp.com/", errIg: "это не имя в instagram.", errText: "пожалуйста, без ссылок и без < > в тексте.",
@@ -232,7 +248,7 @@
     };
     const LANGS = Object.keys(L);
     const SPEECH = { en: "en-US", de: "de-DE", fr: "fr-FR", es: "es-ES", ar: "ar-SA", ru: "ru-RU" };
-    const ERR = { login: "errLogin", locked: "errLocked", exists: "errExists", name: "errName", email: "errEmail", password: "errPw", old: "errOld", wa: "errWa", ig: "errIg", role: "errText", about: "errText", price: "errText", place: "errGeo", retreat: "errRetreat", photo: "errPhoto", busy: "errBusy" };
+    const ERR = { login: "errLogin", locked: "errLocked", exists: "errExists", name: "errName", email: "errEmail", password: "errPw", old: "errOld", wa: "errWa", ig: "errIg", role: "errText", about: "errText", price: "errText", place: "errGeo", retreat: "errRetreat", photo: "errPhoto", busy: "errBusy", write: "writeFail" };
     const app = document.getElementById("app");
     // the language: the one chosen on the site in this visit, else the device's own
     let lang = null;
@@ -242,7 +258,7 @@
       for (const tag of navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]) { const l = String(tag).toLowerCase().slice(0, 2); if (LANGS.includes(l)) { lang = l; break; } }
     }
     const t = (k) => L[lang][k] || L.en[k] || k;
-    const st = { view: "login", token: "", me: null, d: null, busy: false, error: "", note: "", pwNote: "", pwError: "", picBusy: 0, locating: false, speaking: false };
+    const st = { view: "login", token: "", me: null, d: null, busy: false, error: "", note: "", pwNote: "", pwError: "", picBusy: 0, locating: false, speaking: false, writing: false, del: false, delError: "" };
     try { st.token = localStorage.getItem(KEY) || ""; } catch { /* private mode */ }
 
     function el(tag, attrs, ...kids) {
@@ -265,9 +281,10 @@
     const say = (e) => t(ERR[e && e.code] || "errAny");
     function keep(token) { st.token = token || ""; try { if (st.token) localStorage.setItem(KEY, st.token); else localStorage.removeItem(KEY); } catch { /* private mode */ } }
     // the profile as the form holds it
-    const draft = (me) => ({ role: me.role, about: me.about, ig: me.ig, wa: me.wa, priceClass: me.priceClass, priceRetreat: me.priceRetreat, city: me.city, country: me.country, pay: me.pay.slice(), retreat: { ...me.retreat } });
+    const blank = () => ({ title: "", from: "", to: "", place: "", price: "" });
+    const draft = (me) => ({ role: me.role, about: me.about, ig: me.ig, wa: me.wa, priceClass: me.priceClass, city: me.city, country: me.country, pay: me.pay.slice(), retreats: (me.retreats || []).length ? me.retreats.map((r) => ({ ...r })) : [blank()] });
     function enter(d) { if (d.token) keep(d.token); st.me = d.me; st.d = draft(d.me); st.view = "me"; st.error = ""; st.busy = false; render(); }
-    function leave() { stopSpeech(); keep(""); st.me = null; st.d = null; st.view = "login"; st.error = ""; st.note = ""; render(); }
+    function leave() { stopSpeech(); keep(""); st.me = null; st.d = null; st.view = "login"; st.error = ""; st.note = ""; st.del = false; st.delError = ""; st.writing = false; st.pwNote = ""; st.pwError = ""; render(); }
 
     // ---------- login and registration ----------
     function door() {
@@ -316,15 +333,16 @@
         el("textarea", { id: "p-about", maxlength: "1600", oninput: (e) => { d.about = e.target.value; } }, d.about || ""),
         el("p", { class: "fine" }, t("aboutHint")),
         el("div", { class: "row" }, SR ? el("button", { type: "button", class: "ghost" + (st.speaking ? " on" : ""), id: "speak", onclick: speech }, st.speaking ? "● " + t("stop") : t("speak")) : null, el("span", { class: "fine" }, t("speakHint"))),
+        st.writing ? el("p", { class: "ok", role: "status" }, t("writing")) : null,
+        !st.writing && me.written === "stale" ? el("div", { class: "row" }, el("button", { type: "button", class: "ghost", onclick: build }, t("writeDo"))) : null,
+        read(me),
         field("p-ig", t("ig"), d.ig, (v) => { d.ig = v; }, { placeholder: "@", autocapitalize: "none", autocomplete: "off", maxlength: "80" }),
 
         el("h2", {}, t("hWa")),
         field("p-wa", t("wa"), d.wa, (v) => { d.wa = v; }, { placeholder: "https://chat.whatsapp.com/…", inputmode: "url", autocapitalize: "none", autocomplete: "off", maxlength: "120" }),
 
         el("h2", {}, t("hPrice")),
-        el("div", { class: "two" },
-          el("div", {}, field("p-pc", t("pClass"), d.priceClass, (v) => { d.priceClass = v; }, { placeholder: t("pricePh"), maxlength: "40" })),
-          el("div", {}, field("p-pr", t("pRetreat"), d.priceRetreat, (v) => { d.priceRetreat = v; }, { maxlength: "40" }))),
+        field("p-pc", t("pClass"), d.priceClass, (v) => { d.priceClass = v; }, { placeholder: t("pricePh"), maxlength: "40" }),
         el("label", {}, t("pay")),
         el("div", { class: "checks" }, ["cash", "card"].map((p) => el("label", {}, el("input", { type: "checkbox", checked: d.pay.includes(p), onchange: (e) => { d.pay = d.pay.filter((x) => x !== p).concat(e.target.checked ? [p] : []); } }), t(p)))),
 
@@ -337,13 +355,17 @@
         el("p", { class: "fine" }, t("locNote")),
 
         el("h2", {}, t("hRetreat")),
-        field("p-rt", t("rTitle"), d.retreat.title, (v) => { d.retreat.title = v; }, { maxlength: "80" }),
-        el("div", { class: "two" },
-          el("div", {}, el("label", { for: "p-rf" }, t("rFrom")), el("input", { type: "date", id: "p-rf", value: d.retreat.from || "", oninput: (e) => { d.retreat.from = e.target.value; } })),
-          el("div", {}, el("label", { for: "p-ru" }, t("rTo")), el("input", { type: "date", id: "p-ru", value: d.retreat.to || "", oninput: (e) => { d.retreat.to = e.target.value; } }))),
-        el("div", { class: "two" },
-          el("div", {}, field("p-rp", t("rPlace"), d.retreat.place, (v) => { d.retreat.place = v; }, { maxlength: "80" })),
-          el("div", {}, field("p-rc", t("rPrice"), d.retreat.price, (v) => { d.retreat.price = v; }, { maxlength: "40" }))),
+        d.retreats.map((r, i) => el("div", { class: "retreat" },
+          el("div", { class: "rhead" }, el("span", { class: "fine" }, t("retreatN") + " " + (i + 1)),
+            d.retreats.length > 1 || r.title || r.from || r.to || r.place || r.price ? el("button", { type: "button", class: "linkish", onclick: () => { d.retreats.splice(i, 1); if (!d.retreats.length) d.retreats.push(blank()); render(); } }, t("remove")) : null),
+          field("p-rt" + i, t("rTitle"), r.title, (v) => { r.title = v; }, { maxlength: "80" }),
+          el("div", { class: "two" },
+            el("div", {}, el("label", { for: "p-rf" + i }, t("rFrom")), el("input", { type: "date", id: "p-rf" + i, value: r.from || "", oninput: (e) => { r.from = e.target.value; } })),
+            el("div", {}, el("label", { for: "p-ru" + i }, t("rTo")), el("input", { type: "date", id: "p-ru" + i, value: r.to || "", oninput: (e) => { r.to = e.target.value; } }))),
+          el("div", { class: "two" },
+            el("div", {}, field("p-rp" + i, t("rPlace"), r.place, (v) => { r.place = v; }, { maxlength: "80" })),
+            el("div", {}, field("p-rc" + i, t("rPrice"), r.price, (v) => { r.price = v; }, { placeholder: t("pricePh"), maxlength: "40" }))))),
+        d.retreats.length < 6 ? el("div", { class: "row" }, el("button", { type: "button", class: "ghost", id: "add-retreat", onclick: () => { d.retreats.push(blank()); render(); const f = document.getElementById("p-rt" + (d.retreats.length - 1)); if (f) f.focus(); } }, "+ " + t("addRetreat"))) : null,
 
         st.error ? el("p", { class: "err", role: "alert" }, st.error) : null,
         st.note ? el("p", { class: "ok", role: "status" }, st.note) : null,
@@ -355,7 +377,13 @@
           el("label", { for: "p-new" }, t("pwNew") + " · " + t("pwHint")), el("input", { type: "password", id: "p-new", name: "next", autocomplete: "new-password", maxlength: "100" }),
           st.pwError ? el("p", { class: "err", role: "alert" }, st.pwError) : null, st.pwNote ? el("p", { class: "ok", role: "status" }, st.pwNote) : null,
           el("div", { class: "row" }, el("button", { class: "ghost", type: "submit" }, t("pwDo")))),
-        el("p", { class: "fine", style: "margin-top:34px" }, el("button", { type: "button", class: "linkish", onclick: leave }, t("out"))),
+        el("p", { class: "fine", style: "margin-top:34px" }, el("button", { type: "button", class: "linkish", onclick: leave }, t("out")), " · ",
+          el("button", { type: "button", class: "linkish", onclick: () => { st.del = !st.del; st.delError = ""; render(); } }, t("del"))),
+        st.del ? el("form", { novalidate: true, onsubmit: (e) => { e.preventDefault(); removeMe(e.target); } },
+          el("p", { class: "fine" }, t("delHint")),
+          el("label", { for: "p-del" }, t("pw")), el("input", { type: "password", id: "p-del", name: "password", autocomplete: "current-password", maxlength: "100" }),
+          st.delError ? el("p", { class: "err", role: "alert" }, st.delError) : null,
+          el("div", { class: "row" }, el("button", { class: "ghost on", type: "submit" }, t("delDo")))) : null,
       ];
     }
     async function save() {
@@ -365,6 +393,35 @@
       try { const d = await api("POST", { save: st.d }); st.me = d.me; st.d = draft(d.me); st.note = t("saved"); }
       catch (e) { if (e.status === 401) return leave(); st.error = say(e); }
       st.busy = false; render();
+      // new words: the profile is written from them right away
+      if (!st.error && st.me.written === "stale") build();
+    }
+    // the teacher's words become the club's profile, in the six languages; the form stays usable meanwhile
+    async function build() {
+      if (st.writing) return;
+      st.writing = true; st.error = ""; st.note = ""; render();
+      try { const d = await api("POST", { build: true }); st.me = d.me; st.note = t("written"); }
+      catch (e) { if (e.status === 401) return leave(); st.error = t(e.code === "busy" ? "errBusy" : "writeFail"); }
+      st.writing = false; render();
+    }
+    // the written profile, in the language of this page, for the teacher to check
+    function read(me) {
+      const b = me.bio && me.bio.bio && (me.bio.bio[lang] || me.bio.bio.en);
+      if (!b) return null;
+      const role = me.bio.role && (me.bio.role[lang] || me.bio.role.en);
+      return el("div", { class: "read" + (me.written === "ready" ? "" : " old") },
+        el("p", { class: "fine" }, t("hRead")),
+        role ? el("p", { class: "fine", dir: "auto" }, role) : null,
+        b.lead ? el("p", { class: "lead", dir: "auto" }, b.lead) : null,
+        [b.bio, b.train, b.help].filter(Boolean).map((x) => el("p", { dir: "auto" }, x)),
+        b.teaches ? [el("p", { class: "fine" }, b.teachesH), el("p", { dir: "auto" }, b.teaches)] : null,
+        b.way ? [el("p", { class: "fine" }, b.wayH), el("p", { dir: "auto" }, b.way)] : null,
+        b.quote ? el("p", { class: "q", dir: "auto" }, "“" + b.quote + "”") : null);
+    }
+    async function removeMe(form) {
+      st.delError = "";
+      try { await api("POST", { remove: { password: form.password.value } }); leave(); }
+      catch (e) { if (e.status === 401) return leave(); st.delError = say(e); render(); }
     }
     async function password(form) {
       const old = form.old.value, next = form.next.value;

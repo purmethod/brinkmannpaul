@@ -76,5 +76,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/teacher.js": {
+      "maxDuration": 60
+    }
+  }
 }
