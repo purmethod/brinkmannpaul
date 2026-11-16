@@ -258,7 +258,7 @@
       for (const tag of navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]) { const l = String(tag).toLowerCase().slice(0, 2); if (LANGS.includes(l)) { lang = l; break; } }
     }
     const t = (k) => L[lang][k] || L.en[k] || k;
-    const st = { view: "login", token: "", me: null, d: null, busy: false, error: "", note: "", pwNote: "", pwError: "", picBusy: 0, locating: false, speaking: false, writing: false, del: false, delError: "" };
+    const st = { view: new URLSearchParams(location.search).has("new") ? "register" : "login", token: "", me: null, d: null, busy: false, error: "", note: "", pwNote: "", pwError: "", picBusy: 0, locating: false, speaking: false, writing: false, del: false, delError: "" };
     try { st.token = localStorage.getItem(KEY) || ""; } catch { /* private mode */ }
 
     function el(tag, attrs, ...kids) {

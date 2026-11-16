@@ -19,3 +19,5 @@ foyo club (forever young), formerly soma flow club. Paul Brinkmann. myfoyo.com s
 - it runs on `brinkmannpaul.com/api/teacher` (`dist/api/teacher.js`): each account is a stripe customer (metadata foyo_account), the password a salted scrypt hash, the photos in the blob store foyo-teachers. no database, no new environment variable.
 - a profile is on the site only after paul confirmed it in `/admin` (section "lehrer": confirm and set the address, take it off the site, new password, delete).
 - on the site (`app.js`, `loadProfiles`): 📍 and the town under the circle on the start page; on the teacher's page the place, the whatsapp group, prices, payment and the next retreat. an account whose address is a hand-built page (`paul`, `nafisa`, `yury`, `judit`) adds these to that page; any other address is the teacher's own page, drawn by `t/index.html` (rewrite in `vercel.json`) from their photos and words.
+
+- "join the circle" (the free place in the team) opens the registration (`/login/?new=1`); the old application page `/apply` redirects there.

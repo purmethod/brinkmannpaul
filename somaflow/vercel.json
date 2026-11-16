@@ -34,6 +34,16 @@
       "permanent": false
     },
     {
+      "source": "/apply/",
+      "destination": "/login/?new=1",
+      "permanent": false
+    },
+    {
+      "source": "/apply",
+      "destination": "/login/?new=1",
+      "permanent": false
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true

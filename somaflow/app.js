@@ -590,7 +590,7 @@
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
   const team = () => el("div", { class: "team" }, members().map((m) => m.soon
-    ? el("a", { class: "member soon", href: "/apply" }, el("span", { class: "ring" }, lotus()), el("span", { class: "nm" }, c("join")))
+    ? el("a", { class: "member soon", href: "/login/?new=1" }, el("span", { class: "ring" }, lotus()), el("span", { class: "nm" }, c("join")))
     : el("a", { class: "member", href: "/" + m.id },
       el("span", { class: "ring" }, m.img ? el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" }) : lotus()),
       el("span", { class: "nm" }, m.name, roleOf(m) ? el("span", { class: "rl" }, roleLines(roleOf(m))) : null, m.motto ? el("span", { class: "rl motto-line" }, m.motto) : null,
