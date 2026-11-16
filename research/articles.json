@@ -1799,7 +1799,7 @@
         "en": {
           "title": "How do home microbes relate to land use and asthma?",
           "dek": "A study of 95 homes finds different patterns for bacterial and fungal diversity.",
-          "intro": "Indoor microbial diversity is not a single measure of a healthy building. Maestre and colleagues examined how household dust communities related to surroundings and asthma status.",
+          "intro": "A home is shaped by its surroundings, even in its dust. The air that moves through it carries traces of fields, streets and gardens. I wonder whether that invisible life has anything to do with the health of the people inside. A study of 95 homes compared the microbes in the dust of their heating, ventilation and air conditioning systems with the land around each home and with childhood asthma.",
           "sections": [
             [
               "The study",
@@ -1811,7 +1811,7 @@
             ],
             [
               "Architectural interpretation",
-              "Building research should distinguish microbial groups, community composition and exposure context. 'More diversity is healthier' is not a conclusion supported across these results."
+              "For me, a building does not end at its walls. Here the land around each home went together with the microbes in its indoor dust: less development with greater bacterial richness, more development with greater fungal richness. Homes with childhood asthma showed more bacterial and less fungal diversity, not less of both. So I do not read 'more diversity is healthier' in these results. The study observed, it did not test a cause. It tells me to ask which microbes, not only how many, when we study how a home meets the land around it."
             ],
             [
               "Limits and conclusion",
@@ -1822,7 +1822,7 @@
         "de": {
           "title": "Wie hängen Hausmikroben mit Flächennutzung und Asthma zusammen?",
           "dek": "Eine Untersuchung von 95 Haushalten findet unterschiedliche Muster für bakterielle und pilzliche Diversität.",
-          "intro": "Mikrobielle Vielfalt in Innenräumen ist kein einheitlicher Maßstab für ein gesundes Gebäude. Maestre und Kollegen untersuchten die Beziehung von Staubgemeinschaften zu Umgebung und Asthmastatus.",
+          "intro": "Ein Haus wird von seiner Umgebung geprägt, bis in seinen Staub. Die Luft, die durch es strömt, trägt Spuren von Feldern, Straßen und Gärten. Ich frage mich, ob dieses unsichtbare Leben etwas mit der Gesundheit der Menschen darin zu tun hat. Eine Studie mit 95 Häusern verglich die Mikroben im Staub ihrer Anlagen für Heizung, Lüftung und Klima mit der Landschaft um jedes Haus und mit Asthma bei Kindern.",
           "sections": [
             [
               "Die Studie",
@@ -1834,7 +1834,7 @@
             ],
             [
               "Einordnung für die Architektur",
-              "Gebäudeforschung sollte mikrobielle Gruppen, Zusammensetzung und Expositionskontext unterscheiden. 'Mehr Vielfalt ist gesünder' wird durch diese Ergebnisse nicht allgemein gestützt."
+              "Für mich endet ein Gebäude nicht an seinen Wänden. Hier hing die Umgebung jedes Hauses mit den Mikroben in seinem Innenraumstaub zusammen: weniger Bebauung mit größerem bakteriellem Artenreichtum, mehr Bebauung mit größerem pilzlichem Artenreichtum. Häuser mit Asthma bei Kindern zeigten mehr bakterielle und weniger pilzliche Vielfalt, nicht weniger von beidem. Deshalb lese ich in diesen Ergebnissen kein 'mehr Vielfalt ist gesünder'. Die Studie hat beobachtet, keine Ursache getestet. Sie sagt mir, dass wir fragen sollten, welche Mikroben, nicht nur wie viele, wenn wir untersuchen, wie ein Haus dem Land um sich begegnet."
             ],
             [
               "Grenzen und Fazit",
@@ -1845,7 +1845,7 @@
         "fr": {
           "title": "Comment les microbes domestiques sont-ils liés à l’usage du sol et à l’asthme ?",
           "dek": "Une étude de 95 logements observe des tendances différentes pour la diversité bactérienne et fongique.",
-          "intro": "La diversité microbienne intérieure n’est pas une mesure unique d’un bâtiment sain. Maestre et ses collègues ont étudié les liens des communautés de poussière avec l’environnement et l’asthme.",
+          "intro": "Une maison est façonnée par ce qui l'entoure, jusque dans sa poussière. L'air qui la traverse porte des traces de champs, de rues et de jardins. Je me demande si cette vie invisible a un lien avec la santé des personnes qui y vivent. Une étude de 95 logements a comparé les microbes de la poussière des systèmes de chauffage, ventilation et climatisation avec l'usage du sol autour de chaque logement et avec l'asthme des enfants.",
           "sections": [
             [
               "L’étude",
@@ -1857,7 +1857,7 @@
             ],
             [
               "Interprétation architecturale",
-              "La recherche sur le bâtiment doit distinguer groupes microbiens, composition et contexte d’exposition. L’affirmation 'plus de diversité est plus sain' n’est pas globalement étayée par ces résultats."
+              "Pour moi, un bâtiment ne s'arrête pas à ses murs. Ici, l'environnement de chaque logement allait de pair avec les microbes de sa poussière intérieure : moins de bâti avec une richesse bactérienne plus grande, plus de bâti avec une richesse fongique plus grande. Les logements avec asthme infantile montraient plus de diversité bactérienne et moins de diversité fongique, pas moins des deux. Je ne lis donc pas dans ces résultats que 'plus de diversité est plus sain'. L'étude a observé, elle n'a pas testé de cause. Elle me dit de regarder quels microbes, pas seulement combien, quand nous étudions comment une maison rencontre le territoire qui l'entoure."
             ],
             [
               "Limites et conclusion",
@@ -1868,7 +1868,7 @@
         "es": {
           "title": "¿Cómo se relacionan los microbios del hogar con el uso del suelo y el asma?",
           "dek": "Un estudio de 95 hogares encuentra patrones distintos de diversidad bacteriana y fúngica.",
-          "intro": "La diversidad microbiana interior no es una medida única de un edificio saludable. Maestre y sus colegas estudiaron cómo las comunidades del polvo se relacionaban con el entorno y el asma.",
+          "intro": "Una casa está marcada por su entorno, hasta en su polvo. El aire que la atraviesa lleva huellas de campos, calles y jardines. Me pregunto si esa vida invisible tiene algo que ver con la salud de quienes viven dentro. Un estudio de 95 hogares comparó los microbios del polvo de los sistemas de calefacción, ventilación y aire acondicionado con el uso del suelo alrededor de cada hogar y con el asma infantil.",
           "sections": [
             [
               "El estudio",
@@ -1880,7 +1880,7 @@
             ],
             [
               "Interpretación arquitectónica",
-              "La investigación de edificios debe distinguir grupos microbianos, composición y contexto de exposición. La afirmación 'más diversidad es más saludable' no está respaldada de forma general por estos resultados."
+              "Para mí, un edificio no termina en sus muros. Aquí el entorno de cada hogar se asoció con los microbios de su polvo interior: menos urbanización con mayor riqueza bacteriana, más urbanización con mayor riqueza fúngica. Los hogares con asma infantil mostraron más diversidad bacteriana y menos diversidad fúngica, no menos de ambas. Por eso no leo en estos resultados que 'más diversidad es más saludable'. El estudio observó, no puso a prueba una causa. Me dice que miremos qué microbios, no solo cuántos, cuando estudiamos cómo una casa se encuentra con el territorio que la rodea."
             ],
             [
               "Límites y conclusión",
@@ -1891,7 +1891,7 @@
         "ar": {
           "title": "كيف ترتبط ميكروبات المنازل باستخدام الأراضي والربو؟",
           "dek": "دراسة في 95 منزلاً تجد أنماطاً مختلفة للتنوع البكتيري والفطري.",
-          "intro": "ليس التنوع الميكروبي الداخلي مقياساً موحداً لصحة المبنى. وبحث مايستري وزملاؤه علاقة مجتمعات الغبار بالبيئة المحيطة وحالة الربو.",
+          "intro": "يتشكّل البيت بما يحيط به، حتى في غباره. الهواء الذي يمرّ عبره يحمل آثار الحقول والشوارع والحدائق. أتساءل هل لهذه الحياة غير المرئية صلة بصحة من يعيشون فيه. قارنت دراسة في 95 منزلًا الميكروبات في غبار أنظمة التدفئة والتهوية والتكييف باستخدام الأراضي حول كل منزل وبالربو لدى الأطفال.",
           "sections": [
             [
               "الدراسة",
@@ -1903,7 +1903,7 @@
             ],
             [
               "قراءة معمارية",
-              "يجب أن تميّز أبحاث المباني المجموعات الميكروبية وتركيب المجتمع وسياق التعرض. ولا تدعم النتائج عموماً مقولة 'كلما زاد التنوع تحسنت الصحة'."
+              "بالنسبة لي، لا ينتهي المبنى عند جدرانه. هنا ارتبطت البيئة المحيطة بكل منزل بالميكروبات في غباره الداخلي: عمران أقل مع غنى بكتيري أعلى، وعمران أكثر مع غنى فطري أعلى. وأظهرت منازل الأطفال المصابين بالربو تنوعًا بكتيريًا أعلى وتنوعًا فطريًا أقل، لا تنوعًا أقل في الاثنين. لذلك لا أقرأ في هذه النتائج أن 'زيادة التنوع تعني صحة أفضل'. الدراسة رصدت ولم تختبر سببًا. تقول لي أن ننظر إلى أي الميكروبات، لا إلى عددها فقط، عندما ندرس كيف يلتقي البيت بالأرض من حوله."
             ],
             [
               "الحدود والخلاصة",
@@ -1914,7 +1914,7 @@
         "ru": {
           "title": "Как домашние микробы связаны с землепользованием и астмой?",
           "dek": "Исследование 95 домов выявляет разные закономерности бактериального и грибкового разнообразия.",
-          "intro": "Микробное разнообразие помещения не является единым показателем здорового здания. Маэстре и коллеги изучили связи сообществ пыли с окружением и астмой.",
+          "intro": "Дом формируется своим окружением, вплоть до пыли. Воздух, который проходит через него, несёт следы полей, улиц и садов. Я задаюсь вопросом, связана ли эта невидимая жизнь со здоровьем людей внутри. Исследование 95 домов сравнило микробы в пыли систем отопления, вентиляции и кондиционирования с землепользованием вокруг каждого дома и с детской астмой.",
           "sections": [
             [
               "Исследование",
@@ -1926,7 +1926,7 @@
             ],
             [
               "Архитектурная интерпретация",
-              "Исследования зданий должны различать группы микробов, состав сообществ и контекст воздействия. Утверждение 'больше разнообразия означает здоровее' не поддерживается всеми этими результатами."
+              "Для меня здание не заканчивается на своих стенах. Здесь окружение каждого дома было связано с микробами в его внутренней пыли: меньше застройки с большим бактериальным богатством, больше застройки с большим грибковым богатством. Дома с детской астмой показали большее бактериальное и меньшее грибковое разнообразие, а не меньшее разнообразие того и другого. Поэтому я не вижу в этих результатах правила 'больше разнообразия значит здоровее'. Исследование наблюдало, оно не проверяло причину. Оно говорит мне смотреть на то, какие микробы, а не только сколько их, когда мы изучаем, как дом встречается с землёй вокруг."
             ],
             [
               "Ограничения и вывод",
@@ -1935,7 +1935,7 @@
           ]
         }
       },
-      "modified": "2026-11-05"
+      "modified": "2026-11-16"
     },
     {
       "slug": "how-do-urban-scenes-shape-brain-signals",
@@ -1948,7 +1948,7 @@
         "en": {
           "title": "How do urban scenes relate to brain signals?",
           "dek": "An EEG study distinguishes early visual processing from later appraisal of street images.",
-          "intro": "A street scene combines vegetation, buildings, vehicles, sky and visual geometry. Zähme and colleagues examined how these features related to brain responses and judgments.",
+          "intro": "When you walk down a street, you see trees, facades, cars and a strip of sky before you have a single thought about them. I wonder what the brain does with that first glance, and what it does a moment later, when it judges. A laboratory study recorded EEG while people looked at photographs of city streets and rated them.",
           "sections": [
             [
               "The study",
@@ -1960,7 +1960,7 @@
             ],
             [
               "Architectural interpretation",
-              "Street composition and geometry can be studied at different stages of visual processing. The results caution against assuming that a single feature, such as more visible sky, is always preferred."
+              "For me, a street is composed like a room: greenery, facades, edges and the opening to the sky. Here more greenery relative to built structure went together with more positive ratings and a larger early brain response (P1). Straight edges went together with a stronger early response of their own (N1). More visible sky and greater depth went together with more negative ratings in this image set. That surprised me. It is a warning against simple rules such as 'more open is always better'. These were photographs in a laboratory, not a walk through a real street. The study tells me that we perceive a street in stages, and that each stage deserves its own question."
             ],
             [
               "Limits and conclusion",
@@ -1971,7 +1971,7 @@
         "de": {
           "title": "Wie hängen Stadtszenen mit Gehirnsignalen zusammen?",
           "dek": "Eine EEG-Studie unterscheidet frühe visuelle Verarbeitung von späterer Bewertung von Straßenbildern.",
-          "intro": "Ein Straßenbild verbindet Vegetation, Gebäude, Fahrzeuge, Himmel und visuelle Geometrie. Zähme und Kollegen untersuchten deren Zusammenhang mit Gehirnreaktionen und Bewertungen.",
+          "intro": "Wenn du eine Straße entlanggehst, siehst du Bäume, Fassaden, Autos und einen Streifen Himmel, bevor du einen einzigen Gedanken daran verschwendest. Ich frage mich, was das Gehirn mit diesem ersten Blick macht, und was einen Moment später, wenn es urteilt. Eine Laborstudie zeichnete das EEG auf, während Menschen Fotos von Stadtstraßen betrachteten und bewerteten.",
           "sections": [
             [
               "Die Studie",
@@ -1983,7 +1983,7 @@
             ],
             [
               "Einordnung für die Architektur",
-              "Straßenkomposition und Geometrie lassen sich auf verschiedenen Verarbeitungsstufen untersuchen. Die Ergebnisse warnen vor der Annahme, dass ein einzelnes Merkmal wie mehr sichtbarer Himmel immer bevorzugt wird."
+              "Für mich ist eine Straße komponiert wie ein Raum: Grün, Fassaden, Kanten und die Öffnung zum Himmel. Hier ging mehr Grün im Verhältnis zur Bebauung mit positiveren Bewertungen und einer größeren frühen Gehirnantwort (P1) einher. Gerade Kanten gingen mit einer eigenen, stärkeren frühen Antwort (N1) einher. Mehr sichtbarer Himmel und größere Tiefe gingen in diesem Bildsatz mit negativeren Bewertungen einher. Das hat mich überrascht. Es warnt vor einfachen Regeln wie 'offener ist immer besser'. Es waren Fotos im Labor, kein Gang durch eine echte Straße. Die Studie sagt mir, dass wir eine Straße in Stufen wahrnehmen und dass jede Stufe ihre eigene Frage verdient."
             ],
             [
               "Grenzen und Fazit",
@@ -1994,7 +1994,7 @@
         "fr": {
           "title": "Quels liens entre les scènes urbaines et les signaux cérébraux ?",
           "dek": "Une étude EEG distingue le traitement visuel précoce de l’évaluation ultérieure d’images de rues.",
-          "intro": "Une scène de rue associe végétation, bâtiments, véhicules, ciel et géométrie visuelle. Zähme et ses collègues ont examiné leurs liens avec les réponses cérébrales et les jugements.",
+          "intro": "Quand tu marches dans une rue, tu vois des arbres, des façades, des voitures et une bande de ciel avant même d'y penser. Je me demande ce que le cerveau fait de ce premier regard, et ce qu'il fait un instant plus tard, quand il juge. Une étude en laboratoire a enregistré l'EEG pendant que des personnes regardaient des photos de rues urbaines et les évaluaient.",
           "sections": [
             [
               "L’étude",
@@ -2006,7 +2006,7 @@
             ],
             [
               "Interprétation architecturale",
-              "La composition et la géométrie des rues peuvent être étudiées à différentes étapes du traitement visuel. Les résultats invitent à ne pas supposer qu’un élément, comme davantage de ciel visible, est toujours préféré."
+              "Pour moi, une rue se compose comme une pièce : la végétation, les façades, les arêtes et l'ouverture vers le ciel. Ici, davantage de végétation par rapport au bâti allait de pair avec des appréciations plus positives et une réponse cérébrale précoce plus grande (P1). Les arêtes droites allaient de pair avec une réponse précoce plus forte qui leur était propre (N1). Davantage de ciel visible et une profondeur plus grande allaient de pair avec des appréciations plus négatives dans cet ensemble d'images. Cela m'a surpris. C'est une mise en garde contre les règles simples comme 'plus ouvert est toujours mieux'. Il s'agissait de photos en laboratoire, pas d'une marche dans une vraie rue. L'étude me dit que nous percevons une rue par étapes, et que chaque étape mérite sa propre question."
             ],
             [
               "Limites et conclusion",
@@ -2017,7 +2017,7 @@
         "es": {
           "title": "¿Cómo se relacionan las escenas urbanas con las señales cerebrales?",
           "dek": "Un estudio de EEG distingue el procesamiento visual temprano de la valoración posterior de imágenes de calles.",
-          "intro": "Una escena callejera combina vegetación, edificios, vehículos, cielo y geometría visual. Zähme y sus colegas examinaron sus relaciones con respuestas cerebrales y valoraciones.",
+          "intro": "Cuando caminas por una calle, ves árboles, fachadas, coches y una franja de cielo antes de pensar nada sobre ello. Me pregunto qué hace el cerebro con esa primera mirada, y qué hace un momento después, cuando juzga. Un estudio de laboratorio registró el EEG mientras varias personas miraban fotografías de calles urbanas y las valoraban.",
           "sections": [
             [
               "El estudio",
@@ -2029,7 +2029,7 @@
             ],
             [
               "Interpretación arquitectónica",
-              "La composición y la geometría de las calles pueden estudiarse en distintas etapas del procesamiento visual. Los resultados cuestionan asumir que un solo rasgo, como más cielo visible, siempre se prefiere."
+              "Para mí, una calle se compone como una habitación: vegetación, fachadas, bordes y la apertura al cielo. Aquí más vegetación respecto a lo construido se asoció con valoraciones más positivas y una respuesta cerebral temprana mayor (P1). Los bordes rectos se asociaron con una respuesta temprana propia más intensa (N1). Más cielo visible y mayor profundidad se asociaron con valoraciones más negativas en este conjunto de imágenes. Eso me sorprendió. Es una advertencia contra reglas simples como 'más abierto siempre es mejor'. Eran fotografías en un laboratorio, no un paseo por una calle real. El estudio me dice que percibimos una calle por etapas, y que cada etapa merece su propia pregunta."
             ],
             [
               "Límites y conclusión",
@@ -2040,7 +2040,7 @@
         "ar": {
           "title": "كيف ترتبط المشاهد الحضرية بإشارات الدماغ؟",
           "dek": "دراسة لتخطيط الدماغ تميّز المعالجة البصرية المبكرة من التقييم اللاحق لصور الشوارع.",
-          "intro": "يجمع مشهد الشارع النباتات والمباني والمركبات والسماء والهندسة البصرية. وبحثت زيمه وزملاؤها علاقة هذه السمات باستجابات الدماغ والتقييمات.",
+          "intro": "حين تمشي في شارع، ترى الأشجار والواجهات والسيارات وشريطًا من السماء قبل أن تفكر في شيء منها. أتساءل ماذا يفعل الدماغ بهذه النظرة الأولى، وماذا يفعل بعد لحظة حين يحكم. سجّلت دراسة مخبرية تخطيط الدماغ بينما كان أشخاص ينظرون إلى صور شوارع حضرية ويقيّمونها.",
           "sections": [
             [
               "الدراسة",
@@ -2052,7 +2052,7 @@
             ],
             [
               "قراءة معمارية",
-              "يمكن دراسة تركيب الشارع وهندسته في مراحل مختلفة من المعالجة البصرية. وتحذّر النتائج من افتراض أن سمة واحدة، مثل زيادة السماء المرئية، مفضلة دائماً."
+              "بالنسبة لي، يُركَّب الشارع كما تُركَّب الغرفة: الخضرة والواجهات والحواف والانفتاح على السماء. هنا ارتبطت خضرة أكثر نسبةً إلى العناصر المبنية بتقييمات أكثر إيجابية واستجابة دماغية مبكرة أكبر (P1). وارتبطت الحواف المستقيمة باستجابة مبكرة خاصة بها أقوى (N1). وارتبطت سماء مرئية أكثر وعمق أكبر بتقييمات أكثر سلبية ضمن مجموعة الصور هذه. فاجأني ذلك. إنه تحذير من القواعد البسيطة مثل 'الأكثر انفتاحًا أفضل دائمًا'. كانت هذه صورًا في مختبر، لا سيرًا في شارع حقيقي. تقول لي الدراسة إننا ندرك الشارع على مراحل، وإن كل مرحلة تستحق سؤالها الخاص."
             ],
             [
               "الحدود والخلاصة",
@@ -2063,7 +2063,7 @@
         "ru": {
           "title": "Как городские сцены связаны с сигналами мозга?",
           "dek": "Исследование ЭЭГ отличает раннюю зрительную обработку от последующей оценки уличных изображений.",
-          "intro": "Уличная сцена сочетает растения, здания, автомобили, небо и визуальную геометрию. Zähme и коллеги изучили связи этих признаков с реакциями мозга и оценками.",
+          "intro": "Когда ты идёшь по улице, ты видишь деревья, фасады, машины и полоску неба раньше, чем успеваешь о них подумать. Я задаюсь вопросом, что мозг делает с этим первым взглядом и что он делает мгновение спустя, когда оценивает. Лабораторное исследование записывало ЭЭГ, пока люди смотрели на фотографии городских улиц и оценивали их.",
           "sections": [
             [
               "Исследование",
@@ -2075,7 +2075,7 @@
             ],
             [
               "Архитектурная интерпретация",
-              "Композицию и геометрию улицы можно изучать на разных этапах зрительной обработки. Результаты предостерегают от предположения, что отдельный признак, например больше видимого неба, всегда предпочтителен."
+              "Для меня улица сложена как комната: зелень, фасады, края и просвет неба. Здесь больше зелени относительно застройки было связано с более положительными оценками и большей ранней реакцией мозга (P1). Прямые края были связаны с собственной, более сильной ранней реакцией (N1). Больше видимого неба и большая глубина были связаны с более негативными оценками в этом наборе изображений. Это меня удивило. Это предостережение от простых правил вроде 'чем открытее, тем лучше'. Это были фотографии в лаборатории, а не прогулка по настоящей улице. Исследование говорит мне, что мы воспринимаем улицу поэтапно и что каждый этап заслуживает собственного вопроса."
             ],
             [
               "Ограничения и вывод",
@@ -2084,7 +2084,7 @@
           ]
         }
       },
-      "modified": "2026-11-05"
+      "modified": "2026-11-16"
     },
     {
       "slug": "can-daily-green-exposure-support-memory",

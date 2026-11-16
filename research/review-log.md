@@ -23,6 +23,8 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | does-a-nature-walk-change-resting-brain-activity | done 2026-11-15 |
 | can-nature-art-change-our-brain-response | done 2026-11-15 |
 | can-biodiverse-playgrounds-change-immunity | done 2026-11-15 |
+| does-home-microbiome-relate-to-asthma | done 2026-11-16 |
+| how-do-urban-scenes-shape-brain-signals | done 2026-11-16 |
 | all other articles | open |
 
 ## 2026-11-07
@@ -79,3 +81,10 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 011 can-nature-art-change-our-brain-response: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. Study, numbers and limits unchanged (verified against the full text).
 - 012 can-biodiverse-playgrounds-change-immunity: voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states non individual randomization, the short follow up and that no disease prevention or brain effect was shown. Study, numbers and limits unchanged (verified against the PMC full text).
 - Open verification points of 016, 017, 019 and 020 unchanged (no fetch access in this run).
+
+## 2026-11-16
+
+- No new or changed articles on main since the 2026-11-15 run. All 21 articles have a source audit entry; research tests green on main.
+- 016, 017, 019, 020 and 021 (open verification points): nature.com and PMC fetches blocked again in this unattended run (permission not answered). Search index confirms the PMC record PMC11549482 and the DOAJ record for 021 and the full title of 020; no snippets with numbers. No content change; open points stay marked NOT yet verified.
+- 013 does-home-microbiome-relate-to-asthma: relevance confirmed (land use around the home and indoor HVAC dust microbiome linked to childhood asthma). Voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states that asthma homes showed more bacterial and less fungal diversity, that 'more diversity is healthier' is not supported, and that the study observed without testing a cause. Study, numbers and limits unchanged.
+- 014 how-do-urban-scenes-shape-brain-signals: relevance confirmed (street composition and geometry linked to EEG responses and appraisal). Voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section keeps the negative appraisal of more sky and depth within this image set and the photographs-only limit. Study, numbers and limits unchanged.
