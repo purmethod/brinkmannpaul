@@ -21,3 +21,9 @@ foyo club (forever young), formerly soma flow club. Paul Brinkmann. myfoyo.com s
 - on the site (`app.js`, `loadProfiles`): 📍 and the town under the circle on the start page; on the teacher's page the place, the whatsapp group, prices, payment and the next retreat. an account whose address is a hand-built page (`paul`, `nafisa`, `yury`, `judit`) adds these to that page; any other address is the teacher's own page, drawn by `t/index.html` (rewrite in `vercel.json`) from their photos and words.
 
 - "join the circle" (the free place in the team) opens the registration (`/login/?new=1`); the old application page `/apply` redirects there.
+
+## reader first, newsletter (16 nov 2026)
+
+- a teacher's profile is drawn in one order for everyone (`renderBio` in `app.js`): the line to the reader, what the student gets (`help`), who the teacher is (`bio`), what they teach, their way, their own words; the teacher's path and history (`train`) stand at the bottom under "about …". the model that writes a profile is told the same (`WRITE` in `dist/api/teacher.js`).
+- while no date is set in `dist/api/_soma.js`, the start page says that the next date will be announced and offers the newsletter instead of the sign-up (no price, no place to reserve). with a date the sign-up is back and the newsletter stands under it.
+- newsletter sign-ups go to `brinkmannpaul.com/api/news` (`dist/api/news.js`): stripe customers with metadata foyo_news, `confirmed: "no"`. nothing is sent yet; the sending (sundays at 18:00, reminders before a session or retreat) and the confirmation by mail are still to be built.

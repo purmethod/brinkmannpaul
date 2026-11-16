@@ -176,7 +176,7 @@
               photos.length ? el("div", { class: "dots" }, photos.map((u) => el("img", { src: u, alt: "", loading: "lazy" }))) : el("p", { class: "fine" }, "noch keine fotos."),
               facts.map((f) => el("p", {}, f)),
               el("p", { class: "fine" }, state),
-              b ? [b.lead, b.bio, b.train, b.help, b.teaches ? b.teachesH + ": " + b.teaches : "", b.way ? b.wayH + ": " + b.way : "", b.quote ? "„" + b.quote + "“" : ""].filter(Boolean).map((x) => el("p", {}, x)) : null,
+              b ? [b.lead, b.help, b.bio, b.teaches ? b.teachesH + ": " + b.teaches : "", b.way ? b.wayH + ": " + b.way : "", b.quote ? "„" + b.quote + "“" : "", b.train ? "unten, über die person: " + b.train : ""].filter(Boolean).map((x) => el("p", {}, x)) : null,
               a.about ? [el("p", { class: "fine" }, "eigene worte des lehrers:"), el("p", {}, a.about)] : el("p", { class: "fine" }, "noch kein text."))),
           el("div", { class: "bar" },
             el("span", { class: "fine" }, "myfoyo.com/"), slug,

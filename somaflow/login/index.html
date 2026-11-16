@@ -413,10 +413,12 @@
         el("p", { class: "fine" }, t("hRead")),
         role ? el("p", { class: "fine", dir: "auto" }, role) : null,
         b.lead ? el("p", { class: "lead", dir: "auto" }, b.lead) : null,
-        [b.bio, b.train, b.help].filter(Boolean).map((x) => el("p", { dir: "auto" }, x)),
+        [b.help, b.bio].filter(Boolean).map((x) => el("p", { dir: "auto" }, x)),
         b.teaches ? [el("p", { class: "fine" }, b.teachesH), el("p", { dir: "auto" }, b.teaches)] : null,
         b.way ? [el("p", { class: "fine" }, b.wayH), el("p", { dir: "auto" }, b.way)] : null,
-        b.quote ? el("p", { class: "q", dir: "auto" }, "“" + b.quote + "”") : null);
+        b.quote ? el("p", { class: "q", dir: "auto" }, "“" + b.quote + "”") : null,
+        // their path stands at the bottom of the page, under "about …"
+        b.train ? [el("p", { class: "fine" }, t("hAbout")), el("p", { dir: "auto" }, b.train)] : null);
     }
     async function removeMe(form) {
       st.delError = "";
