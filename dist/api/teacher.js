@@ -39,7 +39,10 @@ const RESERVED = ["admin", "login", "apply", "club", "soon", "photos", "brand", 
 const STATIC = ["paul", "nafisa", "yury", "judit"];
 const PAY = ["cash", "card"];
 const LANGS = { en: "English", de: "German", fr: "French", es: "Spanish", ar: "Arabic", ru: "Russian" };
-const MODEL = "anthropic/claude-sonnet-5.5";
+// the models that may write, the best first. the gateway's free tier does not open every model: one that is
+// closed to this account is skipped, so the profile is written by the best model the account may use
+const MODELS = ["anthropic/claude-sonnet-5.5", "anthropic/claude-haiku-5.5", "anthropic/claude-haiku-4.5", "google/gemini-3-flash", "google/gemini-2.5-flash"];
+const closed = new Map(); // model → when it was found closed; asked again after ten minutes (a top-up opens it)
 // the parts of a profile and how long each may be
 const PARTS = { lead: 160, bio: 600, train: 700, help: 600, teachesH: 80, teaches: 320, wayH: 60, way: 200, quote: 400 };
 const MAX_RETREATS = 6;
@@ -210,22 +213,34 @@ async function placeOf(lat, lon) {
 }
 
 // ---------- the written profile ----------
-async function ask(req, system, user, max) {
+async function ask(req, system, user, max, ms) {
   // on vercel each request carries the deployment's own short-lived token; a key set by hand goes first
   const key = process.env.AI_GATEWAY_API_KEY || req.headers["x-vercel-oidc-token"] || process.env.VERCEL_OIDC_TOKEN;
   if (!key) throw fail("write", 503);
-  const r = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
-    method: "POST",
-    headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: MODEL, max_tokens: max, messages: [{ role: "system", content: system }, { role: "user", content: user }] }),
-    signal: AbortSignal.timeout(50000),
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) { console.error("teacher write", r.status, JSON.stringify(d).slice(0, 400)); throw fail("write", 502); }
-  const said = String((((d.choices || [])[0] || {}).message || {}).content || "");
-  const a = said.indexOf("{"), b = said.lastIndexOf("}");
-  if (a < 0 || b <= a) { console.error("teacher write: no json", said.slice(0, 200)); throw fail("write", 502); }
-  try { return JSON.parse(said.slice(a, b + 1)); } catch { console.error("teacher write: bad json", said.slice(0, 200)); throw fail("write", 502); }
+  const until = Date.now() + ms;
+  for (const model of MODELS) {
+    if (Date.now() - (closed.get(model) || 0) < 10 * MIN) continue;
+    const left = until - Date.now();
+    if (left < 3000) break;
+    const r = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
+      body: JSON.stringify({ model, max_tokens: max, messages: [{ role: "system", content: system }, { role: "user", content: user }] }),
+      signal: AbortSignal.timeout(left),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      console.error("teacher write", model, r.status, JSON.stringify(d).slice(0, 300));
+      // closed to this account (free tier, no credits for it) or unknown here: the next model
+      if ([401, 402, 403, 404].includes(r.status)) { closed.set(model, Date.now()); continue; }
+      throw fail("write", 502);
+    }
+    const said = String((((d.choices || [])[0] || {}).message || {}).content || "");
+    const a = said.indexOf("{"), b = said.lastIndexOf("}");
+    if (a < 0 || b <= a) { console.error("teacher write: no json", model, said.slice(0, 200)); throw fail("write", 502); }
+    try { return { ...JSON.parse(said.slice(a, b + 1)), _model: model }; } catch { console.error("teacher write: bad json", model, said.slice(0, 200)); throw fail("write", 502); }
+  }
+  throw fail("write", 502);
 }
 // one language of a profile, every part a plain line of text within its length
 function shaped(o) {
@@ -268,15 +283,16 @@ async function write(req, c) {
   const said = words(c);
   if (said.length < 40) throw fail("about");
   const first = line(c.name, 40).split(" ")[0];
-  const en = shaped(await ask(req, WRITE, JSON.stringify({ name: first, teaches: c.metadata.role || "", words: said }), 1500));
+  const raw = await ask(req, WRITE, JSON.stringify({ name: first, teaches: c.metadata.role || "", words: said }), 1500, 24000);
+  const en = shaped(raw);
   if (!en.bio || !en.lead) throw fail("write", 502);
   // the five other languages at once; one that fails stays in english rather than stopping the rest
   const codes = Object.keys(LANGS).filter((l) => l !== "en");
-  const done = await Promise.all(codes.map((l) => ask(req, TRANSLATE(LANGS[l]), JSON.stringify(en), 2600).then(shaped).catch((err) => { console.error("teacher write", l, err.message); return null; })));
+  const done = await Promise.all(codes.map((l) => ask(req, TRANSLATE(LANGS[l]), JSON.stringify(en), 2600, 30000).then(shaped).catch((err) => { console.error("teacher write", l, err.message); return null; })));
   const bio = { en: { ...en } }, role = { en: en.role };
   codes.forEach((l, i) => { const t = done[i] && done[i].bio ? done[i] : en; bio[l] = { ...t }; role[l] = t.role || en.role; });
   for (const l of Object.keys(bio)) delete bio[l].role;
-  const url = await putBlob("profiles/" + c.id.slice(4, 14).toLowerCase() + "-profile.json", Buffer.from(JSON.stringify({ v: 1, name: first, at: new Date().toISOString(), role, bio })), "application/json");
+  const url = await putBlob("profiles/" + c.id.slice(4, 14).toLowerCase() + "-profile.json", Buffer.from(JSON.stringify({ v: 1, name: first, at: new Date().toISOString(), by: raw._model, role, bio })), "application/json");
   bios.set(url, { role, bio });
   return stripe("POST", "customers/" + c.id, { metadata: { bio: url, bio_src: source(c), bio_at: new Date().toISOString().slice(0, 10) } });
 }
