@@ -283,12 +283,12 @@ async function write(req, c) {
   const said = words(c);
   if (said.length < 40) throw fail("about");
   const first = line(c.name, 40).split(" ")[0];
-  const raw = await ask(req, WRITE, JSON.stringify({ name: first, teaches: c.metadata.role || "", words: said }), 1500, 24000);
+  const raw = await ask(req, WRITE, JSON.stringify({ name: first, teaches: c.metadata.role || "", words: said }), 8000, 26000); // room for a model that thinks before it writes
   const en = shaped(raw);
   if (!en.bio || !en.lead) throw fail("write", 502);
   // the five other languages at once; one that fails stays in english rather than stopping the rest
   const codes = Object.keys(LANGS).filter((l) => l !== "en");
-  const done = await Promise.all(codes.map((l) => ask(req, TRANSLATE(LANGS[l]), JSON.stringify(en), 2600, 30000).then(shaped).catch((err) => { console.error("teacher write", l, err.message); return null; })));
+  const done = await Promise.all(codes.map((l) => ask(req, TRANSLATE(LANGS[l]), JSON.stringify(en), 8000, 28000).then(shaped).catch((err) => { console.error("teacher write", l, err.message); return null; })));
   const bio = { en: { ...en } }, role = { en: en.role };
   codes.forEach((l, i) => { const t = done[i] && done[i].bio ? done[i] : en; bio[l] = { ...t }; role[l] = t.role || en.role; });
   for (const l of Object.keys(bio)) delete bio[l].role;
