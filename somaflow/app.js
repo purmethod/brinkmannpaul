@@ -552,33 +552,116 @@
   const wimLine = () => el("blockquote", { class: "quote" }, el("p", {}, c("quote")), el("cite", {}, "— wim hof"));
   // ---------- what foyo club is, after the team ----------
   const whatIs = () => { const w = WHAT[st.lang] || WHAT.en; return el("section", { class: "what" }, el("h2", {}, w.h), w.p.map((x) => el("p", {}, x)), el("p", { class: "lead close" }, w.lead)); };
+  // ---------- what the teachers fill in themselves (myfoyo.com/login → brinkmannpaul.com/api/teacher) ----------
+  // where they are now, their whatsapp group, prices, payment, the next retreat; and for a teacher who
+  // registered on their own, the whole profile: photos and their own words
+  const PROF = {
+    en: { now: "currently in", wa: "whatsapp group", cls: "class", ret: "retreat", next: "next retreat", pay: "payment", cash: "cash", card: "card", about: "about", gone: "this page does not exist." },
+    de: { now: "gerade in", wa: "whatsapp-gruppe", cls: "stunde", ret: "retreat", next: "nächstes retreat", pay: "bezahlung", cash: "bar", card: "karte", about: "über", gone: "diese seite gibt es nicht." },
+    fr: { now: "en ce moment à", wa: "groupe whatsapp", cls: "cours", ret: "retraite", next: "prochaine retraite", pay: "paiement", cash: "espèces", card: "carte", about: "à propos de", gone: "cette page n’existe pas." },
+    es: { now: "ahora en", wa: "grupo de whatsapp", cls: "clase", ret: "retiro", next: "próximo retiro", pay: "pago", cash: "efectivo", card: "tarjeta", about: "sobre", gone: "esta página no existe." },
+    ar: { now: "حاليًا في", wa: "مجموعة واتساب", cls: "حصة", ret: "خلوة", next: "الخلوة القادمة", pay: "الدفع", cash: "نقدًا", card: "بطاقة", about: "عن", gone: "هذه الصفحة غير موجودة." },
+    ru: { now: "сейчас:", wa: "группа в whatsapp", cls: "занятие", ret: "ретрит", next: "ближайший ретрит", pay: "оплата", cash: "наличные", card: "карта", about: "о", gone: "такой страницы нет." },
+  };
+  const pf = (k) => (PROF[st.lang] || PROF.en)[k];
+  let profiles = null; // null until the answer is here
+  const profileOf = (id) => (profiles || []).find((p) => p.slug === id) || null;
+  // the team as shown: the pages built by hand, then the teachers who made their own, then the free place
+  const members = () => {
+    const own = (profiles || []).filter((p) => !TEAM.some((m) => m.id === p.slug))
+      .map((p) => ({ id: p.slug, name: p.name, roleText: p.role, img: p.photos[0] || "", alt: p.name, pics: p.photos.slice(1).filter(Boolean).map((u) => [u, p.name]), igs: p.ig ? [p.ig] : null, own: p }));
+    return [...TEAM.filter((m) => !m.soon), ...own, ...TEAM.filter((m) => m.soon)];
+  };
+  const roleOf = (m) => (m.own ? m.roleText : c(m.role));
+  const whereOf = (p, long) => (p && (p.city || p.country) ? "📍 " + (long ? pf("now") + " " + [p.city, p.country].filter(Boolean).join(", ") : p.city || p.country) : "");
+  async function loadProfiles() {
+    try {
+      const r = await fetch("https://brinkmannpaul.com/api/teacher", { cache: "no-store" });
+      const d = await r.json();
+      profiles = Array.isArray(d.teachers) ? d.teachers : [];
+    } catch { profiles = []; }
+    renderTeacher();
+    const old = document.querySelector(".team");
+    if (old) old.replaceWith(team());
+  }
   // ---------- the team ----------
   // under a circle: two subjects on the first line, the rest below, never a dot at a line's end
   const roleLines = (r) => { const p = r.split(" · "); return p.length > 2 ? [p.slice(0, 2).join(" · "), el("br"), p.slice(2).join(" · ")] : r; };
-  const team = () => el("div", { class: "team" }, TEAM.map((m) => m.soon
+  const team = () => el("div", { class: "team" }, members().map((m) => m.soon
     ? el("a", { class: "member soon", href: "/apply" }, el("span", { class: "ring" }, lotus()), el("span", { class: "nm" }, c("join")))
     : el("a", { class: "member", href: "/" + m.id },
-      el("span", { class: "ring" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" })),
-      el("span", { class: "nm" }, m.name, el("span", { class: "rl" }, roleLines(c(m.role))), m.motto ? el("span", { class: "rl motto-line" }, m.motto) : null))));
+      el("span", { class: "ring" }, m.img ? el("img", { src: m.img, alt: m.alt, width: "720", height: "720", loading: "lazy", decoding: "async" }) : lotus()),
+      el("span", { class: "nm" }, m.name, roleOf(m) ? el("span", { class: "rl" }, roleLines(roleOf(m))) : null, m.motto ? el("span", { class: "rl motto-line" }, m.motto) : null,
+        // where the teacher is right now, as they set it themselves
+        whereOf(m.own || profileOf(m.id)) ? el("span", { class: "rl", dir: "auto" }, whereOf(m.own || profileOf(m.id))) : null))));
   // who leads the session
   const host = (m) => el("a", { class: "with", href: "/" + m.id }, el("img", { src: m.img, alt: "", width: "68", height: "68", loading: "lazy", decoding: "async" }), c("with"));
   // a teacher's own page: the circle, the name, what they teach, the way to their sessions
   function renderTeacher() {
     const box = document.getElementById("teacher");
     if (!box) return;
-    const m = TEAM.find((x) => x.id === box.dataset.teacher);
-    if (!m) return;
+    // a page built by hand names its teacher; a teacher's own page is found by its address
+    const id = box.dataset.teacher || location.pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
+    const m = members().find((x) => x.id === id);
+    if (!m) {
+      if (!profiles) return; // still loading
+      const meta = document.createElement("meta"); meta.name = "robots"; meta.content = "noindex"; document.head.append(meta);
+      return box.replaceChildren(el("a", { class: "back", href: "/" }, "← " + c("back")), el("p", { class: "rl" }, pf("gone")));
+    }
+    if (m.own) document.title = m.name + " · foyo club";
+    const p = m.own || profileOf(m.id); // what this teacher filled in, if anything
+    const prices = p ? [p.priceClass ? pf("cls") + " " + p.priceClass : "", p.priceRetreat ? pf("ret") + " " + p.priceRetreat : ""].filter(Boolean).join(" · ") : "";
+    const pay = p && p.pay.length ? pf("pay") + ": " + p.pay.map((x) => pf(x)).join(" · ") : "";
     box.replaceChildren(...[
       el("a", { class: "back", href: "/" }, "← " + c("back")),
-      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }))),
+      el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, m.img ? el("img", { src: m.img, alt: m.alt, width: "720", height: "720", decoding: "async" }) : null)),
       el("h1", {}, m.name),
-      el("p", { class: "rl" }, c(m.role)),
+      roleOf(m) ? el("p", { class: "rl" }, roleOf(m)) : null,
+      whereOf(p, true) ? el("p", { class: "rl", dir: "auto" }, whereOf(p, true)) : null,
       m.motto ? el("p", { class: "rl motto-line" }, m.motto) : null,
       // instagram: a small mark and the handle, never a big button
       m.igs ? el("p", { class: "igs" }, igMark(), m.igs.flatMap((h, i) => [i ? el("span", { "aria-hidden": "true" }, "·") : null, el("a", { href: "https://www.instagram.com/" + h + "/", target: "_blank", rel: "noopener noreferrer" }, "@" + h)]))
         : null,
-      m.book ? el("p", { class: "igs" }, el("a", { href: "/#book" }, c("sessions") + " →")) : null].filter(Boolean));
+      m.book ? el("p", { class: "igs" }, el("a", { href: "/#book" }, c("sessions") + " →")) : null,
+      // the teacher's own whatsapp group: a small mark and a word, like instagram
+      p && p.wa ? el("p", { class: "igs" }, el("a", { href: p.wa, target: "_blank", rel: "noopener noreferrer" }, waMark(), pf("wa"))) : null,
+      prices ? el("p", { class: "rl", dir: "auto" }, prices) : null,
+      pay ? el("p", { class: "rl" }, pay) : null,
+      nextRetreat(p)].flat().filter(Boolean));
     renderBio(m);
+  }
+  const waMark = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "15"); svg.setAttribute("height", "15"); svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = '<path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>'; return svg; };
+  // the next retreat, until its last day has passed
+  function nextRetreat(p) {
+    const r = p && p.retreat;
+    if (!r || !(r.title || r.from)) return null;
+    const today = new Date().toISOString().slice(0, 10);
+    if ((r.to || r.from) && (r.to || r.from) < today) return null;
+    let days = "";
+    if (r.from) {
+      const f = new Intl.DateTimeFormat(st.lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+      const a = new Date(r.from + "T12:00:00Z"), b = r.to && r.to !== r.from ? new Date(r.to + "T12:00:00Z") : null;
+      try { days = b ? (f.formatRange ? f.formatRange(a, b) : f.format(a) + " – " + f.format(b)) : f.format(a); } catch { days = r.from + (b ? " – " + r.to : ""); }
+    }
+    return [el("h2", {}, pf("next")), r.title ? el("p", { dir: "auto" }, r.title) : null, el("p", { class: "rl", dir: "auto" }, [days, r.place, r.price].filter(Boolean).join(" · "))];
+  }
+  // a teacher's own words become the page: the first sentence stands large, the paragraphs follow,
+  // a circle between two of them, never two circles in a row
+  function ownBio(m) {
+    const paras = String(m.own.about || "").split(/\n\s*\n|\n/).map((x) => x.trim()).filter(Boolean);
+    if (!paras.length) return [];
+    const first = /^(.{20,160}?[.!?…。])\s+(.+)$/s.exec(paras[0]);
+    const lead = first ? first[1] : paras[0].length <= 160 ? paras[0] : "";
+    const rest = lead ? (first ? [first[2], ...paras.slice(1)] : paras.slice(1)) : paras;
+    const out = [el("p", { class: "tag" }, pf("about") + " " + m.name), lead ? el("p", { class: "lead", dir: "auto" }, lead) : null];
+    let text = Boolean(lead), pic = 0;
+    rest.forEach((x) => {
+      out.push(el("p", { dir: "auto" }, x)); text = true;
+      if (m.pics[pic] && text) { out.push(circ(m.pics[pic++])); text = false; }
+    });
+    if (!rest.length && m.pics[0]) out.push(circ(m.pics[0]));
+    return out;
   }
   // a teacher's own words, the same shape for everyone: a lead, who they are, their path, what they teach, their line
   const igMark = () => { const n = "http://www.w3.org/2000/svg", svg = document.createElementNS(n, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "15"); svg.setAttribute("height", "15"); svg.setAttribute("aria-hidden", "true");
@@ -586,6 +669,7 @@
   const circ = (p) => (p ? el("figure", { class: "photo" }, el("span", { class: "photo-circle" }, el("img", { src: p[0], alt: p[1], width: "720", height: "720", loading: "lazy", decoding: "async" }))) : null);
   function renderBio(m) {
     const box = document.getElementById("bio");
+    if (box && m.own) return box.replaceChildren(...ownBio(m).filter(Boolean));
     if (!box || !m.bio) return;
     const b = m.bio[st.lang] || m.bio.en;
     box.replaceChildren(...[
@@ -871,4 +955,5 @@
 
   setLang(st.lang);
   if (app) load();
+  if (app || document.getElementById("teacher")) loadProfiles();
 })();

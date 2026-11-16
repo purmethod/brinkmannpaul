@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>login · foyo club</title>
+  <link rel="canonical" href="https://myfoyo.com/login" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink: #5c5c56; --ink3: #7b7b75; --line: #cfcfca; --line2: #e4e4e0; --warn: #8a3b2e; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { background: #fff; color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; text-transform: lowercase; }
+    button, input, textarea { font: inherit; color: inherit; text-transform: none; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    nav.top { position: sticky; top: 0; z-index: 10; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #fff; border-top: 2px solid var(--ink); }
+    nav.top img { height: 44px; width: auto; display: block; }
+    .lsw { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+    .lb { background: #fff; border: 1px solid var(--line); cursor: pointer; padding: 3px 8px; font-size: 13px; min-width: 32px; }
+    .lb[aria-pressed=true] { border-color: var(--ink); }
+    main { max-width: 640px; margin: 0 auto; padding: 44px 20px 80px; outline: none; }
+    .tag { font-size: 12px; letter-spacing: .04em; color: var(--ink3); margin-bottom: 14px; }
+    h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.08; margin-bottom: 18px; font-weight: 400; letter-spacing: -.035em; }
+    h2 { font-size: 12px; font-weight: 400; letter-spacing: .08em; color: var(--ink3); margin: 40px 0 12px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .lead { font-size: 18px; margin-bottom: 22px; }
+    .fine { font-size: 13px; color: var(--ink3); margin: 10px 0; }
+    .fine a { color: inherit; }
+    label { display: block; font-size: 13px; color: var(--ink3); margin: 14px 0 6px; }
+    input[type=text], input[type=email], input[type=password], input[type=url], input[type=date], textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; -webkit-appearance: none; appearance: none; }
+    input[type=date] { min-height: 49px; }
+    textarea { min-height: 190px; resize: vertical; line-height: 1.5; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+    .btn { display: inline-block; padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; text-decoration: none; text-align: center; text-transform: lowercase; }
+    .btn:disabled, .ghost:disabled { opacity: .35; cursor: default; }
+    .ghost { display: inline-block; padding: 10px 16px; border: 1px solid var(--line); background: #fff; cursor: pointer; text-decoration: none; text-align: center; font-size: 14px; color: var(--ink); text-transform: lowercase; }
+    .ghost.on { border-color: var(--warn); color: var(--warn); }
+    .linkish { background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink3); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; text-transform: lowercase; }
+    .acts { display: grid; gap: 12px; margin-top: 26px; }
+    .acts .btn { width: 100%; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 10px; }
+    .err { color: var(--warn); font-size: 14px; margin-top: 12px; }
+    .ok { font-size: 14px; margin-top: 12px; }
+    .state { padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 14px; }
+    .state a { color: inherit; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    /* the photos: three circles in a row, as on the site */
+    .pics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .pic { display: grid; justify-items: center; gap: 8px; text-align: center; }
+    .pic .ring { position: relative; display: block; width: 100%; max-width: 150px; aspect-ratio: 1; border-radius: 50%; background: var(--line2); border: 0; cursor: pointer; padding: 0; }
+    .pic .ring img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .pic .ring:after { content: ""; position: absolute; inset: -5px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); }
+    .pic .ring span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; color: var(--ink3); text-transform: lowercase; }
+    .pic .ring.busy { opacity: .4; }
+    .checks { display: flex; gap: 22px; margin-top: 4px; }
+    .checks label { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; color: var(--ink); }
+    .checks input { width: 20px; height: 20px; accent-color: var(--ink); }
+    .where { font-size: 18px; margin: 4px 0 2px; text-transform: none; }
+    footer { max-width: 640px; margin: 0 auto; padding: 20px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <nav class="top">
+    <a href="/" aria-label="foyo club"><img src="/foyo-club-black.webp?v=2" alt="foyo club" width="385" height="606" /></a>
+    <div class="lsw" role="group" aria-label="language">
+      <button class="lb" type="button" data-lang="en">en</button>
+      <button class="lb" type="button" data-lang="de">de</button>
+      <button class="lb" type="button" data-lang="fr">fr</button>
+      <button class="lb" type="button" data-lang="es">es</button>
+      <button class="lb" type="button" data-lang="ar">ع</button>
+      <button class="lb" type="button" data-lang="ru">ру</button>
+    </div>
+  </nav>
+  <main id="app" tabindex="-1"></main>
+  <footer><span>© paul brinkmann</span></footer>
+  <noscript><p style="padding:20px">this page needs javascript.</p></noscript>
+  <script>
+  // a teacher's own door: register, log in, fill in the profile. everything is checked again on the
+  // server (brinkmannpaul.com/api/teacher); the login is kept on this device for 30 days.
+  (function () {
+    "use strict";
+    const API = "https://brinkmannpaul.com/api/teacher";
+    const KEY = "foyo-teacher";
+    const L = {
+      en: {
+        tag: "foyo club · teachers", hLogin: "login", hReg: "create your profile", hMe: "your profile",
+        name: "your name", email: "email", pw: "password", pwHint: "at least 8 characters",
+        doLogin: "log in", doReg: "register", toReg: "new here? create your profile", toLogin: "already registered? log in",
+        regNote: "for teachers. you fill in your profile yourself: photos, your story, prices, your next retreat. it goes online once paul has confirmed it.",
+        pending: "your profile is waiting for paul's confirmation. fill it in now, it goes online as soon as it is confirmed.",
+        live: "your profile is online:", wait: "one moment…",
+        hPhotos: "photos", photoHint: "up to three photos, shown as circles. the first one is your portrait.", add: "add photo", remove: "remove",
+        hAbout: "about you", role: "what you teach", rolePh: "yoga · breath · meditation", about: "tell us about yourself",
+        aboutHint: "who you are, your path, what you teach. the first sentence stands large at the top of your page. an empty line starts a new paragraph.",
+        speak: "speak", stop: "stop", speakHint: "or use the microphone on your keyboard.", ig: "instagram name",
+        hWa: "whatsapp group", wa: "invite link of your group", hPrice: "prices", pClass: "one class", pRetreat: "a retreat", pricePh: "e.g. 50 €",
+        pay: "payment", cash: "cash", card: "card",
+        hWhere: "where you are now", locate: "find my location", locating: "locating…", city: "town", country: "country",
+        locNote: "only town and country are shown on the site. your exact position is not saved.", noWhere: "no place yet",
+        hRetreat: "your next retreat", rTitle: "title", rFrom: "from", rTo: "to", rPlace: "place", rPrice: "price",
+        save: "save", saved: "saved. your page shows it within a minute.", out: "log out",
+        hPw: "password", pwOld: "current password", pwNew: "new password", pwDo: "change password", pwDone: "your password is changed.",
+        errLogin: "email or password is not right.", errLocked: "too many tries. please try again in 15 minutes.", errExists: "this email is already registered. please log in.",
+        errName: "please write your name.", errEmail: "please check your email address.", errPw: "the password needs at least 8 characters.", errOld: "the current password is not right.",
+        errWa: "that is not a whatsapp invite link. it starts with https://chat.whatsapp.com/", errIg: "that is not an instagram name.", errText: "please no links and no < > in the text.",
+        errRetreat: "please check the retreat: no links, and the end is after the start.", errPhoto: "that photo did not work. please try another one.",
+        errGeo: "your location could not be read. allow location access for this page, or type the town.", errBusy: "that was a lot at once. please try again later.", errAny: "that did not work. please try again.",
+      },
+      de: {
+        tag: "foyo club · lehrer", hLogin: "login", hReg: "leg dein profil an", hMe: "dein profil",
+        name: "dein name", email: "e-mail", pw: "passwort", pwHint: "mindestens 8 zeichen",
+        doLogin: "anmelden", doReg: "registrieren", toReg: "neu hier? leg dein profil an", toLogin: "schon registriert? anmelden",
+        regNote: "für lehrer. du füllst dein profil selbst aus: fotos, deine geschichte, preise, dein nächstes retreat. es geht online, sobald paul es bestätigt hat.",
+        pending: "dein profil wartet auf pauls bestätigung. füll es jetzt aus, es geht online, sobald es bestätigt ist.",
+        live: "dein profil ist online:", wait: "einen moment…",
+        hPhotos: "fotos", photoHint: "bis zu drei fotos, als kreise gezeigt. das erste ist dein porträt.", add: "foto hinzufügen", remove: "entfernen",
+        hAbout: "über dich", role: "was du unterrichtest", rolePh: "yoga · atem · meditation", about: "erzähl von dir",
+        aboutHint: "wer du bist, dein weg, was du unterrichtest. der erste satz steht groß oben auf deiner seite. eine leerzeile beginnt einen neuen absatz.",
+        speak: "sprechen", stop: "stopp", speakHint: "oder nutze das mikrofon auf deiner tastatur.", ig: "instagram-name",
+        hWa: "whatsapp-gruppe", wa: "einladungslink deiner gruppe", hPrice: "preise", pClass: "eine stunde", pRetreat: "ein retreat", pricePh: "z. b. 50 €",
+        pay: "bezahlung", cash: "bar", card: "karte",
+        hWhere: "wo du gerade bist", locate: "meinen standort finden", locating: "wird geortet…", city: "ort", country: "land",
+        locNote: "auf der seite stehen nur ort und land. dein genauer standort wird nicht gespeichert.", noWhere: "noch kein ort",
+        hRetreat: "dein nächstes retreat", rTitle: "titel", rFrom: "von", rTo: "bis", rPlace: "ort", rPrice: "preis",
+        save: "speichern", saved: "gespeichert. deine seite zeigt es innerhalb einer minute.", out: "abmelden",
+        hPw: "passwort", pwOld: "aktuelles passwort", pwNew: "neues passwort", pwDo: "passwort ändern", pwDone: "dein passwort ist geändert.",
+        errLogin: "e-mail oder passwort stimmt nicht.", errLocked: "zu viele versuche. bitte versuch es in 15 minuten wieder.", errExists: "diese e-mail ist schon registriert. bitte melde dich an.",
+        errName: "bitte schreib deinen namen.", errEmail: "bitte prüf deine e-mail-adresse.", errPw: "das passwort braucht mindestens 8 zeichen.", errOld: "das aktuelle passwort stimmt nicht.",
+        errWa: "das ist kein whatsapp-einladungslink. er beginnt mit https://chat.whatsapp.com/", errIg: "das ist kein instagram-name.", errText: "bitte keine links und keine < > im text.",
+        errRetreat: "bitte prüf das retreat: keine links, und das ende liegt nach dem anfang.", errPhoto: "das foto hat nicht geklappt. bitte versuch ein anderes.",
+        errGeo: "dein standort konnte nicht gelesen werden. erlaube den standortzugriff für diese seite oder tipp den ort ein.", errBusy: "das war viel auf einmal. bitte versuch es später wieder.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal.",
+      },
+      fr: {
+        tag: "foyo club · enseignants", hLogin: "connexion", hReg: "crée ton profil", hMe: "ton profil",
+        name: "ton nom", email: "e-mail", pw: "mot de passe", pwHint: "au moins 8 caractères",
+        doLogin: "se connecter", doReg: "s'inscrire", toReg: "nouveau ici ? crée ton profil", toLogin: "déjà inscrit ? connecte-toi",
+        regNote: "pour les enseignants. tu remplis ton profil toi-même : photos, ton histoire, tarifs, ta prochaine retraite. il est mis en ligne dès que paul l'a confirmé.",
+        pending: "ton profil attend la confirmation de paul. remplis-le maintenant, il sera en ligne dès qu'il est confirmé.",
+        live: "ton profil est en ligne :", wait: "un instant…",
+        hPhotos: "photos", photoHint: "jusqu'à trois photos, montrées en cercles. la première est ton portrait.", add: "ajouter une photo", remove: "retirer",
+        hAbout: "à propos de toi", role: "ce que tu enseignes", rolePh: "yoga · souffle · méditation", about: "parle-nous de toi",
+        aboutHint: "qui tu es, ton chemin, ce que tu enseignes. la première phrase s'affiche en grand en haut de ta page. une ligne vide commence un nouveau paragraphe.",
+        speak: "parler", stop: "stop", speakHint: "ou utilise le micro de ton clavier.", ig: "nom instagram",
+        hWa: "groupe whatsapp", wa: "lien d'invitation de ton groupe", hPrice: "tarifs", pClass: "un cours", pRetreat: "une retraite", pricePh: "ex. 50 €",
+        pay: "paiement", cash: "espèces", card: "carte",
+        hWhere: "où tu es en ce moment", locate: "trouver ma position", locating: "localisation…", city: "ville", country: "pays",
+        locNote: "seuls la ville et le pays sont affichés. ta position exacte n'est pas enregistrée.", noWhere: "pas encore de lieu",
+        hRetreat: "ta prochaine retraite", rTitle: "titre", rFrom: "du", rTo: "au", rPlace: "lieu", rPrice: "prix",
+        save: "enregistrer", saved: "enregistré. ta page l'affiche en moins d'une minute.", out: "se déconnecter",
+        hPw: "mot de passe", pwOld: "mot de passe actuel", pwNew: "nouveau mot de passe", pwDo: "changer le mot de passe", pwDone: "ton mot de passe est changé.",
+        errLogin: "l'e-mail ou le mot de passe n'est pas correct.", errLocked: "trop d'essais. réessaie dans 15 minutes.", errExists: "cet e-mail est déjà inscrit. connecte-toi.",
+        errName: "écris ton nom, s'il te plaît.", errEmail: "vérifie ton adresse e-mail.", errPw: "le mot de passe doit avoir au moins 8 caractères.", errOld: "le mot de passe actuel n'est pas correct.",
+        errWa: "ce n'est pas un lien d'invitation whatsapp. il commence par https://chat.whatsapp.com/", errIg: "ce n'est pas un nom instagram.", errText: "pas de liens ni de < > dans le texte, s'il te plaît.",
+        errRetreat: "vérifie la retraite : pas de liens, et la fin vient après le début.", errPhoto: "cette photo n'a pas marché. essaie-en une autre.",
+        errGeo: "ta position n'a pas pu être lue. autorise la localisation pour cette page ou écris la ville.", errBusy: "c'était beaucoup d'un coup. réessaie plus tard.", errAny: "ça n'a pas marché. réessaie.",
+      },
+      es: {
+        tag: "foyo club · profesores", hLogin: "entrar", hReg: "crea tu perfil", hMe: "tu perfil",
+        name: "tu nombre", email: "correo", pw: "contraseña", pwHint: "al menos 8 caracteres",
+        doLogin: "entrar", doReg: "registrarme", toReg: "¿nuevo aquí? crea tu perfil", toLogin: "¿ya registrado? entra",
+        regNote: "para profesores. tú rellenas tu perfil: fotos, tu historia, precios, tu próximo retiro. se publica cuando paul lo confirma.",
+        pending: "tu perfil espera la confirmación de paul. rellénalo ahora, se publica en cuanto esté confirmado.",
+        live: "tu perfil está en línea:", wait: "un momento…",
+        hPhotos: "fotos", photoHint: "hasta tres fotos, mostradas en círculos. la primera es tu retrato.", add: "añadir foto", remove: "quitar",
+        hAbout: "sobre ti", role: "lo que enseñas", rolePh: "yoga · respiración · meditación", about: "cuéntanos sobre ti",
+        aboutHint: "quién eres, tu camino, lo que enseñas. la primera frase aparece grande arriba en tu página. una línea vacía empieza un párrafo nuevo.",
+        speak: "hablar", stop: "parar", speakHint: "o usa el micrófono de tu teclado.", ig: "nombre de instagram",
+        hWa: "grupo de whatsapp", wa: "enlace de invitación de tu grupo", hPrice: "precios", pClass: "una clase", pRetreat: "un retiro", pricePh: "p. ej. 50 €",
+        pay: "pago", cash: "efectivo", card: "tarjeta",
+        hWhere: "dónde estás ahora", locate: "encontrar mi ubicación", locating: "localizando…", city: "ciudad", country: "país",
+        locNote: "en la web solo se muestran ciudad y país. tu posición exacta no se guarda.", noWhere: "aún sin lugar",
+        hRetreat: "tu próximo retiro", rTitle: "título", rFrom: "desde", rTo: "hasta", rPlace: "lugar", rPrice: "precio",
+        save: "guardar", saved: "guardado. tu página lo muestra en menos de un minuto.", out: "salir",
+        hPw: "contraseña", pwOld: "contraseña actual", pwNew: "contraseña nueva", pwDo: "cambiar contraseña", pwDone: "tu contraseña está cambiada.",
+        errLogin: "el correo o la contraseña no es correcto.", errLocked: "demasiados intentos. vuelve a intentarlo en 15 minutos.", errExists: "este correo ya está registrado. entra, por favor.",
+        errName: "escribe tu nombre, por favor.", errEmail: "revisa tu correo, por favor.", errPw: "la contraseña necesita al menos 8 caracteres.", errOld: "la contraseña actual no es correcta.",
+        errWa: "eso no es un enlace de invitación de whatsapp. empieza por https://chat.whatsapp.com/", errIg: "eso no es un nombre de instagram.", errText: "sin enlaces y sin < > en el texto, por favor.",
+        errRetreat: "revisa el retiro: sin enlaces, y el final va después del inicio.", errPhoto: "esa foto no funcionó. prueba con otra.",
+        errGeo: "no se pudo leer tu ubicación. permite el acceso a la ubicación para esta página o escribe la ciudad.", errBusy: "fue mucho de una vez. inténtalo más tarde.", errAny: "no funcionó. inténtalo de nuevo.",
+      },
+      ar: {
+        tag: "foyo club · المعلّمون", hLogin: "تسجيل الدخول", hReg: "أنشئ ملفك", hMe: "ملفك",
+        name: "اسمك", email: "البريد الإلكتروني", pw: "كلمة المرور", pwHint: "8 أحرف على الأقل",
+        doLogin: "دخول", doReg: "تسجيل", toReg: "جديد هنا؟ أنشئ ملفك", toLogin: "مسجّل من قبل؟ ادخل",
+        regNote: "للمعلّمين. تملأ ملفك بنفسك: صور، قصتك، الأسعار، خلوتك القادمة. يُنشر بعد أن يؤكده paul.",
+        pending: "ملفك ينتظر تأكيد paul. املأه الآن، وسيُنشر فور تأكيده.",
+        live: "ملفك منشور:", wait: "لحظة…",
+        hPhotos: "الصور", photoHint: "حتى ثلاث صور، تظهر في دوائر. الأولى صورتك الشخصية.", add: "أضف صورة", remove: "إزالة",
+        hAbout: "عنك", role: "ما تدرّسه", rolePh: "يوغا · تنفّس · تأمّل", about: "حدّثنا عن نفسك",
+        aboutHint: "من أنت، طريقك، ما تدرّسه. الجملة الأولى تظهر كبيرة في أعلى صفحتك. السطر الفارغ يبدأ فقرة جديدة.",
+        speak: "تكلّم", stop: "إيقاف", speakHint: "أو استخدم ميكروفون لوحة المفاتيح.", ig: "اسم إنستغرام",
+        hWa: "مجموعة واتساب", wa: "رابط الدعوة إلى مجموعتك", hPrice: "الأسعار", pClass: "حصة واحدة", pRetreat: "خلوة", pricePh: "مثلاً 50 €",
+        pay: "الدفع", cash: "نقدًا", card: "بطاقة",
+        hWhere: "أين أنت الآن", locate: "حدّد موقعي", locating: "جارٍ التحديد…", city: "المدينة", country: "البلد",
+        locNote: "يظهر في الموقع المدينة والبلد فقط. موقعك الدقيق لا يُحفظ.", noWhere: "لا مكان بعد",
+        hRetreat: "خلوتك القادمة", rTitle: "العنوان", rFrom: "من", rTo: "إلى", rPlace: "المكان", rPrice: "السعر",
+        save: "حفظ", saved: "تم الحفظ. تظهر التغييرات في صفحتك خلال دقيقة.", out: "خروج",
+        hPw: "كلمة المرور", pwOld: "كلمة المرور الحالية", pwNew: "كلمة المرور الجديدة", pwDo: "تغيير كلمة المرور", pwDone: "تم تغيير كلمة المرور.",
+        errLogin: "البريد أو كلمة المرور غير صحيحة.", errLocked: "محاولات كثيرة. حاول مجددًا بعد 15 دقيقة.", errExists: "هذا البريد مسجّل من قبل. سجّل الدخول من فضلك.",
+        errName: "اكتب اسمك من فضلك.", errEmail: "تحقّق من بريدك الإلكتروني.", errPw: "كلمة المرور تحتاج 8 أحرف على الأقل.", errOld: "كلمة المرور الحالية غير صحيحة.",
+        errWa: "هذا ليس رابط دعوة واتساب. يبدأ بـ https://chat.whatsapp.com/", errIg: "هذا ليس اسم إنستغرام.", errText: "من فضلك بلا روابط وبلا < > في النص.",
+        errRetreat: "تحقّق من الخلوة: بلا روابط، والنهاية بعد البداية.", errPhoto: "لم تنجح هذه الصورة. جرّب صورة أخرى.",
+        errGeo: "تعذّرت قراءة موقعك. اسمح بالوصول إلى الموقع لهذه الصفحة أو اكتب المدينة.", errBusy: "كان ذلك كثيرًا دفعة واحدة. حاول لاحقًا.", errAny: "لم ينجح ذلك. حاول مرة أخرى.",
+      },
+      ru: {
+        tag: "foyo club · преподаватели", hLogin: "вход", hReg: "создай свой профиль", hMe: "твой профиль",
+        name: "твоё имя", email: "e-mail", pw: "пароль", pwHint: "не меньше 8 символов",
+        doLogin: "войти", doReg: "зарегистрироваться", toReg: "впервые здесь? создай профиль", toLogin: "уже есть профиль? войти",
+        regNote: "для преподавателей. профиль ты заполняешь сам: фото, твоя история, цены, ближайший ретрит. он появится на сайте, когда paul его подтвердит.",
+        pending: "твой профиль ждёт подтверждения от paul. заполни его сейчас, он появится на сайте сразу после подтверждения.",
+        live: "твой профиль на сайте:", wait: "секунду…",
+        hPhotos: "фото", photoHint: "до трёх фото, они показываются в кругах. первое — твой портрет.", add: "добавить фото", remove: "убрать",
+        hAbout: "о тебе", role: "что ты преподаёшь", rolePh: "йога · дыхание · медитация", about: "расскажи о себе",
+        aboutHint: "кто ты, твой путь, что ты преподаёшь. первое предложение стоит крупно вверху страницы. пустая строка начинает новый абзац.",
+        speak: "говорить", stop: "стоп", speakHint: "или используй микрофон на клавиатуре.", ig: "имя в instagram",
+        hWa: "группа в whatsapp", wa: "ссылка-приглашение в твою группу", hPrice: "цены", pClass: "одно занятие", pRetreat: "ретрит", pricePh: "напр. 50 €",
+        pay: "оплата", cash: "наличные", card: "карта",
+        hWhere: "где ты сейчас", locate: "определить моё место", locating: "определяю…", city: "город", country: "страна",
+        locNote: "на сайте видны только город и страна. точное место не сохраняется.", noWhere: "место ещё не указано",
+        hRetreat: "твой ближайший ретрит", rTitle: "название", rFrom: "с", rTo: "по", rPlace: "место", rPrice: "цена",
+        save: "сохранить", saved: "сохранено. страница покажет это в течение минуты.", out: "выйти",
+        hPw: "пароль", pwOld: "текущий пароль", pwNew: "новый пароль", pwDo: "сменить пароль", pwDone: "пароль изменён.",
+        errLogin: "e-mail или пароль неверны.", errLocked: "слишком много попыток. попробуй снова через 15 минут.", errExists: "этот e-mail уже зарегистрирован. войди, пожалуйста.",
+        errName: "напиши своё имя, пожалуйста.", errEmail: "проверь адрес e-mail.", errPw: "в пароле должно быть не меньше 8 символов.", errOld: "текущий пароль неверен.",
+        errWa: "это не ссылка-приглашение whatsapp. она начинается с https://chat.whatsapp.com/", errIg: "это не имя в instagram.", errText: "пожалуйста, без ссылок и без < > в тексте.",
+        errRetreat: "проверь ретрит: без ссылок, и конец позже начала.", errPhoto: "с этим фото не получилось. попробуй другое.",
+        errGeo: "не удалось определить место. разреши доступ к геопозиции для этой страницы или впиши город.", errBusy: "слишком много за раз. попробуй позже.", errAny: "не получилось. попробуй ещё раз.",
+      },
+    };
+    const LANGS = Object.keys(L);
+    const SPEECH = { en: "en-US", de: "de-DE", fr: "fr-FR", es: "es-ES", ar: "ar-SA", ru: "ru-RU" };
+    const ERR = { login: "errLogin", locked: "errLocked", exists: "errExists", name: "errName", email: "errEmail", password: "errPw", old: "errOld", wa: "errWa", ig: "errIg", role: "errText", about: "errText", price: "errText", place: "errGeo", retreat: "errRetreat", photo: "errPhoto", busy: "errBusy" };
+    const app = document.getElementById("app");
+    // the language: the one chosen on the site in this visit, else the device's own
+    let lang = null;
+    try { lang = sessionStorage.getItem("soma-flow-club-lang"); } catch { /* private mode */ }
+    if (!LANGS.includes(lang)) {
+      lang = "en";
+      for (const tag of navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]) { const l = String(tag).toLowerCase().slice(0, 2); if (LANGS.includes(l)) { lang = l; break; } }
+    }
+    const t = (k) => L[lang][k] || L.en[k] || k;
+    const st = { view: "login", token: "", me: null, d: null, busy: false, error: "", note: "", pwNote: "", pwError: "", picBusy: 0, locating: false, speaking: false };
+    try { st.token = localStorage.getItem(KEY) || ""; } catch { /* private mode */ }
+
+    function el(tag, attrs, ...kids) {
+      const n = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs || {})) {
+        if (v == null || v === false) continue;
+        if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else if (k === "value") n.value = v; else if (k === "checked" || k === "disabled") n[k] = Boolean(v); else n.setAttribute(k, v === true ? "" : v);
+      }
+      for (const k of kids.flat(Infinity)) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+      return n;
+    }
+    async function api(method, body) {
+      const headers = { "Content-Type": "application/json" };
+      if (st.token) headers["x-foyo-token"] = st.token;
+      const r = await fetch(API, { method, cache: "no-store", headers, body: body ? JSON.stringify(body) : undefined });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw Object.assign(new Error(d.error || "server"), { code: d.error || "server", status: r.status });
+      return d;
+    }
+    const say = (e) => t(ERR[e && e.code] || "errAny");
+    function keep(token) { st.token = token || ""; try { if (st.token) localStorage.setItem(KEY, st.token); else localStorage.removeItem(KEY); } catch { /* private mode */ } }
+    // the profile as the form holds it
+    const draft = (me) => ({ role: me.role, about: me.about, ig: me.ig, wa: me.wa, priceClass: me.priceClass, priceRetreat: me.priceRetreat, city: me.city, country: me.country, pay: me.pay.slice(), retreat: { ...me.retreat } });
+    function enter(d) { if (d.token) keep(d.token); st.me = d.me; st.d = draft(d.me); st.view = "me"; st.error = ""; st.busy = false; render(); }
+    function leave() { stopSpeech(); keep(""); st.me = null; st.d = null; st.view = "login"; st.error = ""; st.note = ""; render(); }
+
+    // ---------- login and registration ----------
+    function door() {
+      const reg = st.view === "register";
+      const form = el("form", { novalidate: true, onsubmit: (e) => { e.preventDefault(); enterDoor(form, reg); } },
+        reg ? [el("label", { for: "f-name" }, t("name")), el("input", { type: "text", id: "f-name", name: "name", autocomplete: "name", maxlength: "40" })] : null,
+        el("label", { for: "f-email" }, t("email")), el("input", { type: "email", id: "f-email", name: "email", autocomplete: "email", inputmode: "email", autocapitalize: "none", maxlength: "120" }),
+        el("label", { for: "f-pw" }, t("pw") + (reg ? " · " + t("pwHint") : "")), el("input", { type: "password", id: "f-pw", name: "password", autocomplete: reg ? "new-password" : "current-password", maxlength: "100" }),
+        el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
+        st.error ? el("p", { class: "err", role: "alert" }, st.error) : null,
+        el("div", { class: "acts" }, el("button", { class: "btn", type: "submit", disabled: st.busy }, st.busy ? t("wait") : t(reg ? "doReg" : "doLogin"))),
+        el("p", { class: "fine" }, el("button", { type: "button", class: "linkish", onclick: () => { st.view = reg ? "login" : "register"; st.error = ""; render(); } }, t(reg ? "toLogin" : "toReg"))));
+      return [el("p", { class: "tag" }, t("tag")), el("h1", {}, t(reg ? "hReg" : "hLogin")), reg ? el("p", { class: "fine" }, t("regNote")) : null, form];
+    }
+    async function enterDoor(form, reg) {
+      if (st.busy) return;
+      const name = reg ? form.name.value.trim() : "", email = form.email.value.trim(), password = form.password.value;
+      const back = (key) => { st.error = t(key); render(); if (reg) app.querySelector("#f-name").value = name; app.querySelector("#f-email").value = email; };
+      if (reg && name.length < 2) return back("errName");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return back("errEmail");
+      if (reg ? password.length < 8 : !password) return back(reg ? "errPw" : "errLogin");
+      st.busy = true; st.error = ""; render();
+      try { enter(await api("POST", reg ? { register: { name, email, password }, company: form.company.value } : { login: { email, password } })); }
+      catch (e) { st.busy = false; st.error = say(e); render(); if (reg) app.querySelector("#f-name").value = name; app.querySelector("#f-email").value = email; }
+    }
+
+    // ---------- the profile ----------
+    const field = (id, label, value, oninput, more) => [el("label", { for: id }, label), el("input", { type: "text", id, value: value || "", oninput: (e) => oninput(e.target.value), ...(more || {}) })];
+    function profile() {
+      const me = st.me, d = st.d;
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const where = [d.city, d.country].filter(Boolean).join(", ");
+      return [
+        el("p", { class: "tag" }, t("tag")), el("h1", {}, me.name),
+        el("p", { class: "state", role: "status" }, me.status === "active" ? [t("live"), " ", el("a", { href: "/" + me.slug }, "myfoyo.com/" + me.slug)] : t("pending")),
+
+        el("h2", {}, t("hPhotos")), el("p", { class: "fine" }, t("photoHint")),
+        el("div", { class: "pics" }, [1, 2, 3].map((slot) => { const url = me.photos[slot - 1]; const input = el("input", { type: "file", accept: "image/*", hidden: true, onchange: (e) => photo(slot, e.target.files[0]) });
+          return el("div", { class: "pic" }, input,
+            el("button", { type: "button", class: "ring" + (st.picBusy === slot ? " busy" : ""), "aria-label": t("add") + " " + slot, onclick: () => input.click() }, url ? el("img", { src: url, alt: "" }) : el("span", {}, st.picBusy === slot ? t("wait") : "+")),
+            url ? el("button", { type: "button", class: "linkish", onclick: () => photo(slot, null) }, t("remove")) : el("button", { type: "button", class: "linkish", onclick: () => input.click() }, t("add"))); })),
+
+        el("h2", {}, t("hAbout")),
+        field("p-role", t("role"), d.role, (v) => { d.role = v; }, { placeholder: t("rolePh"), maxlength: "80" }),
+        el("label", { for: "p-about" }, t("about")),
+        el("textarea", { id: "p-about", maxlength: "1600", oninput: (e) => { d.about = e.target.value; } }, d.about || ""),
+        el("p", { class: "fine" }, t("aboutHint")),
+        el("div", { class: "row" }, SR ? el("button", { type: "button", class: "ghost" + (st.speaking ? " on" : ""), id: "speak", onclick: speech }, st.speaking ? "● " + t("stop") : t("speak")) : null, el("span", { class: "fine" }, t("speakHint"))),
+        field("p-ig", t("ig"), d.ig, (v) => { d.ig = v; }, { placeholder: "@", autocapitalize: "none", autocomplete: "off", maxlength: "80" }),
+
+        el("h2", {}, t("hWa")),
+        field("p-wa", t("wa"), d.wa, (v) => { d.wa = v; }, { placeholder: "https://chat.whatsapp.com/…", inputmode: "url", autocapitalize: "none", autocomplete: "off", maxlength: "120" }),
+
+        el("h2", {}, t("hPrice")),
+        el("div", { class: "two" },
+          el("div", {}, field("p-pc", t("pClass"), d.priceClass, (v) => { d.priceClass = v; }, { placeholder: t("pricePh"), maxlength: "40" })),
+          el("div", {}, field("p-pr", t("pRetreat"), d.priceRetreat, (v) => { d.priceRetreat = v; }, { maxlength: "40" }))),
+        el("label", {}, t("pay")),
+        el("div", { class: "checks" }, ["cash", "card"].map((p) => el("label", {}, el("input", { type: "checkbox", checked: d.pay.includes(p), onchange: (e) => { d.pay = d.pay.filter((x) => x !== p).concat(e.target.checked ? [p] : []); } }), t(p)))),
+
+        el("h2", {}, t("hWhere")),
+        el("p", { class: "where" }, "📍 " + (where || t("noWhere"))),
+        el("div", { class: "row" }, el("button", { type: "button", class: "ghost", disabled: st.locating, onclick: locate }, st.locating ? t("locating") : t("locate"))),
+        el("div", { class: "two" },
+          el("div", {}, field("p-city", t("city"), d.city, (v) => { d.city = v; }, { maxlength: "60" })),
+          el("div", {}, field("p-country", t("country"), d.country, (v) => { d.country = v; }, { maxlength: "60" }))),
+        el("p", { class: "fine" }, t("locNote")),
+
+        el("h2", {}, t("hRetreat")),
+        field("p-rt", t("rTitle"), d.retreat.title, (v) => { d.retreat.title = v; }, { maxlength: "80" }),
+        el("div", { class: "two" },
+          el("div", {}, el("label", { for: "p-rf" }, t("rFrom")), el("input", { type: "date", id: "p-rf", value: d.retreat.from || "", oninput: (e) => { d.retreat.from = e.target.value; } })),
+          el("div", {}, el("label", { for: "p-ru" }, t("rTo")), el("input", { type: "date", id: "p-ru", value: d.retreat.to || "", oninput: (e) => { d.retreat.to = e.target.value; } }))),
+        el("div", { class: "two" },
+          el("div", {}, field("p-rp", t("rPlace"), d.retreat.place, (v) => { d.retreat.place = v; }, { maxlength: "80" })),
+          el("div", {}, field("p-rc", t("rPrice"), d.retreat.price, (v) => { d.retreat.price = v; }, { maxlength: "40" }))),
+
+        st.error ? el("p", { class: "err", role: "alert" }, st.error) : null,
+        st.note ? el("p", { class: "ok", role: "status" }, st.note) : null,
+        el("div", { class: "acts" }, el("button", { class: "btn", type: "button", disabled: st.busy, onclick: save }, st.busy ? t("wait") : t("save"))),
+
+        el("h2", {}, t("hPw")),
+        el("form", { novalidate: true, onsubmit: (e) => { e.preventDefault(); password(e.target); } },
+          el("label", { for: "p-old" }, t("pwOld")), el("input", { type: "password", id: "p-old", name: "old", autocomplete: "current-password", maxlength: "100" }),
+          el("label", { for: "p-new" }, t("pwNew") + " · " + t("pwHint")), el("input", { type: "password", id: "p-new", name: "next", autocomplete: "new-password", maxlength: "100" }),
+          st.pwError ? el("p", { class: "err", role: "alert" }, st.pwError) : null, st.pwNote ? el("p", { class: "ok", role: "status" }, st.pwNote) : null,
+          el("div", { class: "row" }, el("button", { class: "ghost", type: "submit" }, t("pwDo")))),
+        el("p", { class: "fine", style: "margin-top:34px" }, el("button", { type: "button", class: "linkish", onclick: leave }, t("out"))),
+      ];
+    }
+    async function save() {
+      if (st.busy) return;
+      stopSpeech();
+      st.busy = true; st.error = ""; st.note = ""; render();
+      try { const d = await api("POST", { save: st.d }); st.me = d.me; st.d = draft(d.me); st.note = t("saved"); }
+      catch (e) { if (e.status === 401) return leave(); st.error = say(e); }
+      st.busy = false; render();
+    }
+    async function password(form) {
+      const old = form.old.value, next = form.next.value;
+      st.pwNote = ""; st.pwError = "";
+      if (next.length < 8) { st.pwError = t("errPw"); return render(); }
+      try { const d = await api("POST", { password: { old, next } }); keep(d.token); st.pwNote = t("pwDone"); }
+      catch (e) { if (e.status === 401) return leave(); st.pwError = say(e); }
+      render();
+    }
+    // a photo: cut square from the middle, made small here, sent as a jpeg
+    async function shrink(file) {
+      const url = URL.createObjectURL(file);
+      try {
+        const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+        const side = Math.min(img.naturalWidth, img.naturalHeight), size = Math.min(900, side);
+        if (!side) throw new Error("empty");
+        const cv = document.createElement("canvas"); cv.width = cv.height = size;
+        cv.getContext("2d").drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, size, size);
+        let data = cv.toDataURL("image/jpeg", 0.84).split(",")[1];
+        if (data.length > 1100000) data = cv.toDataURL("image/jpeg", 0.6).split(",")[1];
+        return data;
+      } finally { URL.revokeObjectURL(url); }
+    }
+    async function photo(slot, file) {
+      if (st.picBusy) return;
+      if (file === undefined) return;
+      st.picBusy = slot; st.error = ""; st.note = ""; render();
+      try { const d = await api("POST", { photo: file ? { slot, data: await shrink(file) } : { slot, remove: true } }); st.me = d.me; }
+      catch (e) { if (e.status === 401) return leave(); st.error = e.code ? say(e) : t("errPhoto"); }
+      st.picBusy = 0; render();
+    }
+    // where the teacher is: the device gives the point, the server turns it into town and country
+    function locate() {
+      if (st.locating) return;
+      if (!navigator.geolocation) { st.error = t("errGeo"); return render(); }
+      st.locating = true; st.error = ""; st.note = ""; render();
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        try { const d = await api("POST", { locate: { lat: pos.coords.latitude, lon: pos.coords.longitude } }); st.me = d.me; st.d.city = d.me.city; st.d.country = d.me.country; st.note = t("saved"); }
+        catch (e) { if (e.status === 401) return leave(); st.error = say(e); }
+        st.locating = false; render();
+      }, () => { st.locating = false; st.error = t("errGeo"); render(); }, { enableHighAccuracy: false, timeout: 20000, maximumAge: 600000 });
+    }
+    // speaking instead of typing, where the browser can turn speech into text
+    let rec = null;
+    function stopSpeech() { if (rec) { try { rec.stop(); } catch { /* already stopped */ } } rec = null; st.speaking = false; }
+    function speech() {
+      if (st.speaking) { stopSpeech(); return render(); }
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) return;
+      const r = new SR();
+      r.lang = SPEECH[lang] || "en-US"; r.continuous = true; r.interimResults = false;
+      r.onresult = (e) => {
+        let said = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) said += e.results[i][0].transcript;
+        said = said.trim();
+        if (!said) return;
+        st.d.about = ((st.d.about || "").replace(/\s+$/, "") + " " + said).trim().slice(0, 1600);
+        const box = document.getElementById("p-about");
+        if (box) box.value = st.d.about;
+      };
+      const done = () => { if (rec === r) { rec = null; st.speaking = false; render(); } };
+      r.onend = done; r.onerror = done;
+      try { r.start(); rec = r; st.speaking = true; } catch { rec = null; st.speaking = false; }
+      render();
+    }
+
+    function render() {
+      // keep the place on the page and the field in use while the form is drawn again
+      const y = window.scrollY, active = document.activeElement && document.activeElement.id;
+      app.replaceChildren(...(st.view === "me" && st.me ? profile() : door()).flat(Infinity).filter((k) => k != null && k !== false));
+      if (active) { const again = document.getElementById(active); if (again && again.tagName !== "BUTTON") again.focus({ preventScroll: true }); }
+      window.scrollTo(0, y);
+    }
+    function setLang(l) {
+      lang = l;
+      try { sessionStorage.setItem("soma-flow-club-lang", l); } catch { /* private mode */ }
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+      document.querySelectorAll(".lb").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+      document.title = t("hLogin") + " · foyo club";
+      render();
+    }
+    document.querySelectorAll(".lb").forEach((b) => b.addEventListener("click", () => { stopSpeech(); setLang(b.dataset.lang); }));
+    setLang(lang);
+    if (st.token) api("GET").then(enter).catch((e) => { if (e.status === 401) keep(""); });
+  })();
+  </script>
+</body>
+</html>

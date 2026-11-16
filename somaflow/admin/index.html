@@ -36,6 +36,19 @@
     li .bar { margin-top: 0; }
     a.ghost { color: var(--ink); text-decoration: none; }
     h3.wl { font-size: 12px; font-weight: 400; letter-spacing: .08em; color: var(--ink3); margin: 22px 0 8px; }
+    /* the teachers' accounts: who registered, what they filled in, the address of their page */
+    .acc { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .acc .who { text-transform: none; }
+    .acc .when { display: block; font-size: 12px; color: var(--ink3); text-transform: none; }
+    .acc .st { font-size: 12px; letter-spacing: .06em; color: var(--ink3); }
+    .acc .st.wait { color: var(--warn); }
+    .acc input[type=text] { width: 150px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 0; font-size: 14px; text-transform: none; }
+    .acc details { margin-top: 8px; font-size: 14px; }
+    .acc summary { cursor: pointer; color: var(--ink3); font-size: 13px; }
+    .acc .prof { text-transform: none; white-space: pre-wrap; margin-top: 8px; }
+    .acc .prof p { margin-bottom: 8px; }
+    .acc .dots { display: flex; gap: 10px; margin: 10px 0; }
+    .acc .dots img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
   </style>
 </head>
 <body>
@@ -55,6 +68,13 @@
       <div class="bar"><button class="ghost" type="button" id="reload">neu laden</button><button class="ghost" type="button" id="out">abmelden</button></div>
       <p class="err" id="err" hidden></p>
       <div id="sessions"></div>
+      <section class="session" id="teachers" hidden>
+        <h2>lehrer</h2>
+        <p class="count" id="tcount"></p>
+        <p class="err" id="terr" hidden></p>
+        <div id="accounts"></div>
+        <p class="fine" style="margin-top:12px">lehrer registrieren sich unter myfoyo.com/login. ein profil ist erst nach deiner freigabe auf der seite. eine neue registrierung erscheint hier nach bis zu einer minute.</p>
+      </section>
     </section>
   </main>
   <script>
@@ -114,11 +134,64 @@
             waiting.length ? el("h3", { class: "wl" }, "warteliste") : null,
             waiting.length ? wl : null));
         }
+        teachers();
       } catch (e) {
         if (e.code === 429) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "zu viele falsche versuche. in 15 minuten geht es wieder."; $("lerr").hidden = false; return; }
         if (e.code === 401) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "das passwort stimmt nicht."; $("lerr").hidden = false; return; }
         show("list"); $("err").textContent = "die liste konnte nicht geladen werden. bitte neu laden."; $("err").hidden = false;
       }
+    }
+    // ---------- the teachers: confirm a profile, take it off the site, give a new password, delete ----------
+    async function tapi(method, body) {
+      const r = await fetch("https://brinkmannpaul.com/api/teacher", { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw Object.assign(new Error(d.error || "server"), { code: d.error || "server" });
+      return d;
+    }
+    const terr = (msg) => { $("terr").textContent = msg; $("terr").hidden = !msg; };
+    async function teachers() {
+      let d;
+      try { d = await tapi("GET"); } catch { $("teachers").hidden = false; terr("die lehrer konnten nicht geladen werden."); return; }
+      $("teachers").hidden = false; terr("");
+      const box = $("accounts"); box.replaceChildren();
+      const waiting = d.accounts.filter((a) => a.status !== "active").length;
+      $("tcount").textContent = d.accounts.length + " konten" + (waiting ? " · " + waiting + " warten auf freigabe" : "");
+      if (!d.accounts.length) box.append(el("p", { class: "empty" }, "noch kein lehrer registriert."));
+      for (const a of d.accounts) {
+        const live = a.status === "active";
+        const slug = el("input", { type: "text", value: a.slug, "aria-label": "adresse der seite", autocapitalize: "none", spellcheck: "false" });
+        const r = a.retreat || {};
+        const facts = [
+          a.role, [a.city, a.country].filter(Boolean).join(", "), a.ig ? "instagram @" + a.ig : "", a.wa ? "whatsapp " + a.wa : "",
+          a.priceClass ? "stunde " + a.priceClass : "", a.priceRetreat ? "retreat " + a.priceRetreat : "", a.pay && a.pay.length ? "bezahlung " + a.pay.join(" + ") : "",
+          r.title || r.from ? "nächstes retreat: " + [r.title, [r.from, r.to].filter(Boolean).join(" bis "), r.place, r.price].filter(Boolean).join(" · ") : ""].filter(Boolean);
+        const photos = (a.photos || []).filter(Boolean);
+        box.append(el("div", { class: "acc" },
+          el("span", { class: "who" }, a.name), " ", el("span", { class: "st" + (live ? "" : " wait") }, live ? "· online" : "· wartet auf freigabe"),
+          el("span", { class: "when" }, a.email + " · registriert " + fmt(a.joined, { day: "2-digit", month: "2-digit", year: "numeric" })),
+          el("details", {}, el("summary", {}, "profil ansehen"),
+            el("div", { class: "prof" },
+              photos.length ? el("div", { class: "dots" }, photos.map((u) => el("img", { src: u, alt: "", loading: "lazy" }))) : el("p", { class: "fine" }, "noch keine fotos."),
+              facts.map((f) => el("p", {}, f)),
+              a.about ? el("p", {}, a.about) : el("p", { class: "fine" }, "noch kein text."))),
+          el("div", { class: "bar" },
+            el("span", { class: "fine" }, "myfoyo.com/"), slug,
+            el("button", { class: "ghost", type: "button", onclick: () => tdo({ approve: a.id, slug: slug.value.trim() }) }, live ? "adresse ändern" : "freigeben"),
+            live ? el("a", { class: "ghost", href: "/" + a.slug, target: "_blank", rel: "noopener" }, "seite öffnen") : null,
+            live ? el("button", { class: "ghost", type: "button", onclick: () => tdo({ block: a.id }) }, "von der seite nehmen") : null,
+            el("button", { class: "ghost", type: "button", onclick: () => reset(a) }, "neues passwort"),
+            el("button", { class: "ghost", type: "button", onclick: () => { if (confirm(a.name + " löschen? das konto und das profil sind dann weg.")) tdo({ remove: a.id }); } }, "löschen"))));
+      }
+    }
+    const TMSG = { slug: "diese adresse geht nicht. nur kleine buchstaben, zahlen und bindestriche, und kein name einer eigenen seite wie admin oder login.", taken: "diese adresse hat schon ein anderer lehrer." };
+    async function tdo(body) {
+      try { await tapi("POST", body); terr(""); } catch (e) { terr(TMSG[e.code] || "das hat nicht geklappt."); return; }
+      // the list comes from stripe's search, which sees a change after a moment
+      setTimeout(teachers, 2500);
+    }
+    async function reset(a) {
+      if (!confirm("neues passwort für " + a.name + "? das alte gilt dann nicht mehr.")) return;
+      try { const d = await tapi("POST", { reset: a.id }); prompt("neues passwort für " + a.name + " (schick es per whatsapp):", d.password); } catch { terr("das hat nicht geklappt."); }
     }
     async function remove(p) {
       if (!confirm(p.name + (p.wait ? " von der warteliste nehmen?" : " austragen? der platz wird wieder frei."))) return;
