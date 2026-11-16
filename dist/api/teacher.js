@@ -257,18 +257,19 @@ Rules:
 - Third person, by first name. Use she or he only when the words make it clear; otherwise repeat the name.
 - Calm, clear, warm, short sentences. No hype, no superlatives, no emojis, no hashtags, no exclamation marks. Nothing about prices. No promise of healing and no medical claim.
 - Everything in lowercase, also names and the first word of a sentence. The site is set in lowercase.
+- Every part is in English, whatever language the teacher wrote in. No word of their language is left standing, except names of people, places, schools and yoga styles.
 
 Return only a JSON object with exactly these keys, each a string:
-"role": what they teach, two to four subjects joined by " · " (like "yoga · breath · mobility")
+"role": what they teach, two to four subjects in English joined by " · " (like "yoga · breath · mobility")
 "lead": one short line to the reader that carries the heart of their teaching, at most twelve words (like "move better. breathe deeper. feel at home in your body.")
 "bio": who they are and what they do, one or two sentences
 "train": their path: training, where they learned and where they taught, one to three sentences, or ""
 "help": who they work with and what it gives people, one or two sentences, or ""
 "teachesH": the heading "what she teaches", "what he teaches" or "what NAME teaches"
-"teaches": the styles and offers they name, joined by " · "
+"teaches": the styles and offers they name, in English (names of styles like hatha or pranayama stay as they are), joined by " · "
 "wayH": "her way", "his way" or "NAME's way" when "way" is filled, else ""
-"way": three to five single words or short principles joined by " · ", only when the teacher names such principles themselves, else ""
-"quote": one sentence the teacher really said that is worth quoting, cleaned up lightly, else ""
+"way": three to five single words joined by " · ", only when the teacher lists such principles themselves as a list of their own. One sentence or motto is not a list: then ""
+"quote": one sentence the teacher really said that is worth quoting, cleaned up lightly. It must not repeat the "lead": when their one line is already the lead, the quote is ""
 
 An example of the tone: "nafisa is a registered advanced yoga teacher (ryt 500), movement practitioner and breathwork facilitator. she brings together yoga, breath, mobility, flexibility, strength and recovery."`;
 const TRANSLATE = (language) => `Translate this teacher profile of foyo club from English into ${language}. It is a JSON object; return only a JSON object with the same keys.
@@ -278,7 +279,7 @@ Rules:
 - Keep the meaning exactly. Add nothing, drop nothing. An empty string stays an empty string.
 - Everything in lowercase wherever the script has letter case, also names and the first word of a sentence.
 - Keep the teacher's first name, place names, school names and the names of yoga styles (hatha, vinyasa, yin …) in latin letters as they are.
-- Keep the " · " between the items of a list.`;
+- Keep the " · " between the items of a list. Translate every item of "role" and "teaches" too (yoga, breath, cold, mobility …); only the names of styles stay.`;
 async function write(req, c) {
   const said = words(c);
   if (said.length < 40) throw fail("about");
