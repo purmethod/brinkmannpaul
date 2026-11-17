@@ -25,7 +25,9 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 | can-biodiverse-playgrounds-change-immunity | done 2026-11-15 |
 | does-home-microbiome-relate-to-asthma | done 2026-11-16 |
 | how-do-urban-scenes-shape-brain-signals | done 2026-11-16 |
-| all other articles | open |
+| can-daily-green-exposure-support-memory | done 2026-11-17 |
+| do-office-plants-improve-thinking-or-only-stress | done 2026-11-17 |
+| all other articles | done (all 21 articles revised) |
 
 ## 2026-11-07
 
@@ -88,3 +90,11 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 - 016, 017, 019, 020 and 021 (open verification points): nature.com and PMC fetches blocked again in this unattended run (permission not answered). Search index confirms the PMC record PMC11549482 and the DOAJ record for 021 and the full title of 020; no snippets with numbers. No content change; open points stay marked NOT yet verified.
 - 013 does-home-microbiome-relate-to-asthma: relevance confirmed (land use around the home and indoor HVAC dust microbiome linked to childhood asthma). Voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section states that asthma homes showed more bacterial and less fungal diversity, that 'more diversity is healthier' is not supported, and that the study observed without testing a cause. Study, numbers and limits unchanged.
 - 014 how-do-urban-scenes-shape-brain-signals: relevance confirmed (street composition and geometry linked to EEG responses and appraisal). Voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section keeps the negative appraisal of more sky and depth within this image set and the photographs-only limit. Study, numbers and limits unchanged.
+
+## 2026-11-17
+
+- No new or changed articles on main since the 2026-11-16 run. All 21 articles have a source audit entry.
+- 016, 017, 019, 020 and 021 (open verification points): nature.com, PubMed and doi.org fetches blocked again in this unattended run (permission not answered); search index returned no abstracts or numbers. No numeric change; open points stay marked NOT yet verified.
+- 015 can-daily-green-exposure-support-memory: relevance confirmed (greenspace along everyday routes linked to working memory in older adults). Voice revision of intro and architecture section in all six languages. Intro no longer names the authors. The architecture section keeps the stressor dependence of the within person association and states that observed exposure is no proof that a green route improves memory. Study, numbers and limits unchanged.
+- 016 do-office-plants-improve-thinking-or-only-stress: relevance confirmed (plant quantity and window views linked to HRV, EDA, mood and cognition). Voice revision of intro and architecture section in all six languages; intro no longer names a year. The English window view sentence (mood and perceived office quality), missing in fr, es, ar, ru, added there for content parity. Numbers unchanged and still unverified.
+- Voice revision now complete for all 21 articles.
