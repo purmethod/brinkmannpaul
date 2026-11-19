@@ -120,12 +120,12 @@ s = boot({ missing: '#intro-animation' }); released(s);
 const list = html.slice(html.indexOf('<div class="project-list">'), html.indexOf('\n        </section>'));
 const items = [...list.matchAll(/<details class="project-item" id="([a-z0-9-]+)">([\s\S]*?)(?=<details class="project-item"|$)/g)];
 assert.ok(!/class="project-item brand-row"/.test(list), 'no static, unclickable project rows');
-assert.equal(items.length, 12, 'twelve projects, each with an id');
-assert.equal(new Set(items.map(item => item[1])).size, 12, 'project ids are unique');
+assert.equal(items.length, 14, 'fourteen projects, each with an id');
+assert.equal(new Set(items.map(item => item[1])).size, 14, 'project ids are unique');
 for (const [, id, item] of items) {
   const story = item.slice(item.indexOf('class="item-story"'));
   assert.ok(/<p[ >]/.test(story), `${id} has copy`);
-  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/|\/pure\/|\/pact")/.test(story), `${id} has a call to action`);
+  if (id !== 'art') assert.ok(/<a [^>]*href="(mailto:|https:|weekends\/|skyn\/|rye\/|cyclemax\/|cutcake\/|compaz\/|research\/|\/pure\/|\/pact"|\/assets\/docs\/)/.test(story), `${id} has a call to action`);
 }
 assert.ok(!html.includes('souralf<'), 'link label uses the âlf name');
 assert.ok(html.includes('<noscript>'));
