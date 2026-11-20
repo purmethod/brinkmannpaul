@@ -2834,7 +2834,7 @@
     {
       "slug": "do-urban-crowds-change-how-we-feel",
       "published": "2026-11-13",
-      "modified": "2026-11-13",
+      "modified": "2026-11-20",
       "doi": "10.1038/s41598-022-20649-y",
       "cite_authors": "Mavros et al. (2022)",
       "cite_title": "A mobile EEG study on the psychophysiological effects of walking and crowding in indoor and outdoor urban environments.",
@@ -2847,11 +2847,11 @@
           "sections": [
             [
               "A controlled video experiment",
-              "42 participants watched six one-minute video walks showing green, indoor and outdoor urban spaces with different crowding levels. They stood or walked on a treadmill while EEG, skin conductance and emotion ratings were recorded."
+              "42 participants watched six one-minute video walks showing green, indoor and outdoor urban spaces with different crowding levels. They were randomly assigned to stand or to walk on a treadmill while EEG, skin conductance and emotion ratings were recorded."
             ],
             [
               "What the measurements showed",
-              "Crowded scenes were rated as less pleasant and more arousing than uncrowded scenes. Green scenes were rated calmer and more positive than urban scenes. The EEG theta/beta ratio tended to be higher in crowded settings, but frontal alpha asymmetry sometimes suggested more positive approach responses when participants walked. Walking increased skin conductance relative to standing (model estimate 0.337, 95% credible interval 0.169 to 0.503)."
+              "Crowded scenes were rated as less pleasant and more arousing than uncrowded scenes. Green scenes were rated calmer and more positive than urban scenes, and the outdoor urban scene more positively than the indoor one. The EEG theta/beta ratio tended to be higher in crowded settings, In the walking group, crowded scenes went with higher frontal alpha asymmetry, which the authors read as more positive affect. Walking increased skin conductance relative to standing (model estimate 0.337, 95% credible interval 0.169 to 0.503)."
             ],
             [
               "What this means for architecture",
@@ -2870,11 +2870,11 @@
           "sections": [
             [
               "Kontrolliertes Videoexperiment",
-              "42 Personen sahen sechs jeweils einminütige Videos von grünen und urbanen Innen- und Außenräumen mit unterschiedlicher Personendichte. Dabei standen sie oder gingen auf einem Laufband. Erfasst wurden EEG, Hautleitfähigkeit und emotionale Bewertungen."
+              "42 Personen sahen sechs jeweils einminütige Videos von grünen und urbanen Innen- und Außenräumen mit unterschiedlicher Personendichte. Per Zufall standen sie dabei oder gingen auf einem Laufband. Erfasst wurden EEG, Hautleitfähigkeit und emotionale Bewertungen."
             ],
             [
               "Die gemessenen Unterschiede",
-              "Dicht bevölkerte Szenen wurden als weniger angenehm und stärker aktivierend bewertet. Grünräume wirkten subjektiv ruhiger und positiver. Das EEG-Theta/Beta-Verhältnis war bei Gedränge tendenziell erhöht; die frontale Alpha-Asymmetrie deutete beim Gehen teilweise in eine andere Richtung. Beim Gehen war die Hautleitfähigkeit höher als beim Stehen (Modellschätzer 0,337; 95-%-Kredibilitätsintervall 0,169 bis 0,503)."
+              "Dicht bevölkerte Szenen wurden als weniger angenehm und stärker aktivierend bewertet. Grünräume wirkten subjektiv ruhiger und positiver, der städtische Außenraum positiver als der Innenraum. Das EEG-Theta/Beta-Verhältnis war bei Gedränge tendenziell erhöht. In der Gehgruppe ging Gedränge mit höherer frontaler Alpha-Asymmetrie einher, was die Autoren als positiveren Affekt deuten. Beim Gehen war die Hautleitfähigkeit höher als beim Stehen (Modellschätzer 0,337; 95-%-Kredibilitätsintervall 0,169 bis 0,503)."
             ],
             [
               "Bedeutung für Architektur",
@@ -2893,11 +2893,11 @@
           "sections": [
             [
               "Une expérience contrôlée",
-              "Quarante-deux personnes ont regardé six vidéos d'une minute représentant des espaces verts, des rues et des passages intérieurs avec différentes densités de foule. Elles marchaient ou restaient debout sur un tapis roulant. EEG, conductance cutanée et émotions déclarées ont été mesurés."
+              "Quarante-deux personnes ont regardé six vidéos d'une minute représentant des espaces verts, des rues et des passages intérieurs avec différentes densités de foule. Elles étaient réparties au hasard : debout ou en marche sur un tapis roulant. EEG, conductance cutanée et émotions déclarées ont été mesurés."
             ],
             [
               "Résultats",
-              "Les scènes bondées étaient jugées moins agréables et plus stimulantes. Les scènes vertes paraissaient plus calmes et positives. Le rapport EEG thêta/bêta tendait à être plus élevé dans la foule, tandis que l'asymétrie alpha frontale suggérait parfois une réponse différente pendant la marche. La marche augmentait la conductance cutanée (estimation 0,337 ; intervalle crédible à 95 % : 0,169 à 0,503)."
+              "Les scènes bondées étaient jugées moins agréables et plus stimulantes. Les scènes vertes paraissaient plus calmes et positives, et la scène urbaine extérieure plus positive que la scène intérieure. Le rapport EEG thêta/bêta tendait à être plus élevé dans la foule. Dans le groupe en marche, la foule allait de pair avec une asymétrie alpha frontale plus élevée, que les auteurs interprètent comme un affect plus positif. La marche augmentait la conductance cutanée (estimation 0,337 ; intervalle crédible à 95 % : 0,169 à 0,503)."
             ],
             [
               "Architecture",
@@ -2916,11 +2916,11 @@
           "sections": [
             [
               "Experimento controlado",
-              "42 participantes vieron seis vídeos de un minuto de espacios verdes, calles y pasajes interiores con distintos niveles de aglomeración. Permanecían de pie o caminaban sobre una cinta. Se midieron EEG, conductancia cutánea y emociones declaradas."
+              "42 participantes vieron seis vídeos de un minuto de espacios verdes, calles y pasajes interiores con distintos niveles de aglomeración. Fueron asignados al azar a permanecer de pie o caminar sobre una cinta. Se midieron EEG, conductancia cutánea y emociones declaradas."
             ],
             [
               "Resultados",
-              "Las escenas concurridas se valoraron como menos agradables y más estimulantes. Los espacios verdes se percibieron más tranquilos y positivos. La relación theta/beta del EEG tendió a ser mayor con aglomeraciones, mientras que la asimetría alfa frontal mostró respuestas distintas al caminar. Caminar elevó la conductancia cutánea (estimación 0,337; intervalo creíble del 95 %: 0,169 a 0,503)."
+              "Las escenas concurridas se valoraron como menos agradables y más estimulantes. Los espacios verdes se percibieron más tranquilos y positivos, y la escena urbana exterior más positiva que la interior. La relación theta/beta del EEG tendió a ser mayor con aglomeraciones. En el grupo que caminaba, las aglomeraciones se asociaron con una mayor asimetría alfa frontal, que los autores interpretan como un afecto más positivo. Caminar elevó la conductancia cutánea (estimación 0,337; intervalo creíble del 95 %: 0,169 a 0,503)."
             ],
             [
               "Arquitectura",
@@ -2939,11 +2939,11 @@
           "sections": [
             [
               "تجربة مضبوطة",
-              "شاهد 42 مشاركًا ستة مقاطع فيديو مدة كل منها دقيقة واحدة لمساحات خضراء وشوارع وممرات داخلية بمستويات مختلفة من الازدحام. وقف المشاركون أو مشوا على جهاز مشي، وسُجّل نشاط الدماغ الكهربائي وتوصيل الجلد والتقييم العاطفي."
+              "شاهد 42 مشاركًا ستة مقاطع فيديو مدة كل منها دقيقة واحدة لمساحات خضراء وشوارع وممرات داخلية بمستويات مختلفة من الازدحام. وُزّع المشاركون عشوائيًا على الوقوف أو المشي على جهاز مشي، وسُجّل نشاط الدماغ الكهربائي وتوصيل الجلد والتقييم العاطفي."
             ],
             [
               "النتائج",
-              "وُصفت المشاهد المزدحمة بأنها أقل راحة وأكثر إثارة، بينما بدت المساحات الخضراء أهدأ وأكثر إيجابية. مالت نسبة ثيتا إلى بيتا في تخطيط الدماغ إلى الارتفاع مع الازدحام، لكن عدم تماثل ألفا الجبهي أظهر أحيانًا استجابة مختلفة أثناء المشي. زاد المشي توصيل الجلد مقارنة بالوقوف (التقدير 0.337؛ فترة المصداقية 95٪ من 0.169 إلى 0.503)."
+              "وُصفت المشاهد المزدحمة بأنها أقل راحة وأكثر إثارة، بينما بدت المساحات الخضراء أهدأ وأكثر إيجابية، وقُيّم المشهد الحضري الخارجي بإيجابية أكبر من الداخلي. مالت نسبة ثيتا إلى بيتا في تخطيط الدماغ إلى الارتفاع مع الازدحام. وفي مجموعة المشي ارتبط الازدحام بارتفاع عدم تماثل ألفا الجبهي، وهو ما يفسره المؤلفون بوجدان أكثر إيجابية. زاد المشي توصيل الجلد مقارنة بالوقوف (التقدير 0.337؛ فترة المصداقية 95٪ من 0.169 إلى 0.503)."
             ],
             [
               "الأهمية المعمارية",
@@ -2962,11 +2962,11 @@
           "sections": [
             [
               "Контролируемый эксперимент",
-              "42 участника смотрели шесть минутных видеороликов с зелёными зонами, улицами и крытыми переходами разной плотности людей. Они стояли или шли по беговой дорожке. Измерялись ЭЭГ, кожная проводимость и эмоциональные оценки."
+              "42 участника смотрели шесть минутных видеороликов с зелёными зонами, улицами и крытыми переходами разной плотности людей. Их случайно распределили: одни стояли, другие шли по беговой дорожке. Измерялись ЭЭГ, кожная проводимость и эмоциональные оценки."
             ],
             [
               "Результаты",
-              "Многолюдные сцены воспринимались как менее приятные и более возбуждающие. Зелёные пространства оценивались как более спокойные и позитивные. Отношение тета/бета на ЭЭГ имело тенденцию быть выше при скоплении людей, однако фронтальная альфа-асимметрия при ходьбе иногда указывала на иную реакцию. Ходьба повышала кожную проводимость (оценка 0,337; 95%-й интервал достоверности 0,169–0,503)."
+              "Многолюдные сцены воспринимались как менее приятные и более возбуждающие. Зелёные пространства оценивались как более спокойные и позитивные, а уличная городская сцена позитивнее, чем крытая. Отношение тета/бета на ЭЭГ имело тенденцию быть выше при скоплении людей. В группе ходьбы скопление людей сопровождалось более высокой фронтальной альфа-асимметрией, которую авторы трактуют как более позитивный аффект. Ходьба повышала кожную проводимость (оценка 0,337; 95%-й интервал достоверности 0,169–0,503)."
             ],
             [
               "Для архитектуры",

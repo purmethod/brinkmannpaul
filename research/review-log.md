@@ -109,3 +109,9 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 
 - No new or changed articles on main since the 2026-11-18 run. All 21 articles have a source audit entry; voice revision complete.
 - 016, 017, 019 and 020 (open verification points) and the limitations paragraph of 021: PMC, PubMed, nature.com and Crossref fetches blocked again in this unattended run (permission not answered); search index confirms titles and records only, no abstracts or numbers. No content change; open points stay marked NOT yet verified.
+
+## 2026-11-20
+
+- No new or changed articles on main since the 2026-11-19 run. All 21 articles have a source audit entry; voice revision complete.
+- 020 do-urban-crowds-change-how-we-feel: DOAJ record retrieved for the first time (author list, volume 12, abstract as an extracted summary, not verbatim). Confirmed: N = 42, random assignment to a walking or a standing group, six one-minute videos of green, urban indoor and urban outdoor settings with high or low social density, crowded scenes more arousing and less pleasant, green calmer and more positive. Changes in all six languages: random assignment stated; outdoor urban scene rated more positively than indoor added; the vague frontal alpha asymmetry sentence replaced by the abstract's direction (walking group, crowded scenes, higher asymmetry, read by the authors as more positive affect). Open: article number, treadmill, theta/beta values, skin conductance estimate 0.337 and whether green scenes were shown only uncrowded.
+- 016, 017 and 019 and the limitations paragraph of 021: sciencedirect.com, doi.org, Liverpool repository, nature.com and PMC fetches blocked again in this unattended run (permission not answered). No content change; open points stay marked NOT yet verified.
