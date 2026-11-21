@@ -1,6 +1,6 @@
 # Der Giebel · Der Tod des Egos
 
-> Status: **Text final** (Website, sechs Sprachen) plus Buchkapitel „God“. Der Giebel bleibt auf der Grafik bewusst leer: Das Dach steht für etwas Größeres und Intelligenteres als du, und dafür reichen Worte nicht. Verwandt: [ego](06-ego/README.md).
+> Status: **Text final** (Website, sechs Sprachen) plus Buchkapitel „God“. Der Giebel trägt auf der Grafik das Wort „ego“ (Paul, 21.11.2026): Das Dach steht für den Tod des Egos und für etwas Größeres und Intelligenteres als du. Verwandt: [ego](06-ego/README.md).
 
 ## Kernaussagen (Paul)
 

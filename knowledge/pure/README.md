@@ -12,7 +12,7 @@ PURE ist ein System für Männer, die aufgehört haben, mit sich selbst zu verha
 
 | Teil | Name | Kern | Datei |
 |---|---|---|---|
-| Giebel | (bewusst leer) | Der Tod des Egos. Etwas Größeres und Intelligenteres als du. | [02-giebel.md](02-giebel.md) |
+| Giebel | ego | Der Tod des Egos. Etwas Größeres und Intelligenteres als du. | [02-giebel.md](02-giebel.md) |
 | Säule 1 | **p · physis** | Ein Mann, der seinen Körper nicht führen kann, führt nie sein Leben. | [03-physis](03-physis/README.md) |
 | Säule 2 | **u · understanding** | Mind ≠ Brain. Dopamin ist Antizipation. | [04-understanding](04-understanding/README.md) |
 | Säule 3 | **r · responsibility** | Verantwortung ist Kraft. Wo war ich voll verantwortlich? | [05-responsibility](05-responsibility/README.md) |
