@@ -21,7 +21,7 @@ PURE ist ein System für Männer, die aufgehört haben, mit sich selbst zu verha
 
 | Teil | Name | Kern | Datei |
 |---|---|---|---|
-| Giebel | (bewusst leer) | Der Tod des Egos. Etwas Größeres und Intelligenteres als du. | [02-giebel.md](02-giebel.md) |
+| Giebel | ego | Der Tod des Egos. Etwas Größeres und Intelligenteres als du. | [02-giebel.md](02-giebel.md) |
 | Säule 1 | **p · physis** | Ein Mann, der seinen Körper nicht führen kann, führt nie sein Leben. | [03-physis](03-physis/README.md) |
 | Säule 2 | **u · understanding** | Mind ≠ Brain. Dopamin ist Antizipation. | [04-understanding](04-understanding/README.md) |
 | Säule 3 | **r · responsibility** | Verantwortung ist Kraft. Wo war ich voll verantwortlich? | [05-responsibility](05-responsibility/README.md) |
@@ -95,7 +95,7 @@ Ich bin Architekt, und ich habe dieses System so gebaut, wie ich ein Gebäude en
 
 ```
             /\
-           /  \        Giebel: bewusst leer. Das Größere, Intelligentere als du.
+           /  \        Giebel: „ego“. Der Tod des Egos, das Größere.
           /____\       Dafür reichen Worte nicht. Eigenes Kapitel: der Tod des Egos.
          | | | | |
          p  u  r  e    Vier Säulen: physis · understanding · responsibility · ego
@@ -108,7 +108,7 @@ Ich bin Architekt, und ich habe dieses System so gebaut, wie ich ein Gebäude en
 - **understanding** ist die zweite Säule: Mind ≠ Brain.
 - **responsibility** ist die dritte Säule: Verantwortung ist Kraft, keine Last.
 - **ego** ist die vierte Säule. Name entschieden: „Ego“ (nicht Eternity, Ego Death, Essence oder Elevation). Kernidee: das Ego löst sich durch die Erkenntnis, dass etwas Größeres und Intelligenteres als man selbst existiert.
-- Der **Giebel** bleibt unbeschriftet. Das Dach steht für etwas Größeres als man selbst, und dafür reichen Worte nicht. Er trägt trotzdem ein eigenes Kapitel: den Tod des Egos, den Zugang zur wahren Freiheit.
+- Der **Giebel** trägt das Wort „ego“ (Paul, 21.11.2026). Das Dach steht für den Tod des Egos und für etwas Größeres als man selbst. Er trägt trotzdem ein eigenes Kapitel: den Tod des Egos, den Zugang zur wahren Freiheit.
 
 ## Kernversprechen
 
@@ -323,7 +323,7 @@ Volle Referenzen: [09-quellen.md](09-quellen.md)
 
 # Der Giebel · Der Tod des Egos
 
-> Status: **Text final** (Website, sechs Sprachen) plus Buchkapitel „God“. Der Giebel bleibt auf der Grafik bewusst leer: Das Dach steht für etwas Größeres und Intelligenteres als du, und dafür reichen Worte nicht. Verwandt: [ego](06-ego/README.md).
+> Status: **Text final** (Website, sechs Sprachen) plus Buchkapitel „God“. Der Giebel trägt auf der Grafik das Wort „ego“ (Paul, 21.11.2026): Das Dach steht für den Tod des Egos und für etwas Größeres und Intelligenteres als du. Verwandt: [ego](06-ego/README.md).
 
 ## Kernaussagen (Paul)
 

@@ -708,9 +708,12 @@ a:focus-visible {
 
 /* pure as a building: the roof is something greater than you, four pillars, one foundation */
 .pure-house { margin: 0.4rem 0 1.6rem; max-width: 30rem; color: var(--tone-dark, var(--ink)); }
-.ph-roof-btn { display: block; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.ph-roof-btn { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .ph-roof { display: block; width: 100%; height: auto; }
 .ph-roof polygon { fill: none; stroke: var(--soft-line); stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill 200ms ease, stroke 200ms ease; }
+/* paul, 21.11.: the roof is called ego (the death of the ego) */
+.pure-house .ph-roof-name { position: absolute; left: 0; right: 0; bottom: 16%; padding-left: 0.22em; font-size: 0.75rem; letter-spacing: 0.22em; line-height: 1; text-align: center; color: var(--tone-dark, var(--ink)); pointer-events: none; transition: color 200ms ease; }
+.ph-roof-btn[aria-expanded="true"] .ph-roof-name { color: var(--paper); }
 .ph-roof-btn[aria-expanded="true"] .ph-roof polygon { fill: var(--tone-dark, var(--ink)); stroke: var(--tone-dark, var(--ink)); }
 .ph-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.35rem; }
 .ph-pillar { display: flex; flex-direction: column; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--muted); font: inherit; text-transform: lowercase; text-align: center; cursor: pointer; }
@@ -735,7 +738,7 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .ph-panel { animation: none; }
   .ph-shaft, .ph-letter, .pure-house .ph-name, .pure-house .ph-base,
-  .ph-roof polygon { transition: none; }
+  .ph-roof polygon, .pure-house .ph-roof-name { transition: none; }
 }
 .pact-note { margin-top: 0.4rem; }
 #site-page .item-content a.row-cta.pact-cta { background: transparent; color: var(--tone-dark, var(--ink)); border: 1px solid var(--tone-dark, var(--ink)); }

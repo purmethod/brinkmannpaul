@@ -14,7 +14,7 @@ Ich bin Architekt, und ich habe dieses System so gebaut, wie ich ein Gebäude en
 
 ```
             /\
-           /  \        Giebel: bewusst leer. Das Größere, Intelligentere als du.
+           /  \        Giebel: „ego“. Der Tod des Egos, das Größere.
           /____\       Dafür reichen Worte nicht. Eigenes Kapitel: der Tod des Egos.
          | | | | |
          p  u  r  e    Vier Säulen: physis · understanding · responsibility · ego
@@ -27,7 +27,7 @@ Ich bin Architekt, und ich habe dieses System so gebaut, wie ich ein Gebäude en
 - **understanding** ist die zweite Säule: Mind ≠ Brain.
 - **responsibility** ist die dritte Säule: Verantwortung ist Kraft, keine Last.
 - **ego** ist die vierte Säule. Name entschieden: „Ego“ (nicht Eternity, Ego Death, Essence oder Elevation). Kernidee: das Ego löst sich durch die Erkenntnis, dass etwas Größeres und Intelligenteres als man selbst existiert.
-- Der **Giebel** bleibt unbeschriftet. Das Dach steht für etwas Größeres als man selbst, und dafür reichen Worte nicht. Er trägt trotzdem ein eigenes Kapitel: den Tod des Egos, den Zugang zur wahren Freiheit.
+- Der **Giebel** trägt das Wort „ego“ (Paul, 21.11.2026). Das Dach steht für den Tod des Egos und für etwas Größeres als man selbst. Er trägt trotzdem ein eigenes Kapitel: den Tod des Egos, den Zugang zur wahren Freiheit.
 
 ## Kernversprechen
 
