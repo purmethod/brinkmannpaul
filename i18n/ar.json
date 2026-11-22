@@ -598,7 +598,7 @@
  "Does a walk in nature change how the brain rests?": "هل تغيّر نزهة في الطبيعة نشاط الدماغ أثناء الراحة؟",
  "A randomized study of 92 adults finds different mood and resting EEG responses after nature and urban walks.": "تجربة عشوائية شملت 92 بالغًا رصدت اختلافات في المزاج وتخطيط الدماغ بعد المشي في الطبيعة أو المدينة.",
  "cv": "السيرة الذاتية",
- "associate · real estate company, age 16": "مساعد · شركة عقارية، في سن 16",
+ "associate · real estate company": "مساعد · شركة عقارية",
  "high school diploma": "شهادة الثانوية العامة",
  "finance studies · kaiserslautern university of applied sciences": "دراسة المالية · kaiserslautern university of applied sciences",
  "partner · ing bank, mortgage finance": "شريك · ing bank، التمويل العقاري",
@@ -623,5 +623,6 @@
  "paul brinkmann, m.sc.": "paul brinkmann, m.sc.",
  "also in <a href=\"/assets/docs/mysidibou-plan-unesco-report-2027-fr.pdf\" target=\"_blank\" rel=\"noreferrer\">français</a>": "متوفر أيضًا <a href=\"/assets/docs/mysidibou-plan-unesco-report-2027-fr.pdf\" target=\"_blank\" rel=\"noreferrer\">بالفرنسية</a>",
  "read the plan · unesco report 1 december 2027": "اقرأ الخطة · تقرير اليونسكو 1 ديسمبر 2027",
- "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>": "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>"
+ "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>": "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>",
+ "about paul": "عن بول"
 }

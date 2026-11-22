@@ -598,7 +598,7 @@
  "Does a walk in nature change how the brain rests?": "¿Cambia un paseo por la naturaleza la actividad cerebral en reposo?",
  "A randomized study of 92 adults finds different mood and resting EEG responses after nature and urban walks.": "Un ensayo aleatorizado con 92 adultos encontró distintas respuestas emocionales y de EEG tras caminar por la naturaleza o la ciudad.",
  "cv": "cv",
- "associate · real estate company, age 16": "asociado · empresa inmobiliaria, a los 16 años",
+ "associate · real estate company": "asociado · empresa inmobiliaria",
  "high school diploma": "bachillerato",
  "finance studies · kaiserslautern university of applied sciences": "estudios de finanzas · kaiserslautern university of applied sciences",
  "partner · ing bank, mortgage finance": "socio · ing bank, financiación hipotecaria",
@@ -623,5 +623,6 @@
  "paul brinkmann, m.sc.": "paul brinkmann, m.sc.",
  "also in <a href=\"/assets/docs/mysidibou-plan-unesco-report-2027-fr.pdf\" target=\"_blank\" rel=\"noreferrer\">français</a>": "también en <a href=\"/assets/docs/mysidibou-plan-unesco-report-2027-fr.pdf\" target=\"_blank\" rel=\"noreferrer\">francés</a>",
  "read the plan · unesco report 1 december 2027": "lee el plan · informe para la unesco 1 de diciembre de 2027",
- "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>": "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>"
+ "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>": "<svg class=\"ph-roof\" viewBox=\"0 0 480 96\" aria-hidden=\"true\" focusable=\"false\"><polygon points=\"240,4 476,88 4,88\" /></svg><span class=\"ph-roof-name\">ego</span>",
+ "about paul": "sobre paul"
 }
