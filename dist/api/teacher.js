@@ -35,7 +35,7 @@ const HOUR = 60 * MIN;
 const LOCK = 15 * MIN;
 const DAYS = 30; // a login holds for 30 days on that device
 // paths of the site itself, and the pages built by hand (only paul can hand one of those to an account)
-const RESERVED = ["admin", "login", "apply", "club", "soon", "photos", "brand", "api", "t", "preview", "index", "foyo", "teacher", "teachers", "join", "www", "app"];
+const RESERVED = ["admin", "login", "apply", "club", "soon", "photos", "brand", "api", "t", "preview", "index", "foyo", "teacher", "teachers", "join", "www", "app", "newsletter", "news"];
 const STATIC = ["paul", "nafisa", "yury", "judit"];
 const PAY = ["cash", "card"];
 const LANGS = { en: "English", de: "German", fr: "French", es: "Spanish", ar: "Arabic", ru: "Russian" };

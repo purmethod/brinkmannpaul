@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>newsletter · foyo club</title>
+  <meta name="description" content="foyo club newsletter: hear first when the next retreat and the next session are coming." />
+  <link rel="canonical" href="https://myfoyo.com/newsletter" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="foyo club · newsletter" />
+  <meta property="og:description" content="hear first when the next retreat and the next session are coming." />
+  <meta property="og:url" content="https://myfoyo.com/newsletter" />
+  <meta property="og:image" content="https://myfoyo.com/poster.webp?v=8" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink: #5c5c56; --ink3: #7b7b75; --line: #cfcfca; --warn: #8a3b2e; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { background: #fff; color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; text-transform: lowercase; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
+    button, input { font: inherit; color: inherit; text-transform: none; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    nav.top { position: sticky; top: 0; z-index: 10; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #fff; border-top: 2px solid var(--ink); }
+    nav.top img { height: 44px; width: auto; display: block; }
+    .lsw { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+    .lb { background: #fff; border: 1px solid var(--line); cursor: pointer; padding: 3px 8px; font-size: 13px; min-width: 32px; }
+    .lb[aria-pressed=true] { border-color: var(--ink); }
+    main { flex: 1; width: 100%; max-width: 640px; margin: 0 auto; padding: 44px 20px 60px; outline: none; }
+    .tag { font-size: 12px; letter-spacing: .04em; color: var(--ink3); margin-bottom: 14px; }
+    h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.08; margin-bottom: 18px; font-weight: 400; letter-spacing: -.035em; }
+    .lead { font-size: 18px; margin-bottom: 26px; }
+    label { display: block; font-size: 13px; color: var(--ink3); margin-bottom: 6px; }
+    input[type=email] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 16px; -webkit-appearance: none; appearance: none; }
+    .btn { display: block; width: 100%; margin-top: 14px; padding: 14px 26px; border: 0; background: var(--ink); color: #fff; cursor: pointer; letter-spacing: .04em; text-transform: lowercase; }
+    .btn:disabled { opacity: .35; cursor: default; }
+    .fine { font-size: 13px; color: var(--ink3); margin-top: 14px; }
+    .err { color: var(--warn); font-size: 14px; margin-top: 12px; }
+    .done { border-top: 2px solid var(--ink); padding-top: 22px; font-size: 18px; }
+    .done a { display: inline-block; margin-top: 18px; font-size: 14px; color: var(--ink3); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    footer { width: 100%; max-width: 640px; margin: 0 auto; padding: 20px; font-size: 12px; color: var(--ink3); border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <nav class="top">
+    <a href="/" aria-label="foyo club"><img src="/foyo-club-black.webp?v=2" alt="foyo club" width="385" height="606" /></a>
+    <div class="lsw" role="group" aria-label="language">
+      <button class="lb" type="button" data-lang="en">en</button>
+      <button class="lb" type="button" data-lang="de">de</button>
+      <button class="lb" type="button" data-lang="fr">fr</button>
+      <button class="lb" type="button" data-lang="es">es</button>
+      <button class="lb" type="button" data-lang="ar">ع</button>
+      <button class="lb" type="button" data-lang="ru">ру</button>
+    </div>
+  </nav>
+  <main id="app" tabindex="-1"></main>
+  <footer>© paul brinkmann</footer>
+  <noscript><p style="padding:20px">this page needs javascript.</p></noscript>
+  <script>
+  // myfoyo.com/newsletter: the link for a story. one field, the address goes to brinkmannpaul.com/api/news
+  (function () {
+    "use strict";
+    const L = {
+      en: { tag: "foyo club · newsletter", h: "the next retreat", lead: "leave your email and hear first when the next retreat and the next session are coming. soon a short mail on sundays joins it: how to feel better and stay young.", email: "your email", go: "sign up", wait: "one moment…", done: "thank you. you are on the list. we write to you when the next retreat is coming.", home: "to foyo club →", fine: "no spam. you can unsubscribe at any time.", errEmail: "please check your email address.", errBusy: "that was a lot at once. please try again later.", errAny: "that did not work. please try again." },
+      de: { tag: "foyo club · newsletter", h: "das nächste retreat", lead: "hinterlass deine e-mail und erfahr als erstes, wann das nächste retreat und die nächste session anstehen. bald kommt sonntags eine kurze mail dazu: wie du dich besser fühlst und jung bleibst.", email: "deine e-mail", go: "eintragen", wait: "einen moment…", done: "danke. du stehst auf der liste. wir schreiben dir, wenn das nächste retreat ansteht.", home: "zum foyo club →", fine: "kein spam. du kannst dich jederzeit abmelden.", errEmail: "bitte prüf deine e-mail-adresse.", errBusy: "das war viel auf einmal. bitte versuch es später wieder.", errAny: "das hat nicht geklappt. bitte versuch es noch einmal." },
+      fr: { tag: "foyo club · newsletter", h: "la prochaine retraite", lead: "laisse ton e-mail et sois le premier à savoir quand arrivent la prochaine retraite et la prochaine séance. bientôt s’y ajoute un court mail le dimanche : comment te sentir mieux et rester jeune.", email: "ton e-mail", go: "s’inscrire", wait: "un instant…", done: "merci. tu es sur la liste. nous t’écrivons quand la prochaine retraite approche.", home: "vers foyo club →", fine: "pas de spam. tu peux te désinscrire à tout moment.", errEmail: "vérifie ton adresse e-mail.", errBusy: "c’était beaucoup d’un coup. réessaie plus tard.", errAny: "ça n’a pas marché. réessaie." },
+      es: { tag: "foyo club · newsletter", h: "el próximo retiro", lead: "deja tu correo y entérate primero de cuándo llegan el próximo retiro y la próxima sesión. pronto se suma un correo corto los domingos: cómo sentirte mejor y mantenerte joven.", email: "tu correo", go: "apuntarme", wait: "un momento…", done: "gracias. estás en la lista. te escribimos cuando se acerque el próximo retiro.", home: "a foyo club →", fine: "sin spam. puedes darte de baja en cualquier momento.", errEmail: "revisa tu correo, por favor.", errBusy: "fue mucho de una vez. inténtalo más tarde.", errAny: "no funcionó. inténtalo de nuevo." },
+      ar: { tag: "foyo club · النشرة البريدية", h: "الخلوة القادمة", lead: "اترك بريدك الإلكتروني وكن أول من يعرف موعد الخلوة القادمة والجلسة القادمة. وقريبًا تُضاف رسالة قصيرة كل أحد: كيف تشعر بحال أفضل وتبقى شابًا.", email: "بريدك الإلكتروني", go: "سجّلني", wait: "لحظة…", done: "شكرًا. أنت في القائمة. نكتب لك عند اقتراب الخلوة القادمة.", home: "إلى foyo club ←", fine: "بلا رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت.", errEmail: "تحقّق من بريدك الإلكتروني.", errBusy: "كان ذلك كثيرًا دفعة واحدة. حاول لاحقًا.", errAny: "لم ينجح ذلك. حاول مرة أخرى." },
+      ru: { tag: "foyo club · рассылка", h: "следующий ретрит", lead: "оставь e-mail и узнай первым, когда будут следующий ретрит и следующая сессия. скоро к этому добавится короткое письмо по воскресеньям: как чувствовать себя лучше и оставаться молодым.", email: "твой e-mail", go: "подписаться", wait: "секунду…", done: "спасибо. ты в списке. мы напишем, когда приблизится следующий ретрит.", home: "к foyo club →", fine: "без спама. отписаться можно в любой момент.", errEmail: "проверь адрес e-mail.", errBusy: "слишком много за раз. попробуй позже.", errAny: "не получилось. попробуй ещё раз." },
+    };
+    const LANGS = Object.keys(L);
+    const app = document.getElementById("app");
+    let lang = null;
+    try { lang = sessionStorage.getItem("soma-flow-club-lang"); } catch { /* private mode */ }
+    if (!LANGS.includes(lang)) {
+      lang = "en";
+      for (const tag of navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]) { const l = String(tag).toLowerCase().slice(0, 2); if (LANGS.includes(l)) { lang = l; break; } }
+    }
+    const t = (k) => L[lang][k] || L.en[k];
+    const st = { email: "", busy: false, done: false, error: "" };
+    try { st.done = localStorage.getItem("foyo-news") === "1"; } catch { /* private mode */ }
+
+    function el(tag, attrs, ...kids) {
+      const n = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs || {})) {
+        if (v == null || v === false) continue;
+        if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else if (k === "value") n.value = v; else if (k === "disabled") n.disabled = Boolean(v); else n.setAttribute(k, v === true ? "" : v);
+      }
+      for (const k of kids.flat()) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+      return n;
+    }
+    function render() {
+      const head = [el("p", { class: "tag" }, t("tag")), el("h1", {}, t("h"))];
+      if (st.done) return app.replaceChildren(...head, el("div", { class: "done", role: "status" }, el("p", {}, t("done")), el("a", { href: "/" }, t("home"))));
+      const input = el("input", { type: "email", id: "nl", name: "email", autocomplete: "email", inputmode: "email", autocapitalize: "none", maxlength: "254", value: st.email, oninput: (e) => { st.email = e.target.value; } });
+      const form = el("form", { novalidate: true, onsubmit: (e) => { e.preventDefault(); send(form); } },
+        el("label", { for: "nl" }, t("email")), input,
+        el("div", { class: "hp", "aria-hidden": "true" }, el("input", { type: "text", name: "company", tabindex: "-1", autocomplete: "off" })),
+        el("button", { class: "btn", type: "submit", disabled: st.busy }, st.busy ? t("wait") : t("go")),
+        st.error ? el("p", { class: "err", role: "alert" }, st.error) : null,
+        el("p", { class: "fine" }, t("fine")));
+      app.replaceChildren(...head, el("p", { class: "lead" }, t("lead")), form);
+    }
+    async function send(form) {
+      if (st.busy) return;
+      const email = st.email.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { st.error = t("errEmail"); return render(); }
+      st.busy = true; st.error = ""; render();
+      try {
+        const r = await fetch("https://brinkmannpaul.com/api/news", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, lang, from: "newsletter", company: form.company.value }) });
+        st.busy = false;
+        if (!r.ok) { st.error = t(r.status === 400 ? "errEmail" : r.status === 429 ? "errBusy" : "errAny"); return render(); }
+        st.done = true; st.email = "";
+        try { localStorage.setItem("foyo-news", "1"); } catch { /* private mode */ }
+      } catch { st.busy = false; st.error = t("errAny"); }
+      render();
+    }
+    function setLang(l) {
+      lang = l;
+      try { sessionStorage.setItem("soma-flow-club-lang", l); } catch { /* private mode */ }
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+      document.querySelectorAll(".lb").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+      render();
+    }
+    document.querySelectorAll(".lb").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+    setLang(lang);
+  })();
+  </script>
+</body>
+</html>

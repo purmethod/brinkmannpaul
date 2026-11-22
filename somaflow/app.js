@@ -826,7 +826,7 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { news_st.error = nw("errEmail"); return render(); }
     news_st.busy = true; news_st.error = ""; render();
     try {
-      const r = await fetch("https://brinkmannpaul.com/api/news", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, lang: st.lang, company: form.company ? form.company.value : "" }) });
+      const r = await fetch("https://brinkmannpaul.com/api/news", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, lang: st.lang, from: "home", company: form.company ? form.company.value : "" }) });
       news_st.busy = false;
       if (!r.ok) { news_st.error = nw(r.status === 400 ? "errEmail" : "errAny"); return render(); }
       news_st.done = true; news_st.email = "";

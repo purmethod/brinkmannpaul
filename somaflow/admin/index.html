@@ -75,6 +75,13 @@
         <div id="accounts"></div>
         <p class="fine" style="margin-top:12px">lehrer registrieren sich unter myfoyo.com/login. ein profil ist erst nach deiner freigabe auf der seite. eine neue registrierung erscheint hier nach bis zu einer minute.</p>
       </section>
+      <section class="session" id="news" hidden>
+        <h2>newsletter</h2>
+        <p class="count" id="ncount"></p>
+        <p class="err" id="nerr" hidden></p>
+        <div id="subs"></div>
+        <p class="fine" style="margin-top:12px">eintragen kann man sich auf der startseite und unter myfoyo.com/newsletter (link für stories). verschickt wird noch nichts. ein neuer eintrag erscheint hier nach bis zu einer minute.</p>
+      </section>
     </section>
   </main>
   <script>
@@ -135,6 +142,7 @@
             waiting.length ? wl : null));
         }
         teachers();
+        newsletter();
       } catch (e) {
         if (e.code === 429) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "zu viele falsche versuche. in 15 minuten geht es wieder."; $("lerr").hidden = false; return; }
         if (e.code === 401) { key = ""; try { sessionStorage.removeItem(K); } catch {} show("login"); $("lerr").textContent = "das passwort stimmt nicht."; $("lerr").hidden = false; return; }
@@ -142,6 +150,34 @@
       }
     }
     // ---------- the teachers: confirm a profile, take it off the site, give a new password, delete ----------
+    // ---------- the newsletter: who is on the list, from where; remove one ----------
+    async function napi(method, body) {
+      const r = await fetch("https://brinkmannpaul.com/api/news", { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "server");
+      return d;
+    }
+    const nerr = (msg) => { $("nerr").textContent = msg; $("nerr").hidden = !msg; };
+    const FROM = { home: "startseite", newsletter: "story-link" };
+    async function newsletter() {
+      let d;
+      try { d = await napi("GET"); } catch { $("news").hidden = false; nerr("die liste konnte nicht geladen werden."); return; }
+      $("news").hidden = false; nerr("");
+      const box = $("subs"); box.replaceChildren();
+      const story = d.subscribers.filter((x) => x.from === "newsletter").length;
+      $("ncount").textContent = d.subscribers.length + " eingetragen" + (story ? " · " + story + " über den story-link" : "");
+      if (!d.subscribers.length) box.append(el("p", { class: "empty" }, "noch niemand eingetragen."));
+      for (const x of d.subscribers) {
+        box.append(el("div", { class: "acc" },
+          el("span", { class: "who" }, x.email),
+          el("span", { class: "when" }, fmt(x.at, { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) + " · " + (FROM[x.from] || x.from) + (x.lang ? " · " + x.lang : "")),
+          el("div", { class: "bar" }, el("button", { class: "ghost", type: "button", onclick: async () => {
+            if (!confirm(x.email + " aus dem newsletter löschen?")) return;
+            try { await napi("POST", { remove: x.id }); nerr(""); } catch { nerr("das hat nicht geklappt."); return; }
+            setTimeout(newsletter, 2500);
+          } }, "löschen"))));
+      }
+    }
     async function tapi(method, body) {
       const r = await fetch("https://brinkmannpaul.com/api/teacher", { method, cache: "no-store", headers: { "x-soma-key": key, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
       const d = await r.json().catch(() => ({}));
