@@ -125,3 +125,8 @@ Editorial log of the daily scientific review of the neuroarchitecture journal. O
 
 - No new or changed articles on main since the 2026-11-21 run (later commits touch mysidibou and pure only). All 21 articles have a source audit entry; voice revision complete.
 - 016, 017, 018, 019 and 020 (open verification points) and the limitations paragraph of 021: PMC, nature.com, frontiersin.org and the author-hosted PDF were blocked again in this unattended run (fetch permission not answered). No content change; open points stay marked NOT yet verified.
+
+## 2026-11-23
+
+- No new or changed articles on main since the 2026-11-22 run (later commits touch cv, about and foyo only). All 21 articles have a source audit entry; voice revision complete.
+- 016, 017, 018, 019 and 020 (open verification points) and the limitations paragraph of 021: PMC, nature.com and the author-hosted PDF were blocked again in this unattended run (fetch permission not answered); search index returned records and titles only, no abstracts or numbers. No content change; open points stay marked NOT yet verified.
