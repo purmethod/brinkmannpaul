@@ -106,12 +106,17 @@ def page(lang, path, title, description, body, ld, og_type):
             f'</body></html>\n')
 
 
+def publication_date(a):
+    """Date the article was published on the website, not the study's journal date."""
+    return a.get('site_published', a['published'])
+
+
 def article_page(a, number, lang):
     t = a['text'][lang]
     path = f'research/{a["slug"]}/'
     doi = f'https://doi.org/{a["doi"]}'
     sections = ''.join(f'<h2>{txt(h)}</h2><p>{prose(p)}</p>' for h, p in t['sections'])
-    body = (f'<article><p class="research-label">{LABELS[lang][2]} / {number:03d}</p>'
+    body = (f'<article><p class="research-label">{LABELS[lang][2]} / <span class="research-number">{number:03d}</span> <time class="research-date" datetime="{publication_date(a)}">{publication_date(a)}</time></p>'
             f'<h1>{txt(t["title"])}</h1><p class="dek">{prose(t["dek"])}</p><p>{prose(t["intro"])}</p>{sections}'
             f'<section class="source" aria-label="{LABELS[lang][1]}"><p class="research-label">{LABELS[lang][1]}</p>'
             f'<div lang="en" dir="ltr" class="citation"><p><strong>{txt(a["cite_authors"])}</strong><br>'
@@ -119,7 +124,7 @@ def article_page(a, number, lang):
             f'<a href="{doi}" target="_blank" rel="noopener noreferrer">doi: {txt(a["doi"])}</a></div></section></article>'
             f'<nav class="research-nav" aria-label="{UI[lang]["all"]}"><a href="/{prefix(lang)}research/">{UI[lang]["all"]}</a></nav>')
     ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': t['title'], 'description': t['dek'], 'inLanguage': lang,
-          'datePublished': a['published'], 'dateModified': a['modified'], 'author': {'@type': 'Person', 'name': 'Paul Brinkmann'},
+          'datePublished': publication_date(a), 'dateModified': max(a['modified'], publication_date(a)), 'author': {'@type': 'Person', 'name': 'Paul Brinkmann'},
           'mainEntityOfPage': f'{SITE}{prefix(lang)}{path}',
           'isPartOf': {'@type': 'Periodical', 'name': 'paul brinkmann · research journal'},
           'citation': {'@type': 'ScholarlyArticle', 'name': a['cite_title'].rstrip('.'), 'sameAs': doi}}
@@ -127,7 +132,7 @@ def article_page(a, number, lang):
 
 
 def index_page(arts, lang):
-    items = ''.join(f'<li><span class="no">{i:03d}</span><h2><a href="/{prefix(lang)}research/{a["slug"]}/">{txt(a["text"][lang]["title"])}</a></h2>'
+    items = ''.join(f'<li><div class="research-meta"><span class="no">{i:03d}</span> <time class="research-date" datetime="{publication_date(a)}">{publication_date(a)}</time></div><h2><a href="/{prefix(lang)}research/{a["slug"]}/">{txt(a["text"][lang]["title"])}</a></h2>'
                     f'<p>{prose(a["text"][lang]["dek"])}</p></li>' for i, a in enumerate(arts, 1))
     ui = UI[lang]
     body = f'<p class="research-label">{LABELS[lang][0]} / {len(arts):03d}</p><h1>{txt(ui["index_title"])}</h1><p class="dek">{txt(ui["index_dek"])}</p><ol class="list">{items}</ol>'
@@ -140,7 +145,7 @@ def teaser(arts):
     """The journal in the neuroarchitecture row: every article, its question and its summary."""
     rows = ''.join(
         f'                  <article class="research-teaser">\n'
-        f'                    <p class="research-no">{i:03d}</p>\n'
+        f'                    <p class="research-no">{i:03d} <time class="research-date" datetime="{publication_date(a)}">{publication_date(a)}</time></p>\n'
         f'                    <h3>{txt(a["text"]["en"]["title"])}</h3>\n'
         f'                    <p>{txt(a["text"]["en"]["dek"])}</p>\n'
         f'                    <a href="research/{a["slug"]}/">read more</a>\n'

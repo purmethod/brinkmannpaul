@@ -1,0 +1,52 @@
+name: Build research journal publication metadata
+on:
+  push:
+    branches:
+      - chatgpt/307-research-publication-dates
+    paths:
+      - scripts/research.py
+      - research/articles.json
+      - dist/research.css
+      - dist/styles.css
+      - .github/workflows/research-publication-dates.yml
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate and build all six languages
+        run: |
+          python3 scripts/research.py
+          python3 scripts/i18n.py build
+      - name: Verify article numbering and dates
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          arts=json.loads(Path('research/articles.json').read_text())['articles']
+          for lang in ('en','de','fr','es','ar','ru'):
+              prefix='' if lang=='en' else lang+'/'
+              page=Path('dist')/prefix/'research/index.html'
+              html=page.read_text()
+              assert html.count('class="research-date"')==len(arts), (lang,html.count('class="research-date"'))
+              for i,a in enumerate(arts,1):
+                  article=(Path('dist')/prefix/'research'/a['slug']/'index.html').read_text()
+                  assert f'{i:03d}' in article and 'class="research-date"' in article
+          print('Validated',len(arts),'articles in six languages')
+          PY
+      - name: Commit generated static pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/ i18n/
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate six-language research pages with publication dates"
+            git push
+          fi

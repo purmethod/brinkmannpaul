@@ -747,3 +747,6 @@ a:focus-visible {
 .pact-steps { list-style: none; counter-reset: step; margin: 0.8rem 0 1rem; padding: 0; border-top: 1px solid rgba(0,0,0,.12); }
 .pact-steps li { counter-increment: step; display: grid; grid-template-columns: 1.6rem 1fr; padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,.12); color: var(--muted); line-height: 1.55; }
 .pact-steps li::before { content: counter(step); color: var(--tone-dark, var(--ink)); }
+
+/* Research journal metadata: compact publication date alongside the article number. */
+.neuro-research .research-no .research-date { display: inline; margin-inline-start: 0.55rem; font-size: 0.67rem; font-weight: 400; letter-spacing: 0.02em; opacity: 0.72; text-transform: none; white-space: nowrap; }

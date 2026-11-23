@@ -93,3 +93,9 @@
   .research-page .site-header { padding-inline: 0; }
   .research-page .source { break-inside: avoid; }
 }
+
+/* Article number and actual website publication date share one quiet metadata line. */
+.research-page .research-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 0.5rem; }
+.research-page .research-meta .no { display: inline; margin: 0; }
+.research-page .research-date { color: var(--muted); font-size: 0.67rem; font-weight: 400; letter-spacing: 0.02em; white-space: nowrap; text-transform: none; }
+.research-page .research-label .research-date { margin-inline-start: 0.5rem; }
