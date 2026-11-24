@@ -29,3 +29,5 @@ foyo club (forever young), formerly soma flow club. Paul Brinkmann. myfoyo.com s
 - newsletter sign-ups go to `brinkmannpaul.com/api/news` (`dist/api/news.js`): stripe customers with metadata foyo_news, `confirmed: "no"`. nothing is sent yet; the sending (sundays at 18:00, reminders before a session or retreat) and the confirmation by mail are still to be built.
 
 - `myfoyo.com/newsletter`: a page with only the newsletter field, for the link in an instagram story (6 languages). sign-ups carry where they came from (`home` or `newsletter`); paul sees the list and can delete an address in `/admin`, section "newsletter".
+
+- 24 nov 2026, paul: the wim hof method and about paul are back on the start page, under the next event, as they stood before 12 nov (they stay on /paul too).
