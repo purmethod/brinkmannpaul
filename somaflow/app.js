@@ -890,15 +890,19 @@
       st.error ? el("p", { class: "err", role: "alert" }, st.error) : null);
     put(rows, form, el("p", { class: "fine" }, t("limit")), news(false), after());
   }
-  // under the sign-up: what foyo club is, the session in detail, wim's line
+  // under the sign-up: what foyo club is, then wim's line. the retreat with paul in detail (invitation, what is
+  // included) only while a session has a date (paul, 24.11.: no date set, so it stays off for now)
+  const dated = () => Boolean(st.sessions && st.sessions.some((x) => x.when));
   const after = () => [
     whatIs(),
-    el("h2", {}, t("retreat")),
-    host(TEAM[0]),
-    el("p", {}, t("invite")),
-    ring("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees"),
-    included(true),
     wimLine(),
+    dated() ? [
+      el("h2", {}, t("retreat")),
+      host(TEAM[0]),
+      el("p", {}, t("invite")),
+      ring("/photos/foyo-session-circle.webp", "paul with a group sitting on mats in an open wooden hall among palm trees"),
+      included(true),
+    ] : null,
   ];
 
   // the price never breaks apart: "50 dinar" stays on one line (no-break spaces in priceFmt)
